@@ -528,16 +528,31 @@ git push origin main
 
 ## License
 
-This project is provided for reference and learning purposes.
+This project is released under the **MIT License** with additional terms for personal content.
 
-**Permitted:**
-- View and learn from code structure
-- Reference security implementations
-- Adapt prompt engineering examples
+**You MAY:**
+- Use this code as a template for your own portfolio
+- Modify and customize the design and functionality
+- Learn from the security implementation
+- Reference the prompt engineering structure
 
-**Not Permitted:**
-- Reproduce the entire site
-- Use profile content or personal information
+**You MUST:**
+- Replace all personal information (name, photo, bio, LinkedIn, email)
+- Replace prompt engineering examples with your own content
+- Update the domain and hosting information
+- Customize the branding and color scheme
+
+**Attribution Requirement:**
+- If any content from this project is used for purposes other than personal use (including educational, commercial, professional, or public presentation contexts), you MUST provide proper attribution to Basiliso Rosario and link to https://basiliso-rosario.com
+- Attribution must clearly indicate if the original content was modified
+
+**You SHOULD NOT:**
+- Copy the personal content or prompt examples verbatim
+- Use Basiliso Rosario's name, image, or professional information
+- Claim this specific portfolio as your own work
+- Use content for non-personal purposes without proper attribution
+
+See [LICENSE](LICENSE) for full details.
 
 ---
 
