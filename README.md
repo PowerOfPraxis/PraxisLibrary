@@ -560,7 +560,7 @@ See [LICENSE](LICENSE) for full details.
 
 **Basiliso Rosario** - Creator & Developer
 
-- Website: [basiliso-rosario.com](https://basiliso-rosario.com)
+- Domain: A domain name is your URL (e.g., `website.com`). You need this BEFORE you can begin development. See [Phase 1: Prerequisites](#phase-1-prerequisites--setup) for details.
 - LinkedIn: [linkedin.com/in/basiliso-rosario](https://www.linkedin.com/in/basiliso-rosario/)
 - Email: bas.rosario@gmail.com
 
