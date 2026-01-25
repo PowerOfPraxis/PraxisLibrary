@@ -1,0 +1,32 @@
+<IfModule mod_headers.c>
+    # ==================================================================
+    # SECURITY HEADERS (The "Flex")
+    # ==================================================================
+
+    # 1. Strict Content Security Policy (CSP)
+    # Blocks everything by default. Only allows 'self' (your own server).
+    # No inline styles, no inline scripts, no external fonts/images.
+    Header set Content-Security-Policy "default-src 'none'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';"
+
+    # 2. X-Frame-Options
+    # Prevents your site from being embedded in iframes on other sites (Stops Clickjacking).
+    Header set X-Frame-Options "DENY"
+
+    # 3. X-Content-Type-Options
+    # Stops the browser from guessing file types (MIME Sniffing protection).
+    Header set X-Content-Type-Options "nosniff"
+
+    # 4. Referrer Policy
+    # Controls how much information is passed when linking to other sites.
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # 5. Permissions Policy
+    # Explicitly locks down browser hardware features. 
+    # We allow clipboard-write for ourselves (for the copy buttons) but block everything else.
+    Header set Permissions-Policy "clipboard-write=(self), microphone=(), camera=(), geolocation=(), payment=()"
+
+    # 6. Strict-Transport-Security (HSTS)
+    # Forces the browser to ONLY use HTTPS for the next 1 year (31536000 seconds).
+    # Includes subdomains and allows for preloading.
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
