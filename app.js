@@ -440,4 +440,28 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.counter').forEach(counter => {
         counterObserver.observe(counter);
     });
+
+    // ==========================================
+    // READING PROGRESS BAR
+    // ==========================================
+    // Create progress bar element
+    const progressBar = document.createElement('div');
+    progressBar.className = 'reading-progress';
+    document.body.appendChild(progressBar);
+
+    // Update progress on scroll
+    function updateProgress() {
+        const scrollEl = document.querySelector('.content-scroll') || document.documentElement;
+        const scrollTop = scrollEl.scrollTop || window.pageYOffset;
+        const scrollHeight = scrollEl.scrollHeight - scrollEl.clientHeight;
+        const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        progressBar.style.width = progress + '%';
+    }
+
+    // Listen for scroll on the correct container
+    const progressScrollContainer = document.querySelector('.content-scroll') || window;
+    progressScrollContainer.addEventListener('scroll', updateProgress);
+
+    // Initial update
+    updateProgress();
 });
