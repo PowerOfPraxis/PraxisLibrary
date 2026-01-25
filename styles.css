@@ -292,7 +292,8 @@ p { margin-bottom: 15px; }
 .profile-mode {
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    /* Fluid padding - scales with viewport */
+    padding: clamp(20px, 4vw, 40px);
 }
 
 .top-header {
@@ -328,8 +329,9 @@ p { margin-bottom: 15px; }
    ========================================= */
 .hero-container {
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 80px;
+    /* Fluid grid: image takes 40-45% of space, content takes the rest */
+    grid-template-columns: minmax(200px, 0.9fr) 1fr;
+    gap: clamp(30px, 5vw, 80px);
     align-items: center;
     width: 100%;
     max-width: 1400px;
@@ -340,15 +342,17 @@ p { margin-bottom: 15px; }
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding-left: 40px;
+    padding-left: clamp(10px, 3vw, 40px);
 }
 
 .visual-accent-corner {
     position: absolute;
-    top: -50px;
-    right: -20px;
-    width: 350px;
-    height: 350px;
+    /* Fluid positioning */
+    top: clamp(-30px, -4vw, -50px);
+    right: clamp(-10px, -1.5vw, -20px);
+    /* Fluid size - scales with viewport */
+    width: clamp(180px, 25vw, 350px);
+    height: clamp(180px, 25vw, 350px);
     background: #D71920;
     clip-path: polygon(0 0, 100% 0, 100% 100%);
     z-index: 0;
@@ -357,9 +361,10 @@ p { margin-bottom: 15px; }
 .profile-frame {
     position: relative;
     z-index: 1;
-    width: 380px;
-    height: 480px;
-    border-radius: 20px;
+    /* Fluid dimensions - scales with viewport */
+    width: clamp(220px, 28vw, 380px);
+    height: clamp(280px, 35vw, 480px);
+    border-radius: clamp(12px, 1.5vw, 20px);
     overflow: hidden;
     box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
 }
@@ -375,29 +380,33 @@ p { margin-bottom: 15px; }
 }
 
 .dash-separator {
-    width: 80px;
-    height: 6px;
+    width: clamp(50px, 6vw, 80px);
+    height: clamp(4px, 0.4vw, 6px);
     background: #D71920;
-    margin-bottom: 20px;
+    margin-bottom: clamp(12px, 1.5vw, 20px);
     border-radius: 3px;
 }
 
 .hero-title {
-    font-size: 3.2rem;
+    /* Fluid font size - scales smoothly from 1.8rem to 3.2rem */
+    font-size: clamp(1.8rem, 2.5vw + 0.5rem, 3.2rem);
     font-weight: 900;
-    margin-bottom: 30px;
+    margin-bottom: clamp(15px, 2.5vw, 30px);
     line-height: 1.2;
-    white-space: nowrap;
+    /* Allow text to wrap naturally */
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .hero-bio {
-    margin-bottom: 40px;
+    margin-bottom: clamp(20px, 3vw, 40px);
 }
 
 .quote-highlight {
     display: block;
-    margin-bottom: 25px;
-    font-size: 1.1rem;
+    margin-bottom: clamp(15px, 2vw, 25px);
+    /* Fluid quote size */
+    font-size: clamp(0.9rem, 1vw + 0.3rem, 1.1rem);
     font-style: italic;
 }
 
@@ -406,9 +415,10 @@ p { margin-bottom: 15px; }
 }
 
 .hero-bio p {
-    font-size: 1.05rem;
+    /* Fluid paragraph size */
+    font-size: clamp(0.9rem, 0.8vw + 0.4rem, 1.05rem);
     line-height: 1.8;
-    margin-bottom: 20px;
+    margin-bottom: clamp(12px, 1.5vw, 20px);
 }
 
 .btn-primary {
@@ -1107,49 +1117,8 @@ p { margin-bottom: 15px; }
 /* =========================================
    11.6 MEDIUM DESKTOP STYLES (1025px - 1399px)
    ========================================= */
-@media (min-width: 1025px) and (max-width: 1399px) {
-    /* Reduce padding to give more room */
-    .profile-mode {
-        padding: 30px 20px;
-    }
-
-    /* Hero section - better proportions for medium desktops */
-    .hero-container {
-        grid-template-columns: 0.8fr 1fr;
-        gap: 40px;
-        max-width: 100%;
-        width: 100%;
-    }
-
-    .hero-visual {
-        padding-left: 10px;
-    }
-
-    .profile-frame {
-        width: 280px;
-        height: 350px;
-    }
-
-    .visual-accent-corner {
-        width: 220px;
-        height: 220px;
-        top: -30px;
-        right: -10px;
-    }
-
-    .hero-title {
-        font-size: 2.2rem;
-        white-space: normal;
-    }
-
-    .hero-bio {
-        font-size: 0.9rem;
-    }
-
-    .quote-highlight {
-        font-size: 1rem;
-    }
-}
+/* Note: Hero section now uses fluid clamp() values that scale automatically.
+   No fixed breakpoint overrides needed - the design is fully responsive. */
 
 /* =========================================
    12. TABLET/MEDIUM SCREEN STYLES (769px - 1024px)
@@ -1160,14 +1129,7 @@ p { margin-bottom: 15px; }
         padding: 30px;
     }
 
-    /* Hero section for tablets */
-    .hero-container {
-        gap: 40px;
-    }
-
-    .hero-title {
-        font-size: 2.8rem;
-    }
+    /* Hero section now uses fluid clamp() values - no overrides needed */
 
     /* Framework grids - 2 columns on tablets */
     .framework-grid.cols-3,
@@ -1337,11 +1299,11 @@ p { margin-bottom: 15px; }
         height: auto;
     }
 
-    /* Hero section */
+    /* Hero section - Mobile: single column, centered */
     .hero-container {
         grid-template-columns: 1fr;
-        gap: 30px;
-        padding-bottom: 80px;
+        gap: clamp(20px, 5vw, 30px);
+        padding-bottom: clamp(40px, 10vw, 80px);
     }
 
     .hero-visual {
@@ -1350,19 +1312,22 @@ p { margin-bottom: 15px; }
     }
 
     .visual-accent-corner {
-        width: 150px;
-        height: 150px;
-        top: -15px;
-        right: 10px;
+        /* Fluid mobile sizing */
+        width: clamp(120px, 35vw, 180px);
+        height: clamp(120px, 35vw, 180px);
+        top: clamp(-10px, -3vw, -20px);
+        right: clamp(5px, 2vw, 15px);
     }
 
     .profile-frame {
-        width: 200px;
-        height: 260px;
+        /* Fluid mobile sizing */
+        width: clamp(180px, 50vw, 260px);
+        height: clamp(230px, 65vw, 340px);
     }
 
     .hero-title {
-        font-size: 1.6rem;
+        /* Fluid mobile title */
+        font-size: clamp(1.4rem, 5vw, 1.8rem);
         white-space: normal;
         text-align: center;
     }
