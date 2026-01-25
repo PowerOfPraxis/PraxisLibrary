@@ -21,9 +21,9 @@
     --bg-primary: #121212;
     --bg-secondary: #1E1E1E;
     --bg-card: #252525;
-    --text-primary: #E0E0E0;
-    --text-secondary: #A0A0A0;
-    --border-color: #3A3A3A;
+    --text-primary: #F0F0F0;
+    --text-secondary: #C0C0C0;
+    --border-color: #404040;
     --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -1904,6 +1904,76 @@ p { margin-bottom: 15px; }
     color: var(--text-secondary);
 }
 
+/* Dark mode - Library and prompt text */
+[data-theme="dark"] .prompt-text {
+    color: #E0E0E0;
+}
+
+[data-theme="dark"] .key {
+    color: #FF6B6B;
+}
+
+[data-theme="dark"] .example-header {
+    background: #2A2A2A;
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .example-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .explanation-box {
+    background: #1E3A1E;
+    color: #90EE90;
+    border-left-color: #4CAF50;
+}
+
+[data-theme="dark"] .level-bar {
+    background: #2A2A2A;
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .level-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .level-desc,
+[data-theme="dark"] .focus-label {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .lead {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .hero-text p {
+    color: #B0B0B0;
+}
+
+[data-theme="dark"] .framework-box {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .framework-box h4 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .framework-box p {
+    color: var(--text-secondary);
+}
+
 /* Mobile adjustments for theme toggle */
 @media (max-width: 768px) {
     .theme-toggle {
@@ -2030,6 +2100,65 @@ p { margin-bottom: 15px; }
     padding: 40px 20px;
     color: var(--text-secondary);
     font-size: 1.1rem;
+}
+
+/* Search Autocomplete Dropdown */
+.search-autocomplete {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+    max-height: 350px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.search-autocomplete.active {
+    display: block;
+}
+
+.search-category {
+    padding: 8px 15px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-red);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.search-suggestion {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.2s ease;
+}
+
+.search-suggestion:last-child {
+    border-bottom: none;
+}
+
+.search-suggestion:hover {
+    background: var(--bg-secondary);
+}
+
+.search-suggestion-title {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.search-suggestion-context {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
 }
 
 /* Mobile adjustments */
