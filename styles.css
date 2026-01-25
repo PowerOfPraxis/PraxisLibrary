@@ -1952,3 +1952,25 @@ p { margin-bottom: 15px; }
     color: var(--accent-green);
     font-variant-numeric: tabular-nums;
 }
+
+/* =========================================
+   22. READING PROGRESS BAR
+   ========================================= */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-red) 0%, #FF4444 100%);
+    z-index: 10002;
+    transition: width 0.1s ease-out;
+}
+
+/* On desktop, offset for sidebar */
+@media (min-width: 1025px) {
+    .reading-progress {
+        left: 300px;
+        width: 0%;
+    }
+}
