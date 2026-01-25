@@ -11,7 +11,7 @@
 
 **A professional portfolio and prompt engineering library showcasing security-first design and enterprise-grade implementation**
 
-[Live Demo](https://basiliso-rosario.com) | [Security Report](https://basiliso-rosario.com/Security/security.html) | [Documentation](#documentation)
+[Live Demo](https://basiliso-rosario.com) | [Security Report](https://basiliso-rosario.com/Security/security.html) | [Documentation](#table-of-contents)
 
 </div>
 
@@ -33,7 +33,7 @@
 - [Security Posture](#security-posture)
 - [Project Structure](#project-structure)
 - [License](#license)
-- [Contact](#contact)
+- [Author](#author)
 
 ---
 
@@ -583,6 +583,6 @@ This project was designed, developed, and implemented by Basiliso Rosario. All H
 
 **Built with security, performance, and documentation in mind**
 
-[Back to Top](#promptlibrary---enterprise-prompt-engineering-website)
+[Back to Top](#promptlibrary---prompt-engineering-library----openbas-)
 
 </div>
