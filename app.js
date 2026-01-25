@@ -139,6 +139,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
+    // TOAST NOTIFICATION SYSTEM
+    // ==========================================
+    // Create toast container
+    let toastContainer = document.querySelector('.toast-container');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.className = 'toast-container';
+        document.body.appendChild(toastContainer);
+    }
+
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+
+        const iconSvg = type === 'success'
+            ? '<svg class="toast-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>'
+            : '<svg class="toast-icon" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
+
+        toast.innerHTML = `${iconSvg}<span>${message}</span>`;
+        toastContainer.appendChild(toast);
+
+        // Auto-remove after 3 seconds
+        setTimeout(() => {
+            toast.classList.add('hiding');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    // ==========================================
     // COPY TO CLIPBOARD LOGIC (Library)
     // ==========================================
     const copyButtons = document.querySelectorAll('.btn-copy');
@@ -152,10 +181,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (promptElement) {
                         navigator.clipboard.writeText(promptElement.innerText)
                             .then(() => {
-                                btn.innerText = "COPIED";
-                                setTimeout(() => { btn.innerText = "Copy"; }, 2000);
+                                showToast('Copied to clipboard!', 'success');
                             })
-                            .catch(err => { btn.innerText = "FAILED"; });
+                            .catch(err => {
+                                showToast('Failed to copy', 'error');
+                            });
                     }
                 }
             });
