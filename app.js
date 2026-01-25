@@ -464,4 +464,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial update
     updateProgress();
+
+    // ==========================================
+    // PROMPT LIBRARY SEARCH
+    // ==========================================
+    const searchInput = document.getElementById('prompt-search');
+
+    if (searchInput) {
+        const exampleBlocks = document.querySelectorAll('.example-block');
+        let noResultsMsg = null;
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+
+            // Remove existing no results message
+            if (noResultsMsg) {
+                noResultsMsg.remove();
+                noResultsMsg = null;
+            }
+
+            let visibleCount = 0;
+
+            exampleBlocks.forEach(block => {
+                const text = block.textContent.toLowerCase();
+                if (query === '' || text.includes(query)) {
+                    block.classList.remove('search-hidden');
+                    visibleCount++;
+                } else {
+                    block.classList.add('search-hidden');
+                }
+            });
+
+            // Show no results message if needed
+            if (query !== '' && visibleCount === 0) {
+                noResultsMsg = document.createElement('div');
+                noResultsMsg.className = 'search-no-results';
+                noResultsMsg.textContent = `No prompts found matching "${e.target.value}"`;
+                const container = document.querySelector('.container');
+                if (container) {
+                    container.appendChild(noResultsMsg);
+                }
+            }
+        });
+    }
 });
