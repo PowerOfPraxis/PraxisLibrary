@@ -15,6 +15,23 @@
 
 ---
 
+## 👋 Hi, I'm Basiliso Rosario
+
+> *"The best way to predict the future is to create it."*
+
+I believe that true innovation in AI isn't just about companies adopting AI as a new technology—it's about **people** learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.
+
+This project exists because I'm passionate about **demystifying AI** and **driving personal adoption**. My goal is to create collaborative environments where technology and human creativity combine to solve complex problems and build a better tomorrow.
+
+### Why This Library Exists
+
+- **AI is here.** The question isn't whether to use it—it's how to use it effectively and ethically.
+- **Education beats restriction.** We teach people to drive cars, not ban cars because they're dangerous.
+- **Everyone deserves access.** AI literacy shouldn't be a privilege reserved for technologists.
+- **Personal adoption matters.** Organizational AI adoption fails when individuals don't understand the tools.
+
+---
+
 ## 🎯 Mission: Adoption Over Prevention
 
 This library is built on a fundamental belief: **AI literacy through education is more effective than AI restriction through detection.**
@@ -25,7 +42,9 @@ Instead of teaching people to fear AI or catch AI use, we focus on:
 - **Empowering professionals** to integrate AI into their workflows
 - **Supporting educators** in teaching AI literacy, not AI avoidance
 
-> **EDUCATE**: *Empower Don't Undermine — Collaborate And Teach Ethically*
+> **E.D.U.C.A.T.E.**: *Empower Don't Underestimate — Collaborate And Teach Ethically*
+>
+> This philosophy underpins everything in this library. We believe in empowering people with knowledge, never underestimating anyone's ability to learn and grow, collaborating across disciplines and experience levels, and maintaining ethical standards in all AI applications.
 
 ---
 
@@ -590,7 +609,8 @@ PROMPTLIBRARY/
 │   ├── index.html              # Education landing page
 │   ├── teachers.html           # Prompts for educators
 │   ├── students.html           # Prompts for students
-│   └── administrators.html     # Prompts for school leaders
+│   ├── administrators.html     # Prompts for school leaders
+│   └── ai-safety.html          # AI Safety & Ethics guide
 │
 ├── business/                   # Business Sectors
 │   ├── index.html              # Business landing page
