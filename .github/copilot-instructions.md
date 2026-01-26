@@ -16,8 +16,8 @@ A static, security-hardened portfolio website showcasing prompt engineering expe
 | `app.js` | Client-side interactivity | Tab navigation, accordion menus, clipboard copy with feedback, event delegation |
 | `styles.css` | Design system | Responsive grid layouts, color scheme (#D71920 red accent), typography, mobile breakpoints |
 | `index.html` | Landing page | Hero section, profile, navigation hub |
-| `Security/security.html` | Security documentation | CSP, HSTS, headers philosophy, site hardening rationale |
-| `GitHub/github-insights.html` | Project insights | GitHub metrics and project information |
+| `pages/security.html` | Security documentation | CSP, HSTS, headers philosophy, site hardening rationale |
+| `pages/github-insights.html` | Project insights | GitHub metrics and project information |
 
 ---
 
@@ -35,7 +35,7 @@ A static, security-hardened portfolio website showcasing prompt engineering expe
 - **Tab system:** `data-tab="foundation"` — matches sidebar nav items to tab-content divs in library.html
 - **Accordion system:** `.nav-accordion` with `.nav-accordion-header` and `.nav-accordion-content` for collapsible sections
 - **Semantic structure:** `.section-divider`, `.sec-section`, `.sec-card` for repeating content blocks
-- **Icons:** Local SVG files in `Icons/SVG/` directory, referenced as `<img src="Icons/SVG/[name].svg" />`
+- **Icons:** Local SVG files in `assets/icons/SVG/` directory, referenced as `<img src="assets/icons/SVG/[name].svg" />`
 
 ### JavaScript Patterns
 - **Event delegation:** Single event listener on parent container (see `app.js`)
@@ -132,8 +132,8 @@ When adding features:
 - Keep `.text-red` (#D71920), `.text-green`, `.text-white` utilities consistent
 
 ### Adding Icons
-- Place SVG in `Icons/SVG/[descriptive-name].svg`
-- Reference: `<img src="Icons/SVG/[descriptive-name].svg" alt="description" class="local-icon" />`
+- Place SVG in `assets/icons/SVG/[descriptive-name].svg`
+- Reference: `<img src="assets/icons/SVG/[descriptive-name].svg" alt="description" class="local-icon" />`
 - Ensure SVGs have no embedded scripts (security requirement)
 
 ---

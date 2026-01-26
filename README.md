@@ -494,22 +494,20 @@ PROMPTLIBRARY/
 ├── README.md                   # This documentation
 ├── LICENSE                     # Project license
 │
-├── Security/
+├── assets/
+│   ├── fonts/                  # Self-hosted web fonts
+│   ├── icons/                  # SVG icons
+│   │   └── SVG/
+│   └── images/
+│       ├── profile/            # Profile pictures
+│       └── screenshots/
+│           ├── github/         # GitHub insights screenshots
+│           └── security/       # Security test screenshots
+│
+├── pages/
+│   ├── github-insights.html    # GitHub project insights
 │   ├── security.html           # Security posture & test results
-│   └── site-use-policy.html    # Legal framework
-│
-├── GitHub/
-│   └── github-insights.html    # Project insights
-│
-├── Icons/SVG/                  # Self-hosted SVG icons
-│   ├── arrow-left.svg
-│   ├── chevron-right.svg
-│   ├── linkedin.svg
-│   ├── email.svg
-│   └── [additional icons]
-│
-├── Fonts/                      # Self-hosted web fonts
-│   └── Roboto/
+│   └── site-use-policy.html    # Terms of use policy
 │
 └── .github/
     └── copilot-instructions.md # AI assistant context
