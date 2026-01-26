@@ -139,6 +139,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
+    // PROMPT ACCORDION (Collapsible Example Blocks)
+    // ==========================================
+    const collapsibleBlocks = document.querySelectorAll('.example-block.collapsible');
+
+    if (collapsibleBlocks.length > 0) {
+        collapsibleBlocks.forEach(block => {
+            const header = block.querySelector('.example-header');
+
+            if (header) {
+                header.addEventListener('click', (e) => {
+                    // Don't toggle if clicking on the copy button
+                    if (e.target.closest('.btn-copy')) return;
+
+                    block.classList.toggle('expanded');
+                });
+            }
+        });
+    }
+
+    // ==========================================
     // TOAST NOTIFICATION SYSTEM
     // ==========================================
     // Create toast container
