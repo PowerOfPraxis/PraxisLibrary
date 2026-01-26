@@ -128,11 +128,31 @@ Practical AI prompts for service professionals:
 ## ✨ Core Features
 
 - **50+ Role-Specific Prompt Templates** across IT, education, business, and services
+- **Industry Research Statistics** with data visualizations on every hub and sector page
+- **Interactive Data Visualizations** - animated bar charts, circular progress indicators, metrics grids
+- **Cited Research Sources** - McKinsey, Gartner, Deloitte, MIT/Stanford, and more
 - **Enterprise-Grade Security** (A+ ratings across all testing platforms)
 - **Mobile-First Responsive Design** with desktop-like UX
 - **Zero External Dependencies** - all fonts, icons, and scripts self-hosted
 - **Privacy-Conscious Architecture** - no tracking, no analytics, no cookies
 - **Universal Design Principles** - accessible to all users
+
+### Data Visualization Features (Phase 7)
+
+Each hub landing page and sector page now includes industry-specific AI adoption statistics:
+
+| Page Category | Statistics Included | Research Sources |
+|---------------|---------------------|------------------|
+| **Education Hub** | Teacher adoption rates, time savings, student perspectives | Walton Family Foundation, EdWeek, Forbes/McGraw Hill |
+| **Business Hub** | ROI metrics, adoption by company size, productivity gains | McKinsey, MIT/Stanford, BCG Research |
+| **Services Hub** | Customer satisfaction, admin time savings, lead conversion | Salesforce, QuickBooks, Adobe |
+| **IT Sector** | Developer productivity, code completion, AI tool adoption | GitHub Copilot, Stack Overflow, Gartner |
+| **Enterprise** | Deployment rates, investment by function, cost reduction | McKinsey, Deloitte, Gartner |
+| **Mid-Size** | Implementation speed, ROI timeline, use cases | McKinsey SMB, HubSpot, Salesforce |
+| **Small Business** | Adoption rates, time savings, competitive edge | US Chamber, Constant Contact, QuickBooks |
+| **Startups** | Solopreneur adoption, founder productivity, use cases | Fiverr, Notion, Y Combinator |
+| **Service Industries** | Industry-specific stats for Beauty, Professional, Creative, Trades, Hospitality | Vagaro, Thomson Reuters, Adobe, ServiceTitan, Toast |
+| **Role Categories** | Quality/Regulatory, Clinical/Medical, Corporate, Compliance, Innovation, R&D | Deloitte, HIMSS, BCG, Nature Biotechnology |
 
 ---
 
