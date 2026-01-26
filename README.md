@@ -328,7 +328,7 @@ git add filename.html
 git add -A
 
 # Commit with descriptive message
-git commit -m "fix: Update security headers for A+ rating"
+git commit -m "feat: Add new feature description"
 
 # Push to remote
 git push origin main
