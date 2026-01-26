@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         header.addEventListener('click', () => {
             const content = header.nextElementSibling;
             const isActive = header.classList.contains('active');
+            const tabId = header.dataset.tab;
 
             // Close all other accordions
             accordionHeaders.forEach(otherHeader => {
@@ -86,6 +87,28 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 header.classList.add('active');
                 content.classList.add('active');
+            }
+
+            // If header has data-tab, show that tab content
+            if (tabId) {
+                const targetTab = document.getElementById(tabId);
+                if (targetTab) {
+                    // Hide all tabs
+                    document.querySelectorAll('.tab-content').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    // Show target tab
+                    targetTab.classList.add('active');
+                    // Update nav-item active states
+                    document.querySelectorAll('.nav-item[data-tab]').forEach(nav => {
+                        nav.classList.remove('active');
+                    });
+                    // Scroll to top
+                    const scrollContainer = document.querySelector('.content-scroll');
+                    if (scrollContainer) {
+                        scrollContainer.scrollTop = 0;
+                    }
+                }
             }
         });
     });
