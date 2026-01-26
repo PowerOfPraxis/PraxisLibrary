@@ -720,6 +720,44 @@ p { margin-bottom: 15px; }
     overflow-x: hidden;
 }
 
+/* Prompt Accordion - Collapsible Example Blocks */
+.example-block.collapsible .example-header {
+    cursor: pointer;
+    user-select: none;
+}
+
+.example-block.collapsible .example-header:hover {
+    background: linear-gradient(90deg, #E8E8E8 0%, #F0F0F0 100%);
+}
+
+.example-block.collapsible .accordion-toggle {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.example-block.collapsible.expanded .accordion-toggle {
+    transform: rotate(90deg);
+}
+
+.example-block.collapsible .example-content {
+    max-height: 0;
+    padding: 0 20px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+}
+
+.example-block.collapsible.expanded .example-content {
+    max-height: 2000px;
+    padding: 20px;
+    opacity: 1;
+    visibility: visible;
+}
+
 .prompt-text {
     font-family: 'Consolas', 'Monaco', monospace;
     font-size: 0.9rem;
@@ -1460,6 +1498,20 @@ p { margin-bottom: 15px; }
         padding: 12px;
     }
 
+    /* Collapsible accordion on mobile */
+    .example-block.collapsible .example-content {
+        padding: 0 12px;
+    }
+
+    .example-block.collapsible.expanded .example-content {
+        padding: 12px;
+    }
+
+    .example-block.collapsible .accordion-toggle {
+        width: 14px;
+        height: 14px;
+    }
+
     /* Prompt text - more readable, less scrolling */
     .prompt-text {
         font-size: 0.8rem;
@@ -2034,6 +2086,10 @@ p { margin-bottom: 15px; }
     background: #2A2A2A;
     border-bottom-color: var(--border-color);
     color: var(--text-primary);
+}
+
+[data-theme="dark"] .example-block.collapsible .example-header:hover {
+    background: linear-gradient(90deg, #333333 0%, #2A2A2A 100%);
 }
 
 [data-theme="dark"] .example-header span {
