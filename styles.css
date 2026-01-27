@@ -683,6 +683,30 @@ p { margin-bottom: 15px; }
     margin: 20px 0;
     overflow: hidden;
     max-width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+}
+
+.example-block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-color: rgba(230, 57, 70, 0.3);
+}
+
+/* Animated border trace on hover */
+.example-block::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #E63946, #FF4D5A, transparent);
+    transition: width 0.4s ease;
+}
+
+.example-block:hover::after {
+    width: 100%;
 }
 
 .example-header {
@@ -708,6 +732,13 @@ p { margin-bottom: 15px; }
     font-size: 0.8rem;
     font-weight: 700;
     border-radius: 4px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    animation: subtlePulseGlow 4s ease-in-out infinite;
+}
+
+.method-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(215, 25, 32, 0.4);
 }
 
 .btn-copy {
@@ -784,6 +815,13 @@ p { margin-bottom: 15px; }
 .key {
     font-weight: 700;
     color: #D71920;
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+    cursor: default;
+}
+
+.key:hover {
+    text-shadow: 0 0 8px rgba(230, 57, 70, 0.5);
+    color: #E63946;
 }
 
 .explanation-box {
@@ -834,11 +872,18 @@ p { margin-bottom: 15px; }
     margin-bottom: 40px; 
 }
 
-.sec-card { 
-    background: #F9F9FA; 
-    border: 1px solid #E1E1E5; 
-    padding: 25px; 
-    border-radius: 8px; 
+.sec-card {
+    background: #F9F9FA;
+    border: 1px solid #E1E1E5;
+    padding: 25px;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.sec-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    border-color: rgba(230, 57, 70, 0.2);
 }
 
 .sec-card-header { 
@@ -902,11 +947,18 @@ p { margin-bottom: 15px; }
     gap: 20px; 
 }
 
-.rationale-item { 
-    background: white; 
-    border: 1px solid #E1E1E5; 
-    padding: 20px; 
-    border-radius: 6px; 
+.rationale-item {
+    background: white;
+    border: 1px solid #E1E1E5;
+    padding: 20px;
+    border-radius: 6px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.rationale-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-color: rgba(230, 57, 70, 0.25);
 }
 
 .rationale-item strong { 
@@ -925,7 +977,8 @@ p { margin-bottom: 15px; }
    10. SECURITY TEST RESULTS PAGE
    ========================================= */
 .achievement-banner {
-    background: linear-gradient(135deg, #D71920 0%, #A01419 100%);
+    background: linear-gradient(135deg, #D71920 0%, #B5161C 50%, #A01419 100%);
+    background-size: 200% 200%;
     color: #FFFFFF;
     padding: 20px;
     border-radius: 10px;
@@ -934,6 +987,17 @@ p { margin-bottom: 15px; }
     align-items: center;
     gap: 15px;
     box-shadow: 0 6px 20px rgba(215, 25, 32, 0.25);
+    animation: gradientShift 8s ease infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.achievement-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(215, 25, 32, 0.35);
+}
+
+.achievement-banner:hover .achievement-icon img {
+    animation: iconBounce 0.4s ease;
 }
 
 .achievement-icon {
@@ -2517,6 +2581,7 @@ p { margin-bottom: 15px; }
 .metric-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 30px var(--shadow-color);
+    border-color: rgba(230, 57, 70, 0.3);
 }
 
 .metric-value {
@@ -2525,6 +2590,7 @@ p { margin-bottom: 15px; }
     color: var(--text-primary);
     line-height: 1;
     margin-bottom: 8px;
+    animation: metricGlow 3s ease-in-out infinite;
 }
 
 .metric-value.green { color: var(--text-primary); }
@@ -2906,6 +2972,17 @@ p { margin-bottom: 15px; }
     display: flex;
     align-items: center;
     gap: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.score-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    border-color: rgba(230, 57, 70, 0.3);
+}
+
+.score-card:hover .score-icon img {
+    animation: iconBounce 0.4s ease;
 }
 
 .score-icon {
@@ -3394,6 +3471,184 @@ p { margin-bottom: 15px; }
     100% { opacity: 1; }
 }
 
+/* =========================================
+   SITE-WIDE ANIMATION SYSTEM
+   Subtle, purposeful animations for enhanced UX
+   ========================================= */
+
+/* 1. Subtle Pulse Glow - for cards and containers */
+@keyframes subtlePulseGlow {
+    0%, 100% { box-shadow: 0 2px 8px rgba(230, 57, 70, 0); }
+    50% { box-shadow: 0 4px 20px rgba(230, 57, 70, 0.15); }
+}
+
+/* 2. Border Trace - red line traces along bottom */
+@keyframes borderTrace {
+    0% { width: 0; left: 0; }
+    50% { width: 100%; left: 0; }
+    100% { width: 0; left: 100%; }
+}
+
+/* 3. Data Stream - subtle vertical scroll effect */
+@keyframes dataStream {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 20px; }
+}
+
+/* 4. Metric Count Up Glow */
+@keyframes metricGlow {
+    0%, 100% { text-shadow: 0 0 0 transparent; }
+    50% { text-shadow: 0 0 20px rgba(230, 57, 70, 0.5); }
+}
+
+/* 5. Card Entrance - staggered fade + slide */
+@keyframes cardEntrance {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 6. Subtle Float - gentle up/down motion */
+@keyframes subtleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* 7. Icon Spin on Hover */
+@keyframes iconSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 8. Scan Line Effect - for headers */
+@keyframes scanLine {
+    0% { left: -100%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+}
+
+/* 9. Gradient Shift - for banners */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 10. Icon Bounce - subtle bounce on hover */
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+/* 11. Border Glow Pulse */
+@keyframes borderGlowPulse {
+    0%, 100% { border-color: rgba(230, 57, 70, 0.2); }
+    50% { border-color: rgba(230, 57, 70, 0.5); }
+}
+
+/* Animation Utility Classes */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered entrance delays */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+.stagger-6 { transition-delay: 0.6s; }
+.stagger-7 { transition-delay: 0.7s; }
+.stagger-8 { transition-delay: 0.8s; }
+
+/* Hover enhancements */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.hover-glow {
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(230, 57, 70, 0.3);
+    border-color: rgba(230, 57, 70, 0.5);
+}
+
+/* Subtle background animations */
+.bg-pulse {
+    animation: subtlePulseGlow 3s ease-in-out infinite;
+}
+
+.bg-float {
+    animation: subtleFloat 4s ease-in-out infinite;
+}
+
+.bg-gradient-shift {
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+}
+
+/* Icon animation classes */
+.icon-spin-hover:hover .local-icon,
+.icon-spin-hover:hover img {
+    animation: iconSpin 0.6s ease;
+}
+
+.icon-bounce-hover:hover .local-icon,
+.icon-bounce-hover:hover img {
+    animation: iconBounce 0.4s ease;
+}
+
+/* Border animations */
+.border-glow-pulse {
+    animation: borderGlowPulse 2s ease-in-out infinite;
+}
+
+/* Scan line effect for headers */
+.scan-line-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.scan-line-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(230, 57, 70, 0.1), transparent);
+    animation: scanLine 3s ease-in-out infinite;
+}
+
+/* Card entrance with stagger */
+.card-animate {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.card-animate.visible {
+    animation: cardEntrance 0.5s ease forwards;
+}
+
+/* Metric value glow */
+.metric-glow {
+    animation: metricGlow 3s ease-in-out infinite;
+}
+
 /* Main Title */
 .praxis-title {
     font-size: 3.5rem;
@@ -3551,6 +3806,12 @@ p { margin-bottom: 15px; }
 .hub-card:hover {
     background: rgba(192, 57, 43, 0.1);
     border-color: var(--brand-red);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(192, 57, 43, 0.2);
+}
+
+.hub-card:hover .hub-icon img {
+    animation: iconBounce 0.4s ease;
     transform: translateY(-5px);
 }
 

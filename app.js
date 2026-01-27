@@ -409,7 +409,13 @@ document.addEventListener('DOMContentLoaded', () => {
         '.sec-card',
         '.test-row',
         '.example-block',
-        '.rationale-item'
+        '.rationale-item',
+        '.score-card',
+        '.metric-card',
+        '.achievement-banner',
+        '.hub-card',
+        '.def-cell',
+        '.chart-section'
     ];
 
     animatableSelectors.forEach(selector => {
@@ -419,8 +425,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add stagger class to grid containers
-    document.querySelectorAll('.sec-grid, .rationale-grid').forEach(grid => {
+    document.querySelectorAll('.sec-grid, .rationale-grid, .score-grid, .metrics-grid, .framework-grid').forEach(grid => {
         grid.classList.add('fade-in-stagger');
+    });
+
+    // Add stagger delays to grid children for cascading effect
+    document.querySelectorAll('.fade-in-stagger').forEach(grid => {
+        const children = grid.querySelectorAll('.fade-in');
+        children.forEach((child, index) => {
+            child.classList.add(`stagger-${Math.min(index + 1, 8)}`);
+        });
     });
 
     // Create Intersection Observer
