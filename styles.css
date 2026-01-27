@@ -1,6 +1,6 @@
 /* =========================================
    PRAXIS AI - PROMPT ENGINEERING EXAMPLE LIBRARY
-   Master Stylesheet - AI Tech Color Theme
+   Master Stylesheet
    ========================================= */
 
 /* =========================================
@@ -14,18 +14,14 @@
     --text-secondary: #666666;
     --border-color: #D1D1D5;
 
-    /* AI Tech Color Palette */
-    --accent: #06b6d4;           /* Cyan - Primary accent */
-    --accent-bright: #22d3ee;    /* Bright cyan */
-    --accent-dark: #0891b2;      /* Dark cyan */
-    --accent-secondary: #8b5cf6; /* Purple - Secondary */
-    --accent-tertiary: #3b82f6;  /* Blue - Tertiary */
-    --accent-glow: rgba(6, 182, 212, 0.5);
-
-    /* Legacy support */
-    --accent-red: #06b6d4;
+    /* Original Red Accent */
+    --accent: #E63946;
+    --accent-bright: #FF4D5A;
+    --accent-dark: #C1121F;
+    --accent-red: #E63946;
     --accent-green: #10b981;
-    --brand-red: #06b6d4;
+    --brand-red: #E63946;
+    --accent-glow: rgba(230, 57, 70, 0.5);
 
     --shadow-color: rgba(0, 0, 0, 0.1);
 }
@@ -229,8 +225,7 @@ p { margin-bottom: 15px; }
 }
 
 .icon-white { filter: brightness(0) invert(1); }
-.icon-red { filter: brightness(0) saturate(100%) invert(56%) sepia(88%) saturate(1000%) hue-rotate(152deg) brightness(95%); }
-.icon-cyan { filter: brightness(0) saturate(100%) invert(56%) sepia(88%) saturate(1000%) hue-rotate(152deg) brightness(95%); }
+.icon-red { filter: brightness(0) saturate(100%) invert(27%) sepia(94%) saturate(2234%) hue-rotate(336deg) brightness(91%) contrast(93%); }
 .icon-grey { filter: brightness(0.7); }
 
 /* =========================================
@@ -3142,10 +3137,10 @@ p { margin-bottom: 15px; }
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #030712 0%, #0f172a 50%, #020617 100%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0505 100%);
 }
 
-/* Animated Canvas Background */
+/* Animated Canvas Background - Hero Mode */
 .praxis-canvas {
     position: absolute;
     top: 0;
@@ -3154,6 +3149,22 @@ p { margin-bottom: 15px; }
     height: 100%;
     z-index: 1;
     opacity: 0.6;
+}
+
+/* Global Neural Network Background - All Pages */
+.neural-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+[data-theme="dark"] .neural-bg {
+    opacity: 0.25;
 }
 
 /* Hero Content Container */
@@ -3223,8 +3234,8 @@ p { margin-bottom: 15px; }
 }
 
 @keyframes aiGlow {
-    from { text-shadow: 0 0 20px rgba(6, 182, 212, 0.3); }
-    to { text-shadow: 0 0 40px rgba(6, 182, 212, 0.8); }
+    from { text-shadow: 0 0 20px rgba(230, 57, 70, 0.3); }
+    to { text-shadow: 0 0 40px rgba(230, 57, 70, 0.8); }
 }
 
 /* Main Title */
@@ -3252,7 +3263,7 @@ p { margin-bottom: 15px; }
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-secondary), transparent);
+    background: linear-gradient(90deg, var(--accent), var(--accent-bright), transparent);
     animation: underlineSlide 2s ease-out forwards;
 }
 

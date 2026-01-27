@@ -563,12 +563,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let animationId;
         let time = 0;
 
-        // AI Tech Color Palette
+        // Neural Network Color Palette - Red Theme
         const colors = {
-            cyan: { r: 6, g: 182, b: 212 },
-            purple: { r: 139, g: 92, b: 246 },
-            blue: { r: 59, g: 130, b: 246 },
-            teal: { r: 20, g: 184, b: 166 }
+            red: { r: 230, g: 57, b: 70 },
+            crimson: { r: 193, g: 18, b: 31 },
+            coral: { r: 255, g: 77, b: 90 },
+            rose: { r: 255, g: 99, b: 99 }
         };
 
         // Code/Formula snippets for floating text
@@ -629,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.font = '12px "Courier New", monospace';
             codeElements.forEach(el => {
                 const pulse = Math.sin(time + el.opacity * 10) * 0.1 + 0.9;
-                ctx.fillStyle = `rgba(6, 182, 212, ${el.opacity * pulse})`;
+                ctx.fillStyle = `rgba(230, 57, 70, ${el.opacity * pulse})`;
                 ctx.font = `${el.size}px "Courier New", monospace`;
                 ctx.fillText(el.text, el.x, el.y);
 
@@ -714,6 +714,103 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', () => {
             resizeCanvas();
             createNodes();
+        });
+    }
+
+    // ==========================================
+    // GLOBAL NEURAL NETWORK BACKGROUND
+    // Subtle ambient animation for all pages
+    // ==========================================
+
+    // Only create global neural bg if not on hero page (no praxis-canvas)
+    if (!document.getElementById('praxis-canvas') && !document.querySelector('.neural-bg')) {
+        const neuralCanvas = document.createElement('canvas');
+        neuralCanvas.id = 'neural-network-bg';
+        neuralCanvas.className = 'neural-bg';
+        document.body.insertBefore(neuralCanvas, document.body.firstChild);
+
+        const nCtx = neuralCanvas.getContext('2d');
+        let nNodes = [];
+        let nTime = 0;
+
+        const nColors = {
+            red: { r: 230, g: 57, b: 70 },
+            crimson: { r: 193, g: 18, b: 31 },
+            coral: { r: 255, g: 77, b: 90 }
+        };
+
+        function resizeNeuralCanvas() {
+            neuralCanvas.width = window.innerWidth;
+            neuralCanvas.height = window.innerHeight;
+        }
+
+        function createNeuralNodes() {
+            nNodes = [];
+            const numNodes = Math.floor((neuralCanvas.width * neuralCanvas.height) / 25000);
+
+            for (let i = 0; i < numNodes; i++) {
+                const colorKeys = Object.keys(nColors);
+                const colorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
+                nNodes.push({
+                    x: Math.random() * neuralCanvas.width,
+                    y: Math.random() * neuralCanvas.height,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    radius: Math.random() * 2 + 1,
+                    color: nColors[colorKey]
+                });
+            }
+        }
+
+        function drawNeuralNetwork() {
+            nCtx.clearRect(0, 0, neuralCanvas.width, neuralCanvas.height);
+            nTime += 0.01;
+
+            // Draw connections
+            for (let i = 0; i < nNodes.length; i++) {
+                for (let j = i + 1; j < nNodes.length; j++) {
+                    const dx = nNodes[i].x - nNodes[j].x;
+                    const dy = nNodes[i].y - nNodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 150) {
+                        const opacity = (1 - dist / 150) * 0.3;
+                        nCtx.strokeStyle = `rgba(230, 57, 70, ${opacity})`;
+                        nCtx.lineWidth = 0.5;
+                        nCtx.beginPath();
+                        nCtx.moveTo(nNodes[i].x, nNodes[i].y);
+                        nCtx.lineTo(nNodes[j].x, nNodes[j].y);
+                        nCtx.stroke();
+                    }
+                }
+            }
+
+            // Draw nodes
+            nNodes.forEach(node => {
+                const pulse = Math.sin(nTime * 2 + node.x * 0.01) * 0.3 + 0.7;
+                nCtx.beginPath();
+                nCtx.arc(node.x, node.y, node.radius * pulse, 0, Math.PI * 2);
+                nCtx.fillStyle = `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, 0.6)`;
+                nCtx.fill();
+
+                // Update position
+                node.x += node.vx;
+                node.y += node.vy;
+
+                if (node.x < 0 || node.x > neuralCanvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > neuralCanvas.height) node.vy *= -1;
+            });
+
+            requestAnimationFrame(drawNeuralNetwork);
+        }
+
+        resizeNeuralCanvas();
+        createNeuralNodes();
+        drawNeuralNetwork();
+
+        window.addEventListener('resize', () => {
+            resizeNeuralCanvas();
+            createNeuralNodes();
         });
     }
 
