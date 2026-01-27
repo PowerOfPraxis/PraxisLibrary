@@ -9,6 +9,9 @@
 ![Security Grade](https://img.shields.io/badge/Security-A+_100%25-success?style=for-the-badge&labelColor=0891b2)
 ![Performance](https://img.shields.io/badge/Performance-100%25-success?style=for-the-badge&labelColor=0891b2)
 ![Built With](https://img.shields.io/badge/Built_With-Claude_Code-06b6d4?style=for-the-badge)
+![UD/UDL](https://img.shields.io/badge/Built_With-UD%2FUDL_in_Mind-8b5cf6?style=for-the-badge)
+
+**&lt;/OpenBas&gt;**
 
 </div>
 
