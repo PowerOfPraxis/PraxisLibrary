@@ -552,84 +552,168 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
     // PRAXIS AI HERO ANIMATIONS
+    // Neural Network / Code / Formula Visualization
     // ==========================================
 
-    // Particle Network Animation
     const canvas = document.getElementById('praxis-canvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
-        let particles = [];
+        let nodes = [];
+        let codeElements = [];
         let animationId;
+        let time = 0;
+
+        // AI Tech Color Palette
+        const colors = {
+            cyan: { r: 6, g: 182, b: 212 },
+            purple: { r: 139, g: 92, b: 246 },
+            blue: { r: 59, g: 130, b: 246 },
+            teal: { r: 20, g: 184, b: 166 }
+        };
+
+        // Code/Formula snippets for floating text
+        const codeSnippets = [
+            'AI', 'ML', 'NLP', 'GPT', 'LLM',
+            'f(x)', 'Σ', '∇', 'λ', 'θ',
+            '{ }', '[ ]', '< >', '//',
+            '01', '10', '11', '00',
+            '→', '⟨ ⟩', '∂', '∞'
+        ];
 
         function resizeCanvas() {
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
         }
 
-        function createParticles() {
-            particles = [];
-            const numberOfParticles = Math.floor((canvas.width * canvas.height) / 15000);
+        function createNodes() {
+            nodes = [];
+            codeElements = [];
+            const numberOfNodes = Math.floor((canvas.width * canvas.height) / 12000);
 
-            for (let i = 0; i < numberOfParticles; i++) {
-                particles.push({
+            // Create neural network nodes
+            for (let i = 0; i < numberOfNodes; i++) {
+                const colorKeys = Object.keys(colors);
+                const colorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
+                nodes.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    radius: Math.random() * 2 + 1,
-                    opacity: Math.random() * 0.5 + 0.2
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    radius: Math.random() * 3 + 1.5,
+                    color: colors[colorKey],
+                    pulsePhase: Math.random() * Math.PI * 2,
+                    isHub: Math.random() < 0.15
+                });
+            }
+
+            // Create floating code elements
+            const numCodeElements = Math.floor(numberOfNodes / 4);
+            for (let i = 0; i < numCodeElements; i++) {
+                codeElements.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.2,
+                    vy: (Math.random() - 0.5) * 0.2,
+                    text: codeSnippets[Math.floor(Math.random() * codeSnippets.length)],
+                    opacity: Math.random() * 0.3 + 0.1,
+                    size: Math.random() * 8 + 10
                 });
             }
         }
 
-        function drawParticles() {
+        function drawNetwork() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            time += 0.02;
 
-            // Draw connections
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
+            // Draw floating code/formula elements
+            ctx.font = '12px "Courier New", monospace';
+            codeElements.forEach(el => {
+                const pulse = Math.sin(time + el.opacity * 10) * 0.1 + 0.9;
+                ctx.fillStyle = `rgba(6, 182, 212, ${el.opacity * pulse})`;
+                ctx.font = `${el.size}px "Courier New", monospace`;
+                ctx.fillText(el.text, el.x, el.y);
+
+                el.x += el.vx;
+                el.y += el.vy;
+
+                if (el.x < -20 || el.x > canvas.width + 20) el.vx *= -1;
+                if (el.y < -20 || el.y > canvas.height + 20) el.vy *= -1;
+            });
+
+            // Draw neural network connections
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 150) {
-                        const opacity = (1 - distance / 150) * 0.3;
+                    const maxDist = nodes[i].isHub || nodes[j].isHub ? 200 : 120;
+
+                    if (distance < maxDist) {
+                        const opacity = (1 - distance / maxDist) * 0.4;
+                        const pulse = Math.sin(time * 2 + i * 0.1) * 0.2 + 0.8;
+
+                        // Gradient line effect
+                        const gradient = ctx.createLinearGradient(
+                            nodes[i].x, nodes[i].y,
+                            nodes[j].x, nodes[j].y
+                        );
+                        gradient.addColorStop(0, `rgba(${nodes[i].color.r}, ${nodes[i].color.g}, ${nodes[i].color.b}, ${opacity * pulse})`);
+                        gradient.addColorStop(1, `rgba(${nodes[j].color.r}, ${nodes[j].color.g}, ${nodes[j].color.b}, ${opacity * pulse})`);
+
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(192, 57, 43, ${opacity})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = nodes[i].isHub || nodes[j].isHub ? 1.5 : 0.8;
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
                         ctx.stroke();
                     }
                 }
             }
 
-            // Draw particles
-            particles.forEach(particle => {
+            // Draw nodes
+            nodes.forEach(node => {
+                const pulse = Math.sin(time * 3 + node.pulsePhase) * 0.3 + 0.7;
+                const glowSize = node.isHub ? 15 : 8;
+
+                // Glow effect
+                const glow = ctx.createRadialGradient(
+                    node.x, node.y, 0,
+                    node.x, node.y, glowSize
+                );
+                glow.addColorStop(0, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${0.6 * pulse})`);
+                glow.addColorStop(1, `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, 0)`);
+
                 ctx.beginPath();
-                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
+                ctx.arc(node.x, node.y, glowSize, 0, Math.PI * 2);
+                ctx.fillStyle = glow;
+                ctx.fill();
+
+                // Core node
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius * (node.isHub ? 1.5 : 1), 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${node.color.r}, ${node.color.g}, ${node.color.b}, ${0.9 * pulse})`;
                 ctx.fill();
 
                 // Update position
-                particle.x += particle.vx;
-                particle.y += particle.vy;
+                node.x += node.vx;
+                node.y += node.vy;
 
                 // Bounce off edges
-                if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-                if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
             });
 
-            animationId = requestAnimationFrame(drawParticles);
+            animationId = requestAnimationFrame(drawNetwork);
         }
 
         resizeCanvas();
-        createParticles();
-        drawParticles();
+        createNodes();
+        drawNetwork();
 
         window.addEventListener('resize', () => {
             resizeCanvas();
-            createParticles();
+            createNodes();
         });
     }
 
@@ -637,10 +721,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const taglineElement = document.getElementById('typed-tagline');
     if (taglineElement) {
         const taglines = [
-            'Empowering humans through AI literacy',
-            'Learn. Adapt. Unlock your potential.',
-            '50+ prompts across 4 sectors',
-            'From education to enterprise'
+            'Human knowledge + AI capability = Superior results',
+            'Perfected through the power of collaboration',
+            '50+ prompts across 4 sectors and 20+ industries',
+            'From education to enterprise, built for everyone'
         ];
         let currentTagline = 0;
         let currentChar = 0;

@@ -1,5 +1,6 @@
 /* =========================================
-   BASILISO ROSARIO PORTFOLIO SITE - MASTER STYLESHEET
+   PRAXIS AI - PROMPT ENGINEERING EXAMPLE LIBRARY
+   Master Stylesheet - AI Tech Color Theme
    ========================================= */
 
 /* =========================================
@@ -12,18 +13,30 @@
     --text-primary: #1A1A1A;
     --text-secondary: #666666;
     --border-color: #D1D1D5;
-    --accent-red: #D71920;
-    --accent-green: #2ecc71;
+
+    /* AI Tech Color Palette */
+    --accent: #06b6d4;           /* Cyan - Primary accent */
+    --accent-bright: #22d3ee;    /* Bright cyan */
+    --accent-dark: #0891b2;      /* Dark cyan */
+    --accent-secondary: #8b5cf6; /* Purple - Secondary */
+    --accent-tertiary: #3b82f6;  /* Blue - Tertiary */
+    --accent-glow: rgba(6, 182, 212, 0.5);
+
+    /* Legacy support */
+    --accent-red: #06b6d4;
+    --accent-green: #10b981;
+    --brand-red: #06b6d4;
+
     --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] {
-    --bg-primary: #121212;
-    --bg-secondary: #1E1E1E;
-    --bg-card: #252525;
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #1a1a25;
     --text-primary: #F0F0F0;
     --text-secondary: #C0C0C0;
-    --border-color: #404040;
+    --border-color: #2a2a3a;
     --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -81,15 +94,18 @@ p { margin-bottom: 15px; }
 /* =========================================
    2. COLOR & UTILITY CLASSES
    ========================================= */
-.text-red { color: #D71920; }
-.text-green { color: #2ecc71; }
+.text-red { color: var(--accent); }
+.text-cyan { color: var(--accent); }
+.text-green { color: var(--accent-green); }
 .text-white { color: #FFFFFF; }
 .text-grey { color: #666666; }
+.text-purple { color: var(--accent-secondary); }
+.text-blue { color: var(--accent-tertiary); }
 
-.active { 
-    color: #D71920;
+.active {
+    color: var(--accent);
     font-weight: 700;
-    border-left: 4px solid #D71920;
+    border-left: 4px solid var(--accent);
     padding-left: 12px !important;
 }
 
@@ -213,7 +229,8 @@ p { margin-bottom: 15px; }
 }
 
 .icon-white { filter: brightness(0) invert(1); }
-.icon-red { filter: brightness(0) saturate(100%) invert(18%) sepia(96%) saturate(2700%) hue-rotate(355deg); }
+.icon-red { filter: brightness(0) saturate(100%) invert(56%) sepia(88%) saturate(1000%) hue-rotate(152deg) brightness(95%); }
+.icon-cyan { filter: brightness(0) saturate(100%) invert(56%) sepia(88%) saturate(1000%) hue-rotate(152deg) brightness(95%); }
 .icon-grey { filter: brightness(0.7); }
 
 /* =========================================
@@ -3115,7 +3132,7 @@ p { margin-bottom: 15px; }
 
 /* ==========================================
    PRAXIS AI HERO SECTION
-   Animated landing page for Prompt Library
+   Animated landing page - Neural Network Theme
    ========================================== */
 
 .praxis-hero-mode {
@@ -3125,7 +3142,7 @@ p { margin-bottom: 15px; }
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0d0d0d 100%);
+    background: linear-gradient(135deg, #030712 0%, #0f172a 50%, #020617 100%);
 }
 
 /* Animated Canvas Background */
@@ -3174,6 +3191,12 @@ p { margin-bottom: 15px; }
     animation: brandPulse 3s ease-in-out infinite;
 }
 
+.praxis-brand-large {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    letter-spacing: 4px;
+}
+
 .praxis-bracket {
     color: #666666;
     transition: color 0.3s ease;
@@ -3189,8 +3212,8 @@ p { margin-bottom: 15px; }
 }
 
 .praxis-ai {
-    color: var(--brand-red);
-    text-shadow: 0 0 30px rgba(192, 57, 43, 0.5);
+    color: var(--accent);
+    text-shadow: 0 0 30px var(--accent-glow);
     animation: aiGlow 2s ease-in-out infinite alternate;
 }
 
@@ -3200,8 +3223,8 @@ p { margin-bottom: 15px; }
 }
 
 @keyframes aiGlow {
-    from { text-shadow: 0 0 20px rgba(192, 57, 43, 0.3); }
-    to { text-shadow: 0 0 40px rgba(192, 57, 43, 0.7); }
+    from { text-shadow: 0 0 20px rgba(6, 182, 212, 0.3); }
+    to { text-shadow: 0 0 40px rgba(6, 182, 212, 0.8); }
 }
 
 /* Main Title */
@@ -3218,7 +3241,7 @@ p { margin-bottom: 15px; }
 }
 
 .title-highlight {
-    color: var(--brand-red);
+    color: var(--accent);
     position: relative;
 }
 
@@ -3229,7 +3252,7 @@ p { margin-bottom: 15px; }
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(90deg, var(--brand-red), transparent);
+    background: linear-gradient(90deg, var(--accent), var(--accent-secondary), transparent);
     animation: underlineSlide 2s ease-out forwards;
 }
 
@@ -3251,7 +3274,7 @@ p { margin-bottom: 15px; }
 }
 
 .typing-cursor {
-    color: var(--brand-red);
+    color: var(--accent);
     animation: cursorBlink 0.8s infinite;
 }
 
@@ -3283,7 +3306,7 @@ p { margin-bottom: 15px; }
 
 .stat-plus {
     font-size: 1.5rem;
-    color: var(--brand-red);
+    color: var(--accent);
     font-weight: 700;
 }
 
