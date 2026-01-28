@@ -863,7 +863,23 @@ p {
    ============================================ */
 .page-hero {
     padding: 100px var(--space-md) var(--space-xl);
-    background: var(--bg-secondary);
+    background: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-hero .neural-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+.page-hero .container {
+    position: relative;
+    z-index: 2;
 }
 
 .page-title {
@@ -1600,10 +1616,9 @@ p {
    ADDITIONAL PAGE COMPONENTS
    ============================================ */
 
-/* Page Hero (non-home pages) */
+/* Page Hero (non-home pages) - Desktop overrides */
 .page-hero {
     padding: calc(80px + var(--space-2xl)) 0 var(--space-2xl);
-    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
     color: white;
 }
 
