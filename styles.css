@@ -2606,3 +2606,1106 @@ p {
         grid-template-columns: repeat(4, 1fr);
     }
 }
+
+/* ============================================
+   HEADER & NAVIGATION (Subpages)
+   ============================================ */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .nav {
+        display: flex;
+        align-items: center;
+        gap: var(--space-lg);
+    }
+}
+
+.nav-link {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color var(--transition-fast);
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width var(--transition-fast);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: white;
+}
+
+.header.scrolled .nav-link {
+    color: var(--text-secondary);
+}
+
+.header.scrolled .nav-link:hover,
+.header.scrolled .nav-link.active {
+    color: var(--primary);
+}
+
+/* ============================================
+   SECTION SUBTITLE
+   ============================================ */
+.section-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: calc(-1 * var(--space-sm));
+    margin-bottom: var(--space-lg);
+}
+
+/* ============================================
+   LEARNING MODULE COMPONENTS
+   ============================================ */
+
+/* Concept Cards (ReAct visual) */
+.concept-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.concept-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+    width: 100%;
+    max-width: 280px;
+    transition: all var(--transition-normal);
+}
+
+.concept-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.concept-card h3 {
+    color: var(--primary);
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
+}
+
+.concept-operator {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.concept-result {
+    background: linear-gradient(135deg, var(--primary) 0%, #FF6B6B 100%);
+    border: none;
+}
+
+.concept-result h3,
+.concept-result p {
+    color: white;
+}
+
+/* Loop Steps (ReAct loop) */
+.loop-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.loop-step-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    position: relative;
+    padding-left: calc(var(--space-lg) + 48px);
+}
+
+.loop-step-card .step-number {
+    position: absolute;
+    left: var(--space-md);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.loop-step-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+}
+
+.loop-step-card p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Template Card */
+.template-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-top: var(--space-lg);
+}
+
+.template-card h3 {
+    color: var(--primary);
+    margin-bottom: var(--space-md);
+}
+
+.template-content {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+}
+
+.template-content p {
+    margin-bottom: var(--space-sm);
+}
+
+.template-content ol {
+    margin: var(--space-md) 0;
+    padding-left: var(--space-lg);
+}
+
+.template-content li {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+}
+
+/* Example Cards (good/bad) */
+.example-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin-top: var(--space-md);
+    border-left: 4px solid var(--border-color);
+}
+
+.example-card.good {
+    border-left-color: #10B981;
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.example-card.bad {
+    border-left-color: var(--primary);
+    background: rgba(220, 53, 69, 0.05);
+}
+
+.example-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+}
+
+.example-card.good .example-label {
+    color: #10B981;
+}
+
+.example-card.bad .example-label {
+    color: var(--primary);
+}
+
+.example-card p {
+    font-style: italic;
+    line-height: 1.6;
+}
+
+/* ReAct Example Flow */
+.react-example-flow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.react-step-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    border-left: 4px solid var(--border-color);
+}
+
+.react-step-card.thought {
+    border-left-color: #3B82F6;
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.react-step-card.action {
+    border-left-color: #8B5CF6;
+    background: rgba(139, 92, 246, 0.05);
+}
+
+.react-step-card.observation {
+    border-left-color: #10B981;
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.react-step-card.conclusion {
+    border-left-color: var(--primary);
+    background: rgba(220, 53, 69, 0.05);
+}
+
+.react-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-sm);
+}
+
+.react-step-card.thought .react-label { color: #3B82F6; }
+.react-step-card.action .react-label { color: #8B5CF6; }
+.react-step-card.observation .react-label { color: #10B981; }
+.react-step-card.conclusion .react-label { color: var(--primary); }
+
+.react-step-card p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Use Case Grid */
+.use-case-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.use-case-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: all var(--transition-normal);
+}
+
+.use-case-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.use-case-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+}
+
+.use-case-card p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* CTA Card */
+.cta-card {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl) var(--space-lg);
+    text-align: center;
+    color: white;
+}
+
+.cta-title {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: var(--space-md);
+}
+
+.cta-text {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-lg);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+/* Footer Grid */
+.footer-grid {
+    display: grid;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
+
+.footer-brand {
+    margin-bottom: var(--space-md);
+}
+
+.footer-brand p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+    margin-top: var(--space-sm);
+}
+
+.footer-links h4 {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+}
+
+.footer-links a {
+    display: block;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+    padding: var(--space-xs) 0;
+    transition: color var(--transition-fast);
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+}
+
+/* Fade In Up Animation */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   LEARNING MODULE RESPONSIVE
+   ============================================ */
+@media (min-width: 768px) {
+    .concept-cards {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .concept-card {
+        width: auto;
+        flex: 0 1 200px;
+    }
+
+    .loop-steps {
+        flex-direction: row;
+    }
+
+    .loop-step-card {
+        flex: 1;
+        padding-left: var(--space-lg);
+        padding-top: calc(var(--space-lg) + 48px);
+    }
+
+    .loop-step-card .step-number {
+        top: var(--space-md);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .use-case-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cta-actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width: 1024px) {
+    .use-case-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cta-card {
+        padding: var(--space-3xl);
+    }
+
+    .cta-title {
+        font-size: 2rem;
+    }
+}
+
+/* ============================================
+   ACRONYM CARDS (CRISP, CRISPE, COSTAR)
+   ============================================ */
+.acronym-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+}
+
+.acronym-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+    flex: 1 1 140px;
+    max-width: 180px;
+    transition: all var(--transition-normal);
+}
+
+.acronym-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.acronym-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--primary);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 800;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+}
+
+.acronym-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+}
+
+.acronym-card p {
+    font-size: 0.8125rem;
+    margin: 0;
+}
+
+/* Verb/Instruction/Style/Param Cards */
+.verb-grid,
+.instruction-cards,
+.style-cards,
+.param-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.verb-card,
+.instruction-card,
+.style-card,
+.param-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: all var(--transition-normal);
+}
+
+.verb-card:hover,
+.instruction-card:hover,
+.style-card:hover,
+.param-card:hover {
+    border-color: var(--primary);
+}
+
+.verb-card h3,
+.instruction-card h3,
+.style-card h3,
+.param-card h3 {
+    color: var(--primary);
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-sm);
+}
+
+.verb-card p,
+.instruction-card p,
+.style-card p,
+.param-card p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* CRISP Example Flow */
+.crisp-example-flow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.crisp-component-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    border-left: 4px solid var(--primary);
+}
+
+.crisp-component-card .component-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--primary);
+    margin-bottom: var(--space-sm);
+}
+
+.crisp-component-card p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Color variants for component cards */
+.crisp-component-card:nth-child(1) { border-left-color: #3B82F6; }
+.crisp-component-card:nth-child(1) .component-label { color: #3B82F6; }
+
+.crisp-component-card:nth-child(2) { border-left-color: #8B5CF6; }
+.crisp-component-card:nth-child(2) .component-label { color: #8B5CF6; }
+
+.crisp-component-card:nth-child(3) { border-left-color: #10B981; }
+.crisp-component-card:nth-child(3) .component-label { color: #10B981; }
+
+.crisp-component-card:nth-child(4) { border-left-color: #F59E0B; }
+.crisp-component-card:nth-child(4) .component-label { color: #F59E0B; }
+
+.crisp-component-card:nth-child(5) { border-left-color: var(--primary); }
+.crisp-component-card:nth-child(5) .component-label { color: var(--primary); }
+
+.crisp-component-card:nth-child(6) { border-left-color: #EC4899; }
+.crisp-component-card:nth-child(6) .component-label { color: #EC4899; }
+
+/* Acronym Highlight (for CRISPE extended letters) */
+.acronym-card.acronym-highlight {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border-color: var(--primary);
+}
+
+.acronym-card.acronym-highlight .acronym-letter {
+    background: linear-gradient(135deg, var(--primary) 0%, #8B5CF6 100%);
+}
+
+/* Evolution Cards (CRISPE) */
+.evolution-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.evolution-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    border-left: 4px solid var(--primary);
+}
+
+.evolution-card h3 {
+    color: var(--primary);
+    margin-bottom: var(--space-sm);
+}
+
+.evolution-example {
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    font-style: italic;
+    font-size: 0.875rem;
+}
+
+/* Personality/Eval Cards */
+.personality-cards,
+.eval-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.personality-card,
+.eval-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: all var(--transition-normal);
+}
+
+.personality-card:hover,
+.eval-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.personality-card h3,
+.eval-card h3 {
+    color: var(--primary);
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-sm);
+}
+
+.personality-card p,
+.eval-card p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Callout list styling */
+.callout ul {
+    margin: var(--space-sm) 0 0 0;
+    padding-left: var(--space-lg);
+}
+
+.callout li {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xs);
+}
+
+/* Objective/Audience/Response/Tone Cards (COSTAR) */
+.objective-cards,
+.audience-cards,
+.response-cards,
+.tone-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.objective-card,
+.audience-card,
+.response-card,
+.tone-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: all var(--transition-normal);
+}
+
+.objective-card:hover,
+.audience-card:hover,
+.response-card:hover,
+.tone-card:hover {
+    border-color: var(--primary);
+}
+
+.objective-card h3,
+.audience-card h3,
+.response-card h3 {
+    color: var(--primary);
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-sm);
+}
+
+.objective-card p,
+.audience-card p,
+.response-card p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Tone Spectrum */
+.tone-spectrum-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.tone-end {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.tone-bar {
+    flex: 1;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary) 0%, #8B5CF6 50%, #3B82F6 100%);
+    border-radius: var(--radius-full);
+}
+
+/* ============================================
+   ADVANCED TECHNIQUES COMPONENTS
+   ============================================ */
+
+/* Technique/Best Practice/Role/Format/Consistency Cards */
+.technique-cards,
+.best-practice-cards,
+.role-cards,
+.format-cards,
+.consistency-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.technique-card,
+.best-practice-card,
+.role-card,
+.format-card,
+.consistency-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: all var(--transition-normal);
+}
+
+.technique-card:hover,
+.best-practice-card:hover,
+.role-card:hover,
+.format-card:hover,
+.consistency-card:hover {
+    border-color: var(--primary);
+}
+
+.technique-card h3,
+.best-practice-card h3,
+.role-card h3,
+.format-card h3,
+.consistency-card h3 {
+    color: var(--primary);
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+}
+
+.technique-card p,
+.best-practice-card p,
+.role-card p,
+.format-card p,
+.consistency-card p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Role usecase tag */
+.role-usecase {
+    display: inline-block;
+    margin-top: var(--space-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--bg-secondary);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+}
+
+/* Format code block */
+.format-code {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    padding: var(--space-md);
+    margin-top: var(--space-sm);
+    font-family: monospace;
+    font-size: 0.8125rem;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+/* Chain Flow */
+.chain-flow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.chain-step-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    padding-left: calc(var(--space-lg) + 48px);
+    position: relative;
+}
+
+.chain-number {
+    position: absolute;
+    left: var(--space-md);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.chain-step-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+}
+
+.chain-step-card p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .technique-cards,
+    .role-cards,
+    .format-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .best-practice-cards,
+    .consistency-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .chain-flow {
+        flex-direction: row;
+    }
+
+    .chain-step-card {
+        flex: 1;
+        padding-left: var(--space-lg);
+        padding-top: calc(var(--space-lg) + 48px);
+    }
+
+    .chain-number {
+        top: var(--space-md);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* ============================================
+   PROMPT BASICS COMPONENTS
+   ============================================ */
+
+/* Anatomy Cards */
+.anatomy-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.anatomy-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    padding-left: calc(var(--space-lg) + 48px);
+    position: relative;
+    transition: all var(--transition-normal);
+}
+
+.anatomy-card:hover {
+    border-color: var(--primary);
+}
+
+.anatomy-number {
+    position: absolute;
+    left: var(--space-md);
+    top: var(--space-md);
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.anatomy-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+}
+
+.anatomy-card p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Mistake Cards */
+.mistake-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
+}
+
+.mistake-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+}
+
+.mistake-card h3 {
+    color: var(--primary);
+    font-size: 1.125rem;
+    margin-bottom: var(--space-md);
+}
+
+.mistake-card .example-card {
+    margin-top: var(--space-sm);
+}
+
+/* Process Cards */
+.process-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.process-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    padding-left: calc(var(--space-lg) + 48px);
+    position: relative;
+    transition: all var(--transition-normal);
+}
+
+.process-card:hover {
+    border-color: var(--primary);
+}
+
+.process-number {
+    position: absolute;
+    left: var(--space-md);
+    top: var(--space-md);
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.process-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+}
+
+.process-card p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Checklist Cards */
+.checklist-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.checklist-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    transition: all var(--transition-normal);
+}
+
+.checklist-card:hover {
+    border-color: var(--primary);
+}
+
+.checklist-number {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.checklist-content h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-xs);
+}
+
+.checklist-content p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .anatomy-cards {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .mistake-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .process-cards {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
