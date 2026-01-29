@@ -102,10 +102,15 @@ document.addEventListener('DOMContentLoaded', () => {
             this.minNodes = options.minNodes || 40;
             this.termCount = options.termCount || (window.innerWidth < 768 ? 12 : 25);
 
-            // Data pulses traveling along connections
+            // Data pulses traveling along connections (foreground - bright)
             this.dataPulses = [];
             this.lastPulseSpawn = 0;
             this.pulseSpawnInterval = 800; // Spawn new pulse every 800ms
+
+            // Background pulses - dimmer, more frequent for 3D depth
+            this.bgPulses = [];
+            this.lastBgPulseSpawn = 0;
+            this.bgPulseSpawnInterval = 300; // More frequent background activity
 
             this.init();
         }
@@ -153,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.height = this.canvas.height = this.canvas.offsetHeight;
             this.initNodes();
             this.dataPulses = []; // Clear pulses on resize
+            this.bgPulses = []; // Clear background pulses
             if (this.showTerms) this.initTerms();
         }
 
@@ -452,6 +458,125 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // Background pulses - dimmer layer for 3D depth effect
+        spawnBgPulse(time) {
+            if (time - this.lastBgPulseSpawn < this.bgPulseSpawnInterval) return;
+            if (this.bgPulses.length > 30) return; // More background activity
+
+            const activeConnections = [];
+            const maxDistance = 150;
+
+            for (let i = 0; i < this.nodes.length; i++) {
+                for (let j = i + 1; j < this.nodes.length; j++) {
+                    const dx = this.nodes[i].x - this.nodes[j].x;
+                    const dy = this.nodes[i].y - this.nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance) {
+                        const key = `${i}-${j}`;
+                        const state = this.connectionStates.get(key);
+                        if (state && state.active) {
+                            activeConnections.push({ i, j, distance });
+                        }
+                    }
+                }
+            }
+
+            if (activeConnections.length > 0) {
+                const conn = activeConnections[Math.floor(Math.random() * activeConnections.length)];
+                const reverse = Math.random() > 0.5;
+
+                this.bgPulses.push({
+                    startNode: reverse ? conn.j : conn.i,
+                    endNode: reverse ? conn.i : conn.j,
+                    progress: 0,
+                    speed: 0.008 + Math.random() * 0.006, // Slower, varied (feels distant)
+                    size: 0.8 + Math.random() * 0.4, // Smaller
+                    opacity: 0.15 + Math.random() * 0.15, // Dimmer
+                    trailLength: 0.08 + Math.random() * 0.06
+                });
+
+                this.lastBgPulseSpawn = time;
+            }
+        }
+
+        updateBgPulses() {
+            this.bgPulses = this.bgPulses.filter(pulse => {
+                pulse.progress += pulse.speed;
+
+                // Background pulses chain less frequently
+                if (pulse.progress >= 1) {
+                    if (Math.random() < 0.25) {
+                        const endNode = pulse.endNode;
+                        const maxDistance = 150;
+                        const nextNodes = [];
+
+                        for (let i = 0; i < this.nodes.length; i++) {
+                            if (i === endNode || i === pulse.startNode) continue;
+                            const dx = this.nodes[endNode].x - this.nodes[i].x;
+                            const dy = this.nodes[endNode].y - this.nodes[i].y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+
+                            if (distance < maxDistance) {
+                                const key = endNode < i ? `${endNode}-${i}` : `${i}-${endNode}`;
+                                const state = this.connectionStates.get(key);
+                                if (state && state.active) {
+                                    nextNodes.push(i);
+                                }
+                            }
+                        }
+
+                        if (nextNodes.length > 0) {
+                            const nextNode = nextNodes[Math.floor(Math.random() * nextNodes.length)];
+                            this.bgPulses.push({
+                                startNode: endNode,
+                                endNode: nextNode,
+                                progress: 0,
+                                speed: 0.008 + Math.random() * 0.006,
+                                size: 0.8 + Math.random() * 0.4,
+                                opacity: 0.15 + Math.random() * 0.15,
+                                trailLength: 0.08 + Math.random() * 0.06
+                            });
+                        }
+                    }
+                    return false;
+                }
+                return true;
+            });
+        }
+
+        drawBgPulses() {
+            this.bgPulses.forEach(pulse => {
+                const startNode = this.nodes[pulse.startNode];
+                const endNode = this.nodes[pulse.endNode];
+
+                const x = startNode.x + (endNode.x - startNode.x) * pulse.progress;
+                const y = startNode.y + (endNode.y - startNode.y) * pulse.progress;
+
+                // Subtle trail for background
+                const trailSteps = 3;
+                for (let t = trailSteps; t >= 0; t--) {
+                    const trailProgress = pulse.progress - (pulse.trailLength * t / trailSteps);
+                    if (trailProgress < 0) continue;
+
+                    const tx = startNode.x + (endNode.x - startNode.x) * trailProgress;
+                    const ty = startNode.y + (endNode.y - startNode.y) * trailProgress;
+                    const trailAlpha = (1 - t / trailSteps) * pulse.opacity * 0.6;
+
+                    this.ctx.beginPath();
+                    this.ctx.arc(tx, ty, pulse.size * 0.6, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(180, 50, 60, ${trailAlpha})`;
+                    this.ctx.fill();
+                }
+
+                // Main background pulse - dim, reddish
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, pulse.size, 0, Math.PI * 2);
+                this.ctx.fillStyle = `rgba(200, 60, 70, ${pulse.opacity})`;
+                this.ctx.fill();
+            });
+        }
+
         drawConnections(time) {
             const maxDistance = 150;
             this.updateConnectionStates(time);
@@ -503,18 +628,26 @@ document.addEventListener('DOMContentLoaded', () => {
         animate(time) {
             this.ctx.clearRect(0, 0, this.width, this.height);
 
+            // Layer 1: Background pulses (deepest - dim, behind everything)
+            this.spawnBgPulse(time);
+            this.updateBgPulses();
+            this.drawBgPulses();
+
+            // Layer 2: Connection lines
             this.drawConnections(time);
 
-            // Data pulses - spawn, update, and draw
+            // Layer 3: Foreground data pulses (bright, in front of connections)
             this.spawnDataPulse(time);
             this.updateDataPulses();
             this.drawDataPulses();
 
+            // Layer 4: Nodes
             this.nodes.forEach(node => {
                 this.updateNode(node, time);
                 this.drawNode(node);
             });
 
+            // Layer 5: Terms (topmost)
             if (this.showTerms) {
                 this.aiTerms.forEach(term => {
                     this.updateTerm(term, time);
