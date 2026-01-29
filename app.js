@@ -102,6 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
             this.minNodes = options.minNodes || 40;
             this.termCount = options.termCount || (window.innerWidth < 768 ? 12 : 25);
 
+            // Data pulses traveling along connections
+            this.dataPulses = [];
+            this.lastPulseSpawn = 0;
+            this.pulseSpawnInterval = 800; // Spawn new pulse every 800ms
+
             this.init();
         }
 
@@ -147,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.width = this.canvas.width = this.canvas.offsetWidth;
             this.height = this.canvas.height = this.canvas.offsetHeight;
             this.initNodes();
+            this.dataPulses = []; // Clear pulses on resize
             if (this.showTerms) this.initTerms();
         }
 
@@ -331,6 +337,140 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // Data pulse methods - information traveling along connections
+        spawnDataPulse(time) {
+            if (time - this.lastPulseSpawn < this.pulseSpawnInterval) return;
+            if (this.dataPulses.length > 15) return; // Limit active pulses
+
+            // Find active connections to spawn pulses on
+            const activeConnections = [];
+            const maxDistance = 150;
+
+            for (let i = 0; i < this.nodes.length; i++) {
+                for (let j = i + 1; j < this.nodes.length; j++) {
+                    const dx = this.nodes[i].x - this.nodes[j].x;
+                    const dy = this.nodes[i].y - this.nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance) {
+                        const key = `${i}-${j}`;
+                        const state = this.connectionStates.get(key);
+                        if (state && state.active) {
+                            activeConnections.push({ i, j, distance });
+                        }
+                    }
+                }
+            }
+
+            if (activeConnections.length > 0) {
+                // Pick a random connection
+                const conn = activeConnections[Math.floor(Math.random() * activeConnections.length)];
+                const reverse = Math.random() > 0.5;
+
+                this.dataPulses.push({
+                    startNode: reverse ? conn.j : conn.i,
+                    endNode: reverse ? conn.i : conn.j,
+                    progress: 0,
+                    speed: 0.008 + Math.random() * 0.012, // Vary speed
+                    size: 3 + Math.random() * 2,
+                    trailLength: 0.15 + Math.random() * 0.1
+                });
+
+                this.lastPulseSpawn = time;
+            }
+        }
+
+        updateDataPulses() {
+            this.dataPulses = this.dataPulses.filter(pulse => {
+                pulse.progress += pulse.speed;
+
+                // When pulse reaches end, chance to chain to next connection
+                if (pulse.progress >= 1) {
+                    if (Math.random() < 0.4) {
+                        // Find connected nodes to continue the chain
+                        const endNode = pulse.endNode;
+                        const maxDistance = 150;
+                        const nextNodes = [];
+
+                        for (let i = 0; i < this.nodes.length; i++) {
+                            if (i === endNode || i === pulse.startNode) continue;
+                            const dx = this.nodes[endNode].x - this.nodes[i].x;
+                            const dy = this.nodes[endNode].y - this.nodes[i].y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+
+                            if (distance < maxDistance) {
+                                const key = endNode < i ? `${endNode}-${i}` : `${i}-${endNode}`;
+                                const state = this.connectionStates.get(key);
+                                if (state && state.active) {
+                                    nextNodes.push(i);
+                                }
+                            }
+                        }
+
+                        if (nextNodes.length > 0) {
+                            const nextNode = nextNodes[Math.floor(Math.random() * nextNodes.length)];
+                            this.dataPulses.push({
+                                startNode: endNode,
+                                endNode: nextNode,
+                                progress: 0,
+                                speed: pulse.speed,
+                                size: pulse.size * 0.9,
+                                trailLength: pulse.trailLength
+                            });
+                        }
+                    }
+                    return false;
+                }
+                return true;
+            });
+        }
+
+        drawDataPulses() {
+            this.dataPulses.forEach(pulse => {
+                const startNode = this.nodes[pulse.startNode];
+                const endNode = this.nodes[pulse.endNode];
+
+                // Current position
+                const x = startNode.x + (endNode.x - startNode.x) * pulse.progress;
+                const y = startNode.y + (endNode.y - startNode.y) * pulse.progress;
+
+                // Trail effect - draw fading trail behind the pulse
+                const trailSteps = 5;
+                for (let t = trailSteps; t >= 0; t--) {
+                    const trailProgress = pulse.progress - (pulse.trailLength * t / trailSteps);
+                    if (trailProgress < 0) continue;
+
+                    const tx = startNode.x + (endNode.x - startNode.x) * trailProgress;
+                    const ty = startNode.y + (endNode.y - startNode.y) * trailProgress;
+                    const trailAlpha = (1 - t / trailSteps) * 0.3;
+                    const trailSize = pulse.size * (1 - t / trailSteps * 0.5);
+
+                    this.ctx.beginPath();
+                    this.ctx.arc(tx, ty, trailSize, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(255, 255, 255, ${trailAlpha})`;
+                    this.ctx.fill();
+                }
+
+                // Main pulse - bright white core
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, pulse.size, 0, Math.PI * 2);
+                this.ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                this.ctx.fill();
+
+                // Outer glow
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, pulse.size * 2.5, 0, Math.PI * 2);
+                this.ctx.fillStyle = 'rgba(230, 57, 70, 0.4)';
+                this.ctx.fill();
+
+                // Bright glow halo
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, pulse.size * 4, 0, Math.PI * 2);
+                this.ctx.fillStyle = 'rgba(230, 57, 70, 0.15)';
+                this.ctx.fill();
+            });
+        }
+
         drawConnections(time) {
             const maxDistance = 150;
             this.updateConnectionStates(time);
@@ -383,6 +523,11 @@ document.addEventListener('DOMContentLoaded', () => {
             this.ctx.clearRect(0, 0, this.width, this.height);
 
             this.drawConnections(time);
+
+            // Data pulses - spawn, update, and draw
+            this.spawnDataPulse(time);
+            this.updateDataPulses();
+            this.drawDataPulses();
 
             this.nodes.forEach(node => {
                 this.updateNode(node, time);
@@ -1039,20 +1184,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
     // QUIZ: OPERATIONAL READINESS
+    // Version 2.0 - 10 balanced questions with pillar tracking
     // ==========================================
     const quizContainer = document.getElementById('readiness-quiz');
 
     if (quizContainer) {
+        console.log('Quiz v2.0 loaded - 10 questions with pillar tracking');
+
         // 10 Questions with progressive difficulty and pillar mapping
+        // All options balanced in length, plausible distractors, varied correct positions
         const questions = [
             // Q1: Basics / Communicate
             {
-                question: "Before using AI for a task, you should first:",
+                question: "What's the most important first step when preparing to use AI for a task?",
                 options: [
-                    "Just start typing and see what happens",
-                    "Think about what you want to achieve and what information the AI needs",
-                    "Copy a prompt from the internet",
-                    "Ask the AI what to ask it"
+                    "Find a template prompt that worked for someone else",
+                    "Clarify your goal and what information the AI needs",
+                    "Choose between different AI models and platforms",
+                    "Think about how to verify the AI's eventual output"
                 ],
                 correct: 1,
                 difficulty: "basics",
@@ -1060,64 +1209,64 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             // Q2: Basics / Think
             {
-                question: "Why might an AI give you an incorrect answer even with a well-written prompt?",
+                question: "Which statement about AI accuracy is correct?",
                 options: [
-                    "The AI is intentionally being unhelpful",
-                    "AI models can have knowledge gaps, outdated information, or misinterpret context",
-                    "You need to pay for the premium version",
-                    "AI always gives correct answers if the prompt is good"
+                    "Well-structured prompts guarantee accurate responses",
+                    "AI errors mainly come from user prompting mistakes",
+                    "AI can be confidently wrong due to training limits",
+                    "Premium AI subscriptions eliminate accuracy issues"
                 ],
-                correct: 1,
+                correct: 2,
                 difficulty: "basics",
                 pillar: "think"
             },
             // Q3: CRISP / Communicate
             {
-                question: "In the CRISP framework, the 'P' stands for Parameters. What do parameters define?",
+                question: "In the CRISP framework, 'Parameters' refers to:",
                 options: [
-                    "The AI model's personality settings",
-                    "Constraints like length, format, and specific requirements",
-                    "The password to access advanced features",
-                    "The price of the AI service"
+                    "Technical settings like temperature and tokens",
+                    "The AI's internal configuration and version",
+                    "Constraints like format, length, and requirements",
+                    "Variables the AI uses during text generation"
                 ],
-                correct: 1,
+                correct: 2,
                 difficulty: "crisp",
                 pillar: "communicate"
             },
             // Q4: CRISP / Iterate
             {
-                question: "If an AI gives you content that's too long and too formal, what should you do?",
+                question: "Your prompt returns content that's too formal and wordy. The best approach is to:",
                 options: [
-                    "Accept it as-is since AI knows best",
-                    "Give up and write it yourself",
-                    "Refine your prompt by adding length constraints and specifying a more casual style",
-                    "Report the AI as broken"
+                    "Add 'be casual' at the end of your prompt",
+                    "Generate multiple responses and pick the best",
+                    "Switch to a different AI model for casual content",
+                    "Rewrite the prompt specifying tone and length upfront"
                 ],
-                correct: 2,
+                correct: 3,
                 difficulty: "crisp",
                 pillar: "iterate"
             },
             // Q5: CRISPE / Communicate
             {
-                question: "What does the 'R' in CRISPE stand for, and what does it enable?",
+                question: "In CRISPE, assigning a Role to the AI helps because it:",
                 options: [
-                    "Request - asking for something specific",
-                    "Role - assigning the AI a specific persona (e.g., 'Act as a senior developer')",
-                    "Response - defining how the AI should answer",
-                    "Repeat - running the prompt multiple times"
+                    "Sets the expertise level and perspective for responses",
+                    "Gives the AI permission to access special knowledge",
+                    "Makes the AI more confident in its answers",
+                    "Unlocks advanced capabilities within the model"
                 ],
-                correct: 1,
+                correct: 0,
                 difficulty: "crispe",
                 pillar: "communicate"
             },
             // Q6: CRISPE / Communicate
             {
-                question: "When should you include examples (few-shot prompting) in your prompt?",
+                question: "Few-shot prompting (providing examples) is most valuable when:",
                 options: [
-                    "Never - AI should figure it out",
-                    "Only when writing code",
-                    "When you want the AI to follow a specific format, style, or transformation pattern",
-                    "Only for creative writing tasks"
+                    "You want the AI to be more creative and original",
+                    "The AI doesn't understand your topic area well",
+                    "You need output in a specific format or style",
+                    "Your prompt is too short and needs more content"
                 ],
                 correct: 2,
                 difficulty: "crispe",
@@ -1125,12 +1274,12 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             // Q7: COSTAR / Think
             {
-                question: "COSTAR emphasizes defining your Audience. Why is this important?",
+                question: "Why does COSTAR specifically include 'Audience' as an element?",
                 options: [
-                    "To help the AI count how many people will read it",
-                    "Because the same information should be presented differently for executives vs. technical staff",
-                    "To track user engagement metrics",
-                    "The audience doesn't actually matter for AI prompts"
+                    "To help track who reads the content for analytics",
+                    "Technical level affects how content should be written",
+                    "To ensure the AI uses appropriately formal language",
+                    "To comply with accessibility standards in outputs"
                 ],
                 correct: 1,
                 difficulty: "costar",
@@ -1138,25 +1287,25 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             // Q8: COSTAR / Spot
             {
-                question: "You ask AI to write a technical guide and it uses jargon your non-technical audience won't understand. What went wrong?",
+                question: "AI output includes technical jargon for a beginner audience. This happened because:",
                 options: [
-                    "The AI is incapable of simple language",
-                    "You didn't specify the audience's knowledge level or that jargon should be avoided",
-                    "Technical topics always require jargon",
-                    "Nothing - readers should look up the terms"
+                    "The AI defaulted to its training data's typical style",
+                    "Technical topics inherently require specialized terms",
+                    "The prompt didn't specify the audience's knowledge level",
+                    "The AI couldn't simplify the complex concepts enough"
                 ],
-                correct: 1,
+                correct: 2,
                 difficulty: "costar",
                 pillar: "spot"
             },
             // Q9: Advanced / Spot
             {
-                question: "An AI confidently states a specific statistic about a company's 2024 revenue. What should you do?",
+                question: "AI states a specific statistic with confidence. Your best response is to:",
                 options: [
-                    "Trust it because AI has access to all information",
-                    "Verify the claim from a reliable source, as AI can hallucinate specific details",
-                    "Assume it's wrong because AI always lies",
-                    "Include it in your report immediately to save time"
+                    "Trust it if the AI expressed high certainty",
+                    "Verify it—AI can confidently fabricate details",
+                    "Assume it's outdated and search for newer data",
+                    "Ask the AI to cite the source for validation"
                 ],
                 correct: 1,
                 difficulty: "advanced",
@@ -1164,14 +1313,14 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             // Q10: Advanced / Iterate
             {
-                question: "For complex problem-solving, which technique helps verify AI reasoning?",
+                question: "Chain-of-thought prompting improves AI output by:",
                 options: [
-                    "Ask the AI to respond faster",
-                    "Use chain-of-thought prompting to make the AI show its step-by-step reasoning",
-                    "Only use single-word prompts",
-                    "Avoid asking follow-up questions"
+                    "Making the AI process your request more slowly",
+                    "Connecting your prompt to relevant training data",
+                    "Allowing the AI to ask you clarifying questions",
+                    "Revealing reasoning steps for easier verification"
                 ],
-                correct: 1,
+                correct: 3,
                 difficulty: "advanced",
                 pillar: "iterate"
             }
