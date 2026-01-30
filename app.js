@@ -1063,25 +1063,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     example: 'Include: price point, materials, target demographic. Avoid: generic marketing speak.'
                 },
                 S: {
-                    name: 'Style',
+                    name: 'Specifics',
                     patterns: [
+                        /\b(\d+)\s*(words?|sentences?|paragraphs?|bullet\s*points?|items?)\b/i,
+                        /\b(format|output|structure)\s*(as|:)/i,
                         /\b(tone|voice|style)\s*:/i,
-                        /\b(formal|casual|professional|friendly|technical|conversational)\b/i,
-                        /\b(write (as|like|in)|in the style of|sound like)\b/i
+                        /\b(formal|casual|professional|friendly|urgent|persuasive)\b/i,
+                        /\b(JSON|markdown|bullet|table|list)\b/i
                     ],
-                    tip: 'Specify tone: "Use a professional/casual/friendly tone"',
-                    example: 'Use a warm, conversational tone appropriate for Instagram.'
+                    tip: 'Define format, length, tone: "Write 3 bullet points under 50 words"',
+                    example: 'Write 3 bullet points, under 50 words each, in an urgent tone.'
                 },
                 P: {
                     name: 'Parameters',
                     patterns: [
-                        /\b(\d+)\s*(words?|sentences?|paragraphs?|pages?|minutes?|bullet\s*points?|items?|tips?|points?)\b/i,
-                        /\b(maximum|minimum|at least|no more than|between|limit|within|under|over)\s*\d/i,
-                        /\b(format|output|return|structure)\s*(as|:)/i,
-                        /\b(JSON|markdown|HTML|bullet|table|list|code|email|article|blog)\b/i
+                        /\b(don't|do not|avoid|exclude|without|never)\b/i,
+                        /\b(must|should|shall|need to|required|important)\b/i,
+                        /\b(maximum|minimum|at least|no more than|limit)\b/i,
+                        /\b(include|use|add)\s+(\d+|three|two|five)\s+(hashtag|emoji|link)/i
                     ],
-                    tip: 'Add constraints: "500 words", "5 bullet points", "as a table"',
-                    example: 'Limit to 150 words, formatted as a single paragraph.'
+                    tip: 'Set constraints and what to avoid: "Include 3 hashtags. Avoid jargon."',
+                    example: 'Include three hashtags. Avoid industry jargon. Keep it actionable.'
                 },
                 E: {
                     name: 'Example',
