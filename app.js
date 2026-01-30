@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'PERPLEXITY'
     ];
 
-    // Neural Network class - 3D mesh style with glowing nodes
+    // Neural Network class - Each AI gets its own active cluster
     class NeuralNetwork {
         constructor(canvas, options = {}) {
             this.canvas = canvas;
@@ -85,38 +85,34 @@ document.addEventListener('DOMContentLoaded', () => {
             this.width = 0;
             this.height = 0;
             this.nodes = [];
-            this.aiTerms = [];
+            this.aiClusters = []; // Each AI has its own cluster
             this.animationId = null;
-
-            // Cluster settings for organic grouping
-            this.clusterCount = this.isMobile ? 3 : 5;
-            this.clusterSpread = this.isMobile ? 150 : 200;
 
             // Mobile detection
             this.isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
 
-            // Options - denser mesh for 3D effect
-            this.showTerms = options.showTerms !== false;
-            this.nodeDensity = this.isMobile ? 0.00012 : (options.nodeDensity || 0.00025);
-            this.maxNodes = this.isMobile ? 80 : (options.maxNodes || 200);
-            this.minNodes = this.isMobile ? 40 : (options.minNodes || 80);
-            // All 6 AI names are always shown
-            this.maxConnectionDistance = this.isMobile ? 120 : 180;
+            // Cluster settings - one per AI
+            this.nodesPerCluster = this.isMobile ? 15 : 25;
+            this.clusterSpread = this.isMobile ? 80 : 120;
 
-            // Data pulses traveling along connections
+            // Options
+            this.showTerms = options.showTerms !== false;
+            this.maxConnectionDistance = this.isMobile ? 100 : 140;
+
+            // Data pulses traveling along connections - more active
             this.dataPulses = [];
             this.lastPulseSpawn = 0;
-            this.pulseSpawnInterval = this.isMobile ? 800 : 400;
-            this.maxPulses = this.isMobile ? 8 : 25;
+            this.pulseSpawnInterval = this.isMobile ? 300 : 150;
+            this.maxPulses = this.isMobile ? 15 : 40;
 
             // Frame throttling for mobile
             this.lastFrameTime = 0;
             this.targetFrameInterval = this.isMobile ? 33 : 16;
 
-            // Connection cache for performance (avoids O(n²) per frame)
+            // Connection cache for performance
             this.cachedConnections = [];
             this.lastConnectionUpdate = 0;
-            this.connectionUpdateInterval = 100; // Update connections every 100ms
+            this.connectionUpdateInterval = 100;
 
             this.init();
         }
@@ -136,10 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
         resize() {
             this.width = this.canvas.width = this.canvas.offsetWidth;
             this.height = this.canvas.height = this.canvas.offsetHeight;
-            this.initNodes();
+            this.initClusters(); // Initialize AI clusters with nodes
             this.dataPulses = [];
-            this.buildConnections(); // Build connection cache on resize
-            if (this.showTerms) this.initTerms();
+            this.buildConnections();
         }
 
         // Build connections cache - O(n²) but only runs periodically, not every frame
@@ -168,90 +163,71 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        initNodes() {
+        initClusters() {
             this.nodes = [];
-            const nodeCount = Math.floor(this.width * this.height * this.nodeDensity);
-            const clampedCount = Math.min(Math.max(nodeCount, this.minNodes), this.maxNodes);
+            this.aiClusters = [];
 
-            // Create cluster centers spread across the canvas
-            const clusters = [];
-            for (let i = 0; i < this.clusterCount; i++) {
-                clusters.push({
-                    x: Math.random() * this.width * 0.8 + this.width * 0.1,
-                    y: Math.random() * this.height * 0.8 + this.height * 0.1
-                });
-            }
-
-            // Distribute nodes - 70% clustered, 30% scattered
-            const clusteredCount = Math.floor(clampedCount * 0.7);
-            const scatteredCount = clampedCount - clusteredCount;
-
-            // Clustered nodes
-            for (let i = 0; i < clusteredCount; i++) {
-                const cluster = clusters[Math.floor(Math.random() * clusters.length)];
-                // Gaussian-like distribution around cluster center
-                const angle = Math.random() * Math.PI * 2;
-                const radius = Math.random() * this.clusterSpread * (0.3 + Math.random() * 0.7);
-                const x = cluster.x + Math.cos(angle) * radius;
-                const y = cluster.y + Math.sin(angle) * radius;
-                this.nodes.push(this.createNode(
-                    Math.max(20, Math.min(this.width - 20, x)),
-                    Math.max(20, Math.min(this.height - 20, y))
-                ));
-            }
-
-            // Scattered nodes for organic feel
-            for (let i = 0; i < scatteredCount; i++) {
-                this.nodes.push(this.createNode(
-                    Math.random() * (this.width - 40) + 20,
-                    Math.random() * (this.height - 40) + 20
-                ));
-            }
-
-            // Sort by z for depth layering
-            this.nodes.sort((a, b) => a.z - b.z);
-        }
-
-        createNode(x, y) {
-            // z represents depth (0 = far/dim, 1 = close/bright)
-            const z = Math.random();
-            return {
-                x, y, z,
-                // Size and brightness based on depth
-                size: 1.5 + z * 3, // 1.5-4.5 range
-                // Slow, gentle drift velocities
-                vx: (Math.random() - 0.5) * 0.15,
-                vy: (Math.random() - 0.5) * 0.15,
-                // Bright nodes glow orange-yellow, dim nodes are deep red
-                glowIntensity: 0.3 + z * 0.7, // 0.3-1.0
-                pulseOffset: Math.random() * Math.PI * 2
-            };
-        }
-
-        initTerms() {
-            this.aiTerms = [];
-            // Create static labels for all AI names in a grid layout
-            const names = AI_NAMES;
+            // Fixed positions for 6 AI clusters in a 3x2 grid layout
             const cols = this.isMobile ? 2 : 3;
-            const rows = Math.ceil(names.length / cols);
-
-            // Calculate spacing
-            const paddingX = this.width * 0.15;
-            const paddingY = this.height * 0.2;
+            const rows = this.isMobile ? 3 : 2;
+            const paddingX = this.width * 0.12;
+            const paddingY = this.height * 0.15;
             const spacingX = (this.width - paddingX * 2) / (cols - 1 || 1);
             const spacingY = (this.height - paddingY * 2) / (rows - 1 || 1);
 
-            names.forEach((name, i) => {
+            // Create a cluster for each AI
+            AI_NAMES.forEach((name, i) => {
                 const col = i % cols;
                 const row = Math.floor(i / cols);
-                this.aiTerms.push({
-                    text: name,
-                    x: paddingX + col * spacingX,
-                    y: paddingY + row * spacingY,
-                    fontSize: this.isMobile ? 12 : 14,
-                    pulseOffset: i * 0.5 // Stagger the pulse animation
-                });
+                const centerX = paddingX + col * spacingX;
+                const centerY = paddingY + row * spacingY;
+
+                // Store cluster info
+                const cluster = {
+                    name: name,
+                    centerX: centerX,
+                    centerY: centerY,
+                    nodeStartIndex: this.nodes.length,
+                    nodeCount: this.nodesPerCluster,
+                    pulseOffset: i * 0.8 // Stagger animations
+                };
+
+                // Create nodes for this cluster
+                for (let n = 0; n < this.nodesPerCluster; n++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const radius = Math.random() * this.clusterSpread * (0.2 + Math.random() * 0.8);
+                    const x = centerX + Math.cos(angle) * radius;
+                    const y = centerY + Math.sin(angle) * radius;
+
+                    this.nodes.push(this.createNode(
+                        Math.max(20, Math.min(this.width - 20, x)),
+                        Math.max(20, Math.min(this.height - 20, y)),
+                        i // cluster index
+                    ));
+                }
+
+                this.aiClusters.push(cluster);
             });
+
+            // Sort nodes by z for depth layering
+            this.nodes.sort((a, b) => a.z - b.z);
+        }
+
+        createNode(x, y, clusterIndex) {
+            // z represents depth (0 = far/dim, 1 = close/bright)
+            const z = Math.random() * 0.6 + 0.4; // Brighter nodes (0.4-1.0)
+            return {
+                x, y, z,
+                clusterIndex: clusterIndex,
+                // Size and brightness based on depth
+                size: 2 + z * 3, // Slightly larger nodes
+                // Slow, gentle drift velocities
+                vx: (Math.random() - 0.5) * 0.2,
+                vy: (Math.random() - 0.5) * 0.2,
+                // Bright nodes glow
+                glowIntensity: 0.4 + z * 0.6,
+                pulseOffset: Math.random() * Math.PI * 2
+            };
         }
 
         updateNode(node, time) {
@@ -329,36 +305,56 @@ document.addEventListener('DOMContentLoaded', () => {
             this.ctx.fill();
         }
 
-        updateTerm(term, time) {
-            // Static labels - no movement, just subtle pulse animation
-        }
+        drawClusterLabels(time) {
+            // Draw permanent labels at each AI cluster center
+            this.aiClusters.forEach((cluster, i) => {
+                // Subtle pulse effect
+                const pulse = Math.sin(time * 0.002 + cluster.pulseOffset) * 0.15 + 0.85;
+                const brightness = 0.85 * pulse;
+                const fontSize = this.isMobile ? 11 : 14;
 
-        drawTerm(term, time) {
-            // Subtle pulse effect for visual interest
-            const pulse = Math.sin(time * 0.002 + term.pulseOffset) * 0.1 + 0.9;
-            const brightness = 0.6 * pulse;
+                this.ctx.save();
+                this.ctx.font = `bold ${fontSize}px monospace`;
+                this.ctx.textAlign = 'center';
+                this.ctx.textBaseline = 'middle';
 
-            this.ctx.save();
-            this.ctx.font = `bold ${term.fontSize}px monospace`;
-            this.ctx.textAlign = 'center';
-            this.ctx.textBaseline = 'middle';
+                // Draw dark background pill for readability
+                const textWidth = this.ctx.measureText(cluster.name).width;
+                const pillPadding = 8;
+                const pillHeight = fontSize + 8;
 
-            // Draw glow/background for readability
-            if (!this.isMobile) {
-                this.ctx.shadowColor = `rgba(230, 57, 70, ${brightness * 0.8})`;
-                this.ctx.shadowBlur = 12;
-            }
+                // Background pill
+                this.ctx.fillStyle = `rgba(15, 15, 20, 0.7)`;
+                this.ctx.beginPath();
+                const pillX = cluster.centerX - textWidth / 2 - pillPadding;
+                const pillY = cluster.centerY - pillHeight / 2;
+                const pillW = textWidth + pillPadding * 2;
+                const pillR = pillHeight / 2;
+                // Rounded rectangle
+                this.ctx.moveTo(pillX + pillR, pillY);
+                this.ctx.lineTo(pillX + pillW - pillR, pillY);
+                this.ctx.arc(pillX + pillW - pillR, pillY + pillR, pillR, -Math.PI / 2, Math.PI / 2);
+                this.ctx.lineTo(pillX + pillR, pillY + pillHeight);
+                this.ctx.arc(pillX + pillR, pillY + pillR, pillR, Math.PI / 2, -Math.PI / 2);
+                this.ctx.fill();
 
-            // Main text - bright red
-            this.ctx.fillStyle = `rgba(230, 57, 70, ${brightness})`;
-            this.ctx.fillText(term.text, term.x, term.y);
+                // Glowing border
+                this.ctx.strokeStyle = `rgba(230, 57, 70, ${brightness * 0.6})`;
+                this.ctx.lineWidth = 1.5;
+                this.ctx.stroke();
 
-            // Second pass for brighter center (no shadow)
-            this.ctx.shadowBlur = 0;
-            this.ctx.fillStyle = `rgba(255, 100, 100, ${brightness * 0.5})`;
-            this.ctx.fillText(term.text, term.x, term.y);
+                // Text glow
+                if (!this.isMobile) {
+                    this.ctx.shadowColor = `rgba(230, 57, 70, ${brightness})`;
+                    this.ctx.shadowBlur = 10;
+                }
 
-            this.ctx.restore();
+                // Main text - bright
+                this.ctx.fillStyle = `rgba(255, 255, 255, ${brightness})`;
+                this.ctx.fillText(cluster.name, cluster.centerX, cluster.centerY);
+
+                this.ctx.restore();
+            });
         }
 
         drawConnections(time) {
@@ -522,12 +518,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.drawNode(node, time);
             });
 
-            // Layer 4: AI Labels (topmost) - static permanent labels
+            // Layer 4: AI Cluster Labels (topmost)
             if (this.showTerms) {
-                this.aiTerms.forEach(term => {
-                    this.updateTerm(term, time);
-                    this.drawTerm(term, time);
-                });
+                this.drawClusterLabels(time);
             }
 
             this.animationId = requestAnimationFrame((t) => this.animate(t));
@@ -550,16 +543,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }));
     }
 
-    // Secondary canvases (CTA cards, footer - lighter version)
+    // Secondary canvases (CTA cards, footer - lighter version without labels)
     // Skip on mobile for better performance
     const isMobileDevice = window.innerWidth < 768 || 'ontouchstart' in window;
     if (!isMobileDevice) {
         document.querySelectorAll('.neural-canvas-secondary').forEach(canvas => {
             neuralNetworks.push(new NeuralNetwork(canvas, {
-                showTerms: false,
-                nodeDensity: 0.00015,
-                maxNodes: 80,
-                minNodes: 30
+                showTerms: false
             }));
         });
     }
