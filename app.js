@@ -146,8 +146,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 for (let j = i + 1; j < this.nodes.length; j++) {
                     const nodeA = this.nodes[i];
                     const nodeB = this.nodes[j];
-                    const dx = nodeA.x - nodeB.x;
-                    const dy = nodeA.y - nodeB.y;
+
+                    // Get current positions from cluster centers
+                    const posA = this.getNodePosition(nodeA);
+                    const posB = this.getNodePosition(nodeB);
+
+                    const dx = posA.x - posB.x;
+                    const dy = posA.y - posB.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
                     if (dist < maxDist) {
@@ -170,8 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Fixed positions for 6 AI clusters in a 3x2 grid layout
             const cols = this.isMobile ? 2 : 3;
             const rows = this.isMobile ? 3 : 2;
-            const paddingX = this.width * 0.12;
-            const paddingY = this.height * 0.15;
+            const paddingX = this.width * 0.15;
+            const paddingY = this.height * 0.18;
             const spacingX = (this.width - paddingX * 2) / (cols - 1 || 1);
             const spacingY = (this.height - paddingY * 2) / (rows - 1 || 1);
 
@@ -182,78 +187,87 @@ document.addEventListener('DOMContentLoaded', () => {
                 const centerX = paddingX + col * spacingX;
                 const centerY = paddingY + row * spacingY;
 
-                // Store cluster info
+                // Store cluster info with floating animation params
                 const cluster = {
                     name: name,
+                    baseCenterX: centerX,
+                    baseCenterY: centerY,
                     centerX: centerX,
                     centerY: centerY,
                     nodeStartIndex: this.nodes.length,
                     nodeCount: this.nodesPerCluster,
-                    pulseOffset: i * 0.8 // Stagger animations
+                    pulseOffset: i * 1.2,
+                    // Gentle floating animation - each cluster floats differently
+                    floatSpeedX: 0.0003 + Math.random() * 0.0002,
+                    floatSpeedY: 0.0004 + Math.random() * 0.0002,
+                    floatAmplitudeX: 15 + Math.random() * 10,
+                    floatAmplitudeY: 10 + Math.random() * 8,
+                    floatPhaseX: Math.random() * Math.PI * 2,
+                    floatPhaseY: Math.random() * Math.PI * 2
                 };
 
-                // Create nodes for this cluster
+                // Create nodes for this cluster - stored relative to center
                 for (let n = 0; n < this.nodesPerCluster; n++) {
                     const angle = Math.random() * Math.PI * 2;
-                    const radius = Math.random() * this.clusterSpread * (0.2 + Math.random() * 0.8);
-                    const x = centerX + Math.cos(angle) * radius;
-                    const y = centerY + Math.sin(angle) * radius;
+                    const radius = 25 + Math.random() * this.clusterSpread;
 
                     this.nodes.push(this.createNode(
-                        Math.max(20, Math.min(this.width - 20, x)),
-                        Math.max(20, Math.min(this.height - 20, y)),
-                        i // cluster index
+                        angle,
+                        radius,
+                        i,
+                        n
                     ));
                 }
 
                 this.aiClusters.push(cluster);
             });
-
-            // Sort nodes by z for depth layering
-            this.nodes.sort((a, b) => a.z - b.z);
         }
 
-        createNode(x, y, clusterIndex) {
+        createNode(angle, radius, clusterIndex, nodeIndex) {
             // z represents depth (0 = far/dim, 1 = close/bright)
-            const z = Math.random() * 0.6 + 0.4; // Brighter nodes (0.4-1.0)
+            const z = Math.random() * 0.6 + 0.4;
             return {
-                x, y, z,
+                // Store position as angle/radius from cluster center
+                angle: angle,
+                radius: radius,
                 clusterIndex: clusterIndex,
+                // Orbit speed - nodes slowly rotate around their cluster
+                orbitSpeed: (Math.random() - 0.5) * 0.0008,
                 // Size and brightness based on depth
-                size: 2 + z * 3, // Slightly larger nodes
-                // Slow, gentle drift velocities
-                vx: (Math.random() - 0.5) * 0.2,
-                vy: (Math.random() - 0.5) * 0.2,
-                // Bright nodes glow
+                size: 2 + z * 3,
+                z: z,
                 glowIntensity: 0.4 + z * 0.6,
                 pulseOffset: Math.random() * Math.PI * 2
             };
         }
 
         updateNode(node, time) {
-            // Slow organic drift - no mouse interaction
-            node.x += node.vx;
-            node.y += node.vy;
+            // Nodes orbit slowly around their cluster center
+            node.angle += node.orbitSpeed;
+        }
 
-            // Gentle boundary handling - soft bounce
-            const margin = 20;
-            if (node.x < margin) {
-                node.x = margin;
-                node.vx *= -1;
-            } else if (node.x > this.width - margin) {
-                node.x = this.width - margin;
-                node.vx *= -1;
-            }
-            if (node.y < margin) {
-                node.y = margin;
-                node.vy *= -1;
-            } else if (node.y > this.height - margin) {
-                node.y = this.height - margin;
-                node.vy *= -1;
-            }
+        getNodePosition(node, time) {
+            const cluster = this.aiClusters[node.clusterIndex];
+            // Calculate node position based on cluster center + angle/radius
+            const x = cluster.centerX + Math.cos(node.angle) * node.radius;
+            const y = cluster.centerY + Math.sin(node.angle) * node.radius;
+            return { x, y };
+        }
+
+        updateClusterPositions(time) {
+            // Update each cluster's floating position
+            this.aiClusters.forEach(cluster => {
+                cluster.centerX = cluster.baseCenterX +
+                    Math.sin(time * cluster.floatSpeedX + cluster.floatPhaseX) * cluster.floatAmplitudeX;
+                cluster.centerY = cluster.baseCenterY +
+                    Math.sin(time * cluster.floatSpeedY + cluster.floatPhaseY) * cluster.floatAmplitudeY;
+            });
         }
 
         drawNode(node, time) {
+            // Get position from cluster center
+            const pos = this.getNodePosition(node, time);
+
             // Pulsing glow based on depth
             const pulse = Math.sin(time * 0.003 + node.pulseOffset) * 0.15 + 0.85;
             const intensity = node.glowIntensity * pulse;
@@ -265,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Outer glow layer (most diffuse) - deep red
                 this.ctx.beginPath();
-                this.ctx.arc(node.x, node.y, glowSize, 0, Math.PI * 2);
+                this.ctx.arc(pos.x, pos.y, glowSize, 0, Math.PI * 2);
                 if (node.z > 0.6) {
                     this.ctx.fillStyle = `rgba(230, 57, 70, ${intensity * 0.08})`;
                 } else {
@@ -275,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Middle glow layer - pure red
                 this.ctx.beginPath();
-                this.ctx.arc(node.x, node.y, glowSize * 0.5, 0, Math.PI * 2);
+                this.ctx.arc(pos.x, pos.y, glowSize * 0.5, 0, Math.PI * 2);
                 if (node.z > 0.6) {
                     this.ctx.fillStyle = `rgba(255, 70, 70, ${intensity * 0.2})`;
                 } else if (node.z > 0.3) {
@@ -288,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Inner glow layer (bright nodes only) - bright red/pink
                 if (node.z > 0.5) {
                     this.ctx.beginPath();
-                    this.ctx.arc(node.x, node.y, glowSize * 0.25, 0, Math.PI * 2);
+                    this.ctx.arc(pos.x, pos.y, glowSize * 0.25, 0, Math.PI * 2);
                     this.ctx.fillStyle = `rgba(255, 100, 100, ${intensity * 0.4})`;
                     this.ctx.fill();
                 }
@@ -296,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Core of the node (bright center) - white/pink
             this.ctx.beginPath();
-            this.ctx.arc(node.x, node.y, node.size * 0.5, 0, Math.PI * 2);
+            this.ctx.arc(pos.x, pos.y, node.size * 0.5, 0, Math.PI * 2);
             if (node.z > 0.6) {
                 this.ctx.fillStyle = `rgba(255, 220, 220, ${intensity})`;
             } else {
@@ -371,13 +385,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const nodeA = this.nodes[conn.i];
                 const nodeB = this.nodes[conn.j];
 
+                // Get current positions from cluster centers
+                const posA = this.getNodePosition(nodeA);
+                const posB = this.getNodePosition(nodeB);
+
                 // Subtle pulse animation
                 const pulse = Math.sin(time * 0.001 + conn.i * 0.05) * 0.1 + 0.9;
                 const alpha = conn.baseAlpha * pulse;
 
                 this.ctx.beginPath();
-                this.ctx.moveTo(nodeA.x, nodeA.y);
-                this.ctx.lineTo(nodeB.x, nodeB.y);
+                this.ctx.moveTo(posA.x, posA.y);
+                this.ctx.lineTo(posB.x, posB.y);
 
                 // Color based on depth (pre-calculated avgZ)
                 if (conn.avgZ > 0.6) {
@@ -459,8 +477,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const startNode = this.nodes[pulse.startIdx];
                 const endNode = this.nodes[pulse.endIdx];
 
-                const x = startNode.x + (endNode.x - startNode.x) * pulse.progress;
-                const y = startNode.y + (endNode.y - startNode.y) * pulse.progress;
+                // Get current positions from cluster centers
+                const startPos = this.getNodePosition(startNode);
+                const endPos = this.getNodePosition(endNode);
+
+                const x = startPos.x + (endPos.x - startPos.x) * pulse.progress;
+                const y = startPos.y + (endPos.y - startPos.y) * pulse.progress;
 
                 // Trail - red/pink
                 const trailSteps = this.isMobile ? 3 : 6;
@@ -468,8 +490,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const trailProg = pulse.progress - (0.15 * t / trailSteps);
                     if (trailProg < 0) continue;
 
-                    const tx = startNode.x + (endNode.x - startNode.x) * trailProg;
-                    const ty = startNode.y + (endNode.y - startNode.y) * trailProg;
+                    const tx = startPos.x + (endPos.x - startPos.x) * trailProg;
+                    const ty = startPos.y + (endPos.y - startPos.y) * trailProg;
                     const trailAlpha = (1 - t / trailSteps) * pulse.brightness * 0.5;
 
                     this.ctx.beginPath();
@@ -504,6 +526,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             this.ctx.clearRect(0, 0, this.width, this.height);
 
+            // Update cluster floating positions (labels + nodes move together)
+            this.updateClusterPositions(time);
+
             // Layer 1: Connections (behind everything)
             this.drawConnections(time);
 
@@ -512,7 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.updateDataPulses();
             this.drawDataPulses();
 
-            // Layer 3: Nodes (sorted by z, far to near)
+            // Layer 3: Nodes (orbit around their cluster center)
             this.nodes.forEach(node => {
                 this.updateNode(node, time);
                 this.drawNode(node, time);
