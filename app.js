@@ -121,20 +121,23 @@ document.addEventListener('DOMContentLoaded', () => {
             // Mobile detection
             this.isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
 
-            // Mode: 'clusters' (main page with AI names) or 'terms' (other pages with floating terms)
+            // Mode: 'clusters', 'terms', or 'combined' (main page with both)
             this.mode = options.mode || 'clusters';
 
-            // Cluster settings - one per AI (cluster mode)
-            this.nodesPerCluster = this.isMobile ? 15 : 25;
-            this.clusterSpread = this.isMobile ? 80 : 120;
+            // Enhanced settings for combined mode (main page - larger network)
+            const isCombined = this.mode === 'combined';
 
-            // Terms mode settings
+            // Cluster settings - one per AI (cluster mode)
+            this.nodesPerCluster = this.isMobile ? (isCombined ? 20 : 15) : (isCombined ? 35 : 25);
+            this.clusterSpread = this.isMobile ? (isCombined ? 100 : 80) : (isCombined ? 150 : 120);
+
+            // Terms mode settings - more terms for combined mode
             this.nodeCount = this.isMobile ? 40 : 80;
-            this.termCount = this.isMobile ? 6 : 12;
+            this.termCount = this.isMobile ? (isCombined ? 8 : 6) : (isCombined ? 15 : 12);
 
             // Options
             this.showTerms = options.showTerms !== false;
-            this.maxConnectionDistance = this.isMobile ? 100 : 140;
+            this.maxConnectionDistance = this.isMobile ? (isCombined ? 120 : 100) : (isCombined ? 180 : 140);
 
             // Data pulses traveling along connections - more active
             this.dataPulses = [];
@@ -173,6 +176,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Initialize based on mode
             if (this.mode === 'terms') {
                 this.initTermsMode();
+            } else if (this.mode === 'combined') {
+                // Combined mode: both AI clusters AND floating terms
+                this.initClusters();
+                this.initFloatingTermsOnly();  // Add floating terms without resetting nodes
             } else {
                 this.initClusters();
             }
@@ -301,6 +308,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     isTermsMode: true
                 });
             }
+
+            // Create floating terms - select random subset
+            const shuffledTerms = [...AI_TERMS].sort(() => Math.random() - 0.5);
+            const selectedTerms = shuffledTerms.slice(0, this.termCount);
+
+            selectedTerms.forEach((term, i) => {
+                this.floatingTerms.push({
+                    text: term,
+                    x: Math.random() * (this.width * 0.8) + this.width * 0.1,
+                    y: Math.random() * (this.height * 0.8) + this.height * 0.1,
+                    // Floating animation
+                    floatSpeedX: 0.0003 + Math.random() * 0.0002,
+                    floatSpeedY: 0.0004 + Math.random() * 0.0002,
+                    floatAmplitudeX: 20 + Math.random() * 30,
+                    floatAmplitudeY: 15 + Math.random() * 25,
+                    floatPhaseX: Math.random() * Math.PI * 2,
+                    floatPhaseY: Math.random() * Math.PI * 2,
+                    // Visual properties
+                    opacity: 0.3 + Math.random() * 0.4,
+                    pulseOffset: i * 0.8,
+                    fontSize: this.isMobile ? 10 : 12 + Math.floor(Math.random() * 4)
+                });
+            });
+        }
+
+        // Initialize only floating terms (for combined mode - doesn't reset nodes)
+        initFloatingTermsOnly() {
+            this.floatingTerms = [];
 
             // Create floating terms - select random subset
             const shuffledTerms = [...AI_TERMS].sort(() => Math.random() - 0.5);
@@ -690,6 +725,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Update positions based on mode
             if (this.mode === 'terms') {
                 this.updateFloatingTerms(time);
+            } else if (this.mode === 'combined') {
+                // Combined mode: update both clusters and floating terms
+                this.updateClusterPositions(time);
+                this.updateFloatingTerms(time);
             } else {
                 this.updateClusterPositions(time);
             }
@@ -710,10 +749,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Layer 4: Labels (topmost)
             if (this.mode === 'terms') {
-                // Terms mode: draw floating AI terms
+                // Terms mode: draw floating AI terms only
                 this.drawFloatingTerms(time);
+            } else if (this.mode === 'combined') {
+                // Combined mode: draw both floating terms and cluster labels
+                this.drawFloatingTerms(time);
+                if (this.showTerms) {
+                    this.drawClusterLabels(time);
+                }
             } else if (this.showTerms) {
-                // Cluster mode: draw AI cluster labels
+                // Cluster mode: draw AI cluster labels only
                 this.drawClusterLabels(time);
             }
 
@@ -729,20 +774,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize all neural network canvases
     const neuralNetworks = [];
 
-    // Check if this is the main index page (has neural-network canvas with AI clusters)
+    // Check if this is the main index page (root path or /index.html)
     const mainCanvas = document.getElementById('neural-network');
-    const isMainPage = mainCanvas && window.location.pathname.endsWith('index.html') ||
-                       window.location.pathname === '/' ||
-                       window.location.pathname.endsWith('/');
+    const pathname = window.location.pathname;
+    const isMainPage = pathname === '/' ||
+                       pathname === '/index.html' ||
+                       pathname.endsWith('/index.html') ||
+                       (pathname.endsWith('/') && !pathname.includes('/learn/') &&
+                        !pathname.includes('/tools/') && !pathname.includes('/patterns/') &&
+                        !pathname.includes('/quiz/') && !pathname.includes('/pages/'));
 
-    // Main hero canvas on index page - cluster mode with AI labels
+    // Main hero canvas on index page - combined mode with AI clusters AND floating terms
     if (mainCanvas && isMainPage) {
         neuralNetworks.push(new NeuralNetwork(mainCanvas, {
-            mode: 'clusters',
+            mode: 'combined',  // Shows both AI clusters and floating terms
             showTerms: true
         }));
     } else if (mainCanvas) {
-        // Other pages - terms mode with floating AI terminology
+        // Other pages - terms mode with floating AI terminology only (no AI names)
         neuralNetworks.push(new NeuralNetwork(mainCanvas, {
             mode: 'terms'
         }));
