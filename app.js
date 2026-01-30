@@ -90,8 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
             this.height = 0;
             this.nodes = [];
             this.aiTerms = [];
-            this.mouse = { x: null, y: null, radius: 150 };
             this.animationId = null;
+
+            // Cluster settings for organic grouping
+            this.clusterCount = this.isMobile ? 3 : 5;
+            this.clusterSpread = this.isMobile ? 150 : 200;
 
             // Mobile detection
             this.isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
@@ -101,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.nodeDensity = this.isMobile ? 0.00012 : (options.nodeDensity || 0.00025);
             this.maxNodes = this.isMobile ? 80 : (options.maxNodes || 200);
             this.minNodes = this.isMobile ? 40 : (options.minNodes || 80);
-            this.termCount = this.isMobile ? 4 : (options.termCount || 10);
+            this.termCount = this.isMobile ? 8 : (options.termCount || 18);
             this.maxConnectionDistance = this.isMobile ? 120 : 180;
 
             // Data pulses traveling along connections
@@ -131,30 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupEventListeners() {
             this.resizeHandler = () => this.resize();
             window.addEventListener('resize', this.resizeHandler);
-
-            this.canvas.addEventListener('mousemove', (e) => {
-                const rect = this.canvas.getBoundingClientRect();
-                this.mouse.x = e.clientX - rect.left;
-                this.mouse.y = e.clientY - rect.top;
-            });
-
-            this.canvas.addEventListener('mouseleave', () => {
-                this.mouse.x = null;
-                this.mouse.y = null;
-            });
-
-            this.canvas.addEventListener('touchmove', (e) => {
-                if (e.touches.length > 0) {
-                    const rect = this.canvas.getBoundingClientRect();
-                    this.mouse.x = e.touches[0].clientX - rect.left;
-                    this.mouse.y = e.touches[0].clientY - rect.top;
-                }
-            }, { passive: true });
-
-            this.canvas.addEventListener('touchend', () => {
-                this.mouse.x = null;
-                this.mouse.y = null;
-            });
+            // No mouse/touch interaction - network animates on its own
         }
 
         resize() {
@@ -197,10 +177,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const nodeCount = Math.floor(this.width * this.height * this.nodeDensity);
             const clampedCount = Math.min(Math.max(nodeCount, this.minNodes), this.maxNodes);
 
-            for (let i = 0; i < clampedCount; i++) {
+            // Create cluster centers spread across the canvas
+            const clusters = [];
+            for (let i = 0; i < this.clusterCount; i++) {
+                clusters.push({
+                    x: Math.random() * this.width * 0.8 + this.width * 0.1,
+                    y: Math.random() * this.height * 0.8 + this.height * 0.1
+                });
+            }
+
+            // Distribute nodes - 70% clustered, 30% scattered
+            const clusteredCount = Math.floor(clampedCount * 0.7);
+            const scatteredCount = clampedCount - clusteredCount;
+
+            // Clustered nodes
+            for (let i = 0; i < clusteredCount; i++) {
+                const cluster = clusters[Math.floor(Math.random() * clusters.length)];
+                // Gaussian-like distribution around cluster center
+                const angle = Math.random() * Math.PI * 2;
+                const radius = Math.random() * this.clusterSpread * (0.3 + Math.random() * 0.7);
+                const x = cluster.x + Math.cos(angle) * radius;
+                const y = cluster.y + Math.sin(angle) * radius;
                 this.nodes.push(this.createNode(
-                    Math.random() * this.width,
-                    Math.random() * this.height
+                    Math.max(20, Math.min(this.width - 20, x)),
+                    Math.max(20, Math.min(this.height - 20, y))
+                ));
+            }
+
+            // Scattered nodes for organic feel
+            for (let i = 0; i < scatteredCount; i++) {
+                this.nodes.push(this.createNode(
+                    Math.random() * (this.width - 40) + 20,
+                    Math.random() * (this.height - 40) + 20
                 ));
             }
 
@@ -213,16 +221,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const z = Math.random();
             return {
                 x, y, z,
-                baseX: x,
-                baseY: y,
                 // Size and brightness based on depth
                 size: 1.5 + z * 3, // 1.5-4.5 range
-                vx: (Math.random() - 0.5) * 0.3,
-                vy: (Math.random() - 0.5) * 0.3,
+                // Slow, gentle drift velocities
+                vx: (Math.random() - 0.5) * 0.15,
+                vy: (Math.random() - 0.5) * 0.15,
                 // Bright nodes glow orange-yellow, dim nodes are deep red
                 glowIntensity: 0.3 + z * 0.7, // 0.3-1.0
-                pulseOffset: Math.random() * Math.PI * 2,
-                connections: [] // Cache connections for performance
+                pulseOffset: Math.random() * Math.PI * 2
             };
         }
 
@@ -238,45 +244,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 text: AI_TERMS[Math.floor(Math.random() * AI_TERMS.length)],
                 x: Math.random() * this.width,
                 y: Math.random() * this.height,
-                vx: (Math.random() - 0.5) * 0.15,
-                vy: (Math.random() - 0.5) * 0.15,
+                // Slow, gentle drift
+                vx: (Math.random() - 0.5) * 0.1,
+                vy: (Math.random() - 0.5) * 0.1,
                 fontSize: Math.random() * 6 + 10,
                 brightness: 0,
-                targetBrightness: Math.random() * 0.3 + 0.15,
-                fadeSpeed: Math.random() * 0.005 + 0.002,
+                targetBrightness: Math.random() * 0.35 + 0.2,
+                fadeSpeed: Math.random() * 0.004 + 0.002,
                 phase: 'fadeIn',
-                lifetime: Math.random() * 10000 + 6000,
+                lifetime: Math.random() * 12000 + 8000,
                 born: performance.now() - Math.random() * 5000
             };
         }
 
         updateNode(node, time) {
-            // Mouse interaction - attract slightly, repel when too close
-            if (this.mouse.x !== null && this.mouse.y !== null) {
-                const dx = this.mouse.x - node.x;
-                const dy = this.mouse.y - node.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+            // Slow organic drift - no mouse interaction
+            node.x += node.vx;
+            node.y += node.vy;
 
-                if (distance < this.mouse.radius) {
-                    const force = (this.mouse.radius - distance) / this.mouse.radius;
-                    const angle = Math.atan2(dy, dx);
-                    // Gentle repulsion
-                    node.x -= Math.cos(angle) * force * 1.5;
-                    node.y -= Math.sin(angle) * force * 1.5;
-                }
+            // Gentle boundary handling - soft bounce
+            const margin = 20;
+            if (node.x < margin) {
+                node.x = margin;
+                node.vx *= -1;
+            } else if (node.x > this.width - margin) {
+                node.x = this.width - margin;
+                node.vx *= -1;
             }
-
-            // Spring back to base position
-            node.x += (node.baseX - node.x) * 0.02;
-            node.y += (node.baseY - node.y) * 0.02;
-
-            // Slow organic drift
-            node.baseX += node.vx;
-            node.baseY += node.vy;
-
-            // Bounce off edges
-            if (node.baseX < 0 || node.baseX > this.width) node.vx *= -1;
-            if (node.baseY < 0 || node.baseY > this.height) node.vy *= -1;
+            if (node.y < margin) {
+                node.y = margin;
+                node.vy *= -1;
+            } else if (node.y > this.height - margin) {
+                node.y = this.height - margin;
+                node.vy *= -1;
+            }
         }
 
         drawNode(node, time) {
@@ -332,20 +333,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         updateTerm(term) {
+            // Slow drift - no mouse interaction
             term.x += term.vx;
             term.y += term.vy;
 
-            if (this.mouse.x !== null && this.mouse.y !== null) {
-                const dx = this.mouse.x - term.x;
-                const dy = this.mouse.y - term.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < this.mouse.radius * 0.8) {
-                    const force = (this.mouse.radius * 0.8 - distance) / (this.mouse.radius * 0.8);
-                    term.x -= (dx / distance) * force * 1.5;
-                    term.y -= (dy / distance) * force * 1.5;
-                }
-            }
-
+            // Wrap around edges
             if (term.x < -100) term.x = this.width + 100;
             if (term.x > this.width + 100) term.x = -100;
             if (term.y < -50) term.y = this.height + 50;
@@ -567,12 +559,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize all neural network canvases
     const neuralNetworks = [];
 
-    // Main hero canvas - dense 3D mesh with glowing nodes
+    // Main hero canvas - self-animating neural network with clusters
     const mainCanvas = document.getElementById('neural-network');
     if (mainCanvas) {
         neuralNetworks.push(new NeuralNetwork(mainCanvas, {
             showTerms: true,
-            termCount: window.innerWidth < 768 ? 5 : 10
+            termCount: window.innerWidth < 768 ? 8 : 18
         }));
     }
 
