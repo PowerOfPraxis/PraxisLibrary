@@ -175,8 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Fixed positions for 6 AI clusters in a 3x2 grid layout
             const cols = this.isMobile ? 2 : 3;
             const rows = this.isMobile ? 3 : 2;
-            const paddingX = this.width * 0.15;
-            const paddingY = this.height * 0.18;
+            const paddingX = this.width * 0.12;
+            const paddingY = this.height * 0.15;
             const spacingX = (this.width - paddingX * 2) / (cols - 1 || 1);
             const spacingY = (this.height - paddingY * 2) / (rows - 1 || 1);
 
@@ -197,11 +197,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     nodeStartIndex: this.nodes.length,
                     nodeCount: this.nodesPerCluster,
                     pulseOffset: i * 1.2,
-                    // Gentle floating animation - each cluster floats differently
-                    floatSpeedX: 0.0003 + Math.random() * 0.0002,
-                    floatSpeedY: 0.0004 + Math.random() * 0.0002,
-                    floatAmplitudeX: 15 + Math.random() * 10,
-                    floatAmplitudeY: 10 + Math.random() * 8,
+                    // Gentle floating animation - subtle movement to keep clusters recognizable
+                    floatSpeedX: 0.0002 + Math.random() * 0.0001,
+                    floatSpeedY: 0.0003 + Math.random() * 0.0001,
+                    floatAmplitudeX: 8 + Math.random() * 5,
+                    floatAmplitudeY: 6 + Math.random() * 4,
                     floatPhaseX: Math.random() * Math.PI * 2,
                     floatPhaseY: Math.random() * Math.PI * 2
                 };
@@ -322,10 +322,9 @@ document.addEventListener('DOMContentLoaded', () => {
         drawClusterLabels(time) {
             // Draw permanent labels at each AI cluster center
             this.aiClusters.forEach((cluster, i) => {
-                // Subtle pulse effect
-                const pulse = Math.sin(time * 0.002 + cluster.pulseOffset) * 0.15 + 0.85;
-                const brightness = 0.85 * pulse;
-                const fontSize = this.isMobile ? 11 : 14;
+                // Subtle pulse effect - keep labels bright and visible
+                const pulse = Math.sin(time * 0.002 + cluster.pulseOffset) * 0.1 + 0.9;
+                const fontSize = this.isMobile ? 12 : 15;
 
                 this.ctx.save();
                 this.ctx.font = `bold ${fontSize}px monospace`;
@@ -334,11 +333,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Draw dark background pill for readability
                 const textWidth = this.ctx.measureText(cluster.name).width;
-                const pillPadding = 8;
-                const pillHeight = fontSize + 8;
+                const pillPadding = 10;
+                const pillHeight = fontSize + 10;
 
-                // Background pill
-                this.ctx.fillStyle = `rgba(15, 15, 20, 0.7)`;
+                // Background pill - more opaque for better readability
+                this.ctx.fillStyle = `rgba(10, 10, 15, 0.9)`;
                 this.ctx.beginPath();
                 const pillX = cluster.centerX - textWidth / 2 - pillPadding;
                 const pillY = cluster.centerY - pillHeight / 2;
@@ -352,19 +351,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.ctx.arc(pillX + pillR, pillY + pillR, pillR, Math.PI / 2, -Math.PI / 2);
                 this.ctx.fill();
 
-                // Glowing border
-                this.ctx.strokeStyle = `rgba(230, 57, 70, ${brightness * 0.6})`;
-                this.ctx.lineWidth = 1.5;
+                // Glowing border - brighter red
+                this.ctx.strokeStyle = `rgba(230, 57, 70, ${pulse * 0.8})`;
+                this.ctx.lineWidth = 2;
                 this.ctx.stroke();
 
-                // Text glow
+                // Text glow - white glow for better visibility
                 if (!this.isMobile) {
-                    this.ctx.shadowColor = `rgba(230, 57, 70, ${brightness})`;
-                    this.ctx.shadowBlur = 10;
+                    this.ctx.shadowColor = `rgba(255, 255, 255, 0.5)`;
+                    this.ctx.shadowBlur = 8;
                 }
 
-                // Main text - bright
-                this.ctx.fillStyle = `rgba(255, 255, 255, ${brightness})`;
+                // Main text - fully white, always visible
+                this.ctx.fillStyle = '#ffffff';
                 this.ctx.fillText(cluster.name, cluster.centerX, cluster.centerY);
 
                 this.ctx.restore();
