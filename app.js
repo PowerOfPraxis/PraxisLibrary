@@ -2116,12 +2116,36 @@ document.addEventListener('DOMContentLoaded', () => {
             const detectedElements = Object.values(elementSummary).filter(e => e.detected);
             const avgElementScore = detectedElements.length > 0 ? detectedElements.reduce((sum, e) => sum + e.score, 0) / detectedElements.length : 0;
 
+            // Structural bonus for having key elements
             let structuralScore = 0;
             if (elementSummary.instruction?.detected) structuralScore += 50;
             if (elementSummary.context?.detected) structuralScore += 30;
             if (elementSummary.role?.detected || elementSummary.audience?.detected) structuralScore += 20;
 
-            return Math.min(100, Math.max(0, Math.round(frameworkScore * 0.50 + avgElementScore * 0.30 + structuralScore * 0.20)));
+            // Confidence bonus - reward high-confidence detections
+            const highConfidenceCount = detectedElements.filter(e => e.confidence === 'high').length;
+            const confidenceBonus = highConfidenceCount * 4; // Up to 32 points for 8 high-confidence
+
+            // Extra elements bonus - reward detecting elements beyond framework requirements
+            const frameworkElements = {
+                CRISP: ['context', 'role', 'instruction', 'specifics', 'parameters'],
+                COSTAR: ['context', 'instruction', 'tone', 'audience', 'specifics'],
+                CRISPE: ['context', 'role', 'instruction', 'specifics', 'parameters', 'examples']
+            };
+            const requiredCount = frameworkElements[selectedFramework]?.length || 5;
+            const extraElementsCount = Math.max(0, detectedElements.length - requiredCount);
+            const extraElementsBonus = extraElementsCount * 5; // Bonus for tone, examples, etc beyond framework
+
+            // Richness bonus - reward comprehensive prompts
+            const richnessBonus = detectedElements.length >= 6 ? 8 : detectedElements.length >= 5 ? 5 : 0;
+
+            // Calculate base score with adjusted weights
+            const baseScore = frameworkScore * 0.45 + avgElementScore * 0.25 + structuralScore * 0.20;
+
+            // Add bonuses (capped contribution)
+            const totalBonus = Math.min(20, (confidenceBonus + extraElementsBonus + richnessBonus) * 0.5);
+
+            return Math.min(100, Math.max(0, Math.round(baseScore + totalBonus)));
         }
 
         generateFeedback(elementSummary, frameworkFit, selectedFramework) {
