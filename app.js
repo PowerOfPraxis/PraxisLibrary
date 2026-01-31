@@ -3081,8 +3081,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const quizContainer = document.getElementById('readiness-quiz');
 
     if (quizContainer) {
-        console.log('Quiz v2.0 loaded - 10 questions with pillar tracking');
-
         // 10 Questions with progressive difficulty and pillar mapping
         // All options balanced in length, plausible distractors, varied correct positions
         const questions = [
@@ -3441,6 +3439,4 @@ document.addEventListener('DOMContentLoaded', () => {
             // Future: open search modal
         }
     });
-
-    console.log('Praxis initialized');
 });
