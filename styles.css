@@ -5208,3 +5208,263 @@ body.menu-open {
         align-self: flex-start;
     }
 }
+
+/* ============================================
+   PROGRESSIVE BUILD COMPONENT
+   Shows how prompts transform by adding elements
+   ============================================ */
+
+.progressive-build {
+    margin-top: var(--space-lg);
+}
+
+.progressive-build-intro {
+    margin-bottom: var(--space-lg);
+}
+
+.progressive-build-intro p {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+}
+
+.build-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.build-step {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
+
+.build-step:hover {
+    border-color: var(--primary);
+}
+
+.build-step-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.build-step-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-shrink: 0;
+}
+
+.build-step-number {
+    width: 28px;
+    height: 28px;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.build-step.start .build-step-number {
+    background: var(--text-muted);
+}
+
+.build-step-action {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.build-step.start .build-step-action {
+    color: var(--text-muted);
+}
+
+.build-step-element {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--space-xs) var(--space-sm);
+    background: rgba(220, 53, 69, 0.1);
+    color: var(--primary);
+    border-radius: var(--radius-sm);
+}
+
+.build-step.start .build-step-element {
+    background: rgba(107, 114, 128, 0.1);
+    color: var(--text-muted);
+}
+
+.build-step-content {
+    padding: var(--space-md);
+}
+
+.build-step-prompt {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.build-step-prompt .highlight {
+    background: rgba(220, 53, 69, 0.1);
+    padding: 2px 4px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+}
+
+/* Final step styling */
+.build-step.final {
+    border-color: #10B981;
+    border-width: 2px;
+}
+
+.build-step.final .build-step-header {
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.build-step.final .build-step-number {
+    background: #10B981;
+}
+
+.build-step.final .build-step-action {
+    color: #10B981;
+}
+
+.build-step.final .build-step-element {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+}
+
+/* Arrow connector between steps */
+.build-arrow {
+    display: flex;
+    justify-content: center;
+    padding: var(--space-xs) 0;
+    color: var(--text-muted);
+    font-size: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .build-step-header {
+        padding: var(--space-md) var(--space-lg);
+    }
+
+    .build-step-content {
+        padding: var(--space-lg);
+    }
+
+    .build-step-prompt {
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   Scenario Tabs (Flip-through examples)
+   ============================================ */
+
+.scenario-tabs-container {
+    margin-bottom: var(--space-lg);
+}
+
+.scenario-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+}
+
+.scenario-tab {
+    padding: var(--space-xs) var(--space-md);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.scenario-tab:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.scenario-tab.active {
+    background: var(--primary);
+    color: white;
+}
+
+.scenario-tab .tab-icon {
+    margin-right: var(--space-xs);
+    font-size: 0.75rem;
+}
+
+.scenario-content {
+    display: none;
+}
+
+.scenario-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scenario label shown above progressive build */
+.scenario-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-md);
+}
+
+.scenario-label .dept-badge {
+    padding: 2px 6px;
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius-sm);
+    font-size: 0.6875rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+    .scenario-tabs {
+        gap: 4px;
+        padding: var(--space-xs);
+    }
+
+    .scenario-tab {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.75rem;
+    }
+
+    .scenario-tab .tab-icon {
+        display: none;
+    }
+}
