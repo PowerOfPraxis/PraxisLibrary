@@ -566,9 +566,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             i: nodeAIndex,
                             j: nodeBIndex,
                             avgZ: avgZ,
-                            baseAlpha: 0.15 + avgZ * 0.2,
-                            lineWidth: 0.5 + avgZ * 1,
-                            isProminent: Math.random() > 0.7,
+                            baseAlpha: 0.4 + avgZ * 0.4, // Brighter lines
+                            lineWidth: 1 + avgZ * 1.5,   // Thicker lines
+                            isProminent: Math.random() > 0.5, // More prominent lines
                             fromLayer: layer,
                             toLayer: layer + 1
                         });
@@ -1142,20 +1142,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Hero mode (layered network): varied colors like real NN diagrams
                 if (isHero && conn.fromLayer !== undefined) {
-                    // Color based on layer - creates visual depth
+                    // Color based on layer - creates visual depth (brighter colors)
                     const layerColors = [
-                        [100, 180, 255], // Blue - input
-                        [255, 150, 100], // Orange
-                        [150, 255, 150], // Green
-                        [255, 100, 150], // Pink
-                        [200, 150, 255], // Purple
-                        [255, 200, 100], // Gold
-                        [100, 255, 200]  // Cyan - output
+                        [120, 200, 255], // Blue - input
+                        [255, 180, 120], // Orange
+                        [180, 255, 180], // Green
+                        [255, 130, 180], // Pink
+                        [220, 180, 255], // Purple
+                        [255, 220, 130], // Gold
+                        [130, 255, 220]  // Cyan - output
                     ];
                     const colorIdx = conn.fromLayer % layerColors.length;
                     const color = layerColors[colorIdx];
-                    const bright = conn.isProminent ? 1 : 0.7;
-                    this.ctx.strokeStyle = `rgba(${color[0] * bright}, ${color[1] * bright}, ${color[2] * bright}, ${alpha})`;
+                    const bright = conn.isProminent ? 1 : 0.8; // Dimmer lines still fairly visible
+                    this.ctx.strokeStyle = `rgba(${Math.min(255, color[0] * bright)}, ${Math.min(255, color[1] * bright)}, ${Math.min(255, color[2] * bright)}, ${alpha})`;
                 } else {
                     // Original color scheme for non-hero modes
                     if (conn.avgZ > 0.6) {
