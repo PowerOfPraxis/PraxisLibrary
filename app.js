@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.heroOpacity = 0.5; // Slightly more visible
                 this.currentAIIndex = 0;
                 this.lastAISwitch = 0;
-                this.aiSwitchInterval = 9000; // 9 seconds
+                this.aiSwitchInterval = 15000; // 15 seconds
                 this.aiTransitionProgress = 1; // 0-1 for fade transition
                 this.aiTransitionDuration = 1000; // 1s fade
                 this.heroSide = 'left'; // Alternates between 'left' and 'right'
@@ -1436,7 +1436,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Main hero canvas on index page - hero mode with single large network cycling through AI names
     if (mainCanvas && isMainPage) {
         neuralNetworks.push(new NeuralNetwork(mainCanvas, {
-            mode: 'hero',  // Single large network on left, cycles AI names every 13 seconds
+            mode: 'hero',  // Single large network on left, cycles AI names every 15 seconds
             showTerms: true
         }));
     } else if (mainCanvas) {
