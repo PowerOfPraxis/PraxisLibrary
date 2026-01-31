@@ -343,9 +343,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.heroOpacity = 0.5; // Slightly more visible
                 this.currentAIIndex = 0;
                 this.lastAISwitch = 0;
-                this.aiSwitchInterval = 20000; // 20 seconds
+                this.aiSwitchInterval = 9000; // 9 seconds
                 this.aiTransitionProgress = 1; // 0-1 for fade transition
-                this.aiTransitionDuration = 1500; // 1.5s fade
+                this.aiTransitionDuration = 1000; // 1s fade
                 this.heroSide = 'left'; // Alternates between 'left' and 'right'
                 this.heroFadeOut = false; // True during fade-out phase
                 // Rotation
@@ -830,21 +830,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!this.chatContainer || !this.chatAnimationStarted) return;
 
             const now = performance.now();
-            const typingSpeed = 40; // ms per character
+            const typingSpeed = 25; // ms per character (faster for 9s cycle)
 
-            // Phase timing (within 20 second cycle):
-            // 0-500ms: Wait, then show container
-            // 500-3000ms: Type prompt
-            // 3000-3500ms: Pause
-            // 3500-7000ms: Type response
-            // 7000-17000ms: Display both
-            // 17000-18000ms: Fade out
-            // 18000-20000ms: Hidden during transition
+            // Phase timing (within 9 second cycle):
+            // 0-300ms: Wait, then show container
+            // 300-2200ms: Type prompt
+            // 2200-2500ms: Pause
+            // 2500-5000ms: Type response
+            // 5000-7500ms: Display both
+            // 7500-9000ms: Fade out during transition
 
-            if (timeSinceSwitch < 500) {
+            if (timeSinceSwitch < 300) {
                 // Wait before showing
                 this.chatContainer.classList.remove('visible');
-            } else if (timeSinceSwitch < 3000 && this.chatPhase === 'prompt') {
+            } else if (timeSinceSwitch < 2200 && this.chatPhase === 'prompt') {
                 // Type prompt
                 this.chatContainer.classList.add('visible');
                 if (now - this.chatLastCharTime > typingSpeed && this.chatCharIndex < this.currentScript.prompt.length) {
@@ -855,13 +854,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (this.chatCharIndex >= this.currentScript.prompt.length) {
                     this.chatPromptCursor.classList.add('hidden');
                 }
-            } else if (timeSinceSwitch >= 3000 && timeSinceSwitch < 3500) {
+            } else if (timeSinceSwitch >= 2200 && timeSinceSwitch < 2500) {
                 // Pause between prompt and response
                 if (this.chatPhase === 'prompt') {
                     this.chatPhase = 'pause';
                     this.chatPromptCursor.classList.add('hidden');
                 }
-            } else if (timeSinceSwitch >= 3500 && timeSinceSwitch < 8000) {
+            } else if (timeSinceSwitch >= 2500 && timeSinceSwitch < 5000) {
                 // Type response
                 if (this.chatPhase === 'pause') {
                     this.chatPhase = 'response';
@@ -877,11 +876,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (this.chatCharIndex >= this.currentScript.response.length) {
                     this.chatResponseCursor.classList.add('hidden');
                 }
-            } else if (timeSinceSwitch >= 8000 && timeSinceSwitch < 17000) {
+            } else if (timeSinceSwitch >= 5000 && timeSinceSwitch < 7500) {
                 // Display both - ensure cursors are hidden
                 this.chatPromptCursor.classList.add('hidden');
                 this.chatResponseCursor.classList.add('hidden');
-            } else if (timeSinceSwitch >= 17000 && timeSinceSwitch < this.aiSwitchInterval) {
+            } else if (timeSinceSwitch >= 7500 && timeSinceSwitch < this.aiSwitchInterval) {
                 // Fade out before switch
                 this.chatContainer.classList.remove('visible');
                 this.chatAnimationStarted = false;
