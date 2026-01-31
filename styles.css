@@ -6444,34 +6444,87 @@ body.menu-open {
     position: relative;
 }
 
+/* CRISPE Elements: C (Context), R (Role), I (Instruction), S (Specifics), P (Parameters), E (Example) */
 .example-element[data-element="C"] {
     background: rgba(220, 53, 69, 0.1);
     border-bottom: 2px solid #DC3545;
+    color: #DC3545;
 }
 
 .example-element[data-element="R"] {
     background: rgba(232, 93, 4, 0.1);
     border-bottom: 2px solid #E85D04;
+    color: #E85D04;
 }
 
 .example-element[data-element="I"] {
     background: rgba(33, 150, 243, 0.1);
     border-bottom: 2px solid #2196F3;
+    color: #2196F3;
 }
 
 .example-element[data-element="S"] {
     background: rgba(156, 39, 176, 0.1);
     border-bottom: 2px solid #9C27B0;
+    color: #9C27B0;
 }
 
 .example-element[data-element="P"] {
     background: rgba(76, 175, 80, 0.1);
     border-bottom: 2px solid #4CAF50;
+    color: #4CAF50;
 }
 
 .example-element[data-element="E"] {
     background: rgba(255, 152, 0, 0.1);
     border-bottom: 2px solid #FF9800;
+    color: #FF9800;
+}
+
+/* COSTAR Elements: C (Context), O (Objective), S (Style), T (Tone), A (Audience), R (Response) */
+.example-element[data-element="O"] {
+    background: rgba(232, 93, 4, 0.1);
+    border-bottom: 2px solid #E85D04;
+    color: #E85D04;
+}
+
+.example-element[data-element="T"] {
+    background: rgba(156, 39, 176, 0.1);
+    border-bottom: 2px solid #9C27B0;
+    color: #9C27B0;
+}
+
+.example-element[data-element="A"] {
+    background: rgba(76, 175, 80, 0.1);
+    border-bottom: 2px solid #4CAF50;
+    color: #4CAF50;
+}
+
+/* COSTAR overrides: S = Style (blue), R = Response (orange) */
+.costar-example .example-element[data-element="S"] {
+    background: rgba(33, 150, 243, 0.1);
+    border-bottom: 2px solid #2196F3;
+    color: #2196F3;
+}
+
+.costar-example .example-element[data-element="R"] {
+    background: rgba(255, 152, 0, 0.1);
+    border-bottom: 2px solid #FF9800;
+    color: #FF9800;
+}
+
+/* Complete Example Card - taller on desktop, no animation */
+.complete-example {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+@media (min-width: 769px) {
+    .complete-example {
+        min-height: 250px;
+        padding: calc(var(--space-xl) * 1.25);
+    }
 }
 
 .example-legend {
