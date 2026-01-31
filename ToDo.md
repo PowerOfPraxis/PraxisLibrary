@@ -643,3 +643,426 @@ If issues occur after any phase:
 ---
 
 *Note: This document is for tracking purposes only. Issues listed here have not been modified or fixed.*
+
+---
+
+# ROADMAP: Content & Search Enhancement
+
+This roadmap focuses on improving the analyzer tool, converting content to searchable accordions, and adding site-wide search functionality.
+
+---
+
+## Implementation Order
+
+| Phase | Dependency | Estimate | Risk |
+|-------|------------|----------|------|
+| **Phase 0** | **None** | **High effort** | **Medium** |
+| Phase 1 | None | Low effort | Low |
+| Phase 2 | Phase 0 | Medium effort | Low |
+| Phase 3 | None | High effort | Medium |
+| Phase 4 | Phase 3 | Medium effort | Low |
+| Phase 5 | Phase 3, 4 | High effort | Medium |
+| Phase 6 | Phase 4, 5 | Medium effort | Low |
+
+## Recommended Approach
+
+1. **Phase 0 FIRST (CRITICAL)** - Fix analyzer before anything else; broken tool undermines trust
+2. **Phase 1 next** - Quick visual wins while analyzer work settles
+3. **Phase 2 with Phase 0** - Content updates align with new natural language focus
+4. **Phase 3 after** - Accordion structure is foundation for search
+5. **Phase 4 during Phase 3** - Add search tags as you convert to accordions
+6. **Phase 5 after structure complete** - Search UI needs content ready
+7. **Phase 6 last** - Tooling after system is working
+
+---
+
+## Phase 0: Fix Prompt Analyzer (CRITICAL)
+
+**Goal:** Transform analyzer from basic pattern-matching to semantic natural language understanding
+
+### Current Problems
+The analyzer (app.js lines 2626-2872) has fundamental limitations:
+- **Pattern-based only** - Uses regex to find keywords like "Context:", "Role:", etc.
+- **Misses implicit elements** - Prompt with clear context but no "Context:" label scores poorly
+- **Binary detection** - Element is either "found" or "not found", no partial credit
+- **No sentence-level feedback** - Users can't see which parts need improvement
+- **Limited examples** - Only shows top 4 suggestions, may miss important gaps
+
+### Phase 0 Tasks
+
+#### 0.1 Redesign Detection Logic
+- [ ] Move from keyword detection to semantic analysis
+- [ ] Detect context even without explicit labels
+- [ ] Recognize role descriptions in natural language ("As a marketing expert" vs "Role: Marketing expert")
+- [ ] Add sentence-level scoring and feedback
+- [ ] Create confidence scores (high/medium/low) instead of binary found/not-found
+
+#### 0.2 Improve Scoring Algorithm
+- [ ] Weight elements by importance for the selected framework
+- [ ] Add partial credit for partially-specified elements
+- [ ] Penalize contradictory instructions
+- [ ] Bonus for good prompt hygiene (clear formatting, logical flow)
+
+#### 0.3 Enhance Feedback System
+- [ ] Show sentence-by-sentence breakdown
+- [ ] Highlight which sentences contributed to each element detection
+- [ ] Provide specific rewrites, not just generic advice
+- [ ] Add "Why this matters" explanations for each suggestion
+
+#### 0.4 Add Example Library
+- [ ] Create database of excellent prompts for each framework
+- [ ] Show side-by-side comparison: user prompt vs ideal prompt
+- [ ] Add "Fix it for me" button that suggests rewrites
+
+### Acceptance Criteria
+- [ ] Prompt "Write me a blog post about cats" scores low (no specifics)
+- [ ] Prompt "As a cat expert, write a 500-word blog post about Maine Coon care for first-time owners" scores high (has implicit Role, Context, Specifics)
+- [ ] User can see exactly which words/sentences triggered each detection
+- [ ] Suggestions include concrete rewrite examples
+
+---
+
+## Phase 1: Badge Relocation & Text Updates
+
+**Goal:** Move skill badges from header nav to content areas; update branding text
+
+### GUARDRAILS - Test After Each Step
+
+⚠️ **IMPORTANT**: Complete ONE task, then TEST before moving to the next.
+
+### Current State (from screenshots)
+- Badges appear in **header navigation bar** - WRONG LOCATION
+- Mobile has "Accessibility" accordion with badges - SHOULD BE REMOVED
+- "Built With Claude Code" text in header/footer
+
+### Target State
+- **Home page**: Badges below hero subtitle, above CTA buttons
+- **Learn page**: Badges below "Choose Your Path" subtitle
+- **Other pages**: Badges below page title/subtitle
+- **Mobile**: NO badges in accessibility accordion (remove entire section)
+- **Header**: NO badges at all (clean header with just logo + nav + hamburger)
+- Text changed: "Built With Claude Code" → "AI Assisted Building"
+
+### Phase 1 Tasks (Execute In Order, Test Each)
+
+#### 1.1 Remove Header Badges (Desktop)
+- [ ] Remove `<div class="header-badges">...</div>` from all HTML files
+- [ ] Remove related CSS for `.header-badges` and `.header-badge-item`
+- [ ] **TEST**: Header should show only logo, nav links, hamburger menu
+- [ ] **CHECKPOINT**: Screenshot header at desktop width
+
+#### 1.2 Remove Mobile Accessibility Accordion
+- [ ] Remove `<div class="nav-item mobile-only">...</div>` section from all HTML
+- [ ] Remove CSS for `.nav-item.mobile-only`, `.nav-accordion-toggle`, `.mobile-badges`
+- [ ] **TEST**: Mobile menu should have NO badges section
+- [ ] **CHECKPOINT**: Screenshot mobile menu open
+
+#### 1.3 Add Content Area Badges (Home Page)
+- [ ] Create new badge row HTML below `.hero-subtitle` in index.html
+- [ ] Add CSS for `.content-badges` with flexbox centering
+- [ ] **TEST**: Badges appear centered below subtitle, above buttons
+- [ ] **CHECKPOINT**: Screenshot home hero section
+
+#### 1.4 Add Content Area Badges (Learn Page)
+- [ ] Add badge row below "Choose Your Path" subtitle in learn/index.html
+- [ ] Reuse `.content-badges` styling
+- [ ] **TEST**: Badges appear below section subtitle
+- [ ] **CHECKPOINT**: Screenshot learn page
+
+#### 1.5 Add Content Area Badges (Other Pages)
+- [ ] Add badge row to all other pages in consistent location
+- [ ] **TEST**: Each page has badges in correct position
+- [ ] **CHECKPOINT**: Quick review of all main pages
+
+#### 1.6 Text Updates
+- [ ] Change "Built With Claude Code" → "AI Assisted Building" in all files
+- [ ] **TEST**: Search for "Claude Code" returns 0 results
+- [ ] **CHECKPOINT**: Verify text change
+
+#### 1.7 Mobile Menu Fixes (Separate from badges)
+- [ ] Fix mega-menu link clicks closing mobile menu
+- [ ] Fix mega-menu text color (white on dark background)
+- [ ] **TEST**: Click submenu item on mobile, menu closes
+- [ ] **CHECKPOINT**: Test mobile navigation flow
+
+#### 1.8 CRISPE Prompt Builder Fix
+- [x] Remove "(optional)" from Example field
+- [x] **DONE**: Example is now required field
+
+---
+
+## Phase 2: Content Updates for Natural Language
+
+**Goal:** Align learning content with the new analyzer's natural language approach
+
+### Current State
+Learning pages teach explicit labeling:
+```
+Context: [describe situation]
+Role: [specify role]
+```
+
+### Target State
+Teach natural, conversational prompting:
+```
+As a [role], help me with [task]. I need this for [context]...
+```
+
+### Phase 2 Tasks
+
+#### 2.1 Update Learning Pages
+- [ ] learn/crisp.html - Add "Natural Language" section showing implicit CRISP
+- [ ] learn/crispe.html - Show examples without explicit labels
+- [ ] learn/costar.html - Demonstrate conversational COSTAR
+- [ ] learn/prompt-basics.html - Lead with natural language, labels as optional structure
+
+#### 2.2 Update Examples Throughout Site
+- [ ] Audit all example prompts in learning pages
+- [ ] Add natural language variants alongside labeled versions
+- [ ] Show "Both work equally well" messaging
+- [ ] Update Prompt Builder to support natural language mode
+
+#### 2.3 Update Glossary
+- [ ] Add entries for natural language prompting terms
+- [ ] Cross-reference with framework pages
+- [ ] Add "See also" links between related concepts
+
+---
+
+## Phase 3: Accordion Content Structure
+
+**Goal:** Convert long-form content to collapsible accordions for better navigation and search
+
+### Current Accordion Usage
+- FAQ page uses `<details>/<summary>` well
+- Glossary has letter-based navigation but no accordions
+- Learning pages are long scrolling documents
+
+### Target Structure
+- All major sections collapsible
+- Consistent accordion styling across site
+- Keyboard accessible (Enter/Space to toggle)
+- State persistence optional (remember what's open)
+
+### Phase 3 Tasks
+
+#### 3.1 Create Accordion Component
+- [ ] Design consistent accordion styles (open/closed states)
+- [ ] Add smooth expand/collapse CSS animations
+- [ ] Add chevron/arrow icons that rotate
+- [ ] Ensure ARIA attributes (aria-expanded, aria-controls)
+
+#### 3.2 Convert Glossary to Accordions
+- [ ] Group terms by letter with accordion headers
+- [ ] Each term definition in collapsible section
+- [ ] Keep quick-nav letters, link to accordion sections
+- [ ] Add "Expand All / Collapse All" controls
+
+#### 3.3 Convert Learning Pages to Accordions
+- [ ] learn/crisp.html - Each element (C, R, I, S, P) as accordion
+- [ ] learn/crispe.html - Each element as accordion
+- [ ] learn/costar.html - Each element as accordion
+- [ ] learn/advanced.html - Each technique as accordion
+- [ ] learn/prompt-basics.html - Each concept as accordion
+
+#### 3.4 Convert Patterns Page
+- [ ] Each pattern category as accordion group
+- [ ] Individual patterns as nested accordions
+- [ ] Maintain filter functionality with accordions
+
+### Acceptance Criteria
+- [ ] All accordions keyboard accessible
+- [ ] Animations smooth (no jank)
+- [ ] Deep links work (e.g., /glossary.html#hallucination opens that term)
+- [ ] Mobile touch-friendly
+
+---
+
+## Phase 4: Search Tags & Metadata
+
+**Goal:** Add searchable metadata to all content for Phase 5 search
+
+### Tagging Strategy
+Each piece of content needs:
+- **Title** - Display name
+- **Keywords** - Search terms (synonyms, related concepts)
+- **Category** - Which section (Learn, Tools, Glossary, Patterns, FAQ)
+- **Subcategory** - More specific grouping
+- **Content** - Searchable text
+- **URL** - Link to content
+
+### Phase 4 Tasks
+
+#### 4.1 Design Search Index Schema
+```javascript
+// Example structure
+const searchIndex = [
+  {
+    title: "Context (CRISP)",
+    keywords: ["context", "background", "situation", "setting"],
+    category: "Learn",
+    subcategory: "CRISP Framework",
+    content: "Context provides background information...",
+    url: "/learn/crisp.html#context"
+  }
+];
+```
+
+#### 4.2 Tag Glossary Terms
+- [ ] Create searchIndex entries for all ~50 glossary terms
+- [ ] Add keyword synonyms (e.g., "hallucination" → "false", "made up", "incorrect")
+- [ ] Link to related learning content
+
+#### 4.3 Tag Learning Content
+- [ ] Create entries for each framework element
+- [ ] Create entries for each technique
+- [ ] Add cross-references between related concepts
+
+#### 4.4 Tag Patterns
+- [ ] Create entries for each prompt pattern
+- [ ] Tag by use case, technique, and framework compatibility
+
+#### 4.5 Tag FAQ Content
+- [ ] Index all questions and answers
+- [ ] Group by topic
+
+#### 4.6 Generate Search Index File
+- [ ] Create search-index.js with all tagged content
+- [ ] Keep index lightweight (text excerpts, not full content)
+- [ ] Estimate: <50KB for entire site index
+
+---
+
+## Phase 5: Search UI Implementation
+
+**Goal:** Build client-side search that queries the Phase 4 index
+
+### Design Decisions
+- **Trigger:** Cmd+K / Ctrl+K keyboard shortcut + visible search icon
+- **UI:** Modal overlay with search input and results
+- **Results:** Grouped by category with accordions
+- **No backend:** Pure client-side with JavaScript
+
+### Phase 5 Tasks
+
+#### 5.1 Search Modal Component
+- [ ] Create modal overlay (centered, dismissible)
+- [ ] Search input with placeholder "Search Praxis..."
+- [ ] Clear button (X) to reset search
+- [ ] Close on Escape key or click outside
+- [ ] Focus trap inside modal for accessibility
+
+#### 5.2 Search Algorithm
+- [ ] Implement fuzzy matching (typo tolerance)
+- [ ] Weight title matches higher than content matches
+- [ ] Boost exact phrase matches
+- [ ] Debounce input (300ms) to prevent excessive searches
+- [ ] Cache recent searches for instant re-display
+
+#### 5.3 Results Display
+- [ ] Group results by category (accordion headers)
+- [ ] Show title, excerpt with highlighted match, and category badge
+- [ ] Limit to 5 results per category initially
+- [ ] "Show more" expander for categories with many results
+- [ ] "No results" state with suggestions
+
+#### 5.4 Navigation
+- [ ] Click result to navigate to page
+- [ ] Keyboard navigation (arrow keys, Enter to select)
+- [ ] Current selection highlighted
+- [ ] URL deep linking (scroll to and highlight matched content)
+
+#### 5.5 Search Header Integration
+- [ ] Add search icon to site header
+- [ ] Show "⌘K" hint on desktop
+- [ ] Mobile: Full-width search bar option
+
+### Acceptance Criteria
+- [ ] Search responds in <100ms for any query
+- [ ] Typos like "halucination" find "hallucination"
+- [ ] Keyboard-only users can search and navigate
+- [ ] Deep links scroll to and highlight content
+- [ ] Works offline (index bundled with site)
+
+---
+
+## Phase 6: Developer Tooling
+
+**Goal:** Add development tools to maintain site quality
+
+### Phase 6 Tasks
+
+#### 6.1 Search Index Validator
+- [ ] Script to check all search index URLs are valid
+- [ ] Warn if content has changed but index is stale
+- [ ] Report coverage (% of pages indexed)
+
+#### 6.2 Accessibility Linter
+- [ ] Script to check all pages for a11y issues
+- [ ] Run as pre-commit hook
+- [ ] Report violations with fix suggestions
+
+#### 6.3 Link Checker
+- [ ] Verify all internal links work
+- [ ] Check anchor links (#section) resolve
+- [ ] Report broken links
+
+#### 6.4 Content Stats Dashboard
+- [ ] Word count per page
+- [ ] Reading time estimates
+- [ ] Search index size
+- [ ] Last modified dates
+
+---
+
+## Dependency Graph
+
+```
+Phase 0 (Analyzer) ─────────────────┐
+                                    ├──→ Phase 2 (Content Updates)
+Phase 1 (Visual Polish) ────────────┘
+
+Phase 3 (Accordions) ───────────────┬──→ Phase 4 (Search Tags)
+                                    │
+                                    └──→ Phase 5 (Search UI) ──→ Phase 6 (Tooling)
+```
+
+---
+
+## Risk Mitigation
+
+| Risk | Mitigation |
+|------|------------|
+| Analyzer rewrite breaks scoring | Keep old algorithm as fallback toggle |
+| Accordion conversion loses content | Test each page before/after, visual diff |
+| Search index too large | Compress, lazy-load, or use excerpts only |
+| Search slow on mobile | Benchmark on low-end devices, optimize |
+| Breaking changes during phases | Feature branches, staged rollouts |
+
+---
+
+## Success Metrics
+
+| Metric | Current | Target |
+|--------|---------|--------|
+| Analyzer accuracy (implicit prompts) | ~40% | >85% |
+| Time to find glossary term | ~15s (scroll) | <3s (search) |
+| Pages with accordion structure | 1 (FAQ) | 8+ |
+| Search index coverage | 0% | 100% |
+| Lighthouse accessibility score | TBD | >95 |
+
+---
+
+## Quick Reference: File Locations
+
+| Component | Location |
+|-----------|----------|
+| Analyzer logic | app.js:2626-2872 |
+| Analyzer UI | tools/analyzer.html |
+| Accordion CSS | styles.css (TBD) |
+| Search index | search-index.js (TBD) |
+| Search modal | app.js (TBD) |
+| Glossary | pages/glossary.html |
+| FAQ | pages/faq.html |
+| Learning pages | learn/*.html |
+| Patterns | patterns/index.html |

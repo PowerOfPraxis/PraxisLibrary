@@ -271,6 +271,93 @@ p {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
+/* Header Badges */
+.header-badges {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    .header-badges {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-left: var(--space-md);
+        max-width: 500px;
+        justify-content: flex-end;
+    }
+
+    /* Push nav and badges to far right */
+    .header-container .nav {
+        margin-left: auto;
+    }
+
+    .header-badge-item {
+        display: flex;
+        align-items: center;
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .header-badge-item .badge-label {
+        padding: 0.35rem 0.5rem;
+        background: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .header.scrolled .header-badge-item .badge-label {
+        background: rgba(0, 0, 0, 0.08);
+        color: var(--text-secondary);
+    }
+
+    .header-badge-item .badge-value {
+        padding: 0.35rem 0.5rem;
+        color: white;
+        font-weight: 700;
+    }
+
+    .header-badge--ai .badge-value {
+        background: linear-gradient(135deg, #DC3545 0%, #FF6B6B 100%);
+    }
+
+    .header-badge--udl .badge-value {
+        background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%);
+    }
+
+    .header-badge--security .badge-value {
+        background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+    }
+
+    .header-badge--performance .badge-value {
+        background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+    }
+
+    .header-badge--claude .badge-value {
+        background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+    }
+}
+
+/* Medium screens - shrink badges more to allow wrapping */
+@media (min-width: 992px) and (max-width: 1200px) {
+    .header-badges {
+        max-width: 400px;
+        gap: 4px;
+    }
+
+    .header-badge-item {
+        font-size: 0.55rem;
+    }
+
+    .header-badge-item .badge-label,
+    .header-badge-item .badge-value {
+        padding: 0.25rem 0.4rem;
+    }
+}
+
 /* Desktop Navigation */
 .nav-desktop {
     display: none;
@@ -316,6 +403,108 @@ p {
     color: var(--primary);
 }
 
+/* Mobile Accessibility Accordion */
+.nav-item.mobile-only {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .nav-item.mobile-only {
+        display: block;
+        border-top: 1px solid var(--border-light);
+        margin-top: var(--space-md);
+        padding-top: var(--space-md);
+    }
+
+    .nav-accordion-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: var(--space-sm) 0;
+        background: none;
+        border: none;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        cursor: pointer;
+    }
+
+    .accordion-icon {
+        width: 10px;
+        height: 10px;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        transform: rotate(45deg);
+        transition: transform var(--transition-fast);
+    }
+
+    .nav-accordion-toggle[aria-expanded="true"] .accordion-icon {
+        transform: rotate(-135deg);
+    }
+
+    .nav-accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height var(--transition-normal);
+    }
+
+    .nav-accordion-toggle[aria-expanded="true"] + .nav-accordion-content {
+        max-height: 400px;
+    }
+
+    .mobile-badges {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: var(--space-sm) 0 var(--space-md);
+    }
+
+    .mobile-badge {
+        display: flex;
+        align-items: center;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        border-radius: 4px;
+        overflow: hidden;
+        width: fit-content;
+    }
+
+    .mobile-badge .badge-label {
+        padding: 0.35rem 0.5rem;
+        background: rgba(0, 0, 0, 0.08);
+        color: var(--text-secondary);
+    }
+
+    .mobile-badge .badge-value {
+        padding: 0.35rem 0.5rem;
+        color: white;
+        font-weight: 700;
+    }
+
+    .mobile-badge--ai .badge-value {
+        background: linear-gradient(135deg, #DC3545 0%, #FF6B6B 100%);
+    }
+
+    .mobile-badge--udl .badge-value {
+        background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%);
+    }
+
+    .mobile-badge--security .badge-value {
+        background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+    }
+
+    .mobile-badge--performance .badge-value {
+        background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+    }
+
+    .mobile-badge--claude .badge-value {
+        background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+    }
+}
+
 /* ============================================
    HERO SECTION
    ============================================ */
@@ -349,6 +538,17 @@ p {
     height: 100%;
     pointer-events: auto;
     z-index: 1;
+}
+
+/* Hero Neural Background Canvas */
+.hero-neural-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.4;
 }
 
 /* Floating Particles */
@@ -742,12 +942,14 @@ p {
     z-index: 1;
 }
 
-.footer .neural-canvas-secondary {
+.footer .neural-canvas-secondary,
+.footer-neural-bg {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
+    pointer-events: none;
     opacity: 0.4;
 }
 
@@ -910,13 +1112,15 @@ p {
     overflow: hidden;
 }
 
-.page-hero .neural-canvas {
+.page-hero .neural-canvas,
+.page-hero-neural-bg {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    pointer-events: auto;
+    pointer-events: none;
     z-index: 1;
+    opacity: 0.5;
 }
 
 .page-hero .container {
@@ -3636,8 +3840,16 @@ p {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
+    width: 100%;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-left: auto;
 }
 
 .nav {
@@ -3658,6 +3870,7 @@ p {
     gap: var(--space-md);
     z-index: 999;
     animation: slideDown 0.3s ease;
+    overflow-y: auto;
 }
 
 @keyframes slideDown {
@@ -3862,6 +4075,7 @@ body.menu-open {
         padding: var(--space-sm) 0;
         font-size: 1rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.8);
     }
 
     .mega-menu-section a:hover {
