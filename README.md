@@ -11,7 +11,7 @@
 ![Built With](https://img.shields.io/badge/Built_With-Claude_Code-06b6d4?style=for-the-badge)
 ![UD/UDL](https://img.shields.io/badge/Built_With-UD%2FUDL_in_Mind-8b5cf6?style=for-the-badge)
 
-**&lt;/OpenBas&gt;**
+<img src="assets/images/plaxishom.png" alt="Praxis Library" width="400">
 
 </div>
 
@@ -21,7 +21,7 @@
 
 I created this Interactive AI Library because I believe that true innovation in AI isn't just about companies adopting AI as a new technology—it's about **people** learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.
 
-Favorite Quote >> **"The best way to predict the future is to create it."**
+$\color{red}{\textsf{Favorite Quote}}$ $\color{white}{\textsf{>>}}$ **"The best way to predict the future is to create it."**
 
 My mission is to demystify AI use and drive personal adoption, with the goal of creating collaborative environments where technology and human creativity combine to solve complex problems and build a better tomorrow.
 
