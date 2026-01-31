@@ -283,8 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Data pulses traveling along connections - more active
             this.dataPulses = [];
             this.lastPulseSpawn = 0;
-            this.pulseSpawnInterval = this.isMobile ? 100 : (isHero ? 10 : 150);
-            this.maxPulses = this.isMobile ? 60 : (isHero ? 600 : 40);
+            this.pulseSpawnInterval = this.isMobile ? 100 : (isHero ? 2 : 150);
+            this.maxPulses = this.isMobile ? 60 : (isHero ? 3000 : 40);
 
             // Frame throttling for mobile
             this.lastFrameTime = 0;
@@ -1056,7 +1056,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 startIdx: reverse ? conn.j : conn.i,
                 endIdx: reverse ? conn.i : conn.j,
                 progress: 0,
-                speed: isHero ? 0.006 + Math.random() * 0.008 : 0.008 + Math.random() * 0.012,
+                speed: isHero ? 0.018 + Math.random() * 0.024 : 0.008 + Math.random() * 0.012,
                 // Hero mode: skinnier, more delicate pulses (half size)
                 size: isHero ? 0.4 + conn.avgZ * 0.5 : 1.5 + conn.avgZ * 2,
                 brightness: isHero ? 0.4 + conn.avgZ * 0.3 : 0.6 + conn.avgZ * 0.4,
