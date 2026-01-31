@@ -32,13 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.toggle('menu-open');
         });
 
-        // Close menu when clicking a link
-        nav.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
+        // Close menu when clicking any link inside nav (using event delegation)
+        nav.addEventListener('click', (e) => {
+            // Check if clicked element or its parent is a link
+            const link = e.target.closest('a');
+            if (link) {
                 menuToggle.classList.remove('active');
                 nav.classList.remove('active');
                 document.body.classList.remove('menu-open');
-            });
+            }
         });
 
         // Close menu on escape key
@@ -50,6 +52,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ==========================================
+    // MOBILE ACCESSIBILITY ACCORDION
+    // ==========================================
+    const accordionToggles = document.querySelectorAll('.nav-accordion-toggle');
+    accordionToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+            toggle.setAttribute('aria-expanded', !isExpanded);
+        });
+    });
 
     // ==========================================
     // HEADER SCROLL EFFECT
@@ -1519,8 +1532,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if this is the main index page ONLY (root path or /index.html at root)
     const mainCanvas = document.getElementById('neural-network');
     const pathname = window.location.pathname;
-    // Only the root index page gets AI clusters - must be exactly / or /index.html (not in any subdirectory)
-    const isMainPage = pathname === '/' || pathname === '/index.html';
+    // Only the root index page gets character animation - handle various access methods
+    // Check if we're on index.html (not in /learn/, /tools/, /pages/, /patterns/, /quiz/ subdirectories)
+    const inSubdirectory = /\/(learn|tools|pages|patterns|quiz)\//i.test(pathname);
+    const isMainPage = !inSubdirectory && (
+        pathname === '/' ||
+        pathname === '/index.html' ||
+        pathname.endsWith('/index.html') ||
+        pathname.endsWith('/_public_html/') ||
+        pathname.endsWith('/_public_html')
+    );
 
     // Main hero canvas on index page - hero mode with single large network cycling through AI names
     if (mainCanvas && isMainPage) {
@@ -1550,6 +1571,633 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('beforeunload', () => {
         neuralNetworks.forEach(nn => nn.destroy());
     });
+
+    // ==========================================
+    // HERO NEURAL BACKGROUND - Subtle Professional Animation
+    // ==========================================
+
+    // Easing functions for smooth animation
+    const Easing = {
+        linear: t => t,
+        easeInQuad: t => t * t,
+        easeOutQuad: t => t * (2 - t),
+        easeInOutQuad: t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+        easeInCubic: t => t * t * t,
+        easeOutCubic: t => (--t) * t * t + 1,
+        easeInOutCubic: t => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
+        easeOutBack: t => { const c1 = 1.70158; const c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); },
+        easeOutElastic: t => t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * ((2 * Math.PI) / 3)) + 1,
+        bounce: t => {
+            const n1 = 7.5625, d1 = 2.75;
+            if (t < 1 / d1) return n1 * t * t;
+            if (t < 2 / d1) return n1 * (t -= 1.5 / d1) * t + 0.75;
+            if (t < 2.5 / d1) return n1 * (t -= 2.25 / d1) * t + 0.9375;
+            return n1 * (t -= 2.625 / d1) * t + 0.984375;
+        }
+    };
+
+    // Interpolate between values
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    // Neural Node class for the background network
+    class NeuralNode {
+        constructor(x, y, width, height, term = null) {
+            this.x = x;
+            this.y = y;
+            this.baseX = x;
+            this.baseY = y;
+            this.width = width;
+            this.height = height;
+            this.radius = 2 + Math.random() * 2;
+            this.vx = (Math.random() - 0.5) * 0.3;
+            this.vy = (Math.random() - 0.5) * 0.3;
+            this.pulsePhase = Math.random() * Math.PI * 2;
+            this.pulseSpeed = 0.02 + Math.random() * 0.02;
+            this.opacity = 0.3 + Math.random() * 0.4;
+
+            // Term/word attached to this node
+            this.term = term;
+            this.termOffset = {
+                x: (Math.random() - 0.5) * 40 + (Math.random() > 0.5 ? 30 : -30),
+                y: (Math.random() - 0.5) * 20 + (Math.random() > 0.5 ? 20 : -20)
+            };
+            this.termOpacity = 0.15 + Math.random() * 0.15;
+        }
+
+        update(dt) {
+            this.pulsePhase += this.pulseSpeed * dt;
+
+            // Gentle drift
+            this.x += this.vx * dt;
+            this.y += this.vy * dt;
+
+            // Soft boundary bounce with margin
+            const margin = 50;
+            if (this.x < margin || this.x > this.width - margin) {
+                this.vx *= -1;
+                this.x = Math.max(margin, Math.min(this.width - margin, this.x));
+            }
+            if (this.y < margin || this.y > this.height - margin) {
+                this.vy *= -1;
+                this.y = Math.max(margin, Math.min(this.height - margin, this.y));
+            }
+
+            // Very gentle return to base position
+            this.vx += (this.baseX - this.x) * 0.0001 * dt;
+            this.vy += (this.baseY - this.y) * 0.0001 * dt;
+
+            // Damping
+            this.vx *= 0.999;
+            this.vy *= 0.999;
+        }
+
+        draw(ctx) {
+            const pulse = Math.sin(this.pulsePhase) * 0.3 + 0.7;
+            const currentRadius = this.radius * pulse;
+            const currentOpacity = this.opacity * pulse;
+
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, currentRadius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity})`;
+            ctx.fill();
+        }
+
+        drawTerm(ctx) {
+            if (!this.term) return;
+
+            const pulse = Math.sin(this.pulsePhase) * 0.1 + 0.9;
+            const termX = this.x + this.termOffset.x;
+            const termY = this.y + this.termOffset.y;
+
+            // Draw connecting line from node to term
+            ctx.beginPath();
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(termX, termY);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${this.termOpacity * 0.5 * pulse})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+
+            // Draw term text
+            ctx.font = '11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.termOpacity * pulse})`;
+            ctx.textAlign = 'center';
+            ctx.fillText(this.term, termX, termY);
+        }
+    }
+
+    // Data pulse traveling along connections
+    class DataPulse {
+        constructor(startNode, endNode) {
+            this.startNode = startNode;
+            this.endNode = endNode;
+            this.progress = 0;
+            this.speed = 0.01 + Math.random() * 0.015;
+            this.active = true;
+            this.size = 1.5 + Math.random() * 1.5;
+        }
+
+        update(dt) {
+            this.progress += this.speed * dt;
+            if (this.progress >= 1) {
+                this.active = false;
+            }
+        }
+
+        draw(ctx) {
+            if (!this.active) return;
+
+            const t = Easing.easeInOutCubic(this.progress);
+            const x = lerp(this.startNode.x, this.endNode.x, t);
+            const y = lerp(this.startNode.y, this.endNode.y, t);
+
+            // Fade in and out
+            const fadeIn = Math.min(this.progress * 5, 1);
+            const fadeOut = Math.min((1 - this.progress) * 5, 1);
+            const opacity = fadeIn * fadeOut * 0.8;
+
+            ctx.beginPath();
+            ctx.arc(x, y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+            ctx.fill();
+        }
+    }
+
+    // Floating AI term - acts as a connectable node in the network
+    class FloatingTerm {
+        constructor(term, width, height) {
+            this.term = term;
+            this.width = width;
+            this.height = height;
+            // Start at random position
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.baseX = this.x;
+            this.baseY = this.y;
+            // Display position (with oscillation applied)
+            this.displayX = this.x;
+            this.displayY = this.y;
+            // Very subtle movement - mostly horizontal drift
+            this.vx = (Math.random() - 0.5) * 0.06;
+            this.vy = (Math.random() - 0.5) * 0.02;
+            this.opacity = 0;
+            this.targetOpacity = 0.4 + Math.random() * 0.2; // Higher opacity for visibility
+            this.fadeSpeed = 0.012 + Math.random() * 0.006; // Faster fade in
+            this.lifetime = 0;
+            this.maxLifetime = 20000 + Math.random() * 25000; // 20-45 seconds (longer life)
+            this.fontSize = 12 + Math.random() * 4;
+            this.phase = Math.random() * Math.PI * 2;
+            this.phaseSpeed = 0.002 + Math.random() * 0.001;
+            // For network connections
+            this.isTermNode = true;
+        }
+
+        update(dt) {
+            this.lifetime += dt * 16;
+            this.phase += this.phaseSpeed * dt;
+
+            // Fade in at start, fade out at end
+            const lifeProgress = this.lifetime / this.maxLifetime;
+            if (lifeProgress < 0.15) {
+                this.opacity = lerp(this.opacity, this.targetOpacity, this.fadeSpeed * dt);
+            } else if (lifeProgress > 0.85) {
+                this.opacity = lerp(this.opacity, 0, this.fadeSpeed * 2 * dt);
+            }
+
+            // Very subtle axis-based movement - gentle sine wave on X, minimal Y
+            this.x += this.vx * dt;
+            this.y += this.vy * dt;
+
+            // Subtle oscillation around base position
+            const oscillateX = Math.sin(this.phase) * 15;
+            const oscillateY = Math.cos(this.phase * 0.7) * 8;
+
+            // Soft boundary - stay within canvas with margin
+            const margin = 80;
+            if (this.x < margin) { this.vx = Math.abs(this.vx) * 0.5; this.x = margin; }
+            if (this.x > this.width - margin) { this.vx = -Math.abs(this.vx) * 0.5; this.x = this.width - margin; }
+            if (this.y < margin) { this.vy = Math.abs(this.vy) * 0.5; this.y = margin; }
+            if (this.y > this.height - margin) { this.vy = -Math.abs(this.vy) * 0.5; this.y = this.height - margin; }
+
+            // Store display position with oscillation for drawing and connections
+            this.displayX = this.x + oscillateX;
+            this.displayY = this.y + oscillateY;
+
+            return this.lifetime < this.maxLifetime;
+        }
+
+        draw(ctx) {
+            if (this.opacity < 0.01) return;
+
+            ctx.save();
+            ctx.font = `500 ${this.fontSize}px 'Inter', sans-serif`;
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(this.term, this.displayX, this.displayY);
+            ctx.restore();
+        }
+    }
+
+    // Main Hero Neural Background system
+    class HeroNeuralBackground {
+        constructor(canvas, options = {}) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.width = 0;
+            this.height = 0;
+            this.animationId = null;
+
+            // Configuration options with defaults
+            this.parentSelector = options.parentSelector || '.hero';
+            this.showTerms = options.showTerms !== false; // Default true
+            this.nodeDensity = options.nodeDensity || 25000; // px² per node
+            this.termScale = options.termScale || 1; // Scale for smaller sections
+
+            // Neural network
+            this.nodes = [];
+            this.connections = [];
+            this.pulses = [];
+            this.maxPulses = options.maxPulses || 15;
+            this.pulseSpawnTimer = 0;
+            this.pulseSpawnInterval = options.pulseSpawnInterval || 800; // ms between pulse spawns
+
+            // Floating terms
+            this.floatingTerms = [];
+            this.maxTerms = Math.floor((options.maxTerms || 20) * this.termScale);
+            this.termSpawnTimer = 0;
+            this.termSpawnInterval = options.termSpawnInterval || 2000; // Slower spawning for stability
+            this.usedTerms = new Set(); // Track which terms are active to avoid duplicates
+
+            // Frame timing
+            this.lastFrameTime = 0;
+            this.targetFrameInterval = 16; // 60fps
+
+            // Visibility and motion preferences
+            this.isVisible = true;
+            this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // Connection distance thresholds
+            this.connectionDistance = options.connectionDistance || 120; // Node to node
+            this.termConnectionDistance = options.termConnectionDistance || 180;
+
+            this.init();
+        }
+
+        init() {
+            this.resize();
+            this.setupEventListeners();
+            this.createNodes();
+
+            // Delayed re-check in case canvas wasn't ready
+            setTimeout(() => {
+                if (this.width === 0 || this.height === 0) {
+                    this.resize();
+                    this.createNodes();
+                }
+            }, 100);
+
+            this.animate(0);
+        }
+
+        setupEventListeners() {
+            this.resizeHandler = () => {
+                this.resize();
+                this.createNodes();
+            };
+            window.addEventListener('resize', this.resizeHandler);
+
+            // Visibility observer - use configured parent selector
+            const parentSection = document.querySelector(this.parentSelector);
+            if (parentSection) {
+                this.observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        this.isVisible = entry.isIntersecting;
+                    });
+                }, { threshold: 0.1 });
+                this.observer.observe(parentSection);
+            }
+        }
+
+        resize() {
+            const parent = this.canvas.parentElement;
+            const width = this.canvas.offsetWidth || (parent ? parent.offsetWidth : window.innerWidth);
+            const height = this.canvas.offsetHeight || (parent ? parent.offsetHeight : window.innerHeight);
+
+            // High DPI support for crisp rendering
+            const dpr = window.devicePixelRatio || 1;
+            this.canvas.width = width * dpr;
+            this.canvas.height = height * dpr;
+            this.ctx.scale(dpr, dpr);
+
+            this.width = width;
+            this.height = height;
+        }
+
+        createNodes() {
+            this.nodes = [];
+            this.usedTerms = new Set();
+
+            // Calculate grid for even distribution
+            const nodeCount = Math.floor((this.width * this.height) / this.nodeDensity);
+            const cols = Math.ceil(Math.sqrt(nodeCount * (this.width / this.height)));
+            const rows = Math.ceil(nodeCount / cols);
+            const cellWidth = this.width / cols;
+            const cellHeight = this.height / rows;
+
+            // Shuffle AI_TERMS to get random distribution
+            const shuffledTerms = [...AI_TERMS].sort(() => Math.random() - 0.5);
+            let termIndex = 0;
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    // Add randomness within each cell
+                    const x = (col + 0.5) * cellWidth + (Math.random() - 0.5) * cellWidth * 0.8;
+                    const y = (row + 0.5) * cellHeight + (Math.random() - 0.5) * cellHeight * 0.8;
+
+                    // Assign a term to this node (cycle through terms if needed)
+                    const term = shuffledTerms[termIndex % shuffledTerms.length];
+                    termIndex++;
+
+                    this.nodes.push(new NeuralNode(x, y, this.width, this.height, term));
+                }
+            }
+
+            this.updateConnections();
+        }
+
+        updateConnections() {
+            this.connections = [];
+            for (let i = 0; i < this.nodes.length; i++) {
+                for (let j = i + 1; j < this.nodes.length; j++) {
+                    const dx = this.nodes[i].x - this.nodes[j].x;
+                    const dy = this.nodes[i].y - this.nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < this.connectionDistance) {
+                        this.connections.push({
+                            nodeA: this.nodes[i],
+                            nodeB: this.nodes[j],
+                            distance: dist
+                        });
+                    }
+                }
+            }
+        }
+
+        // Minimum distance between terms to prevent clustering
+        minTermDistance = 120;
+
+        spawnInitialTerms() {
+            // Spawn terms in a strict grid pattern for even distribution
+            const cols = 4;
+            const rows = 4;
+            const marginX = this.width * 0.12;
+            const marginY = this.height * 0.12;
+            const usableWidth = this.width - marginX * 2;
+            const usableHeight = this.height - marginY * 2;
+            const cellWidth = usableWidth / cols;
+            const cellHeight = usableHeight / rows;
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    if (this.floatingTerms.length >= this.maxTerms) break;
+                    // Center of each cell with minimal randomness for even spread
+                    const x = marginX + (col + 0.5) * cellWidth + (Math.random() - 0.5) * cellWidth * 0.2;
+                    const y = marginY + (row + 0.5) * cellHeight + (Math.random() - 0.5) * cellHeight * 0.2;
+                    this.spawnFloatingTermAt(x, y);
+                }
+            }
+        }
+
+        // Check if position is far enough from all existing terms
+        isPositionValid(x, y) {
+            for (const term of this.floatingTerms) {
+                const dx = term.x - x;
+                const dy = term.y - y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < this.minTermDistance) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        spawnFloatingTermAt(x, y) {
+            if (this.floatingTerms.length >= this.maxTerms) return false;
+
+            // Check minimum distance from other terms
+            if (!this.isPositionValid(x, y)) return false;
+
+            // Find an unused term
+            let term;
+            let attempts = 0;
+            do {
+                term = AI_TERMS[Math.floor(Math.random() * AI_TERMS.length)];
+                attempts++;
+            } while (this.usedTerms.has(term) && attempts < 30);
+
+            if (this.usedTerms.has(term)) return false;
+
+            this.usedTerms.add(term);
+            const floatingTerm = new FloatingTerm(term, this.width, this.height);
+            floatingTerm.x = x;
+            floatingTerm.y = y;
+            floatingTerm.baseX = x;
+            floatingTerm.baseY = y;
+            floatingTerm.displayX = x;
+            floatingTerm.displayY = y;
+            this.floatingTerms.push(floatingTerm);
+            return true;
+        }
+
+        spawnFloatingTerm() {
+            if (this.floatingTerms.length >= this.maxTerms) return;
+
+            // Use a grid to find the emptiest region
+            const gridSize = 180;
+            const cols = Math.ceil(this.width / gridSize);
+            const rows = Math.ceil(this.height / gridSize);
+            const margin = 60;
+
+            // Score each cell by how empty it is
+            const cellScores = [];
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const centerX = (col + 0.5) * gridSize;
+                    const centerY = (row + 0.5) * gridSize;
+
+                    // Skip cells too close to edges
+                    if (centerX < margin || centerX > this.width - margin ||
+                        centerY < margin || centerY > this.height - margin) continue;
+
+                    // Calculate distance to nearest term
+                    let minDist = Infinity;
+                    for (const term of this.floatingTerms) {
+                        const dx = term.x - centerX;
+                        const dy = term.y - centerY;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        minDist = Math.min(minDist, dist);
+                    }
+
+                    cellScores.push({ col, row, centerX, centerY, minDist });
+                }
+            }
+
+            // Sort by distance (largest first = emptiest)
+            cellScores.sort((a, b) => b.minDist - a.minDist);
+
+            // Try to spawn in the emptiest cells
+            for (const cell of cellScores.slice(0, 5)) {
+                const x = cell.centerX + (Math.random() - 0.5) * gridSize * 0.4;
+                const y = cell.centerY + (Math.random() - 0.5) * gridSize * 0.4;
+                if (this.spawnFloatingTermAt(x, y)) {
+                    return;
+                }
+            }
+        }
+
+        spawnPulse() {
+            if (this.pulses.length >= this.maxPulses || this.connections.length === 0) return;
+
+            const conn = this.connections[Math.floor(Math.random() * this.connections.length)];
+            // Randomly choose direction
+            if (Math.random() > 0.5) {
+                this.pulses.push(new DataPulse(conn.nodeA, conn.nodeB));
+            } else {
+                this.pulses.push(new DataPulse(conn.nodeB, conn.nodeA));
+            }
+        }
+
+        update(dt) {
+            // Update nodes (and their attached terms)
+            this.nodes.forEach(node => node.update(dt));
+
+            // Update connections periodically (expensive)
+            if (Math.random() < 0.02) {
+                this.updateConnections();
+            }
+
+            // Spawn pulses
+            this.pulseSpawnTimer += dt * 16;
+            if (this.pulseSpawnTimer > this.pulseSpawnInterval) {
+                this.spawnPulse();
+                this.pulseSpawnTimer = 0;
+            }
+
+            // Update pulses
+            this.pulses.forEach(pulse => pulse.update(dt));
+            this.pulses = this.pulses.filter(p => p.active);
+        }
+
+        draw() {
+            this.ctx.clearRect(0, 0, this.width, this.height);
+
+            // Draw node-to-node connections (subtle background mesh)
+            this.ctx.lineWidth = 0.5;
+            this.connections.forEach(conn => {
+                const opacity = 0.08 * (1 - conn.distance / this.connectionDistance);
+                this.ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+                this.ctx.beginPath();
+                this.ctx.moveTo(conn.nodeA.x, conn.nodeA.y);
+                this.ctx.lineTo(conn.nodeB.x, conn.nodeB.y);
+                this.ctx.stroke();
+            });
+
+            // Draw nodes (the dots)
+            this.nodes.forEach(node => node.draw(this.ctx));
+
+            // Draw terms attached to nodes (each node has a word connected by a line)
+            this.nodes.forEach(node => node.drawTerm(this.ctx));
+
+            // Draw pulses (traveling data balls)
+            this.pulses.forEach(pulse => pulse.draw(this.ctx));
+        }
+
+        animate(time) {
+            const elapsed = time - this.lastFrameTime;
+
+            if (elapsed < this.targetFrameInterval) {
+                this.animationId = requestAnimationFrame((t) => this.animate(t));
+                return;
+            }
+            this.lastFrameTime = time;
+
+            if (this.prefersReducedMotion || !this.isVisible) {
+                this.animationId = requestAnimationFrame((t) => this.animate(t));
+                return;
+            }
+
+            if (this.width === 0 || this.height === 0) {
+                this.resize();
+                this.createNodes();
+            }
+
+            const dt = elapsed / 16.67; // Normalize to 60fps
+            this.update(dt);
+            this.draw();
+
+            this.animationId = requestAnimationFrame((t) => this.animate(t));
+        }
+
+        destroy() {
+            cancelAnimationFrame(this.animationId);
+            window.removeEventListener('resize', this.resizeHandler);
+            if (this.observer) {
+                this.observer.disconnect();
+            }
+        }
+    }
+
+    // Store all neural background instances for cleanup
+    const neuralBackgrounds = [];
+
+    // Initialize hero neural background on main page
+    const heroNeuralCanvas = document.getElementById('hero-neural-bg');
+    if (heroNeuralCanvas && isMainPage) {
+        neuralBackgrounds.push(new HeroNeuralBackground(heroNeuralCanvas, {
+            parentSelector: '.hero'
+        }));
+    }
+
+    // Initialize page-hero neural background on internal pages
+    const pageHeroCanvas = document.getElementById('page-hero-neural-bg');
+    if (pageHeroCanvas) {
+        neuralBackgrounds.push(new HeroNeuralBackground(pageHeroCanvas, {
+            parentSelector: '.page-hero',
+            maxTerms: 12,
+            maxPulses: 10,
+            nodeDensity: 30000
+        }));
+    }
+
+    // Initialize footer neural background
+    const footerNeuralCanvas = document.getElementById('footer-neural-bg');
+    if (footerNeuralCanvas) {
+        neuralBackgrounds.push(new HeroNeuralBackground(footerNeuralCanvas, {
+            parentSelector: '.footer',
+            maxTerms: 10,
+            maxPulses: 8,
+            nodeDensity: 35000
+        }));
+    }
+
+    // Initialize CTA neural background
+    const ctaNeuralCanvas = document.getElementById('cta-neural-bg');
+    if (ctaNeuralCanvas) {
+        neuralBackgrounds.push(new HeroNeuralBackground(ctaNeuralCanvas, {
+            parentSelector: '.cta-card',
+            maxTerms: 6,
+            maxPulses: 5,
+            nodeDensity: 40000,
+            showTerms: true
+        }));
+    }
+
+    // Cleanup all instances on unload
+    if (neuralBackgrounds.length > 0) {
+        window.addEventListener('beforeunload', () => {
+            neuralBackgrounds.forEach(bg => bg.destroy());
+        });
+    }
 
     // ==========================================
     // SCROLL REVEAL ANIMATIONS
@@ -1734,10 +2382,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 C: {
                     name: 'Context',
                     patterns: [
-                        /\b(background|context|situation)\s*:/i,
-                        /\b(launching|working on|building|creating|developing)\b/i,
-                        /\b(our|my|the)\s+(brand|product|company|business|project|team)\b/i,
-                        /\b(currently|because|since|given that)\b/i
+                        // Explicit labels
+                        /\b(background|context|situation|scenario)\s*:/i,
+                        // Natural language - purpose/goal
+                        /\b(i need|we need|i want|we want)\s+(to|you to)\b/i,
+                        /\b(help\s+(me|us)\s+(with|to))\b/i,
+                        /\b(working on|dealing with|facing|handling)\b/i,
+                        /\bfor\s+(my|our|a|the)\s+(client|project|company|team|business|website|site|blog|brand)\b/i,
+                        // Natural language - domain/field
+                        /\b(commercial|residential|enterprise|startup|small business)\s+(real estate|property|marketing|sales|content)\b/i,
+                        /\bin\s+(the\s+)?(field|area|domain|industry|sector)\s+of\b/i,
+                        /\babout\s+(the\s+)?(topic|subject)\s+of\b/i,
+                        // Natural language - temporal
+                        /\bfor\s+(20\d{2}|this year|next year|Q[1-4]|this quarter)\b/i,
+                        /\b(current|upcoming|recent)\s+(project|initiative|campaign|work)\b/i,
+                        // Natural language - possessives indicating context
+                        /\b(our|my|the)\s+(brand|product|company|business|project|team|client|website|blog)\b/i,
+                        /\b(launching|building|creating|developing|running|managing)\b/i,
+                        /\b(currently|because|since|given that|due to)\b/i,
+                        // Natural language - content creation context
+                        /\bcontent\s+for\s+(my|our|a|the)\b/i,
+                        /\b(client'?s?|customer'?s?)\s+(website|site|blog|business|company)\b/i,
+                        // Location context
+                        /\b(San Diego|Los Angeles|New York|California|CA|USA|local|regional)\b/i,
+                        /\bfocused\s+on\s+\w+/i
                     ],
                     tip: 'Set the scene: "I\'m planning a family vacation to Italy..."',
                     example: 'I\'m planning a week-long family vacation to Italy with two teenagers.'
@@ -1745,9 +2413,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 R: {
                     name: 'Role',
                     patterns: [
-                        /\b(act as|you are|pretend to be|imagine you('re| are)|behave as)\b/i,
-                        /\b(role|persona|expert|specialist|consultant|advisor)\s*:/i,
-                        /\b(as (a|an) (senior|expert|professional|experienced))\b/i
+                        // Explicit labels
+                        /\b(role|persona)\s*:/i,
+                        // Natural language - identity phrases
+                        /\b(act as|acting as|you are|you're|behave as|imagine you're|pretend to be)\b/i,
+                        /\b(be a|be an|become a|become an)\s+\w+/i,
+                        /\bas\s+(a|an)\s+(professional|expert|specialist|consultant|advisor|senior|junior|lead|chief|experienced|seasoned|skilled|qualified|certified|tenured)\b/i,
+                        // Natural language - profession titles
+                        /\b(writer|developer|analyst|manager|engineer|designer|marketer|strategist|planner|coordinator)\b/i,
+                        /\b(doctor|lawyer|teacher|accountant|consultant|advisor|agent|specialist|expert)\b/i,
+                        /\b(content\s+writer|copywriter|technical\s+writer|real\s+estate\s+writer)\b/i,
+                        // Natural language - expertise level
+                        /\b(tenured|senior|junior|lead|chief|head|principal)\s+\w+/i,
+                        /\b(experienced|seasoned|skilled|qualified|certified|professional)\s+\w+/i,
+                        /\bwith\s+(\d+|\w+)\s+years?\s+(of\s+)?(experience|expertise)\b/i,
+                        // Profession at start
+                        /^as\s+(a|an)\s+\w+/im
                     ],
                     tip: 'Define the AI persona: "Act as an experienced travel agent..."',
                     example: 'Act as an experienced travel agent who specializes in family trips.'
@@ -1755,10 +2436,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 I: {
                     name: 'Instructions',
                     patterns: [
-                        /^(write|create|generate|explain|analyze|summarize|list|describe|compare|design|draft|develop|build|make)/im,
-                        /\b(I need|I want|please|can you|could you|would you)\b/i,
+                        // Explicit labels
+                        /\b(instructions?|task|objective)\s*:/i,
+                        // Natural language - imperatives at start
+                        /^(write|create|generate|produce|develop|build|make|draft|compose)/im,
+                        // Natural language - imperatives anywhere
+                        /\b(write|create|generate|produce|develop|build|make|draft|compose)\s+(a|an|the|\d+)\b/i,
+                        /\b(analyze|review|evaluate|assess|examine|audit|check)\b/i,
+                        /\b(explain|describe|summarize|outline|list|detail)\b/i,
+                        /\b(help|assist|guide|advise|recommend|suggest)\b/i,
+                        // Natural language - requests
+                        /\b(i need you to|please|could you|would you|can you)\b/i,
+                        /\b(i('d| would) like (you to)?)\b/i,
                         /\b(include|ensure|make sure|cover|address)\b/i,
-                        /\b(step\s*\d|first|second|then|next|finally)\b/i
+                        /\b(step\s*\d|first|second|then|next|finally)\b/i,
+                        // Content type instructions
+                        /\b(blog\s+posts?|articles?|content|copy|emails?|newsletters?)\b/i,
+                        /\b(write|create)\s+\d+\s+\w+/i
                     ],
                     tip: 'Clearly state what you want done with examples if helpful',
                     example: 'Create a 7-day itinerary covering Rome and Florence with family-friendly activities.'
@@ -1766,11 +2460,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 S: {
                     name: 'Specifics',
                     patterns: [
-                        /\b(\d+)\s*(words?|sentences?|paragraphs?|bullet\s*points?|items?)\b/i,
+                        // Explicit labels
+                        /\b(specifics?|details?|requirements?)\s*:/i,
+                        // Natural language - quantities
+                        /\b(\d+)\s*(words?|pages?|paragraphs?|sentences?|items?|posts?|articles?|pieces?)\b/i,
+                        /\b(each|every|per)\s+(\d+|\w+)\s*(words?|post|article|item)?\b/i,
+                        // Natural language - format
                         /\b(format|output|structure)\s*(as|:)/i,
+                        /\b(JSON|markdown|bullet|table|list|numbered)\s*(format|list|points?)?\b/i,
+                        // Natural language - tone/style
                         /\b(tone|voice|style)\s*:/i,
-                        /\b(formal|casual|professional|friendly|urgent|persuasive)\b/i,
-                        /\b(JSON|markdown|bullet|table|list)\b/i
+                        /\b(formal|informal|casual|professional|friendly|conversational)\s+(tone|voice|style)?\b/i,
+                        /\b(non-?bias(ed)?|objective|neutral|balanced|unbiased)\s*(tone)?\b/i,
+                        // Natural language - targeting
+                        /\b(focused\s+on|targeting|aimed\s+at|for|about)\s+\w+/i,
+                        /\b(audience|readers?|users?|customers?|clients?)\b/i,
+                        // Natural language - length
+                        /\b(short|long|brief|detailed|comprehensive|concise)\b/i,
+                        // Time period specifics
+                        /\bfor\s+20\d{2}\b/i
                     ],
                     tip: 'Define format, length, tone: "Write 3 bullet points under 50 words"',
                     example: 'Write 3 bullet points, under 50 words each, in an urgent tone.'
@@ -1778,10 +2486,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 P: {
                     name: 'Parameters',
                     patterns: [
-                        /\b(don't|do not|avoid|exclude|without|never)\b/i,
-                        /\b(must|should|shall|need to|required|important)\b/i,
+                        // Explicit labels
+                        /\b(parameters?|constraints?|rules?|guidelines?|boundaries)\s*:/i,
+                        // Natural language - prohibitions
+                        /\b(don'?t|do not|never|avoid|exclude|no)\s+\w+/i,
+                        /\b(without|unless|except)\s+\w+/i,
+                        /\b(unverifiable|unconfirmed|speculative|incorrect)\s*(data|information|facts?)?\b/i,
+                        // Natural language - requirements
+                        /\b(must|should|need to|have to|required to)\s+\w+/i,
+                        /\b(make sure|ensure|verify|confirm|check)\s+(to|that)?\s*\w+/i,
+                        /\b(always|every time|consistently)\s+\w+/i,
+                        // Natural language - compliance
+                        /\b(follow|comply|adhere|according to)\s+\w+/i,
+                        /\b(laws?|regulations?|rules?|guidelines?|standards?|policies)\b/i,
+                        /\b(cite|reference|source|fact-?check|verify)\s*(your|all|the|sources?)?\b/i,
+                        // Natural language - limits
                         /\b(maximum|minimum|at least|no more than|limit)\b/i,
-                        /\b(include|use|add)\s+(\d+|three|two|five)\s+(hashtag|emoji|link)/i
+                        /\b(California|CA|state|federal)\s+(laws?|regulations?|requirements?)\b/i
                     ],
                     tip: 'Set constraints and what to avoid: "Include 3 hashtags. Avoid jargon."',
                     example: 'Include three hashtags. Avoid industry jargon. Keep it actionable.'
@@ -1794,9 +2515,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 C: {
                     name: 'Context',
                     patterns: [
-                        /\b(background|context|situation)\s*:/i,
+                        // Explicit labels
+                        /\b(background|context|situation|scenario)\s*:/i,
+                        // Natural language - identity/role context
                         /\b(I am a|I'm a|as a|my role|I work)\b/i,
-                        /\b(currently|working on|project|because|since)\b/i
+                        /\b(we are|we're)\s+(a|an)\s+\w+/i,
+                        // Natural language - project/work context
+                        /\b(currently|working on|project|because|since|given that)\b/i,
+                        /\b(launching|building|creating|developing|running|managing)\b/i,
+                        /\bfor\s+(my|our|a|the)\s+(client|project|company|team|business|website)\b/i,
+                        // Natural language - domain context
+                        /\b(commercial|residential|enterprise|startup|small business)\b/i,
+                        /\bin\s+(the\s+)?(field|area|domain|industry|sector)\s+of\b/i,
+                        // Natural language - possessives
+                        /\b(our|my|the)\s+(brand|product|company|business|project|team|client)\b/i,
+                        /\b(client'?s?|customer'?s?)\s+(website|site|blog|business|company)\b/i,
+                        // Location/temporal context
+                        /\b(San Diego|Los Angeles|California|CA|USA|local|regional)\b/i,
+                        /\bfor\s+(20\d{2}|this year|next year|Q[1-4])\b/i
                     ],
                     tip: 'Add background: "Context: I\'m a [role] working on [project]..."',
                     example: 'Context: I run a small e-commerce store selling handmade jewelry.'
@@ -1804,9 +2540,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 O: {
                     name: 'Objective',
                     patterns: [
-                        /\b(objective|goal|aim|purpose)\s*:/i,
-                        /\b(goal is|objective is|aim to|purpose is|in order to|so that)\b/i,
-                        /\b(I want to|we want to|trying to|hoping to|intend to|outcome|achieve|accomplish)\b/i
+                        // Explicit labels
+                        /\b(objective|goal|aim|purpose|mission)\s*:/i,
+                        // Natural language - goal statements
+                        /\b(goal is|objective is|aim to|purpose is|mission is)\b/i,
+                        /\b(in order to|so that|to help|to achieve)\b/i,
+                        // Natural language - want/need
+                        /\b(I want to|we want to|I need to|we need to)\b/i,
+                        /\b(trying to|hoping to|intend to|planning to|looking to)\b/i,
+                        // Natural language - outcome focus
+                        /\b(outcome|achieve|accomplish|attain|reach)\b/i,
+                        /\b(increase|decrease|improve|boost|enhance|reduce)\s+\w+/i,
+                        // Task-oriented
+                        /\b(help\s+(me|us)\s+(with|to))\b/i,
+                        /\b(i need you to|please help)\b/i
                     ],
                     tip: 'State your goal: "My objective is to..." or "I want to achieve..."',
                     example: 'My goal is to increase product page conversions by 15%.'
@@ -1814,9 +2561,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 S: {
                     name: 'Style',
                     patterns: [
-                        /\b(tone|voice|style)\s*:/i,
-                        /\b(formal|casual|professional|friendly|technical|conversational)\b/i,
-                        /\b(write (as|like|in)|in the style of|sound like)\b/i
+                        // Explicit labels
+                        /\b(style|voice|writing style)\s*:/i,
+                        // Natural language - style descriptors
+                        /\b(formal|informal|casual|professional|friendly|technical|conversational)\s*(style|voice|writing)?\b/i,
+                        /\b(academic|journalistic|creative|business|corporate)\s*(style|writing)?\b/i,
+                        // Natural language - style phrases
+                        /\b(write\s+(as|like|in)|in the style of|sound like|sounds like)\b/i,
+                        /\b(similar to|like a|as if)\b/i,
+                        // Style qualities
+                        /\b(clear|concise|detailed|thorough|brief|comprehensive)\b/i,
+                        /\b(simple|complex|sophisticated|accessible|approachable)\b/i
                     ],
                     tip: 'Specify tone: "Use a professional/casual/friendly tone"',
                     example: 'Use a warm, conversational tone appropriate for Instagram.'
@@ -1824,10 +2579,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 T: {
                     name: 'Tone',
                     patterns: [
-                        /\b(tone)\s*:/i,
-                        /\b(warm|cold|neutral|optimistic|pessimistic|urgent|relaxed)\b/i,
-                        /\b(enthusiastic|reserved|confident|humble|empathetic|authoritative)\b/i,
-                        /\b(serious|playful|inspiring|reassuring)\b/i
+                        // Explicit labels
+                        /\b(tone|emotional tone)\s*:/i,
+                        // Natural language - emotional qualities
+                        /\b(warm|cold|neutral|optimistic|pessimistic|urgent|relaxed)\s*(tone)?\b/i,
+                        /\b(enthusiastic|reserved|confident|humble|empathetic|authoritative)\s*(tone)?\b/i,
+                        /\b(serious|playful|inspiring|reassuring|encouraging|supportive)\s*(tone)?\b/i,
+                        // Natural language - bias/objectivity
+                        /\b(non-?bias(ed)?|objective|neutral|balanced|unbiased|impartial)\s*(tone)?\b/i,
+                        // Natural language - tone phrases
+                        /\b(keep\s+(it|the tone)|maintain\s+(a|an))\s+\w+/i,
+                        /\b(sound\s+(confident|professional|friendly|warm))\b/i
                     ],
                     tip: 'Define emotional quality: "Keep a confident but approachable tone"',
                     example: 'Keep a confident but not arrogant tone.'
@@ -1835,10 +2597,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 A: {
                     name: 'Audience',
                     patterns: [
-                        /\b(audience|reader|target)\s*:/i,
-                        /\b(for (a|my|our|the)|targeted at|aimed at|intended for|targeting)\b/i,
+                        // Explicit labels
+                        /\b(audience|reader|target|demographic)\s*:/i,
+                        // Natural language - targeting phrases
+                        /\b(for\s+(a|my|our|the)|targeted at|aimed at|intended for|targeting)\b/i,
+                        /\b(written for|designed for|created for|meant for)\b/i,
+                        // Natural language - audience types
                         /\b(beginners?|experts?|professionals?|executives?|children|students?|developers?|managers?)\b/i,
-                        /\bwho (are|have|need|want)\b/i
+                        /\b(first-?time|new|experienced|seasoned)\s+(owners?|users?|customers?|buyers?|readers?)\b/i,
+                        // Natural language - audience descriptors
+                        /\bwho\s+(are|have|need|want)\b/i,
+                        /\b(audience|readers?|users?|customers?|clients?|viewers?)\b/i,
+                        // Demographics
+                        /\b(aged?\s+\d+|\d+-\d+\s*(years?|y\.?o\.?))\b/i,
+                        /\b(young|old|senior|junior|millennial|gen-?[xyz])\s*(professionals?|adults?|people)?\b/i
                     ],
                     tip: 'Specify who: "For beginners with no experience" or "Targeting executives"',
                     example: 'Targeting young professionals aged 25-35 with disposable income.'
@@ -1846,10 +2618,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 R: {
                     name: 'Response',
                     patterns: [
-                        /\b(response|output|format|deliver)\s*:/i,
-                        /\b(as a|in (a|the) form of|formatted as|structure as)\b/i,
+                        // Explicit labels
+                        /\b(response|output|format|deliverable)\s*:/i,
+                        // Natural language - format phrases
+                        /\b(as a|in\s+(a|the)\s+form of|formatted as|structure as)\b/i,
+                        /\b(format|output|structure)\s*(as|:)/i,
+                        // Natural language - content types
                         /\b(email|article|report|summary|outline|script|code|list|table)\b/i,
-                        /\b(return|provide|give me|deliver)\b.*\b(as|in)\b/i
+                        /\b(blog\s+posts?|social\s+media|newsletter|press release|whitepaper)\b/i,
+                        // Natural language - delivery phrases
+                        /\b(return|provide|give me|deliver|produce)\b.*\b(as|in)\b/i,
+                        /\b(write|create)\s+(\d+|a|an|the)\s+(blog|article|post|piece)\b/i,
+                        // Format specifics
+                        /\b(JSON|markdown|bullet|table|numbered|HTML)\b/i,
+                        /\b(\d+)\s*(words?|posts?|articles?|paragraphs?)\b/i
                     ],
                     tip: 'Define output: "Format as a bulleted list" or "Return as JSON"',
                     example: 'Format as: headline, 2-sentence description, 3 bullet points.'
@@ -1862,9 +2644,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 C: {
                     name: 'Context',
                     patterns: [
-                        /\b(background|context|situation)\s*:/i,
+                        // Explicit labels
+                        /\b(background|context|situation|scenario)\s*:/i,
+                        // Natural language - identity/role context
                         /\b(I am a|I'm a|as a|my role|I work)\b/i,
-                        /\b(currently|working on|project|because|since)\b/i
+                        /\b(we are|we're)\s+(a|an)\s+\w+/i,
+                        // Natural language - project/work context
+                        /\b(currently|working on|project|because|since|given that)\b/i,
+                        /\b(launching|building|creating|developing|running|managing)\b/i,
+                        /\bfor\s+(my|our|a|the)\s+(client|project|company|team|business|website)\b/i,
+                        // Natural language - domain context
+                        /\b(commercial|residential|enterprise|startup|small business)\b/i,
+                        /\bin\s+(the\s+)?(field|area|domain|industry|sector)\s+of\b/i,
+                        // Natural language - possessives
+                        /\b(our|my|the)\s+(brand|product|company|business|project|team|client)\b/i,
+                        /\b(client'?s?|customer'?s?)\s+(website|site|blog|business|company)\b/i,
+                        // Location/temporal context
+                        /\b(San Diego|Los Angeles|California|CA|USA|local|regional)\b/i,
+                        /\bfor\s+(20\d{2}|this year|next year|Q[1-4])\b/i
                     ],
                     tip: 'Add background: "Context: I\'m planning a family trip to..."',
                     example: 'Context: I\'m planning a week-long family vacation to Italy with two teenagers.'
@@ -1872,9 +2669,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 R: {
                     name: 'Role',
                     patterns: [
-                        /\b(act as|you are|pretend to be|imagine you('re| are)|behave as)\b/i,
-                        /\b(role|persona|character|expert|specialist)\s*:/i,
-                        /\b(as (a|an) (expert|professional|specialist|consultant|advisor))\b/i
+                        // Explicit labels
+                        /\b(role|persona)\s*:/i,
+                        // Natural language - identity phrases
+                        /\b(act as|acting as|you are|you're|behave as|imagine you're|pretend to be)\b/i,
+                        /\b(be a|be an|become a|become an)\s+\w+/i,
+                        /\bas\s+(a|an)\s+(professional|expert|specialist|consultant|advisor|senior|junior|lead|chief|experienced|seasoned|skilled|qualified|certified|tenured)\b/i,
+                        // Natural language - profession titles
+                        /\b(writer|developer|analyst|manager|engineer|designer|marketer|strategist|planner|coordinator)\b/i,
+                        /\b(doctor|lawyer|teacher|accountant|consultant|advisor|agent|specialist|expert)\b/i,
+                        /\b(content\s+writer|copywriter|technical\s+writer|real\s+estate\s+writer)\b/i,
+                        // Natural language - expertise level
+                        /\b(tenured|senior|junior|lead|chief|head|principal)\s+\w+/i,
+                        /\b(experienced|seasoned|skilled|qualified|certified|professional)\s+\w+/i,
+                        /\bwith\s+(\d+|\w+)\s+years?\s+(of\s+)?(experience|expertise)\b/i
                     ],
                     tip: 'Assign a persona: "Act as an experienced travel planner..."',
                     example: 'Act as an experienced travel agent who specializes in family trips.'
@@ -1882,11 +2690,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 I: {
                     name: 'Instruction',
                     patterns: [
+                        // Explicit labels
+                        /\b(instructions?|task|objective)\s*:/i,
+                        // Natural language - imperatives at start
+                        /^(write|create|generate|produce|develop|build|make|draft|compose)/im,
+                        // Natural language - imperatives anywhere
+                        /\b(write|create|generate|produce|develop|build|make|draft|compose)\s+(a|an|the|\d+)\b/i,
+                        /\b(analyze|review|evaluate|assess|examine|audit|check)\b/i,
+                        /\b(explain|describe|summarize|outline|list|detail)\b/i,
+                        /\b(help|assist|guide|advise|recommend|suggest)\b/i,
+                        // Natural language - requests
+                        /\b(i need you to|please|could you|would you|can you)\b/i,
+                        /\b(i('d| would) like (you to)?)\b/i,
                         /\b(include|ensure|make sure|cover|address)\b/i,
-                        /\b(don't|do not|avoid|exclude|without)\b/i,
-                        /\b(must|should|shall|need to|required|important)\b/i,
                         /\b(step\s*\d|first|second|then|next|finally)\b/i,
-                        /(\d+\.\s|\*\s|-\s)/m
+                        // Content type instructions
+                        /\b(blog\s+posts?|articles?|content|copy|emails?|newsletters?)\b/i,
+                        /\b(write|create)\s+\d+\s+\w+/i
                     ],
                     tip: 'Add what to include/exclude: "Include X. Avoid Y."',
                     example: 'Include: kid-friendly activities, local restaurants, travel times. Avoid: overly touristy traps.'
@@ -1894,11 +2714,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 S: {
                     name: 'Specifics',
                     patterns: [
-                        /\b(\d+)\s*(words?|sentences?|paragraphs?|bullet\s*points?|items?)\b/i,
+                        // Explicit labels
+                        /\b(specifics?|details?|requirements?)\s*:/i,
+                        // Natural language - quantities
+                        /\b(\d+)\s*(words?|pages?|paragraphs?|sentences?|items?|posts?|articles?|pieces?)\b/i,
+                        /\b(each|every|per)\s+(\d+|\w+)\s*(words?|post|article|item)?\b/i,
+                        // Natural language - format
                         /\b(format|output|structure)\s*(as|:)/i,
+                        /\b(JSON|markdown|bullet|table|list|numbered)\s*(format|list|points?)?\b/i,
+                        // Natural language - tone/style
                         /\b(tone|voice|style)\s*:/i,
-                        /\b(formal|casual|professional|friendly|urgent|persuasive)\b/i,
-                        /\b(JSON|markdown|bullet|table|list)\b/i
+                        /\b(formal|informal|casual|professional|friendly|conversational)\s*(tone|voice|style)?\b/i,
+                        /\b(non-?bias(ed)?|objective|neutral|balanced|unbiased)\s*(tone)?\b/i,
+                        // Natural language - targeting
+                        /\b(focused\s+on|targeting|aimed\s+at|for|about)\s+\w+/i,
+                        /\b(audience|readers?|users?|customers?|clients?)\b/i,
+                        // Natural language - length
+                        /\b(short|long|brief|detailed|comprehensive|concise)\b/i,
+                        // Time period specifics
+                        /\bfor\s+20\d{2}\b/i
                     ],
                     tip: 'Define format, length, tone: "Write 3 bullet points under 50 words"',
                     example: 'Write 3 bullet points, under 50 words each, in an urgent tone.'
@@ -1906,10 +2740,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 P: {
                     name: 'Parameters',
                     patterns: [
-                        /\b(don't|do not|avoid|exclude|without|never)\b/i,
-                        /\b(must|should|shall|need to|required|important)\b/i,
+                        // Explicit labels
+                        /\b(parameters?|constraints?|rules?|guidelines?|boundaries)\s*:/i,
+                        // Natural language - prohibitions
+                        /\b(don'?t|do not|never|avoid|exclude|no)\s+\w+/i,
+                        /\b(without|unless|except)\s+\w+/i,
+                        /\b(unverifiable|unconfirmed|speculative|incorrect)\s*(data|information|facts?)?\b/i,
+                        // Natural language - requirements
+                        /\b(must|should|need to|have to|required to)\s+\w+/i,
+                        /\b(make sure|ensure|verify|confirm|check)\s+(to|that)?\s*\w+/i,
+                        /\b(always|every time|consistently)\s+\w+/i,
+                        // Natural language - compliance
+                        /\b(follow|comply|adhere|according to)\s+\w+/i,
+                        /\b(laws?|regulations?|rules?|guidelines?|standards?|policies)\b/i,
+                        /\b(cite|reference|source|fact-?check|verify)\s*(your|all|the|sources?)?\b/i,
+                        // Natural language - limits
                         /\b(maximum|minimum|at least|no more than|limit)\b/i,
-                        /\b(include|use|add)\s+(\d+|three|two|five)\s+(hashtag|emoji|link)/i
+                        /\b(California|CA|state|federal)\s+(laws?|regulations?|requirements?)\b/i
                     ],
                     tip: 'Set constraints and what to avoid: "Include 3 hashtags. Avoid jargon."',
                     example: 'Include three hashtags. Avoid industry jargon. Keep it actionable.'
@@ -1917,10 +2764,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 E: {
                     name: 'Example',
                     patterns: [
+                        // Explicit labels
                         /\b(example|for instance|such as|like this|similar to|e\.g\.|sample)\s*:/i,
-                        /\b(here is|here's|below is|following is)\s*(an? )?(example|sample)/i,
-                        /[""][^""]{10,}[""]/, // Quoted text as example
-                        /\b(input|output)\s*:/i
+                        // Natural language - example intro phrases
+                        /\b(here is|here's|below is|following is)\s*(an?\s*)?(example|sample)/i,
+                        /\b(for example|such as|like)\s*:/i,
+                        // Quoted text as example (10+ chars)
+                        /[""][^""]{10,}[""]/,
+                        // Input/output examples
+                        /\b(input|output)\s*:/i,
+                        // Before/after examples
+                        /\b(before|after)\s*:/i,
+                        // Format examples
+                        /\b(format like|formatted like|looks like)\s*:/i
                     ],
                     tip: 'Provide a sample: "Example: [show what you want]"',
                     example: 'Example output: "Day 1 - Rome: Start your morning at the Colosseum (arrive by 9am)..."'
@@ -1936,7 +2792,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { key: 'role', letter: 'R', label: 'What role should the AI adopt?', placeholder: 'e.g., Act as an experienced travel agent specializing in family trips...', fullWidth: true },
             { key: 'instructions', letter: 'I', label: 'What do you want done? (the task)', placeholder: 'e.g., Create a 7-day itinerary covering Rome and Florence...' },
             { key: 'specifics', letter: 'S', label: 'Format, length, tone? (specifics)', placeholder: 'e.g., Day-by-day format, friendly tone, include estimated costs...' },
-            { key: 'parameters', letter: 'P', label: 'Constraints and what to avoid?', placeholder: 'e.g., Budget of $5,000. No more than 2 museums per day...' }
+            { key: 'parameters', letter: 'P', label: 'Constraints and what to avoid?', placeholder: 'e.g., Maximum 500 words. Avoid technical jargon...' }
         ],
         COSTAR: [
             { key: 'context', letter: 'C', label: 'What background info does the AI need?', placeholder: 'e.g., I\'m hosting a neighborhood potluck for 20 people...' },
@@ -1952,7 +2808,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { key: 'instruction', letter: 'I', label: 'What do you want done? (the task)', placeholder: 'e.g., Create a 5-day weeknight dinner plan with kid-friendly recipes...' },
             { key: 'specifics', letter: 'S', label: 'Format, length, tone? (specifics)', placeholder: 'e.g., Friendly tone, include prep time, common grocery ingredients...' },
             { key: 'parameters', letter: 'P', label: 'Constraints and what to avoid?', placeholder: 'e.g., Under 45 minutes per meal. No seafood (allergies)...' },
-            { key: 'example', letter: 'E', label: 'Example of desired output? (optional)', placeholder: 'e.g., Format like: "Monday: Veggie Tacos - Prep: 15 min - Hidden veggies: peppers"', optional: true }
+            { key: 'example', letter: 'E', label: 'Example of desired output?', placeholder: 'e.g., Format like: "Monday: Veggie Tacos - Prep: 15 min - Hidden veggies: peppers"' }
         ],
         REACT: [
             { key: 'problem', letter: 'P', label: 'What problem needs to be solved?', placeholder: 'e.g., I need to debug why my website login is failing for some users...', fullWidth: true },
@@ -2016,6 +2872,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Calculate scores based on framework detection
+    // Scoring: elements detected / total elements = score
+    // 5 elements = 100%, 4 = 80%, 3 = 60%, 2 = 40%, 1 = 20%, 0 = 0%
     function analyzePrompt(prompt) {
         const frameworkResults = detectFrameworkElements(prompt);
 
@@ -2023,39 +2881,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const bestFramework = Object.entries(frameworkResults)
             .sort((a, b) => b[1].percentage - a[1].percentage)[0];
 
-        const frameworkScore = bestFramework[1].percentage;
-
-        // Sentence quality scoring
-        const sentences = prompt.split(/[.!?]+/).filter(s => s.trim().length > 0);
-        const words = prompt.split(/\s+/).filter(w => w.length > 0);
-        const avgWordsPerSentence = sentences.length > 0 ? words.length / sentences.length : words.length;
-
-        // Ideal: 8-25 words per sentence
-        let sentenceQuality;
-        if (avgWordsPerSentence >= 8 && avgWordsPerSentence <= 25) {
-            sentenceQuality = 100;
-        } else if (avgWordsPerSentence >= 5 && avgWordsPerSentence <= 35) {
-            sentenceQuality = 70;
-        } else {
-            sentenceQuality = 40;
-        }
-
-        // Intent clarity: based on clear request language (not labels)
-        const hasActionVerb = /^(write|create|generate|explain|analyze|summarize|list|describe|compare|design|draft|help|act|you are|i need|i want|please|can you|could you)/im.test(prompt.trim());
-        const hasClearRequest = /\b(write|create|generate|explain|analyze|summarize|list|describe|compare|design|draft|make|build|develop|produce|give me|provide|help me)\b/i.test(prompt);
-        const intentClarity = (hasActionVerb ? 60 : 0) + (hasClearRequest ? 40 : 20);
-
-        // Combined scoring: 50% framework, 25% sentence quality, 25% intent
-        const overall = Math.round(frameworkScore * 0.5 + sentenceQuality * 0.25 + intentClarity * 0.25);
+        // Overall score is simply the framework coverage (detected/total * 100)
+        const overall = bestFramework[1].percentage;
 
         // Generate feedback based on detected elements
         const feedback = generateFrameworkFeedback(bestFramework, frameworkResults);
 
         return {
             overall,
-            frameworkCoverage: frameworkScore,
-            sentenceQuality: Math.round(sentenceQuality),
-            intentClarity: Math.round(intentClarity),
+            frameworkCoverage: overall,
+            detectedCount: bestFramework[1].coverage,
+            totalElements: bestFramework[1].total,
             bestFramework: bestFramework[0],
             frameworkResults,
             feedback
@@ -2185,22 +3021,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="sub-score-bar">
                         <div class="sub-score-fill ${getScoreClass(scores.frameworkCoverage)}" data-width="${scores.frameworkCoverage}"></div>
                     </div>
-                    <span class="sub-score-label">Framework Coverage</span>
-                    <span class="sub-score-value">${scores.frameworkCoverage}%</span>
-                </div>
-                <div class="sub-score">
-                    <div class="sub-score-bar">
-                        <div class="sub-score-fill ${getScoreClass(scores.sentenceQuality)}" data-width="${scores.sentenceQuality}"></div>
-                    </div>
-                    <span class="sub-score-label">Sentence Quality</span>
-                    <span class="sub-score-value">${scores.sentenceQuality}%</span>
-                </div>
-                <div class="sub-score">
-                    <div class="sub-score-bar">
-                        <div class="sub-score-fill ${getScoreClass(scores.intentClarity)}" data-width="${scores.intentClarity}"></div>
-                    </div>
-                    <span class="sub-score-label">Intent Clarity</span>
-                    <span class="sub-score-value">${scores.intentClarity}%</span>
+                    <span class="sub-score-label">Elements Detected</span>
+                    <span class="sub-score-value">${scores.detectedCount}/${scores.totalElements}</span>
                 </div>
             </div>
             ${strengthsHTML}
@@ -3488,7 +4310,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { key: 'role', letter: 'R', label: 'What role should the AI adopt?', placeholder: 'e.g., Act as an experienced travel agent specializing in family trips...', fullWidth: true },
             { key: 'instructions', letter: 'I', label: 'What do you want done? (the task)', placeholder: 'e.g., Create a 7-day itinerary covering Rome and Florence...' },
             { key: 'specifics', letter: 'S', label: 'Format, length, tone? (specifics)', placeholder: 'e.g., Day-by-day format, friendly tone, include estimated costs...' },
-            { key: 'parameters', letter: 'P', label: 'Constraints and what to avoid?', placeholder: 'e.g., Budget of $5,000. No more than 2 museums per day...' }
+            { key: 'parameters', letter: 'P', label: 'Constraints and what to avoid?', placeholder: 'e.g., Maximum 500 words. Avoid technical jargon...' }
         ],
         COSTAR: [
             { key: 'context', letter: 'C', label: 'What background info does the AI need?', placeholder: 'e.g., I\'m hosting a neighborhood potluck for 20 people...' },
@@ -3504,7 +4326,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { key: 'instruction', letter: 'I', label: 'What do you want done? (the task)', placeholder: 'e.g., Create a 5-day weeknight dinner plan with kid-friendly recipes...' },
             { key: 'specifics', letter: 'S', label: 'Format, length, tone? (specifics)', placeholder: 'e.g., Friendly tone, include prep time, common grocery ingredients...' },
             { key: 'parameters', letter: 'P', label: 'Constraints and what to avoid?', placeholder: 'e.g., Under 45 minutes per meal. No seafood (allergies)...' },
-            { key: 'example', letter: 'E', label: 'Example of desired output? (optional)', placeholder: 'e.g., Format like: "Monday: Veggie Tacos - Prep: 15 min - Hidden veggies: peppers"', optional: true }
+            { key: 'example', letter: 'E', label: 'Example of desired output?', placeholder: 'e.g., Format like: "Monday: Veggie Tacos - Prep: 15 min - Hidden veggies: peppers"' }
         ],
         REACT: [
             { key: 'problem', letter: 'P', label: 'What problem needs to be solved?', placeholder: 'e.g., I need to debug why my website login is failing for some users...', fullWidth: true },
