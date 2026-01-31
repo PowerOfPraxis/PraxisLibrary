@@ -283,8 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Data pulses traveling along connections - more active
             this.dataPulses = [];
             this.lastPulseSpawn = 0;
-            this.pulseSpawnInterval = this.isMobile ? 100 : (isHero ? 2 : 150);
-            this.maxPulses = this.isMobile ? 60 : (isHero ? 3750 : 40);
+            this.pulseSpawnInterval = this.isMobile ? 100 : (isHero ? 1 : 150);
+            this.maxPulses = this.isMobile ? 60 : (isHero ? 15000 : 40);
 
             // Frame throttling for mobile
             this.lastFrameTime = 0;
@@ -526,15 +526,28 @@ document.addEventListener('DOMContentLoaded', () => {
             this.initHeroTerms(centerX, centerY);
         }
 
-        // Initialize orbiting terms for hero mode
+        // Initialize orbiting terms for hero mode - spread throughout the network
         initHeroTerms(centerX, centerY) {
             const shuffledTerms = [...AI_TERMS].sort(() => Math.random() - 0.5);
             const selectedTerms = shuffledTerms.slice(0, this.heroTermCount);
 
             selectedTerms.forEach((term, i) => {
-                // Orbit outside the network - spread out more
-                const orbitRadius = this.clusterSpread + 80 + Math.random() * 150;
-                const startAngle = (i / this.heroTermCount) * Math.PI * 2 + Math.random() * 0.3;
+                // Spread terms throughout the network - from center to far outside
+                // Some inside (20%), some at edge (30%), some outside (50%)
+                let orbitRadius;
+                const placement = Math.random();
+                if (placement < 0.2) {
+                    // Inside the network
+                    orbitRadius = 30 + Math.random() * (this.clusterSpread * 0.6);
+                } else if (placement < 0.5) {
+                    // At the edge of network
+                    orbitRadius = this.clusterSpread * 0.7 + Math.random() * (this.clusterSpread * 0.5);
+                } else {
+                    // Outside the network
+                    orbitRadius = this.clusterSpread + 50 + Math.random() * 180;
+                }
+
+                const startAngle = (i / this.heroTermCount) * Math.PI * 2 + Math.random() * 0.5;
 
                 this.heroTerms.push({
                     text: term,
@@ -547,8 +560,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     verticalAmplitude: 15 + Math.random() * 20,
                     verticalSpeed: 0.0003 + Math.random() * 0.0002,
                     // Visual properties
-                    opacity: 0.25 + Math.random() * 0.25,
-                    fontSize: this.isMobile ? 10 : 11 + Math.floor(Math.random() * 3),
+                    opacity: 0.3 + Math.random() * 0.35,
+                    fontSize: this.isMobile ? 10 : 11 + Math.floor(Math.random() * 4),
                     pulseOffset: i * 0.5
                 });
             });
@@ -684,13 +697,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentCenterX = cluster.baseCenterX;
             const currentCenterY = cluster.baseCenterY;
 
+            // Determine which side is "dark" (away from screen center)
+            const isLeftSide = this.heroSide === 'left';
+
             this.heroTerms.forEach(term => {
                 // Static position - no rotation or wobble
                 const x = currentCenterX + Math.cos(term.angle) * term.orbitRadius;
                 const y = currentCenterY + Math.sin(term.angle) * term.orbitRadius;
 
+                // Fade based on distance from screen center (darker side fades out)
+                let edgeFade = 1;
+                if (isLeftSide) {
+                    // Left side network: fade out towards left edge
+                    edgeFade = Math.min(1, x / (this.width * 0.25));
+                } else {
+                    // Right side network: fade out towards right edge
+                    edgeFade = Math.min(1, (this.width - x) / (this.width * 0.25));
+                }
+                // Also fade at top and bottom edges
+                const verticalFade = Math.min(1, Math.min(y, this.height - y) / (this.height * 0.15));
+                edgeFade = Math.max(0, edgeFade * verticalFade);
+
                 const pulse = Math.sin(time * 0.002 + term.pulseOffset) * 0.15 + 0.85;
-                const opacity = term.opacity * pulse * this.heroOpacity * this.aiTransitionProgress;
+                const opacity = term.opacity * pulse * this.heroOpacity * this.aiTransitionProgress * edgeFade;
+
+                if (opacity < 0.02) return; // Skip nearly invisible terms
 
                 this.ctx.save();
                 this.ctx.font = `${term.fontSize}px monospace`;
