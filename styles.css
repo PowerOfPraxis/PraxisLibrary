@@ -4306,8 +4306,15 @@ body.menu-open {
     text-align: center;
     flex: 1 1 150px;
     min-width: 120px;
-    max-width: 200px;
+    max-width: 180px;
     transition: all var(--transition-normal);
+}
+
+@media (min-width: 768px) {
+    .acronym-card {
+        flex: 1;
+        max-width: none;
+    }
 }
 
 .acronym-card:hover {
@@ -4465,10 +4472,16 @@ body.menu-open {
 .acronym-card.has-flip .card-inner {
     position: relative;
     width: 100%;
-    height: 220px;
+    height: 240px;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
+}
+
+@media (min-width: 768px) {
+    .acronym-card.has-flip .card-inner {
+        height: 200px;
+    }
 }
 
 .acronym-card.has-flip:hover .card-inner,
@@ -4507,7 +4520,7 @@ body.menu-open {
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
     justify-content: flex-start;
-    padding: var(--space-md);
+    padding: var(--space-sm);
     z-index: 1;
 }
 
@@ -4540,9 +4553,9 @@ body.menu-open {
 
 .acronym-card.has-flip .card-back .flip-header {
     font-weight: 700;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: var(--primary);
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     text-align: center;
@@ -4550,14 +4563,14 @@ body.menu-open {
 }
 
 .acronym-card.has-flip .card-back .flip-example {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
-    line-height: 1.5;
-    padding: var(--space-sm);
+    line-height: 1.4;
+    padding: var(--space-xs) var(--space-sm);
     background: rgba(220, 53, 69, 0.05);
     border-radius: var(--radius-md);
     border-left: 3px solid var(--primary);
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
     font-style: italic;
     width: 100%;
 }
