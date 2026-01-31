@@ -213,15 +213,28 @@ document.addEventListener('DOMContentLoaded', () => {
             // Mobile detection
             this.isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
 
-            // Mode: 'clusters', 'terms', or 'combined' (main page with both)
+            // Mode: 'clusters', 'terms', 'combined', or 'hero' (single large network)
             this.mode = options.mode || 'clusters';
 
             // Enhanced settings for combined mode (main page - larger network)
             const isCombined = this.mode === 'combined';
+            const isHero = this.mode === 'hero';
 
-            // Cluster settings - one per AI (cluster mode)
-            this.nodesPerCluster = this.isMobile ? (isCombined ? 20 : 15) : (isCombined ? 35 : 25);
-            this.clusterSpread = this.isMobile ? (isCombined ? 100 : 80) : (isCombined ? 150 : 120);
+            // Hero mode settings - single large network on left side
+            if (isHero) {
+                this.nodesPerCluster = this.isMobile ? 60 : 120;
+                this.clusterSpread = this.isMobile ? 180 : 320;
+                this.heroOpacity = 0.4; // Faded/transparent
+                this.currentAIIndex = 0;
+                this.lastAISwitch = 0;
+                this.aiSwitchInterval = 13000; // 13 seconds
+                this.aiTransitionProgress = 1; // 0-1 for fade transition
+                this.aiTransitionDuration = 1500; // 1.5s fade
+            } else {
+                // Cluster settings - one per AI (cluster mode)
+                this.nodesPerCluster = this.isMobile ? (isCombined ? 20 : 15) : (isCombined ? 35 : 25);
+                this.clusterSpread = this.isMobile ? (isCombined ? 100 : 80) : (isCombined ? 150 : 120);
+            }
 
             // Terms mode settings - more terms for combined mode
             this.nodeCount = this.isMobile ? 40 : 80;
@@ -229,13 +242,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Options
             this.showTerms = options.showTerms !== false;
-            this.maxConnectionDistance = this.isMobile ? (isCombined ? 120 : 100) : (isCombined ? 180 : 140);
+            this.maxConnectionDistance = this.isMobile ? (isHero ? 150 : (isCombined ? 120 : 100)) : (isHero ? 250 : (isCombined ? 180 : 140));
 
             // Data pulses traveling along connections - more active
             this.dataPulses = [];
             this.lastPulseSpawn = 0;
-            this.pulseSpawnInterval = this.isMobile ? 300 : 150;
-            this.maxPulses = this.isMobile ? 15 : 40;
+            this.pulseSpawnInterval = this.isMobile ? 300 : (isHero ? 100 : 150);
+            this.maxPulses = this.isMobile ? 15 : (isHero ? 60 : 40);
 
             // Frame throttling for mobile
             this.lastFrameTime = 0;
@@ -268,6 +281,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Initialize based on mode
             if (this.mode === 'terms') {
                 this.initTermsMode();
+            } else if (this.mode === 'hero') {
+                // Hero mode: single large network on left side, cycling AI names
+                this.initHeroCluster();
             } else if (this.mode === 'combined') {
                 // Combined mode: both AI clusters AND floating terms
                 this.initClusters();
@@ -364,6 +380,104 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 this.aiClusters.push(cluster);
             });
+        }
+
+        // Hero mode: Single large neural network on left side with cycling AI names
+        initHeroCluster() {
+            this.nodes = [];
+            this.aiClusters = [];
+
+            // Position cluster on the LEFT side of screen (25-30% from left edge)
+            // This keeps the center area clear for title and CTA buttons
+            const centerX = this.width * (this.isMobile ? 0.5 : 0.28);
+            const centerY = this.height * 0.5;
+
+            // Create single large cluster
+            const cluster = {
+                name: AI_NAMES[this.currentAIIndex],
+                baseCenterX: centerX,
+                baseCenterY: centerY,
+                centerX: centerX,
+                centerY: centerY,
+                nodeStartIndex: 0,
+                nodeCount: this.nodesPerCluster,
+                pulseOffset: 0,
+                // Gentle floating animation
+                floatSpeedX: 0.0001,
+                floatSpeedY: 0.00015,
+                floatAmplitudeX: 15,
+                floatAmplitudeY: 12,
+                floatPhaseX: 0,
+                floatPhaseY: Math.PI / 4
+            };
+
+            // Create nodes for the hero cluster - larger spread
+            for (let n = 0; n < this.nodesPerCluster; n++) {
+                const angle = Math.random() * Math.PI * 2;
+                // More varied radius distribution for organic look
+                const radiusBase = 30 + Math.random() * this.clusterSpread;
+                // Some nodes closer to center, some further out
+                const radius = radiusBase * (0.3 + Math.random() * 0.7);
+
+                this.nodes.push(this.createNode(angle, radius, 0, n));
+            }
+
+            this.aiClusters.push(cluster);
+        }
+
+        // Update hero AI name cycling
+        updateHeroAI(time) {
+            if (this.mode !== 'hero') return;
+
+            const timeSinceSwitch = time - this.lastAISwitch;
+
+            // Check if it's time to switch to next AI
+            if (timeSinceSwitch >= this.aiSwitchInterval) {
+                this.currentAIIndex = (this.currentAIIndex + 1) % AI_NAMES.length;
+                this.lastAISwitch = time;
+                this.aiTransitionProgress = 0;
+            }
+
+            // Update transition progress (for fade effect)
+            if (this.aiTransitionProgress < 1) {
+                this.aiTransitionProgress = Math.min(1, timeSinceSwitch / this.aiTransitionDuration);
+            }
+
+            // Update cluster name
+            if (this.aiClusters.length > 0) {
+                this.aiClusters[0].name = AI_NAMES[this.currentAIIndex];
+            }
+        }
+
+        // Draw hero label with fade transition
+        drawHeroLabel(time) {
+            if (this.aiClusters.length === 0) return;
+
+            const cluster = this.aiClusters[0];
+            const pulse = Math.sin(time * 0.0015) * 0.1 + 0.9;
+
+            // Fade in/out transition
+            const fadeOpacity = this.aiTransitionProgress * this.heroOpacity * pulse;
+
+            // Large, prominent font for hero label
+            const fontSize = this.isMobile ? 24 : 42;
+
+            this.ctx.save();
+            this.ctx.font = `bold ${fontSize}px monospace`;
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+
+            // Text glow - subtle red glow
+            if (!this.isMobile) {
+                this.ctx.shadowColor = `rgba(230, 57, 70, ${fadeOpacity * 0.8})`;
+                this.ctx.shadowBlur = 25;
+            }
+
+            // Main text - white with reduced opacity for transparency
+            this.ctx.fillStyle = `rgba(255, 255, 255, ${fadeOpacity})`;
+            this.ctx.fillText(cluster.name, cluster.centerX, cluster.centerY);
+
+            this.ctx.restore();
         }
 
         // Terms mode: Distributed nodes with floating AI-related terms
@@ -541,7 +655,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Pulsing glow based on depth
             const pulse = Math.sin(time * 0.003 + node.pulseOffset) * 0.15 + 0.85;
-            const intensity = node.glowIntensity * pulse;
+            let intensity = node.glowIntensity * pulse;
+
+            // Apply hero mode transparency
+            const heroMult = this.mode === 'hero' ? this.heroOpacity : 1;
+            intensity *= heroMult;
 
             // Simplified glow using concentric circles instead of expensive gradients
             // Skip glow entirely on mobile for far nodes (performance)
@@ -674,6 +792,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             this.ctx.lineCap = 'round';
 
+            // Apply hero mode transparency
+            const heroMult = this.mode === 'hero' ? this.heroOpacity : 1;
+
             // Use cached connections - much faster than O(n²) every frame
             for (const conn of this.cachedConnections) {
                 const nodeA = this.nodes[conn.i];
@@ -685,7 +806,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Subtle pulse animation
                 const pulse = Math.sin(time * 0.001 + conn.i * 0.05) * 0.1 + 0.9;
-                const alpha = conn.baseAlpha * pulse;
+                const alpha = conn.baseAlpha * pulse * heroMult;
 
                 this.ctx.beginPath();
                 this.ctx.moveTo(posA.x, posA.y);
@@ -767,6 +888,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         drawDataPulses() {
+            // Apply hero mode transparency
+            const heroMult = this.mode === 'hero' ? this.heroOpacity : 1;
+
             this.dataPulses.forEach(pulse => {
                 const startNode = this.nodes[pulse.startIdx];
                 const endNode = this.nodes[pulse.endIdx];
@@ -778,6 +902,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const x = startPos.x + (endPos.x - startPos.x) * pulse.progress;
                 const y = startPos.y + (endPos.y - startPos.y) * pulse.progress;
 
+                const brightness = pulse.brightness * heroMult;
+
                 // Trail - red/pink
                 const trailSteps = this.isMobile ? 3 : 6;
                 for (let t = trailSteps; t >= 0; t--) {
@@ -786,7 +912,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const tx = startPos.x + (endPos.x - startPos.x) * trailProg;
                     const ty = startPos.y + (endPos.y - startPos.y) * trailProg;
-                    const trailAlpha = (1 - t / trailSteps) * pulse.brightness * 0.5;
+                    const trailAlpha = (1 - t / trailSteps) * brightness * 0.5;
 
                     this.ctx.beginPath();
                     this.ctx.arc(tx, ty, pulse.size * 0.6, 0, Math.PI * 2);
@@ -798,14 +924,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!this.isMobile) {
                     this.ctx.beginPath();
                     this.ctx.arc(x, y, pulse.size * 2.5, 0, Math.PI * 2);
-                    this.ctx.fillStyle = `rgba(255, 80, 80, ${pulse.brightness * 0.3})`;
+                    this.ctx.fillStyle = `rgba(255, 80, 80, ${brightness * 0.3})`;
                     this.ctx.fill();
                 }
 
                 // Core - bright white/pink
                 this.ctx.beginPath();
                 this.ctx.arc(x, y, pulse.size, 0, Math.PI * 2);
-                this.ctx.fillStyle = `rgba(255, 240, 240, ${pulse.brightness})`;
+                this.ctx.fillStyle = `rgba(255, 240, 240, ${brightness})`;
                 this.ctx.fill();
             });
         }
@@ -823,6 +949,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Update positions based on mode
             if (this.mode === 'terms') {
                 this.updateFloatingTerms(time);
+            } else if (this.mode === 'hero') {
+                // Hero mode: single large network with cycling AI names
+                this.updateClusterPositions(time);
+                this.updateHeroAI(time);
             } else if (this.mode === 'combined') {
                 // Combined mode: update both clusters and floating terms
                 this.updateClusterPositions(time);
@@ -849,6 +979,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.mode === 'terms') {
                 // Terms mode: draw floating AI terms only
                 this.drawFloatingTerms(time);
+            } else if (this.mode === 'hero') {
+                // Hero mode: draw single cycling AI label
+                this.drawHeroLabel(time);
             } else if (this.mode === 'combined') {
                 // Combined mode: draw both floating terms and cluster labels
                 this.drawFloatingTerms(time);
@@ -878,10 +1011,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Only the root index page gets AI clusters - must be exactly / or /index.html (not in any subdirectory)
     const isMainPage = pathname === '/' || pathname === '/index.html';
 
-    // Main hero canvas on index page - combined mode with AI clusters AND floating terms
+    // Main hero canvas on index page - hero mode with single large network cycling through AI names
     if (mainCanvas && isMainPage) {
         neuralNetworks.push(new NeuralNetwork(mainCanvas, {
-            mode: 'combined',  // Shows both AI clusters and floating terms
+            mode: 'hero',  // Single large network on left, cycles AI names every 13 seconds
             showTerms: true
         }));
     } else if (mainCanvas) {
