@@ -450,21 +450,11 @@ p {
     51%, 100% { opacity: 0; }
 }
 
-/* Mobile chat adjustments */
-@media (max-width: 768px) {
+/* Chat overlay - desktop only (UX/accessibility consideration) */
+/* Hide on anything below full desktop width for cleaner mobile experience */
+@media (max-width: 1200px) {
     .hero-chat-overlay {
-        padding: 0 3%;
-        align-items: flex-start;
-        padding-top: 12%;
-    }
-
-    .chat-container {
-        max-width: 92%;
-    }
-
-    .chat-bubble {
-        font-size: 0.875rem;
-        padding: var(--space-md) var(--space-lg);
+        display: none !important;
     }
 }
 
