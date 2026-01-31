@@ -4476,53 +4476,62 @@ body.menu-open {
     opacity: 0.6;
 }
 
-/* Responsive flip cards - keep horizontal, scale down */
+/* Mobile: Smaller cards, NO flip - show front only */
 @media (max-width: 768px) {
-    .acronym-card.has-flip .card-inner {
-        height: 220px;
-    }
-
-    .acronym-card.has-flip .card-front::after {
-        content: 'Tap to flip';
-        font-size: 0.6rem;
-    }
-
-    .acronym-card.has-flip .card-front .acronym-letter {
-        width: 36px;
-        height: 36px;
-        font-size: 1.1rem;
-    }
-
-    .acronym-card.has-flip .card-front h3 {
-        font-size: 0.9rem;
-    }
-
-    .acronym-card.has-flip .card-front p {
-        font-size: 0.7rem;
-    }
-
-    .acronym-card.has-flip .card-back {
+    .acronym-card {
+        min-width: 80px;
+        max-width: 100px;
         padding: var(--space-sm);
     }
 
-    .acronym-card.has-flip .card-back .flip-header {
-        font-size: 0.7rem;
+    .acronym-card.has-flip {
+        perspective: none;
+    }
+
+    .acronym-card.has-flip .card-inner {
+        height: auto;
+        transform-style: flat;
+        -webkit-transform-style: flat;
+    }
+
+    /* Disable flip on hover/tap */
+    .acronym-card.has-flip:hover .card-inner,
+    .acronym-card.has-flip.flipped .card-inner {
+        transform: none;
+        -webkit-transform: none;
+    }
+
+    .acronym-card.has-flip .card-front {
+        position: relative;
+        padding: var(--space-sm);
+    }
+
+    /* Hide the back completely on mobile */
+    .acronym-card.has-flip .card-back {
+        display: none;
+    }
+
+    /* Hide "Hover to flip" text */
+    .acronym-card.has-flip .card-front::after {
+        display: none;
+    }
+
+    /* Smaller letter badge */
+    .acronym-card.has-flip .card-front .acronym-letter {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
         margin-bottom: var(--space-xs);
     }
 
-    .acronym-card.has-flip .card-back .flip-example {
-        font-size: 0.65rem;
-        padding: var(--space-xs);
-        line-height: 1.4;
+    .acronym-card.has-flip .card-front h3 {
+        font-size: 0.75rem;
+        margin-bottom: 2px;
     }
 
-    .acronym-card.has-flip .card-back .flip-tags {
-        gap: 2px;
-    }
-
-    .acronym-card.has-flip .card-back .flip-tag {
-        font-size: 0.55rem;
-        padding: 2px 4px;
+    .acronym-card.has-flip .card-front p {
+        font-size: 0.6rem;
+        line-height: 1.3;
     }
 }
 
@@ -6153,5 +6162,144 @@ body.menu-open {
     .techniques-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============================================
+   MOBILE COMPACT STYLES (iPhone 15 Pro Max)
+   ============================================ */
+@media (max-width: 480px) {
+    /* Smaller card grids */
+    .cards-grid > *,
+    .card-grid > * {
+        min-width: 180px;
+        max-width: 200px;
+    }
+
+    .card {
+        padding: var(--space-sm);
+    }
+
+    .card-title {
+        font-size: 0.9rem;
+    }
+
+    .card-text {
+        font-size: 0.75rem;
+        line-height: 1.4;
+    }
+
+    .card-badge {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+    }
+
+    /* Smaller info cards */
+    .info-cards > *,
+    .coverage-grid > *,
+    .values-grid > *,
+    .safety-principles > *,
+    .risks-grid > *,
+    .caution-grid > * {
+        min-width: 160px;
+        max-width: 180px;
+        padding: var(--space-sm);
+    }
+
+    .info-card h3,
+    .coverage-card h3,
+    .value-card h3 {
+        font-size: 0.85rem;
+    }
+
+    .info-card p,
+    .coverage-card p,
+    .value-card p {
+        font-size: 0.7rem;
+    }
+
+    /* Smaller readiness pillars */
+    .readiness-pillars > * {
+        min-width: 140px;
+        max-width: 160px;
+        padding: var(--space-sm);
+    }
+
+    .pillar-number {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .pillar-card h3 {
+        font-size: 0.85rem;
+    }
+
+    .pillar-card p {
+        font-size: 0.7rem;
+    }
+
+    /* Smaller tool cards */
+    .tool-cards > * {
+        min-width: 220px;
+        max-width: 250px;
+        padding: var(--space-md);
+    }
+
+    .tool-card h3 {
+        font-size: 1rem;
+    }
+
+    .tool-card p {
+        font-size: 0.8rem;
+    }
+
+    /* Smaller path steps */
+    .path-steps > * {
+        min-width: 180px;
+        max-width: 200px;
+        padding: var(--space-sm);
+    }
+
+    .path-step-number {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    /* Smaller footer */
+    .footer-links > * {
+        min-width: 100px;
+    }
+
+    .footer-col h4 {
+        font-size: 0.75rem;
+    }
+
+    .footer-col a {
+        font-size: 0.7rem;
+    }
+
+    /* Smaller methodology buttons */
+    .methodology-selector > * {
+        min-width: 100px;
+        padding: var(--space-sm);
+    }
+
+    .methodology-btn {
+        font-size: 0.75rem;
+    }
+
+    /* Compact spacing */
+    .section {
+        padding: var(--space-lg) 0;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.85rem;
     }
 }
