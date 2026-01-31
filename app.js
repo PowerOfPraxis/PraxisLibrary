@@ -1041,35 +1041,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Steady alpha - no pulsing, just organic wave movement
                 const alpha = conn.baseAlpha * heroMult;
 
+                // Draw straight line
                 this.ctx.beginPath();
-
-                // Hero mode: draw curved lines with wave motion for movement effect
-                if (isHero && conn.waveAmplitude) {
-                    const midX = (posA.x + posB.x) / 2;
-                    const midY = (posA.y + posB.y) / 2;
-
-                    // Calculate perpendicular offset for wave
-                    const dx = posB.x - posA.x;
-                    const dy = posB.y - posA.y;
-                    const len = Math.sqrt(dx * dx + dy * dy);
-                    const perpX = -dy / len;
-                    const perpY = dx / len;
-
-                    // Animated wave offset
-                    const waveOffset = Math.sin(time * conn.waveSpeed + conn.waveOffset) * conn.waveAmplitude;
-
-                    // Draw quadratic curve with animated control point
-                    this.ctx.moveTo(posA.x, posA.y);
-                    this.ctx.quadraticCurveTo(
-                        midX + perpX * waveOffset,
-                        midY + perpY * waveOffset,
-                        posB.x, posB.y
-                    );
-                } else {
-                    // Standard straight line for non-hero modes
-                    this.ctx.moveTo(posA.x, posA.y);
-                    this.ctx.lineTo(posB.x, posB.y);
-                }
+                this.ctx.moveTo(posA.x, posA.y);
+                this.ctx.lineTo(posB.x, posB.y);
 
                 // Color based on depth - prominent lines are brighter
                 if (conn.avgZ > 0.6) {
