@@ -130,6 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'Diffusion',
         'Embedding',
         'Tokenization',
+        'AI Model',
+        'Intelligence',
+        'Cognition',
         // Training & optimization
         'Fine-tuning',
         'RAG',
@@ -141,6 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'Gradient',
         'Loss Function',
         'Optimization',
+        'Weight Update',
+        'Learning Rate',
         // Prompting concepts
         'Prompt',
         'Context Window',
@@ -152,6 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'Zero-shot',
         'Multimodal',
         'Reasoning',
+        'System Prompt',
+        'Temperature',
+        'Top-P',
+        'Creativity',
         // Architecture
         'Encoder',
         'Decoder',
@@ -163,6 +172,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'Dropout',
         'Batch Size',
         'Epochs',
+        'Parameters',
+        'Weights',
+        'Bias',
         // Applications
         'Classification',
         'Generation',
@@ -174,6 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'Intent',
         'Clustering',
         'Regression',
+        'Chatbot',
+        'Assistant',
+        'Copilot',
         // Modern AI
         'Foundation Model',
         'LLM',
@@ -185,6 +200,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'Safety',
         'Benchmark',
         'Eval',
+        'API',
+        'Streaming',
+        'Context',
         // Data
         'Dataset',
         'Preprocessing',
@@ -195,7 +213,17 @@ document.addEventListener('DOMContentLoaded', () => {
         'Token',
         'Vocab',
         'Sequence',
-        'Batch'
+        'Batch',
+        'Synthetic Data',
+        // Capabilities
+        'Understanding',
+        'Knowledge',
+        'Memory',
+        'Prediction',
+        'Analysis',
+        'Synthesis',
+        'Adaptation',
+        'Learning'
     ];
 
     // Neural Network class - Each AI gets its own active cluster
@@ -227,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.heroOpacity = 0.5; // Slightly more visible
                 this.currentAIIndex = 0;
                 this.lastAISwitch = 0;
-                this.aiSwitchInterval = 8000; // 8 seconds
+                this.aiSwitchInterval = 10000; // 10 seconds
                 this.aiTransitionProgress = 1; // 0-1 for fade transition
                 this.aiTransitionDuration = 1500; // 1.5s fade
                 this.heroSide = 'left'; // Alternates between 'left' and 'right'
@@ -237,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.heroRotationSpeed = 0.0001; // Very slow rotation
                 // Orbiting terms
                 this.heroTerms = [];
-                this.heroTermCount = this.isMobile ? 8 : 15;
+                this.heroTermCount = this.isMobile ? 12 : 25;
             } else {
                 // Cluster settings - one per AI (cluster mode)
                 this.nodesPerCluster = this.isMobile ? (isCombined ? 20 : 15) : (isCombined ? 35 : 25);
@@ -255,8 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Data pulses traveling along connections - more active
             this.dataPulses = [];
             this.lastPulseSpawn = 0;
-            this.pulseSpawnInterval = this.isMobile ? 300 : (isHero ? 100 : 150);
-            this.maxPulses = this.isMobile ? 15 : (isHero ? 60 : 40);
+            this.pulseSpawnInterval = this.isMobile ? 200 : (isHero ? 50 : 150);
+            this.maxPulses = this.isMobile ? 30 : (isHero ? 120 : 40);
 
             // Frame throttling for mobile
             this.lastFrameTime = 0;
@@ -425,13 +453,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 nodeStartIndex: 0,
                 nodeCount: this.nodesPerCluster,
                 pulseOffset: 0,
-                // Gentle floating animation
-                floatSpeedX: 0.00008,
-                floatSpeedY: 0.0001,
-                floatAmplitudeX: 10,
-                floatAmplitudeY: 8,
+                // Enhanced floating animation - more movement
+                floatSpeedX: 0.00015,
+                floatSpeedY: 0.0002,
+                floatAmplitudeX: 25,
+                floatAmplitudeY: 20,
                 floatPhaseX: 0,
-                floatPhaseY: Math.PI / 4
+                floatPhaseY: Math.PI / 4,
+                // Breathing effect - scale pulsing
+                breatheSpeed: 0.0008,
+                breatheAmplitude: 0.08, // 8% size variation
+                breathePhase: 0
             };
 
             // Create nodes in CONCENTRIC RINGS for even distribution (avoids dark center)
@@ -538,16 +570,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Get rotated position for hero nodes
+        // Get rotated position for hero nodes with breathing and floating
         getHeroNodePosition(node, time) {
             const cluster = this.aiClusters[0];
             if (!cluster) return { x: 0, y: 0 };
 
+            // Calculate floating offset (gentle drift in space)
+            const floatX = Math.sin(time * cluster.floatSpeedX + cluster.floatPhaseX) * cluster.floatAmplitudeX;
+            const floatY = Math.cos(time * cluster.floatSpeedY + cluster.floatPhaseY) * cluster.floatAmplitudeY;
+
+            // Calculate breathing scale (network expands and contracts)
+            const breatheScale = 1 + Math.sin(time * cluster.breatheSpeed + cluster.breathePhase) * cluster.breatheAmplitude;
+
             // Apply rotation to the node's angle
             const rotatedAngle = node.angle + this.heroRotation;
 
-            const x = cluster.centerX + Math.cos(rotatedAngle) * node.radius;
-            const y = cluster.centerY + Math.sin(rotatedAngle) * node.radius;
+            // Apply breathing to radius and floating to position
+            const breathedRadius = node.radius * breatheScale;
+            const x = cluster.baseCenterX + floatX + Math.cos(rotatedAngle) * breathedRadius;
+            const y = cluster.baseCenterY + floatY + Math.sin(rotatedAngle) * breathedRadius;
             return { x, y };
         }
 
@@ -558,6 +599,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const cluster = this.aiClusters[0];
             const pulse = Math.sin(time * 0.0015) * 0.1 + 0.9;
 
+            // Calculate floating offset (same as nodes for synchronized movement)
+            const floatX = Math.sin(time * cluster.floatSpeedX + cluster.floatPhaseX) * cluster.floatAmplitudeX;
+            const floatY = Math.cos(time * cluster.floatSpeedY + cluster.floatPhaseY) * cluster.floatAmplitudeY;
+            const currentCenterX = cluster.baseCenterX + floatX;
+            const currentCenterY = cluster.baseCenterY + floatY;
+
             // Fade in/out transition
             const fadeOpacity = this.aiTransitionProgress * this.heroOpacity * pulse * 1.5; // Brighter label
 
@@ -567,12 +614,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const baseAngle = isLeft ? -Math.PI / 4 : -3 * Math.PI / 4; // Upper-right or upper-left
             const labelAngle = baseAngle + this.heroRotation * 0.1; // Slight rotation follow
             const labelDistance = this.clusterSpread + (this.isMobile ? 40 : 60); // Shortened line
-            const labelX = cluster.centerX + Math.cos(labelAngle) * labelDistance;
-            const labelY = cluster.centerY + Math.sin(labelAngle) * labelDistance;
+            const labelX = currentCenterX + Math.cos(labelAngle) * labelDistance;
+            const labelY = currentCenterY + Math.sin(labelAngle) * labelDistance;
 
             // Connection point on network edge
-            const edgeX = cluster.centerX + Math.cos(labelAngle) * (this.clusterSpread * 0.7);
-            const edgeY = cluster.centerY + Math.sin(labelAngle) * (this.clusterSpread * 0.7);
+            const edgeX = currentCenterX + Math.cos(labelAngle) * (this.clusterSpread * 0.7);
+            const edgeY = currentCenterY + Math.sin(labelAngle) * (this.clusterSpread * 0.7);
 
             this.ctx.save();
 
@@ -617,13 +664,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const cluster = this.aiClusters[0];
 
+            // Calculate floating offset (same as nodes for synchronized movement)
+            const floatX = Math.sin(time * cluster.floatSpeedX + cluster.floatPhaseX) * cluster.floatAmplitudeX;
+            const floatY = Math.cos(time * cluster.floatSpeedY + cluster.floatPhaseY) * cluster.floatAmplitudeY;
+            const currentCenterX = cluster.baseCenterX + floatX;
+            const currentCenterY = cluster.baseCenterY + floatY;
+
             this.heroTerms.forEach(term => {
                 // Calculate position with rotation
                 const rotatedAngle = term.angle + this.heroRotation * 0.3; // Slower follow
                 const verticalWobble = Math.sin(time * term.verticalSpeed + term.verticalOffset) * term.verticalAmplitude;
 
-                const x = cluster.centerX + Math.cos(rotatedAngle) * term.orbitRadius;
-                const y = cluster.centerY + Math.sin(rotatedAngle) * term.orbitRadius + verticalWobble;
+                const x = currentCenterX + Math.cos(rotatedAngle) * term.orbitRadius;
+                const y = currentCenterY + Math.sin(rotatedAngle) * term.orbitRadius + verticalWobble;
 
                 const pulse = Math.sin(time * 0.002 + term.pulseOffset) * 0.15 + 0.85;
                 const opacity = term.opacity * pulse * this.heroOpacity * this.aiTransitionProgress;
