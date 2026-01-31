@@ -64,6 +64,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
+    // SCENARIO TABS (Flip-through examples)
+    // ==========================================
+    const scenarioContainers = document.querySelectorAll('.scenario-tabs-container');
+
+    scenarioContainers.forEach(container => {
+        const tabs = container.querySelectorAll('.scenario-tab');
+        const contents = container.querySelectorAll('.scenario-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.dataset.scenario;
+
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update active content
+                contents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.dataset.scenario === targetId) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+    });
+
+    // ==========================================
     // INTERACTIVE NEURAL NETWORK ANIMATION
     // ==========================================
 
