@@ -1849,38 +1849,46 @@ document.addEventListener('DOMContentLoaded', () => {
         role: {
             signals: [
                 { name: 'act_as_directive', pattern: /\b(act as|you are|pretend to be|imagine you('re| are)|behave as|take on the role of)\b/i, weight: 1.0, exclusive: true },
-                { name: 'expertise_words', pattern: /\b(expert|specialist|consultant|advisor|professional|experienced|senior|veteran)\s+(in|with|at)?\b/i, weight: 0.8, exclusive: true },
-                { name: 'capability_framing', pattern: /\b(with expertise in|who specializes in|known for|skilled at|proficient in)\b/i, weight: 0.7, exclusive: true },
+                { name: 'approach_like', pattern: /\b(approach this like|approach this as|think like|write like|respond like|answer like)\b/i, weight: 1.0, exclusive: true },
+                { name: 'want_you_to_be', pattern: /\b(want you to|need you to|like you to)\s+(be|act|approach|think|write|respond)\b/i, weight: 0.9, exclusive: true },
+                { name: 'expertise_words', pattern: /\b(expert|specialist|consultant|advisor|professional|experienced|senior|veteran)\s*(in|with|at|who)?\b/i, weight: 0.8, exclusive: true },
+                { name: 'capability_framing', pattern: /\b(with expertise in|who specializes in|who understands|known for|skilled at|proficient in)\b/i, weight: 0.7, exclusive: true },
                 { name: 'persona_language', pattern: /\b(character|persona|personality|voice of|perspective of|as if you were)\b/i, weight: 0.6, exclusive: true },
-                { name: 'profession_noun', pattern: /\b(a|an)\s+(writer|editor|teacher|coach|mentor|analyst|developer|designer|marketer|strategist|therapist|doctor|lawyer)\b/i, weight: 0.6, exclusive: false }
+                { name: 'profession_noun', pattern: /\b(a|an)\s+(writer|editor|teacher|coach|mentor|analyst|developer|designer|marketer|strategist|therapist|doctor|lawyer|consultant)\b/i, weight: 0.6, exclusive: false }
             ],
             structuralBonus: { secondPerson: 0.2, imperative: 0.1, positionEarly: 0.15 }
         },
         instruction: {
             signals: [
                 { name: 'imperative_start', pattern: /^(write|create|generate|explain|analyze|summarize|list|describe|compare|design|draft|develop|build|make|produce|compose|prepare|outline|review|evaluate|assess|calculate|determine|find|identify|suggest|recommend|help|tell|show|give|provide)\b/i, weight: 1.0, exclusive: true },
-                { name: 'request_language', pattern: /\b(I need you to|can you|could you|would you|please|I('d| would) like you to|help me)\b/i, weight: 0.9, exclusive: true },
-                { name: 'task_verbs', pattern: /\b(analyze|summarize|compare|design|evaluate|optimize|implement|translate|convert|transform|rewrite|edit|proofread|revise)\b/i, weight: 0.6, exclusive: false },
+                { name: 'request_language', pattern: /\b(I need you to|can you|could you|would you|please|I('d| would) like you to|help me|I need help|I want you to)\b/i, weight: 0.9, exclusive: true },
+                { name: 'structural_instruction', pattern: /\b(start by|start with|begin by|begin with|in the (first|second|third|final|last) paragraph|close with|end with|conclude with|open with)\b/i, weight: 0.8, exclusive: true },
+                { name: 'task_verbs', pattern: /\b(analyze|summarize|compare|design|evaluate|optimize|implement|translate|convert|transform|rewrite|edit|proofread|revise|announce|introduce|highlight|hook)\b/i, weight: 0.6, exclusive: false },
                 { name: 'action_sequence', pattern: /\b(first|then|next|after that|finally|step \d|1\.|2\.|3\.)\b/i, weight: 0.5, exclusive: false },
-                { name: 'goal_statement', pattern: /\b(goal is to|objective is|aim to|want to achieve|trying to|need to accomplish)\b/i, weight: 0.7, exclusive: false }
+                { name: 'goal_statement', pattern: /\b(goal is to|objective is|aim to|want to achieve|trying to|need to accomplish|the goal is)\b/i, weight: 0.7, exclusive: false }
             ],
             structuralBonus: { imperative: 0.3, startsWithVerb: 0.2, positionMiddle: 0.1 }
         },
         specifics: {
             signals: [
-                { name: 'numeric_specification', pattern: /\b(\d+)\s*(words?|sentences?|paragraphs?|bullet\s*points?|items?|sections?|pages?|minutes?|characters?)\b/i, weight: 1.0, exclusive: true },
+                { name: 'numeric_specification', pattern: /\b(\d+)\s*(words?|sentences?|paragraphs?|bullet\s*points?|items?|sections?|pages?|minutes?|characters?|hashtags?)\b/i, weight: 1.0, exclusive: true },
+                { name: 'written_numbers', pattern: /\b(one|two|three|four|five|six|seven|eight|nine|ten)\s*(to\s*(one|two|three|four|five|six|seven|eight|nine|ten)\s*)?(words?|sentences?|paragraphs?|bullet\s*points?|items?|sections?|hashtags?)\b/i, weight: 1.0, exclusive: true },
+                { name: 'exactly_spec', pattern: /\b(exactly|precisely|only|just)\s+(\d+|one|two|three|four|five)\s*(words?|sentences?|paragraphs?|sections?|points?|items?)\b/i, weight: 1.0, exclusive: true },
                 { name: 'format_spec', pattern: /\b(as a list|in table format|as JSON|in markdown|bullet points|numbered list|outline format|structured as|formatted as)\b/i, weight: 0.9, exclusive: true },
                 { name: 'structure_words', pattern: /\b(sections?|headers?|headings?|subheadings?|outline|structure|format|layout|template)\b/i, weight: 0.6, exclusive: false },
-                { name: 'length_constraints', pattern: /\b(brief|detailed|comprehensive|concise|short|long|in-depth|thorough|summary|overview)\b/i, weight: 0.5, exclusive: false },
-                { name: 'output_type', pattern: /\b(email|article|report|summary|outline|script|code|essay|memo|proposal|presentation|documentation)\b/i, weight: 0.6, exclusive: false }
+                { name: 'length_constraints', pattern: /\b(brief|detailed|comprehensive|concise|short|long|in-depth|thorough|summary|overview|under \d+ words)\b/i, weight: 0.5, exclusive: false },
+                { name: 'output_type', pattern: /\b(email|article|report|summary|outline|script|code|essay|memo|proposal|presentation|documentation|LinkedIn post|blog post|social media post|tweet)\b/i, weight: 0.6, exclusive: false }
             ],
             structuralBonus: { declarative: 0.1, positionLate: 0.15 }
         },
         parameters: {
             signals: [
                 { name: 'negative_constraint', pattern: /\b(don't|do not|avoid|exclude|without|never|no \w+|not including|skip|omit)\b/i, weight: 0.9, exclusive: true },
-                { name: 'positive_requirement', pattern: /\b(must include|should have|required|needs to have|make sure to|ensure|always)\b/i, weight: 0.8, exclusive: true },
-                { name: 'boundary_spec', pattern: /\b(maximum|minimum|at least|no more than|at most|limit|between \d+ and \d+|up to)\b/i, weight: 0.9, exclusive: true },
+                { name: 'avoid_specific', pattern: /\b(avoid|don't use|do not use)\s+(buzzwords?|jargon|emojis?|clichés?|slang)\b/i, weight: 0.9, exclusive: true },
+                { name: 'words_like', pattern: /\b(buzzwords? like|words? like|terms? like|phrases? like)\s*["']?[\w\s]+["']?\b/i, weight: 0.8, exclusive: true },
+                { name: 'positive_requirement', pattern: /\b(must include|should have|required|needs to have|make sure to|ensure|always|include)\b/i, weight: 0.8, exclusive: true },
+                { name: 'boundary_spec', pattern: /\b(maximum|minimum|at least|no more than|at most|limit|between \d+ and \d+|up to|under \d+ words|keep.+under)\b/i, weight: 0.9, exclusive: true },
+                { name: 'keep_constraint', pattern: /\b(keep\s+(it|the|total|length|word count).+(under|below|short|brief|concise))\b/i, weight: 0.8, exclusive: true },
                 { name: 'quality_requirement', pattern: /\b(accurate|factual|cite sources|reference|verified|evidence-based|data-driven|specific|precise)\b/i, weight: 0.6, exclusive: false },
                 { name: 'conditional_rule', pattern: /\b(if|when|unless|only if|in case|provided that|as long as)\b.*\b(then|use|include|avoid)\b/i, weight: 0.7, exclusive: true }
             ],
