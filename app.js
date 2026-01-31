@@ -833,7 +833,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     floatPhaseX: Math.random() * Math.PI * 2,
                     floatPhaseY: Math.random() * Math.PI * 2,
                     // Size and brightness based on depth
-                    size: 2 + z * 3,
+                    size: 1.5 + z * 2,
                     z: z,
                     glowIntensity: 0.4 + z * 0.6,
                     pulseOffset: Math.random() * Math.PI * 2,
@@ -921,7 +921,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Orbit speed - nodes slowly rotate around their cluster
                 orbitSpeed: (Math.random() - 0.5) * 0.0008,
                 // Size and brightness based on depth
-                size: 2 + z * 3,
+                size: 1.5 + z * 2,
                 z: z,
                 glowIntensity: 0.4 + z * 0.6,
                 pulseOffset: Math.random() * Math.PI * 2
@@ -1240,8 +1240,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 endIdx: reverse ? conn.i : conn.j,
                 progress: 0,
                 speed: isHero ? 0.018 + Math.random() * 0.025 : 0.008 + Math.random() * 0.012,
-                // Hero mode: LARGER and more energized data particles
-                size: isHero ? 1.2 + conn.avgZ * 1.0 : 1.5 + conn.avgZ * 2,
+                // Hero mode: smaller, refined data particles
+                size: isHero ? 0.8 + conn.avgZ * 0.6 : 1.0 + conn.avgZ * 1.5,
                 brightness: isHero ? 0.7 + conn.avgZ * 0.3 : 0.6 + conn.avgZ * 0.4,
                 z: conn.avgZ,
                 isBackprop: reverse && isHero // Different color for backprop
@@ -1305,12 +1305,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const brightness = pulse.brightness * heroMult;
 
-                // Colors: red/pink for forward data, green for backpropagation
+                // Colors: red/pink for forward data, white for backpropagation
                 const isBackprop = pulse.isBackprop;
-                const trailColor = isBackprop ? '120, 255, 120' : '255, 120, 120';
-                const glowColorOuter = isBackprop ? '60, 255, 60' : '255, 60, 60';
-                const glowColorInner = isBackprop ? '100, 255, 100' : '255, 100, 100';
-                const coreColor = isBackprop ? '240, 255, 240' : '255, 240, 240';
+                const trailColor = isBackprop ? '200, 200, 200' : '255, 120, 120';
+                const glowColorOuter = isBackprop ? '180, 180, 180' : '255, 60, 60';
+                const glowColorInner = isBackprop ? '220, 220, 220' : '255, 100, 100';
+                const coreColor = isBackprop ? '255, 255, 255' : '255, 240, 240';
 
                 // Trail - longer and more visible
                 const trailSteps = this.isMobile ? 4 : 12;
