@@ -41,12 +41,30 @@ JS:    // === SECTION === ... /** JSDoc comments */
 
 ---
 
+## Prompt Management Rules
+
+### Auto-Compact Policy
+- **At 90% context capacity:** Automatically compact/summarize the conversation
+- **Pre-warning required:** Alert user when approaching 90% total prompt capacity
+- **Never reach "Prompt is full":** Proactively manage context before hitting limits
+- **Preserve critical context:** When compacting, retain current task state and HANDOFF.md updates
+
+### Context Preservation Priority
+1. Current task status and progress
+2. Uncommitted code changes
+3. Active file modifications
+4. Recent error/debugging context
+5. Session-specific decisions
+
+---
+
 ## Workflow
 
 1. Read HANDOFF.md for current task status
 2. Confirm understanding before proceeding
 3. Follow notation standards in all code
 4. Update HANDOFF.md when completing tasks
+5. Monitor prompt capacity and compact proactively
 
 ---
 

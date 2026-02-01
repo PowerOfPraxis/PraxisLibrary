@@ -193,6 +193,7 @@ _public_html/
 | 1.7 Hero text update | ✅ Done | "Master the Art of AI Interactions" |
 | 1.8 Darken learning content backgrounds | ⏳ Pending | Improve readability |
 | 1.9 Badge lightbox popups | ⏳ Pending | Smoked glass effect |
+| 1.10 Animation term glossary links | ⏳ Pending | Link floating AI terms to glossary |
 | CRISPE Builder fix | ✅ Done | Example field now required |
 | Animation stability fix | ✅ Done | Delta time capping + visibility handler |
 

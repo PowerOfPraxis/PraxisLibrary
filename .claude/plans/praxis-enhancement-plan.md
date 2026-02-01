@@ -405,7 +405,14 @@ function calculateScore(results) {
 - [ ] Mobile-friendly positioning
 - [ ] Close on click outside or Escape key
 
-### 1.8 UI Polish
+### 1.8 Animation Term Glossary Links
+- [ ] Identify all floating AI term animations in neural network backgrounds
+- [ ] Cross-reference with glossary terms in pages/glossary.html
+- [ ] Link animation terms to their glossary definitions
+- [ ] Ensure terms are clickable/interactive where appropriate
+- [ ] Maintain animation aesthetics while adding educational value
+
+### 1.9 UI Polish
 - [ ] Add loading animation to analyzer
 - [ ] Improve score visualization
 - [ ] Add "Copy improved prompt" button
