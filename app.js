@@ -5512,7 +5512,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
     // HERO TYPING ANIMATION
-    // Purpose: Cycles through phrases every 15 seconds
+    // Purpose: Cycles through phrases every 9 seconds
     // Security: CSP compliant, no eval or dynamic code
     // ==========================================
     const typingText = document.getElementById('typing-text');
@@ -5525,11 +5525,12 @@ document.addEventListener('DOMContentLoaded', () => {
             'AI Communication',
             'AI Output',
             'AI Literacy',
-            'AI Creativity'
+            'AI Creativity',
+            'AI Structured Output'
         ];
         const typingSpeed = 70; // milliseconds per character
         const deleteSpeed = 35; // milliseconds per character when deleting
-        const pauseAfterComplete = 15000; // 15 seconds pause before switching
+        const pauseAfterComplete = 9000; // 9 seconds pause before switching
 
         let currentPhraseIndex = 0;
         let currentCharIndex = 0;
