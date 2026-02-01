@@ -1361,7 +1361,29 @@ p {
 
 .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* Secondary Button Shine Effect */
+.btn-secondary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-secondary:hover::after {
+    left: 100%;
 }
 
 .btn-outline {
@@ -4089,6 +4111,32 @@ p {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: var(--space-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Info Card Left Accent */
+.info-card::before, .score-info-card::before, .coverage-card::before,
+.value-card::before, .principle-card::before, .risk-card::before,
+.caution-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+/* Risk card - warning accent */
+.risk-card::before {
+    background: #ef4444;
+}
+
+/* Caution card - caution accent */
+.caution-card::before {
+    background: #f59e0b;
 }
 
 .info-card h3, .score-info-card h3, .coverage-card h3, .value-card h3,
@@ -4807,6 +4855,26 @@ body.menu-open {
     width: 100%;
     max-width: 280px;
     transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Concept Card Left Accent */
+.concept-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+
+/* Red/gradient concept card - darker accent for contrast */
+.concept-card.concept-result::before {
+    width: 6px;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .concept-card:hover {
@@ -5232,6 +5300,20 @@ body.menu-open {
     min-width: 120px;
     max-width: 180px;
     transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Acronym Card Left Accent - Base (non-flip) */
+.acronym-card:not(.has-flip)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
 }
 
 @media (min-width: 768px) {
@@ -5436,6 +5518,37 @@ body.menu-open {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     z-index: 2;
+    overflow: hidden;
+}
+
+/* Acronym Card Left Accent - Cap Style
+   -------------------------------------------- */
+.acronym-card.has-flip .card-front::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+
+/* Red card variant - darker accent */
+.acronym-card.has-flip.accent-red .card-front::before {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+/* White card variant - subtle white accent */
+.acronym-card.has-flip.accent-white .card-front::before {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: inset -1px 0 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Black/dark card variant - prominent red accent */
+.acronym-card.has-flip.accent-dark .card-front::before {
+    width: 6px;
+    background: var(--primary);
 }
 
 .acronym-card.has-flip .card-back {
