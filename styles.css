@@ -506,6 +506,74 @@ p {
 }
 
 /* ============================================
+   CONTENT AREA BADGES
+   ============================================ */
+.content-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+}
+
+.content-badge {
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.content-badge .badge-label {
+    padding: 0.35rem 0.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.content-badge .badge-value {
+    padding: 0.35rem 0.5rem;
+    color: white;
+    font-weight: 700;
+}
+
+.content-badge--ai .badge-value {
+    background: linear-gradient(135deg, #DC3545 0%, #FF6B6B 100%);
+}
+
+.content-badge--udl .badge-value {
+    background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%);
+}
+
+.content-badge--security .badge-value {
+    background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+}
+
+.content-badge--performance .badge-value {
+    background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+}
+
+.content-badge--claude .badge-value {
+    background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+}
+
+/* Responsive adjustments for content badges */
+@media (max-width: 768px) {
+    .content-badges {
+        gap: 0.4rem;
+    }
+
+    .content-badge {
+        font-size: 0.6rem;
+    }
+
+    .content-badge .badge-label,
+    .content-badge .badge-value {
+        padding: 0.25rem 0.4rem;
+    }
+}
+
+/* ============================================
    HERO SECTION
    ============================================ */
 .hero {
@@ -655,7 +723,7 @@ p {
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: var(--space-xl);
-    max-width: 320px;
+    max-width: 420px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -1721,7 +1789,7 @@ p {
 
     .hero-subtitle {
         font-size: 1.125rem;
-        max-width: 480px;
+        max-width: 600px;
     }
 
     .hero-cta {

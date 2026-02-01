@@ -419,6 +419,195 @@ Header set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyro
 
 ---
 
+## Session Continuity & Workflow Automation
+
+### The Problem
+
+AI conversations have context limits. Long development sessions get cut off, and starting fresh means re-explaining constraints, project structure, and current progress every time. This creates inefficiency and risks inconsistency.
+
+### The Solution: Document-Driven Automation
+
+We built a system of interconnected documents that Claude Code reads automatically, ensuring every session starts with full context.
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    AUTOMATED CONTEXT LOADING                            │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ┌─────────────┐                                                        │
+│  │  CLAUDE.md  │ ◄── Auto-loaded at session start                       │
+│  │  (Root)     │     Contains: Rules summary, file references           │
+│  └──────┬──────┘                                                        │
+│         │                                                               │
+│         ▼                                                               │
+│  ┌─────────────┐     ┌─────────────────────────────┐                    │
+│  │ HANDOFF.md  │────▶│ praxis-enhancement-plan.md  │                    │
+│  │ (State)     │     │ (Full Plan)                 │                    │
+│  └─────────────┘     └─────────────────────────────┘                    │
+│                                                                         │
+│  Result: Every new session has full project context automatically       │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### File Purposes
+
+| File | Location | Purpose | Update Frequency |
+|------|----------|---------|------------------|
+| `CLAUDE.md` | Project root | Auto-loaded rules & references | Rarely (stable rules) |
+| `HANDOFF.md` | `.claude/` | Current state, progress, context | Every session |
+| `praxis-enhancement-plan.md` | `.claude/plans/` | Full phase details, decisions | Per phase |
+| `HANDOFF-PROMPT.md` | `.claude/` | Manual backup prompt | Never (backup only) |
+
+### What CLAUDE.md Contains
+
+This file loads automatically at every session start:
+
+```markdown
+# Praxis Project Instructions
+
+## Required Reading
+Before making ANY changes, read these files:
+1. `.claude/HANDOFF.md` - Current state, rules, and progress
+2. `.claude/plans/praxis-enhancement-plan.md` - Master plan
+
+## Critical Rules (Always Follow)
+- NO inline styles (CSP compliance)
+- NO inline scripts (CSP compliance)
+- NO external resources
+- All styles in styles.css
+- All scripts in app.js with defer
+
+## Code Notation (Required)
+HTML:  <!-- === SECTION === --> ... <!-- /SECTION -->
+CSS:   /* === SECTION === */
+JS:    // === SECTION === with JSDoc comments
+```
+
+### What HANDOFF.md Tracks
+
+Updated at the end of each session:
+
+```markdown
+## Current Progress
+
+### Phase 1: Badge Relocation - IN PROGRESS
+| Task | Status |
+|------|--------|
+| 1.1 Remove header badges | ✅ Done |
+| 1.2 Remove mobile badges | ✅ Done |
+| 1.3 Add home page badges | ✅ Done |
+| 1.4 Add learn page badges | ⏳ Pending |
+
+## Key Context
+- Badge component: `.content-badges` in styles.css line 506
+- Hero text updated to: "Master the Art of AI Interactions"
+- CSS max-width adjusted to 600px for subtitle
+```
+
+### Code Notation Standards
+
+All code must be documented for maintainability:
+
+**HTML Regions:**
+```html
+<!-- =============================================
+     HERO SECTION - Main landing area with badges
+     ============================================= -->
+<section class="hero">
+    <!-- Content badges row -->
+    <div class="content-badges">...</div>
+</section>
+<!-- /HERO SECTION -->
+```
+
+**CSS Sections:**
+```css
+/* ==============================================
+   CONTENT BADGES
+   Inline badge display for content areas
+   ============================================== */
+
+/* Badge container - flexbox centered
+   -------------------------------------------- */
+.content-badges {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Badge - Individual item with label/value */
+.content-badge { }
+
+/* Badge - Claude variant (orange gradient) */
+.content-badge--claude .badge-value {
+    background: linear-gradient(135deg, #F97316, #EA580C);
+}
+```
+
+**JavaScript Functions:**
+```javascript
+// ==============================================
+// PROMPT ANALYZER
+// Detects framework elements in user prompts
+// ==============================================
+
+/**
+ * Analyzes prompt text for framework elements
+ * @param {string} promptText - User's prompt to analyze
+ * @param {string} framework - Target framework (CRISP, COSTAR, etc.)
+ * @returns {Object} - Detection results with scores
+ */
+function analyzePrompt(promptText, framework) {
+    // Use regex patterns for natural language detection
+    const results = detectElements(promptText, framework);
+    return calculateScore(results);
+}
+```
+
+### Why This Works
+
+| Challenge | Solution |
+|-----------|----------|
+| Context limits | Documents persist across sessions |
+| Inconsistent rules | CLAUDE.md enforces standards |
+| Lost progress | HANDOFF.md tracks state |
+| Forgotten decisions | Plan documents decisions |
+| Unclear code | Notation standards require documentation |
+
+### The Constraint-Driven Approach
+
+Every constraint has a documented resolution:
+
+| Constraint | Resolution | Documentation |
+|------------|------------|---------------|
+| No inline styles | External styles.css only | CSP rules in CLAUDE.md |
+| No inline scripts | External app.js with defer | CSP rules in CLAUDE.md |
+| No external resources | Self-hosted fonts, no CDNs | Security section in plan |
+| Session limits | Auto-loading CLAUDE.md | This workflow |
+| Code readability | Mandatory notation | Notation standards |
+
+### Reproducing This Workflow
+
+1. **Create CLAUDE.md in project root** - Contains rules that auto-load
+2. **Create .claude/HANDOFF.md** - Track current state and progress
+3. **Create .claude/plans/ directory** - Store detailed plans
+4. **Update HANDOFF.md each session** - Keep context current
+5. **Follow notation standards** - Document all code sections
+
+```bash
+# Directory structure
+your-project/
+├── CLAUDE.md                    # Auto-loaded every session
+├── .claude/
+│   ├── HANDOFF.md              # Current state (update often)
+│   ├── HANDOFF-PROMPT.md       # Manual backup
+│   └── plans/
+│       └── your-plan.md        # Full project plan
+```
+
+---
+
 ## Quality Assurance Process
 
 ### Validation Workflow

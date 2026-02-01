@@ -6,6 +6,109 @@
 
 ---
 
+## CRITICAL RULES - MUST FOLLOW
+
+### Security & CSP Compliance (A+ Rating)
+
+**CSP Policy (Never Violate):**
+```
+default-src 'none'; connect-src 'self'; form-action 'none';
+base-uri 'none'; font-src 'self'; img-src 'self' data:;
+style-src 'self'; script-src 'self';
+```
+
+| Rule | Requirement |
+|------|-------------|
+| **NO inline styles** | Never use `style=""` in HTML |
+| **NO inline scripts** | Never use `onclick=""`, `onload=""`, or inline `<script>` |
+| **NO external resources** | No CDNs, Google Fonts, or external APIs |
+| **All styles in styles.css** | Single external stylesheet |
+| **All scripts in app.js** | Single external script file with `defer` |
+
+### Performance Standards (100% Score)
+
+- Efficient, minimal code
+- No render-blocking resources
+- Clean, shallow DOM structure
+- Remove all unused code
+- Optimize all images
+
+### Code Quality
+
+- Clean, readable, self-documenting code
+- DRY principle (Don't Repeat Yourself)
+- BEM-style CSS naming (`.block__element--modifier`)
+- Use CSS variables, no magic numbers
+
+### Code Notation Standards
+
+**HTML Structure:**
+```html
+<!-- =============================================
+     SECTION NAME - Brief description
+     ============================================= -->
+
+<!-- Component Name -->
+<div class="component">
+    <!-- Sub-component description if complex -->
+</div>
+
+<!-- /SECTION NAME -->
+```
+
+**CSS Structure:**
+```css
+/* ==============================================
+   SECTION NAME
+   Description of what this section styles
+   ============================================== */
+
+/* Component Name
+   -------------------------------------------- */
+.component { }
+
+/* Component - Modifier description */
+.component--modifier { }
+
+/* Component - State description */
+.component.is-active { }
+```
+
+**JavaScript Structure:**
+```javascript
+// ==============================================
+// SECTION NAME
+// Description of functionality
+// ==============================================
+
+/**
+ * Function description
+ * @param {type} paramName - Parameter description
+ * @returns {type} - Return description
+ */
+function functionName(paramName) { }
+
+// --- Sub-section separator ---
+```
+
+**Required Notation:**
+- Major sections: Block comment with `===` borders
+- Sub-sections: Comment with `---` separator
+- Complex logic: Inline comments explaining "why"
+- Functions: JSDoc-style comments with params/returns
+- CSS groups: Section headers with description
+- HTML regions: Opening and closing comment markers
+
+### Accessibility (WCAG AA)
+
+- Meaningful alt text on all images
+- Color contrast 4.5:1 minimum
+- Full keyboard accessibility
+- Proper heading hierarchy
+- Skip links for main content
+
+---
+
 ## Design Decisions (Locked In)
 
 | Decision | Choice | Rationale |
