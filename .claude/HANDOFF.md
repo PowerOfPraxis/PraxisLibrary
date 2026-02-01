@@ -1,7 +1,7 @@
 # Praxis Project Handoff Document
 
-**Last Updated:** 2026-01-31 (Session 2)
-**Last Commit:** `330e125` - fix: Improve acronym card layout to fit content in single row
+**Last Updated:** 2026-01-31 (Session 4)
+**Last Commit:** `0c0ff1f` - docs: Comprehensive Phase 1 task planning and documentation
 **Current Phase:** Phase 1 (In Progress)
 
 ---
@@ -206,34 +206,40 @@ _public_html/
 | Build-step enhancement | ✅ Done | Added shadows, improved hover states |
 | Scenario tabs enhancement | ✅ Done | Card wrapper with border and shadow |
 
-### Latest Session Work (2026-01-31 - Session 3)
+### Latest Session Work (2026-01-31 - Session 4)
 
-**Footer Gap Fix:**
-- Fixed persistent gaps between footer, back-to-top bar, and badges bar
-- Added explicit margin/padding/border resets to footer, footer-bottom, back-to-top-bar, and body
-- Ensured seamless visual connection between all bottom-of-page elements
+**Task Documentation & Planning:**
+- Documented 8 new tasks from user's .docx file (Tasks 1.9-1.16)
+- Created comprehensive MAJOR INITIATIVE: Neurodivergence + AI Resource Center
+- Fixed border/line between back-to-top bar and badges bar (seamless connection)
+- Reduced back-to-top bar height by 20% (0.6rem → 0.48rem padding)
+- Added new resource pages: ChatGPT Guide, Replit Guide, IDE Guide
+- Pushed all changes to GitHub (commit `0c0ff1f`)
 
-**Prompt Basics Visual Enhancements:**
-- Enhanced `.anatomy-card` styling with:
-  - Colored left border (primary color accent)
-  - Subtle shadow for depth
-  - Larger, gradient-filled number circles with glow effect
-  - Smooth hover animation with lift effect
-- Enhanced `.build-step` styling with:
-  - Added shadow for visual depth
-  - Improved hover state with stronger shadow
-- Enhanced `.scenario-tabs-container` with:
-  - Card-style wrapper with border and shadow
-  - Better spacing and visual containment
+**New Tasks Documented:**
+- Task 1.11: Acronym card accent styling (thicker borders)
+- Task 1.12: Method comparison text styling (bold + red keywords)
+- Task 1.13: Method use-case guidance for CRISP/CRISPE
+- Task 1.14: Site messaging audit (growth mindset language)
+- Task 1.15: Visual consistency audit (align with badge aesthetic)
+- Task 1.16: GitHub badge for all badge bars
 
-**Previous Session Work (Session 2):**
-- Created full-width static "Back to Top" bar between footer and badges bar
-- Created site badges bar at very bottom with all 5 badges
-- Added to ALL 22 HTML pages across the site
-- `<em>` tags in disclaimer sections styled: bold, blue, 1.05rem
+**MAJOR INITIATIVE Added:**
+- Neurodivergence + AI Resource Center (dedicated section)
+- 4 content pillars defined
+- Strict source requirements (.EDU/.GOV only, 2024-2026)
+- Accessibility audit framework
+- Research methodology outlined
+- Proposed file structure for `/neurodivergence/` directory
+
+**Previous Session Work (Session 3):**
+- Footer gap fix (seamless connection between elements)
+- Anatomy cards, build-step, scenario tabs enhancements
 
 **Files Updated This Session:**
-- `styles.css` - Footer gap fixes, anatomy card enhancements, build-step improvements
+- `.claude/HANDOFF.md` - Comprehensive task documentation
+- `styles.css` - Back-to-top bar height reduction, border fixes
+- New pages: `pages/chatgpt-guide.html`, `pages/replit-guide.html`, `pages/ide-guide.html`
 
 ### Phase 2: Natural Language Content - PENDING
 - Update learning pages with NL examples
