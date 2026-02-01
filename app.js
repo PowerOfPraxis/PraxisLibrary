@@ -6084,4 +6084,383 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ==========================================
+    // CONTENT LIBRARY SEARCH
+    // Site-wide search with granular categorization
+    // ==========================================
+
+    // Comprehensive content catalog with categories
+    const CONTENT_CATALOG = [
+        // METHODS Category
+        { title: 'CRISP Method', desc: 'Context, Role, Instructions, Specifics, Parameters - the essential framework for clear prompts', url: 'learn/crisp.html', category: 'Methods', keywords: ['crisp', 'framework', 'context', 'role', 'instructions', 'specifics', 'parameters', 'beginner', 'foundation'] },
+        { title: 'CRISPE Method', desc: 'CRISP plus Example for few-shot learning and more consistent AI interactions', url: 'learn/crispe.html', category: 'Methods', keywords: ['crispe', 'example', 'few-shot', 'learning', 'consistency', 'creative'] },
+        { title: 'COSTAR Method', desc: 'Context, Objective, Style, Tone, Audience, Response - perfect for professional content', url: 'learn/costar.html', category: 'Methods', keywords: ['costar', 'professional', 'content', 'audience', 'tone', 'style', 'marketing', 'communication'] },
+        { title: 'ReAct Method', desc: 'Reasoning + Acting for complex problem-solving with transparent, verifiable thinking', url: 'learn/react.html', category: 'Methods', keywords: ['react', 'reasoning', 'acting', 'complex', 'problem-solving', 'verification', 'advanced', 'chain-of-thought'] },
+        { title: 'Flipped Interaction', desc: 'Let AI ask questions first to better understand your needs', url: 'learn/flipped-interaction.html', category: 'Methods', keywords: ['flipped', 'interaction', 'questions', 'clarification', 'uncertainty', 'exploration'] },
+        { title: 'Advanced Techniques', desc: 'Chain-of-thought, few-shot learning, and other advanced prompting strategies', url: 'learn/advanced.html', category: 'Methods', keywords: ['advanced', 'chain-of-thought', 'few-shot', 'zero-shot', 'techniques', 'strategies'] },
+
+        // PROMPT THEORY Category
+        { title: 'Prompt Basics', desc: 'Fundamental concepts of AI prompting and how to communicate effectively with AI', url: 'learn/prompt-basics.html', category: 'Prompt Theory', keywords: ['basics', 'fundamentals', 'introduction', 'beginner', 'prompting', 'communication'] },
+        { title: 'Learning Hub', desc: 'Overview of all prompting methodologies and learning paths', url: 'learn/index.html', category: 'Prompt Theory', keywords: ['learning', 'hub', 'overview', 'methodologies', 'path', 'start'] },
+
+        // PATTERNS Category
+        { title: 'Patterns Library', desc: 'Common prompt patterns organized by use case and task type', url: 'patterns/index.html', category: 'Patterns', keywords: ['patterns', 'library', 'templates', 'use-case', 'task', 'collection'] },
+
+        // TOOLS Category
+        { title: 'Prompt Analyzer', desc: 'Get detailed feedback on your prompts with framework coverage analysis', url: 'tools/analyzer.html', category: 'Tools', keywords: ['analyzer', 'feedback', 'scoring', 'coverage', 'analysis', 'improve'] },
+        { title: 'Prompt Builder', desc: 'Step-by-step guided prompt construction using methodology frameworks', url: 'tools/guidance.html', category: 'Tools', keywords: ['builder', 'guidance', 'construction', 'step-by-step', 'wizard', 'helper'] },
+        { title: 'Preflight Checklist', desc: 'Verify your prompt is complete before sending to AI', url: 'tools/checklist.html', category: 'Tools', keywords: ['checklist', 'preflight', 'verify', 'complete', 'review', 'quality'] },
+        { title: 'Hallucination Spotter', desc: 'Practice identifying AI hallucinations and false information', url: 'tools/hallucination.html', category: 'Tools', keywords: ['hallucination', 'spotter', 'false', 'incorrect', 'verification', 'accuracy', 'game'] },
+        { title: 'Readiness Quiz', desc: 'Test your AI prompting skills and get personalized recommendations', url: 'quiz/index.html', category: 'Tools', keywords: ['quiz', 'test', 'readiness', 'assessment', 'skills', 'recommendations'] },
+
+        // SECURITY Category
+        { title: 'AI Safety', desc: 'Understanding AI limitations, risks, and responsible use practices', url: 'pages/ai-safety.html', category: 'Security', keywords: ['safety', 'security', 'risks', 'limitations', 'responsible', 'ethics', 'privacy'] },
+
+        // EDUCATION Category
+        { title: 'ChatGPT Guide', desc: 'Getting started with ChatGPT and OpenAI\'s assistant', url: 'pages/chatgpt-guide.html', category: 'Education', keywords: ['chatgpt', 'openai', 'guide', 'tutorial', 'getting-started'] },
+        { title: 'Replit Guide', desc: 'Using Replit Agent for AI-assisted coding and development', url: 'pages/replit-guide.html', category: 'Education', keywords: ['replit', 'coding', 'development', 'agent', 'programming'] },
+        { title: 'IDE Guide', desc: 'Setting up code editors for AI-assisted development', url: 'pages/ide-guide.html', category: 'Education', keywords: ['ide', 'editor', 'vscode', 'cursor', 'setup', 'development'] },
+        { title: 'FAQ', desc: 'Frequently asked questions about AI prompting and this resource', url: 'pages/faq.html', category: 'Education', keywords: ['faq', 'questions', 'answers', 'help', 'common'] },
+        { title: 'Glossary', desc: 'Definitions of AI and prompting terminology', url: 'pages/glossary.html', category: 'Education', keywords: ['glossary', 'terms', 'definitions', 'vocabulary', 'dictionary'] },
+
+        // ACCESSIBILITY Category
+        { title: 'Accessibility Dashboard', desc: 'User-controlled accommodations for text size, contrast, and screen dimming', url: '#adl-panel', category: 'Accessibility', keywords: ['accessibility', 'a11y', 'text-size', 'contrast', 'dimming', 'accommodations', 'udl'] },
+
+        // ABOUT Category
+        { title: 'About Praxis', desc: 'Learn about the mission and creator behind Praxis Library', url: 'pages/about.html', category: 'About', keywords: ['about', 'mission', 'creator', 'purpose', 'story'] }
+    ];
+
+    // Search categories for filtering
+    const SEARCH_CATEGORIES = ['All', 'Methods', 'Patterns', 'Tools', 'Prompt Theory', 'Security', 'Education', 'Accessibility', 'About'];
+
+    // Initialize Content Library Search
+    const searchInput = document.getElementById('content-search-input');
+    const searchResults = document.getElementById('content-search-results');
+    const searchCategories = document.querySelectorAll('.search-category');
+    const searchClear = document.querySelector('.search-clear');
+
+    if (searchInput && searchResults) {
+        let activeCategory = 'All';
+        let searchTimeout = null;
+
+        // Perform search
+        function performSearch(query, category = 'All') {
+            const normalizedQuery = query.toLowerCase().trim();
+
+            if (normalizedQuery.length < 2) {
+                searchResults.classList.remove('visible');
+                return [];
+            }
+
+            let results = CONTENT_CATALOG.filter(item => {
+                // Filter by category
+                if (category !== 'All' && item.category !== category) {
+                    return false;
+                }
+
+                // Search in title, description, and keywords
+                const searchText = [
+                    item.title,
+                    item.desc,
+                    ...item.keywords
+                ].join(' ').toLowerCase();
+
+                return searchText.includes(normalizedQuery);
+            });
+
+            // Sort by relevance (title matches first, then keyword matches)
+            results.sort((a, b) => {
+                const aTitle = a.title.toLowerCase().includes(normalizedQuery);
+                const bTitle = b.title.toLowerCase().includes(normalizedQuery);
+                if (aTitle && !bTitle) return -1;
+                if (!aTitle && bTitle) return 1;
+                return 0;
+            });
+
+            return results.slice(0, 8); // Limit to 8 results
+        }
+
+        // Render search results
+        function renderSearchResults(results) {
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="search-no-results">No results found. Try different keywords.</div>';
+            } else {
+                searchResults.innerHTML = results.map(item => `
+                    <a href="${item.url}" class="search-result-item">
+                        <span class="search-result-category">${item.category}</span>
+                        <div class="search-result-title">${item.title}</div>
+                        <div class="search-result-desc">${item.desc}</div>
+                    </a>
+                `).join('');
+            }
+            searchResults.classList.add('visible');
+        }
+
+        // Search input handler with debounce
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+
+            // Show/hide clear button
+            if (searchClear) {
+                searchClear.classList.toggle('visible', query.length > 0);
+            }
+
+            // Debounce search
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const results = performSearch(query, activeCategory);
+                if (query.trim().length >= 2) {
+                    renderSearchResults(results);
+                } else {
+                    searchResults.classList.remove('visible');
+                }
+            }, 150);
+        });
+
+        // Category filter handlers
+        searchCategories.forEach(btn => {
+            btn.addEventListener('click', () => {
+                searchCategories.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeCategory = btn.dataset.category || 'All';
+
+                // Re-run search with new category
+                const query = searchInput.value;
+                if (query.trim().length >= 2) {
+                    const results = performSearch(query, activeCategory);
+                    renderSearchResults(results);
+                }
+            });
+        });
+
+        // Clear button handler
+        if (searchClear) {
+            searchClear.addEventListener('click', () => {
+                searchInput.value = '';
+                searchResults.classList.remove('visible');
+                searchClear.classList.remove('visible');
+                searchInput.focus();
+            });
+        }
+
+        // Close results on click outside
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.classList.remove('visible');
+            }
+        });
+
+        // Keyboard navigation
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                searchResults.classList.remove('visible');
+                searchInput.blur();
+            }
+        });
+    }
+
+    // ==========================================
+    // METHOD RECOMMENDER TOOL
+    // Recommends best prompting method based on task
+    // ==========================================
+
+    // Method characteristics for matching
+    const METHOD_PROFILES = {
+        CRISP: {
+            name: 'CRISP',
+            fullName: 'Context, Role, Instructions, Specifics, Parameters',
+            url: 'learn/crisp.html',
+            keywords: ['general', 'everyday', 'quick', 'simple', 'task', 'request', 'help', 'write', 'create', 'basic', 'email', 'document', 'summary'],
+            characteristics: ['straightforward tasks', 'clear objectives', 'general purpose', 'quick requests'],
+            bestFor: 'Everyday tasks, simple requests, general-purpose prompting'
+        },
+        CRISPE: {
+            name: 'CRISPE',
+            fullName: 'Context, Role, Instructions, Specifics, Parameters, Example',
+            url: 'learn/crispe.html',
+            keywords: ['creative', 'example', 'style', 'format', 'template', 'consistent', 'story', 'art', 'design', 'copy', 'brand', 'voice'],
+            characteristics: ['creative work', 'specific style needed', 'consistency important', 'examples help'],
+            bestFor: 'Creative tasks, style matching, consistent outputs, few-shot learning'
+        },
+        COSTAR: {
+            name: 'COSTAR',
+            fullName: 'Context, Objective, Style, Tone, Audience, Response',
+            url: 'learn/costar.html',
+            keywords: ['professional', 'audience', 'communication', 'marketing', 'email', 'report', 'presentation', 'client', 'customer', 'business', 'formal', 'tone'],
+            characteristics: ['audience-focused', 'professional communication', 'tone matters', 'stakeholder content'],
+            bestFor: 'Professional content, audience-specific communication, business writing'
+        },
+        REACT: {
+            name: 'ReAct',
+            fullName: 'Reasoning and Acting',
+            url: 'learn/react.html',
+            keywords: ['complex', 'problem', 'analyze', 'debug', 'research', 'reasoning', 'steps', 'verify', 'investigate', 'solution', 'technical', 'logic'],
+            characteristics: ['complex problems', 'multi-step reasoning', 'verification needed', 'technical analysis'],
+            bestFor: 'Complex problem-solving, debugging, research, multi-step analysis'
+        },
+        FLIPPED: {
+            name: 'Flipped Interaction',
+            fullName: 'Flipped Interaction Pattern',
+            url: 'learn/flipped-interaction.html',
+            keywords: ['unsure', 'help', 'guidance', 'explore', 'discover', 'clarify', 'questions', 'advice', 'recommendation', 'option', 'decision'],
+            characteristics: ['unclear requirements', 'need guidance', 'exploration', 'decision support'],
+            bestFor: 'When you\'re unsure what you need, want AI to ask clarifying questions first'
+        }
+    };
+
+    // Initialize Method Recommender
+    const recommenderInput = document.getElementById('recommender-input');
+    const recommenderBtn = document.getElementById('recommender-btn');
+    const recommenderResult = document.getElementById('recommender-result');
+
+    if (recommenderInput && recommenderBtn && recommenderResult) {
+        // Analyze task and recommend method
+        function analyzeTask(taskDescription) {
+            const normalizedTask = taskDescription.toLowerCase();
+            const scores = {};
+
+            // Score each method
+            for (const [methodKey, method] of Object.entries(METHOD_PROFILES)) {
+                let score = 0;
+
+                // Keyword matching
+                method.keywords.forEach(keyword => {
+                    if (normalizedTask.includes(keyword)) {
+                        score += 10;
+                    }
+                });
+
+                // Characteristic matching (contextual phrases)
+                if (normalizedTask.includes('audience') || normalizedTask.includes('who will read') || normalizedTask.includes('recipient')) {
+                    if (methodKey === 'COSTAR') score += 25;
+                }
+                if (normalizedTask.includes('example') || normalizedTask.includes('like this') || normalizedTask.includes('similar to')) {
+                    if (methodKey === 'CRISPE') score += 25;
+                }
+                if (normalizedTask.includes('step') || normalizedTask.includes('analyze') || normalizedTask.includes('debug') || normalizedTask.includes('why')) {
+                    if (methodKey === 'REACT') score += 25;
+                }
+                if (normalizedTask.includes('not sure') || normalizedTask.includes('help me figure') || normalizedTask.includes('what should i') || normalizedTask.includes('options')) {
+                    if (methodKey === 'FLIPPED') score += 25;
+                }
+
+                // Length and complexity indicators
+                const wordCount = normalizedTask.split(/\s+/).length;
+                if (wordCount < 15 && methodKey === 'CRISP') score += 10;
+                if (wordCount > 30 && (methodKey === 'REACT' || methodKey === 'COSTAR')) score += 10;
+
+                // Question marks indicate uncertainty
+                if (normalizedTask.includes('?') && methodKey === 'FLIPPED') score += 15;
+
+                scores[methodKey] = score;
+            }
+
+            // Get ranked methods
+            const ranked = Object.entries(scores)
+                .sort((a, b) => b[1] - a[1])
+                .map(([key, score]) => ({
+                    key,
+                    ...METHOD_PROFILES[key],
+                    score
+                }));
+
+            // Normalize scores to percentages
+            const maxScore = Math.max(...Object.values(scores), 1);
+            ranked.forEach(r => {
+                r.confidence = Math.min(95, Math.round((r.score / maxScore) * 100));
+            });
+
+            // If no strong match, default to CRISP with explanation
+            if (ranked[0].score < 10) {
+                ranked[0].confidence = 70;
+            }
+
+            return ranked;
+        }
+
+        // Generate reasoning based on task
+        function generateReasoning(task, method) {
+            const reasons = [];
+
+            if (task.includes('audience') || task.includes('client') || task.includes('customer')) {
+                reasons.push('Your task involves audience consideration');
+            }
+            if (task.includes('example') || task.includes('style') || task.includes('format')) {
+                reasons.push('Examples would help maintain consistency');
+            }
+            if (task.includes('complex') || task.includes('problem') || task.includes('analyze')) {
+                reasons.push('This requires step-by-step reasoning');
+            }
+            if (task.includes('?') || task.includes('unsure') || task.includes('help')) {
+                reasons.push('Clarification might improve results');
+            }
+
+            if (reasons.length === 0) {
+                reasons.push(method.bestFor);
+            }
+
+            return reasons.join('. ') + '.';
+        }
+
+        // Display recommendation
+        function displayRecommendation(ranked, task) {
+            const best = ranked[0];
+            const alternatives = ranked.slice(1, 4);
+
+            recommenderResult.innerHTML = `
+                <div class="recommender-method">
+                    <span class="recommender-method-badge">${best.name}</span>
+                    <span class="recommender-method-name">${best.fullName}</span>
+                </div>
+                <div class="recommender-confidence">
+                    <div class="recommender-confidence-bar">
+                        <div class="recommender-confidence-fill" data-width="${best.confidence}"></div>
+                    </div>
+                    <span class="recommender-confidence-value">${best.confidence}% match</span>
+                </div>
+                <p class="recommender-reasoning">${generateReasoning(task.toLowerCase(), best)}</p>
+                <a href="${best.url}" class="btn btn-primary btn-sm">Learn ${best.name} →</a>
+                <div class="recommender-alternatives">
+                    <h4>Other Options</h4>
+                    <div class="recommender-alt-list">
+                        ${alternatives.map(alt => `
+                            <a href="${alt.url}" class="recommender-alt-item">
+                                ${alt.name} <span class="recommender-alt-score">${alt.confidence}%</span>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Set confidence bar width via JS (CSP compliant)
+            const confidenceFill = recommenderResult.querySelector('.recommender-confidence-fill');
+            if (confidenceFill) {
+                confidenceFill.style.width = confidenceFill.dataset.width + '%';
+            }
+
+            recommenderResult.classList.add('visible');
+        }
+
+        // Button click handler
+        recommenderBtn.addEventListener('click', () => {
+            const task = recommenderInput.value.trim();
+
+            if (task.length < 10) {
+                showToast('Please describe your task in more detail', 'error');
+                return;
+            }
+
+            const ranked = analyzeTask(task);
+            displayRecommendation(ranked, task);
+        });
+
+        // Enter key handler
+        recommenderInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                recommenderBtn.click();
+            }
+        });
+    }
 });
