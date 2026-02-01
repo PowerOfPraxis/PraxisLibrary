@@ -1649,8 +1649,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', () => {
+    // Cleanup on page hide (modern replacement for beforeunload)
+    window.addEventListener('pagehide', () => {
         neuralNetworks.forEach(nn => nn.destroy());
     });
 
@@ -2480,9 +2480,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }));
     }
 
-    // Cleanup all instances on unload
+    // Cleanup all instances on page hide (modern replacement for beforeunload)
     if (neuralBackgrounds.length > 0) {
-        window.addEventListener('beforeunload', () => {
+        window.addEventListener('pagehide', () => {
             neuralBackgrounds.forEach(bg => bg.destroy());
         });
     }
