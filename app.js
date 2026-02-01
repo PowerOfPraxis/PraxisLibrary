@@ -5512,44 +5512,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
     // HERO TYPING ANIMATION
-    // Purpose: Types full title and repeats every 45 seconds
+    // Purpose: Cycles through phrases every 15 seconds
     // Security: CSP compliant, no eval or dynamic code
     // ==========================================
     const typingText = document.getElementById('typing-text');
     const startLearningBtn = document.getElementById('start-learning-btn');
 
     if (typingText) {
-        // Full text split into two lines - second line gets gradient styling
-        const line1 = 'Master the Art of';
-        const line2 = 'AI Interactions';
-        const fullText = line1 + '\n' + line2;
-        const typingSpeed = 60; // milliseconds per character
-        const deleteSpeed = 30; // milliseconds per character when deleting
-        const pauseAfterComplete = 45000; // 45 seconds pause
+        // Array of phrases to cycle through
+        const phrases = [
+            'AI Interactions',
+            'AI Communication',
+            'AI Output',
+            'AI Literacy',
+            'AI Creativity'
+        ];
+        const typingSpeed = 70; // milliseconds per character
+        const deleteSpeed = 35; // milliseconds per character when deleting
+        const pauseAfterComplete = 15000; // 15 seconds pause before switching
 
-        let currentIndex = 0;
+        let currentPhraseIndex = 0;
+        let currentCharIndex = 0;
         let isDeleting = false;
         let lastTime = 0;
         let isPaused = false;
         let pauseUntil = 0;
 
         /**
-         * Renders the current text with proper HTML formatting
-         * @param {number} charCount - Number of characters to show
+         * Gets the current phrase to type
+         * @returns {string} Current phrase
          */
-        function renderText(charCount) {
-            const visibleText = fullText.substring(0, charCount);
-            const newlineIndex = visibleText.indexOf('\n');
-
-            if (newlineIndex === -1) {
-                // Still on first line
-                typingText.innerHTML = visibleText;
-            } else {
-                // Has reached second line - apply gradient to second part
-                const firstPart = visibleText.substring(0, newlineIndex);
-                const secondPart = visibleText.substring(newlineIndex + 1);
-                typingText.innerHTML = firstPart + '<br><span class="text-gradient">' + secondPart + '</span>';
-            }
+        function getCurrentPhrase() {
+            return phrases[currentPhraseIndex];
         }
 
         /**
@@ -5570,15 +5564,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const elapsed = timestamp - lastTime;
             const speed = isDeleting ? deleteSpeed : typingSpeed;
+            const currentPhrase = getCurrentPhrase();
 
             if (elapsed >= speed) {
                 lastTime = timestamp;
 
                 if (!isDeleting) {
                     // Typing forward
-                    if (currentIndex < fullText.length) {
-                        currentIndex++;
-                        renderText(currentIndex);
+                    if (currentCharIndex < currentPhrase.length) {
+                        currentCharIndex++;
+                        typingText.textContent = currentPhrase.substring(0, currentCharIndex);
                     } else {
                         // Finished typing, pause then start deleting
                         isPaused = true;
@@ -5587,13 +5582,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 } else {
                     // Deleting
-                    if (currentIndex > 0) {
-                        currentIndex--;
-                        renderText(currentIndex);
+                    if (currentCharIndex > 0) {
+                        currentCharIndex--;
+                        typingText.textContent = currentPhrase.substring(0, currentCharIndex);
                     } else {
-                        // Finished deleting, pause then start typing again
+                        // Finished deleting, move to next phrase
+                        currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
                         isPaused = true;
-                        pauseUntil = timestamp + 500;
+                        pauseUntil = timestamp + 300; // Short pause before typing next
                         isDeleting = false;
                     }
                 }
