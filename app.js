@@ -5512,11 +5512,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
     // HERO TYPING ANIMATION
-    // Purpose: Cycles through phrases every 9 seconds
+    // Purpose: Cycles through phrases every 7.77 seconds
     // Security: CSP compliant, no eval or dynamic code
     // ==========================================
     const typingText = document.getElementById('typing-text');
     const startLearningBtn = document.getElementById('start-learning-btn');
+    const takeQuizBtn = document.querySelector('.hero-actions .btn-secondary');
 
     if (typingText) {
         // Array of phrases to cycle through
@@ -5531,7 +5532,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
         const typingSpeed = 70; // milliseconds per character
         const deleteSpeed = 35; // milliseconds per character when deleting
-        const pauseAfterComplete = 9000; // 9 seconds pause before switching
+        const pauseAfterComplete = 7770; // 7.77 seconds pause before switching
+        const startLearningDelay = 2500; // 2.5 seconds after typing completes
+        const takeQuizDelay = 3000; // 3 seconds after typing completes
 
         let currentPhraseIndex = 0;
         let currentCharIndex = 0;
@@ -5539,6 +5542,30 @@ document.addEventListener('DOMContentLoaded', () => {
         let lastTime = 0;
         let isPaused = false;
         let pauseUntil = 0;
+
+        /**
+         * Pulse animation for Start Learning button
+         */
+        function pulseStartLearning() {
+            if (startLearningBtn) {
+                startLearningBtn.classList.add('pulse-attention');
+                setTimeout(() => {
+                    startLearningBtn.classList.remove('pulse-attention');
+                }, 600);
+            }
+        }
+
+        /**
+         * Pulse animation for Take the Quiz button
+         */
+        function pulseTakeQuiz() {
+            if (takeQuizBtn) {
+                takeQuizBtn.classList.add('pulse-attention');
+                setTimeout(() => {
+                    takeQuizBtn.classList.remove('pulse-attention');
+                }, 600);
+            }
+        }
 
         /**
          * Gets the current phrase to type
@@ -5577,7 +5604,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         currentCharIndex++;
                         typingText.textContent = currentPhrase.substring(0, currentCharIndex);
                     } else {
-                        // Finished typing, pause then start deleting
+                        // Finished typing - trigger button animations
+                        setTimeout(pulseStartLearning, startLearningDelay);
+                        setTimeout(pulseTakeQuiz, takeQuizDelay);
+
+                        // Pause then start deleting
                         isPaused = true;
                         pauseUntil = timestamp + pauseAfterComplete;
                         isDeleting = true;
@@ -5604,28 +5635,18 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             requestAnimationFrame(animateTyping);
         }, 300);
-    }
-
-    // ==========================================
-    // START LEARNING BUTTON PULSE ANIMATION
-    // Purpose: Draws attention to CTA button every 20 seconds
-    // Security: CSP compliant, uses CSS class toggle
-    // ==========================================
-    if (startLearningBtn) {
-        const pulseInterval = 20000; // 20 seconds
+    } else if (startLearningBtn) {
+        // Fallback: If no typing animation, still pulse buttons periodically
+        const pulseInterval = 20000;
 
         function pulseButton() {
             startLearningBtn.classList.add('pulse-attention');
-            // Remove class after animation completes
             setTimeout(() => {
                 startLearningBtn.classList.remove('pulse-attention');
             }, 600);
         }
 
-        // Initial pulse after 3 seconds
         setTimeout(pulseButton, 3000);
-
-        // Repeat every 20 seconds
         setInterval(pulseButton, pulseInterval);
     }
 
