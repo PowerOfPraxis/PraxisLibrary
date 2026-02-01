@@ -5368,6 +5368,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Transparent about AI involvement',
                 'Practical example of AI augmenting human work'
             ]
+        },
+        github: {
+            title: 'Community',
+            icon: '🐙',
+            iconClass: 'badge-lightbox-icon--github',
+            description: 'Join the <span class="badge-lightbox-highlight">Praxis community on GitHub</span> to contribute, report issues, suggest features, and collaborate with other AI enthusiasts.',
+            features: [
+                'Open source project - contribute and improve',
+                'Report bugs and suggest new features',
+                'Access the full codebase and documentation',
+                'Connect with other AI literacy advocates',
+                'Star the repo to show your support'
+            ]
         }
     };
 
