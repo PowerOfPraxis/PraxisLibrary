@@ -4,12 +4,14 @@
 
 **Your Curiosity - Unlocks Potential - Builds Tomorrow**
 
-*A blend of hands-on development and AI-powered refinement*
+*Master the Art of AI Communication theory through proven methodologies*
 
-![Security Grade](https://img.shields.io/badge/Security-A+_100%25-success?style=for-the-badge&labelColor=0891b2)
-![Performance](https://img.shields.io/badge/Performance-100%25-success?style=for-the-badge&labelColor=0891b2)
-![Built With](https://img.shields.io/badge/Built_With-Claude_Code-06b6d4?style=for-the-badge)
-![UD/UDL](https://img.shields.io/badge/Built_With-UD%2FUDL_in_Mind-8b5cf6?style=for-the-badge)
+![AI for Everybody](https://img.shields.io/badge/AI_for-Everybody-DC3545?style=for-the-badge&labelColor=ffffff&logoColor=1f2937)
+![UD/UDL](https://img.shields.io/badge/Built_With-UD%2FUDL-0891B2?style=for-the-badge&labelColor=06B6D4)
+![Security Grade](https://img.shields.io/badge/Security-A+_100%25-16A34A?style=for-the-badge&labelColor=22C55E)
+![Performance](https://img.shields.io/badge/Performance-100%25-7C3AED?style=for-the-badge&labelColor=8B5CF6)
+![Built With](https://img.shields.io/badge/AI_Assisted_Building-Claude_Code-EA580C?style=for-the-badge&labelColor=F97316)
+[![Community](https://img.shields.io/badge/Community-GitHub-1F2937?style=for-the-badge&labelColor=6B7280&logo=github&logoColor=white)](https://github.com/basrosario/praxis)
 
 <img src="assets/images/praxishome.png" alt="Praxis Library" width="100%">
 
