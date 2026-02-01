@@ -5414,6 +5414,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const BuilderState = {
         methodology: 'CRISP',
+        outputFormat: 'natural', // 'natural' or 'labeled'
         answers: {}
     };
 
@@ -5460,41 +5461,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const methodology = BuilderState.methodology;
         const answers = BuilderState.answers;
+        const format = BuilderState.outputFormat;
 
         let parts = [];
 
-        if (methodology === 'CRISP') {
-            if (answers.role?.trim()) parts.push(`Act as ${answers.role.trim()}.`);
-            if (answers.context?.trim()) parts.push(answers.context.trim());
-            if (answers.instructions?.trim()) parts.push(answers.instructions.trim());
-            if (answers.specifics?.trim()) parts.push(answers.specifics.trim());
-            if (answers.parameters?.trim()) parts.push(answers.parameters.trim());
-        } else if (methodology === 'COSTAR') {
-            if (answers.context?.trim()) parts.push(answers.context.trim());
-            if (answers.objective?.trim()) parts.push(`My goal is to ${answers.objective.trim()}.`);
-            if (answers.audience?.trim()) parts.push(`This is for ${answers.audience.trim()}.`);
-            if (answers.style?.trim() || answers.tone?.trim()) {
-                const styleText = [answers.style?.trim(), answers.tone?.trim()].filter(Boolean).join(', ');
-                parts.push(`Use a ${styleText} tone.`);
+        if (format === 'labeled') {
+            // Labeled format with explicit labels
+            if (methodology === 'CRISP') {
+                if (answers.context?.trim()) parts.push(`Context: ${answers.context.trim()}`);
+                if (answers.role?.trim()) parts.push(`Role: ${answers.role.trim()}`);
+                if (answers.instructions?.trim()) parts.push(`Instructions: ${answers.instructions.trim()}`);
+                if (answers.specifics?.trim()) parts.push(`Specifics: ${answers.specifics.trim()}`);
+                if (answers.parameters?.trim()) parts.push(`Parameters: ${answers.parameters.trim()}`);
+            } else if (methodology === 'COSTAR') {
+                if (answers.context?.trim()) parts.push(`Context: ${answers.context.trim()}`);
+                if (answers.objective?.trim()) parts.push(`Objective: ${answers.objective.trim()}`);
+                if (answers.style?.trim()) parts.push(`Style: ${answers.style.trim()}`);
+                if (answers.tone?.trim()) parts.push(`Tone: ${answers.tone.trim()}`);
+                if (answers.audience?.trim()) parts.push(`Audience: ${answers.audience.trim()}`);
+                if (answers.response?.trim()) parts.push(`Response: ${answers.response.trim()}`);
+            } else if (methodology === 'CRISPE') {
+                if (answers.context?.trim()) parts.push(`Context: ${answers.context.trim()}`);
+                if (answers.role?.trim()) parts.push(`Role: ${answers.role.trim()}`);
+                if (answers.instruction?.trim()) parts.push(`Instruction: ${answers.instruction.trim()}`);
+                if (answers.specifics?.trim()) parts.push(`Specifics: ${answers.specifics.trim()}`);
+                if (answers.parameters?.trim()) parts.push(`Parameters: ${answers.parameters.trim()}`);
+                if (answers.example?.trim()) parts.push(`Example: ${answers.example.trim()}`);
+            } else if (methodology === 'REACT') {
+                if (answers.problem?.trim()) parts.push(`Problem: ${answers.problem.trim()}`);
+                if (answers.context?.trim()) parts.push(`Context: ${answers.context.trim()}`);
+                if (answers.approach?.trim()) parts.push(`Approach: ${answers.approach.trim()}`);
+                if (answers.constraints?.trim()) parts.push(`Constraints: ${answers.constraints.trim()}`);
+            } else if (methodology === 'FLIPPED') {
+                if (answers.topic?.trim()) parts.push(`Topic: ${answers.topic.trim()}`);
+                if (answers.goal?.trim()) parts.push(`Goal: ${answers.goal.trim()}`);
+                if (answers.expertise?.trim()) parts.push(`Expertise: ${answers.expertise.trim()}`);
+                if (answers.questions?.trim()) parts.push(`Questions: ${answers.questions.trim()}`);
             }
-            if (answers.response?.trim()) parts.push(`Format as ${answers.response.trim()}.`);
-        } else if (methodology === 'CRISPE') {
-            if (answers.role?.trim()) parts.push(`Act as ${answers.role.trim()}.`);
-            if (answers.context?.trim()) parts.push(answers.context.trim());
-            if (answers.instruction?.trim()) parts.push(answers.instruction.trim());
-            if (answers.specifics?.trim()) parts.push(answers.specifics.trim());
-            if (answers.parameters?.trim()) parts.push(answers.parameters.trim());
-            if (answers.example?.trim()) parts.push(`Example: ${answers.example.trim()}`);
-        } else if (methodology === 'REACT') {
-            if (answers.problem?.trim()) parts.push(answers.problem.trim());
-            if (answers.context?.trim()) parts.push(`Context: ${answers.context.trim()}`);
-            if (answers.approach?.trim()) parts.push(answers.approach.trim());
-            if (answers.constraints?.trim()) parts.push(answers.constraints.trim());
-        } else if (methodology === 'FLIPPED') {
-            if (answers.expertise?.trim()) parts.push(`Act as ${answers.expertise.trim()}.`);
-            if (answers.topic?.trim()) parts.push(answers.topic.trim());
-            if (answers.goal?.trim()) parts.push(`My goal is ${answers.goal.trim()}.`);
-            if (answers.questions?.trim()) parts.push(`Before giving me advice, ${answers.questions.trim()} to better understand my situation.`);
+        } else {
+            // Natural language format (default)
+            if (methodology === 'CRISP') {
+                if (answers.role?.trim()) parts.push(`Act as ${answers.role.trim()}.`);
+                if (answers.context?.trim()) parts.push(answers.context.trim());
+                if (answers.instructions?.trim()) parts.push(answers.instructions.trim());
+                if (answers.specifics?.trim()) parts.push(answers.specifics.trim());
+                if (answers.parameters?.trim()) parts.push(answers.parameters.trim());
+            } else if (methodology === 'COSTAR') {
+                if (answers.context?.trim()) parts.push(answers.context.trim());
+                if (answers.objective?.trim()) parts.push(`My goal is to ${answers.objective.trim()}.`);
+                if (answers.audience?.trim()) parts.push(`This is for ${answers.audience.trim()}.`);
+                if (answers.style?.trim() || answers.tone?.trim()) {
+                    const styleText = [answers.style?.trim(), answers.tone?.trim()].filter(Boolean).join(', ');
+                    parts.push(`Use a ${styleText} tone.`);
+                }
+                if (answers.response?.trim()) parts.push(`Format as ${answers.response.trim()}.`);
+            } else if (methodology === 'CRISPE') {
+                if (answers.role?.trim()) parts.push(`Act as ${answers.role.trim()}.`);
+                if (answers.context?.trim()) parts.push(answers.context.trim());
+                if (answers.instruction?.trim()) parts.push(answers.instruction.trim());
+                if (answers.specifics?.trim()) parts.push(answers.specifics.trim());
+                if (answers.parameters?.trim()) parts.push(answers.parameters.trim());
+                if (answers.example?.trim()) parts.push(`Here's an example: ${answers.example.trim()}`);
+            } else if (methodology === 'REACT') {
+                if (answers.problem?.trim()) parts.push(answers.problem.trim());
+                if (answers.context?.trim()) parts.push(`Here's the context: ${answers.context.trim()}`);
+                if (answers.approach?.trim()) parts.push(answers.approach.trim());
+                if (answers.constraints?.trim()) parts.push(answers.constraints.trim());
+            } else if (methodology === 'FLIPPED') {
+                if (answers.expertise?.trim()) parts.push(`Act as ${answers.expertise.trim()}.`);
+                if (answers.topic?.trim()) parts.push(answers.topic.trim());
+                if (answers.goal?.trim()) parts.push(`My goal is ${answers.goal.trim()}.`);
+                if (answers.questions?.trim()) parts.push(`Before giving me advice, ${answers.questions.trim()} to better understand my situation.`);
+            }
         }
 
         const combined = parts.join('\n\n');
@@ -5513,6 +5551,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const combineBtn = document.getElementById('combine-prompt-btn');
     const copyBtn = document.getElementById('copy-btn');
     const guidedQuestionsContainer = document.getElementById('guided-questions');
+    const formatToggle = document.querySelector('.format-toggle');
+    const formatHint = document.getElementById('format-hint');
 
     if (methodologySelector && guidedQuestionsContainer && combineBtn) {
         // Initial render
@@ -5530,6 +5570,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderBuilderQuestions(method);
             });
         });
+
+        // Format toggle buttons
+        if (formatToggle) {
+            formatToggle.querySelectorAll('.format-toggle-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const format = btn.dataset.format;
+                    BuilderState.outputFormat = format;
+
+                    formatToggle.querySelectorAll('.format-toggle-btn').forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-pressed', 'false');
+                    });
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-pressed', 'true');
+
+                    // Update hint text
+                    if (formatHint) {
+                        formatHint.textContent = format === 'natural'
+                            ? 'Conversational style—reads like you\'d explain to a colleague'
+                            : 'Explicit labels—useful for learning or complex prompts';
+                    }
+                });
+            });
+        }
 
         // Combine button
         combineBtn.addEventListener('click', combineBuilderAnswers);
