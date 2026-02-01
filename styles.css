@@ -8598,6 +8598,433 @@ body.menu-open {
 }
 
 /* ============================================
+   ACCORDION CONTENT COMPONENT
+   Reusable collapsible content sections
+   ============================================ */
+
+.accordion-section {
+    margin: var(--space-lg) 0;
+}
+
+.accordion-item {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-left: 5px solid var(--primary);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--space-md);
+    transition: var(--transition-normal);
+}
+
+.accordion-item:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
+.accordion-item[open] {
+    border-color: var(--primary);
+    background: var(--bg-secondary);
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    cursor: pointer;
+    list-style: none;
+    transition: var(--transition-fast);
+}
+
+.accordion-header::-webkit-details-marker {
+    display: none;
+}
+
+.accordion-header::after {
+    content: '+';
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary);
+    transition: transform var(--transition-fast);
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+}
+
+.accordion-item[open] .accordion-header::after {
+    content: '−';
+}
+
+.accordion-header:hover {
+    color: var(--primary);
+}
+
+.accordion-content {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.accordion-content p {
+    margin-bottom: var(--space-md);
+}
+
+.accordion-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Dark accordion variant for dark sections */
+.accordion-item.accordion-dark {
+    background: #1a1a1a;
+    border-color: #374151;
+    border-left-color: var(--primary);
+}
+
+.accordion-item.accordion-dark .accordion-header {
+    color: #ffffff;
+}
+
+.accordion-item.accordion-dark .accordion-content {
+    color: #e5e7eb;
+}
+
+.accordion-item.accordion-dark[open] {
+    background: #111111;
+}
+
+/* ============================================
+   CONTENT LIBRARY SEARCH
+   Site-wide search with categorization
+   ============================================ */
+
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    padding-left: 3rem;
+    font-size: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-full);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-icon {
+    position: absolute;
+    left: var(--space-md);
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.search-clear {
+    position: absolute;
+    right: var(--space-md);
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    opacity: 0;
+    transition: var(--transition-fast);
+}
+
+.search-clear.visible {
+    opacity: 1;
+}
+
+.search-clear:hover {
+    color: var(--primary);
+}
+
+/* Search Categories/Filters */
+.search-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+    justify-content: center;
+}
+
+.search-category {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.search-category:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.search-category.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* Search Results */
+.search-results {
+    position: absolute;
+    top: calc(100% + var(--space-sm));
+    left: 0;
+    right: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition-fast);
+}
+
+.search-results.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.search-result-item {
+    display: block;
+    padding: var(--space-md) var(--space-lg);
+    text-decoration: none;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition-fast);
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background: var(--bg-secondary);
+}
+
+.search-result-category {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background: rgba(220, 53, 69, 0.1);
+    color: var(--primary);
+    margin-bottom: var(--space-xs);
+}
+
+.search-result-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.search-result-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.search-no-results {
+    padding: var(--space-lg);
+    text-align: center;
+    color: var(--text-muted);
+}
+
+/* ============================================
+   METHOD RECOMMENDER TOOL
+   Recommends best prompting method for task
+   ============================================ */
+
+.recommender-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.recommender-input-group {
+    margin-bottom: var(--space-lg);
+}
+
+.recommender-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.recommender-textarea {
+    width: 100%;
+    padding: var(--space-md);
+    font-size: 1rem;
+    line-height: 1.6;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    resize: vertical;
+    min-height: 120px;
+    transition: var(--transition-fast);
+}
+
+.recommender-textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+}
+
+.recommender-result {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-left: 5px solid var(--primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-top: var(--space-lg);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: var(--transition-normal);
+}
+
+.recommender-result.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.recommender-method {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.recommender-method-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius-md);
+}
+
+.recommender-method-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.recommender-confidence {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.recommender-confidence-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--border-color);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.recommender-confidence-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), #10B981);
+    border-radius: var(--radius-full);
+    transition: width var(--transition-slow);
+}
+
+.recommender-confidence-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.recommender-reasoning {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+}
+
+.recommender-alternatives {
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-color);
+}
+
+.recommender-alternatives h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.recommender-alt-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+.recommender-alt-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+}
+
+.recommender-alt-score {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* ============================================
    GLOSSARY PAGE STYLES
    ============================================ */
 
