@@ -11750,3 +11750,112 @@ html[data-text-scale="3"] {
         grid-template-columns: 1fr;
     }
 }
+
+/* === MOBILE SWIPE NAVIGATION === */
+/* Touch swipe indicators for page navigation */
+
+.swipe-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.swipe-indicator--visible {
+    opacity: 1;
+}
+
+.swipe-hint {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--primary-rgb, 79, 70, 229), 0.15);
+    backdrop-filter: blur(4px);
+    border-radius: var(--radius);
+}
+
+.swipe-hint--prev {
+    left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.swipe-hint--next {
+    right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.swipe-hint__arrow {
+    font-size: 1.5rem;
+    color: var(--primary);
+    font-weight: 300;
+    animation: swipe-pulse 1.5s ease-in-out infinite;
+}
+
+.swipe-hint--prev .swipe-hint__arrow {
+    animation-name: swipe-pulse-left;
+}
+
+.swipe-hint--next .swipe-hint__arrow {
+    animation-name: swipe-pulse-right;
+}
+
+@keyframes swipe-pulse-left {
+    0%, 100% {
+        transform: translateX(0);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateX(-5px);
+        opacity: 1;
+    }
+}
+
+@keyframes swipe-pulse-right {
+    0%, 100% {
+        transform: translateX(0);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateX(5px);
+        opacity: 1;
+    }
+}
+
+/* Page transition effect */
+.page-transitioning {
+    opacity: 0.7;
+    transition: opacity 0.15s ease;
+}
+
+/* Hide swipe indicators on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+    .swipe-indicator {
+        display: none;
+    }
+}
+
+/* Adjust swipe hint size for smaller screens */
+@media (max-width: 375px) {
+    .swipe-hint {
+        width: 32px;
+        height: 64px;
+    }
+
+    .swipe-hint__arrow {
+        font-size: 1.25rem;
+    }
+}
+
+/* /MOBILE SWIPE NAVIGATION */
