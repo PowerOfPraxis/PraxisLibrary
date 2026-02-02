@@ -1,0 +1,266 @@
+# Praxis Project - Completed Tasks Archive
+
+**Purpose:** Archive of completed work to keep HANDOFF.md lean and focused on current tasks.
+
+---
+
+## Completed Phases
+
+### Phase 0: Fix Prompt Analyzer - COMPLETED
+- [x] Natural language pattern library built
+- [x] Detection engine updated
+- [x] Scoring algorithm simplified (detected/total = score)
+- [x] Feedback display updated
+- [x] Manual verification passing
+
+### Phase 1: Badge Relocation & Text Updates - COMPLETED
+
+| Task | Status | Notes |
+|------|--------|-------|
+| 1.1 Remove header badges (desktop) | Done | All HTML files updated |
+| 1.2 Remove mobile accordion badges | Done | All HTML files updated |
+| 1.3 Add content badges to Home page | Done | Between title and subtitle |
+| 1.4 Add content badges to Learn page | Done | In dark page-hero section |
+| 1.5 Add content badges to other pages | Done | All 18 pages updated |
+| 1.6 Text: "AI Assisted Building" | Done | Badge text corrected |
+| 1.7 Hero text update | Done | "Master the Art of AI Interactions" |
+| 1.8 Darken learning content backgrounds | Done | Text colors darkened, CTA text lightened |
+| 1.10a Navigation menu reorganization | Done | Moved items to AI Readiness menu |
+| 1.11 Acronym card accent styling | Done | Thickened left-side accents from 5px to 7-8px |
+| 1.12 Method comparison text styling | Done | Bold + red keyword styling in tip callouts |
+| 1.13 Method use-case guidance | Done | Added "Better Use Cases" callouts |
+| 1.14 Site messaging audit | Done | Growth mindset language throughout |
+| 1.15 Visual consistency audit | Done | CSS Grid for cards, animated gradients |
+| 1.16 GitHub badge | Done | Added to all badge bars |
+| 1.17 ADL Accessibility Dashboard | Done | Floating panel with text size, contrast, dimming |
+| 1.18 Prompt Analyzer Enhancement | Done | Granular methodology scoring, bonuses up to 130% |
+| 1.19 Site-Wide Visual Continuity Audit | Done | Consistent fonts, colors, spacing |
+| Neural CTA backgrounds | Done | Added to 12 pages |
+| Hero title enlargement | Done | 2.5/3.5/4rem responsive sizes |
+| CRISPE Builder fix | Done | Example field now required |
+| Animation stability fix | Done | Delta time capping + visibility handler |
+| Back-to-top bar | Done | Full-width white bar, black text, arrow icon |
+| Site badges bar (footer) | Done | Full-width dark bar with all badges |
+| Reference text styling | Done | `<em>` in disclaimers now bold, blue, larger |
+| Footer gap fix | Done | Explicit margin/padding/border resets |
+| Anatomy cards enhancement | Done | Colored borders, shadows, hover effects |
+| Build-step enhancement | Done | Added shadows, improved hover states |
+| Scenario tabs enhancement | Done | Card wrapper with border and shadow |
+
+### Phase 2: Natural Language Content - COMPLETED
+- [x] Added "Two Approaches, Same Results" sections to all methodology pages
+  - prompt-basics.html, crisp.html, crispe.html, costar.html, react.html
+  - Side-by-side comparison of labeled vs natural language formats
+- [x] Prompt Builder format toggle (labeled vs natural language output)
+- [x] ReAct equation card layout fix (left-aligned flexbox)
+
+### Phase 3: Accordion Content Structure - COMPLETED
+- [x] Accordion CSS component (details/summary based)
+- [x] learn/crisp.html - C, R, I, S, P accordions
+- [x] learn/crispe.html - C, R, I, S, P, E accordions
+- [x] learn/costar.html - C, O, S, T, A, R accordions
+- [x] learn/advanced.html - Technique accordions
+- [x] Expand All / Collapse All controls
+- [x] Deep link support
+- [x] Keyboard accessibility
+
+### Phase 4: Search Tags & Metadata - COMPLETED
+- [x] Search index schema defined (id, title, category, subcategory, keywords, excerpt, url)
+- [x] 193 Glossary terms indexed (expanded from 48)
+- [x] 25+ Learn page sections indexed
+- [x] 6 Tools indexed
+- [x] 9 Patterns indexed
+- [x] 15+ FAQ entries indexed
+- [x] 6 Resource pages indexed
+- [x] Search API exposed via window.PraxisSearch
+- [x] Total: 250+ searchable entries
+
+### Phase 5: Search UI Implementation - COMPLETED
+- [x] Search modal with Cmd+K / Ctrl+K keyboard shortcuts
+- [x] Search trigger button in header (aligned with navigation)
+- [x] Results grouped by category (Learn, Tools, Glossary, Patterns, FAQ, Resources)
+- [x] Keyboard navigation (arrows, Enter, Escape)
+- [x] Highlighted matches in excerpts
+- [x] Help panel with category badges and quick guide
+- [x] Mobile-friendly 720px max-width modal
+- [x] Focus trap and accessibility compliance
+- [x] Cross-platform OS detection (macOS vs Windows shortcuts)
+
+### Comprehensive AI Glossary Expansion - COMPLETED
+- [x] Expanded from 48 terms to 193 terms (4x increase)
+- [x] Full A-Z navigation (all 26 letters now have entries)
+- [x] New letter sections added: D, E, I, J, K, O, Q, U, V, W, X
+- [x] Categories covered: Core Concepts, Architecture, Training, Safety, Products, Companies, Techniques, NLP Tasks, Metrics, Hardware, Ethics
+- [x] All 193 terms indexed in search
+
+### Additional Completed Work
+- [x] AI Readiness Quiz redesign (40 questions, 4 levels, 3-strikes mechanic)
+- [x] Scorer algorithm documentation (.claude/scorer-algorithm.md)
+- [x] Analyzer example scores fixed (26, 74, 100)
+- [x] Method Matcher tool reinstated (renamed from Method Recommender)
+- [x] "Level Up Your Score" section added to Prompt Analyzer
+- [x] Animated gradients for dark sections site-wide
+
+---
+
+## Session Work Logs (Archived)
+
+### Session 14 (2026-02-01)
+**Resource Pages Enhancement - Phase 1**
+- Deleted pages/replit-guide.html and pages/ide-guide.html
+- Removed Replit Guide and IDE Guide from navigation across all 29 HTML files
+- Updated search index (PRAXIS_SEARCH_INDEX) to remove deleted pages
+- Fixed quiz recommendation path (was pointing to deleted ide-guide)
+- Created plan for comprehensive page enhancements: `.claude/plans/vivid-launching-goose.md`
+
+**Files Deleted:**
+- pages/replit-guide.html
+- pages/ide-guide.html
+
+**Files Modified:**
+- All 29 HTML files (navigation cleanup)
+- app.js (search index, quiz recommendations)
+
+### Session 13 (2026-02-01)
+**HANDOFF.md Cleanup & Resources Hub**
+- Created `.claude/COMPLETED.md` archive file
+- Cleaned up HANDOFF.md (moved completed items to archive)
+- Added Pre-Push Cleanup instructions to CLAUDE.md
+- Created pages/resources.html hub page with card sections
+- Added resource card CSS components
+- Updated all navigation links to point Resources to resources.html
+- Added clickable quick links to search modal
+- Added getSearchLinkPath() helper function for dynamic paths
+
+**Files Created:**
+- pages/resources.html
+- .claude/COMPLETED.md
+
+**Files Modified:**
+- .claude/HANDOFF.md (streamlined)
+- CLAUDE.md (added cleanup instructions)
+- styles.css (resource card styles, search quick link styles)
+- app.js (search quick links, path helper, search index)
+- All 31 HTML files (Resources nav link update)
+
+### Session 12 (2026-02-01)
+**Phase 5: Search UI Implementation**
+- Implemented Cmd+K / Ctrl+K search modal
+- Cross-platform OS detection using `navigator.userAgentData` with fallback
+- Search trigger button in header aligned with navigation
+- Search modal features (720px max-width, 85vh height)
+- CSS added (~250 lines) for search components
+
+**Comprehensive AI Glossary Expansion**
+- Expanded glossary from 48 to 193 terms
+- Added 145 new AI/ML terms organized alphabetically
+- Full A-Z coverage (all 26 letters now have entries)
+
+**Files Modified:**
+- app.js (search modal, trigger, navigation, glossary index expansion)
+- styles.css (search UI components ~250 lines)
+- pages/glossary.html (145 new terms, A-Z navigation update)
+
+### Session 11 (2026-02-01)
+**Quiz Redesign**
+- Redesigned AI Readiness Quiz as level-based progression system
+- 40 questions across 4 levels (10 each)
+- Implemented 3-strikes game mechanic
+- Added CSS for quiz game elements
+
+**Analyzer Documentation**
+- Created `.claude/scorer-algorithm.md`
+- Fixed Example Analysis scores in analyzer.html
+
+**Files Modified:**
+- app.js (40 quiz questions, 3-strikes logic, level progression)
+- styles.css (quiz game element styling)
+- quiz/index.html (updated subtitle, level descriptions)
+- tools/analyzer.html (fixed example scores)
+- .claude/scorer-algorithm.md (new documentation file)
+
+**Commit:** `d66bcfe` - feat: Level-based quiz with 3-strikes game mechanic + analyzer docs
+
+### Session 10 (2026-02-01)
+**Phase 2: Natural Language Content Updates**
+- Fixed ReAct equation card layout (left-aligned flexbox)
+- Added "Two Approaches, Same Results" sections to all methodology pages
+- Implemented Prompt Builder format toggle
+- Added approach-comparison CSS component
+
+**Files Modified:**
+- styles.css, app.js, tools/guidance.html
+- learn/prompt-basics.html, crisp.html, crispe.html, costar.html, react.html
+
+**Commits:** `540c17d` to `d0ee6a6`
+
+### Session 9 (2026-02-01)
+- Reinstated Method Recommender as "Method Matcher"
+- Added "Level Up Your Score" section to Prompt Analyzer
+- Extended animated gradient to all dark card sections
+
+**Files Modified:**
+- styles.css, tools/analyzer.html, tools/matcher.html, tools/index.html
+- All 24 HTML files (Method Matcher navigation links)
+
+### Session 8 (2026-02-01)
+- Removed Method Recommender from all pages (later reinstated as Method Matcher)
+- Task 1.15: Visual consistency audit - CSS Grid for cards
+- Applied animated gradient to dark areas site-wide
+- Task 1.19: Site-wide visual continuity audit
+
+**Files Modified:**
+- styles.css, tools/index.html, all 24 HTML files
+
+### Session 7 (2026-02-01)
+- Task 1.18: Prompt Analyzer Enhancement - Granular Methodology Scoring
+- Added STRUCTURAL_BONUSES patterns
+- Scores can now exceed 100% (max 130%)
+- Added CSS for exceptional scores (purple gradient theme)
+
+**Files Modified:**
+- app.js, styles.css, .claude/HANDOFF.md
+
+### Session 6 (2026-02-01)
+- About page "Why Praxis?" section refined
+- README.md header and subtitle updated
+
+**Commit:** `1131dae`
+
+### Session 5 (2026-02-01)
+- Task 1.11: Acronym card accent styling
+- Task 1.12: Method comparison text styling
+- Task 1.13: Method use-case guidance for CRISP/CRISPE
+- Task 1.14: Site messaging audit (growth mindset language)
+- Neural animation terms: Replaced AI_TERMS with prompting technique terms
+
+**Commit:** `28184e5`
+
+### Session 4 (2026-01-31)
+- Documented 8 new tasks from user's .docx file (Tasks 1.9-1.16)
+- Created comprehensive MAJOR INITIATIVE: Neurodivergence + AI Resource Center
+- Fixed border/line between back-to-top bar and badges bar
+- Reduced back-to-top bar height by 20%
+- Added new resource pages: ChatGPT Guide, Replit Guide, IDE Guide
+
+**Commit:** `0c0ff1f`
+
+### Session 3 (Earlier)
+- Footer gap fix
+- Anatomy cards, build-step, scenario tabs enhancements
+
+---
+
+## Growth Mindset Language Changes (Reference)
+
+| Original | Replaced With |
+|----------|---------------|
+| "Weak Prompt" | "Basic Prompt" |
+| "Strong Prompt" | "Enhanced Prompt" |
+| "Strong X Example" | "Effective X Example" |
+| "Best Use Cases" | "Better Use Cases" |
+| "Not as strong at" | "Better suited for" |
+
+---
+
+*This archive is updated whenever completed tasks are moved from HANDOFF.md*

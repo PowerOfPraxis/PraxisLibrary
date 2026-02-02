@@ -12,6 +12,21 @@ Before making ANY changes, read these files:
 
 ---
 
+## Pre-Push Cleanup (Required)
+
+**Before every git push, perform this cleanup cycle:**
+
+1. **Archive completed tasks** - Move finished items from `HANDOFF.md` to `COMPLETED.md`
+2. **Update session number** - Increment the session count in HANDOFF.md header
+3. **Update last commit** - Record the new commit hash in HANDOFF.md
+4. **Keep HANDOFF.md lean** - Only active/pending work stays in HANDOFF.md
+
+**Files:**
+- `.claude/HANDOFF.md` - Current state only (lean)
+- `.claude/COMPLETED.md` - Archive of all completed work
+
+---
+
 ## Critical Rules (Always Follow)
 
 ### Security (A+ CSP Compliance)
@@ -85,7 +100,8 @@ JS:    // === SECTION === ... /** JSDoc comments */
 
 | File | Purpose |
 |------|---------|
-| `.claude/HANDOFF.md` | Session continuity & rules |
+| `.claude/HANDOFF.md` | Current state & active tasks |
+| `.claude/COMPLETED.md` | Archived completed work |
 | `.claude/plans/praxis-enhancement-plan.md` | Full phase details |
 | `styles.css` | ALL CSS (single file) |
 | `app.js` | ALL JavaScript (single file) |

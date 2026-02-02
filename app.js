@@ -6463,8 +6463,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 message = 'Pro skills! Study advanced techniques to reach Expert level.';
                 recommendedPath = '../learn/advanced.html';
             } else if (achievedLevel === 3) {
-                message = 'Expert level! Master IDEs and APIs to reach Master level.';
-                recommendedPath = '../pages/ide-guide.html';
+                message = 'Expert level! Explore our resources to reach Master level.';
+                recommendedPath = '../pages/chatgpt-guide.html';
             }
 
             const levelInfo = achievedLevel > 0 ? LEVELS[achievedLevel] : { name: 'Learner', color: 'level-learner', emoji: '📚' };
@@ -7392,9 +7392,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'AI Safety', desc: 'Understanding AI limitations, risks, and responsible use practices', url: 'pages/ai-safety.html', category: 'Security', keywords: ['safety', 'security', 'risks', 'limitations', 'responsible', 'ethics', 'privacy'] },
 
         // EDUCATION Category
-        { title: 'ChatGPT Guide', desc: 'Getting started with ChatGPT and OpenAI\'s assistant', url: 'pages/chatgpt-guide.html', category: 'Education', keywords: ['chatgpt', 'openai', 'guide', 'tutorial', 'getting-started'] },
-        { title: 'Replit Guide', desc: 'Using Replit Agent for AI-assisted coding and development', url: 'pages/replit-guide.html', category: 'Education', keywords: ['replit', 'coding', 'development', 'agent', 'programming'] },
-        { title: 'IDE Guide', desc: 'Setting up code editors for AI-assisted development', url: 'pages/ide-guide.html', category: 'Education', keywords: ['ide', 'editor', 'vscode', 'cursor', 'setup', 'development'] },
+        { title: 'ChatGPT Guide', desc: 'Comprehensive guide to using ChatGPT effectively with prompting techniques', url: 'pages/chatgpt-guide.html', category: 'Education', keywords: ['chatgpt', 'openai', 'guide', 'tutorial', 'getting-started', 'llm', 'ai assistant'] },
         { title: 'FAQ', desc: 'Frequently asked questions about AI prompting and this resource', url: 'pages/faq.html', category: 'Education', keywords: ['faq', 'questions', 'answers', 'help', 'common'] },
         { title: 'Glossary', desc: 'Definitions of AI and prompting terminology', url: 'pages/glossary.html', category: 'Education', keywords: ['glossary', 'terms', 'definitions', 'vocabulary', 'dictionary'] },
 
@@ -8080,13 +8078,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // ==========================================
         // RESOURCES (3 entries)
         // ==========================================
-        { id: 'resource-chatgpt', title: 'ChatGPT Guide', category: 'Resources', subcategory: 'AI Platforms', keywords: ['chatgpt', 'openai', 'guide', 'how to use chatgpt'], excerpt: 'Complete guide to using ChatGPT effectively. Tips, features, and best practices for OpenAI\'s popular AI assistant.', url: 'pages/chatgpt-guide.html' },
-        { id: 'resource-replit', title: 'Replit Guide', category: 'Resources', subcategory: 'Development Tools', keywords: ['replit', 'coding', 'online ide', 'ai coding'], excerpt: 'Learn to use Replit\'s AI-powered coding environment. Build, run, and deploy code with AI assistance.', url: 'pages/replit-guide.html' },
-        { id: 'resource-ide', title: 'IDE Guide', category: 'Resources', subcategory: 'Development Tools', keywords: ['ide', 'cursor', 'vs code', 'github copilot', 'ai coding assistant'], excerpt: 'Use AI coding assistants in Cursor, VS Code, and other development tools. Level up your development workflow with AI.', url: 'pages/ide-guide.html' },
+        { id: 'resource-chatgpt', title: 'ChatGPT Guide', category: 'Resources', subcategory: 'AI Platforms', keywords: ['chatgpt', 'openai', 'guide', 'how to use chatgpt', 'llm', 'prompting'], excerpt: 'Comprehensive guide to using ChatGPT effectively. Features, prompting techniques, and best practices for all skill levels.', url: 'pages/chatgpt-guide.html' },
 
         // ==========================================
         // ADDITIONAL PAGES
         // ==========================================
+        { id: 'page-resources', title: 'Resources Hub', category: 'Resources', subcategory: 'Overview', keywords: ['resources', 'guides', 'references', 'documentation', 'hub', 'getting started'], excerpt: 'Explore all Praxis resources: getting started guides, AI glossary, FAQ, and documentation about our mission and implementation.', url: 'pages/resources.html' },
         { id: 'page-about', title: 'About Praxis', category: 'Resources', subcategory: 'Site Info', keywords: ['about', 'praxis', 'mission', 'founder', 'why praxis'], excerpt: 'Learn about Praxis, its mission to make AI accessible to everyone, and the founder\'s vision for AI education.', url: 'pages/about.html' },
         { id: 'page-ai-safety', title: 'AI Safety', category: 'Resources', subcategory: 'AI Safety', keywords: ['ai safety', 'responsible ai', 'limitations', 'risks', 'best practices'], excerpt: 'Understand AI limitations, risks, and best practices for responsible use. Essential knowledge for effective AI interaction.', url: 'pages/ai-safety.html' },
         { id: 'page-security', title: 'Security Analysis', category: 'Resources', subcategory: 'Security', keywords: ['security', 'csp', 'owasp', 'hardening', 'content security policy', 'xss', 'privacy', 'defense in depth'], excerpt: 'Comprehensive security analysis and hardening practices. Learn about our A+ CSP rating and continuous security as a practice.', url: 'pages/security.html' },
@@ -8233,6 +8230,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Calculate relative path for search quick links based on current page location
+     * @param {string} targetPath - The target path (e.g., 'learn/index.html', 'pages/glossary.html')
+     * @returns {string} - The correct relative path
+     */
+    function getSearchLinkPath(targetPath) {
+        const path = window.location.pathname;
+
+        // Check if we're in a subfolder
+        if (path.includes('/pages/')) {
+            // In pages folder - adjust paths
+            if (targetPath.startsWith('pages/')) {
+                return targetPath.replace('pages/', '');
+            } else if (targetPath.startsWith('learn/') || targetPath.startsWith('tools/') ||
+                       targetPath.startsWith('patterns/') || targetPath.startsWith('quiz/')) {
+                return '../' + targetPath;
+            }
+        } else if (path.includes('/learn/') || path.includes('/tools/') ||
+                   path.includes('/patterns/') || path.includes('/quiz/')) {
+            // In other subfolder - need ../ prefix for pages, direct for same level
+            if (targetPath.startsWith('pages/')) {
+                return '../' + targetPath;
+            } else if (targetPath.startsWith('learn/') && path.includes('/learn/')) {
+                return targetPath.replace('learn/', '');
+            } else if (targetPath.startsWith('tools/') && path.includes('/tools/')) {
+                return targetPath.replace('tools/', '');
+            } else {
+                return '../' + targetPath;
+            }
+        }
+        // Root level - use path as-is
+        return targetPath;
+    }
+
+    /**
      * Create and inject search modal HTML
      */
     function createSearchModal() {
@@ -8261,52 +8292,52 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="search-modal-help">
                         <div class="search-modal-help-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                            Quick Guide
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            Quick Links
                         </div>
                         <div class="search-modal-help-grid">
-                            <div class="search-modal-help-item">
+                            <a href="${getSearchLinkPath('learn/index.html')}" class="search-modal-help-item search-modal-quick-link">
                                 <span class="search-modal-help-badge">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                                     Learn
                                 </span>
                                 <span>Methods &amp; techniques</span>
-                            </div>
-                            <div class="search-modal-help-item">
+                            </a>
+                            <a href="${getSearchLinkPath('tools/index.html')}" class="search-modal-help-item search-modal-quick-link">
                                 <span class="search-modal-help-badge">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                                    Tools
+                                    AI Readiness
                                 </span>
-                                <span>Analyzer, Builder, Quiz</span>
-                            </div>
-                            <div class="search-modal-help-item">
+                                <span>Tools &amp; assessments</span>
+                            </a>
+                            <a href="${getSearchLinkPath('pages/glossary.html')}" class="search-modal-help-item search-modal-quick-link">
                                 <span class="search-modal-help-badge">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                                     Glossary
                                 </span>
-                                <span>48 AI terms A-Z</span>
-                            </div>
-                            <div class="search-modal-help-item">
-                                <span class="search-modal-help-badge">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                                    Patterns
-                                </span>
-                                <span>Reusable frameworks</span>
-                            </div>
-                            <div class="search-modal-help-item">
+                                <span>190+ AI terms A-Z</span>
+                            </a>
+                            <a href="${getSearchLinkPath('pages/faq.html')}" class="search-modal-help-item search-modal-quick-link">
                                 <span class="search-modal-help-badge">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                                     FAQ
                                 </span>
                                 <span>Common questions</span>
-                            </div>
-                            <div class="search-modal-help-item">
+                            </a>
+                            <a href="${getSearchLinkPath('pages/resources.html')}" class="search-modal-help-item search-modal-quick-link">
                                 <span class="search-modal-help-badge">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
                                     Resources
                                 </span>
                                 <span>Guides &amp; references</span>
-                            </div>
+                            </a>
+                            <a href="${getSearchLinkPath('pages/about.html')}" class="search-modal-help-item search-modal-quick-link">
+                                <span class="search-modal-help-badge">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                                    About
+                                </span>
+                                <span>Mission &amp; creator</span>
+                            </a>
                         </div>
                     </div>
                     <div class="search-modal-results" id="search-modal-results">
