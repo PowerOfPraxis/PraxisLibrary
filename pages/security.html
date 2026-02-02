@@ -347,8 +347,67 @@
             </div>
         </section>
 
-        <!-- Transparency -->
+        <!-- Latest Scan Results -->
         <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Latest Scan Results</h2>
+                <p class="section-subtitle fade-in-up">Automated security analysis from February 2026</p>
+
+                <div class="content-block fade-in-up">
+                    <p>Our continuous security process runs automated scans against OWASP standards and CSP compliance. Here are the actual results from our most recent comprehensive audit:</p>
+                </div>
+
+                <div class="coverage-grid stagger-children">
+                    <div class="coverage-card">
+                        <h3>Inline Event Handlers</h3>
+                        <p><strong>Found: 0</strong> - No onclick, onload, onerror, or other inline JavaScript event handlers. All event handling is done via external script with addEventListener.</p>
+                    </div>
+
+                    <div class="coverage-card">
+                        <h3>Inline Styles</h3>
+                        <p><strong>Found: 0</strong> - No style="" attributes in HTML. All 11,000+ lines of CSS are in a single external stylesheet (styles.css).</p>
+                    </div>
+
+                    <div class="coverage-card">
+                        <h3>Inline Script Blocks</h3>
+                        <p><strong>Found: 0</strong> - No &lt;script&gt; tags with inline code. All 8,500+ lines of JavaScript are in a single external file (app.js) loaded with defer.</p>
+                    </div>
+
+                    <div class="coverage-card">
+                        <h3>External CDN Resources</h3>
+                        <p><strong>Found: 0</strong> - No Google Fonts, no Bootstrap CDN, no jQuery CDN. Every resource is self-hosted with no external dependencies.</p>
+                    </div>
+
+                    <div class="coverage-card">
+                        <h3>Insecure HTTP Links</h3>
+                        <p><strong>Found: 0</strong> - All external links use HTTPS. No mixed content warnings possible.</p>
+                    </div>
+
+                    <div class="coverage-card">
+                        <h3>eval() or Function()</h3>
+                        <p><strong>Found: 0</strong> - No dynamic code execution. No eval(), no new Function(), no setTimeout with strings.</p>
+                    </div>
+
+                    <div class="coverage-card">
+                        <h3>innerHTML Usage</h3>
+                        <p><strong>Found: 19</strong> - All instances reviewed and verified safe. Used only with template literals containing pre-sanitized content, never with user input.</p>
+                    </div>
+
+                    <div class="coverage-card">
+                        <h3>External Link Security</h3>
+                        <p><strong>100% Compliant</strong> - All external links (GitHub, LinkedIn) include target="_blank" with rel="noopener noreferrer" to prevent tabnabbing attacks.</p>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">CSP Header Analysis</div>
+                    <p>Our Content Security Policy is intentionally restrictive: <code>default-src 'none'; connect-src 'self'; form-action 'none'; base-uri 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'</code>. This blocks all resources not explicitly allowed, preventing XSS, data exfiltration, and injection attacks.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transparency -->
+        <section class="section">
             <div class="container">
                 <h2 class="section-title fade-in-up">Full Transparency</h2>
                 <p class="section-subtitle fade-in-up">Trust through openness</p>

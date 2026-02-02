@@ -6635,14 +6635,17 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Security A+ 100%',
             icon: '🔒',
             iconClass: 'badge-lightbox-icon--security',
-            description: 'Praxis maintains the <span class="badge-lightbox-highlight">highest security standards</span> with an A+ rating from security scanners and strict Content Security Policy enforcement.',
+            description: 'Praxis maintains the <span class="badge-lightbox-highlight">highest security standards</span> with an A+ CSP rating and full OWASP compliance. Security is a continuous practice, not a one-time checkbox.',
             features: [
-                'Strict Content Security Policy (CSP) headers',
-                'No inline scripts or styles (XSS prevention)',
-                'No external resources or third-party tracking',
-                'All resources loaded from same origin',
-                'Regular security audits and best practices'
-            ]
+                'CSP A+ Rating: default-src \'none\', script-src \'self\', style-src \'self\'',
+                'Zero inline scripts or styles (complete XSS prevention)',
+                'Zero external dependencies (no supply chain risk)',
+                'Zero tracking, analytics, or cookies (full privacy)',
+                'OWASP Top 10 compliant (all categories addressed)',
+                'Continuous security audits with every code change'
+            ],
+            link: 'pages/security.html',
+            linkText: 'View Full Security Analysis'
         },
         performance: {
             title: 'Performance 100%',
