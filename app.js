@@ -6723,8 +6723,25 @@ document.addEventListener('DOMContentLoaded', () => {
             .join('');
 
         // Build optional link HTML
+        // Calculate correct relative path for internal links
+        let linkUrl = content.link;
+        const isInternalLink = content.link && !content.link.startsWith('http');
+        if (isInternalLink) {
+            const path = window.location.pathname;
+            // Determine path prefix based on current location
+            if (path.includes('/pages/')) {
+                // In pages folder - just use filename
+                linkUrl = content.link.replace('pages/', '');
+            } else if (path.includes('/learn/') || path.includes('/tools/') ||
+                       path.includes('/patterns/') || path.includes('/quiz/')) {
+                // In subfolder - need ../pages/
+                linkUrl = '../' + content.link;
+            }
+            // Root level (index.html) uses pages/security.html as-is
+        }
+
         const linkHtml = content.link ? `
-            <a href="${escapeHtml(content.link)}" target="_blank" rel="noopener noreferrer" class="badge-lightbox-link">
+            <a href="${escapeHtml(linkUrl)}" ${isInternalLink ? '' : 'target="_blank" rel="noopener noreferrer"'} class="badge-lightbox-link">
                 ${escapeHtml(content.linkText || 'Learn More')}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
