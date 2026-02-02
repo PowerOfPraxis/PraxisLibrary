@@ -1,7 +1,7 @@
 # Praxis Project Handoff Document
 
-**Last Updated:** 2026-02-01 (Session 16)
-**Last Commit:** (pending) - feat: Expand AI Glossary to 360+ meaningful terms
+**Last Updated:** 2026-02-01 (Session 17)
+**Last Commit:** (pending) - feat: Add mobile swipe navigation
 **Current Phase:** Resource Pages Enhancement - IN PROGRESS
 
 ---
@@ -118,12 +118,24 @@ _public_html/
 
 **Resource Pages Enhancement Phase - COMPLETE**
 
-**Pending:**
-- [ ] Mobile Swipe Navigation (iPhone 14 Pro Max standard)
+**Completed (Session 17):**
+- [x] Mobile Swipe Navigation (iPhone 14 Pro Max standard)
   - Touch swipe left/right to navigate between pages
-  - Flow: Home → Learn pages → About → Quiz → Tools → Home
-  - Implement in app.js with touch event handlers
-  - Add visual indicators for swipe affordance
+  - Flow: Home → Learn → About → Quiz → Tools → Patterns → Resources → FAQ
+  - Implemented in app.js with touch event handlers (SwipeNavigation object)
+  - Added visual swipe hint indicators with pulse animation
+  - CSS styles in styles.css (swipe-indicator, swipe-hint components)
+  - Automatic detection of touch devices only
+- [x] ChatGPT Guide Rewrite (Modern UX Focus)
+  - Removed all pricing information and plan comparisons
+  - Restructured from data-heavy tables to engaging visual layouts
+  - New sections: Start Here, See the Difference, Features That Matter, Prompting That Works, Real Use Cases, Know the Limits, Advanced Moves, When Things Go Wrong, Stay Safe
+  - Added before/after comparisons, callouts, risk-cards, tip cards, FAQ accordions
+  - Reduced from 1720 lines to ~810 lines (focused content)
+- [x] Animation Terms Brightness Enhancement
+  - Increased neural network background text brightness by 25%
+  - Hero mode: rgba(160,150,150) → rgba(200,188,188)
+  - Terms mode: rgba(180,170,170) → rgba(225,213,213)
 
 **Source Requirements (STRICT - 2025-2026 ONLY):**
 - .EDU domains (universities: Stanford, MIT, CMU, etc.)
