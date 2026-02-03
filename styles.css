@@ -21096,6 +21096,278 @@ html[data-text-scale="3"] {
     }
 }
 
+/* --- Animated ReAct Cycle ---
+   Interactive cycling animation with extending message boxes */
+.react-cycle--animated {
+    padding: var(--space-3xl) var(--space-xl);
+    max-width: 800px;
+}
+
+.react-cycle--animated .react-cycle__node {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.4;
+    filter: grayscale(0.5);
+}
+
+.react-cycle--animated .react-cycle__node.is-active {
+    opacity: 1;
+    filter: grayscale(0);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.15), 0 8px 24px rgba(220, 53, 69, 0.25);
+    z-index: 10;
+}
+
+.react-cycle--animated .react-cycle__node--thought.is-active {
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), 0 8px 24px rgba(59, 130, 246, 0.25);
+    border-color: #3b82f6;
+}
+
+.react-cycle--animated .react-cycle__node--action.is-active {
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15), 0 8px 24px rgba(249, 115, 22, 0.25);
+    border-color: #f97316;
+}
+
+.react-cycle--animated .react-cycle__node--observation.is-active {
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15), 0 8px 24px rgba(34, 197, 94, 0.25);
+    border-color: #22c55e;
+}
+
+/* Message Box Extensions */
+.react-cycle__message {
+    position: absolute;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--border);
+    padding: var(--space-md) var(--space-lg);
+    max-width: 280px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 20;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.react-cycle__message.is-visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.react-cycle__message::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: var(--border);
+}
+
+/* Thought message - extends right */
+.react-cycle__node--thought .react-cycle__message {
+    top: 50%;
+    left: calc(100% + 50px);
+    transform: translateY(-50%) scale(0.8);
+    border-color: #3b82f6;
+}
+
+.react-cycle__node--thought .react-cycle__message.is-visible {
+    transform: translateY(-50%) scale(1);
+}
+
+.react-cycle__node--thought .react-cycle__message::before {
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(90deg, transparent, #3b82f6);
+}
+
+/* Action message - extends right */
+.react-cycle__node--action .react-cycle__message {
+    top: 50%;
+    left: calc(100% + 50px);
+    transform: translateY(-50%) scale(0.8);
+    border-color: #f97316;
+}
+
+.react-cycle__node--action .react-cycle__message.is-visible {
+    transform: translateY(-50%) scale(1);
+}
+
+.react-cycle__node--action .react-cycle__message::before {
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(90deg, transparent, #f97316);
+}
+
+/* Observation message - extends left */
+.react-cycle__node--observation .react-cycle__message {
+    top: 50%;
+    right: calc(100% + 50px);
+    left: auto;
+    transform: translateY(-50%) scale(0.8);
+    border-color: #22c55e;
+}
+
+.react-cycle__node--observation .react-cycle__message.is-visible {
+    transform: translateY(-50%) scale(1);
+}
+
+.react-cycle__node--observation .react-cycle__message::before {
+    right: -50px;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(90deg, #22c55e, transparent);
+}
+
+.react-cycle__message-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: var(--space-xs);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.react-cycle__message-title svg {
+    width: 16px;
+    height: 16px;
+}
+
+.react-cycle__node--thought .react-cycle__message-title {
+    color: #3b82f6;
+}
+
+.react-cycle__node--action .react-cycle__message-title {
+    color: #f97316;
+}
+
+.react-cycle__node--observation .react-cycle__message-title {
+    color: #22c55e;
+}
+
+.react-cycle__message-text {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Arrow pulse animation for active transitions */
+.react-cycle--animated .react-cycle__arrow {
+    transition: all 0.5s ease;
+    opacity: 0.3;
+}
+
+.react-cycle--animated .react-cycle__arrow.is-active {
+    opacity: 1;
+    color: var(--primary);
+    animation: arrow-pulse 1s ease-in-out infinite;
+}
+
+@keyframes arrow-pulse {
+    0%, 100% { transform: rotate(var(--arrow-rotation)) scale(1); }
+    50% { transform: rotate(var(--arrow-rotation)) scale(1.2); }
+}
+
+.react-cycle__arrow--1 { --arrow-rotation: 45deg; }
+.react-cycle__arrow--2 { --arrow-rotation: 135deg; }
+.react-cycle__arrow--3 { --arrow-rotation: -135deg; }
+
+/* Cycle indicator dots */
+.react-cycle__indicators {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+}
+
+.react-cycle__indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: all 0.3s ease;
+}
+
+.react-cycle__indicator.is-active {
+    background: var(--primary);
+    transform: scale(1.2);
+}
+
+.react-cycle__indicator--thought.is-active { background: #3b82f6; }
+.react-cycle__indicator--action.is-active { background: #f97316; }
+.react-cycle__indicator--observation.is-active { background: #22c55e; }
+
+/* Mobile responsive for animated cycle */
+@media (max-width: 992px) {
+    .react-cycle--animated {
+        padding: var(--space-xl) var(--space-sm);
+    }
+
+    .react-cycle__message {
+        max-width: 200px;
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .react-cycle__node--thought .react-cycle__message,
+    .react-cycle__node--action .react-cycle__message {
+        left: calc(100% + 20px);
+    }
+
+    .react-cycle__node--thought .react-cycle__message::before,
+    .react-cycle__node--action .react-cycle__message::before {
+        left: -20px;
+        width: 20px;
+    }
+
+    .react-cycle__node--observation .react-cycle__message {
+        right: calc(100% + 20px);
+    }
+
+    .react-cycle__node--observation .react-cycle__message::before {
+        right: -20px;
+        width: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .react-cycle--animated .react-cycle__node {
+        opacity: 1;
+        filter: none;
+    }
+
+    .react-cycle__message {
+        position: relative;
+        inset: auto;
+        transform: none;
+        max-width: 100%;
+        margin-top: var(--space-sm);
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 var(--space-md);
+        border-width: 0;
+    }
+
+    .react-cycle__message.is-visible {
+        opacity: 1;
+        max-height: 200px;
+        padding: var(--space-md);
+        border-width: 2px;
+        transform: none;
+    }
+
+    .react-cycle__message::before {
+        display: none;
+    }
+
+    .react-cycle--animated .react-cycle__node.is-active {
+        box-shadow: 0 4px 16px rgba(220, 53, 69, 0.2);
+    }
+}
+
 /* --- Transparency Panels ---
    Side-by-side comparison of black-box vs transparent responses */
 .transparency-panels {

@@ -10816,12 +10816,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.gridItems.length === 0 || this.featureItems.length === 0) return;
 
             this.currentIndex = 0;
-            this.interval = 7000; // 7 seconds
+            this.interval = 3000; // 3 seconds between cycles
+            this.initialDelay = 2000; // 2 second initial delay
             this.timer = null;
             this.isPaused = false;
 
             this.bindEvents();
-            this.startCycling();
+            // Start cycling after initial 2 second delay
+            setTimeout(() => {
+                if (!this.isPaused) {
+                    this.startCycling();
+                }
+            }, this.initialDelay);
         },
 
         bindEvents() {
@@ -10915,4 +10921,156 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     ReadinessCycler.init();
+
+    // ==========================================
+    // === REACT CYCLE ANIMATION ===
+    // ==========================================
+    /**
+     * Animated ReAct Cycle - cycles through Thought → Action → Observation
+     * with extending message boxes showing the process details
+     */
+    const ReactCycleAnimation = {
+        container: null,
+        nodes: [],
+        messages: [],
+        arrows: [],
+        indicators: [],
+        steps: ['thought', 'action', 'observation'],
+        currentIndex: 0,
+        cycleTimer: null,
+        messageTimer: null,
+        isActive: false,
+
+        // Timing configuration (milliseconds)
+        timing: {
+            messageShow: 2500,      // How long message is visible
+            messageHide: 500,       // Transition time for message hide
+            betweenSteps: 800,      // Pause between steps
+            totalCycleDuration: 4000 // Total time per step
+        },
+
+        init() {
+            this.container = document.querySelector('[data-react-cycle]');
+            if (!this.container) return;
+
+            // Get all elements
+            this.nodes = this.steps.map(step =>
+                this.container.querySelector(`[data-step="${step}"]`)
+            ).filter(Boolean);
+
+            this.messages = this.steps.map(step =>
+                this.container.querySelector(`[data-message="${step}"]`)
+            ).filter(Boolean);
+
+            this.indicators = this.steps.map(step =>
+                this.container.querySelector(`[data-indicator="${step}"]`)
+            ).filter(Boolean);
+
+            this.arrows = [
+                this.container.querySelector('[data-arrow="1"]'),
+                this.container.querySelector('[data-arrow="2"]'),
+                this.container.querySelector('[data-arrow="3"]')
+            ].filter(Boolean);
+
+            if (this.nodes.length < 3) return;
+
+            // Set up intersection observer to start/stop animation
+            this.setupObserver();
+
+            // Handle visibility changes
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    this.stop();
+                } else if (this.isActive) {
+                    this.start();
+                }
+            });
+        },
+
+        setupObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        this.isActive = true;
+                        this.start();
+                    } else {
+                        this.stop();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(this.container);
+        },
+
+        start() {
+            if (this.cycleTimer) return;
+
+            // Start the cycle
+            this.runStep();
+        },
+
+        stop() {
+            if (this.cycleTimer) {
+                clearTimeout(this.cycleTimer);
+                this.cycleTimer = null;
+            }
+            if (this.messageTimer) {
+                clearTimeout(this.messageTimer);
+                this.messageTimer = null;
+            }
+        },
+
+        runStep() {
+            const currentStep = this.steps[this.currentIndex];
+            const currentNode = this.nodes[this.currentIndex];
+            const currentMessage = this.messages[this.currentIndex];
+            const currentIndicator = this.indicators[this.currentIndex];
+
+            // Activate current node and indicator
+            this.nodes.forEach(node => node.classList.remove('is-active'));
+            this.indicators.forEach(ind => ind.classList.remove('is-active'));
+            this.arrows.forEach(arrow => arrow.classList.remove('is-active'));
+
+            currentNode.classList.add('is-active');
+            if (currentIndicator) currentIndicator.classList.add('is-active');
+
+            // Activate the arrow pointing to next step
+            const arrowIndex = this.currentIndex; // Arrow after current node
+            if (this.arrows[arrowIndex]) {
+                this.arrows[arrowIndex].classList.add('is-active');
+            }
+
+            // Show message
+            this.messages.forEach(msg => msg.classList.remove('is-visible'));
+            if (currentMessage) {
+                currentMessage.classList.add('is-visible');
+            }
+
+            // Schedule message hide and next step
+            this.messageTimer = setTimeout(() => {
+                if (currentMessage) {
+                    currentMessage.classList.remove('is-visible');
+                }
+
+                // Move to next step after brief pause
+                this.cycleTimer = setTimeout(() => {
+                    this.currentIndex = (this.currentIndex + 1) % this.steps.length;
+                    this.runStep();
+                }, this.timing.betweenSteps);
+
+            }, this.timing.messageShow);
+        },
+
+        // Allow manual step control (for accessibility)
+        goToStep(stepName) {
+            const index = this.steps.indexOf(stepName);
+            if (index === -1) return;
+
+            this.stop();
+            this.currentIndex = index;
+            this.runStep();
+        }
+    };
+
+    ReactCycleAnimation.init();
 });
