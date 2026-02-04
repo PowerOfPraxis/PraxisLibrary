@@ -10598,7 +10598,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.gridItems.length === 0 || this.featureItems.length === 0) return;
 
             this.currentIndex = 0;
-            this.interval = 3000; // 3 seconds between cycles
+            this.interval = 1700; // 1.7 seconds between cycles
             this.initialDelay = 2000; // 2 second initial delay
             this.timer = null;
             this.isPaused = false;
