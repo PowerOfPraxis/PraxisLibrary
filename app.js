@@ -7999,17 +7999,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         searchIndexLoading = true;
         try {
-            // Determine correct path based on current location
+            // Build paths using origin for reliable absolute URLs
+            const origin = window.location.origin;
             const pathname = window.location.pathname.toLowerCase();
-            const isSubdirectory = /[/\\](learn|tools|pages|patterns|quiz|neurodivergence)[/\\]/i.test(pathname);
 
-            // Try multiple path options for different hosting scenarios
-            const pathsToTry = isSubdirectory
-                ? ['../data/search-index.json', 'data/search-index.json', '/data/search-index.json']
-                : ['data/search-index.json', './data/search-index.json', '/data/search-index.json'];
+            // Check if we're in a subdirectory
+            const subdirMatch = pathname.match(/^(.*\/)(learn|tools|pages|patterns|quiz|neurodivergence)\//i);
+            const isSubdirectory = subdirMatch !== null;
+
+            // Build comprehensive list of paths to try
+            const pathsToTry = [];
+
+            // Absolute URL with origin (most reliable)
+            pathsToTry.push(`${origin}/data/search-index.json`);
+
+            // If in subdirectory, try parent path
+            if (isSubdirectory) {
+                pathsToTry.push('../data/search-index.json');
+            }
+
+            // Root-relative path
+            pathsToTry.push('/data/search-index.json');
+
+            // Relative paths
+            pathsToTry.push('data/search-index.json');
+            pathsToTry.push('./data/search-index.json');
 
             let response = null;
             let lastError = null;
+
+            console.log('[Praxis Search] Attempting to load index from:', pathsToTry);
 
             for (const path of pathsToTry) {
                 try {
@@ -8017,8 +8036,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (response.ok) {
                         console.log(`[Praxis Search] Loaded from: ${path}`);
                         break;
+                    } else {
+                        console.log(`[Praxis Search] Failed ${path}: ${response.status}`);
                     }
                 } catch (e) {
+                    console.log(`[Praxis Search] Error ${path}:`, e.message);
                     lastError = e;
                 }
             }
@@ -8039,6 +8061,17 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('[Praxis Search] Failed to load index:', error);
             PRAXIS_SEARCH_INDEX = [];
+
+            // Update count display to show error
+            const countEl = document.getElementById('search-modal-count');
+            if (countEl) {
+                // Check if using file:// protocol (can't fetch)
+                if (window.location.protocol === 'file:') {
+                    countEl.textContent = 'Search requires a web server';
+                } else {
+                    countEl.textContent = 'Index load failed';
+                }
+            }
         }
         searchIndexLoading = false;
         return PRAXIS_SEARCH_INDEX;
@@ -8529,8 +8562,14 @@ document.addEventListener('DOMContentLoaded', () => {
             this.overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            // Start loading search index (if not already loaded)
-            loadSearchIndex();
+            // Start loading search index and update display when done
+            loadSearchIndex().then(() => {
+                // Update the count display after loading
+                const countEl = document.getElementById('search-modal-count');
+                if (countEl && searchIndexLoaded && PRAXIS_SEARCH_INDEX.length > 0) {
+                    countEl.textContent = `${PRAXIS_SEARCH_INDEX.length} indexed items`;
+                }
+            });
 
             // Focus input after animation
             setTimeout(() => {
