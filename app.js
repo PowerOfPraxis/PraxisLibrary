@@ -8000,10 +8000,33 @@ document.addEventListener('DOMContentLoaded', () => {
         searchIndexLoading = true;
         try {
             // Determine correct path based on current location
-            const isSubdirectory = /\/(learn|tools|pages|patterns|quiz|neurodivergence)\//i.test(window.location.pathname);
-            const basePath = isSubdirectory ? '../' : '';
-            const response = await fetch(`${basePath}data/search-index.json`);
-            if (!response.ok) throw new Error('Failed to load search index');
+            const pathname = window.location.pathname.toLowerCase();
+            const isSubdirectory = /[/\\](learn|tools|pages|patterns|quiz|neurodivergence)[/\\]/i.test(pathname);
+
+            // Try multiple path options for different hosting scenarios
+            const pathsToTry = isSubdirectory
+                ? ['../data/search-index.json', 'data/search-index.json', '/data/search-index.json']
+                : ['data/search-index.json', './data/search-index.json', '/data/search-index.json'];
+
+            let response = null;
+            let lastError = null;
+
+            for (const path of pathsToTry) {
+                try {
+                    response = await fetch(path);
+                    if (response.ok) {
+                        console.log(`[Praxis Search] Loaded from: ${path}`);
+                        break;
+                    }
+                } catch (e) {
+                    lastError = e;
+                }
+            }
+
+            if (!response || !response.ok) {
+                throw lastError || new Error('Failed to load search index from all paths');
+            }
+
             PRAXIS_SEARCH_INDEX = await response.json();
             searchIndexLoaded = true;
             console.log(`[Praxis Search] Index loaded: ${PRAXIS_SEARCH_INDEX.length} entries`);
