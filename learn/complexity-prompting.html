@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complexity-Based Prompting: Select reasoning chains with more steps as they tend to be more thorough and accurate.">
+    <title>Complexity-Based Prompting - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Frameworks</h4>
+                            <a href="self-consistency.html">Self-Consistency</a>
+                            <a href="chain-of-thought.html">Chain-of-Thought</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Complexity-Based Prompting</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Selection Strategy</span>
+                </div>
+                <h1 class="page-title fade-in">Complexity-Based Prompting</h1>
+                <p class="page-subtitle fade-in">Prefer longer, more detailed reasoning chains.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-section__content">
+                        <span class="section-eyebrow">The Concept</span>
+                        <h2 class="section-title">More Steps, Better Answers</h2>
+                        <p class="section-intro">Complexity-Based Prompting samples multiple reasoning chains and selects based on complexity (number of steps) rather than just voting on answers. The insight is that more complex chains often indicate more thorough reasoning.</p>
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">The Heuristic</span>
+                                <p>Among chains that reach the same answer, prefer those with more intermediate steps. Very short chains may skip important reasoning.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__media">
+                        <div class="highlight-box highlight-box--tip">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Process</span>
+                                <p>1) Generate multiple chains. 2) Count reasoning steps in each. 3) Weight votes by complexity. 4) Select the winner.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Comparison</span>
+                    <h2 class="section-title">vs Self-Consistency</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--2 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Self-Consistency</h3>
+                        <p class="pillar-card__text">Pure majority voting: every chain's answer counts equally regardless of how it got there.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Complexity-Based</h3>
+                        <p class="pillar-card__text">Weighted voting: chains with more reasoning steps have higher influence on the final answer.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <div class="icon-boxes icon-boxes--four fade-in-up">
+                    <a href="self-consistency.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Self-Consistency</h3>
+                            <p class="icon-box__content">Majority voting baseline.</p>
+                        </div>
+                    </a>
+                    <a href="chain-of-thought.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Chain-of-Thought</h3>
+                            <p class="icon-box__content">Step-by-step reasoning.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark">
+                    <h2 class="cta-corporate__title">Try Complexity-Based Prompting</h2>
+                    <div class="cta-corporate__actions">
+                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Program of Thoughts: Generate executable code as the reasoning process, then run it to get precise answers.">
+    <title>Program of Thoughts - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Frameworks</h4>
+                            <a href="chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="modality/code/code-prompting.html">Code Prompting</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Program of Thoughts</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Code-Based Reasoning</span>
+                </div>
+                <h1 class="page-title fade-in">Program of Thoughts</h1>
+                <p class="page-subtitle fade-in">Express reasoning as executable code for precise computation.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-section__content">
+                        <span class="section-eyebrow">The Concept</span>
+                        <h2 class="section-title">Code as Reasoning</h2>
+                        <p class="section-intro">Program of Thoughts (PoT) separates reasoning from computation. Instead of having the LLM perform calculations in natural language, PoT generates executable code that represents the reasoning steps. An interpreter then runs the code to produce the final answer.</p>
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why It Works</span>
+                                <p>LLMs are good at understanding problems and writing code, but prone to arithmetic errors. By delegating computation to a real interpreter, PoT gets the best of both worlds.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__media">
+                        <div class="highlight-box highlight-box--tip">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">The Process</span>
+                                <p>1) Understand the problem. 2) Generate code that solves it. 3) Execute the code. 4) Return the computed result.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Comparison</span>
+                    <h2 class="section-title">CoT vs PoT</h2>
+                </div>
+
+                <div class="accordion fade-in-up" id="pot-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Math Word Problem</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Chain-of-Thought</span>
+                                    <p>"A store has 128 apples. If 37 are sold each day for 3 days, how many remain?"<br><br>
+                                    Reasoning: 37 × 3 = 111 sold. 128 - 111 = 17 remain.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Program of Thoughts</span>
+                                    <p><code>initial = 128<br>
+                                    sold_per_day = 37<br>
+                                    days = 3<br>
+                                    remaining = initial - (sold_per_day * days)<br>
+                                    print(remaining)  # Output: 17</code></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Best Uses</span>
+                    <h2 class="section-title">When to Use PoT</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Complex Math</h3>
+                        <p class="pillar-card__text">Multi-step calculations, statistics, or iterative computations that benefit from precise execution.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Data Processing</h3>
+                        <p class="pillar-card__text">Filtering, sorting, aggregating, or transforming structured data.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Symbolic Tasks</h3>
+                        <p class="pillar-card__text">Pattern matching, string manipulation, or logical operations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <div class="icon-boxes icon-boxes--four fade-in-up">
+                    <a href="chain-of-thought.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Chain-of-Thought</h3>
+                            <p class="icon-box__content">Natural language reasoning.</p>
+                        </div>
+                    </a>
+                    <a href="modality/code/code-prompting.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Code Prompting</h3>
+                            <p class="icon-box__content">General code generation strategies.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark">
+                    <h2 class="cta-corporate__title">Try Program of Thoughts</h2>
+                    <div class="cta-corporate__actions">
+                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>

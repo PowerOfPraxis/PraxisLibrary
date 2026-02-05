@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vote-K: Have the model vote on which unlabeled examples would be most useful to label for few-shot learning.">
+    <title>Vote-K - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Frameworks</h4>
+                            <a href="knn-prompting.html">KNN Prompting</a>
+                            <a href="active-prompting.html">Active Prompting</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Vote-K</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Active Learning</span>
+                </div>
+                <h1 class="page-title fade-in">Vote-K</h1>
+                <p class="page-subtitle fade-in">Let the model vote on which examples to annotate.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-section__content">
+                        <span class="section-eyebrow">The Concept</span>
+                        <h2 class="section-title">Selective Annotation</h2>
+                        <p class="section-intro">Vote-K is an active learning approach where the model helps select which unlabeled examples would be most valuable to annotate. By voting on candidate examples, it identifies the ones most likely to improve performance when added to the demonstration pool.</p>
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Key Benefit</span>
+                                <p>Reduces annotation effort by focusing labeling work on examples the model finds most informative, rather than randomly selected ones.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__media">
+                        <div class="highlight-box highlight-box--tip">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">The Process</span>
+                                <p>1) Present unlabeled candidates. 2) Model votes on usefulness. 3) Annotate top-voted examples. 4) Add to demonstration pool.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Workflow</span>
+                    <h2 class="section-title">Vote-K Steps</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Candidate Pool</h3>
+                        <p class="pillar-card__text">Gather unlabeled examples that could potentially be annotated and used as demonstrations.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Voting</h3>
+                        <p class="pillar-card__text">Ask the model to select k examples it believes would be most helpful if labeled.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Integration</h3>
+                        <p class="pillar-card__text">After annotation, add voted examples to improve future few-shot prompts.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Use Cases</span>
+                    <h2 class="section-title">When Vote-K Helps</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Limited Budget</h3>
+                        <p class="pillar-card__text">When you can only afford to label a small number of examples.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Iterative Building</h3>
+                        <p class="pillar-card__text">Progressively growing a demonstration set over multiple rounds.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Domain Coverage</h3>
+                        <p class="pillar-card__text">Ensuring examples cover diverse aspects of the problem space.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <div class="icon-boxes icon-boxes--four fade-in-up">
+                    <a href="knn-prompting.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">KNN Prompting</h3>
+                            <p class="icon-box__content">Similarity-based selection.</p>
+                        </div>
+                    </a>
+                    <a href="active-prompting.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Active Prompting</h3>
+                            <p class="icon-box__content">Uncertainty-based annotation.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark">
+                    <h2 class="cta-corporate__title">Try Vote-K</h2>
+                    <div class="cta-corporate__actions">
+                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>

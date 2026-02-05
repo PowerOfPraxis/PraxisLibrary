@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shot Prompting Guide: Master Zero-Shot, One-Shot, Few-Shot, and Many-Shot prompting techniques. Learn when to use examples and how many for optimal AI results.">
+    <title>Shot Prompting Guide: Zero to Many-Shot | Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Getting Started</h4>
+                            <a href="prompt-basics.html">Prompt Basics</a>
+                            <a href="facts-fictions.html">Facts & Fictions</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Frameworks</h4>
+                            <a href="crisp.html">CRISP</a>
+                            <a href="crispe.html">CRISPE</a>
+                            <a href="costar.html">COSTAR</a>
+                            <a href="react.html">ReAct</a>
+                            <a href="flipped-interaction.html">Flipped Interaction</a>
+                            <a href="chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="one-shot.html">One-Shot</a>
+                            <a href="role-prompting.html">Role Prompting</a>
+                            <a href="constrained-output.html">Constrained Output</a>
+                            <a href="self-consistency.html">Self-Consistency</a>
+                            <a href="prompt-chaining.html">Prompt Chaining</a>
+                            <a href="shot-prompting.html">Shot Prompting</a>
+                            <a href="zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="emotion-prompting.html">Emotion Prompting</a>
+                            <a href="style-prompting.html">Style Prompting</a>
+                            <a href="rar.html">RAR</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Advanced</h4>
+                            <a href="example-selection.html">Example Selection</a>
+                            <a href="least-to-most.html">Least-to-Most</a>
+                            <a href="plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="tree-of-thought.html">Tree of Thought</a>
+                            <a href="self-refine.html">Self-Refine</a>
+                            <a href="self-verification.html">Self-Verification</a>
+                            <a href="self-ask.html">Self-Ask</a>
+                            <a href="analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="step-back.html">Step-Back</a>
+                            <a href="decomp.html">Decomposed Prompting</a>
+                            <a href="graph-of-thought.html">Graph of Thought</a>
+                            <a href="program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Self-Correction</h4>
+                            <a href="chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="critic.html">CRITIC</a>
+                            <a href="reflexion.html">Reflexion</a>
+                            <a href="self-calibration.html">Self-Calibration</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Code</h4>
+                            <a href="modality/code/code-prompting.html">Code Prompting</a>
+                            <a href="modality/code/self-debugging.html">Self-Debugging</a>
+                            <a href="modality/code/structured-output.html">Structured Output</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../quiz/index.html">Readiness Quiz</a>
+                            <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../tools/guidance.html">Prompt Builder</a>
+                            <a href="../tools/matcher.html">Framework Matcher</a>
+                            <a href="../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../tools/persona.html">Persona Architect</a>
+                            <a href="../patterns/index.html">Patterns Library</a>
+                            <a href="../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../pages/glossary.html">Glossary</a>
+                            <a href="../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../pages/universal-design.html">Universal Design</a>
+                            <a href="../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../pages/security.html">Security</a>
+                            <a href="../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI & ND</h4>
+                            <a href="../neurodivergence/index.html">ND Hub</a>
+                            <a href="../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Shot Prompting</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Foundational Technique</span>
+                </div>
+                <h1 class="page-title fade-in">Shot Prompting</h1>
+                <p class="page-subtitle fade-in">From zero examples to many: choosing the right amount of context for every task.</p>
+            </div>
+        </section>
+
+        <!-- === CONTENT BADGES === -->
+        <section class="section">
+            <div class="container">
+                <div class="content-badges fade-in-up">
+                    <span class="content-badge content-badge--ai">
+                        <span class="badge-label">AI for</span>
+                        <span class="badge-value">Everybody</span>
+                    </span>
+                    <span class="content-badge content-badge--udl">
+                        <span class="badge-label">Built With</span>
+                        <span class="badge-value">UD/UDL</span>
+                    </span>
+                    <span class="content-badge content-badge--security">
+                        <span class="badge-label">Security</span>
+                        <span class="badge-value">A+ 100%</span>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- === CORE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-section__content">
+                        <span class="section-eyebrow">Core Concept</span>
+                        <h2 class="section-title">Examples as Context</h2>
+                        <p class="section-intro">"Shot" in prompting refers to examples. Zero-shot means no examples, one-shot means one example, few-shot means a few, and many-shot means many. The number of examples you provide dramatically affects how well the model understands your intent.</p>
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">The Central Question</span>
+                                <p>How much context does the model need to understand what you want? Sometimes none. Sometimes a lot. Knowing when to use each approach is the key skill.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__media">
+                        <div class="highlight-box highlight-box--tip">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Quick Rule</span>
+                                <p>Start with zero-shot. If results aren't right, add one example. Still not working? Add more. Don't over-engineer from the start.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === THE SPECTRUM === -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">The Spectrum</span>
+                    <h2 class="section-title">From Zero to Many</h2>
+                    <p class="section-subtitle">Each level serves different purposes and task types</p>
+                </div>
+
+                <div class="comparison-tabs fade-in-up" data-component="comparison-tabs">
+                    <div class="comparison-tabs__nav" role="tablist">
+                        <button class="comparison-tabs__tab is-active" role="tab" aria-selected="true" data-tab="zero">Zero-Shot</button>
+                        <button class="comparison-tabs__tab" role="tab" aria-selected="false" data-tab="one">One-Shot</button>
+                        <button class="comparison-tabs__tab" role="tab" aria-selected="false" data-tab="few">Few-Shot</button>
+                        <button class="comparison-tabs__tab" role="tab" aria-selected="false" data-tab="many">Many-Shot</button>
+                    </div>
+
+                    <div class="comparison-tabs__content">
+                        <!-- ZERO-SHOT -->
+                        <div class="comparison-tabs__panel is-active" data-panel="zero">
+                            <div class="comparison-grid">
+                                <div class="comparison-card comparison-card--after">
+                                    <div class="comparison-card__header">
+                                        <span class="comparison-card__label">Zero-Shot</span>
+                                        <span class="comparison-card__badge comparison-card__badge--success">No Examples</span>
+                                    </div>
+                                    <div class="comparison-card__prompt">
+                                        <strong>What it is:</strong><br>
+                                        No examples provided. Relies entirely on clear instructions and the model's pre-trained knowledge.
+                                    </div>
+                                    <div class="comparison-card__response">
+                                        <strong>Example prompt:</strong><br>
+                                        "Translate the following English text to French: 'Hello, how are you today?'"
+                                    </div>
+                                    <div class="comparison-card__analysis comparison-card__analysis--success">
+                                        <span>Best for simple, well-defined tasks the model already knows how to do</span>
+                                    </div>
+                                </div>
+                                <div class="comparison-card comparison-card--after">
+                                    <div class="comparison-card__header">
+                                        <span class="comparison-card__label">When to Use</span>
+                                    </div>
+                                    <div class="comparison-card__prompt">
+                                        <strong>Ideal scenarios:</strong>
+                                        <ul>
+                                            <li>Standard tasks (translation, summarization, Q&A)</li>
+                                            <li>Clear, unambiguous instructions</li>
+                                            <li>Tasks where format is obvious</li>
+                                            <li>When you want speed over precision</li>
+                                        </ul>
+                                    </div>
+                                    <div class="comparison-card__response">
+                                        <strong>Advantages:</strong>
+                                        <ul>
+                                            <li>Fastest to write</li>
+                                            <li>Uses least tokens</li>
+                                            <li>Good baseline to test from</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ONE-SHOT -->
+                        <div class="comparison-tabs__panel" data-panel="one">
+                            <div class="comparison-grid">
+                                <div class="comparison-card comparison-card--after">
+                                    <div class="comparison-card__header">
+                                        <span class="comparison-card__label">One-Shot</span>
+                                        <span class="comparison-card__badge comparison-card__badge--success">1 Example</span>
+                                    </div>
+                                    <div class="comparison-card__prompt">
+                                        <strong>What it is:</strong><br>
+                                        A single example demonstrates the expected input-output pattern before your actual request.
+                                    </div>
+                                    <div class="comparison-card__response">
+                                        <strong>Example prompt:</strong><br>
+                                        "Convert to title case:<br><br>
+                                        Input: the quick brown fox<br>
+                                        Output: The Quick Brown Fox<br><br>
+                                        Input: hello world from AI<br>
+                                        Output:"
+                                    </div>
+                                    <div class="comparison-card__analysis comparison-card__analysis--success">
+                                        <span>Best for format-sensitive tasks and custom output structures</span>
+                                    </div>
+                                </div>
+                                <div class="comparison-card comparison-card--after">
+                                    <div class="comparison-card__header">
+                                        <span class="comparison-card__label">When to Use</span>
+                                    </div>
+                                    <div class="comparison-card__prompt">
+                                        <strong>Ideal scenarios:</strong>
+                                        <ul>
+                                            <li>Custom formatting requirements</li>
+                                            <li>Specific output structure needed</li>
+                                            <li>Pattern is clear from one example</li>
+                                            <li>Balancing context with efficiency</li>
+                                        </ul>
+                                    </div>
+                                    <div class="comparison-card__response">
+                                        <strong>Advantages:</strong>
+                                        <ul>
+                                            <li>Shows exact format expected</li>
+                                            <li>Minimal token overhead</li>
+                                            <li>Often sufficient for many tasks</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FEW-SHOT -->
+                        <div class="comparison-tabs__panel" data-panel="few">
+                            <div class="comparison-grid">
+                                <div class="comparison-card comparison-card--after">
+                                    <div class="comparison-card__header">
+                                        <span class="comparison-card__label">Few-Shot</span>
+                                        <span class="comparison-card__badge comparison-card__badge--success">2-5 Examples</span>
+                                    </div>
+                                    <div class="comparison-card__prompt">
+                                        <strong>What it is:</strong><br>
+                                        Multiple examples show variation and reinforce the pattern, helping the model understand nuances and edge cases.
+                                    </div>
+                                    <div class="comparison-card__response">
+                                        <strong>Example prompt:</strong><br>
+                                        "Classify the sentiment:<br><br>
+                                        Text: I love this product!<br>
+                                        Sentiment: Positive<br><br>
+                                        Text: Worst purchase ever.<br>
+                                        Sentiment: Negative<br><br>
+                                        Text: It works as expected.<br>
+                                        Sentiment: Neutral<br><br>
+                                        Text: Amazing quality, highly recommend!<br>
+                                        Sentiment:"
+                                    </div>
+                                    <div class="comparison-card__analysis comparison-card__analysis--success">
+                                        <span>Best for complex reasoning, edge cases, and establishing clear patterns</span>
+                                    </div>
+                                </div>
+                                <div class="comparison-card comparison-card--after">
+                                    <div class="comparison-card__header">
+                                        <span class="comparison-card__label">When to Use</span>
+                                    </div>
+                                    <div class="comparison-card__prompt">
+                                        <strong>Ideal scenarios:</strong>
+                                        <ul>
+                                            <li>Classification tasks with multiple categories</li>
+                                            <li>Complex transformations</li>
+                                            <li>Tasks requiring reasoning</li>
+                                            <li>When edge cases matter</li>
+                                        </ul>
+                                    </div>
+                                    <div class="comparison-card__response">
+                                        <strong>Best practices:</strong>
+                                        <ul>
+                                            <li>Cover different scenarios</li>
+                                            <li>Include edge cases if relevant</li>
+                                            <li>Maintain consistent formatting</li>
+                                            <li>3-5 examples is usually optimal</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MANY-SHOT -->
+                        <div class="comparison-tabs__panel" data-panel="many">
+                            <div class="comparison-grid">
+                                <div class="comparison-card comparison-card--after">
+                                    <div class="comparison-card__header">
+                                        <span class="comparison-card__label">Many-Shot</span>
+                                        <span class="comparison-card__badge comparison-card__badge--success">10+ Examples</span>
+                                    </div>
+                                    <div class="comparison-card__prompt">
+                                        <strong>What it is:</strong><br>
+                                        Extensive examples for highly specialized or unusual tasks. Approaches in-context "fine-tuning" by providing substantial demonstration data.
+                                    </div>
+                                    <div class="comparison-card__response">
+                                        <strong>Use case:</strong><br>
+                                        A company's specific email classification system with 15+ examples covering all their custom categories, edge cases, and priority rules.
+                                    </div>
+                                    <div class="comparison-card__analysis comparison-card__analysis--success">
+                                        <span>Best for domain-specific patterns, proprietary formats, and unusual tasks</span>
+                                    </div>
+                                </div>
+                                <div class="comparison-card comparison-card--after">
+                                    <div class="comparison-card__header">
+                                        <span class="comparison-card__label">When to Use</span>
+                                    </div>
+                                    <div class="comparison-card__prompt">
+                                        <strong>Ideal scenarios:</strong>
+                                        <ul>
+                                            <li>Proprietary classification systems</li>
+                                            <li>Company-specific terminology</li>
+                                            <li>Highly specialized domains</li>
+                                            <li>Tasks the model has never seen</li>
+                                        </ul>
+                                    </div>
+                                    <div class="comparison-card__response">
+                                        <strong>Considerations:</strong>
+                                        <ul>
+                                            <li>Higher token cost</li>
+                                            <li>May hit context limits</li>
+                                            <li>Diminishing returns after ~20 examples</li>
+                                            <li>Consider fine-tuning for production</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === DECISION GUIDE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Decision Guide</span>
+                    <h2 class="section-title">Choosing the Right Approach</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--2 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Start Simple</h3>
+                        <p class="pillar-card__text">Always begin with zero-shot. It's the fastest to test and often works for standard tasks. Only add examples when results don't match expectations.</p>
+                        <span class="pillar-card__tag">First Step</span>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Add Minimally</h3>
+                        <p class="pillar-card__text">When zero-shot fails, add just one example first. Many tasks only need a single demonstration to click into place.</p>
+                        <span class="pillar-card__tag">Efficiency</span>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Cover Variation</h3>
+                        <p class="pillar-card__text">If one example isn't enough, add examples that show different scenarios—not just more of the same. Diversity beats repetition.</p>
+                        <span class="pillar-card__tag">Quality</span>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Know the Limits</h3>
+                        <p class="pillar-card__text">More examples have diminishing returns. If 5 examples don't work, 20 probably won't either. Consider if the task needs a different approach.</p>
+                        <span class="pillar-card__tag">Reality Check</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === COMPLETE EXAMPLE === -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Complete Example</span>
+                    <h2 class="section-title">The Same Task, Four Ways</h2>
+                    <p class="section-subtitle">See how each approach handles product categorization</p>
+                </div>
+
+                <div class="accordion fade-in-up" id="example-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Zero-Shot Approach</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>Categorize this product into one of: Electronics, Clothing, Home & Garden, or Sports.<br><br>Product: "Wireless Bluetooth Earbuds with Noise Cancellation"<br><br>Category:</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Result</span>
+                                    <p>Works well here because product categorization is a common task the model understands.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">One-Shot Approach</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>Categorize products into: Electronics, Clothing, Home & Garden, or Sports.<br><br>Product: "Cotton Running Shorts"<br>Category: Clothing<br><br>Product: "Wireless Bluetooth Earbuds with Noise Cancellation"<br>Category:</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Result</span>
+                                    <p>The example demonstrates the expected format clearly.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Few-Shot Approach</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>Categorize products into: Electronics, Clothing, Home & Garden, or Sports.<br><br>Product: "Cotton Running Shorts"<br>Category: Clothing<br><br>Product: "Ceramic Plant Pot Set"<br>Category: Home & Garden<br><br>Product: "USB-C Laptop Charger"<br>Category: Electronics<br><br>Product: "Yoga Mat with Carrying Strap"<br>Category: Sports<br><br>Product: "Wireless Bluetooth Earbuds with Noise Cancellation"<br>Category:</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Result</span>
+                                    <p>Examples cover all four categories, showing clear patterns for each.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Many-Shot Approach</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>For a task this simple, many-shot is overkill. But for a company with custom subcategories like "Smart Home Electronics" vs "Personal Electronics" vs "Computer Accessories," 10-15 examples showing the distinctions would help the model understand the proprietary classification system.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">When to use</span>
+                                    <p>Reserve many-shot for complex, domain-specific classification that requires extensive examples to define boundaries.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === RELATED === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <div class="icon-boxes icon-boxes--four fade-in-up">
+                    <a href="example-selection.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Example Selection</h3>
+                            <p class="icon-box__content">Choosing the right examples for few-shot.</p>
+                        </div>
+                    </a>
+                    <a href="chain-of-thought.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Chain-of-Thought</h3>
+                            <p class="icon-box__content">Combine with examples showing reasoning.</p>
+                        </div>
+                    </a>
+                    <a href="zero-shot-cot.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Zero-Shot CoT</h3>
+                            <p class="icon-box__content">Zero-shot with reasoning trigger phrases.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- === CTA === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark">
+                    <h2 class="cta-corporate__title">Practice Shot Prompting</h2>
+                    <p class="cta-corporate__text">Experiment with different example counts in our interactive tools.</p>
+                    <div class="cta-corporate__actions">
+                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                        <a href="../tools/analyzer.html" class="btn btn-secondary">Prompt Analyzer</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>Master the Art of AI Communication.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Learn</h4>
+                    <a href="prompt-basics.html">Prompt Basics</a>
+                    <a href="crisp.html">CRISP</a>
+                    <a href="chain-of-thought.html">Chain-of-Thought</a>
+                    <a href="few-shot-learning.html">Few-Shot Learning</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Tools</h4>
+                    <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                    <a href="../tools/guidance.html">Prompt Builder</a>
+                    <a href="../quiz/index.html">Readiness Quiz</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>
