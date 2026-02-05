@@ -4917,6 +4917,207 @@ p {
     margin-bottom: var(--space-xs);
 }
 
+/* Comparison Tabs ---- */
+.comparison-tabs {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.comparison-tabs__nav {
+    display: flex;
+    gap: 0;
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--border);
+}
+
+.comparison-tabs__tab {
+    flex: 1;
+    padding: var(--space-md) var(--space-lg);
+    background: transparent;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color var(--transition-fast), background var(--transition-fast);
+    position: relative;
+}
+
+.comparison-tabs__tab:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.comparison-tabs__tab.is-active {
+    color: var(--primary);
+    background: var(--surface);
+}
+
+.comparison-tabs__tab.is-active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--primary);
+}
+
+.comparison-tabs__content {
+    padding: var(--space-lg);
+}
+
+.comparison-tabs__panel {
+    display: none;
+}
+
+.comparison-tabs__panel.is-active {
+    display: block;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.comparison-card--before,
+.comparison-card--after {
+    background: var(--surface-alt);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    border: 1px solid var(--border);
+}
+
+.comparison-card--before {
+    border-left: 3px solid var(--text-muted);
+}
+
+.comparison-card--after {
+    border-left: 3px solid var(--accent);
+}
+
+.comparison-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.comparison-card__label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.comparison-card--before .comparison-card__label {
+    color: var(--text-muted);
+}
+
+.comparison-card--after .comparison-card__label {
+    color: var(--accent);
+}
+
+.comparison-card__badge {
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.comparison-card__badge--error {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.comparison-card__badge--success {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.comparison-card__prompt,
+.comparison-card__response {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+
+.comparison-card__prompt {
+    color: var(--text-muted);
+}
+
+.comparison-card__prompt em {
+    color: var(--primary);
+    font-style: normal;
+    font-weight: 600;
+}
+
+.comparison-card__response {
+    color: var(--text);
+}
+
+.comparison-card__analysis {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.comparison-card__analysis svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.comparison-card__analysis--success {
+    color: #22c55e;
+}
+
+.comparison-card__analysis--success svg {
+    stroke: #22c55e;
+}
+
+/* Pillar Card Interactive ---- */
+.pillar-card--interactive {
+    position: relative;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.pillar-card--interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.pillar-card__tag {
+    display: inline-block;
+    margin-top: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+    background: rgba(var(--primary-rgb), 0.1);
+    color: var(--primary);
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Use Case Card Variants ---- */
+.use-case-card--success {
+    border-left: 3px solid #22c55e;
+}
+
 /* Tips Grid */
 .tips-grid {
     display: flex;

@@ -753,6 +753,67 @@ Resources (mega-menu)
 
 # SESSION LOG
 
+## Session 24 (2026-02-05)
+
+**Focus:** Phase 2 - Text Framework Pages (Starting HIGH priority)
+**Status:** PAUSED FOR HANDOFF
+
+**Completed:**
+- [x] Created `learn/zero-shot.html` - Foundation technique page
+  - Original content (not copy-paste from other pages)
+  - CSP compliant (no inline styles/scripts)
+  - Verifiable academic sources (arXiv, MIT Press, NAACL)
+  - Interactive accordion with examples
+  - Related techniques section linking to few-shot, zero-shot-cot, role-prompting
+- [x] Created `learn/zero-shot-cot.html` - Reasoning technique page
+  - Interactive tabbed before/after comparison (math, logic, analysis)
+  - Stat cards showing accuracy improvement (17.7% → 78.7%)
+  - Trigger phrases section with pillar cards
+  - Advanced techniques in accordion
+  - Highlight boxes for warnings/tips
+- [x] Added new CSS components to styles.css:
+  - `.comparison-tabs` - Tabbed content switching
+  - `.comparison-grid` - Two-column layout for before/after
+  - `.comparison-card--before/--after` - Styled comparison cards
+  - `.pillar-card--interactive` - Hover effect cards
+  - `.pillar-card__tag` - Category labels
+  - `.use-case-card--success` - Success variant
+- [x] Added comparison-tabs JS handler to app.js (lines ~6869-6894)
+- [x] Scanned site for duplicate zero-shot content - confirmed no conflicts
+  - ai-for-everybody.html: Just mentions in glossary coverage stat
+  - foundations/index.html: Historical timeline (different purpose)
+
+**Page Requirements Established:**
+- Mix of engagement, information, and interactivity
+- No duplicate content from other pages (unless relevant)
+- Original content - not copy-paste designs
+- Keep FrameworkOverhaul.md updated frequently
+- Update navigation/footer AFTER all pages created (Phase 4)
+
+**Files Changed:**
+- `learn/zero-shot.html` (NEW)
+- `learn/zero-shot-cot.html` (NEW)
+- `styles.css` (added ~150 lines of comparison component styles)
+- `app.js` (added comparison-tabs handler)
+- `.claude/HANDOFF.md` (updated for handoff)
+- `.claude/plans/FrameworkOverhaul.md` (this file)
+
+**Remaining HIGH Priority (10 pages):**
+1. one-shot.html
+2. example-selection.html
+3. least-to-most.html
+4. plan-and-solve.html
+5. tree-of-thought.html
+6. self-refine.html
+7. self-verification.html
+8. code-prompting.html
+9. self-debugging.html
+10. structured-output.html
+
+**Then:** Update navigation and footer links in all 48+ HTML files
+
+---
+
 ## Session 23 (2026-02-04)
 
 **Focus:** Phase 1 Glossary + Mobile Menu Refinement
@@ -845,10 +906,24 @@ Progress: [████████████████████] 100%
 - [x] Added JS to load and render terms from JSON
 - [x] Updated search-index.json with all terms
 
-### Phase 2: Text Frameworks (0/52)
+### Phase 2: Text Frameworks (2/52)
 ```
-Progress: [░░░░░░░░░░░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░░░░░░░░░░░] 4%
 ```
+- [x] zero-shot.html (HIGH) ✅
+- [x] zero-shot-cot.html (HIGH) ✅
+- [ ] one-shot.html (HIGH)
+- [ ] example-selection.html (HIGH)
+- [ ] least-to-most.html (HIGH)
+- [ ] plan-and-solve.html (HIGH)
+- [ ] tree-of-thought.html (HIGH)
+- [ ] self-refine.html (HIGH)
+- [ ] self-verification.html (HIGH)
+- [ ] code-prompting.html (HIGH)
+- [ ] self-debugging.html (HIGH)
+- [ ] structured-output.html (HIGH)
+
+**Note:** Navigation & footer links to be updated in Phase 4 after pages are created
 
 ### Phase 3: Modality Frameworks (0/37)
 ```
