@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Reversing Chain-of-Thought: Work backwards from the answer to verify reasoning validity.">
+    <title>Reversing Chain-of-Thought - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Frameworks</h4>
+                            <a href="chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="self-verification.html">Self-Verification</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Reversing CoT</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Verification</span>
+                </div>
+                <h1 class="page-title fade-in">Reversing Chain-of-Thought</h1>
+                <p class="page-subtitle fade-in">Work backwards to verify forward reasoning.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-section__content">
+                        <span class="section-eyebrow">The Concept</span>
+                        <h2 class="section-title">Backward Verification</h2>
+                        <p class="section-intro">Reversing CoT verifies reasoning by working backwards from the conclusion to the premises. If an answer is correct, you should be able to trace back through the logic and arrive at the original conditions. Inconsistencies suggest errors.</p>
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">The Principle</span>
+                                <p>Valid reasoning should be reversible. If A leads to B leads to C, then starting from C should trace back to A.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__media">
+                        <div class="highlight-box highlight-box--tip">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Process</span>
+                                <p>1) Solve forward to get answer. 2) Start from answer, work backward. 3) Check if you reach original problem. 4) If mismatch, revise.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Example</span>
+                    <h2 class="section-title">Reversing in Action</h2>
+                </div>
+
+                <div class="accordion fade-in-up" id="reverse-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Math Verification</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Forward Solve</span>
+                                    <p>"If x + 5 = 12, then x = 7"</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Backward Verify</span>
+                                    <p><strong>Start from answer:</strong> x = 7<br><br>
+                                    <strong>Reverse operation:</strong> 7 + 5 = ?<br><br>
+                                    <strong>Check:</strong> 7 + 5 = 12 ✓<br><br>
+                                    <strong>Matches original equation.</strong> Answer verified.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <div class="icon-boxes icon-boxes--four fade-in-up">
+                    <a href="chain-of-thought.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Chain-of-Thought</h3>
+                            <p class="icon-box__content">Forward reasoning.</p>
+                        </div>
+                    </a>
+                    <a href="self-verification.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Self-Verification</h3>
+                            <p class="icon-box__content">Answer validation.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark">
+                    <h2 class="cta-corporate__title">Try Reversing CoT</h2>
+                    <div class="cta-corporate__actions">
+                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>

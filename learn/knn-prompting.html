@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KNN Prompting: Select few-shot examples dynamically using k-nearest neighbors based on similarity to the input.">
+    <title>KNN Prompting - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Frameworks</h4>
+                            <a href="shot-prompting.html">Shot Prompting</a>
+                            <a href="example-selection.html">Example Selection</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">KNN Prompting</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Example Selection</span>
+                </div>
+                <h1 class="page-title fade-in">KNN Prompting</h1>
+                <p class="page-subtitle fade-in">Select the most relevant examples using nearest-neighbor retrieval.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-section__content">
+                        <span class="section-eyebrow">The Concept</span>
+                        <h2 class="section-title">Dynamic Example Selection</h2>
+                        <p class="section-intro">KNN Prompting retrieves few-shot examples that are most similar to the current input. Instead of using fixed examples, it dynamically selects from a pool based on semantic similarity, ensuring the demonstrations are maximally relevant.</p>
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">How It Works</span>
+                                <p>Encode examples and the query into embeddings, find the k closest examples to the query, and use those as few-shot demonstrations.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__media">
+                        <div class="highlight-box highlight-box--tip">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Requirements</span>
+                                <p>1) Pool of labeled examples. 2) Embedding model for similarity. 3) Retrieval mechanism to find nearest neighbors.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Process</span>
+                    <h2 class="section-title">KNN Pipeline</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">1. Embed</h3>
+                        <p class="pillar-card__text">Convert all pool examples and the input query into vector embeddings.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">2. Retrieve</h3>
+                        <p class="pillar-card__text">Find the k examples with highest similarity to the query embedding.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">3. Prompt</h3>
+                        <p class="pillar-card__text">Use retrieved examples as few-shot demonstrations in the prompt.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Benefits</span>
+                    <h2 class="section-title">Why Use KNN</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Relevance</h3>
+                        <p class="pillar-card__text">Similar examples provide better guidance than random or generic ones.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Scalability</h3>
+                        <p class="pillar-card__text">Can leverage large example pools without fitting all into the prompt.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Adaptability</h3>
+                        <p class="pillar-card__text">Automatically adjusts to different input types and domains.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <div class="icon-boxes icon-boxes--four fade-in-up">
+                    <a href="shot-prompting.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Shot Prompting</h3>
+                            <p class="icon-box__content">Few-shot learning basics.</p>
+                        </div>
+                    </a>
+                    <a href="example-selection.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Example Selection</h3>
+                            <p class="icon-box__content">Choosing effective demonstrations.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark">
+                    <h2 class="cta-corporate__title">Try KNN Prompting</h2>
+                    <div class="cta-corporate__actions">
+                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>

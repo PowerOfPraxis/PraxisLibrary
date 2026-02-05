@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Self-Ask Prompting: Have AI decompose complex questions by asking and answering intermediate sub-questions.">
+    <title>Self-Ask Prompting - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Getting Started</h4>
+                            <a href="prompt-basics.html">Prompt Basics</a>
+                            <a href="facts-fictions.html">Facts & Fictions</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Frameworks</h4>
+                            <a href="crisp.html">CRISP</a>
+                            <a href="chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="few-shot-learning.html">Few-Shot Learning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Advanced</h4>
+                            <a href="least-to-most.html">Least-to-Most</a>
+                            <a href="tree-of-thought.html">Tree of Thought</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../quiz/index.html">Readiness Quiz</a>
+                            <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../pages/glossary.html">Glossary</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Self-Ask</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Decomposition Technique</span>
+                </div>
+                <h1 class="page-title fade-in">Self-Ask Prompting</h1>
+                <p class="page-subtitle fade-in">AI asks and answers its own sub-questions to solve complex problems.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-section__content">
+                        <span class="section-eyebrow">The Concept</span>
+                        <h2 class="section-title">Questions Lead to Answers</h2>
+                        <p class="section-intro">Self-Ask prompts the model to identify what sub-questions need answering before tackling the main question. The model explicitly asks "Follow-up question:" then answers it, building toward the final answer through intermediate steps.</p>
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Key Benefit</span>
+                                <p>By making the questioning process explicit, Self-Ask produces more interpretable reasoning and catches missing information that would otherwise lead to errors.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__media">
+                        <div class="highlight-box highlight-box--tip">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">The Pattern</span>
+                                <p>"Are follow-up questions needed here?" triggers the model to decompose before answering.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Example</span>
+                    <h2 class="section-title">Self-Ask in Action</h2>
+                </div>
+
+                <div class="accordion fade-in-up" id="selfask-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Multi-Hop Question</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Question</span>
+                                    <p>"Who was president when the company that makes the iPhone was founded?"</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Self-Ask Process</span>
+                                    <p><strong>Follow-up question:</strong> What company makes the iPhone?<br>
+                                    <strong>Answer:</strong> Apple makes the iPhone.<br><br>
+                                    <strong>Follow-up question:</strong> When was Apple founded?<br>
+                                    <strong>Answer:</strong> Apple was founded in 1976.<br><br>
+                                    <strong>Follow-up question:</strong> Who was US president in 1976?<br>
+                                    <strong>Answer:</strong> Gerald Ford was president in 1976.<br><br>
+                                    <strong>Final answer:</strong> Gerald Ford was president when Apple was founded.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <div class="icon-boxes icon-boxes--four fade-in-up">
+                    <a href="least-to-most.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Least-to-Most</h3>
+                            <p class="icon-box__content">Another decomposition approach.</p>
+                        </div>
+                    </a>
+                    <a href="chain-of-thought.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Chain-of-Thought</h3>
+                            <p class="icon-box__content">Step-by-step reasoning without explicit questions.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark">
+                    <h2 class="cta-corporate__title">Practice Self-Ask</h2>
+                    <p class="cta-corporate__text">Try decomposing complex questions.</p>
+                    <div class="cta-corporate__actions">
+                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>Master the Art of AI Communication.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>

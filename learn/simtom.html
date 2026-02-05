@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SimToM: Simulate Theory of Mind by explicitly modeling what different agents know in perspective-taking tasks.">
+    <title>SimToM - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Frameworks</h4>
+                            <a href="role-prompting.html">Role Prompting</a>
+                            <a href="chain-of-thought.html">Chain-of-Thought</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">SimToM</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Perspective Taking</span>
+                </div>
+                <h1 class="page-title fade-in">SimToM</h1>
+                <p class="page-subtitle fade-in">Simulate Theory of Mind through explicit perspective modeling.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-section__content">
+                        <span class="section-eyebrow">The Concept</span>
+                        <h2 class="section-title">Modeling Mental States</h2>
+                        <p class="section-intro">SimToM (Simulating Theory of Mind) helps LLMs with tasks requiring understanding of what different people know or believe. It explicitly filters information to what each person could know, then reasons from that limited perspective.</p>
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Theory of Mind</span>
+                                <p>The ability to attribute mental states—beliefs, intents, desires, knowledge—to oneself and others. LLMs often struggle with this because they see all information at once.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__media">
+                        <div class="highlight-box highlight-box--tip">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Two Steps</span>
+                                <p>1) List only facts the target person knows. 2) Answer based solely on that filtered knowledge.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Example</span>
+                    <h2 class="section-title">SimToM in Action</h2>
+                </div>
+
+                <div class="accordion fade-in-up" id="simtom-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Classic False Belief Task</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Scenario</span>
+                                    <p>"Sally puts a ball in basket A. Sally leaves. Anne moves the ball to basket B. Where will Sally look for the ball?"</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">SimToM Approach</span>
+                                    <p><strong>Step 1 - What Sally knows:</strong> Sally placed ball in basket A. Sally left before Anne moved it. Sally did NOT see the move.<br><br>
+                                    <strong>Step 2 - Answer from Sally's view:</strong> Sally will look in basket A (where she believes the ball still is).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Applications</span>
+                    <h2 class="section-title">When SimToM Helps</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">False Belief Tasks</h3>
+                        <p class="pillar-card__text">Questions about what someone believes when their belief differs from reality.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Social Reasoning</h3>
+                        <p class="pillar-card__text">Predicting behavior based on limited information different people have.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Communication</h3>
+                        <p class="pillar-card__text">Understanding what to explain based on what the audience already knows.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <div class="icon-boxes icon-boxes--four fade-in-up">
+                    <a href="role-prompting.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Role Prompting</h3>
+                            <p class="icon-box__content">Adopt specific personas.</p>
+                        </div>
+                    </a>
+                    <a href="s2a.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">System 2 Attention</h3>
+                            <p class="icon-box__content">Filter context for focus.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark">
+                    <h2 class="cta-corporate__title">Try SimToM</h2>
+                    <div class="cta-corporate__actions">
+                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>

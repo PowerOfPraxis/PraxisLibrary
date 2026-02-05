@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="System 2 Attention: Regenerate context to remove irrelevant information before reasoning for cleaner focus.">
+    <title>System 2 Attention (S2A) - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Frameworks</h4>
+                            <a href="chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="step-back.html">Step-Back Prompting</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">System 2 Attention</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Context Optimization</span>
+                </div>
+                <h1 class="page-title fade-in">System 2 Attention (S2A)</h1>
+                <p class="page-subtitle fade-in">Filter distractions by regenerating focused context.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-section__content">
+                        <span class="section-eyebrow">The Concept</span>
+                        <h2 class="section-title">Deliberate Focus</h2>
+                        <p class="section-intro">System 2 Attention addresses the problem of LLMs being distracted by irrelevant information in their context. Before answering, the model first regenerates the context to include only relevant information, then reasons on this cleaned version.</p>
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Named After</span>
+                                <p>The "System 2" in psychology refers to slow, deliberate, analytical thinking—in contrast to fast, automatic "System 1" responses.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__media">
+                        <div class="highlight-box highlight-box--tip">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Two-Step Process</span>
+                                <p>1) Rewrite context keeping only task-relevant information. 2) Answer based on the filtered context.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Example</span>
+                    <h2 class="section-title">S2A in Action</h2>
+                </div>
+
+                <div class="accordion fade-in-up" id="s2a-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Filtering Biased Context</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Original Context (Biased)</span>
+                                    <p>"John is a brilliant, award-winning chef. Mary is an average home cook. Both made chocolate cake. Whose cake tastes better?"</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">S2A Approach</span>
+                                    <p><strong>Step 1 - Regenerate:</strong> "John and Mary both made chocolate cake."<br><br>
+                                    <strong>Step 2 - Answer:</strong> "Without tasting both cakes or having quality information, I cannot determine which tastes better."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Use Cases</span>
+                    <h2 class="section-title">When S2A Helps</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Sycophancy Prevention</h3>
+                        <p class="pillar-card__text">Remove flattery or leading statements that bias the model toward certain answers.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Distraction Removal</h3>
+                        <p class="pillar-card__text">Filter out irrelevant details that could mislead reasoning in complex prompts.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Fair Evaluation</h3>
+                        <p class="pillar-card__text">Strip away reputation or prior beliefs to evaluate options objectively.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <div class="icon-boxes icon-boxes--four fade-in-up">
+                    <a href="step-back.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Step-Back</h3>
+                            <p class="icon-box__content">Abstract to principles first.</p>
+                        </div>
+                    </a>
+                    <a href="rar.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Rephrase and Respond</h3>
+                            <p class="icon-box__content">Reframe the question.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark">
+                    <h2 class="cta-corporate__title">Try S2A</h2>
+                    <div class="cta-corporate__actions">
+                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>

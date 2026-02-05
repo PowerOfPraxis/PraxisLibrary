@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CRITIC: Have LLMs critique and verify their own outputs using external tools and structured feedback.">
+    <title>CRITIC - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Frameworks</h4>
+                            <a href="self-refine.html">Self-Refine</a>
+                            <a href="chain-of-verification.html">Chain-of-Verification</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">CRITIC</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Self-Correction</span>
+                </div>
+                <h1 class="page-title fade-in">CRITIC</h1>
+                <p class="page-subtitle fade-in">Critique and revise outputs with external tool verification.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-section__content">
+                        <span class="section-eyebrow">The Concept</span>
+                        <h2 class="section-title">Tool-Augmented Self-Critique</h2>
+                        <p class="section-intro">CRITIC (Self-Correcting with Tool-Interactive Critiquing) enables LLMs to verify their outputs using external tools like search engines, code interpreters, or calculators. Rather than relying solely on internal knowledge, the model actively checks its claims against external sources.</p>
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Key Innovation</span>
+                                <p>External tools provide ground truth that the model's internal knowledge may lack. This allows correction of factual errors, computational mistakes, and outdated information.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__media">
+                        <div class="highlight-box highlight-box--tip">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">The Loop</span>
+                                <p>1) Generate initial output. 2) Identify claims to verify. 3) Use tools to check. 4) Critique based on results. 5) Revise if needed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Tools</span>
+                    <h2 class="section-title">Verification Methods</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Search Engine</h3>
+                        <p class="pillar-card__text">Verify factual claims, dates, names, and current events against web sources.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Code Interpreter</h3>
+                        <p class="pillar-card__text">Execute code to verify calculations, algorithms, and logical operations.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Knowledge Base</h3>
+                        <p class="pillar-card__text">Query structured databases for entity relationships and verified data.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Example</span>
+                    <h2 class="section-title">CRITIC in Action</h2>
+                </div>
+
+                <div class="accordion fade-in-up" id="critic-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Fact Checking with Search</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Initial Output</span>
+                                    <p>"The Eiffel Tower was completed in 1887 and stands 324 meters tall."</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">CRITIC Process</span>
+                                    <p><strong>Tool Query:</strong> "Eiffel Tower completion date"<br><br>
+                                    <strong>Tool Result:</strong> Completed in 1889<br><br>
+                                    <strong>Critique:</strong> Completion date is incorrect (1887 vs 1889)<br><br>
+                                    <strong>Revised:</strong> "The Eiffel Tower was completed in 1889 and stands 324 meters tall."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <div class="icon-boxes icon-boxes--four fade-in-up">
+                    <a href="self-refine.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Self-Refine</h3>
+                            <p class="icon-box__content">Iterative self-improvement.</p>
+                        </div>
+                    </a>
+                    <a href="chain-of-verification.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Chain-of-Verification</h3>
+                            <p class="icon-box__content">Systematic fact checking.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark">
+                    <h2 class="cta-corporate__title">Try CRITIC</h2>
+                    <div class="cta-corporate__actions">
+                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>

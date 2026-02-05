@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Reflexion: Learn from failures by reflecting on mistakes and storing insights in memory for future attempts.">
+    <title>Reflexion - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Frameworks</h4>
+                            <a href="self-refine.html">Self-Refine</a>
+                            <a href="critic.html">CRITIC</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Reflexion</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Self-Correction</span>
+                </div>
+                <h1 class="page-title fade-in">Reflexion</h1>
+                <p class="page-subtitle fade-in">Learn from failure through reflection and memory.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section">
+                    <div class="split-section__content">
+                        <span class="section-eyebrow">The Concept</span>
+                        <h2 class="section-title">Reflective Learning</h2>
+                        <p class="section-intro">Reflexion enables agents to learn from their mistakes without updating model weights. When a task fails, the agent generates a verbal reflection analyzing what went wrong. These reflections are stored in memory and used to guide future attempts at similar tasks.</p>
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Key Innovation</span>
+                                <p>Unlike simple retry mechanisms, Reflexion creates persistent lessons learned. The agent doesn't just try again—it tries differently based on explicit self-analysis.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__media">
+                        <div class="highlight-box highlight-box--tip">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">The Cycle</span>
+                                <p>1) Attempt task. 2) Receive feedback. 3) Reflect on failure. 4) Store reflection. 5) Retry with memory context.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Components</span>
+                    <h2 class="section-title">Reflexion Architecture</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Actor</h3>
+                        <p class="pillar-card__text">The agent that attempts the task. Takes actions based on current state and memory context.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Evaluator</h3>
+                        <p class="pillar-card__text">Assesses whether the attempt succeeded or failed, providing feedback signals.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Self-Reflection</h3>
+                        <p class="pillar-card__text">Generates verbal analysis of failures and concrete suggestions for improvement.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Example</span>
+                    <h2 class="section-title">Reflexion in Action</h2>
+                </div>
+
+                <div class="accordion fade-in-up" id="reflexion-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Coding Task with Learning</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Attempt 1 - Failed</span>
+                                    <p>Task: Write function to check palindrome<br>
+                                    Code: <code>return s == s[::-1]</code><br>
+                                    Tests fail on "A man, a plan, a canal: Panama"</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Reflection & Retry</span>
+                                    <p><strong>Reflection:</strong> "My solution failed because I didn't handle case sensitivity or non-alphanumeric characters. Palindrome checks should normalize the string first."<br><br>
+                                    <strong>Memory:</strong> Store this insight<br><br>
+                                    <strong>Attempt 2:</strong> Normalize string, filter characters, then compare. Tests pass.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <div class="icon-boxes icon-boxes--four fade-in-up">
+                    <a href="self-refine.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">Self-Refine</h3>
+                            <p class="icon-box__content">Single-session improvement.</p>
+                        </div>
+                    </a>
+                    <a href="critic.html" class="icon-box icon-box--clickable">
+                        <div class="icon-box__body">
+                            <h3 class="icon-box__title">CRITIC</h3>
+                            <p class="icon-box__content">Tool-based verification.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark">
+                    <h2 class="cta-corporate__title">Try Reflexion</h2>
+                    <div class="cta-corporate__actions">
+                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>
