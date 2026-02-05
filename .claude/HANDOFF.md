@@ -1,8 +1,27 @@
 # Praxis Project Handoff Document
 
-**Last Updated:** 2026-02-04 (Session 20)
-**Last Commit:** 1fff7c6 - feat: Facts & Fictions page, language shift, and badge consistency
-**Current Phase:** Session 19-20 Complete
+**Last Updated:** 2026-02-04 (Session 21)
+**Last Commit:** d916517 - docs: Framework Overhaul master plan (89 new pages)
+**Current Phase:** Framework Overhaul Planning
+
+---
+
+## ACTIVE PROJECT: Framework Overhaul
+
+**Master Plan:** `.claude/plans/FrameworkOverhaul.md`
+
+**Scope:**
+- 33 glossary terms to add
+- 52 text framework pages (from Prompt Report)
+- 37 modality framework pages
+- **89 total new pages**
+
+**Status:** Planning complete, implementation not started
+
+**Next Steps:**
+1. Create framework page template
+2. Begin Phase 1: Glossary terms
+3. Start HIGH priority framework pages
 
 ---
 
