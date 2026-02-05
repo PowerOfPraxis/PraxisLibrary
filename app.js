@@ -6864,6 +6864,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
+    // COMPARISON TABS
+    // Purpose: Interactive before/after comparison tabs
+    // Security: CSP-compliant (no inline handlers)
+    // ==========================================
+    document.querySelectorAll('.comparison-tabs').forEach(tabContainer => {
+        const tabButtons = tabContainer.querySelectorAll('.comparison-tabs__tab');
+        const tabPanels = tabContainer.querySelectorAll('.comparison-tabs__panel');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.dataset.tab;
+
+                // Update buttons
+                tabButtons.forEach(b => {
+                    b.classList.remove('is-active');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                btn.classList.add('is-active');
+                btn.setAttribute('aria-selected', 'true');
+
+                // Update panels
+                tabPanels.forEach(panel => {
+                    panel.classList.toggle('is-active', panel.dataset.panel === targetId);
+                });
+            });
+        });
+    });
+
+    // ==========================================
     // BADGE LIGHTBOX
     // Purpose: Display badge information in modal popup
     // Security: CSP-compliant (no inline handlers)
