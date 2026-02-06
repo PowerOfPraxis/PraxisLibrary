@@ -7135,141 +7135,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // HERO TYPING ANIMATION
-    // Purpose: Cycles through phrases every 7.77 seconds
-    // Security: CSP compliant, no eval or dynamic code
+    // HERO CTA BUTTON PULSE
+    // Purpose: Periodic attention pulse on primary CTA
     // ==========================================
-    const typingText = document.getElementById('typing-text');
     const startLearningBtn = document.getElementById('start-learning-btn');
-    const takeQuizBtn = document.querySelector('.hero-actions .btn-secondary');
-
-    if (typingText) {
-        // Array of phrases to cycle through
-        const phrases = [
-            'Interactions',
-            'Communication',
-            'Development',
-            'Literacy',
-            'Creativity',
-            'Structured Output',
-            'Prompt Engineering'
-        ];
-        const typingSpeed = 70; // milliseconds per character
-        const deleteSpeed = 35; // milliseconds per character when deleting
-        const pauseAfterComplete = 2220; // 2.22 seconds pause before switching
-        const startLearningDelay = 5000; // 5 seconds after typing completes
-        const takeQuizDelay = 6000; // 6 seconds after typing completes
-
-        let currentPhraseIndex = 0;
-        let currentCharIndex = 0;
-        let isDeleting = false;
-        let lastTime = 0;
-        let isPaused = false;
-        let pauseUntil = 0;
-
-        /**
-         * Pulse animation for Start Learning button
-         */
-        function pulseStartLearning() {
-            if (startLearningBtn) {
-                startLearningBtn.classList.add('pulse-attention');
-                setTimeout(() => {
-                    startLearningBtn.classList.remove('pulse-attention');
-                }, 600);
-            }
-        }
-
-        /**
-         * Pulse animation for Take the Quiz button
-         */
-        function pulseTakeQuiz() {
-            if (takeQuizBtn) {
-                takeQuizBtn.classList.add('pulse-attention');
-                setTimeout(() => {
-                    takeQuizBtn.classList.remove('pulse-attention');
-                }, 600);
-            }
-        }
-
-        /**
-         * Gets the current phrase to type
-         * @returns {string} Current phrase
-         */
-        function getCurrentPhrase() {
-            return phrases[currentPhraseIndex];
-        }
-
-        /**
-         * Smooth typing animation using requestAnimationFrame
-         * @param {number} timestamp - Current animation timestamp
-         */
-        function animateTyping(timestamp) {
-            if (!lastTime) lastTime = timestamp;
-
-            // Handle pause state
-            if (isPaused) {
-                if (timestamp < pauseUntil) {
-                    requestAnimationFrame(animateTyping);
-                    return;
-                }
-                isPaused = false;
-            }
-
-            const elapsed = timestamp - lastTime;
-            const speed = isDeleting ? deleteSpeed : typingSpeed;
-            const currentPhrase = getCurrentPhrase();
-
-            if (elapsed >= speed) {
-                lastTime = timestamp;
-
-                if (!isDeleting) {
-                    // Typing forward
-                    if (currentCharIndex < currentPhrase.length) {
-                        currentCharIndex++;
-                        typingText.textContent = currentPhrase.substring(0, currentCharIndex);
-                    } else {
-                        // Finished typing - trigger button animations
-                        setTimeout(pulseStartLearning, startLearningDelay);
-                        setTimeout(pulseTakeQuiz, takeQuizDelay);
-
-                        // Pause then start deleting
-                        isPaused = true;
-                        pauseUntil = timestamp + pauseAfterComplete;
-                        isDeleting = true;
-                    }
-                } else {
-                    // Deleting
-                    if (currentCharIndex > 0) {
-                        currentCharIndex--;
-                        typingText.textContent = currentPhrase.substring(0, currentCharIndex);
-                    } else {
-                        // Finished deleting, move to next phrase
-                        currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-                        isPaused = true;
-                        pauseUntil = timestamp + 300; // Short pause before typing next
-                        isDeleting = false;
-                    }
-                }
-            }
-
-            requestAnimationFrame(animateTyping);
-        }
-
-        // Start the animation after a short delay
-        setTimeout(() => {
-            requestAnimationFrame(animateTyping);
-        }, 300);
-    } else if (startLearningBtn) {
-        // Fallback: If no typing animation, still pulse buttons periodically
+    if (startLearningBtn) {
         const pulseInterval = 20000;
-
         function pulseButton() {
             startLearningBtn.classList.add('pulse-attention');
             setTimeout(() => {
                 startLearningBtn.classList.remove('pulse-attention');
             }, 600);
         }
-
         setTimeout(pulseButton, 3000);
         setInterval(pulseButton, pulseInterval);
     }
