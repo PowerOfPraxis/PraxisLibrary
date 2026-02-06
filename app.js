@@ -7477,19 +7477,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
     // GLOSSARY JSON LOADER
-    // Loads additional terms from data/glossary.json
+    // Loads all terms from data/glossary.json into letter sections
+    // Uses DOM API only (no innerHTML) for CSP compliance
     // ==========================================
 
     /**
-     * Load glossary terms from JSON and inject into page
-     * Terms are inserted alphabetically into existing letter sections
+     * Load glossary terms from JSON and render into page
      */
     async function loadGlossaryFromJSON() {
         const filterBar = document.querySelector('.glossary-filter-bar');
-        if (!filterBar) return; // Only run on glossary page
+        if (!filterBar) return;
 
         try {
-            // Determine base path based on page location
             const basePath = window.location.pathname.includes('/pages/') ? '../' : '';
             const response = await fetch(`${basePath}data/glossary.json`);
             if (!response.ok) return;
@@ -7498,78 +7497,66 @@ document.addEventListener('DOMContentLoaded', () => {
             const terms = data.terms || [];
 
             terms.forEach(term => {
-                // Get first letter for section targeting
-                const firstLetter = term.term.charAt(0).toLowerCase();
-                const sectionId = `letter-${firstLetter}`;
-                const section = document.getElementById(sectionId);
+                const firstLetter = term.term.charAt(0).toUpperCase();
+                const letterKey = firstLetter.match(/[A-Z]/) ? firstLetter.toLowerCase() : null;
+                if (!letterKey) return;
 
-                if (!section) return; // Skip if no section for this letter
+                const section = document.getElementById(`letter-${letterKey}`);
+                if (!section) return;
 
-                // Check if term already exists (avoid duplicates)
-                if (document.getElementById(term.id)) return;
-
-                // Create term HTML element
-                const termEl = document.createElement('div');
-                termEl.className = 'glossary-term';
-                termEl.id = term.id;
-                termEl.dataset.category = term.category || 'prompting';
-
-                // Build inner HTML
-                let html = `<h3>${term.term}</h3>`;
-                html += `<p>${term.definition}</p>`;
-
-                // Add link if provided
-                if (term.link) {
-                    const linkText = term.term.includes('Injection') || term.term.includes('Jailbreak')
-                        ? 'Learn about AI safety →'
-                        : `Learn more about ${term.term} →`;
-                    html += `<a href="${term.link}" class="term-link">${linkText}</a>`;
-                }
-
-                // Add tags
-                if (term.tags && term.tags.length > 0) {
-                    html += '<div class="term-tags">';
-                    term.tags.forEach(tag => {
-                        html += `<span class="term-tag">${tag}</span>`;
-                    });
-                    html += '</div>';
-                }
-
-                termEl.innerHTML = html;
-
-                // Find the terms container within the section
                 const termsContainer = section.querySelector('.glossary-terms');
                 if (!termsContainer) return;
 
-                // Insert alphabetically among existing terms
-                const existingTerms = termsContainer.querySelectorAll('.glossary-term');
-                let inserted = false;
+                // Build term element using DOM API
+                const termEl = document.createElement('div');
+                termEl.className = 'glossary-term';
+                termEl.id = term.id || '';
 
-                for (const existingTerm of existingTerms) {
-                    const existingName = existingTerm.querySelector('h3')?.textContent || '';
-                    if (term.term.toLowerCase() < existingName.toLowerCase()) {
-                        termsContainer.insertBefore(termEl, existingTerm);
-                        inserted = true;
-                        break;
-                    }
+                const h3 = document.createElement('h3');
+                h3.textContent = term.term;
+                termEl.appendChild(h3);
+
+                const p = document.createElement('p');
+                p.textContent = term.definition;
+                termEl.appendChild(p);
+
+                if (term.link) {
+                    const a = document.createElement('a');
+                    a.href = term.link;
+                    a.className = 'term-link';
+                    a.textContent = 'Learn more \u2192';
+                    termEl.appendChild(a);
                 }
 
-                // If not inserted, append at end
-                if (!inserted) {
-                    termsContainer.appendChild(termEl);
+                if (term.tags && term.tags.length > 0) {
+                    const tagsDiv = document.createElement('div');
+                    tagsDiv.className = 'term-tags';
+                    term.tags.forEach(tag => {
+                        const span = document.createElement('span');
+                        span.className = 'term-tag';
+                        span.textContent = tag;
+                        tagsDiv.appendChild(span);
+                    });
+                    termEl.appendChild(tagsDiv);
                 }
+
+                termsContainer.appendChild(termEl);
             });
 
-            // Update page subtitle with new count
+            // Update visible count
             const allTerms = document.querySelectorAll('.glossary-term');
+            const countEl = document.getElementById('glossary-visible-count');
+            if (countEl) {
+                countEl.textContent = allTerms.length;
+            }
+
             const subtitle = document.querySelector('.page-subtitle');
             if (subtitle && allTerms.length > 0) {
                 subtitle.textContent = subtitle.textContent.replace(/\d+\+?\s*terms/, `${allTerms.length}+ terms`);
             }
 
         } catch (error) {
-            // Silently fail - page works with existing HTML terms
-            console.warn('Could not load glossary JSON:', error);
+            console.warn('[Glossary] Could not load glossary JSON:', error);
         }
     }
 
