@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modality Frameworks: Explore AI prompting techniques for images, audio, video, code, and 3D content. Specialized strategies for every type of AI input and output.">
+    <title>Modality Frameworks - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Getting Started</h4>
+                            <a href="../prompt-basics.html">Prompt Basics</a>
+                            <a href="../facts-fictions.html">Facts &amp; Fictions</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../crisp.html">CRISP</a>
+                            <a href="../crispe.html">CRISPE</a>
+                            <a href="../costar.html">COSTAR</a>
+                            <a href="../context-structure.html">Context &amp; Structure</a>
+                            <a href="../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../zero-shot.html">Zero-Shot</a>
+                            <a href="../one-shot.html">One-Shot</a>
+                            <a href="../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../shot-prompting.html">Shot Prompting</a>
+                            <a href="../example-selection.html">Example Selection</a>
+                            <a href="../knn-prompting.html">KNN Prompting</a>
+                            <a href="../vote-k.html">Vote-k</a>
+                            <a href="../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../prompt-mining.html">Prompt Mining</a>
+                            <a href="../many-shot.html">Many-Shot</a>
+                            <a href="../example-ordering.html">Example Ordering</a>
+                            <a href="../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../reasoning-cot.html">Reasoning &amp; CoT</a></h4>
+                            <a href="../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../auto-cot.html">Auto-CoT</a>
+                            <a href="../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../structured-cot.html">Structured CoT</a>
+                            <a href="../faithful-cot.html">Faithful CoT</a>
+                            <a href="../tab-cot.html">Tab-CoT</a>
+                            <a href="../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../step-back.html">Step-Back</a>
+                            <a href="../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../active-prompting.html">Active Prompting</a>
+                            <a href="../reversing-cot.html">Reversing CoT</a>
+                            <a href="../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../decomposition.html">Decomposition</a></h4>
+                            <a href="../least-to-most.html">Least-to-Most</a>
+                            <a href="../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../decomp.html">DECOMP</a>
+                            <a href="../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../self-correction.html">Self-Correction</a></h4>
+                            <a href="../self-refine.html">Self-Refine</a>
+                            <a href="../self-verification.html">Self-Verification</a>
+                            <a href="../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../critic.html">CRITIC</a>
+                            <a href="../reflexion.html">Reflexion</a>
+                            <a href="../self-calibration.html">Self-Calibration</a>
+                            <a href="../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../self-consistency.html">Self-Consistency</a>
+                            <a href="../cosp.html">COSP</a>
+                            <a href="../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../dense-prompting.html">DENSE</a>
+                            <a href="../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../react.html">ReAct</a>
+                            <a href="../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../self-ask.html">Self-Ask</a>
+                            <a href="../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../role-prompting.html">Role Prompting</a>
+                            <a href="../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../style-prompting.html">Style Prompting</a>
+                            <a href="../s2a.html">S2A</a>
+                            <a href="../simtom.html">SimToM</a>
+                            <a href="../rar.html">RaR</a>
+                            <a href="../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Code</h4>
+                            <a href="code/code-prompting.html">Code Prompting</a>
+                            <a href="code/self-debugging.html">Self-Debugging</a>
+                            <a href="code/structured-output.html">Structured Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Image</h4>
+                            <a href="image/image-prompting.html">Image Prompting</a>
+                            <a href="image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="image/visual-cot.html">Visual CoT</a>
+                            <a href="image/image-as-text.html">Image-as-Text</a>
+                            <a href="image/vqa.html">Visual QA</a>
+                            <a href="image/image-gen-prompting.html">Image Generation</a>
+                            <a href="image/negative-prompting.html">Negative Prompting</a>
+                            <a href="image/controlnet-prompting.html">ControlNet</a>
+                            <a href="image/inpainting-prompting.html">Inpainting</a>
+                            <a href="image/style-transfer.html">Style Transfer</a>
+                            <a href="image/image-to-image.html">Image-to-Image</a>
+                            <a href="image/composition-prompting.html">Composition</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../tools/persona.html">Persona Architect</a>
+                            <a href="../../patterns/index.html">Patterns Library</a>
+                            <a href="../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../pages/glossary.html">Glossary</a>
+                            <a href="../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../pages/security.html">Security</a>
+                            <a href="../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI &amp; ND</h4>
+                            <a href="../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Modality Frameworks</span>
+                </nav>
+                <h1 class="page-title fade-in">Modality Frameworks</h1>
+                <p class="page-subtitle fade-in">Specialized prompting techniques for every type of AI input and output &mdash; from images and audio to video, code, and 3D content.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === ACCENT BAR === -->
+        <div class="accent-bar accent-bar--gradient"></div>
+
+        <!-- === IMAGE PROMPTING === -->
+        <section class="section" id="cat-image">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Image Prompting <span class="discover-category__count">12</span></h2>
+                <p class="section-subtitle fade-in-up">Techniques for understanding, generating, editing, and composing images with AI models.</p>
+
+                <div class="discover-grid fade-in-up">
+                    <a href="image/image-prompting.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Image Prompting Basics</h3>
+                            <span class="discover-card__year">2023</span>
+                        </div>
+                        <p class="discover-card__desc">Foundational techniques for prompting AI to understand, analyze, and reason about images.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                    <a href="image/multimodal-cot.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Multimodal CoT</h3>
+                            <span class="discover-card__year">2023</span>
+                        </div>
+                        <p class="discover-card__desc">Extend chain-of-thought reasoning to combine visual and textual information step by step.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                    <a href="image/visual-cot.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Visual CoT</h3>
+                            <span class="discover-card__year">2023</span>
+                        </div>
+                        <p class="discover-card__desc">Guide models to reason through images region by region in explicit visual steps.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                    <a href="image/image-as-text.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Image-as-Text</h3>
+                            <span class="discover-card__year">2023</span>
+                        </div>
+                        <p class="discover-card__desc">Convert visual information into structured text descriptions for text-only model reasoning.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                    <a href="image/vqa.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Visual Question Answering</h3>
+                            <span class="discover-card__year">2015</span>
+                        </div>
+                        <p class="discover-card__desc">Ask precise questions about images and get accurate, grounded answers from multimodal AI.</p>
+                        <span class="framework-status framework-status--adopted">Adopted into LLMs</span>
+                    </a>
+                    <a href="image/image-gen-prompting.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Image Generation</h3>
+                            <span class="discover-card__year">2022</span>
+                        </div>
+                        <p class="discover-card__desc">Craft text prompts that guide AI image generators to produce specific, high-quality visuals.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                    <a href="image/negative-prompting.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Negative Prompting</h3>
+                            <span class="discover-card__year">2022</span>
+                        </div>
+                        <p class="discover-card__desc">Specify what to exclude from AI-generated images for higher quality and artifact avoidance.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                    <a href="image/controlnet-prompting.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">ControlNet Prompting</h3>
+                            <span class="discover-card__year">2023</span>
+                        </div>
+                        <p class="discover-card__desc">Use structural conditioning inputs like edge maps and pose skeletons to control generation.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                    <a href="image/inpainting-prompting.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Inpainting Prompting</h3>
+                            <span class="discover-card__year">2022</span>
+                        </div>
+                        <p class="discover-card__desc">Selectively edit, replace, or restore specific regions within existing images.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                    <a href="image/style-transfer.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Style Transfer</h3>
+                            <span class="discover-card__year">2015</span>
+                        </div>
+                        <p class="discover-card__desc">Apply artistic styles and visual aesthetics to images through prompt-based techniques.</p>
+                        <span class="framework-status framework-status--adopted">Adopted into LLMs</span>
+                    </a>
+                    <a href="image/image-to-image.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Image-to-Image</h3>
+                            <span class="discover-card__year">2022</span>
+                        </div>
+                        <p class="discover-card__desc">Transform existing images using reference inputs combined with text prompts.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                    <a href="image/composition-prompting.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Composition Prompting</h3>
+                            <span class="discover-card__year">2023</span>
+                        </div>
+                        <p class="discover-card__desc">Control spatial arrangement, framing, and visual hierarchy in AI-generated images.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- /IMAGE PROMPTING -->
+
+        <!-- === CODE === -->
+        <section class="section section-alt" id="cat-code">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Code <span class="discover-category__count">3</span></h2>
+                <p class="section-subtitle fade-in-up">Specialized techniques for generating, debugging, and structuring code outputs.</p>
+
+                <div class="discover-grid fade-in-up">
+                    <a href="code/code-prompting.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Code Prompting</h3>
+                            <span class="discover-card__year">2023</span>
+                        </div>
+                        <p class="discover-card__desc">Strategies for effective code generation, explanation, and transformation.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                    <a href="code/self-debugging.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Self-Debugging</h3>
+                            <span class="discover-card__year">2023</span>
+                        </div>
+                        <p class="discover-card__desc">Let AI debug its own generated code through explanation and testing.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                    <a href="code/structured-output.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Structured Output</h3>
+                            <span class="discover-card__year">2023</span>
+                        </div>
+                        <p class="discover-card__desc">Generate formatted outputs like JSON, XML, and structured tables.</p>
+                        <span class="framework-status framework-status--active">Still active technique</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- /CODE -->
+
+        <!-- === COMING SOON === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Coming Soon</h2>
+                <p class="section-subtitle fade-in-up">Additional modality categories are in development.</p>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card">
+                        <h3 class="pillar-card__title">Audio / Speech</h3>
+                        <p class="pillar-card__text">Techniques for speech-to-text, text-to-speech, audio classification, and music generation prompting. 6 frameworks planned.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <h3 class="pillar-card__title">Video</h3>
+                        <p class="pillar-card__text">Techniques for video generation, temporal reasoning, video QA, captioning, and editing prompts. 6 frameworks planned.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <h3 class="pillar-card__title">3D / Spatial</h3>
+                        <p class="pillar-card__text">Techniques for 3D model generation, scene understanding, pose estimation, and point cloud prompting. 5 frameworks planned.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMING SOON -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Explore All Frameworks</h2>
+                        <p class="cta-corporate__text">Browse the complete Praxis Library or find the right framework for your task.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../index.html" class="btn btn-primary">Discover Hub</a>
+                            <a href="../../tools/matcher.html" class="btn btn-secondary">Framework Matcher</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+        <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>Master the Art of AI Communication theory through proven frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Discover</h4>
+                <a href="../prompt-basics.html">Prompt Basics</a>
+                <a href="../crisp.html">CRISP Framework</a>
+                <a href="../crispe.html">CRISPE Framework</a>
+                <a href="../costar.html">COSTAR Framework</a>
+                <a href="../react.html">ReAct Framework</a>
+                <a href="../flipped-interaction.html">Flipped Interaction</a>
+                <a href="../chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness</h4>
+                <a href="../../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../../tools/guidance.html">Prompt Builder</a>
+                <a href="../../tools/matcher.html">Framework Matcher</a>
+                <a href="../../tools/checklist.html">Preflight Checklist</a>
+                <a href="../../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../../quiz/index.html">Readiness Quiz</a>
+                <a href="../../patterns/index.html">Patterns Library</a>
+                <a href="../../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                <a href="../../pages/faq.html">FAQ</a>
+                <a href="../../pages/glossary.html">Glossary</a>
+                <a href="../../pages/security.html">Security</a>
+                <a href="../../pages/performance.html">Performance</a>
+                <a href="../../pages/ai-for-everybody.html">AI for Everybody</a>
+                <a href="../../pages/universal-design.html">Universal Design</a>
+                <a href="../../pages/ai-assisted-building.html">AI Assisted</a>
+                <a href="../../pages/about.html">About</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everybody</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+        </div>
+    </div>
+</footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <script src="../../app.js" defer></script>
+</body>
+</html>
