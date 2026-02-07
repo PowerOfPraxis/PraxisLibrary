@@ -1,7 +1,7 @@
 # Praxis Project Handoff Document
 
 **Last Updated:** 2026-02-07 (Session 39)
-**Last Commit:** (pending) — Session 37+38+39 changes ready to commit
+**Last Commit:** `d5bce3f` — Sessions 37+38+39 committed
 **Current Phase:** Homepage Redesign Complete — ready for commit
 
 ---
