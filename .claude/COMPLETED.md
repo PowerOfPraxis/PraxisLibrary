@@ -4,6 +4,44 @@
 
 ---
 
+## Session 42 (2026-02-07)
+**Discover Hub — Phases 1-3 Implementation**
+
+- [x] **Phase 1 — Batch Renames** (commit `32d7351`)
+  - Renamed "Advanced Techniques" → "Prompting Strategies" in 101 mega-menu headers
+  - Renamed "Learn" → "Discover" in 102 nav links, 68 breadcrumbs, 101 footer headings
+  - Updated homepage category card title + link text
+  - Updated app.js search index (comment, title, description, URL)
+  - Fixed content reference in prompt-basics.html
+  - Used Python batch scripts (`batch_rename_phase1.py`, `batch_rename_phase1b.py`)
+  - Verified: 0 remaining "Advanced Techniques", 0 `<h4>Learn</h4>`, 0 `>Learn</a>`
+  - 104 files changed
+
+- [x] **Phase 2 — Discover Hub** (commit `4d296ba`)
+  - Redesigned `learn/index.html` from 11-card "Learn" page to full Discover hub (1,093 lines)
+  - Hero: "Discover 62+ Frameworks" with breadcrumb
+  - Sticky quick-filter row with 8 category anchor links
+  - 8 category sections with 63 framework cards (name, year, description, status badge)
+  - Framework Finder comparison table expanded to 7 rows
+  - Updated CTA: "Start with the Basics"
+  - Added ~120 lines CSS: `.discover-filters`, `.discover-grid`, `.discover-card`, `.discover-category__count`, `.discover-category__link`, `[id^="cat-"]` scroll-margin-top, responsive breakpoints
+  - 2 files changed (learn/index.html, styles.css)
+
+- [x] **Phase 3 — 7 Category Landing Pages** (commit `0eb604e`)
+  - Created 7 new pages via Python generation script (`build_category_pages.py`):
+    - `learn/structured-frameworks.html` (5 frameworks, 503 lines)
+    - `learn/reasoning-cot.html` (14 frameworks, 638 lines)
+    - `learn/decomposition.html` (7 frameworks, 533 lines)
+    - `learn/self-correction.html` (7 frameworks, 533 lines)
+    - `learn/in-context-learning.html` (9 frameworks, 563 lines)
+    - `learn/ensemble-methods.html` (7 frameworks, 533 lines)
+    - `learn/prompting-strategies.html` (11 frameworks, 593 lines)
+  - Each page includes: hero with breadcrumbs, category overview, framework card grid with status badges, 5-column comparison table (Framework/Year/Best For/Key Strength/Complexity), related categories section, CTA with recommended starting framework
+  - Added `.category-overview` CSS component
+  - 8 files changed (7 new HTML + styles.css)
+
+---
+
 ## Session 41 (2026-02-07)
 **Learning & Documentation Session — No Code Changes**
 - [x] Deep dive into entire codebase: glossary lazy loading, search-to-glossary flow, URL resolution, component library, design tokens, navigation architecture, neural network canvas, accessibility dashboard

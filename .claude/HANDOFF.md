@@ -1,69 +1,41 @@
 # Praxis Project Handoff Document
 
-**Last Updated:** 2026-02-07 (Session 41)
-**Last Commit:** `c49e78b` — docs: Add SiteFrameworks.md
-**Current Phase:** Discover Hub + Category Landing Pages — ready to begin Phase 1
+**Last Updated:** 2026-02-07 (Session 42)
+**Last Commit:** `0eb604e` — feat: Create 7 category landing pages for Discover hub
+**Current Phase:** Discover Hub — Phases 1-3 COMPLETE, Phases 4-5 remaining
 
 ---
 
-## SESSION 41 SUMMARY
+## SESSION 42 SUMMARY
 
-Session 41 was a **learning and documentation session**. No code changes were made. The entire codebase was studied in depth — glossary lazy loading system, search-to-glossary flow, URL resolution, component library, design tokens, navigation architecture, neural network canvas system, and accessibility dashboard.
+Session 42 implemented Phases 1-3 of the Discover Hub plan. Three commits:
 
-**Created:** `.claude/SiteFrameworks.md` (1,041 lines) — comprehensive project architecture reference documenting the WHY behind every major decision. This is the "soul of the project" document.
-
-**No implementation work was done.** The Discover Hub phases are still pending.
+1. **Phase 1** (`32d7351`) — Batch renamed "Advanced Techniques" → "Prompting Strategies" in mega-menu headers (101 files), renamed "Learn" → "Discover" in nav links (102 files), breadcrumbs (68 files), and footer headings (101 files). Updated homepage card + app.js search index.
+2. **Phase 2** (`4d296ba`) — Redesigned learn/index.html from 11-card "Learn" page to full Discover hub (1,093 lines) with 63 framework cards across 8 categories, sticky filter row, comparison table, and CTA. Added ~120 lines of CSS for discover components.
+3. **Phase 3** (`0eb604e`) — Created 7 category landing pages: structured-frameworks, reasoning-cot, decomposition, self-correction, in-context-learning, ensemble-methods, prompting-strategies. Each has hero, overview, framework grid, comparison table, related categories, and CTA. Added `.category-overview` CSS.
 
 ---
 
-## NEXT TASK: Discover Hub + Category Landing Pages
+## NEXT TASK: Discover Hub Phases 4-5
 
 **Plan file:** `.claude/plans/discover-hub-category-pages.md`
-**Status:** All decisions confirmed, ready for implementation — NO phases started yet
 
-### Confirmed Decisions (Session 39/40)
+### Phase 4 — Homepage + Mega-menu Link Updates
+- Homepage 6 category cards link to category landing pages instead of individual framework pages
+  - Structured → `learn/structured-frameworks.html`
+  - Reasoning & CoT → `learn/reasoning-cot.html`
+  - Decomposition → `learn/decomposition.html`
+  - Self-Correction → `learn/self-correction.html`
+  - ICL → `learn/in-context-learning.html`
+  - Prompting Strategies → `learn/prompting-strategies.html`
+- Mega-menu category headers become clickable links to category landing pages
+- Consider: Add Ensemble Methods as 7th homepage card
 
-| Decision | Choice |
-|----------|--------|
-| "Advanced Techniques" rename | **"Prompting Strategies"** |
-| Nav link "Learn" rename | **"Discover"** (site-wide, all ~105 files) |
-| Discover hub card density | **All 62+ cards visible**, grouped by category with anchor filters |
-| Category page file structure | **Flat** — `learn/reasoning-cot.html` (not `learn/category/`) |
-
-### Implementation Phases (in order — NONE started)
-
-1. **Phase 1 — Batch Renames** (all ~105 HTML files + app.js + index.html)
-   - "Advanced Techniques" → "Prompting Strategies" in mega-menu `<h4>` headers
-   - "Learn" → "Discover" in nav link text (the `<a>` with class="nav-link" that links to learn/index.html)
-   - Update `index.html` homepage — category card labeled "Advanced" becomes "Prompting Strategies"
-   - Update `app.js` — search index category references
-   - Check `foundations/index.html` for any "Advanced Techniques" references
-   - Use Python batch script approach (like Session 38's `update_nav.py`)
-   - Verify with grep after: zero occurrences of "Advanced Techniques", zero nav link "Learn" (except in page content)
-
-2. **Phase 2 — Discover Hub** (learn/index.html redesign)
-   - Replace current 11-card "Learn" page with full Discover hub
-   - All 62+ frameworks shown grouped by 8 categories (excl. Getting Started)
-   - Anchor-link filter row at top (sticky below header)
-   - Category descriptions + count badges
-   - "View Category Page" links
-
-3. **Phase 3 — 7 Category Landing Pages** (new files)
-   - `learn/structured-frameworks.html` (5 frameworks)
-   - `learn/reasoning-cot.html` (14 frameworks)
-   - `learn/decomposition.html` (7 frameworks)
-   - `learn/self-correction.html` (7 frameworks)
-   - `learn/in-context-learning.html` (9 frameworks)
-   - `learn/ensemble-methods.html` (7 frameworks)
-   - `learn/prompting-strategies.html` (11 frameworks)
-
-4. **Phase 4 — Homepage + Mega-menu Link Updates**
-   - Homepage 6 category cards link to category landing pages
-   - Mega-menu category headers become clickable links
-
-5. **Phase 5 — Search Index + Metadata**
-   - Add 7 category pages to search-index.json
-   - Update category names in app.js
+### Phase 5 — Search Index + Metadata
+- Add 7 category landing pages to `data/search-index.json`
+- Add 7 category landing pages to app.js search index
+- Verify all cross-references use correct category labels
+- Update learn/index.html title in search results from "Learn" to "Discover"
 
 ---
 
@@ -166,8 +138,9 @@ _public_html/
 ├── app.js                  # ALL JavaScript (10,899 lines)
 ├── foundations/
 │   └── index.html          # AI Foundations timeline (5 eras + framework directories)
-├── learn/                  # Framework pages (62+)
-│   ├── index.html          # Learn hub (NEXT: redesign as Discover hub)
+├── learn/                  # Framework pages (62+) + category pages (7)
+│   ├── index.html          # Discover hub (63 framework cards, 8 categories)
+│   ├── [7 category pages]  # structured-frameworks, reasoning-cot, etc.
 │   ├── [62 framework pages] # All redesigned to 13-section template
 │   └── modality/code/      # Code frameworks (3 pages)
 ├── data/
@@ -218,17 +191,17 @@ _public_html/
 
 ## 9 FRAMEWORK CATEGORIES (65 frameworks)
 
-| Category | Count | Rename Pending? |
-|----------|-------|-----------------|
-| Getting Started | 2 | No |
-| Structured Frameworks | 5 | No |
-| Reasoning & CoT | 14 | No |
-| Decomposition | 7 | No |
-| Self-Correction | 7 | No |
-| In-Context Learning | 9 | No |
-| Ensemble Methods | 7 | No |
-| Advanced Techniques → **Prompting Strategies** | 11 | **YES — Phase 1** |
-| Code | 3 | No |
+| Category | Count | Category Page | Status |
+|----------|-------|---------------|--------|
+| Getting Started | 2 | — | No category page needed |
+| Structured Frameworks | 5 | `learn/structured-frameworks.html` | DONE |
+| Reasoning & CoT | 14 | `learn/reasoning-cot.html` | DONE |
+| Decomposition | 7 | `learn/decomposition.html` | DONE |
+| Self-Correction | 7 | `learn/self-correction.html` | DONE |
+| In-Context Learning | 9 | `learn/in-context-learning.html` | DONE |
+| Ensemble Methods | 7 | `learn/ensemble-methods.html` | DONE |
+| Prompting Strategies | 11 | `learn/prompting-strategies.html` | DONE |
+| Code | 3 | — | Uses `learn/modality/code/` hub |
 
 Full framework inventory by category: see `.claude/plans/discover-hub-category-pages.md`
 
