@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Emotion Prompting: Add emotional context to prompts to improve AI response quality and engagement through psychological framing.">
+    <meta name="description" content="Emotion Prompting: Add emotional stakes, urgency, or psychological framing to prompts to activate more thorough, higher-quality AI responses.">
     <title>Emotion Prompting - Praxis</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="stylesheet" href="../styles.css">
@@ -131,7 +131,10 @@
         </div>
     </header>
 
+
+
     <main id="main-content">
+        <!-- === HERO SECTION === -->
         <section class="page-hero">
             <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
             <div class="container">
@@ -146,122 +149,538 @@
                     <span class="hero-badge__text">Zero-Shot Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Emotion Prompting</h1>
-                <p class="page-subtitle fade-in">Add emotional context to prompts to enhance response quality and engagement.</p>
+                <p class="page-subtitle fade-in">People write more carefully when the stakes are high. Language models learned from that pattern. Emotion Prompting adds psychological framing &mdash; urgency, importance, personal stakes &mdash; to activate the same thoroughness in AI responses.</p>
             </div>
         </section>
+        <!-- /HERO SECTION -->
 
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2023</span>
+                        <p><strong>Introduced:</strong> Emotion Prompting was published in 2023 by Li et al. The research drew on principles from psychology &mdash; specifically emotional intelligence and self-monitoring theory &mdash; to demonstrate that appending emotional stimuli phrases to prompts consistently improved LLM performance on benchmarks. The technique works by adding phrases like &ldquo;This is very important to my career&rdquo; or &ldquo;Are you sure?&rdquo; that signal high-stakes contexts where careful responses matter.</p>
+                        <p><strong>Modern LLM Status:</strong> Emotion Prompting remains a <strong>still active technique</strong> in prompt engineering. While modern LLMs like Claude and GPT-4 have improved at producing thorough responses by default, the addition of emotional framing still demonstrably affects output quality &mdash; particularly for tasks where the model might otherwise produce a generic or surface-level answer. The technique is most effective when combined with specific task instructions rather than used as a standalone approach.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
         <section class="section section-alt">
             <div class="container">
-                <div class="split-section">
+                <div class="split-section split-section--center fade-in-up">
                     <div class="split-section__content">
-                        <span class="section-eyebrow">The Concept</span>
-                        <h2 class="section-title">Psychology Meets Prompting</h2>
-                        <p class="section-intro">Emotion prompting adds psychological framing to requests, emphasizing importance, stakes, or emotional context. While models don't feel emotions, they've learned from human text where emotional stakes often correlate with more careful, thorough responses.</p>
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Psychology Meets Prompting</h2>
+                        <p class="split-section__text">When humans face high-stakes situations &mdash; a job interview, a critical deadline, a medical decision &mdash; they naturally pay more attention, think more carefully, and produce more thorough work. Language models were trained on text written by humans in exactly these situations, absorbing the correlation between emotional framing and detailed, careful output.</p>
+                        <p class="split-section__text"><strong>Emotion Prompting exploits this pattern deliberately.</strong> By adding phrases that signal importance, urgency, or personal consequences, you shift the model into a &ldquo;high-stakes mode&rdquo; where it generates more comprehensive, better-structured responses. The model doesn&rsquo;t feel emotions &mdash; it activates learned patterns associated with careful human communication.</p>
+                        <p class="split-section__text">Think of it like the difference between asking a colleague &ldquo;Can you summarize this report?&rdquo; versus &ldquo;I&rsquo;m presenting to the board in one hour and I need a flawless summary of this report &mdash; my promotion depends on it.&rdquo; The content request is the same, but the framing changes the effort level.</p>
+                    </div>
+                    <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
-                                <span class="highlight-box__title">Why It Works</span>
-                                <p>Training data contains patterns where high-stakes situations receive more detailed attention. Emotional framing may activate these patterns in the model's responses.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="split-section__media">
-                        <div class="highlight-box highlight-box--tip">
-                            <div class="highlight-box__content">
-                                <span class="highlight-box__title">Simple Enhancement</span>
-                                <p>Add phrases like "This is very important to my career" or "I really need your help" to standard prompts.</p>
+                                <span class="highlight-box__title">Three Emotional Channels</span>
+                                <p><strong>Stakes:</strong> &ldquo;This is critical for my career.&rdquo; Signals that quality matters and errors have consequences.<br><br><strong>Confidence:</strong> &ldquo;You&rsquo;re an expert at this.&rdquo; Activates patterns from authoritative, expert-level writing in training data.<br><br><strong>Urgency:</strong> &ldquo;I need this to be absolutely right.&rdquo; Triggers patterns associated with careful verification and double-checking.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /THE CONCEPT -->
 
+        <!-- === HOW IT WORKS === -->
         <section class="section">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-eyebrow">Techniques</span>
-                    <h2 class="section-title">Emotion Prompting Patterns</h2>
-                </div>
+                <h2 class="section-title fade-in-up">The Emotion Prompting Process</h2>
+                <p class="section-subtitle fade-in-up">Three stages from standard request to emotionally-framed prompt</p>
 
-                <div class="accordion fade-in-up" id="emotion-accordion">
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Stakes Emphasis</span>
-                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="technique-demo">
-                                <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Example</span>
-                                    <p>"This is crucial for my presentation tomorrow. Please help me create a compelling executive summary that will impress the board."</p>
-                                </div>
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Write Your Base Prompt</h3>
+                            <p class="element-timeline__text">Start with a clear, specific task instruction. Emotion Prompting enhances an already well-structured prompt &mdash; it doesn&rsquo;t replace clarity with sentiment. The base prompt should specify what you need, the context, and any constraints.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Write a project proposal for migrating our database from MySQL to PostgreSQL, covering risks, timeline, and resource needs.&rdquo;</p>
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Gratitude Framing</span>
-                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="technique-demo">
-                                <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Example</span>
-                                    <p>"I would be so grateful if you could help me understand this concept. I've been struggling with it and your explanation would mean a lot."</p>
-                                </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Add Emotional Framing</h3>
+                            <p class="element-timeline__text">Append one or more emotional stimulus phrases that signal the importance of the task. Choose from stakes emphasis (&ldquo;My career depends on this&rdquo;), confidence boosting (&ldquo;You&rsquo;re an expert at database migrations&rdquo;), or urgency framing (&ldquo;This must be absolutely accurate&rdquo;). You can combine multiple channels for stronger effect.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;This proposal will be reviewed by our CTO and will determine whether we get the budget for next quarter. It&rsquo;s very important that every risk is identified and the timeline is realistic.&rdquo;</p>
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Confidence Boosting</span>
-                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="technique-demo">
-                                <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Example</span>
-                                    <p>"You're really good at explaining complex topics. Can you break down quantum computing for someone new to the field?"</p>
-                                </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Receive Enhanced Response</h3>
+                            <p class="element-timeline__text">The model processes the combined prompt and generates a response that reflects the heightened stakes. Outputs typically show more comprehensive coverage, better organization, more caveats and nuance, and fewer superficial or boilerplate sections compared to the same request without emotional framing.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Result</span>
+                                <p>The proposal now includes detailed risk matrices, specific mitigation strategies, a phased timeline with rollback points, and honest assessments of potential delays &mdash; not just a generic template.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /HOW IT WORKS -->
 
+        <!-- === VISUAL: THE COMPARISON === -->
         <section class="section section-alt">
             <div class="container">
-                <h2 class="section-title fade-in-up">Related Frameworks</h2>
-                <div class="icon-boxes icon-boxes--four fade-in-up">
-                    <a href="role-prompting.html" class="icon-box icon-box--clickable">
-                        <div class="icon-box__body">
-                            <h3 class="icon-box__title">Role Prompting</h3>
-                            <p class="icon-box__content">Assign personas for specialized responses.</p>
-                        </div>
-                    </a>
-                    <a href="style-prompting.html" class="icon-box icon-box--clickable">
-                        <div class="icon-box__body">
-                            <h3 class="icon-box__title">Style Prompting</h3>
-                            <p class="icon-box__content">Control tone and style of outputs.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">How emotional framing transforms generic responses into thorough ones</p>
 
-        <section class="section">
-            <div class="container">
-                <div class="cta-corporate cta-corporate--dark">
-                    <h2 class="cta-corporate__title">Experiment with Emotion Prompting</h2>
-                    <p class="cta-corporate__text">Try adding emotional context to your prompts.</p>
-                    <div class="cta-corporate__actions">
-                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Standard Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Write an email to my team about the upcoming deadline change.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>Subject: Deadline Update<br><br>Hi team,<br><br>I wanted to let you know that the deadline for our project has been moved. Please adjust your schedules accordingly.<br><br>Let me know if you have questions.<br><br>Best regards</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Generic, missing critical details, no actionable next steps</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Emotion Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Write an email to my team about the upcoming deadline change. This is a sensitive situation &mdash; some team members are already stressed and I need to communicate this without causing panic while being completely transparent. My leadership reputation depends on how I handle this.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>Subject: Project Timeline Adjustment &mdash; Updated Plan Inside<br><br>Hi team,<br><br>I want to be upfront with you: our delivery date has shifted from March 15 to April 2. I know some of you are already working at capacity, so I want to explain the why, the what-changes, and the what-stays-the-same&hellip;<br><br>[Includes: reason for shift, specific impact per workstream, adjusted milestones, what&rsquo;s been deprioritized, support resources available, and open-door invitation for concerns]</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Empathetic, structured, addresses stakeholder concerns, actionable</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /THE COMPARISON -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Emotion Prompting in Action</h2>
+                <p class="section-subtitle fade-in-up">See how emotional framing transforms different types of requests</p>
+
+                <div class="accordion fade-in-up" id="emotion-prompting-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Stakes Emphasis &mdash; Technical Documentation</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Standard Request</span>
+                                    <p>&ldquo;Document the authentication flow for our API.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">With Emotion Framing</span>
+                                    <p>&ldquo;Document the authentication flow for our API. This documentation will be the primary reference for 50+ developers integrating with our platform next month. If there are gaps or inaccuracies, teams will build on wrong assumptions and we&rsquo;ll face weeks of debugging. <strong>Please be exhaustive &mdash; cover every edge case, error state, and token lifecycle detail.</strong>&rdquo;</p>
+                                    <p><br><strong>Result:</strong> The model produces documentation that covers OAuth flow diagrams, token refresh mechanics, error response codes with resolution steps, rate limiting behavior, edge cases like expired refresh tokens, and security considerations &mdash; rather than a surface-level overview.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Confidence Boosting &mdash; Complex Analysis</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Standard Request</span>
+                                    <p>&ldquo;Analyze the pros and cons of microservices vs. monolith for our application.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">With Confidence Framing</span>
+                                    <p>&ldquo;You have deep expertise in software architecture. Analyze the pros and cons of microservices vs. monolith for a B2B SaaS application with 10,000 daily active users, a 5-person engineering team, and plans to scale to 100,000 users within 18 months. <strong>I trust your architectural judgment &mdash; give me your honest assessment, including the answer I might not want to hear.</strong>&rdquo;</p>
+                                    <p><br><strong>Result:</strong> The model delivers a nuanced analysis that honestly recommends starting with a modular monolith (potentially the &ldquo;unwanted&rdquo; answer), explains why microservices would be premature for a 5-person team, and provides specific migration triggers for when to transition &mdash; rather than giving a balanced-but-uncommitted comparison.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Urgency Framing &mdash; Error Analysis</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Standard Request</span>
+                                    <p>&ldquo;Review this SQL query for potential issues.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">With Urgency Framing</span>
+                                    <p>&ldquo;Review this SQL query for potential issues. This query runs against our production database with 2 million customer records. A bug here could corrupt financial data or expose PII. <strong>I need you to be absolutely thorough &mdash; check for injection vulnerabilities, performance bottlenecks, edge cases with NULL values, and any data integrity risks. Missing something here has real consequences.</strong>&rdquo;</p>
+                                    <p><br><strong>Result:</strong> The model performs a line-by-line review covering SQL injection vectors, missing WHERE clauses, implicit type coercions, missing indexes for the JOIN, NULL handling gaps, and transaction isolation concerns &mdash; rather than a quick &ldquo;looks fine, but you might want to add an index.&rdquo;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Emotion Prompting</h2>
+                <p class="section-subtitle fade-in-up">Best for tasks where thoroughness and care matter more than speed</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>High-Stakes Documents</strong>
+                                    <p>Proposals, reports, and communications where quality directly impacts outcomes &mdash; the emotional framing ensures comprehensive coverage.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Code Reviews and Security Audits</strong>
+                                    <p>When you need the model to catch every edge case, not just the obvious ones &mdash; urgency framing drives deeper analysis.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Sensitive Communications</strong>
+                                    <p>Emails, announcements, or messages where tone and empathy matter &mdash; emotional context helps the model calibrate appropriate sensitivity.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Getting Past Generic Responses</strong>
+                                    <p>When the model keeps giving boilerplate answers, emotional framing can push it toward specificity and original thinking.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Simple Factual Queries</strong>
+                                    <p>&ldquo;What year was Python released?&rdquo; doesn&rsquo;t benefit from emotional framing &mdash; the answer is the same regardless of stakes.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>When Brevity Is the Goal</strong>
+                                    <p>If you need a quick, concise answer, emotional framing can make responses overly verbose and detailed when you just want a one-liner.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Already-Specific Prompts</strong>
+                                    <p>If your prompt already includes detailed requirements, constraints, and format specifications, adding emotional framing provides diminishing returns.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Emotion Prompting delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Executive Presentations</h3>
+                        <p class="use-case-showcase__desc">Frame the stakes of the audience and decision to get presentation content that anticipates tough questions and provides actionable recommendations.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Security Assessments</h3>
+                        <p class="use-case-showcase__desc">Emphasize real-world consequences of vulnerabilities to drive exhaustive threat analysis rather than surface-level checklists.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Difficult Conversations</h3>
+                        <p class="use-case-showcase__desc">Draft sensitive emails or messages by providing emotional context about the recipient&rsquo;s situation and the relationship dynamics at play.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Medical Content Review</h3>
+                        <p class="use-case-showcase__desc">Signal that health-related content must be accurate and nuanced, triggering more careful hedging and evidence-based responses.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Educational Material</h3>
+                        <p class="use-case-showcase__desc">Emphasize the learner&rsquo;s perspective and the impact of unclear explanations to produce more accessible, step-by-step educational content.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10"/>
+                                <path d="M12 20V4"/>
+                                <path d="M6 20v-6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Financial Analysis</h3>
+                        <p class="use-case-showcase__desc">Frame the monetary impact of decisions to drive more rigorous analysis with explicit risk quantification and scenario modeling.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Emotion Prompting Fits</h2>
+                <p class="section-subtitle fade-in-up">Emotion Prompting enhances the quality dimension of zero-shot prompting</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Zero-Shot</span>
+                        <span class="era-marker__title">Direct Request</span>
+                        <span class="era-marker__desc">Plain instruction, no framing</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Emotion Prompting</span>
+                        <span class="era-marker__title">Psychological Framing</span>
+                        <span class="era-marker__desc">Stakes, confidence, urgency signals</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Role Prompting</span>
+                        <span class="era-marker__title">Persona Assignment</span>
+                        <span class="era-marker__desc">Expert identity with inherent standards</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Style Prompting</span>
+                        <span class="era-marker__title">Voice Control</span>
+                        <span class="era-marker__desc">Explicit tone and formality parameters</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Combine for Maximum Effect</div>
+                    <p>Emotion Prompting works best as a layer on top of other techniques. Pair it with Role Prompting (&ldquo;You&rsquo;re a senior security engineer and this audit matters&rdquo;) or Chain-of-Thought (&ldquo;Think through this step by step &mdash; getting this wrong has real consequences&rdquo;) for compounding quality improvements.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary approaches to response quality</p>
+
+                <a href="role-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Role Prompting</span>
+                        <span class="evolution-callout__desc">Assign an expert persona that carries inherent professional standards &mdash; a natural partner for emotional framing that adds accountability to expertise.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="style-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 20h9"/>
+                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Related</span>
+                        <span class="evolution-callout__title">Style Prompting</span>
+                        <span class="evolution-callout__desc">Controls how the response sounds (tone, formality, voice) while Emotion Prompting controls how carefully it&rsquo;s produced &mdash; use both for quality and style.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="chain-of-thought.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Combine With</span>
+                        <span class="evolution-callout__title">Chain-of-Thought</span>
+                        <span class="evolution-callout__desc">Add &ldquo;Think through this carefully &mdash; it&rsquo;s critical&rdquo; to CoT prompts for reasoning that is both transparent and thorough.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Raise the Stakes</h2>
+                        <p class="cta-corporate__text">Try adding emotional framing to your prompts or explore other quality-enhancing techniques in the Praxis Library.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
     </main>
+
 
     <footer class="footer">
     <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
@@ -315,6 +734,83 @@
         </div>
     </div>
 </footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
 
     <script src="../app.js" defer></script>
 </body>

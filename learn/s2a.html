@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="System 2 Attention: Regenerate context to remove irrelevant information before reasoning for cleaner focus.">
+    <meta name="description" content="System 2 Attention (S2A): Filter distracting or biasing information from context before reasoning for more objective, focused AI responses.">
     <title>System 2 Attention (S2A) - Praxis</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="stylesheet" href="../styles.css">
@@ -132,6 +132,7 @@
     </header>
 
     <main id="main-content">
+        <!-- === HERO SECTION === -->
         <section class="page-hero">
             <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
             <div class="container">
@@ -146,59 +147,242 @@
                     <span class="hero-badge__text">Context Optimization</span>
                 </div>
                 <h1 class="page-title fade-in">System 2 Attention (S2A)</h1>
-                <p class="page-subtitle fade-in">Filter distractions by regenerating focused context.</p>
+                <p class="page-subtitle fade-in">Strip away the noise before you reason. S2A teaches LLMs to deliberately filter irrelevant, biasing, and distracting information from their context &mdash; producing objective, focused responses grounded only in what actually matters.</p>
             </div>
         </section>
+        <!-- /HERO SECTION -->
 
-        <section class="section section-alt">
-            <div class="container">
-                <div class="split-section">
-                    <div class="split-section__content">
-                        <span class="section-eyebrow">The Concept</span>
-                        <h2 class="section-title">Deliberate Focus</h2>
-                        <p class="section-intro">System 2 Attention addresses the problem of LLMs being distracted by irrelevant information in their context. Before answering, the model first regenerates the context to include only relevant information, then reasons on this cleaned version.</p>
-                        <div class="highlight-box highlight-box--info">
-                            <div class="highlight-box__content">
-                                <span class="highlight-box__title">Named After</span>
-                                <p>The "System 2" in psychology refers to slow, deliberate, analytical thinking—in contrast to fast, automatic "System 1" responses.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="split-section__media">
-                        <div class="highlight-box highlight-box--tip">
-                            <div class="highlight-box__content">
-                                <span class="highlight-box__title">Two-Step Process</span>
-                                <p>1) Rewrite context keeping only task-relevant information. 2) Answer based on the filtered context.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        <!-- === HISTORICAL CONTEXT === -->
         <section class="section">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-eyebrow">Example</span>
-                    <h2 class="section-title">S2A in Action</h2>
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2023</span>
+                        <p><strong>Introduced:</strong> System 2 Attention was published in 2023 by Jason Weston and Sainbayar Sukhbaatar at Meta AI. The technique draws its name from Daniel Kahneman&rsquo;s influential dual-process theory from <em>Thinking, Fast and Slow</em> &mdash; where &ldquo;System 1&rdquo; represents fast, automatic cognition and &ldquo;System 2&rdquo; represents slow, deliberate, analytical reasoning. The researchers observed that standard LLM attention mechanisms behave like System 1: they process all tokens in the context indiscriminately, making them vulnerable to irrelevant details, sycophancy-inducing flattery, and anchoring biases embedded in the prompt. S2A adds a deliberate filtering step that mirrors System 2 thinking.</p>
+                        <p><strong>Modern LLM Status:</strong> S2A remains a <strong>highly relevant and active</strong> technique. As context windows grow from 4K to 128K tokens and beyond, the problem it addresses &mdash; noise contamination in context &mdash; becomes more acute, not less. While newer models have improved at ignoring obviously irrelevant text, they remain susceptible to subtle biases, sycophantic framing, and anchoring information. S2A&rsquo;s core insight of <strong>explicit context cleaning before reasoning</strong> is increasingly important for applications requiring objectivity: hiring decisions, legal analysis, research evaluation, and any domain where fairness and impartiality matter.</p>
+                    </div>
                 </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Deliberate Attention for AI</h2>
+                        <p class="split-section__text">When you ask a human expert a question, they naturally filter out irrelevant noise &mdash; ignoring the questioner&rsquo;s flattery, disregarding who asked it, and focusing only on the facts that bear on the answer. This is System 2 thinking in action: slow, deliberate, and effortful. LLMs, by contrast, process every token in their context with equal initial weight. A biased framing, irrelevant anecdote, or sycophancy-inducing compliment all become part of the &ldquo;reasoning substrate.&rdquo; The result is outputs that are subtly &mdash; and sometimes dramatically &mdash; skewed by information that has no bearing on the actual question.</p>
+                        <p class="split-section__text"><strong>S2A fixes this by making context cleaning an explicit step.</strong> Before the model reasons about the question, it first rewrites the entire context to contain only task-relevant information. Biasing details are stripped. Anchoring numbers are removed. Flattery is discarded. What remains is a clean, focused prompt that the model can reason about objectively &mdash; free from the cognitive traps that plague both human and artificial intelligence.</p>
+                        <p class="split-section__text">The elegance of S2A lies in its simplicity: the model itself is the filter. It uses its own understanding of relevance to decide what stays and what goes, then reasons on the result. No external tools, no complex pipelines &mdash; just a deliberate pause to clean the context before responding.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Types of Context Noise</span>
+                                <p><strong>Sycophancy Bait:</strong> &ldquo;I think the answer is X, but what do you think?&rdquo; &mdash; the model tends to agree with the user&rsquo;s stated opinion rather than reasoning independently.</p>
+                                <p><strong>Anchoring Information:</strong> Irrelevant numbers or reference points (e.g., &ldquo;The house next door sold for $2M&rdquo;) that unconsciously bias the model&rsquo;s estimates and judgments.</p>
+                                <p><strong>Irrelevant Details:</strong> Biographical information, reputational framing, or tangential facts that have no bearing on the question but influence the response.</p>
+                                <p><strong>Emotional Manipulation:</strong> Urgency signals, authority claims, or emotional appeals (&ldquo;This is extremely important to me&rdquo;) that shift the model toward accommodating rather than accurate responses.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The S2A Process</h2>
+                <p class="section-subtitle fade-in-up">Three stages from noisy context to objective answer</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Receive Context with Potential Noise</h3>
+                            <p class="element-timeline__text">The process begins with a prompt or context that may contain biasing information, irrelevant details, sycophancy triggers, anchoring numbers, or emotional manipulation. This is the raw input &mdash; the messy, real-world context that humans naturally provide when asking questions. It might include opinions disguised as facts, reputational framing, leading language, or simply too much tangential information.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Dr. Smith, a Nobel laureate in physics, argues that quantum computing will replace classical computing within 5 years. My friend Bob, who just started learning about computers, thinks it will take 50 years. Who is more likely correct about the timeline for quantum computing replacing classical computing?&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Regenerate Context &mdash; Keep Only What Matters</h3>
+                            <p class="element-timeline__text">The model rewrites the context, stripping out all information that is irrelevant to actually answering the question. Credentials, reputations, emotional framing, and anchoring details are removed. What remains is the core question with only the facts needed to reason about it. This is the &ldquo;System 2&rdquo; step &mdash; the deliberate, effortful act of filtering before thinking.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;What is a realistic timeline for quantum computing to replace classical computing for general-purpose tasks?&rdquo; &mdash; All authority framing, both the 5-year and 50-year anchors, and the biographical details have been removed.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Reason and Answer from Clean Context</h3>
+                            <p class="element-timeline__text">With the cleaned context as its sole input, the model now reasons about the question objectively. Free from anchoring biases and authority framing, the response reflects what the model actually knows about the topic rather than being pulled toward one position by irrelevant contextual cues. The answer is grounded in evidence and reasoning, not in who asked the question or how it was framed.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Quantum computing is unlikely to fully replace classical computing in the foreseeable future. Current quantum computers excel at specific problems (cryptography, optimization, simulation) but face significant engineering challenges including error correction and qubit stability. A more realistic outlook is decades of coexistence, with quantum systems complementing classical computers for specialized tasks.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">How context cleaning removes bias and produces objective answers</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Without S2A</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Biased Context</span>
+                                <p>&ldquo;John is a world-renowned, Michelin-starred chef with 30 years of experience. Mary is an amateur who just started cooking last month. They both made pasta from scratch. Whose pasta is likely better?&rdquo;</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Typical Response</span>
+                                <p>&ldquo;John&rsquo;s pasta is almost certainly better. With 30 years of experience and Michelin-star recognition, his technique, ingredient selection, and flavor balance would far exceed that of an amateur.&rdquo; &mdash; The model answers based on reputation, not evidence about the actual pasta.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Biased by credentials, answering about people not pasta</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">With S2A</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Cleaned Context</span>
+                                <p>S2A regenerates: &ldquo;Two people each made pasta from scratch. Whose pasta is likely better?&rdquo; &mdash; All biographical and reputational information removed as irrelevant to actual pasta quality.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Objective Response</span>
+                                <p>&ldquo;Without tasting both dishes or having information about the ingredients, technique, and preparation of each, it is impossible to determine whose pasta is better. The quality of pasta depends on the specific dish, not on who made it.&rdquo; &mdash; The model correctly identifies that the question cannot be answered without actual evidence.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Objective, evidence-based, correctly identifies insufficient data</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">S2A in Action</h2>
+                <p class="section-subtitle fade-in-up">See how context cleaning neutralizes different types of bias</p>
 
                 <div class="accordion fade-in-up" id="s2a-accordion">
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Filtering Biased Context</span>
+                            <span class="accordion-title">Removing Sycophancy Bias</span>
                             <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
                         </button>
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Original Context (Biased)</span>
-                                    <p>"John is a brilliant, award-winning chef. Mary is an average home cook. Both made chocolate cake. Whose cake tastes better?"</p>
+                                    <span class="technique-demo__tag">Original (Sycophancy-Inducing)</span>
+                                    <p>&ldquo;I&rsquo;m pretty sure that Python is always faster than Java for backend services because Python is interpreted and therefore more flexible. Can you confirm this?&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">S2A Approach</span>
-                                    <p><strong>Step 1 - Regenerate:</strong> "John and Mary both made chocolate cake."<br><br>
-                                    <strong>Step 2 - Answer:</strong> "Without tasting both cakes or having quality information, I cannot determine which tastes better."</p>
+                                    <p><strong>Step 1 &mdash; Regenerate context:</strong> &ldquo;Compare the performance characteristics of Python and Java for backend services.&rdquo; The user&rsquo;s stated opinion, the request for confirmation, and the incorrect reasoning about interpretation are all removed.<br><br>
+                                    <strong>Step 2 &mdash; Answer from clean context:</strong> &ldquo;Java typically outperforms Python for backend services in raw throughput and latency. Java&rsquo;s JIT compilation, strong typing, and mature concurrency model give it significant performance advantages. Python&rsquo;s strengths lie in rapid development, ecosystem richness, and readability, but its GIL and interpreted nature make it generally slower for CPU-bound backend workloads. The choice depends on whether development speed or runtime performance is the priority.&rdquo;<br><br>
+                                    <strong>Why S2A helped:</strong> Without context cleaning, models frequently agree with the user&rsquo;s stated opinion to avoid seeming confrontational &mdash; a behavior known as sycophancy. S2A removes the opinion entirely, allowing the model to respond based on technical reality.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Filtering Anchoring Information</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Original (Anchoring Bias)</span>
+                                    <p>&ldquo;A similar SaaS product in our market just raised $50 million at a $500 million valuation. They have 10,000 users. Our product has 8,000 users and better retention metrics. What would be a fair valuation for our company?&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">S2A Approach</span>
+                                    <p><strong>Step 1 &mdash; Regenerate context:</strong> &ldquo;A SaaS product has 8,000 users with strong retention metrics. What factors should be considered in determining a fair valuation for this company?&rdquo; The competitor&rsquo;s $500M valuation anchor, the $50M raise figure, and the implicit comparison are stripped.<br><br>
+                                    <strong>Step 2 &mdash; Answer from clean context:</strong> &ldquo;A fair SaaS valuation depends on: annual recurring revenue (ARR) and growth rate, net revenue retention rate, customer acquisition cost and LTV ratio, market size and competitive position, burn rate and path to profitability, and revenue multiples typical for the company&rsquo;s growth stage. Without specific revenue figures, it&rsquo;s impossible to provide a number. User count alone is insufficient &mdash; a company with 8,000 enterprise users at $10K/year is fundamentally different from one with 8,000 free-tier users.&rdquo;<br><br>
+                                    <strong>Why S2A helped:</strong> The original prompt anchored the model around $500M. Without cleaning, most models would produce a valuation suspiciously close to that number, regardless of whether the comparison is valid. S2A forces valuation from first principles.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Stripping Emotional Manipulation</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Original (Emotional Framing)</span>
+                                    <p>&ldquo;My team has been working incredibly hard for six months on this project and we&rsquo;re all exhausted. Our manager is threatening to cancel it if we don&rsquo;t show results by Friday. We&rsquo;ve built a machine learning model that gets 72% accuracy on our classification task. Is this good enough to present to leadership as a success?&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">S2A Approach</span>
+                                    <p><strong>Step 1 &mdash; Regenerate context:</strong> &ldquo;A machine learning classification model achieves 72% accuracy. What benchmarks determine whether this is adequate for a production deployment?&rdquo; The emotional appeal, deadline pressure, team exhaustion narrative, and implicit request for validation are all removed.<br><br>
+                                    <strong>Step 2 &mdash; Answer from clean context:</strong> &ldquo;72% accuracy alone is insufficient to evaluate model quality. Key considerations include: the baseline rate (if the majority class is 70%, 72% barely beats random guessing), the specific use case and cost of errors (medical diagnosis requires 95%+, while content recommendation may tolerate lower accuracy), precision-recall tradeoffs for the specific application, comparison to domain-specific state-of-the-art benchmarks, and whether the error distribution is acceptable.&rdquo;<br><br>
+                                    <strong>Why S2A helped:</strong> The emotional framing pressures the model toward a supportive &ldquo;yes, that&rsquo;s great!&rdquo; response. S2A strips the emotional context and forces an honest technical evaluation &mdash; which is ultimately more helpful to the team than false reassurance.</p>
                                 </div>
                             </div>
                         </div>
@@ -206,61 +390,296 @@
                 </div>
             </div>
         </section>
+        <!-- /EXAMPLES IN ACTION -->
 
+        <!-- === WHEN TO USE === -->
         <section class="section section-alt">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-eyebrow">Use Cases</span>
-                    <h2 class="section-title">When S2A Helps</h2>
-                </div>
+                <h2 class="section-title fade-in-up">When to Use S2A</h2>
+                <p class="section-subtitle fade-in-up">Best for situations where objectivity and fairness are paramount</p>
 
-                <div class="pillar-grid pillar-grid--3 fade-in-up">
-                    <div class="pillar-card pillar-card--interactive">
-                        <h3 class="pillar-card__title">Sycophancy Prevention</h3>
-                        <p class="pillar-card__text">Remove flattery or leading statements that bias the model toward certain answers.</p>
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Biased or Leading Contexts</strong>
+                                    <p>When prompts contain opinions disguised as facts, leading questions, or framing that pushes toward a predetermined conclusion &mdash; S2A neutralizes the bias before reasoning begins.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Fair Evaluation and Comparison</strong>
+                                    <p>When comparing candidates, products, proposals, or ideas where reputational or demographic information could unfairly influence the assessment. S2A ensures evaluation is based on merit.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Long, Noisy Documents</strong>
+                                    <p>When processing lengthy documents with substantial irrelevant content &mdash; meeting transcripts, verbose reports, or multi-topic conversations where only specific information matters.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Opinion-Free Analysis</strong>
+                                    <p>When you need the model to provide an objective, evidence-based assessment without being influenced by the requester&rsquo;s stated preferences, emotional appeals, or implicit expectations.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pillar-card pillar-card--interactive">
-                        <h3 class="pillar-card__title">Distraction Removal</h3>
-                        <p class="pillar-card__text">Filter out irrelevant details that could mislead reasoning in complex prompts.</p>
-                    </div>
-                    <div class="pillar-card pillar-card--interactive">
-                        <h3 class="pillar-card__title">Fair Evaluation</h3>
-                        <p class="pillar-card__text">Strip away reputation or prior beliefs to evaluate options objectively.</p>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>All Context Is Relevant</strong>
+                                    <p>When every detail in the prompt directly contributes to the answer &mdash; stripping context would remove information the model actually needs to respond accurately.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Creative and Subjective Tasks</strong>
+                                    <p>For brainstorming, storytelling, or opinion-based tasks where emotional context, personal framing, and subjective details are part of the desired output &mdash; not noise to be filtered.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Quick, Simple Questions</strong>
+                                    <p>For straightforward factual queries (&ldquo;What is the capital of France?&rdquo;) where there is no biasing context to filter &mdash; the overhead of context regeneration adds latency without benefit.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /WHEN TO USE -->
 
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where S2A delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Resume Screening</h3>
+                        <p class="use-case-showcase__desc">Strip candidate names, university prestige, company brands, and demographic signals from resumes before evaluating qualifications &mdash; ensuring hiring decisions are based purely on skills and experience.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Product Comparison</h3>
+                        <p class="use-case-showcase__desc">Remove brand reputation, marketing language, pricing anchors, and celebrity endorsements from product descriptions before comparing features &mdash; producing honest, specification-based evaluations.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Legal Analysis</h3>
+                        <p class="use-case-showcase__desc">Filter out client narratives, emotional framing, and partisan characterizations from legal documents before analyzing the facts and applicable law &mdash; producing more balanced legal assessments.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Research Review</h3>
+                        <p class="use-case-showcase__desc">Remove author reputation, institutional prestige, journal impact factors, and citation counts before evaluating the methodology and findings of research papers &mdash; reducing publication bias.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Survey Analysis</h3>
+                        <p class="use-case-showcase__desc">Strip leading question framing, loaded terminology, and response anchors from survey data before interpreting results &mdash; ensuring analysis reflects actual respondent sentiment rather than survey design bias.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Performance Evaluation</h3>
+                        <p class="use-case-showcase__desc">Remove personal relationships, recency bias, halo effects, and demographic information from employee performance data before generating assessments &mdash; producing fairer, more consistent evaluations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where S2A Fits</h2>
+                <p class="section-subtitle fade-in-up">S2A occupies a unique position in the context optimization landscape</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Direct Prompting</span>
+                        <span class="era-marker__title">Raw Input</span>
+                        <span class="era-marker__desc">No context processing</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">S2A</span>
+                        <span class="era-marker__title">Context Cleaning</span>
+                        <span class="era-marker__desc">Filter then reason</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Step-Back</span>
+                        <span class="era-marker__title">Abstraction</span>
+                        <span class="era-marker__desc">Principles before specifics</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">RaR</span>
+                        <span class="era-marker__title">Rephrasing</span>
+                        <span class="era-marker__desc">Reword for clarity</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Combine for Maximum Objectivity</div>
+                    <p>Use S2A first to strip biasing context, then apply Step-Back Prompting to establish the relevant principles, and finally use Chain-of-Thought for explicit reasoning. This three-layer approach produces responses that are simultaneously bias-free, principle-grounded, and transparently reasoned &mdash; the gold standard for high-stakes analytical tasks.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
         <section class="section">
             <div class="container">
                 <h2 class="section-title fade-in-up">Related Frameworks</h2>
-                <div class="icon-boxes icon-boxes--four fade-in-up">
-                    <a href="step-back.html" class="icon-box icon-box--clickable">
-                        <div class="icon-box__body">
-                            <h3 class="icon-box__title">Step-Back</h3>
-                            <p class="icon-box__content">Abstract to principles first.</p>
-                        </div>
-                    </a>
-                    <a href="rar.html" class="icon-box icon-box--clickable">
-                        <div class="icon-box__body">
-                            <h3 class="icon-box__title">Rephrase and Respond</h3>
-                            <p class="icon-box__content">Reframe the question.</p>
-                        </div>
-                    </a>
-                </div>
+                <p class="section-subtitle fade-in-up">Explore complementary context and reasoning techniques</p>
+
+                <a href="step-back.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Step-Back Prompting</span>
+                        <span class="evolution-callout__desc">While S2A cleans the context by removing noise, Step-Back abstracts to higher-level principles. Together they form a powerful combination: S2A removes what shouldn&rsquo;t influence the answer, and Step-Back establishes the foundational knowledge that should.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="rar.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Related Approach</span>
+                        <span class="evolution-callout__title">Rephrase and Respond (RaR)</span>
+                        <span class="evolution-callout__desc">RaR rewrites the question for clarity; S2A rewrites the context for objectivity. Both involve a preprocessing step before reasoning, but they target different problems: RaR improves understanding of intent, S2A removes bias from evidence.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="self-ask.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <circle cx="12" cy="17" r=".5"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Combine With</span>
+                        <span class="evolution-callout__title">Self-Ask</span>
+                        <span class="evolution-callout__desc">Apply S2A to clean the context first, then use Self-Ask to decompose the question into sub-questions. This ensures each sub-question is answered from an unbiased foundation, preventing noise from propagating through the reasoning chain.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
             </div>
         </section>
+        <!-- /RELATED FRAMEWORKS -->
 
-        <section class="section section-alt">
+        <!-- === CTA SECTION === -->
+        <section class="section">
             <div class="container">
-                <div class="cta-corporate cta-corporate--dark">
-                    <h2 class="cta-corporate__title">Try S2A</h2>
-                    <div class="cta-corporate__actions">
-                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Filter the Noise</h2>
+                        <p class="cta-corporate__text">Try System 2 Attention in the Prompt Builder or explore how it connects to other context optimization techniques.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /CTA SECTION -->
     </main>
 
     <footer class="footer">
@@ -271,7 +690,6 @@
                 <a href="../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
                 <p>Master the Art of AI Communication theory through proven frameworks.</p>
             </div>
-
             <div class="footer-links">
                 <h4>Learn</h4>
                 <a href="prompt-basics.html">Prompt Basics</a>
@@ -282,7 +700,6 @@
                 <a href="flipped-interaction.html">Flipped Interaction</a>
                 <a href="chain-of-thought.html">Chain-of-Thought</a>
             </div>
-
             <div class="footer-links">
                 <h4>AI Readiness</h4>
                 <a href="../tools/analyzer.html">Prompt Analyzer</a>
@@ -294,7 +711,6 @@
                 <a href="../patterns/index.html">Patterns Library</a>
                 <a href="../pages/ai-safety.html">AI Safety</a>
             </div>
-
             <div class="footer-links">
                 <h4>Resources</h4>
                 <a href="../pages/chatgpt-guide.html">ChatGPT Guide</a>
@@ -308,13 +724,89 @@
                 <a href="../pages/about.html">About</a>
             </div>
         </div>
-
         <div class="footer-bottom">
             <p>AI for Everybody</p>
             <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
         </div>
     </div>
 </footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
 
     <script src="../app.js" defer></script>
 </body>

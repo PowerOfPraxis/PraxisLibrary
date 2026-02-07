@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Style Prompting: Control the tone, formality, and writing style of AI outputs through explicit style instructions.">
+    <meta name="description" content="Style Prompting: Control the tone, formality, and writing voice of AI outputs through explicit style instructions that separate content from delivery.">
     <title>Style Prompting - Praxis</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="stylesheet" href="../styles.css">
@@ -131,7 +131,10 @@
         </div>
     </header>
 
+
+
     <main id="main-content">
+        <!-- === HERO SECTION === -->
         <section class="page-hero">
             <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
             <div class="container">
@@ -146,109 +149,251 @@
                     <span class="hero-badge__text">Zero-Shot Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Style Prompting</h1>
-                <p class="page-subtitle fade-in">Control the tone, formality, and voice of AI outputs through explicit style instructions.</p>
+                <p class="page-subtitle fade-in">The same information can land brilliantly or fall flat depending on how it&rsquo;s delivered. Style Prompting separates <em>what</em> you want the AI to say from <em>how</em> you want it said &mdash; giving you explicit control over tone, formality, voice, and every dimension of written expression.</p>
             </div>
         </section>
+        <!-- /HERO SECTION -->
 
-        <section class="section section-alt">
-            <div class="container">
-                <div class="split-section">
-                    <div class="split-section__content">
-                        <span class="section-eyebrow">The Concept</span>
-                        <h2 class="section-title">Voice Control for AI</h2>
-                        <p class="section-intro">Style prompting instructs the model to adopt specific writing characteristics—formal vs casual, technical vs accessible, brief vs detailed. The same content can be expressed in dramatically different ways based on style instructions.</p>
-                        <div class="highlight-box highlight-box--info">
-                            <div class="highlight-box__content">
-                                <span class="highlight-box__title">Key Principle</span>
-                                <p>Separate what you want to say (content) from how you want to say it (style). This gives you precise control over the final output.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="split-section__media">
-                        <div class="highlight-box highlight-box--tip">
-                            <div class="highlight-box__content">
-                                <span class="highlight-box__title">Style Dimensions</span>
-                                <p>Formality, complexity, length, tone, perspective, and vocabulary are all controllable style parameters.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        <!-- === HISTORICAL CONTEXT === -->
         <section class="section">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-eyebrow">Techniques</span>
-                    <h2 class="section-title">Style Control Patterns</h2>
-                </div>
-
-                <div class="pillar-grid pillar-grid--3 fade-in-up">
-                    <div class="pillar-card pillar-card--interactive">
-                        <h3 class="pillar-card__title">Formality</h3>
-                        <p class="pillar-card__text">"Write formally" vs "Write casually" dramatically changes sentence structure, vocabulary, and tone.</p>
-                        <span class="pillar-card__tag">Voice</span>
-                    </div>
-                    <div class="pillar-card pillar-card--interactive">
-                        <h3 class="pillar-card__title">Complexity</h3>
-                        <p class="pillar-card__text">"Explain like I'm five" vs "Write for experts" adjusts technical depth and assumed knowledge.</p>
-                        <span class="pillar-card__tag">Audience</span>
-                    </div>
-                    <div class="pillar-card pillar-card--interactive">
-                        <h3 class="pillar-card__title">Length</h3>
-                        <p class="pillar-card__text">"Be concise" vs "Be comprehensive" controls detail level and output length.</p>
-                        <span class="pillar-card__tag">Scope</span>
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2023</span>
+                        <p><strong>Introduced:</strong> Style Prompting was published in 2023 by Lu et al. The research identified a persistent gap in prompt engineering: users could tell models <em>what</em> to write, but had limited systematic control over <em>how</em> it sounded. Lu et al. demonstrated that explicitly specifying style dimensions &mdash; formality, complexity, tone, and vocabulary level &mdash; produced outputs that were measurably more aligned with user intent than prompts that focused only on content requirements.</p>
+                        <p><strong>Modern LLM Status:</strong> Style Prompting remains a <strong>still active and integral technique</strong> in everyday prompt engineering. As language models have grown more capable, their default outputs have also become more &ldquo;middle-of-the-road&rdquo; in voice &mdash; competent but generic. Style instructions counteract this tendency by steering the model toward a specific register, making the technique more valuable than ever for anyone who needs content that sounds like it was written by a particular person, for a particular audience, or in a particular context.</p>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /HISTORICAL CONTEXT -->
 
+        <!-- === THE CONCEPT === -->
         <section class="section section-alt">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-eyebrow">Examples</span>
-                    <h2 class="section-title">Style in Action</h2>
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Voice Control for AI</h2>
+                        <p class="split-section__text">Every piece of writing has two layers: the <strong>content</strong> (the information, arguments, or ideas) and the <strong>style</strong> (the way those ideas are expressed). A medical diagnosis and a patient-friendly explanation contain the same facts, but the style is radically different. Style Prompting makes this distinction explicit in your prompts.</p>
+                        <p class="split-section__text"><strong>The technique works by specifying style dimensions independently of content.</strong> Instead of hoping the model infers the right tone from context, you declare it outright. This means you can take the same content request &mdash; &ldquo;explain how encryption works&rdquo; &mdash; and produce a LinkedIn post, a children&rsquo;s book explanation, a graduate textbook paragraph, or a stand-up comedy bit, simply by changing the style parameters.</p>
+                        <p class="split-section__text">Think of it like a mixing board in a recording studio. The song (content) stays the same, but you can adjust the bass, treble, reverb, and volume independently to produce a completely different listening experience. Style Prompting gives you separate knobs for formality, complexity, tone, perspective, vocabulary, and structure.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Six Style Dimensions</span>
+                                <p><strong>Formality:</strong> Casual conversation to academic register. Controls contractions, slang, sentence structure, and professional conventions.<br><br><strong>Complexity:</strong> Simple explanations to expert-level analysis. Adjusts depth of reasoning, assumed knowledge, and technical detail.<br><br><strong>Tone:</strong> Warm and encouraging to direct and authoritative. Sets the emotional texture of the writing.<br><br><strong>Perspective:</strong> First person, second person, or third person. Determines the relationship between writer and reader.<br><br><strong>Vocabulary:</strong> Plain language to domain-specific jargon. Controls word choice and terminology level.<br><br><strong>Structure:</strong> Free-flowing prose to rigid frameworks. Determines paragraph length, use of headers, bullet points, and organizational patterns.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
 
-                <div class="accordion fade-in-up" id="style-accordion">
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Style Prompting Process</h2>
+                <p class="section-subtitle fade-in-up">Four stages from content request to polished, voice-matched output</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Define Your Content Requirements</h3>
+                            <p class="element-timeline__text">Start with a clear statement of what information, arguments, or ideas the output should contain. This is the &ldquo;what&rdquo; layer &mdash; the substance that would remain the same regardless of how it&rsquo;s expressed. Be specific about the topic, scope, and any facts or points that must be included.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Explain the benefits and risks of cloud computing for small businesses, covering cost savings, scalability, security concerns, and vendor lock-in.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Choose Your Style Parameters</h3>
+                            <p class="element-timeline__text">Decide which style dimensions matter for your audience and context. You don&rsquo;t need to specify all six &mdash; focus on the dimensions that will have the biggest impact. A blog post for beginners might need casual formality, simple complexity, and warm tone. A board presentation might need formal register, moderate complexity, and authoritative tone.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Target: Non-technical small business owners reading a blog. Parameters: conversational tone, plain vocabulary, second-person perspective, short paragraphs with analogies.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Write the Style Instruction</h3>
+                            <p class="element-timeline__text">Combine your content requirements with explicit style directions. The key is being <strong>specific and concrete</strong> about style rather than vague. Instead of &ldquo;write it simply,&rdquo; say &ldquo;use everyday language that a shop owner with no tech background would understand, avoid all acronyms, and explain each concept through a real-world analogy.&rdquo;</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Write this as a friendly, conversational blog post for non-technical small business owners. Use &lsquo;you&rsquo; and &lsquo;your&rsquo; throughout. Explain each concept with a real-world analogy (like renting vs. buying an office). Keep paragraphs to 2&ndash;3 sentences. Avoid all jargon and acronyms.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Receive Styled Output</h3>
+                            <p class="element-timeline__text">The model produces content that matches both your information requirements and your style specifications. The output should feel like it was written specifically for your target audience, in the voice you described. If the style isn&rsquo;t quite right, iterate by adjusting specific dimensions rather than rewriting the entire prompt.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Result</span>
+                                <p>An approachable blog post that compares cloud storage to renting a storage unit, explains scalability as &ldquo;only paying for the space you actually use,&rdquo; and addresses security concerns without triggering anxiety &mdash; all in a tone that feels like helpful advice from a knowledgeable friend.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">How explicit style instructions transform generic outputs into audience-matched content</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">No Style Instruction</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Write about cloud computing for businesses.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>Cloud computing is a technology that enables businesses to access computing resources over the internet. It offers several advantages including cost efficiency, scalability, and flexibility. Organizations can leverage cloud infrastructure to reduce capital expenditure while maintaining robust IT capabilities. However, considerations around data security and vendor dependency should be evaluated&hellip;</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Generic tone, passive voice, no clear audience, reads like a textbook</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">With Style Instruction</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Write about cloud computing in a conversational blog style for non-technical managers. Use &ldquo;you&rdquo; throughout, include analogies instead of jargon, keep paragraphs short, and maintain an encouraging but honest tone.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>Think of cloud computing like renting an apartment instead of buying a house. You get all the space you need without the massive upfront cost &mdash; and if your team grows, you can upgrade to a bigger place without selling anything first.<br><br>The best part? You only pay for what you actually use. But here&rsquo;s the honest truth: you&rsquo;re trusting your landlord with your keys&hellip;</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Audience-appropriate, engaging, uses analogies, honest and conversational</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Style Prompting in Action</h2>
+                <p class="section-subtitle fade-in-up">See how style parameters transform the same content for different audiences</p>
+
+                <div class="accordion fade-in-up" id="style-prompting-accordion">
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Professional Business Style</span>
+                            <span class="accordion-title">Formal to Casual &mdash; Same Content, Different Register</span>
                             <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
                         </button>
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Prompt</span>
-                                    <p>"Write in a professional business style: formal, concise, action-oriented. Use active voice and clear recommendations."</p>
+                                    <span class="technique-demo__tag">Formal Style</span>
+                                    <p>&ldquo;Write a summary of our Q3 results in a formal executive tone suitable for the annual report. Use third-person perspective, precise financial language, and structured paragraphs with topic sentences. Maintain a measured, authoritative voice throughout.&rdquo;</p>
+                                    <p><br><strong>Output:</strong> &ldquo;The organization achieved a 12% year-over-year revenue increase in the third quarter, driven primarily by expansion in the enterprise segment. Operating margins improved to 23.4%, reflecting disciplined cost management and favorable product mix. Management anticipates sustained momentum entering the fourth quarter.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Casual Style (Same Data)</span>
+                                    <p>&ldquo;Now rewrite this as a casual Slack message from the CEO to the whole company. Use first-person plural, keep it upbeat but genuine, use everyday language, and make it feel like good news shared over coffee.&rdquo;</p>
+                                    <p><br><strong>Output:</strong> &ldquo;Hey team! Just wanted to share some great news &mdash; we grew 12% this quarter compared to last year, and our enterprise deals were the big driver. We&rsquo;re running leaner too (margins up to 23.4%), which means we&rsquo;re not just growing, we&rsquo;re growing smart. Feeling really good about where we&rsquo;re heading into Q4. Thanks for making this happen!&rdquo;</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Conversational Blog Style</span>
+                            <span class="accordion-title">Technical to Accessible &mdash; Adjusting Complexity and Vocabulary</span>
                             <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
                         </button>
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Prompt</span>
-                                    <p>"Write in a friendly, conversational blog style. Use 'you' language, ask rhetorical questions, and include relatable examples."</p>
+                                    <span class="technique-demo__tag">Technical Style</span>
+                                    <p>&ldquo;Explain how HTTPS works. Use precise technical terminology appropriate for a software engineering audience. Include protocol-level details, assume knowledge of TCP/IP, and write in a concise, reference-manual style.&rdquo;</p>
+                                    <p><br><strong>Output:</strong> &ldquo;HTTPS operates by layering HTTP over TLS (Transport Layer Security). During the TLS handshake, the client and server negotiate a cipher suite, the server presents its X.509 certificate for authentication, and both parties derive symmetric session keys via Diffie-Hellman key exchange. Subsequent HTTP payloads are encrypted using the negotiated symmetric cipher, ensuring confidentiality and integrity at the transport layer.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Accessible Style (Same Topic)</span>
+                                    <p>&ldquo;Now explain HTTPS for someone who has never heard of it. Use a storytelling approach with a real-world analogy. Write as if explaining to a curious 14-year-old. Avoid all technical terms &mdash; if you must introduce one, explain it immediately in plain language. Keep the tone friendly and encouraging.&rdquo;</p>
+                                    <p><br><strong>Output:</strong> &ldquo;Imagine you&rsquo;re passing a note to your friend in class, but you don&rsquo;t want anyone else to read it. HTTPS is like writing that note in a secret code that only you and your friend know. When you visit a website with HTTPS (you&rsquo;ll see a little padlock in your browser), your computer and the website quickly agree on a secret code before they start talking. After that, everything they send back and forth is scrambled &mdash; so even if someone intercepts it, all they see is gibberish.&rdquo;</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Academic Technical Style</span>
+                            <span class="accordion-title">Multi-Dimensional Style Control &mdash; Combining All Parameters</span>
                             <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
                         </button>
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Prompt</span>
-                                    <p>"Write in academic style: use precise terminology, passive voice where appropriate, and structured argumentation with clear logical flow."</p>
+                                    <span class="technique-demo__tag">Multi-Dimensional Prompt</span>
+                                    <p>&ldquo;Write a product announcement for our new project management tool. Apply these style parameters:<br><br><strong>Formality:</strong> Professional but approachable &mdash; not stiff corporate, not startup casual<br><strong>Tone:</strong> Confident and excited, without being salesy or hyperbolic<br><strong>Complexity:</strong> Accessible to non-technical users but not condescending<br><strong>Perspective:</strong> First-person plural (&lsquo;we&rsquo;) for the company, second-person (&lsquo;you&rsquo;) for the reader<br><strong>Vocabulary:</strong> Plain English, replace jargon with benefits (not &lsquo;integrations&rsquo; but &lsquo;works with your existing tools&rsquo;)<br><strong>Structure:</strong> Short paragraphs, one key benefit per paragraph, bold the main takeaway of each section&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Result</span>
+                                    <p>The output matches all six dimensions simultaneously: it reads like a well-crafted company blog post that feels human and enthusiastic without crossing into marketing clich&eacute;s. Each paragraph leads with a bolded benefit, uses &ldquo;we&rdquo; and &ldquo;you&rdquo; naturally, and explains features in terms of what they mean for the reader &mdash; not what they are technically. The combined effect is a cohesive voice that would take a human writer several drafts to achieve.</p>
                                 </div>
                             </div>
                         </div>
@@ -256,39 +401,305 @@
                 </div>
             </div>
         </section>
+        <!-- /EXAMPLES IN ACTION -->
 
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Style Prompting</h2>
+                <p class="section-subtitle fade-in-up">Best for tasks where how you say it matters as much as what you say</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Audience-Specific Content</strong>
+                                    <p>When the same information needs to reach different audiences &mdash; executives, engineers, customers, or students &mdash; style parameters let you tailor the delivery without changing the substance.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Brand Voice Consistency</strong>
+                                    <p>Maintaining a consistent tone across dozens of pieces of content is hard for human teams. Style Prompting lets you encode brand voice as a reusable set of style parameters.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Content Repurposing</strong>
+                                    <p>Transforming a whitepaper into a blog post, a blog post into a tweet thread, or a presentation into a newsletter &mdash; same core content, completely different style needs.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Accessibility and Inclusion</strong>
+                                    <p>Adjusting complexity and vocabulary makes content accessible to readers with different literacy levels, language backgrounds, or domain expertise &mdash; without dumbing down the ideas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Simple Factual Queries</strong>
+                                    <p>&ldquo;What is the capital of France?&rdquo; doesn&rsquo;t benefit from style instructions &mdash; the answer is the same regardless of tone or formality level.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Code Generation</strong>
+                                    <p>When you need working code, style parameters add unnecessary complexity. Code has its own conventions that are better addressed through code-specific prompting techniques.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>When Content Matters More Than Style</strong>
+                                    <p>If you&rsquo;re struggling to get the right information, focus on content accuracy first. Style instructions work best when layered onto a prompt that already produces correct, complete content.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Style Prompting delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10"/>
+                                <path d="M12 20V4"/>
+                                <path d="M6 20v-6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Marketing Copy</h3>
+                        <p class="use-case-showcase__desc">Define brand voice parameters once &mdash; playful, authoritative, minimalist, or luxurious &mdash; and generate consistent copy across landing pages, ads, and email campaigns.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Technical Documentation</h3>
+                        <p class="use-case-showcase__desc">Generate API docs in a concise reference style, tutorials in a friendly walkthrough style, and architecture overviews in a structured analytical style &mdash; all from the same source material.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Email Communication</h3>
+                        <p class="use-case-showcase__desc">Match the formality level to the recipient &mdash; casual for teammates, professional for clients, diplomatic for escalations &mdash; while keeping the core message consistent.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Report Writing</h3>
+                        <p class="use-case-showcase__desc">Produce executive summaries in a high-level strategic voice, detailed findings in an analytical voice, and recommendations in a persuasive voice &mdash; all within the same document structure.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Social Media</h3>
+                        <p class="use-case-showcase__desc">Adapt a single announcement into platform-native voices: professional for LinkedIn, witty for Twitter, visual-friendly for Instagram, and conversational for community forums.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Training Materials</h3>
+                        <p class="use-case-showcase__desc">Create onboarding content that is warm and encouraging for new hires, detailed and precise for compliance training, and motivational for leadership development programs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Style Prompting Fits</h2>
+                <p class="section-subtitle fade-in-up">Style Prompting controls the delivery dimension of zero-shot prompting</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Zero-Shot</span>
+                        <span class="era-marker__title">Direct Request</span>
+                        <span class="era-marker__desc">Plain instruction, default voice</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Style Prompting</span>
+                        <span class="era-marker__title">Voice Control</span>
+                        <span class="era-marker__desc">Explicit tone, formality, and register</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Role Prompting</span>
+                        <span class="era-marker__title">Persona Assignment</span>
+                        <span class="era-marker__desc">Inherent voice through identity</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">COSTAR</span>
+                        <span class="era-marker__title">Full Framework</span>
+                        <span class="era-marker__desc">Context, objective, style, tone, audience, response</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Style as a Building Block</div>
+                    <p>Style Prompting is a fundamental dimension that enhances almost every other technique. It works as a standalone approach for simple content tasks, but its real power emerges when combined with frameworks like COSTAR (which includes style as an explicit parameter) or Role Prompting (where the persona carries an implied style that you can fine-tune with explicit style instructions).</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
         <section class="section">
             <div class="container">
                 <h2 class="section-title fade-in-up">Related Frameworks</h2>
-                <div class="icon-boxes icon-boxes--four fade-in-up">
-                    <a href="role-prompting.html" class="icon-box icon-box--clickable">
-                        <div class="icon-box__body">
-                            <h3 class="icon-box__title">Role Prompting</h3>
-                            <p class="icon-box__content">Personas that include inherent styles.</p>
-                        </div>
-                    </a>
-                    <a href="costar.html" class="icon-box icon-box--clickable">
-                        <div class="icon-box__body">
-                            <h3 class="icon-box__title">COSTAR</h3>
-                            <p class="icon-box__content">Framework with explicit Style and Tone parameters.</p>
-                        </div>
-                    </a>
-                </div>
+                <p class="section-subtitle fade-in-up">Explore complementary approaches to controlling AI output</p>
+
+                <a href="role-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Role Prompting</span>
+                        <span class="evolution-callout__desc">Assign a persona that carries an inherent voice and perspective &mdash; then use Style Prompting to fine-tune specific dimensions the persona doesn&rsquo;t fully cover.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="emotion-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                            <line x1="9" y1="9" x2="9.01" y2="9"/>
+                            <line x1="15" y1="9" x2="15.01" y2="9"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Related</span>
+                        <span class="evolution-callout__title">Emotion Prompting</span>
+                        <span class="evolution-callout__desc">Controls how carefully the model responds through psychological framing, while Style Prompting controls how the response sounds &mdash; use both for quality and voice.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="costar.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="9" y1="21" x2="9" y2="9"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">COSTAR</span>
+                        <span class="evolution-callout__desc">A full structured framework that formalizes style and tone as dedicated parameters alongside context, objective, and audience &mdash; Style Prompting principles built into a complete system.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
             </div>
         </section>
+        <!-- /RELATED FRAMEWORKS -->
 
-        <section class="section section-alt">
+        <!-- === CTA SECTION === -->
+        <section class="section">
             <div class="container">
-                <div class="cta-corporate cta-corporate--dark">
-                    <h2 class="cta-corporate__title">Master Your Style</h2>
-                    <p class="cta-corporate__text">Practice style control in our prompt builder.</p>
-                    <div class="cta-corporate__actions">
-                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Master Your Voice</h2>
+                        <p class="cta-corporate__text">Try adding explicit style parameters to your prompts or explore other output-shaping techniques in the Praxis Library.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /CTA SECTION -->
     </main>
+
 
     <footer class="footer">
     <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
@@ -342,6 +753,83 @@
         </div>
     </div>
 </footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
 
     <script src="../app.js" defer></script>
 </body>
