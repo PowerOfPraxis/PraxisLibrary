@@ -1,98 +1,126 @@
 # Praxis Project Handoff Document
 
-**Last Updated:** 2026-02-07 (Session 45)
-**Last Commit:** UNCOMMITTED — Phase 2 complete, needs commit + push
-**Current Phase:** Phase 2 COMPLETE (52/52 text frameworks) — Phase 3 Modality Frameworks next
+**Last Updated:** 2026-02-07 (Session 46)
+**Last Commit:** `4bc69f5` (Session 45 push) — Session 46 changes UNCOMMITTED
+**Current Phase:** Phase 3 Modality Frameworks — Sub-phase 3A Image Prompting COMPLETE (12/12)
 
 ---
 
-## SESSION 45 SUMMARY
+## SESSION 46 SUMMARY
 
-**Focus:** Complete Phase 2 Text Frameworks (final 5 pages) + full site integration
+**Focus:** Phase 3 Modality Frameworks — Sub-phase 3A Image Prompting (12 pages) + Modality Hub
 
 ### Completed
 
-1. **5 Framework Pages Created** (parallel background agents, 870-907 lines each):
-   - `learn/many-shot.html` (891 lines) — Many-Shot Prompting, 2024 by Agarwal et al.
-   - `learn/example-ordering.html` (871 lines) — Example Ordering, 2022 by Lu et al.
-   - `learn/self-generated-icl.html` (873 lines) — Self-Generated ICL, 2022 by Kim et al.
-   - `learn/active-example.html` (873 lines) — Active Example Selection, 2023
-   - `learn/uncertainty-cot.html` (907 lines) — Uncertainty-Routed CoT, 2023 by Wang et al.
-   - All 13 sections, zero inline styles/scripts, historical context notices
+1. **Session 45 Committed & Pushed** (`4bc69f5`):
+   - All Phase 2 work (52/52 text frameworks) committed and pushed to remote
 
-2. **Mega-Menu Navigation Updated** (111 HTML files via `update_nav_s45.py`):
-   - ICL section: +4 links (Many-Shot, Example Ordering, Self-Generated ICL, Active Example)
-   - Reasoning section: +1 link (Uncertainty-Routed CoT)
-   - All 3 depth levels verified (root, one-deep, two-deep)
+2. **12 Image Prompting Pages Created** (parallel background agents, 867-892 lines each):
+   - `learn/modality/image/image-prompting.html` (883 lines) — Image Prompting Basics, 2023
+   - `learn/modality/image/multimodal-cot.html` (878 lines) — Multimodal CoT, 2023 by Zhang et al.
+   - `learn/modality/image/visual-cot.html` (884 lines) — Visual Chain of Thought, 2023
+   - `learn/modality/image/image-as-text.html` (875 lines) — Image-as-Text Prompting, 2023
+   - `learn/modality/image/vqa.html` (867 lines) — Visual Question Answering, 2015/2023
+   - `learn/modality/image/image-gen-prompting.html` (879 lines) — Image Generation Prompting, 2022
+   - `learn/modality/image/negative-prompting.html` (892 lines) — Negative Prompting, 2022
+   - `learn/modality/image/controlnet-prompting.html` (892 lines) — ControlNet Prompting, 2023
+   - `learn/modality/image/inpainting-prompting.html` (881 lines) — Inpainting Prompting, 2022
+   - `learn/modality/image/style-transfer.html` (878 lines) — Style Transfer Prompting, 2015/2022
+   - `learn/modality/image/image-to-image.html` (880 lines) — Image-to-Image Prompting, 2022
+   - `learn/modality/image/composition-prompting.html` (881 lines) — Composition Prompting, 2023
+   - All 13 sections, zero inline styles/scripts, historical context notices on all pages
 
-3. **Search Index Updated** — 5 new entries added to `data/search-index.json`
+3. **Modality Hub Page Created** (`learn/modality/index.html`):
+   - Image Prompting section (12 cards), Code section (3 cards), Coming Soon (Audio, Video, 3D)
+   - Full nav, footer, back-to-top, CTA
 
-4. **Discover Hub Updated** (`learn/index.html`):
-   - 5 new framework cards added (4 ICL, 1 Reasoning)
-   - Filter counts: In-Context Learning 9->13, Reasoning & CoT 14->15
+4. **Mega-Menu Navigation Updated** (127 HTML files via `update_nav_s46.py`):
+   - New "Image" section with 12 links added after "Code" section
+   - All 4 depth levels verified (root, one-deep, two-deep, three-deep)
 
-5. **Category Pages Updated**:
-   - `learn/in-context-learning.html` — count 9->13, +4 cards, +4 table rows
-   - `learn/reasoning-cot.html` — count 14->15, +1 card, +1 table row
+5. **Search Index Updated** — 13 new entries added to `data/search-index.json` (12 image + 1 hub)
 
-6. **Homepage Updated** (`index.html`):
-   - Counter: 62+ -> 67+ frameworks
-   - CTA text: "View All 67+ Frameworks"
+6. **Discover Hub Updated** (`learn/index.html`):
+   - 12 new Image Prompting framework cards added in new section
+   - Filter bar: +Image (12) button
+   - Meta description: 62+ -> 79+
+
+7. **Homepage Updated** (`index.html`):
+   - Counter: 67+ -> 79+ frameworks
+   - CTA text: "View All 79+ Frameworks"
+   - Subtitle: "79+ proven prompting methodologies"
 
 ### Quality Checks Passed
-- 0 inline styles across all 5 pages
-- 0 inline scripts across all 5 pages
+- 0 inline styles across all 12 image pages
+- 0 inline scripts across all 12 image pages
 - 0 external resources
-- Historical context notices on all 5 pages
-- All 13 section comments verified
+- Historical context notices on all 12 pages
+- 867-892 lines per page (within target range)
 
 ---
 
-## PHASE 2 TEXT FRAMEWORKS: COMPLETE (52/52)
+## PHASE 3 MODALITY FRAMEWORKS: Progress
 
-All 52 text framework pages are now built and integrated. Phase 2 is 100% done.
+### Sub-phase 3A: Image Prompting — COMPLETE (12/12)
+
+All 12 image prompting pages built and integrated.
+
+### Sub-phase 3B: Audio/Speech — NOT STARTED (0/6)
+
+| Framework | File | Priority |
+|-----------|------|----------|
+| Audio Prompting Basics | audio-prompting.html | MEDIUM |
+| Speech-to-Text Prompting | stt-prompting.html | MEDIUM |
+| Text-to-Speech Prompting | tts-prompting.html | MEDIUM |
+| Audio Classification | audio-classification.html | LOW |
+| Music Generation Prompting | music-gen.html | LOW |
+| Voice Cloning Prompting | voice-cloning.html | LOW |
+
+### Sub-phase 3C: Video — NOT STARTED (0/6)
+
+| Framework | File | Priority |
+|-----------|------|----------|
+| Video Prompting Basics | video-prompting.html | MEDIUM |
+| Video Generation Prompting | video-gen.html | MEDIUM |
+| Temporal Reasoning | temporal-reasoning.html | LOW |
+| Video QA | video-qa.html | LOW |
+| Video Captioning | video-captioning.html | LOW |
+| Video Editing Prompting | video-editing.html | LOW |
+
+### Sub-phase 3D: Code/Structured — NOT STARTED (0/5 new, 3 exist)
+
+| Framework | File | Priority |
+|-----------|------|----------|
+| Program Synthesis | program-synthesis.html | MEDIUM |
+| Code Explanation | code-explanation.html | MEDIUM |
+| Code Review Prompting | code-review.html | MEDIUM |
+| Test Generation | test-generation.html | MEDIUM |
+| SQL Generation | sql-generation.html | MEDIUM |
+
+### Sub-phase 3E: 3D/Spatial — NOT STARTED (0/5)
+
+| Framework | File | Priority |
+|-----------|------|----------|
+| 3D Prompting Basics | 3d-prompting.html | LOW |
+| 3D Model Generation | 3d-model-gen.html | LOW |
+| Scene Understanding | scene-understanding.html | LOW |
+| Pose Estimation Prompting | pose-estimation.html | LOW |
+| Point Cloud Prompting | point-cloud.html | LOW |
 
 ---
 
-## NEXT TASKS — Phase 3 Modality Frameworks
+## NEXT TASKS
 
-### Priority 1: Phase 3 — Modality Frameworks (37 pages, 0% done)
-
-Large expansion into non-text modalities. See FrameworkOverhaul.md Phase 3 for full page list.
-
-**Directory Structure:**
-```
-learn/modality/
-    index.html          (hub page — NEEDS CREATION)
-    image/              (12 pages — NEEDS CREATION)
-    audio/              (6 pages — NEEDS CREATION)
-    video/              (6 pages — NEEDS CREATION)
-    code/               (3 pages EXIST, 5 more needed)
-    3d/                 (5 pages — NEEDS CREATION)
-```
-
-**Sub-phases (recommended order):**
-| Sub-Phase | Pages | Priority |
-|-----------|-------|----------|
-| 3A: Image Prompting | 12 pages | HIGH — most common modality |
-| 3B: Audio/Speech | 6 pages | MEDIUM |
-| 3C: Video | 6 pages | MEDIUM |
-| 3D: Code/Structured | 5 more (3 exist) | MEDIUM |
-| 3E: 3D/Spatial | 5 pages | LOW |
+### Priority 1: Continue Phase 3 — Sub-phase 3B Audio/Speech (6 pages)
 
 **Approach:**
-- Use same 13-section template (`learn/self-ask.html`)
-- Parallel background agents (5-6 per batch)
-- After each sub-phase: update mega-menu nav (Python batch script), search index, Discover hub, homepage counter
-- Paths from `learn/modality/image/` use `../../../` prefix for root-relative links
+- Same 13-section template, parallel background agents
+- Directory: `learn/modality/audio/`
+- After pages: update mega-menu, search index, discover hub, modality hub, homepage counter
 
-### Priority 2: Phase 4 Site Integration
+### Priority 2: Phase 3 remaining sub-phases (3C-3E)
 
-- 4D: Framework Matcher updates (include new frameworks in recommendations)
-
-### Status Note
-
-**Session 45 changes are UNCOMMITTED.** The next session should start by committing and pushing Session 45 work before beginning Phase 3.
+### Priority 3: Phase 4D Framework Matcher updates
 
 ---
 
@@ -141,11 +169,8 @@ Key CSS rules for the desktop mega-menu positioning:
 | `.claude/SiteFrameworks.md` | **Architecture bible** — WHY behind every decision | 1,041 |
 | `.claude/HANDOFF.md` | Current state (this file) | -- |
 | `.claude/COMPLETED.md` | Archived completed work | -- |
-| `.claude/plans/FrameworkOverhaul.md` | Master plan -- Phases 1-5 + session log | 1,741 |
-| `.claude/plans/discover-hub-category-pages.md` | Discover Hub plan (COMPLETE) | 291 |
-| `learn/self-ask.html` | Canonical 13-section template | 895 |
-
-**SiteFrameworks.md** covers: lazy loading rationale, search-to-glossary flow (step-by-step), URL resolution (`resolveInternalUrl()`), anchor offset pattern, design token system, component library, 13-section template, navigation architecture, neural network canvas, accessibility dashboard, performance patterns, and all critical rules.
+| `.claude/plans/FrameworkOverhaul.md` | Master plan -- Phases 1-5 + session log | 1,769 |
+| `learn/self-ask.html` | Canonical 13-section template | 899 |
 
 ---
 
@@ -154,37 +179,21 @@ Key CSS rules for the desktop mega-menu positioning:
 ### resolveInternalUrl() -- Universal Path Resolver (app.js ~471)
 ```javascript
 function resolveInternalUrl(targetPath) {
-    // Skip absolute, anchor-only, or already-resolved paths
     if (!targetPath || targetPath.startsWith('http') || targetPath.startsWith('/') ||
         targetPath.startsWith('#') || targetPath.startsWith('mailto:')) {
         return targetPath;
     }
     const pathname = window.location.pathname;
     const segments = pathname.replace(/^\//, '').split('/');
-    const depth = Math.max(0, segments.length - 1); // -1 for filename
+    const depth = Math.max(0, segments.length - 1);
     if (depth === 0) return targetPath;
     return '../'.repeat(depth) + targetPath;
 }
 ```
-**Usage:** `resolveInternalUrl('pages/glossary.html#term-foo')` -- always pass root-relative paths (no `../` prefix). The function calculates the correct prefix based on current page depth.
+**Usage:** `resolveInternalUrl('pages/glossary.html#term-foo')` -- always pass root-relative paths.
 
-### Search Modal Architecture (app.js ~8394-8834)
-- `createSearchModal()` -- generates HTML, injected into DOM
-- `searchModal.init()` -- attaches all event listeners
-- `searchModal.open()` / `.close()` -- toggle visibility + body overflow
-- `searchModal.navigateToResult(href)` -- handles same-page hash vs. full navigation
-- `searchPraxis(query)` -- searches index, returns grouped results (Glossary first, 10 results; others 5)
-- `renderSearchResults(grouped, query)` -- renders result HTML with highlight marks
-
-### Glossary Lazy Loading (app.js ~7495-7585)
-- `loadGlossaryFromJSON()` -- fetches `data/glossary.json`, builds 2,141 terms via DOM API
-- Detects glossary page by `.glossary-filter-bar` presence
-- Post-load hash scroll handles `#term-xxx` anchors from search results
-- CSS `content-visibility: auto` on `.glossary-section` for lazy paint
-- CSS `scroll-margin-top: 160px` on `[id^="term-"]` for sticky header + nav offset
-
-### Python Batch Script Pattern (Session 38)
-Session 38 used `update_nav.py` to batch-update all 100 HTML files (header, footer, head cleanup). Same approach recommended for future batch renames.
+### Python Batch Script Pattern
+Sessions 38/45/46 used Python scripts to batch-update navigation across all HTML files. Pattern: regex match Code section, insert Image section after it. Same approach for future modality additions.
 
 ---
 
@@ -215,12 +224,10 @@ JS:    // === SECTION === ... /** JSDoc comments */
 ### 4. URL Construction
 - **ALWAYS use `resolveInternalUrl()`** for any dynamically generated internal links
 - Pass root-relative paths: `resolveInternalUrl('pages/glossary.html#term-foo')`
-- Never hardcode `../` prefixes for dynamic links -- the function handles all depths
 
 ### 5. Information Accuracy
 - All historical/factual claims must be verified from .edu or .gov sources
 - No fake, made up, or misleading information
-- Framework dates and relevancy status must be academically verified
 
 ---
 
@@ -228,19 +235,22 @@ JS:    // === SECTION === ... /** JSDoc comments */
 
 ```
 _public_html/
-+-- index.html              # Home page (6-section redesign, Session 39)
++-- index.html              # Home page (79+ frameworks counter)
 +-- styles.css              # ALL CSS (~27,600 lines)
 +-- app.js                  # ALL JavaScript (~10,900 lines)
 +-- foundations/
-|   +-- index.html          # AI Foundations timeline (5 eras + framework directories)
-+-- learn/                  # Framework pages (62+) + category pages (7)
-|   +-- index.html          # Discover hub (63 framework cards, 8 categories)
+|   +-- index.html          # AI Foundations timeline
++-- learn/                  # Framework pages (79+) + category pages (7)
+|   +-- index.html          # Discover hub (79 framework cards, 9 categories)
 |   +-- [7 category pages]  # structured-frameworks, reasoning-cot, etc.
-|   +-- [62 framework pages] # All redesigned to 13-section template
-|   +-- modality/code/      # Code frameworks (3 pages)
+|   +-- [67 text framework pages]
+|   +-- modality/
+|       +-- index.html      # Modality hub page
+|       +-- code/           # Code frameworks (3 pages)
+|       +-- image/          # Image frameworks (12 pages) -- NEW Session 46
 +-- data/
-|   +-- glossary.json       # 2,141 AI terms (lazy loaded, ~818 KB)
-|   +-- search-index.json   # 2,226 searchable entries (~350 KB)
+|   +-- glossary.json       # 2,141 AI terms
+|   +-- search-index.json   # Search entries (79 frameworks + glossary + pages)
 +-- pages/                  # 12 content pages
 +-- tools/                  # 12 AI readiness tools
 +-- neurodivergence/        # 6 ND pages
@@ -257,34 +267,7 @@ _public_html/
 
 ---
 
-## INTERACTIVE COMPONENTS AVAILABLE
-
-| Component | CSS Class | Use For |
-|-----------|-----------|---------|
-| Accordions | `.accordion-item`, `.accordion-header`, `.accordion-content` | Expandable sections |
-| Comparison panels | `.comparison-panel` | Before/after, side-by-side |
-| Element timelines | `.element-timeline` | Step-by-step processes |
-| Feature lists | `.feature-list` | Perfect For / Skip It When |
-| Pillar cards | `.pillar-card`, `.pillar-card--featured` | Card grids |
-| Evolution timeline | `.evolution-timeline`, `.era-marker` | Framework positioning |
-| Evolution callout | `.evolution-callout` | Related framework links |
-| Use case showcase | `.use-case-showcase` | Application scenarios |
-| Technique demo | `.technique-demo` | Interactive demonstrations |
-| Scenario timeline | `.scenario-timeline` | Multi-step examples |
-| Conversation timeline | `.conversation-timeline` | Dialogue examples |
-| Highlight boxes | `.highlight-box`, `.highlight-box--warning` | Callouts, notices |
-| Split sections | `.split-section` | Two-column layouts |
-| History events | `.history-event`, `.history-event--landmark` | Timeline events |
-| Era headers | `.era-header` | Timeline era sections |
-| Era frameworks | `.era-frameworks`, `.era-frameworks__grid` | Framework directory grids |
-| Framework status | `.framework-status--active`, `--adopted`, `--historical` | Relevancy badges |
-| CTA corporate | `.cta-corporate` | Call to action with neural bg |
-| Icon boxes | `.icon-box` | Clickable category/tool cards |
-| Counter grid | `.counter-grid` | Animated stat counters |
-
----
-
-## 9 FRAMEWORK CATEGORIES (70 frameworks)
+## 10 FRAMEWORK CATEGORIES (79 frameworks)
 
 | Category | Count | Category Page | Status |
 |----------|-------|---------------|--------|
@@ -297,8 +280,7 @@ _public_html/
 | Ensemble Methods | 7 | `learn/ensemble-methods.html` | DONE |
 | Prompting Strategies | 11 | `learn/prompting-strategies.html` | DONE |
 | Code | 3 | -- | Uses `learn/modality/code/` hub |
-
-Full framework inventory by category: see `.claude/plans/discover-hub-category-pages.md`
+| Image | 12 | -- | Uses `learn/modality/image/` via modality hub |
 
 ---
 

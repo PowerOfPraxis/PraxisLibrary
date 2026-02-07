@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Image-as-Text Prompting: Convert visual information into structured text descriptions to enable text-only models to reason about image content effectively.">
+    <title>Image-as-Text Prompting - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts & Fictions</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context & Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../reasoning-cot.html">Reasoning & CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Code</h4>
+                            <a href="../../modality/code/code-prompting.html">Code Prompting</a>
+                            <a href="../../modality/code/self-debugging.html">Self-Debugging</a>
+                            <a href="../../modality/code/structured-output.html">Structured Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI & ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Image-as-Text</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Image Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Image-as-Text Prompting</h1>
+                <p class="page-subtitle fade-in">Convert visual information into structured textual descriptions &mdash; enabling any text-based AI model to reason about image content with precision and reliability.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2023</span>
+                        <p><strong>Introduced:</strong> Image-as-Text emerged as a bridge technique when multimodal models were not yet widely available. The approach converts image content into detailed text descriptions &mdash; using captioning models, OCR, or human annotation &mdash; so text-only LLMs can reason about visual content. Researchers and practitioners developed systematic methods for translating visual scenes, documents, and diagrams into structured textual representations that preserved the information needed for downstream reasoning tasks.</p>
+                        <p><strong>Modern LLM Status:</strong> Even with native multimodal models now widely available, Image-as-Text remains a <strong>highly relevant technique</strong>. Converting visual information into structured text produces representations that can be processed more reliably than raw image inputs for many analytical tasks. The technique excels in pipelines where text-only models are preferred for cost or latency reasons, where structured data extraction is the goal, where accessibility requirements demand textual alternatives, or where archival documents must be processed at scale. Image-as-Text also serves as a valuable preprocessing step even when multimodal models are available &mdash; structured descriptions often yield more precise reasoning than passing images directly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">From Pixels to Structured Meaning</h2>
+                        <p class="split-section__text">Not all AI tasks require native image understanding. Image-as-Text converts visual information into structured text &mdash; scene descriptions, spatial layouts, OCR output, attribute lists &mdash; that any text-based model can process. The transformation is not merely a convenience; it is a fundamentally different way of representing visual knowledge that unlocks specific analytical capabilities.</p>
+                        <p class="split-section__text"><strong>The key insight: a well-structured textual description of an image often enables more precise reasoning than passing the raw image.</strong> This happens because the conversion process forces explicit articulation of visual features that might otherwise be processed ambiguously by a vision model. When you describe &ldquo;a red stop sign partially obscured by a tree branch, positioned 20 meters ahead on the right side of the road,&rdquo; every detail is unambiguous. When you pass the raw image, the model must decide which details matter &mdash; and it may focus on the wrong ones.</p>
+                        <p class="split-section__text">Think of Image-as-Text as creating a structured inventory of visual information. Just as a building inspector produces a written report rather than simply handing over photographs, this technique produces a document that captures exactly the visual features relevant to the task at hand.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Structure Beats Raw Input</span>
+                                <p>When visual information is converted to structured text, it becomes searchable, filterable, and composable. A text description can be parsed into fields, compared against templates, and combined with other textual data in ways that raw image embeddings cannot support. The structured representation also makes the model&rsquo;s reasoning fully transparent &mdash; you can see exactly which visual features informed each conclusion, making errors easy to diagnose and correct.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Image-as-Text Process</h2>
+                <p class="section-subtitle fade-in-up">Four stages from visual input to reasoned analysis</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Capture Visual Content</h3>
+                            <p class="element-timeline__text">Use captioning models, OCR engines, or structured human annotation to extract the visual information from the image. The goal is not to produce a single literary description but to systematically capture every relevant visual element &mdash; text, objects, spatial relationships, colors, quantities, and contextual cues.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>An OCR engine processes a scanned invoice, extracting all printed text, table structures, and numerical values into a raw text output ready for structuring.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Structure the Description</h3>
+                            <p class="element-timeline__text">Organize the extracted visual information into well-defined categories. Common categories include objects present, spatial relations between them, any text or numbers visible, colors and visual attributes, and quantities or measurements. The structured format ensures nothing is lost and the model can reason about specific aspects independently.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Merchant: Corner Bakery. Items: Sourdough loaf ($6.50), Croissants x3 ($4.50 each), Coffee ($3.25). Subtotal: $20.25. Tax (8%): $1.62. Total: $21.87. Payment: Visa ending 4821.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Feed to Text Model</h3>
+                            <p class="element-timeline__text">Provide the structured textual description as context for the text-only LLM, along with the specific question or task. Frame the description clearly so the model understands it represents visual content that has been converted to text. Include any task-specific instructions about which aspects of the description to focus on.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;The following is a structured description of a receipt image. Based on this information, identify any pricing errors and verify the total calculation.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Reason and Respond</h3>
+                            <p class="element-timeline__text">The model uses the textual representation to answer questions, perform analysis, or generate structured outputs. Because the visual information is now in text form, the model can apply all of its language reasoning capabilities &mdash; arithmetic, logic, comparison, classification &mdash; to the visual content with full precision.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;The receipt contains a calculation error. Three croissants at $4.50 each should total $13.50, not the $12.00 implied by the subtotal. The correct subtotal should be $23.25, making the corrected total $25.11 with tax.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why structured text descriptions outperform vague image queries</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Direct Image + Vague Query</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>[Attached image of a complex architectural floor plan] What can you tell me about this?</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>This appears to be a floor plan for a building. It shows several rooms and corridors. There seem to be some measurements indicated.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Vague, unfocused response with no actionable detail</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Image-as-Text Approach</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Structured Description</span>
+                                <p>Floor plan description: Ground floor, 185 sqm total. Rooms: Living room (42 sqm, south-facing, 2 windows), Kitchen (28 sqm, east-facing, connected to living room via archway), Master bedroom (24 sqm, north-facing), 2 secondary bedrooms (16 sqm each), 2 bathrooms (8 sqm, 6 sqm). Hallway: L-shaped, 3.2m width. Entry: north side, double door. Based on this layout, does this floor plan meet accessibility requirements for wheelchair access?</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>Based on the description, the 3.2m hallway width exceeds the minimum 900mm requirement for wheelchair access. However, several concerns arise: the bathroom at 6 sqm may be too small for wheelchair turning radius (minimum 1500mm turning circle requires approximately 7 sqm). The archway between kitchen and living room needs verification for minimum 800mm clear width. The double-door entry is positive for accessibility. Recommendation: expand the smaller bathroom and verify all doorway widths.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Precise, grounded analysis with specific, actionable recommendations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Image-as-Text in Action</h2>
+                <p class="section-subtitle fade-in-up">Three practical applications of converting visual content to structured text</p>
+
+                <div class="accordion fade-in-up" id="iat-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Receipt Processing</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">OCR Extraction</span>
+                                    <p>A receipt photograph is processed through OCR and structured into fields: <strong>Merchant:</strong> Green Valley Market. <strong>Date:</strong> 2024-03-15. <strong>Items:</strong> Organic milk ($5.99), Whole wheat bread ($4.29), Avocados x4 ($1.25 each), Chicken breast 2.3 lbs ($4.99/lb), Reusable bag ($1.00). <strong>Subtotal:</strong> $21.77. <strong>Tax (6.25%):</strong> $1.36. <strong>Total:</strong> $23.13. <strong>Payment:</strong> Debit card ending 7293.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Text Model Analysis</span>
+                                    <p>Verification reveals a pricing discrepancy. Avocados: 4 at $1.25 = $5.00. Chicken breast: 2.3 lbs at $4.99/lb = $11.48 (rounded). Expected subtotal: $5.99 + $4.29 + $5.00 + $11.48 + $1.00 = $27.76. The receipt subtotal of $21.77 is $5.99 lower than calculated &mdash; suggesting the chicken was charged at the wrong weight or per-pound rate. The structured format made this discrepancy immediately detectable through simple arithmetic.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Scene Description for Accessibility</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Structured Scene Description</span>
+                                    <p>A photograph is described with structured annotations: <strong>Setting:</strong> Urban park, mid-afternoon, partly cloudy. <strong>Foreground:</strong> Wooden bench facing a pond, elderly woman seated reading a hardcover book. <strong>Middle ground:</strong> Gravel path curving left, two children on bicycles, a golden retriever on a leash held by a man in a blue jacket. <strong>Background:</strong> Row of mature oak trees, three-story brownstone buildings, church steeple visible above tree line. <strong>Mood:</strong> Calm, leisurely atmosphere. <strong>Notable details:</strong> Fall foliage (orange, yellow, red leaves), scattered leaves on ground and pond surface.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Accessible Alt Text Generated</span>
+                                    <p>The text model generates three versions: a brief alt text (&ldquo;An elderly woman reads on a park bench beside a pond in autumn, with children cycling and a dog walker on a nearby path&rdquo;), a medium description for context-rich applications, and a long-form audio description for visually impaired users that narrates the scene spatially from foreground to background. The structured input ensured no significant visual element was omitted from any version.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Diagram-to-Text for Reasoning</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Flowchart Converted to Text</span>
+                                    <p>A customer support flowchart is described textually: <strong>Start:</strong> Customer submits ticket. <strong>Decision 1:</strong> Is it a billing issue? If yes, route to Billing Team. If no, proceed. <strong>Decision 2:</strong> Is it a technical issue? If yes, check severity. High severity: escalate to Engineering (SLA: 4 hours). Low severity: route to Tech Support (SLA: 24 hours). If no, route to General Support. <strong>All paths end at:</strong> Resolution confirmed, ticket closed, satisfaction survey sent.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Process Analysis</span>
+                                    <p>The text model identifies a gap in the flowchart: there is no handling for tickets that are both billing and technical issues (such as a billing error caused by a system bug). It also notes that the &ldquo;General Support&rdquo; category is a catch-all that could hide miscategorized tickets. Recommendation: add a multi-category classification step and define escalation paths for hybrid issues. This structural analysis was possible because the flowchart&rsquo;s logic was fully explicit in text form.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Image-as-Text</h2>
+                <p class="section-subtitle fade-in-up">Match the technique to the right scenarios</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Text-Only Model Pipelines</strong>
+                                    <p>When your production environment uses text-only models for cost, latency, or compliance reasons, Image-as-Text is the bridge that brings visual content into the pipeline without changing the model architecture.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Structured Data Extraction from Images</strong>
+                                    <p>Receipts, invoices, forms, and documents where the goal is to extract specific fields into a structured format that downstream systems can consume.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Accessibility Applications</strong>
+                                    <p>Creating rich, structured alt text and audio descriptions for visually impaired users, where the textual representation must capture spatial relationships and contextual meaning.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Archival Document Processing</strong>
+                                    <p>Digitizing and analyzing historical documents, handwritten records, and scanned materials at scale where each document must become a searchable, queryable text record.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Native Multimodal Models Are Preferred</strong>
+                                    <p>When you have access to a capable multimodal model and the task benefits from direct visual understanding rather than a textual intermediary &mdash; such as identifying objects in cluttered scenes or assessing artistic composition.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Real-Time Processing Is Required</strong>
+                                    <p>The two-step process of extracting then reasoning adds latency. For real-time applications like autonomous driving or live video analysis, direct vision models are more appropriate.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Visual Nuance Matters More Than Content</strong>
+                                    <p>When color gradients, artistic style, texture, lighting quality, or subtle visual patterns are the primary subject of analysis &mdash; these qualities are difficult to capture fully in textual descriptions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Image-as-Text delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Document Digitization</h3>
+                        <p class="use-case-showcase__desc">Convert scanned contracts, letters, and forms into structured text that can be searched, indexed, and analyzed by text-based systems at enterprise scale.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <circle cx="12" cy="10" r="3"/>
+                                <path d="M12 13v6M9 17l3 3 3-3"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Accessibility Services</h3>
+                        <p class="use-case-showcase__desc">Generate detailed, context-aware alt text and audio descriptions for images across websites, applications, and digital publications for visually impaired users.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 2l4 4-4 4"/>
+                                <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                                <path d="M7 22l-4-4 4-4"/>
+                                <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Legacy System Integration</h3>
+                        <p class="use-case-showcase__desc">Bridge visual data into text-only enterprise systems, APIs, and databases that were designed before multimodal capabilities existed.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="3" y1="9" x2="21" y2="9"/>
+                                <line x1="3" y1="15" x2="21" y2="15"/>
+                                <line x1="9" y1="3" x2="9" y2="21"/>
+                                <line x1="15" y1="3" x2="15" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Structured Data Extraction</h3>
+                        <p class="use-case-showcase__desc">Pull structured fields from receipts, business cards, labels, and signage into databases, spreadsheets, or CRM systems with consistent formatting.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Cross-Modal Search</h3>
+                        <p class="use-case-showcase__desc">Enable text-based search across image collections by converting visual content into searchable textual descriptions that standard search engines can index.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Archival Processing</h3>
+                        <p class="use-case-showcase__desc">Digitize and catalog historical photographs, manuscripts, maps, and artifacts into structured records that researchers can query and analyze systematically.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Image-as-Text Fits</h2>
+                <p class="section-subtitle fade-in-up">A bridge technique in the evolution of visual AI reasoning</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">OCR / Captioning</span>
+                        <span class="era-marker__title">Raw Extraction</span>
+                        <span class="era-marker__desc">Basic text recognition and simple image captions</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Image-as-Text</span>
+                        <span class="era-marker__title">Structured Conversion</span>
+                        <span class="era-marker__desc">Systematic visual-to-text translation for LLM reasoning</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Multimodal Prompting</span>
+                        <span class="era-marker__title">Integrated Input</span>
+                        <span class="era-marker__desc">Images and text combined in a single prompt</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Native Vision Models</span>
+                        <span class="era-marker__title">Direct Understanding</span>
+                        <span class="era-marker__desc">End-to-end visual reasoning without text intermediary</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">The Enduring Value of Structured Intermediaries</div>
+                    <p>While native vision models continue to advance, Image-as-Text retains its value for a fundamental reason: structured text is inherently more transparent and controllable than opaque visual embeddings. When you convert an image to structured text, you create an auditable record of exactly what visual information the model is working with. This transparency is essential for compliance-sensitive industries, accessibility requirements, and any application where you need to verify that the model&rsquo;s understanding of the visual input is correct before it reasons further. The technique is not a stopgap &mdash; it is a design pattern for reliable visual AI systems.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore techniques that complement Image-as-Text prompting</p>
+
+                <a href="image-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">Image Prompting</span>
+                        <span class="evolution-callout__desc">Work directly with images in multimodal models &mdash; the native approach that Image-as-Text bridges for text-only pipelines.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="vqa.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Visual Question Answering</span>
+                        <span class="evolution-callout__desc">Answer specific questions about images &mdash; Image-as-Text can serve as a preprocessing step to improve VQA accuracy and transparency.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="multimodal-cot.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Multimodal Chain-of-Thought</span>
+                        <span class="evolution-callout__desc">Combine visual and textual reasoning in step-by-step chains &mdash; Image-as-Text descriptions can enhance the textual reasoning stages of multimodal CoT.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Bridge Vision and Text</h2>
+                        <p class="cta-corporate__text">Turn visual information into structured text that any AI model can reason about with precision. Explore our tools to build effective Image-as-Text prompts.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">AI Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+        <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>Master the Art of AI Communication theory through proven frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Discover</h4>
+                <a href="../../prompt-basics.html">Prompt Basics</a>
+                <a href="../../crisp.html">CRISP Framework</a>
+                <a href="../../crispe.html">CRISPE Framework</a>
+                <a href="../../costar.html">COSTAR Framework</a>
+                <a href="../../react.html">ReAct Framework</a>
+                <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness</h4>
+                <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../../../tools/guidance.html">Prompt Builder</a>
+                <a href="../../../tools/matcher.html">Framework Matcher</a>
+                <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../../../quiz/index.html">Readiness Quiz</a>
+                <a href="../../../patterns/index.html">Patterns Library</a>
+                <a href="../../../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                <a href="../../../pages/faq.html">FAQ</a>
+                <a href="../../../pages/glossary.html">Glossary</a>
+                <a href="../../../pages/security.html">Security</a>
+                <a href="../../../pages/performance.html">Performance</a>
+                <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                <a href="../../../pages/universal-design.html">Universal Design</a>
+                <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                <a href="../../../pages/about.html">About</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everybody</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+        </div>
+    </div>
+</footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>

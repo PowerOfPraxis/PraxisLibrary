@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multimodal Chain of Thought: Extend step-by-step reasoning to combine visual and textual information for more accurate multimodal AI responses.">
+    <title>Multimodal Chain of Thought - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts & Fictions</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context & Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../reasoning-cot.html">Reasoning & CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Code</h4>
+                            <a href="../code/code-prompting.html">Code Prompting</a>
+                            <a href="../code/self-debugging.html">Self-Debugging</a>
+                            <a href="../code/structured-output.html">Structured Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI & ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Multimodal CoT</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Image Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Multimodal Chain of Thought</h1>
+                <p class="page-subtitle fade-in">Combine visual and textual reasoning in explicit step-by-step chains &mdash; ensuring AI models ground their answers in what they actually see, not just what they assume from text alone.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2023</span>
+                        <p><strong>Introduced:</strong> Multimodal Chain-of-Thought was introduced by Zhang et al. in 2023. The framework extends Chain-of-Thought prompting to multimodal inputs by generating rationales that incorporate both text and image information before producing a final answer. It operates as a two-stage framework: first, rationale generation from multimodal input that explicitly references visual elements; second, answer inference that uses the generated rationale alongside the original image and text to derive a grounded conclusion.</p>
+                        <p><strong>Modern LLM Status:</strong> The principle of multimodal reasoning has been <strong>absorbed into how frontier multimodal models process visual reasoning tasks</strong>. GPT-4V, Gemini, and Claude all incorporate visual understanding into their reasoning pipelines. However, explicit Multimodal CoT formatting remains valuable for complex visual-textual reasoning chains where you need the model to systematically describe what it observes in an image, connect those observations to domain knowledge, and produce answers that are visibly grounded in visual evidence rather than text-only inference.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Reasoning Across Modalities</h2>
+                        <p class="split-section__text">Standard Chain-of-Thought works with text alone. When a model encounters a question paired with an image, it may generate a reasoning chain that relies entirely on textual knowledge while ignoring the visual evidence in front of it. This leads to answers that sound plausible but contradict what the image actually shows.</p>
+                        <p class="split-section__text"><strong>Multimodal CoT solves this with a two-stage approach.</strong> First, the model generates a rationale that explicitly references visual elements &mdash; describing what the diagram shows, what the chart indicates, or what spatial relationships exist in the image. Then, in the second stage, the model uses that visual rationale plus the original image to derive its final answer. By forcing the reasoning chain to pass through visual description before reaching a conclusion, the framework prevents the model from taking shortcuts through text-only inference.</p>
+                        <p class="split-section__text">The key insight is that multimodal reasoning is not simply &ldquo;looking at an image and answering a question.&rdquo; It requires the model to articulate what it sees, connect visual observations to relevant knowledge, and chain those connections into a coherent argument &mdash; just as a human expert would narrate their analysis of a complex diagram.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Two Stages Matter</span>
+                                <p>When models answer visual questions in a single pass, text-based priors often dominate &mdash; the model &ldquo;knows&rdquo; typical answers and may ignore visual evidence that contradicts expectations. The two-stage approach forces visual grounding first: the rationale must describe what is in the image before any reasoning begins. This explicit visual articulation creates a textual anchor that the second stage cannot bypass, ensuring the final answer reflects what was actually observed rather than what was merely expected.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Multimodal CoT Process</h2>
+                <p class="section-subtitle fade-in-up">Four stages from multimodal input to grounded answer</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Present Multimodal Input</h3>
+                            <p class="element-timeline__text">Provide both the image and the text question together as a unified input. The prompt should clearly establish that the model needs to consider both the visual content and the textual question. Frame the task so the model understands it must look at the image to answer correctly &mdash; not rely on background knowledge alone.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Look at the physics diagram below showing forces acting on a block on an inclined plane. Using the information visible in the diagram, determine the net force on the block.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Generate Visual Rationale</h3>
+                            <p class="element-timeline__text">The model describes the relevant visual features it observes in the image and begins building a reasoning chain. This stage focuses on articulating what the image contains &mdash; labels, values, spatial relationships, visual patterns &mdash; translating visual information into explicit textual descriptions that can anchor subsequent reasoning steps.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;The diagram shows a block on a 30-degree incline. I can see three labeled force arrows: gravity (mg = 50N) pointing straight down, a normal force (N) perpendicular to the surface, and a friction force (f = 10N) pointing up the incline.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Integrate Text and Vision</h3>
+                            <p class="element-timeline__text">The rationale connects the visual observations from stage two to relevant textual knowledge. This is where the model applies domain expertise to the visual evidence &mdash; using physics formulas with the values read from the diagram, interpreting chart trends through statistical knowledge, or connecting map features to geographic concepts.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;The gravitational component along the incline is mg sin(30) = 50 &times; 0.5 = 25N pointing down the slope. The friction force opposing motion is 10N up the slope. Therefore the net force along the incline is 25N &minus; 10N = 15N down the slope.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Derive Final Answer</h3>
+                            <p class="element-timeline__text">The answer is grounded in the explicit multimodal reasoning chain. Because every step is visible &mdash; from visual observation through domain knowledge application to final conclusion &mdash; the answer is auditable. If incorrect, you can trace exactly where the visual reading or reasoning went wrong.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;The net force on the block is 15N directed down the inclined plane. This means the block will accelerate down the slope, as the gravitational component exceeds the friction force shown in the diagram.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">How explicit visual reasoning prevents errors on diagram-based questions</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Direct Answer</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Look at this science diagram showing the water cycle. Which process moves water from the ocean to the atmosphere?</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>Precipitation moves water from the ocean to the atmosphere.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Wrong answer &mdash; skipped visual analysis, confused process directions</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Multimodal CoT</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Visual Rationale</span>
+                                <p><strong>Observation:</strong> The diagram shows arrows indicating different water cycle processes. I can see an upward arrow from the ocean surface labeled &ldquo;Evaporation,&rdquo; a horizontal arrow at cloud level labeled &ldquo;Condensation,&rdquo; and a downward arrow from clouds to land labeled &ldquo;Precipitation.&rdquo;<br><br><strong>Reasoning:</strong> The question asks which process moves water from ocean to atmosphere. Looking at the arrow directions in the diagram, &ldquo;Evaporation&rdquo; is the upward arrow originating at the ocean surface and pointing toward the atmosphere. &ldquo;Precipitation&rdquo; moves in the opposite direction &mdash; downward from atmosphere to surface.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Final Answer</span>
+                                <p>Evaporation moves water from the ocean to the atmosphere. The diagram clearly shows the evaporation arrow pointing upward from the ocean surface into the sky, while precipitation arrows point downward.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Correct answer, grounded in explicit visual observation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Multimodal CoT in Action</h2>
+                <p class="section-subtitle fade-in-up">See how visual-textual reasoning chains work across different domains</p>
+
+                <div class="accordion fade-in-up" id="mcot-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Science Diagram Reasoning</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Multimodal Input</span>
+                                    <p>&ldquo;The diagram shows a pulley system with two masses connected by a rope. Mass A is on a horizontal table and Mass B hangs vertically off the edge. Using the values shown in the diagram, determine whether Mass A will slide toward the edge or remain stationary.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Multimodal CoT Response</span>
+                                    <p><strong>Visual observation:</strong> The diagram shows Mass A = 5 kg on a table surface with a friction coefficient label of 0.3. Mass B = 3 kg hangs vertically, connected to A by a rope running over a frictionless pulley at the table&rsquo;s edge.<br><br>
+                                    <strong>Reasoning from visual evidence:</strong> The tension pulling A toward the edge equals the weight of B: T = 3 kg &times; 9.8 m/s&sup2; = 29.4 N. The maximum static friction on A is: f = 0.3 &times; 5 kg &times; 9.8 m/s&sup2; = 14.7 N. Since the tension (29.4 N) exceeds the maximum friction force (14.7 N), the system will accelerate.<br><br>
+                                    <strong>Answer:</strong> Mass A will slide toward the edge. The hanging weight of Mass B produces a force nearly double the maximum friction that the table surface can exert on Mass A.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Chart Data Extraction</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Multimodal Input</span>
+                                    <p>&ldquo;This dual-axis chart shows monthly revenue (bar chart, left axis) and customer satisfaction scores (line chart, right axis) for an e-commerce company over 12 months. In which months did revenue increase while satisfaction decreased, and what might explain this pattern?&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Multimodal CoT Response</span>
+                                    <p><strong>Visual observation:</strong> Reading the bar heights against the left axis and line positions against the right axis for each month. The bars show revenue rising in March, July, November, and December. The satisfaction line dips in July, November, and December but rises in March.<br><br>
+                                    <strong>Integration:</strong> Revenue increased while satisfaction decreased in three months: July, November, and December. These correspond to summer sales, Black Friday, and holiday shopping seasons. High-volume sales periods often strain fulfillment capacity, leading to shipping delays and overwhelmed support teams.<br><br>
+                                    <strong>Answer:</strong> Revenue rose while satisfaction fell in July, November, and December. The pattern suggests that peak shopping seasons drive higher sales volume but degrade the customer experience through slower shipping, inventory issues, or reduced support quality under high demand.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Map-Based Reasoning</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Multimodal Input</span>
+                                    <p>&ldquo;This topographic map shows a region with contour lines, a river, and three potential sites marked A, B, and C for building a new water treatment facility. Based on the map features, which site is most suitable and why?&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Multimodal CoT Response</span>
+                                    <p><strong>Visual observation:</strong> Site A is located on tightly packed contour lines upstream on a steep hillside. Site B sits on a flat area adjacent to the river with widely spaced contour lines and road access visible. Site C is in a low-lying area downstream where the contour lines indicate a flood plain &mdash; the river bends around this area and the elevation markings are below the flood line.<br><br>
+                                    <strong>Spatial reasoning:</strong> Site A is impractical due to the steep terrain visible from the dense contour lines &mdash; construction costs would be prohibitive and access would be difficult. Site C is in a flood plain as indicated by its low elevation relative to the river bend, creating serious risk of flood damage. Site B has flat terrain, sits above the flood plain, has visible road infrastructure, and maintains proximity to the river for water intake.<br><br>
+                                    <strong>Answer:</strong> Site B is the most suitable location. It offers flat buildable terrain, elevation above flood risk, direct river access for water intake, and existing road infrastructure for construction and operations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Multimodal CoT</h2>
+                <p class="section-subtitle fade-in-up">Best for tasks that require reasoning through visual evidence</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Science and Math Problems with Diagrams</strong>
+                                    <p>Physics force diagrams, chemistry molecular structures, biology system diagrams, and geometry figures where visual information carries quantitative data essential to solving the problem.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Chart and Graph Interpretation</strong>
+                                    <p>Multi-axis charts, scatter plots with trend lines, stacked bar charts, and complex visualizations where extracting and cross-referencing data from visual elements is necessary for accurate analysis.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Visual Reasoning Tasks</strong>
+                                    <p>Spatial relationship questions, visual comparison problems, pattern recognition in images, and any task where the answer depends on understanding the geometry or layout of visual elements.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Educational Content with Figures</strong>
+                                    <p>Textbook problems that pair questions with illustrations, figures, or diagrams &mdash; where students and educators need the AI to demonstrate how visual evidence supports each reasoning step.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Images Contain Only Text</strong>
+                                    <p>If the image is a screenshot of text, a scanned document, or a text-heavy slide, use OCR-focused approaches instead &mdash; no visual reasoning chain is needed when the task is simply reading.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>No Visual Reasoning Is Needed</strong>
+                                    <p>When the question can be answered entirely from the text without referencing the image, adding a multimodal reasoning chain introduces unnecessary complexity and latency.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Simple Image Description Suffices</strong>
+                                    <p>When the task is straightforward captioning or object identification &mdash; &ldquo;What animal is in this photo?&rdquo; &mdash; a full reasoning chain adds overhead without improving accuracy.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Multimodal CoT delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">STEM Education</h3>
+                        <p class="use-case-showcase__desc">Help students work through physics diagrams, chemistry structures, and biology system charts by generating reasoning chains that explicitly reference visual elements alongside domain formulas.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Financial Chart Analysis</h3>
+                        <p class="use-case-showcase__desc">Extract data from complex financial charts &mdash; candlestick patterns, multi-indicator overlays, and comparative dashboards &mdash; and reason through trends, correlations, and anomalies step by step.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Medical Imaging Reports</h3>
+                        <p class="use-case-showcase__desc">Generate structured observations from medical images, connecting visible features to clinical knowledge to produce reasoning chains that support diagnostic hypotheses with visual evidence.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Technical Diagram Interpretation</h3>
+                        <p class="use-case-showcase__desc">Analyze engineering schematics, circuit diagrams, and architectural blueprints by reading labeled components from the image and tracing signal flows or structural relationships.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="2" y1="12" x2="22" y2="12"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Geographic Analysis</h3>
+                        <p class="use-case-showcase__desc">Reason through topographic maps, satellite imagery, and geographic information systems by identifying spatial features, measuring distances, and applying geographic knowledge to visual observations.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                <line x1="12" y1="22.08" x2="12" y2="12"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Visual Data Science</h3>
+                        <p class="use-case-showcase__desc">Interpret data visualizations &mdash; heatmaps, network graphs, dimensionality reduction plots &mdash; by describing visual patterns first and then applying statistical or analytical reasoning to those observations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Multimodal CoT Fits</h2>
+                <p class="section-subtitle fade-in-up">Extending reasoning from text-only to visual-textual domains</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Chain-of-Thought</span>
+                        <span class="era-marker__title">Text-Only Reasoning</span>
+                        <span class="era-marker__desc">Step-by-step reasoning from textual input</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Multimodal CoT</span>
+                        <span class="era-marker__title">Visual-Textual Reasoning</span>
+                        <span class="era-marker__desc">Two-stage rationale generation from image and text</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Visual CoT</span>
+                        <span class="era-marker__title">Grounded Visual Chains</span>
+                        <span class="era-marker__desc">Reasoning anchored to specific image regions</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Multimodal Agents</span>
+                        <span class="era-marker__title">Autonomous Visual Reasoning</span>
+                        <span class="era-marker__desc">Agents that plan, observe, and act across modalities</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Bridging Text and Vision</div>
+                    <p>Multimodal CoT occupies a critical position in the evolution of AI reasoning. Before this framework, Chain-of-Thought was limited to text-only problems &mdash; if an image was involved, the model either described it superficially or ignored visual details in favor of text-based assumptions. By formalizing the two-stage approach of visual rationale generation followed by grounded answer inference, Multimodal CoT established the pattern that modern vision-language models now build upon. The framework&rsquo;s core principle &mdash; that models must articulate what they see before reasoning about it &mdash; remains essential for getting reliable results from any multimodal AI system.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore techniques connected to Multimodal CoT</p>
+
+                <a href="../../chain-of-thought.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Chain-of-Thought</span>
+                        <span class="evolution-callout__desc">The original text-only step-by-step reasoning technique that Multimodal CoT extends to visual-textual domains &mdash; understanding CoT is essential for applying its multimodal variant effectively.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="visual-cot.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">Visual CoT</span>
+                        <span class="evolution-callout__desc">Takes multimodal reasoning further by anchoring each reasoning step to specific regions within the image &mdash; moving from whole-image observation to spatially grounded visual chains.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="image-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Image Prompting Basics</span>
+                        <span class="evolution-callout__desc">The foundational techniques for working with images in AI prompts &mdash; understanding image prompting fundamentals makes Multimodal CoT&rsquo;s structured approach more effective.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Reason Through Images</h2>
+                        <p class="cta-corporate__text">Apply Multimodal CoT to your own visual reasoning tasks or build structured multimodal prompts with our interactive tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>Master the Art of AI Communication theory through proven frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Discover</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">COSTAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness</h4>
+                    <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                    <a href="../../../tools/guidance.html">Prompt Builder</a>
+                    <a href="../../../tools/matcher.html">Framework Matcher</a>
+                    <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                    <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                    <a href="../../../quiz/index.html">Readiness Quiz</a>
+                    <a href="../../../patterns/index.html">Patterns Library</a>
+                    <a href="../../../pages/ai-safety.html">AI Safety</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                    <a href="../../../pages/faq.html">FAQ</a>
+                    <a href="../../../pages/glossary.html">Glossary</a>
+                    <a href="../../../pages/security.html">Security</a>
+                    <a href="../../../pages/performance.html">Performance</a>
+                    <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                    <a href="../../../pages/universal-design.html">Universal Design</a>
+                    <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                    <a href="../../../pages/about.html">About</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK-TO-TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK-TO-TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>

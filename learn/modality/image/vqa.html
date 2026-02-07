@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visual Question Answering (VQA): Techniques for asking precise questions about images and getting accurate, grounded answers from multimodal AI models.">
+    <title>Visual Question Answering - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts & Fictions</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context & Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../reasoning-cot.html">Reasoning & CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Code</h4>
+                            <a href="../../modality/code/code-prompting.html">Code Prompting</a>
+                            <a href="../../modality/code/self-debugging.html">Self-Debugging</a>
+                            <a href="../../modality/code/structured-output.html">Structured Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI & ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Visual Question Answering</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Image Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Visual Question Answering</h1>
+                <p class="page-subtitle fade-in">Ask precise questions about images and receive grounded, accurate responses. Visual Question Answering transforms how you extract structured information from visual content by turning vague descriptions into targeted, verifiable answers.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2015 / 2023</span>
+                        <p><strong>Origins:</strong> Visual Question Answering as a formal research task dates to 2015, when Antol et al. introduced the VQA dataset&mdash;a large-scale benchmark pairing images with open-ended natural language questions. Early VQA systems relied on separate vision encoders and language decoders, stitched together through attention mechanisms. These pipelines achieved moderate accuracy but struggled with compositional reasoning, spatial relationships, and questions requiring real-world knowledge beyond what was visible in the image.</p>
+                        <p><strong>Modern LLM Status:</strong> The field was transformed in 2023 when large multimodal models&mdash;GPT-4V, Gemini, and Claude&rsquo;s vision capabilities&mdash;achieved near-human performance on standard VQA benchmarks by processing images natively alongside text. VQA is now a <strong>core capability</strong> of frontier multimodal models, but prompt design remains critical for getting precise, grounded answers rather than generic descriptions. The difference between a useful VQA response and a vague one almost always comes down to how the question is formulated. Specificity in the prompt directly determines specificity in the answer.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Asking the Right Question in the Right Way</h2>
+                        <p class="split-section__text">VQA is built on a deceptively simple principle: a vague question produces a vague answer. When you ask &ldquo;What do you see?&rdquo; a multimodal model returns a broad, unfocused description. When you ask &ldquo;How many red vehicles are in the parking lot, and what types are they?&rdquo; you get a structured, verifiable response. The core insight is that <strong>question specificity directly determines answer quality</strong>.</p>
+                        <p class="split-section__text">Effective VQA prompts specify three things: what visual element to focus on, what type of answer is expected&mdash;yes/no, multiple choice, open-ended, or numeric&mdash;and what level of detail is appropriate for the task. This precision transforms the model from a general-purpose describer into a targeted visual analyst.</p>
+                        <p class="split-section__text">The technique bridges the gap between pure image captioning, which describes everything without priorities, and structured visual reasoning, which requires multi-step logic about what is seen. VQA occupies the practical middle ground where most real-world image understanding tasks actually live.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Specificity Matters</span>
+                                <p>Multimodal models process images holistically&mdash;they see everything at once. Without a specific question to anchor attention, the model must decide on its own what matters. A well-crafted VQA prompt acts as a <strong>visual attention directive</strong>, telling the model exactly where to look and what kind of information to extract. This is why the same image can yield dramatically different quality responses depending solely on how the question is phrased.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The VQA Process</h2>
+                <p class="section-subtitle fade-in-up">Four stages from image to grounded answer</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Formulate a Precise Question</h3>
+                            <p class="element-timeline__text">Craft a specific, unambiguous question about the image. Avoid open-ended prompts like &ldquo;describe this image&rdquo; in favor of targeted queries that focus the model&rsquo;s attention on particular visual elements. The question should make clear what region, object, or relationship you care about.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;In the top-right quadrant of this satellite image, how many buildings have flat roofs versus pitched roofs?&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Specify the Answer Format</h3>
+                            <p class="element-timeline__text">Indicate whether you want a label, a count, a descriptive sentence, a yes/no determination, or structured reasoning. Models produce more reliable outputs when they know the expected format upfront. This constraint also makes responses easier to validate and integrate into downstream workflows.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Respond with a JSON object containing &lsquo;flat_roofs&rsquo; (integer count) and &lsquo;pitched_roofs&rsquo; (integer count).&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Ground in Visual Evidence</h3>
+                            <p class="element-timeline__text">Instruct the model to reference specific image elements in its answer. Grounding prevents hallucination by forcing the model to tie each claim back to something visible. Ask it to describe the visual cues that support its conclusion, such as colors, shapes, positions, or text that appears in the image.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;For each building you count, briefly note its approximate location and the visual feature that indicates its roof type.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Validate the Response</h3>
+                            <p class="element-timeline__text">Check that the answer actually addresses what is visible in the image. Look for signs of hallucination&mdash;details that sound plausible but cannot be confirmed from the image alone. Cross-reference the model&rsquo;s stated visual evidence against what you can verify independently. If the response includes claims unsupported by visible content, re-prompt with tighter constraints.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Verify: does the model reference specific buildings you can see, or does it appear to be estimating from general knowledge about the area?&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">How question specificity transforms the quality of visual answers</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Vague Question</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>&ldquo;What do you see?&rdquo;</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>&ldquo;This image shows a parking lot with several cars, some trees in the background, and a building. The weather appears to be sunny.&rdquo; &mdash; Long, unfocused description without actionable detail.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Generic, unstructured, no verifiable claims</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Targeted VQA</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>&ldquo;How many red vehicles are visible in the parking lot, and what types are they (sedan, SUV, truck)?&rdquo;</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>&ldquo;I can identify 3 red vehicles: 2 sedans (one in the second row near the center, one at the far left of the first row) and 1 SUV (parked near the building entrance on the right side).&rdquo; &mdash; Precise, structured, with spatial grounding.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Specific count, typed categories, spatial references</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">VQA in Action</h2>
+                <p class="section-subtitle fade-in-up">See how targeted visual questions produce reliable, structured answers</p>
+
+                <div class="accordion fade-in-up" id="vqa-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Counting Objects in a Crowded Scene</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">VQA Prompt</span>
+                                    <p><strong>Question:</strong> &ldquo;Count the number of people visibly carrying umbrellas in this street photograph. For each, note whether the umbrella is open or closed and give their approximate position (left, center, or right of frame).&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Grounded Response</span>
+                                    <p><strong>Answer:</strong> &ldquo;I count 5 people carrying umbrellas. Three have open umbrellas: one on the far left near the storefront awning, one at center walking toward the camera, and one on the right near the crosswalk. Two have closed umbrellas: one at center-left holding it at their side, and one at the far right tucked under their arm.&rdquo;<br><br>
+                                    <strong>Why this works:</strong> The prompt specifies the exact object to count (umbrellas, not people), requests a categorical distinction (open vs. closed), and asks for spatial grounding. This prevents the model from giving a vague estimate and forces it to commit to identifiable instances it can reference in the image.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Spatial Relationship Identification</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">VQA Prompt</span>
+                                    <p><strong>Question:</strong> &ldquo;Looking at this intersection photograph: Is the stop sign to the left or right of the traffic light from the driver&rsquo;s perspective? Are there any pedestrian crossing signals visible, and if so, what state are they in (walk, don&rsquo;t walk, countdown)?&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Grounded Response</span>
+                                    <p><strong>Answer:</strong> &ldquo;From the driver&rsquo;s perspective, the stop sign is to the right of the traffic light, mounted on a separate pole approximately two meters away. There is one pedestrian crossing signal visible on the far side of the intersection, currently displaying a solid &lsquo;don&rsquo;t walk&rsquo; hand symbol in orange.&rdquo;<br><br>
+                                    <strong>Why this works:</strong> The prompt establishes a viewpoint (&ldquo;from the driver&rsquo;s perspective&rdquo;), asks about a specific spatial relationship (left or right), and includes a follow-up question with predefined categories. This eliminates ambiguity about whose perspective is being used and what information matters.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Attribute Recognition</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">VQA Prompt</span>
+                                    <p><strong>Question:</strong> &ldquo;Examine the building facade in this photograph. What material appears to be used for the exterior walls (brick, stone, concrete, wood, glass, or other)? What is the approximate condition&mdash;well-maintained, showing minor wear, or visibly deteriorated? Cite specific visual evidence for your assessment.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Grounded Response</span>
+                                    <p><strong>Answer:</strong> &ldquo;The exterior walls appear to be red brick, based on the visible mortar joints and uniform rectangular pattern across the facade. The condition is showing minor wear: I can see discoloration and staining below the second-floor window sills, likely from water runoff, and some mortar erosion is visible at the base near ground level. However, the brick itself is intact with no large cracks or missing sections, and the window frames appear recently painted.&rdquo;<br><br>
+                                    <strong>Why this works:</strong> The prompt provides a constrained set of material categories, asks for a condition assessment on a defined scale, and explicitly requires visual evidence. The model cannot give a generic answer&mdash;it must identify specific features like mortar joints, staining patterns, and surface condition to justify its classification.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use VQA</h2>
+                <p class="section-subtitle fade-in-up">Best for extracting specific, verifiable information from images</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Structured Visual Data Extraction</strong>
+                                    <p>When you need counts, categories, measurements, or classifications from images rather than open-ended descriptions&mdash;turning visual content into structured data.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Image-Based Fact Checking</strong>
+                                    <p>Verifying specific claims about visual content&mdash;confirming whether objects, text, or conditions depicted in an image match stated assertions.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Accessibility Question and Answer</strong>
+                                    <p>Answering specific questions about visual content for users who cannot see the image, providing targeted information rather than overwhelming general descriptions.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Visual Inventory Tasks</strong>
+                                    <p>Counting, cataloging, or auditing objects in images&mdash;from shelf stock levels to equipment inspections to asset documentation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Open-Ended Creative Interpretation</strong>
+                                    <p>When you want the model to freely interpret mood, artistic meaning, or emotional impact of an image&mdash;VQA&rsquo;s structured approach can constrain rather than enhance creative responses.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Low-Quality or Ambiguous Images</strong>
+                                    <p>When image resolution, lighting, or occlusion make reliable answers impossible&mdash;forcing specific answers from unclear images increases hallucination risk rather than reducing it.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Domain Expertise Beyond Model Capability</strong>
+                                    <p>When the question requires specialized knowledge the model lacks&mdash;such as identifying rare species, diagnosing medical conditions, or reading specialized technical schematics without appropriate training.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Visual Question Answering delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Retail Inventory Auditing</h3>
+                        <p class="use-case-showcase__desc">Analyze shelf photographs to count stock levels, identify out-of-stock positions, verify planogram compliance, and flag mislabeled products&mdash;turning store photos into structured inventory data.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Autonomous Vehicle Scene Understanding</h3>
+                        <p class="use-case-showcase__desc">Answer targeted questions about road scenes: identifying traffic signs, counting pedestrians, classifying road surface conditions, and determining right-of-way at intersections.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Medical Image Q&amp;A</h3>
+                        <p class="use-case-showcase__desc">Ask structured questions about medical images to support clinical workflows&mdash;identifying anatomical landmarks, measuring relative sizes, and flagging areas that warrant specialist review.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Remote Sensing Analysis</h3>
+                        <p class="use-case-showcase__desc">Extract structured information from satellite and aerial imagery&mdash;counting structures, classifying land use types, measuring vegetation coverage, and tracking changes over time.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Educational Visual Aids</h3>
+                        <p class="use-case-showcase__desc">Enable students to ask questions about diagrams, charts, historical photographs, and scientific illustrations&mdash;getting specific, curriculum-aligned explanations tied to what is actually depicted.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Content Moderation</h3>
+                        <p class="use-case-showcase__desc">Ask targeted questions about uploaded images to determine policy compliance&mdash;checking for prohibited content, verifying identity document authenticity, and assessing age-appropriateness of visual material.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where VQA Fits</h2>
+                <p class="section-subtitle fade-in-up">VQA bridges descriptive captioning and multi-step visual reasoning</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Image Captioning</span>
+                        <span class="era-marker__title">Describe Everything</span>
+                        <span class="era-marker__desc">General image descriptions</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Visual Question Answering</span>
+                        <span class="era-marker__title">Ask and Answer</span>
+                        <span class="era-marker__desc">Targeted visual queries</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Visual CoT</span>
+                        <span class="era-marker__title">Reason Visually</span>
+                        <span class="era-marker__desc">Multi-step visual logic</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Multimodal Agents</span>
+                        <span class="era-marker__title">Act on Vision</span>
+                        <span class="era-marker__desc">Vision-driven actions</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Combine Techniques</div>
+                    <p>Use VQA as the foundation for more complex visual workflows. Start with targeted questions to extract key facts from an image, then apply Visual Chain-of-Thought to reason about relationships between those facts. This layered approach&mdash;grounded extraction first, structured reasoning second&mdash;produces the most reliable results for complex visual analysis tasks.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary visual prompting techniques</p>
+
+                <a href="image-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Image Prompting</span>
+                        <span class="evolution-callout__desc">The foundational techniques for working with images in multimodal models&mdash;VQA builds on these basics by adding targeted question formulation and answer format constraints.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="visual-cot.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">Visual Chain-of-Thought</span>
+                        <span class="evolution-callout__desc">Extends VQA by adding explicit multi-step reasoning about visual content&mdash;when a single question-answer pair is not enough and the model needs to reason through what it sees.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="multimodal-cot.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Multimodal Chain-of-Thought</span>
+                        <span class="evolution-callout__desc">Combines text and visual reasoning in explicit chains&mdash;a powerful complement to VQA when answers require integrating information from both the image and external textual context.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Ask Better Visual Questions</h2>
+                        <p class="cta-corporate__text">Practice crafting precise VQA prompts in the Prompt Builder or explore how visual techniques connect to broader prompting strategies.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">AI Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+        <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>Master the Art of AI Communication theory through proven frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Discover</h4>
+                <a href="../../prompt-basics.html">Prompt Basics</a>
+                <a href="../../crisp.html">CRISP Framework</a>
+                <a href="../../crispe.html">CRISPE Framework</a>
+                <a href="../../costar.html">COSTAR Framework</a>
+                <a href="../../react.html">ReAct Framework</a>
+                <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness</h4>
+                <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../../../tools/guidance.html">Prompt Builder</a>
+                <a href="../../../tools/matcher.html">Framework Matcher</a>
+                <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../../../quiz/index.html">Readiness Quiz</a>
+                <a href="../../../patterns/index.html">Patterns Library</a>
+                <a href="../../../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                <a href="../../../pages/faq.html">FAQ</a>
+                <a href="../../../pages/glossary.html">Glossary</a>
+                <a href="../../../pages/security.html">Security</a>
+                <a href="../../../pages/performance.html">Performance</a>
+                <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                <a href="../../../pages/universal-design.html">Universal Design</a>
+                <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                <a href="../../../pages/about.html">About</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everybody</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+        </div>
+    </div>
+</footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>

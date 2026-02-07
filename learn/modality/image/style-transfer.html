@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Style Transfer Prompting: Techniques for applying artistic styles, visual aesthetics, and design languages to AI-generated or existing images through carefully crafted prompts.">
+    <title>Style Transfer Prompting - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts & Fictions</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context & Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../reasoning-cot.html">Reasoning & CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Code</h4>
+                            <a href="../../modality/code/code-prompting.html">Code Prompting</a>
+                            <a href="../../modality/code/self-debugging.html">Self-Debugging</a>
+                            <a href="../../modality/code/structured-output.html">Structured Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI & ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Style Transfer</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Image Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Style Transfer Prompting</h1>
+                <p class="page-subtitle fade-in">Apply artistic styles, visual aesthetics, and design languages to AI-generated images through carefully crafted prompt techniques &mdash; transforming ordinary descriptions into distinctive visual interpretations.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2015 / 2022</span>
+                        <p><strong>Origins:</strong> Neural style transfer dates to Gatys et al. in 2015, which used convolutional neural networks to separate and recombine the content of one image with the style of another. This technique demonstrated that deep networks encode content and style as distinct, manipulable representations &mdash; a foundational insight that reshaped how researchers thought about visual generation. For years, applying a new style required providing a reference style image and running an optimization process that was computationally expensive and limited to image-to-image workflows.</p>
+                        <p><strong>Modern LLM Status:</strong> The arrival of text-to-image diffusion models in 2022 transformed style transfer entirely. In systems like Midjourney, DALL-E 3, and Stable Diffusion, style can be specified through <strong>text descriptions alone</strong> rather than requiring a reference image. Prompt-based style specification has largely replaced the older image-reference approach for most creative use cases, making artistic style transfer accessible to anyone who can describe what they want. Image-to-image style transfer remains valuable for precise style matching where a specific reference is needed, but the text-driven approach has become the dominant workflow for general creative production.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Separate Content from Style</h2>
+                        <p class="split-section__text">Style transfer prompting works by separating <em>what</em> an image depicts (its content) from <em>how</em> it is rendered (its style). A photograph of a mountain and a watercolor painting of a mountain share the same content but differ entirely in their visual treatment. The power of this technique lies in recognizing that these two dimensions are independently controllable.</p>
+                        <p class="split-section__text"><strong>The key insight for prompt-based style transfer is that artistic styles can be described through a precise vocabulary.</strong> This vocabulary spans four primary dimensions: medium (oil painting, watercolor, pencil sketch, digital illustration), era (Art Nouveau, Bauhaus, contemporary minimalism, Renaissance), technique (impasto, cross-hatching, stippling, wet-on-wet), and mood (ethereal, gritty, minimalist, dramatic). Combining these descriptors with content descriptions gives fine-grained control over the visual treatment of any subject.</p>
+                        <p class="split-section__text">Think of it as directing a master artist. You describe the scene, then specify exactly how you want it rendered &mdash; the medium, the influences, the techniques, and the emotional register. The more specific and layered your style descriptors, the more distinctive and intentional the result.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">The Four Style Dimensions</span>
+                                <p><strong>Medium</strong> &mdash; The physical or digital material: oil on canvas, graphite, screen print, vector art.<br><br><strong>Era</strong> &mdash; The art-historical movement: Impressionism, Art Deco, Brutalism, Vaporwave.<br><br><strong>Technique</strong> &mdash; The execution method: loose brushwork, tight rendering, pointillism, collage.<br><br><strong>Mood</strong> &mdash; The emotional quality: serene, chaotic, melancholic, vibrant.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Style Transfer Process</h2>
+                <p class="section-subtitle fade-in-up">Four stages from subject to styled image</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Define Content</h3>
+                            <p class="element-timeline__text">Begin by describing the subject matter and composition of your image clearly. Focus on what the viewer should see &mdash; the objects, their arrangement, the setting, and the spatial relationships between elements. Keep style language out of this step; the goal is a clean content foundation.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;A solitary lighthouse on a rocky cliff overlooking a turbulent ocean, storm clouds gathering on the horizon, waves crashing against the base of the cliff.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Specify Style Parameters</h3>
+                            <p class="element-timeline__text">Layer your style descriptors across the four dimensions: medium, artistic movement or era, rendering technique, and mood. Each parameter narrows the aesthetic space, guiding the model toward a specific visual interpretation rather than its default rendering.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Rendered as a traditional Japanese ink wash painting (sumi-e), Edo period aesthetic, loose expressive brushstrokes with deliberate areas of negative space, contemplative and serene mood.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Add Style Anchors</h3>
+                            <p class="element-timeline__text">Reinforce your style direction with specific visual characteristics that anchor the aesthetic. Reference particular color palettes, brush stroke qualities, levels of abstraction, texture descriptions, or lighting approaches. These anchors prevent the model from drifting toward generic interpretations.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Monochromatic palette using only black ink gradations from deep charcoal to pale grey washes, visible paper texture showing through, calligraphic quality to the cliff edges, the lighthouse rendered with a single confident brushstroke.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Iterate and Refine</h3>
+                            <p class="element-timeline__text">Review the initial output and adjust your style descriptors to move closer to the desired aesthetic. If the rendering is too literal, increase abstraction language. If the style is too subtle, strengthen your anchor terms. Each iteration tightens the alignment between your creative vision and the generated result.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;More abstract interpretation &mdash; reduce detail in the waves to simple flowing lines, increase the empty space around the lighthouse, make the storm clouds a single dramatic ink splatter rather than rendered forms.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">How style descriptors transform a simple content description</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Content Only</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>A city skyline at sunset.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Result</span>
+                                <p>Default photorealistic rendering &mdash; a generic cityscape photograph with standard sunset colors. The image is technically competent but visually undistinguished and interchangeable with thousands of stock photos.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Generic output, no artistic direction, no distinctive visual identity</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Style Transfer Applied</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Styled Prompt</span>
+                                <p>A city skyline at sunset, rendered in the style of Japanese ukiyo-e woodblock prints, flat color planes, bold outlines, limited color palette of indigo, vermillion, and gold, dramatic cloud formations treated as decorative patterns.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Result</span>
+                                <p>A distinctive artistic interpretation that transforms the same subject into a striking ukiyo-e composition. The cityscape becomes graphic and stylized with bold outlines, flat color areas, and decorative cloud patterns that evoke Hokusai and Hiroshige.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Distinctive artistic vision, intentional aesthetic, strong visual identity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Style Transfer in Action</h2>
+                <p class="section-subtitle fade-in-up">See how different style vocabularies transform content descriptions</p>
+
+                <div class="accordion fade-in-up" id="style-transfer-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Watercolor Botanical</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Content Description</span>
+                                    <p>&ldquo;A detailed study of a foxglove plant showing the full stem with multiple bell-shaped flowers, several leaves, and a cross-section of a single bloom revealing the interior structure.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Style Transfer Prompt</span>
+                                    <p>&ldquo;A detailed study of a foxglove plant showing the full stem with multiple bell-shaped flowers, several leaves, and a cross-section of a single bloom. Rendered as a vintage botanical illustration in the tradition of 18th-century scientific plate engravings. Precise watercolor washes with fine pen-and-ink line work over the top. Muted, naturalistic color palette &mdash; sage greens, dusty purples, warm cream background simulating aged vellum. Handwritten-style Latin nomenclature labels. Delicate stippled shading on the cross-section detail.&rdquo;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Retro Poster Design</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Content Description</span>
+                                    <p>&ldquo;A modern bullet train speeding through a mountainous landscape with terraced rice paddies in the foreground and snow-capped peaks in the background.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Style Transfer Prompt</span>
+                                    <p>&ldquo;A bullet train speeding through a mountainous landscape with terraced rice paddies and snow-capped peaks. Rendered in the style of mid-century travel posters from the 1950s &mdash; screen-printed aesthetic with visible halftone dot patterns, limited palette of four or five flat colors, bold geometric simplification of forms, strong diagonal composition conveying speed and motion. Typography-ready layout with generous sky area. Warm nostalgic color scheme of burnt orange, teal, cream, and charcoal.&rdquo;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Technical to Artistic</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Content Description</span>
+                                    <p>&ldquo;A luxury wristwatch showing the face, hands, crown, and leather strap, positioned at a three-quarter angle on a neutral surface.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Style Transfer Prompt</span>
+                                    <p>&ldquo;A luxury wristwatch at a three-quarter angle on a polished surface. Rendered in an Art Deco illustration style &mdash; bold geometric linework, chrome and gold metallic color treatment, sharp angular shadows, symmetrical decorative framing elements inspired by 1920s luxury advertising. Dramatic spotlighting casting long geometric shadows. Black lacquer background with sunburst ray pattern. The watch rendered with meticulous detail while the environment is stylized and abstracted into pure Deco geometry.&rdquo;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Style Transfer Prompting</h2>
+                <p class="section-subtitle fade-in-up">Match the technique to your creative needs</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Creative Content Production</strong>
+                                    <p>Generate illustrations, editorial artwork, and visual content with distinctive artistic styles that stand apart from generic AI-generated imagery.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Brand Visual Identity</strong>
+                                    <p>Establish and maintain a consistent visual language across marketing materials by codifying your brand&rsquo;s aesthetic into reusable style prompt templates.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Educational Material Illustration</strong>
+                                    <p>Transform dry subject matter into engaging visual content using stylistic treatments appropriate to the audience and topic &mdash; from textbook diagrams to children&rsquo;s book illustrations.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Artistic Exploration</strong>
+                                    <p>Rapidly prototype visual concepts across multiple artistic styles to explore creative directions before committing to a final aesthetic for a project.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Photorealistic Accuracy Is Required</strong>
+                                    <p>When the goal is a convincing photograph-like image &mdash; product photography, architectural visualization, or documentary imagery &mdash; style transfer adds artistic interpretation that works against realism.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Consistent Brand Photography Is Needed</strong>
+                                    <p>When visual consistency with existing photographic assets is essential and any artistic deviation would break the visual continuity of a campaign or publication.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Legal Requirements Mandate Unaltered Images</strong>
+                                    <p>In contexts where images must represent reality without artistic interpretation &mdash; legal documentation, medical imaging, evidence photography, or certain regulatory filings.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where style transfer prompting delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Editorial Illustration</h3>
+                        <p class="use-case-showcase__desc">Create distinctive illustrations for articles, blog posts, and publications that match the tone of the content &mdash; from somber pen-and-ink for investigative pieces to vibrant collage for cultural commentary.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Brand Identity Development</h3>
+                        <p class="use-case-showcase__desc">Develop and prototype visual identities by rapidly generating brand assets in multiple stylistic directions, from clean minimalist vector to textured hand-drawn warmth.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Educational Materials</h3>
+                        <p class="use-case-showcase__desc">Generate age-appropriate and subject-appropriate illustrations for textbooks, worksheets, and presentations &mdash; scientific diagrams in clean technical style or historical scenes in period-appropriate aesthetics.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Gallery-Quality Art Prints</h3>
+                        <p class="use-case-showcase__desc">Produce high-resolution artwork in specific artistic traditions &mdash; Impressionist landscapes, Abstract Expressionist compositions, or photorealistic hyperdetailed scenes suitable for printing and display.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                                <line x1="15" y1="9" x2="15.01" y2="9"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Themed Marketing Campaigns</h3>
+                        <p class="use-case-showcase__desc">Generate cohesive visual assets across an entire campaign by applying a consistent style template to varied content &mdash; ensuring every piece feels part of the same visual family.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Children&rsquo;s Book Illustration</h3>
+                        <p class="use-case-showcase__desc">Create charming, consistent character illustrations and scene artwork in styles ranging from soft watercolor storybook aesthetics to bold graphic novel treatments for young readers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Style Transfer Fits</h2>
+                <p class="section-subtitle fade-in-up">The evolution from reference-image methods to text-driven style control</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Neural Style Transfer</span>
+                        <span class="era-marker__title">Image-to-Image</span>
+                        <span class="era-marker__desc">CNN-based optimization requiring a reference style image</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Prompt-Based Style</span>
+                        <span class="era-marker__title">Text-Driven Aesthetics</span>
+                        <span class="era-marker__desc">Describe artistic style through text vocabulary alone</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Multi-Style Composition</span>
+                        <span class="era-marker__title">Regional Style Control</span>
+                        <span class="era-marker__desc">Apply different styles to different regions of the same image</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Adaptive Style Systems</span>
+                        <span class="era-marker__title">Context-Aware Styling</span>
+                        <span class="era-marker__desc">AI autonomously selects and blends styles based on content analysis</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">From Pixels to Language</div>
+                    <p>The shift from neural style transfer to prompt-based style control represents a fundamental change in how humans interact with visual generation systems. Where the original technique required collecting reference images and understanding optimization parameters, the text-driven approach democratizes style control &mdash; anyone who can describe an aesthetic in words can now direct the visual treatment of any subject. This transition mirrors the broader movement in AI from technical interfaces to natural language interfaces, making sophisticated creative tools accessible to a far wider audience.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary image prompting techniques</p>
+
+                <a href="image-gen-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Image Generation Prompting</span>
+                        <span class="evolution-callout__desc">The foundational techniques for describing and generating images through text prompts &mdash; the base layer upon which style transfer builds its aesthetic vocabulary.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="image-to-image.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Image-to-Image Prompting</span>
+                        <span class="evolution-callout__desc">Transform existing images using reference-based style transfer &mdash; ideal when you need pixel-level style matching that text descriptions alone cannot achieve.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="composition-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Composition Prompting</span>
+                        <span class="evolution-callout__desc">Control the spatial arrangement, framing, and visual hierarchy of elements within your image &mdash; pairs naturally with style transfer to achieve both aesthetic and compositional goals.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Transform Visual Style</h2>
+                        <p class="cta-corporate__text">Apply artistic styles to your image prompts or explore the full range of image generation techniques with our interactive tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+        <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>Master the Art of AI Communication theory through proven frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Discover</h4>
+                <a href="../../prompt-basics.html">Prompt Basics</a>
+                <a href="../../crisp.html">CRISP Framework</a>
+                <a href="../../crispe.html">CRISPE Framework</a>
+                <a href="../../costar.html">COSTAR Framework</a>
+                <a href="../../react.html">ReAct Framework</a>
+                <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness</h4>
+                <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../../../tools/guidance.html">Prompt Builder</a>
+                <a href="../../../tools/matcher.html">Framework Matcher</a>
+                <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../../../quiz/index.html">Readiness Quiz</a>
+                <a href="../../../patterns/index.html">Patterns Library</a>
+                <a href="../../../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                <a href="../../../pages/faq.html">FAQ</a>
+                <a href="../../../pages/glossary.html">Glossary</a>
+                <a href="../../../pages/security.html">Security</a>
+                <a href="../../../pages/performance.html">Performance</a>
+                <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                <a href="../../../pages/universal-design.html">Universal Design</a>
+                <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                <a href="../../../pages/about.html">About</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everybody</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+        </div>
+    </div>
+</footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>

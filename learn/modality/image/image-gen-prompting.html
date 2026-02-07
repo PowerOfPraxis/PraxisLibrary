@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Image Generation Prompting: Master the art of crafting text prompts that produce high-quality, accurate AI-generated images through structured description techniques.">
+    <title>Image Generation Prompting - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts & Fictions</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context & Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../reasoning-cot.html">Reasoning & CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Code</h4>
+                            <a href="../../modality/code/code-prompting.html">Code Prompting</a>
+                            <a href="../../modality/code/self-debugging.html">Self-Debugging</a>
+                            <a href="../../modality/code/structured-output.html">Structured Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI & ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Image Generation Prompting</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Image Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Image Generation Prompting</h1>
+                <p class="page-subtitle fade-in">Craft text prompts that guide AI image generators to produce specific, high-quality visual outputs &mdash; turning vague descriptions into precise, compelling imagery through structured description techniques.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2022</span>
+                        <p><strong>Introduced:</strong> Text-to-image generation became widely accessible in 2022 with the public release of DALL-E 2 (OpenAI), Stable Diffusion (Stability AI), and Midjourney. These diffusion-based models convert text descriptions into images by iteratively denoising random patterns guided by the semantic content of the prompt. Prompt engineering for image generation developed rapidly as users discovered that prompt structure, word choice, and ordering significantly affect output quality. Communities formed around sharing and refining prompt techniques, and a distinct vocabulary emerged for controlling artistic style, composition, lighting, and detail level.</p>
+                        <p><strong>Modern LLM Status:</strong> Image generation prompting is a <strong>mature practice with established conventions</strong> for style, composition, lighting, and quality modifiers. Models like DALL-E 3 and Midjourney v6 have improved prompt following substantially &mdash; they interpret natural language more faithfully and handle complex spatial relationships better than earlier versions. However, skilled prompting still produces dramatically better results than naive descriptions. Understanding how models parse and weight different prompt elements remains essential for anyone who needs consistent, high-quality visual output rather than generic or unpredictable results.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Describing a Visual Outcome</h2>
+                        <p class="split-section__text">Image generation prompts are fundamentally different from text prompts. Instead of instructing a reasoning process, you are describing a visual outcome. There is no &ldquo;thinking&rdquo; to guide &mdash; there is a scene to compose, a style to invoke, and a level of quality to demand. The prompt is not a question; it is a blueprint.</p>
+                        <p class="split-section__text"><strong>The key insight: image generators weight words differently based on position</strong> (earlier words often have stronger influence), and they respond to specific vocabulary for artistic styles, lighting conditions, camera angles, and quality indicators. A casual sentence like &ldquo;a nice picture of a house&rdquo; activates a broad, generic probability space. A structured prompt that addresses subject, setting, style, and technical parameters narrows that space dramatically &mdash; consistently producing more intentional and compelling results.</p>
+                        <p class="split-section__text">Think of it as the difference between telling a photographer &ldquo;take a nice photo&rdquo; versus providing a detailed creative brief with shot composition, lens choice, lighting setup, and post-processing direction. The specificity of the brief determines the quality of the output.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Structure Beats Simplicity</span>
+                                <p>Diffusion models generate images by progressively refining noise into coherent visuals, guided by the encoded meaning of your prompt. Each word in the prompt influences the denoising direction. Vague prompts give the model too many valid paths, producing generic results. Specific, structured prompts constrain the generation space to a narrow band of possibilities &mdash; all of which align with your creative intent. The more precisely you describe what you want, the less the model has to guess.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Image Prompt Process</h2>
+                <p class="section-subtitle fade-in-up">Four stages from idea to structured visual description</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Define the Subject</h3>
+                            <p class="element-timeline__text">Describe the primary subject with specific attributes. Include pose, expression, material, color, texture, and any distinguishing features. The subject is the anchor of the image &mdash; every other element supports it. Be concrete rather than abstract: &ldquo;a weathered bronze statue of a seated woman reading a book&rdquo; gives the model far more to work with than &ldquo;a statue.&rdquo;</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;A silver-haired elderly woman wearing a hand-knitted burgundy cardigan, smiling warmly, holding a steaming ceramic mug in both hands&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Set the Scene</h3>
+                            <p class="element-timeline__text">Establish the environment, background, lighting, and atmosphere surrounding the subject. Lighting is arguably the single most impactful scene element &mdash; it defines mood, depth, and realism. Specify the type of light (golden hour, overcast, studio lighting, neon), its direction (backlit, side-lit, overhead), and the overall atmosphere (misty, crisp, moody, warm).</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Sitting on a worn wooden porch overlooking a misty mountain valley, soft golden hour light filtering through pine trees, warm autumn atmosphere&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Specify Style</h3>
+                            <p class="element-timeline__text">Declare the artistic style, medium, aesthetic influence, or photographic parameters you want the image to reflect. This is where you tell the model whether to render a photorealistic image, a watercolor painting, a digital illustration, or a pencil sketch. Reference specific art movements, techniques, or visual traditions to guide the aesthetic. For photographic styles, include lens type, focal length, and camera settings.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;In the style of a National Geographic photograph, shot with a 85mm lens, f/2.8 aperture, shallow depth of field, natural color grading&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Add Quality Modifiers</h3>
+                            <p class="element-timeline__text">Include technical quality terms that push the model toward higher-fidelity output. These modifiers act as signals that you expect professional-grade results. Common quality terms include resolution indicators (4K, 8K, ultra-detailed), rendering quality (photorealistic, ray tracing, volumetric lighting), and detail level (intricate detail, fine textures, sharp focus). Place these terms deliberately &mdash; they serve as a final quality filter on the generation process.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Ultra-detailed, 8K resolution, sharp focus, professional color grading, award-winning photography&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why structured prompts produce dramatically better images</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Naive Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>A cat in a garden</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Result</span>
+                                <p>A generic, unremarkable image with an arbitrary cat breed, random garden setting, flat lighting, no particular style or composition &mdash; the model fills in every unspecified detail with the most statistically average option.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Vague, generic, unpredictable output with no artistic direction</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Structured Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>A ginger tabby cat sitting among lavender bushes in a sunlit English cottage garden, soft morning light, shallow depth of field, botanical illustration style, fine detail, muted watercolor palette</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Result</span>
+                                <p>A specific, artistic, high-quality image with a defined subject (ginger tabby), clear setting (English cottage garden with lavender), intentional lighting (soft morning light), deliberate style (botanical illustration with watercolor palette), and quality markers (fine detail, shallow depth of field).</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Specific, artistic, high-quality output with clear creative intent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Image Prompting in Action</h2>
+                <p class="section-subtitle fade-in-up">See how structured prompts work across different visual domains</p>
+
+                <div class="accordion fade-in-up" id="image-gen-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Product Photography</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;A matte black ceramic coffee mug with a minimal geometric logo, placed on a polished concrete countertop, single soft directional light from the upper left casting a gentle shadow, clean white studio background with subtle gradient, product photography style, 50mm macro lens, f/4 aperture, sharp focus on the mug handle, ultra-clean composition, commercial quality&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why It Works</span>
+                                    <p>Every element of a professional product shot is specified: the product itself (matte black ceramic mug with geometric logo), the surface (polished concrete), the lighting direction and quality (soft directional from upper left), the background (clean white with gradient), the photographic parameters (50mm macro, f/4, sharp focus on handle), and the quality standard (commercial quality). The model has no ambiguity about what to produce.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Concept Art</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;A vast alien desert landscape with towering crystalline rock formations in deep violet and amber, twin suns setting on the horizon casting long parallel shadows, a lone traveler in a weathered cloak walking along a narrow ridge path, atmosphere thick with golden dust particles, epic cinematic concept art style, matte painting technique, dramatic volumetric lighting, rich saturated color palette, ultra-wide composition&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why It Works</span>
+                                    <p>The prompt builds a complete world: the terrain (alien desert with crystalline formations), the color scheme (deep violet and amber), the celestial detail (twin suns), the human element (lone traveler in weathered cloak), the atmospheric effects (golden dust particles), the artistic style (cinematic concept art, matte painting), and the rendering quality (dramatic volumetric lighting, saturated palette). Each layer adds depth and specificity to the final image.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Technical Illustration</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;A clean isometric architectural rendering of a modern three-story residential building with large glass facades and cantilevered balconies, surrounded by minimal landscaping with native grasses, neutral gray and warm wood material palette, precise geometric lines, architectural visualization style, white background, even ambient lighting with subtle ambient occlusion, technical precision, CAD-quality line work&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why It Works</span>
+                                    <p>Technical illustrations demand precision over artistry. This prompt specifies the perspective (isometric), the subject (modern three-story residential building), the architectural features (glass facades, cantilevered balconies), the materials (neutral gray, warm wood), the surroundings (minimal landscaping, native grasses), the rendering style (architectural visualization, CAD-quality), and the presentation (white background, even ambient lighting). The quality modifiers emphasize technical precision rather than artistic flair.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Image Generation Prompting</h2>
+                <p class="section-subtitle fade-in-up">Best for visual tasks that require intentional, controlled output</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Concept Visualization</strong>
+                                    <p>Rapidly generating visual representations of ideas, products, or environments that exist only in your imagination &mdash; bridging the gap between description and visual reality.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Marketing Materials</strong>
+                                    <p>Creating custom imagery for campaigns, social media, advertisements, and branded content without the cost and logistics of traditional photo shoots.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Creative Brainstorming</strong>
+                                    <p>Exploring visual directions, mood boards, and aesthetic possibilities at speed &mdash; iterating through dozens of visual concepts in minutes rather than hours.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Educational Illustrations</strong>
+                                    <p>Producing clear, purpose-built diagrams, scene depictions, and visual explanations for textbooks, presentations, and learning materials.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Exact Reproduction of Specific Real People</strong>
+                                    <p>Image generators cannot reliably reproduce specific individuals with accuracy. When likeness matters legally or personally, photography remains the appropriate tool.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Legally Binding Accuracy</strong>
+                                    <p>When images must be factually accurate for legal, medical, or regulatory purposes &mdash; AI-generated images can contain subtle inaccuracies that disqualify them from contexts requiring verifiable truth.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Pixel-Perfect Technical Specifications</strong>
+                                    <p>When the image must match a precise technical specification pixel-for-pixel &mdash; exact dimensions, color values, or spatial relationships that must be mathematically precise are better handled by design software.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where image generation prompting delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Marketing Asset Creation</h3>
+                        <p class="use-case-showcase__desc">Generate custom hero images, banner graphics, social media visuals, and promotional materials with consistent brand aesthetics across campaigns.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Game Concept Art</h3>
+                        <p class="use-case-showcase__desc">Rapidly prototype characters, environments, weapons, and UI elements for game development, exploring visual directions before committing to full production art.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                                <line x1="7" y1="2" x2="7" y2="22"/>
+                                <line x1="17" y1="2" x2="17" y2="22"/>
+                                <line x1="2" y1="12" x2="22" y2="12"/>
+                                <line x1="2" y1="7" x2="22" y2="7"/>
+                                <line x1="2" y1="17" x2="22" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Storyboard Visualization</h3>
+                        <p class="use-case-showcase__desc">Create visual storyboards for films, animations, advertisements, and presentations, translating narrative beats into sequential imagery at draft speed.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Educational Material Design</h3>
+                        <p class="use-case-showcase__desc">Produce custom diagrams, historical scene reconstructions, scientific visualizations, and explanatory illustrations tailored to specific curriculum needs.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Prototype Mockups</h3>
+                        <p class="use-case-showcase__desc">Visualize product designs, interior layouts, architectural concepts, and packaging options before investing in physical prototyping or professional rendering.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Social Media Content</h3>
+                        <p class="use-case-showcase__desc">Generate a steady stream of on-brand visual content for social platforms, maintaining visual consistency while varying themes, seasons, and messaging.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Image Generation Prompting Fits</h2>
+                <p class="section-subtitle fade-in-up">From basic descriptions to advanced generation control</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Text Descriptions</span>
+                        <span class="era-marker__title">Basic Input</span>
+                        <span class="era-marker__desc">Simple natural language descriptions with no structure</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Image Generation Prompting</span>
+                        <span class="era-marker__title">Structured Visual Prompts</span>
+                        <span class="era-marker__desc">Subject, scene, style, and quality modifiers in deliberate order</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Negative Prompting</span>
+                        <span class="era-marker__title">Exclusion Control</span>
+                        <span class="era-marker__desc">Specifying what to exclude from the generated image</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">ControlNet / Guided Generation</span>
+                        <span class="era-marker__title">Spatial Precision</span>
+                        <span class="era-marker__desc">Combining text prompts with structural guides like edge maps and depth maps</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">The Foundation of Visual AI Communication</div>
+                    <p>Image generation prompting is the baseline skill for all visual AI work. Just as Chain-of-Thought was the breakthrough that unlocked reasoning in text models, structured prompting was the breakthrough that unlocked intentional, high-quality output from image generators. Every advanced technique &mdash; negative prompting, style transfer, ControlNet, inpainting &mdash; builds on the foundation of knowing how to describe what you want in a way the model can act on. Master this technique first, and every subsequent visual AI skill becomes easier to learn and more effective to apply.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore techniques that complement and extend image generation prompting</p>
+
+                <a href="negative-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="8" y1="12" x2="16" y2="12"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Negative Prompting</span>
+                        <span class="evolution-callout__desc">Control image output by specifying what to exclude &mdash; removing unwanted elements, artifacts, and styles that detract from your intended result.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="style-transfer.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                            <path d="M2 2l7.586 7.586"/>
+                            <circle cx="11" cy="11" r="2"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Style Transfer</span>
+                        <span class="evolution-callout__desc">Apply the visual style of one image or artistic tradition to new content &mdash; separating aesthetic from subject to achieve precise style control.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="composition-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="3" y1="15" x2="21" y2="15"/>
+                            <line x1="9" y1="3" x2="9" y2="21"/>
+                            <line x1="15" y1="3" x2="15" y2="21"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">Composition Prompting</span>
+                        <span class="evolution-callout__desc">Advanced spatial control over element placement, camera angle, framing, and visual hierarchy within the generated image &mdash; going beyond description to direct composition.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Generate Better Images</h2>
+                        <p class="cta-corporate__text">Apply structured prompting techniques to your next image generation project, or build visual prompts with our interactive tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>Master the Art of AI Communication theory through proven frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Discover</h4>
+                <a href="../../prompt-basics.html">Prompt Basics</a>
+                <a href="../../crisp.html">CRISP Framework</a>
+                <a href="../../crispe.html">CRISPE Framework</a>
+                <a href="../../costar.html">COSTAR Framework</a>
+                <a href="../../react.html">ReAct Framework</a>
+                <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness</h4>
+                <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../../../tools/guidance.html">Prompt Builder</a>
+                <a href="../../../tools/matcher.html">Framework Matcher</a>
+                <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../../../quiz/index.html">Readiness Quiz</a>
+                <a href="../../../patterns/index.html">Patterns Library</a>
+                <a href="../../../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                <a href="../../../pages/faq.html">FAQ</a>
+                <a href="../../../pages/glossary.html">Glossary</a>
+                <a href="../../../pages/security.html">Security</a>
+                <a href="../../../pages/performance.html">Performance</a>
+                <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                <a href="../../../pages/universal-design.html">Universal Design</a>
+                <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                <a href="../../../pages/about.html">About</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everybody</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+        </div>
+    </div>
+</footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK TO TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK TO TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>

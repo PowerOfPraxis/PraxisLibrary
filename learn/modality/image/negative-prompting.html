@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Negative Prompting: Learn how to specify what you do not want in AI-generated images to improve quality, avoid artifacts, and control output more precisely.">
+    <title>Negative Prompting - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts & Fictions</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context & Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../reasoning-cot.html">Reasoning & CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Code</h4>
+                            <a href="../code/code-prompting.html">Code Prompting</a>
+                            <a href="../code/self-debugging.html">Self-Debugging</a>
+                            <a href="../code/structured-output.html">Structured Output</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI & ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Negative Prompting</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Image Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Negative Prompting</h1>
+                <p class="page-subtitle fade-in">Specify what to exclude from AI-generated images &mdash; suppressing unwanted artifacts, styles, and quality issues to achieve higher fidelity and more controlled results.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2022</span>
+                        <p><strong>Introduced:</strong> Negative prompting became a standard technique with the rise of Stable Diffusion in 2022. The concept uses classifier-free guidance to steer image generation away from unwanted features. Users discovered that specifying what to avoid &mdash; blurry, distorted, extra fingers, watermark &mdash; dramatically improved output quality. The approach emerged organically from community experimentation as practitioners shared negative prompt lists that consistently produced cleaner, more polished results across a wide range of subjects and styles.</p>
+                        <p><strong>Modern LLM Status:</strong> Negative prompting is a <strong>standard feature in most image generation interfaces</strong>. DALL-E 3 and Midjourney v6 handle many common quality issues automatically through improved training and built-in quality filters, but explicit negative prompts remain essential for fine-grained control over style, composition, and artifact avoidance. Tools like Stable Diffusion XL, Flux, and ComfyUI continue to offer dedicated negative prompt fields, and the technique has become part of every serious image generation workflow. Understanding what to exclude is now considered as important as knowing what to include.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Define by Exclusion</h2>
+                        <p class="split-section__text">Positive prompts tell the model what to create. Negative prompts tell the model what to avoid. Together, they define a precise corridor in the generation space &mdash; narrowing the vast range of possible outputs to exactly what you want.</p>
+                        <p class="split-section__text">The key insight: image generation models can accidentally include unwanted elements because their training data contains imperfect images. Photographs with watermarks, illustrations with anatomical errors, and compositions with distracting backgrounds all exist in the datasets these models learned from. Without explicit guidance, the model may reproduce these flaws.</p>
+                        <p class="split-section__text">Negative prompts counteract this by explicitly penalizing features you want to suppress &mdash; from common artifacts like extra limbs and blurriness to stylistic elements such as certain color palettes or artistic styles you want to avoid. Think of it as sculpting: you are not just adding clay, you are also carving away everything that does not belong.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">The Guidance Mechanism</span>
+                                <p>Classifier-free guidance (CFG) is the engine behind negative prompting. During image generation, the model produces two predictions: one guided by your positive prompt, and one guided by your negative prompt. The final image is generated by amplifying the difference between these two predictions. A higher CFG scale means stronger adherence to both what you want and what you want to avoid. The sweet spot typically falls between 7 and 12 for most generation tasks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Negative Prompting Process</h2>
+                <p class="section-subtitle fade-in-up">Four steps from concept to controlled generation</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Craft the Positive Prompt</h3>
+                            <p class="element-timeline__text">Begin by describing what you want to see in the generated image. Be specific about subject, composition, lighting, style, and mood. The positive prompt is your creative vision &mdash; the negative prompt will protect it from common pitfalls.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Professional portrait of a woman in a sunlit garden, soft bokeh background, natural lighting, Canon EOS R5, 85mm lens&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Identify Potential Problems</h3>
+                            <p class="element-timeline__text">Anticipate the common artifacts and unwanted elements that typically appear for this type of image. Portraits often produce distorted hands and asymmetric faces. Landscapes may introduce over-saturated colors or HDR artifacts. Product shots can include unwanted reflections or busy backgrounds. Experience with your chosen model helps you predict these failure modes.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>For portraits: distorted hands, extra fingers, asymmetric eyes, unnatural skin texture, watermarks, text overlays</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Write the Negative Prompt</h3>
+                            <p class="element-timeline__text">List the excluded features, artifacts, and quality issues as comma-separated terms. Organize them by category: quality issues first (blurry, low resolution), then anatomical problems (extra fingers, distorted face), then stylistic exclusions (cartoon, anime, oversaturated). Prioritize the most impactful terms at the beginning of the list.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;blurry, low quality, distorted hands, extra fingers, watermark, text, oversaturated, cartoon, deformed face, unnatural pose&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Balance Guidance Strength</h3>
+                            <p class="element-timeline__text">Adjust the classifier-free guidance (CFG) scale to control how strongly the negative prompt influences generation. Low values (5&ndash;7) give the model more creative freedom but weaker artifact suppression. High values (10&ndash;15) enforce strict adherence but can produce overly rigid or washed-out results. Test incrementally to find the balance point for your specific use case.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Start at CFG 7.5 for general use. Increase to 10&ndash;12 if artifacts persist. Reduce to 5&ndash;6 if the image looks overly constrained or loses natural variation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">How negative prompts transform output quality</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Without Negative Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Portrait of a person in a garden</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Typical Result</span>
+                                <p>The model produces an image with distorted hands showing six fingers, a slightly blurry background that lacks depth, faint watermark artifacts in the lower corner, and oversaturated greens that look artificial rather than natural.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Anatomical errors, artifacts, uncontrolled quality</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">With Negative Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Portrait of a person in a garden<br><br><strong>Negative:</strong> blurry, distorted hands, extra fingers, watermark, low quality, oversaturated, cartoon</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Typical Result</span>
+                                <p>A clean, natural portrait with correct hand anatomy showing five fingers per hand. The garden background has pleasant bokeh with true-to-life colors. No watermark artifacts appear, and the overall image quality is sharp with balanced saturation throughout.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Correct anatomy, clean output, controlled quality</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Negative Prompting in Action</h2>
+                <p class="section-subtitle fade-in-up">Real-world applications across different image categories</p>
+
+                <div class="accordion fade-in-up" id="negative-prompting-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Photorealistic Portrait</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Positive Prompt</span>
+                                    <p>Professional headshot of a middle-aged man in a navy suit, studio lighting, shallow depth of field, neutral gray background, sharp focus on eyes, corporate photography style</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Negative Prompt</span>
+                                    <p>deformed face, asymmetric eyes, extra fingers, distorted hands, blurry, out of focus, watermark, text, logo, low resolution, jpeg artifacts, unnatural skin, plastic skin, oversaturated, cross-eyed, double chin artifact, malformed ears</p>
+                                </div>
+                            </div>
+                            <div class="highlight-box highlight-box--tip">
+                                <div class="highlight-box__content">
+                                    <span class="highlight-box__title">Why This Works</span>
+                                    <p>Portrait generation is particularly prone to facial asymmetry and hand deformities. By explicitly naming these common failure modes, the model steers away from the regions of its latent space that produce these artifacts. The skin-related terms prevent the waxy, plastic look that plagues many AI portraits.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Landscape Photography</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Positive Prompt</span>
+                                    <p>Panoramic mountain vista at golden hour, alpine meadow with wildflowers in foreground, snow-capped peaks, dramatic clouds, National Geographic photography style, 24mm wide-angle lens</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Negative Prompt</span>
+                                    <p>HDR artifacts, tone mapping, over-processed, oversaturated, text overlay, watermark, signature, frame, border, vignette, lens flare, chromatic aberration, noise, grain, haze, smog, people, buildings, power lines, fences</p>
+                                </div>
+                            </div>
+                            <div class="highlight-box highlight-box--tip">
+                                <div class="highlight-box__content">
+                                    <span class="highlight-box__title">Why This Works</span>
+                                    <p>Landscape images in training data frequently contain heavy HDR processing and text overlays from stock photography. The negative prompt suppresses these processing artifacts while also excluding man-made elements that would break the natural wilderness feel. Specifying &ldquo;over-processed&rdquo; prevents the hyper-real look that makes AI landscapes look artificial.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Product Rendering</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Positive Prompt</span>
+                                    <p>Clean product photography of a minimalist wristwatch on white surface, soft studio lighting, slight shadow beneath, commercial catalog style, 100mm macro lens, high detail on dial and strap texture</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Negative Prompt</span>
+                                    <p>busy background, cluttered scene, reflections, glare, brand logos, text, watermark, other products, hands, wrist, low quality, blurry, out of focus, distorted proportions, warped edges, color cast, harsh shadows</p>
+                                </div>
+                            </div>
+                            <div class="highlight-box highlight-box--tip">
+                                <div class="highlight-box__content">
+                                    <span class="highlight-box__title">Why This Works</span>
+                                    <p>Product photography demands isolation and clarity. The negative prompt prevents the model from adding contextual elements like hands or competing objects that appear frequently in training data product shots. Excluding brand logos and text avoids hallucinated branding, while suppressing reflections and glare keeps the focus on material texture and form.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Negative Prompting</h2>
+                <p class="section-subtitle fade-in-up">Knowing when exclusion improves your results</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Quality Improvement in Any Generation</strong>
+                                    <p>Adding standard quality exclusions &mdash; blurry, low resolution, watermark, artifacts &mdash; to every generation produces consistently cleaner results across all subject matter.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Suppressing Recurring Artifacts</strong>
+                                    <p>When a model consistently produces the same unwanted element &mdash; extra fingers in portraits, text in landscapes &mdash; negative prompting directly targets and eliminates these patterns.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Avoiding Style Contamination</strong>
+                                    <p>When you want photorealism but the model keeps drifting toward illustration, or you want watercolor but it produces digital art, negative prompts enforce stylistic boundaries.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Fine-Tuning Composition</strong>
+                                    <p>Exclude specific compositional elements &mdash; borders, frames, text overlays, multiple subjects &mdash; to ensure the generated image matches your intended layout precisely.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Positive Prompt Alone Suffices</strong>
+                                    <p>If your positive prompt consistently produces satisfactory results without artifacts or quality issues, adding negative terms introduces unnecessary complexity and may over-constrain the output.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Model Does Not Support Negative Prompts</strong>
+                                    <p>Some API-only models and newer architectures do not offer a dedicated negative prompt field. In these cases, incorporate exclusions into your positive prompt using phrases like &ldquo;without&rdquo; or &ldquo;no.&rdquo;</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Over-Constraining Limits Creative Exploration</strong>
+                                    <p>During early ideation or brainstorming phases, heavy negative prompting can restrict the model&rsquo;s creative range. Let the model explore freely first, then add negative constraints to refine promising directions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where negative prompting delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Professional Photography Generation</h3>
+                        <p class="use-case-showcase__desc">Eliminate watermarks, compression artifacts, and unnatural lighting from AI-generated photos intended for professional use in marketing materials or publications.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Character Design Consistency</h3>
+                        <p class="use-case-showcase__desc">Suppress anatomical deformities and style drift when generating character art across multiple poses, ensuring consistent proportions and visual identity throughout a project.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                <polyline points="9 22 9 12 15 12 15 22"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Architectural Visualization</h3>
+                        <p class="use-case-showcase__desc">Exclude impossible geometry, floating elements, and perspective distortions from building renders to produce physically plausible architectural concepts and interior designs.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Medical Illustration</h3>
+                        <p class="use-case-showcase__desc">Remove stylistic embellishments, inaccurate anatomy, and artistic license from medical diagrams to maintain clinical accuracy and educational clarity in healthcare materials.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Technical Diagrams</h3>
+                        <p class="use-case-showcase__desc">Suppress photorealistic textures, decorative elements, and unnecessary detail from technical diagrams and schematics where clarity and precision are paramount.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10"/>
+                                <path d="M12 20V4"/>
+                                <path d="M6 20v-6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Brand-Consistent Marketing Assets</h3>
+                        <p class="use-case-showcase__desc">Exclude competing brand colors, off-brand styles, and unwanted visual elements to generate marketing imagery that aligns with established brand guidelines and visual identity systems.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Negative Prompting Fits</h2>
+                <p class="section-subtitle fade-in-up">From basic text-to-image to advanced compositional control</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Basic Text-to-Image</span>
+                        <span class="era-marker__title">Positive Only</span>
+                        <span class="era-marker__desc">Describe what you want, hope for the best</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Negative Prompting</span>
+                        <span class="era-marker__title">Exclusion Control</span>
+                        <span class="era-marker__desc">Define what to avoid for cleaner output</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">ControlNet Guidance</span>
+                        <span class="era-marker__title">Structural Control</span>
+                        <span class="era-marker__desc">Pose, depth, and edge-guided generation</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Multi-Prompt Composition</span>
+                        <span class="era-marker__title">Regional Control</span>
+                        <span class="era-marker__desc">Different prompts for different image regions</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">The Refinement Principle</div>
+                    <p>Image generation follows a natural refinement path: start with a clear positive prompt, add negative terms to suppress problems, introduce structural controls like ControlNet for precise composition, and use multi-prompt techniques for complex scenes with multiple subjects. Each layer adds precision but also adds complexity. Negative prompting is the most accessible and universally applicable refinement step &mdash; it works with every diffusion-based model and requires no additional tools or preprocessing.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Complementary approaches for image generation control</p>
+
+                <a href="image-gen-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Image Generation Prompting</span>
+                        <span class="evolution-callout__desc">Master the fundamentals of positive prompt construction before layering negative constraints &mdash; a strong positive prompt is the foundation that negative prompting builds upon.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="controlnet-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">ControlNet Prompting</span>
+                        <span class="evolution-callout__desc">Go beyond text-based exclusion with structural controls that guide pose, depth, and edge composition &mdash; combine with negative prompts for maximum precision.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="composition-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Composition Prompting</span>
+                        <span class="evolution-callout__desc">Control spatial arrangement, framing, and visual hierarchy within images &mdash; use alongside negative prompts to define both what appears and how it is arranged.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Refine Your Image Generation</h2>
+                        <p class="cta-corporate__text">Build and refine your prompts with our interactive tools, or explore other image generation frameworks to expand your creative control.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../index.html" class="btn btn-secondary">All Frameworks</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>Master the Art of AI Communication theory through proven frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Discover</h4>
+                <a href="../../prompt-basics.html">Prompt Basics</a>
+                <a href="../../crisp.html">CRISP Framework</a>
+                <a href="../../crispe.html">CRISPE Framework</a>
+                <a href="../../costar.html">COSTAR Framework</a>
+                <a href="../../react.html">ReAct Framework</a>
+                <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness</h4>
+                <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../../../tools/guidance.html">Prompt Builder</a>
+                <a href="../../../tools/matcher.html">Framework Matcher</a>
+                <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../../../quiz/index.html">Readiness Quiz</a>
+                <a href="../../../patterns/index.html">Patterns Library</a>
+                <a href="../../../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                <a href="../../../pages/faq.html">FAQ</a>
+                <a href="../../../pages/glossary.html">Glossary</a>
+                <a href="../../../pages/security.html">Security</a>
+                <a href="../../../pages/performance.html">Performance</a>
+                <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                <a href="../../../pages/universal-design.html">Universal Design</a>
+                <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                <a href="../../../pages/about.html">About</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everybody</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+        </div>
+    </div>
+</footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK TO TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK TO TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>
