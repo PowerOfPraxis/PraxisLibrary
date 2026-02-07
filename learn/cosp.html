@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="COSP: Consistency-based Self-adaptive Prompting - automatically build demonstrations from model's own consistent outputs.">
+    <meta name="description" content="COSP: Consistency-based Self-adaptive Prompting — automatically generate reliable demonstrations from the model's own consistent outputs without human labeling.">
     <title>COSP - Praxis</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="stylesheet" href="../styles.css">
@@ -132,6 +132,7 @@
     </header>
 
     <main id="main-content">
+        <!-- === HERO === -->
         <section class="page-hero">
             <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
             <div class="container">
@@ -143,95 +144,555 @@
                     <span class="current">COSP</span>
                 </nav>
                 <div class="hero-badge">
-                    <span class="hero-badge__text">Self-Adaptive</span>
+                    <span class="hero-badge__text">Self-Adaptive Prompting</span>
                 </div>
                 <h1 class="page-title fade-in">COSP</h1>
-                <p class="page-subtitle fade-in">Build demonstrations from the model's own consistent outputs.</p>
+                <p class="page-subtitle fade-in">Consistency-based Self-adaptive Prompting &mdash; bootstrap reliable few-shot demonstrations from the model&rsquo;s own confident, high-agreement outputs, eliminating the need for human-written examples.</p>
             </div>
         </section>
+        <!-- /HERO -->
 
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2023</span>
+                        <p><strong>Introduced:</strong> COSP (Consistency-based Self-adaptive Prompting) was introduced by Wan et al. in 2023 to address one of the most persistent bottlenecks in few-shot prompting: the need for high-quality, human-written demonstrations. Creating effective demonstrations requires domain expertise, careful formatting, and significant manual effort &mdash; a process that scales poorly across diverse tasks and domains. COSP solves this by having the model generate its own demonstrations, then using consistency across multiple samples as a reliability signal to filter for only the most trustworthy outputs to serve as pseudo-demonstrations.</p>
+                        <p><strong>Modern LLM Status:</strong> COSP remains an <strong>active and relevant technique</strong>, particularly valuable in automated prompt engineering pipelines and production systems that need domain-specific demonstrations at scale. As models have grown more capable, the quality of self-generated demonstrations has improved correspondingly, making COSP even more effective than when it was first proposed. The core principle &mdash; that consistency signals reliability &mdash; has influenced subsequent work in self-adaptive prompting, automatic demonstration generation, and LLM-as-judge paradigms where models evaluate their own outputs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
         <section class="section section-alt">
             <div class="container">
-                <div class="split-section">
+                <div class="split-section split-section--center fade-in-up">
                     <div class="split-section__content">
-                        <span class="section-eyebrow">The Concept</span>
-                        <h2 class="section-title">Consistency-based Self-adaptive Prompting</h2>
-                        <p class="section-intro">COSP uses the model's own highly-consistent zero-shot outputs as pseudo-demonstrations. Questions where the model shows high agreement across samples are assumed reliable and used as few-shot examples for harder questions.</p>
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Let the Model Teach Itself</h2>
+                        <p class="split-section__text">Few-shot prompting is one of the most effective ways to improve LLM performance &mdash; providing input-output examples in the prompt gives the model concrete patterns to follow. But creating those demonstrations has always required human effort: someone must write high-quality examples for every new task, domain, or question type. This creates a bottleneck that limits how quickly few-shot prompting can be deployed at scale.</p>
+                        <p class="split-section__text">COSP eliminates this bottleneck entirely. Instead of relying on humans to craft demonstrations, the model generates its own by answering questions multiple times with sampling (temperature &gt; 0). When the same answer appears consistently across multiple independent samples, that consistency serves as a strong signal that the answer is correct. These high-consistency outputs then become the demonstrations for harder questions &mdash; the model effectively teaches itself by identifying what it already knows with confidence.</p>
+                        <p class="split-section__text">The elegance of COSP lies in its simplicity: it requires no labeled data, no human annotation, and no task-specific tuning. The model bootstraps its own demonstrations from the raw signal of self-agreement, turning the unreliability of any single sample into a strength when measured across many.</p>
+                    </div>
+                    <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
-                                <span class="highlight-box__title">Key Insight</span>
-                                <p>High consistency suggests confidence and correctness. These reliable outputs can bootstrap demonstrations without human labeling.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="split-section__media">
-                        <div class="highlight-box highlight-box--tip">
-                            <div class="highlight-box__content">
-                                <span class="highlight-box__title">Process</span>
-                                <p>1) Run zero-shot with sampling. 2) Identify high-consistency answers. 3) Use as pseudo-demonstrations. 4) Apply to target questions.</p>
+                                <span class="highlight-box__title">The Consistency Principle</span>
+                                <p>If a model produces the same answer across multiple independent samples, that answer is very likely correct. <strong>High agreement = high confidence = reliable demonstration.</strong> This is the same logic behind Self-Consistency voting, but COSP uses it not just to pick the best answer &mdash; it uses the entire confident output as a reusable example for future questions. The consistency score becomes a quality filter that no human annotator could replicate at the same speed or scale.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /THE CONCEPT -->
 
+        <!-- === HOW IT WORKS === -->
         <section class="section">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-eyebrow">Benefits</span>
-                    <h2 class="section-title">Why COSP Works</h2>
-                </div>
+                <h2 class="section-title fade-in-up">How COSP Works</h2>
+                <p class="section-subtitle fade-in-up">Four steps from zero-shot uncertainty to self-generated few-shot demonstrations</p>
 
-                <div class="pillar-grid pillar-grid--3 fade-in-up">
-                    <div class="pillar-card pillar-card--interactive">
-                        <h3 class="pillar-card__title">No Labeling</h3>
-                        <p class="pillar-card__text">Generates demonstrations automatically without human annotation effort.</p>
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Sample Multiple Zero-Shot Responses</h3>
+                            <p class="element-timeline__text">Run a set of questions through the model multiple times using temperature sampling (temperature &gt; 0). Each question receives several independent response attempts, each potentially different due to the stochastic sampling process. This diversity is the raw material &mdash; by generating multiple outputs for the same input, you create a dataset from which consistency can be measured.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;What is 15% of 240?&rdquo; &mdash; sampled 5 times, producing responses: 36, 36, 36, 36, 38. Four out of five samples agree on 36.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pillar-card pillar-card--interactive">
-                        <h3 class="pillar-card__title">Task-Specific</h3>
-                        <p class="pillar-card__text">Demonstrations come from the same task distribution, ensuring relevance.</p>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Measure Consistency Across Samples</h3>
+                            <p class="element-timeline__text">For each question, calculate a consistency score based on the degree of agreement among the sampled responses. Questions where most or all samples produce the same answer receive high consistency scores. Questions where samples diverge widely receive low scores. This consistency metric serves as a proxy for the model&rsquo;s confidence &mdash; high agreement indicates the model &ldquo;knows&rdquo; the answer reliably, while low agreement indicates uncertainty or difficulty.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>The question &ldquo;What is 15% of 240?&rdquo; scores 4/5 (80%) consistency. A harder question like &ldquo;Estimate the GDP impact of a 2% tariff increase&rdquo; might score 1/5 (20%) &mdash; indicating the model is uncertain.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pillar-card pillar-card--interactive">
-                        <h3 class="pillar-card__title">Quality Filter</h3>
-                        <p class="pillar-card__text">Consistency filtering selects likely-correct examples automatically.</p>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Select High-Consistency Outputs as Pseudo-Demonstrations</h3>
+                            <p class="element-timeline__text">Filter for the questions and answers that achieved the highest consistency scores. These become your pseudo-demonstrations &mdash; complete question-answer pairs that the model produced confidently and correctly. Because they were generated by the model itself, they are naturally formatted in the model&rsquo;s own style and vocabulary, making them particularly effective as few-shot examples. Select a diverse set to cover different aspects of the task.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>From 50 sampled questions, select the top 5 with the highest consistency scores. These become the demonstrations: &ldquo;Q: What is 15% of 240? A: 36&rdquo; and similar high-confidence pairs.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Use as Few-Shot Examples for Target Questions</h3>
+                            <p class="element-timeline__text">Prepend the selected pseudo-demonstrations to the prompt for new or harder questions. The model now has concrete, reliable examples of the task format and expected reasoning &mdash; all generated without any human annotation. For questions that had low consistency in Step 2, this few-shot context often provides enough guidance to push the model toward the correct answer, improving accuracy on exactly the questions where the model previously struggled most.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Here are some examples: [high-consistency demonstrations]. Now answer: Estimate the GDP impact of a 2% tariff increase.&rdquo; The previously uncertain question now benefits from the structured pattern established by confident examples.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /HOW IT WORKS -->
 
+        <!-- === COMPARISON === -->
         <section class="section section-alt">
             <div class="container">
-                <h2 class="section-title fade-in-up">Related Frameworks</h2>
-                <div class="icon-boxes icon-boxes--four fade-in-up">
-                    <a href="self-consistency.html" class="icon-box icon-box--clickable">
-                        <div class="icon-box__body">
-                            <h3 class="icon-box__title">Self-Consistency</h3>
-                            <p class="icon-box__content">Consistency-based voting.</p>
-                        </div>
-                    </a>
-                    <a href="auto-cot.html" class="icon-box icon-box--clickable">
-                        <div class="icon-box__body">
-                            <h3 class="icon-box__title">Auto-CoT</h3>
-                            <p class="icon-box__content">Automated demonstration generation.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">How self-generated demonstrations improve accuracy without human effort</p>
 
-        <section class="section">
-            <div class="container">
-                <div class="cta-corporate cta-corporate--dark">
-                    <h2 class="cta-corporate__title">Try COSP</h2>
-                    <div class="cta-corporate__actions">
-                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Standard Zero-Shot</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Approach</span>
+                                <p>Send each question to the model with no examples. The model relies entirely on its pre-training knowledge and the instruction alone. No demonstrations, no patterns to follow, no calibration of expected output format.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Result</span>
+                                <p>Moderate accuracy. The model answers easy questions correctly but struggles with ambiguous or harder questions where example patterns would help. Output format varies unpredictably across responses.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>No examples, inconsistent format, moderate accuracy</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">COSP</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Approach</span>
+                                <p>Sample multiple responses, identify high-consistency outputs, and use them as auto-generated few-shot demonstrations. Each target question is now preceded by reliable examples the model produced itself &mdash; no human labeling required.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Result</span>
+                                <p>Higher accuracy across all question difficulty levels. The auto-generated demonstrations calibrate the model&rsquo;s output format and reasoning approach. Hardest questions see the largest improvement because they benefit most from example patterns.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Auto-generated examples, consistent format, higher accuracy &mdash; zero human effort</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /COMPARISON -->
+
+        <!-- === EXAMPLES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">COSP in Action</h2>
+                <p class="section-subtitle fade-in-up">See how consistency-based demonstration selection works across different task types</p>
+
+                <div class="accordion fade-in-up" id="cosp-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Math Reasoning &mdash; Consistent Answers Become Demonstrations</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Step 1: Sample Easy Questions</span>
+                                    <p>Ask the model &ldquo;What is 25% of 80?&rdquo; five times with temperature sampling. Results: 20, 20, 20, 20, 20. Perfect consistency (5/5). This question-answer pair becomes a pseudo-demonstration because the model is clearly confident in the answer.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Step 2: Apply to Hard Questions</span>
+                                    <p>Now when the model faces a harder question like &ldquo;A store offers 15% off a $340 item, then an additional 10% loyalty discount on the reduced price. What is the final price?&rdquo; &mdash; prepend the high-consistency demonstrations as examples. The model now has a concrete pattern for percentage calculations, improving its ability to chain the two discounts correctly rather than applying them simultaneously.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Classification &mdash; Majority-Vote Outputs as Examples</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Step 1: Sample Clear-Cut Cases</span>
+                                    <p>Classify the sentiment of &ldquo;This product completely transformed my morning routine &mdash; I cannot imagine going back!&rdquo; across five samples. Results: Positive, Positive, Positive, Positive, Positive. Consistency score: 100%. This becomes a demonstration with a clear positive label.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Step 2: Apply to Ambiguous Cases</span>
+                                    <p>For an ambiguous review like &ldquo;The build quality is excellent but the price feels steep for what you get&rdquo; &mdash; which previously split 3/5 Mixed, 1/5 Positive, 1/5 Negative &mdash; prepend the high-consistency examples covering clear Positive, Negative, and Mixed sentiments. The model now has calibrated boundaries for each category, producing more consistent and accurate classifications on edge cases.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Multi-Step Reasoning &mdash; Reliable Chains as Templates</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Step 1: Identify Reliable Reasoning Chains</span>
+                                    <p>Ask &ldquo;If all roses are flowers and all flowers need water, do roses need water?&rdquo; five times. All five samples produce: &ldquo;Yes. All roses are flowers. All flowers need water. Therefore, roses need water.&rdquo; The reasoning chain is consistent across all samples &mdash; not just the final answer, but the intermediate steps. This entire chain becomes a demonstration.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Step 2: Apply Chain Template to Complex Logic</span>
+                                    <p>For a harder syllogism like &ldquo;Some managers are leaders. All leaders are communicators. Are all managers communicators?&rdquo; &mdash; prepend the consistent chain-of-reasoning demonstrations. The model now follows the demonstrated pattern of stating premises explicitly and chaining inferences step by step, rather than jumping to a potentially incorrect conclusion. The template teaches not just what to answer, but how to reason.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use COSP</h2>
+                <p class="section-subtitle fade-in-up">Maximum value when human demonstrations are unavailable or impractical to create</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>No Labeled Examples Available</strong>
+                                    <p>When you need few-shot demonstrations but lack the time, expertise, or resources to create them manually &mdash; COSP generates reliable examples from the model itself.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Scaling Across Many Tasks</strong>
+                                    <p>When deploying prompts across dozens or hundreds of different task types where writing custom demonstrations for each would be prohibitively expensive.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Automated Pipelines</strong>
+                                    <p>Production systems that process diverse inputs without human intervention &mdash; COSP enables self-adaptive few-shot prompting that requires no manual curation.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Domain-Specific Adaptation</strong>
+                                    <p>When entering a new domain where you lack expertise to write demonstrations &mdash; let the model generate domain-appropriate examples from its own training knowledge.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>High-Quality Human Examples Exist</strong>
+                                    <p>If you already have carefully curated, expert-written demonstrations for your task, those will typically outperform auto-generated ones &mdash; human curation captures nuances that consistency alone cannot.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Very Simple Tasks</strong>
+                                    <p>Tasks where zero-shot already achieves near-perfect accuracy &mdash; the overhead of sampling multiple responses and measuring consistency adds latency and cost with minimal accuracy gain.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Single-Use Queries</strong>
+                                    <p>For one-off questions where the cost of generating multiple samples to build demonstrations exceeds the benefit &mdash; COSP&rsquo;s value scales with reuse across multiple target questions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where COSP delivers the most value in practice</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Automated QA Systems</h3>
+                        <p class="use-case-showcase__desc">Build question-answering pipelines that automatically generate their own few-shot examples from high-confidence answers, improving accuracy on harder questions without manual example curation.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Domain Adaptation</h3>
+                        <p class="use-case-showcase__desc">Adapt models to specialized domains &mdash; legal, medical, scientific &mdash; by letting the model generate domain-specific demonstrations from its own knowledge, avoiding the need for expert annotators.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                                <polyline points="2 17 12 22 22 17"/>
+                                <polyline points="2 12 12 17 22 12"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Batch Processing</h3>
+                        <p class="use-case-showcase__desc">Process large batches of questions or tasks by first identifying high-consistency responses in a sampling pass, then using those as demonstrations for the remaining items in the batch.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10"/>
+                                <path d="M12 20V4"/>
+                                <path d="M6 20v-6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Research Benchmarking</h3>
+                        <p class="use-case-showcase__desc">Evaluate model performance on new benchmarks without manually creating task-specific demonstrations &mdash; COSP provides a fair, automated baseline for few-shot evaluation across any task type.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Content Classification</h3>
+                        <p class="use-case-showcase__desc">Classify content at scale by first generating high-confidence labeled examples through consistency sampling, then using those labels as demonstrations for ambiguous or edge-case content.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Knowledge Extraction</h3>
+                        <p class="use-case-showcase__desc">Extract structured information from unstructured text by using consistently extracted examples as templates, improving extraction accuracy on documents with unusual formatting or complex layouts.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where COSP Fits</h2>
+                <p class="section-subtitle fade-in-up">COSP bridges zero-shot simplicity and few-shot effectiveness without human effort</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Zero-Shot</span>
+                        <span class="era-marker__title">No Examples</span>
+                        <span class="era-marker__desc">Direct instruction, no demonstrations</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Self-Consistency</span>
+                        <span class="era-marker__title">Sample &amp; Vote</span>
+                        <span class="era-marker__desc">Multiple samples, majority-vote answer</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">COSP</span>
+                        <span class="era-marker__title">Self-Adaptive</span>
+                        <span class="era-marker__desc">Consistent outputs become demonstrations</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Auto-CoT</span>
+                        <span class="era-marker__title">Auto Chain-of-Thought</span>
+                        <span class="era-marker__desc">Automated reasoning chain generation</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">From Voting to Teaching</div>
+                    <p>Self-Consistency uses multiple samples to pick the best answer through majority voting. COSP takes this further: instead of just voting on answers, it harvests the confident outputs and repurposes them as teaching material for the model itself. This shift from &ldquo;sample and discard&rdquo; to &ldquo;sample and reuse&rdquo; is what makes COSP a self-adaptive technique rather than just a voting mechanism. The same consistency signal that tells you which answer is correct also tells you which outputs are reliable enough to serve as demonstrations.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore techniques that share COSP&rsquo;s foundation or extend its principles</p>
+
+                <a href="self-consistency.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Self-Consistency</span>
+                        <span class="evolution-callout__desc">The technique that established consistency-based voting as a reliability signal. COSP extends this by reusing confident outputs as demonstrations rather than just selecting the best answer.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="auto-cot.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="6" cy="6" r="3"/>
+                            <circle cx="18" cy="18" r="3"/>
+                            <path d="M6 9v6c0 3 3 3 6 3h3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Auto-CoT</span>
+                        <span class="evolution-callout__desc">Automatically generates chain-of-thought demonstrations by clustering questions and sampling diverse reasoning chains &mdash; a complementary approach to automated demonstration generation.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="universal-self-consistency.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">Universal Self-Consistency</span>
+                        <span class="evolution-callout__desc">Extends consistency-based selection to open-ended tasks where traditional majority voting is not possible &mdash; the model itself selects the most consistent response from its samples.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Automate Your Demonstrations</h2>
+                        <p class="cta-corporate__text">Put COSP principles into practice with our interactive tools, or explore the foundation techniques that make self-adaptive prompting possible.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="self-consistency.html" class="btn btn-secondary">Self-Consistency</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA -->
     </main>
 
+    <!-- === FOOTER === -->
     <footer class="footer">
     <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
     <div class="container">
@@ -240,7 +701,6 @@
                 <a href="../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
                 <p>Master the Art of AI Communication theory through proven frameworks.</p>
             </div>
-
             <div class="footer-links">
                 <h4>Learn</h4>
                 <a href="prompt-basics.html">Prompt Basics</a>
@@ -251,7 +711,6 @@
                 <a href="flipped-interaction.html">Flipped Interaction</a>
                 <a href="chain-of-thought.html">Chain-of-Thought</a>
             </div>
-
             <div class="footer-links">
                 <h4>AI Readiness</h4>
                 <a href="../tools/analyzer.html">Prompt Analyzer</a>
@@ -263,7 +722,6 @@
                 <a href="../patterns/index.html">Patterns Library</a>
                 <a href="../pages/ai-safety.html">AI Safety</a>
             </div>
-
             <div class="footer-links">
                 <h4>Resources</h4>
                 <a href="../pages/chatgpt-guide.html">ChatGPT Guide</a>
@@ -277,13 +735,92 @@
                 <a href="../pages/about.html">About</a>
             </div>
         </div>
-
         <div class="footer-bottom">
             <p>AI for Everybody</p>
             <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
         </div>
     </div>
 </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK-TO-TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK-TO-TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
 
     <script src="../app.js" defer></script>
 </body>

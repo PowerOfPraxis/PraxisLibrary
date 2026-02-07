@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RaR (Rephrase and Respond): Have AI rephrase your question before answering to improve understanding and response quality.">
+    <meta name="description" content="Rephrase and Respond (RaR): Have AI rephrase your question before answering to surface ambiguities, improve comprehension, and produce more accurate responses.">
     <title>Rephrase and Respond (RaR) - Praxis</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="stylesheet" href="../styles.css">
@@ -132,6 +132,7 @@
     </header>
 
     <main id="main-content">
+        <!-- === HERO === -->
         <section class="page-hero">
             <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
             <div class="container">
@@ -146,72 +147,253 @@
                     <span class="hero-badge__text">Zero-Shot Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Rephrase and Respond (RaR)</h1>
-                <p class="page-subtitle fade-in">Ask AI to rephrase your question before answering for better comprehension.</p>
+                <p class="page-subtitle fade-in">Force comprehension before generation. RaR makes the model restate your question in its own words &mdash; surfacing ambiguities, resolving vague references, and ensuring it truly understands what you&rsquo;re asking before it answers.</p>
             </div>
         </section>
+        <!-- /HERO -->
 
-        <section class="section section-alt">
-            <div class="container">
-                <div class="split-section">
-                    <div class="split-section__content">
-                        <span class="section-eyebrow">The Concept</span>
-                        <h2 class="section-title">Clarity Through Rephrasing</h2>
-                        <p class="section-intro">RaR asks the model to first rephrase the question in its own words before answering. This forces the model to process and interpret the question more deeply, often catching ambiguities and ensuring the response addresses what was actually asked.</p>
-                        <div class="highlight-box highlight-box--info">
-                            <div class="highlight-box__content">
-                                <span class="highlight-box__title">Why It Works</span>
-                                <p>Rephrasing requires understanding. If the model rephrases incorrectly, you can catch the misunderstanding before getting a wrong answer. If it rephrases correctly, it's primed to give a relevant response.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="split-section__media">
-                        <div class="highlight-box highlight-box--tip">
-                            <div class="highlight-box__content">
-                                <span class="highlight-box__title">The Pattern</span>
-                                <p>"First, rephrase my question to ensure you understand it, then provide your answer."</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        <!-- === HISTORICAL CONTEXT === -->
         <section class="section">
             <div class="container">
-                <div class="section-header">
-                    <span class="section-eyebrow">Examples</span>
-                    <h2 class="section-title">RaR in Action</h2>
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2023</span>
+                        <p><strong>Introduced:</strong> RaR (Rephrase and Respond) was published in 2023 by Deng et al. The research identified a fundamental gap between human question intent and model interpretation &mdash; showing that LLMs often latch onto surface-level patterns in questions rather than deeply processing what is actually being asked. By instructing the model to rephrase the question first, the authors demonstrated consistent improvements in comprehension accuracy across multiple benchmarks, particularly on questions containing ambiguity, implicit assumptions, or domain-crossing terminology.</p>
+                        <p><strong>Modern LLM Status:</strong> RaR remains a <strong>still active and practical technique</strong> in prompt engineering. While frontier models like Claude and GPT-4 have improved at question comprehension, they still misinterpret ambiguous or poorly-worded queries. RaR is especially valuable for user-facing AI systems where question quality varies, for cross-domain queries where terms have multiple meanings, and as a lightweight quality gate that integrates naturally into any prompting workflow without requiring examples or complex scaffolding.</p>
+                    </div>
                 </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Understand Before You Answer</h2>
+                        <p class="split-section__text">When someone asks you a question, the fastest way to confirm you understood is to say it back in your own words. RaR applies this same principle to AI. By instructing the model to rephrase the question before answering, you force it to parse the full meaning rather than pattern-match on keywords.</p>
+                        <p class="split-section__text"><strong>Two variants exist.</strong> In <strong>one-step RaR</strong>, the model rephrases and answers in a single turn &mdash; efficient and self-correcting. In <strong>two-step RaR</strong>, you ask for the rephrase first, verify it&rsquo;s correct, then request the answer &mdash; giving you an explicit checkpoint before the model commits to a response direction.</p>
+                        <p class="split-section__text">The technique is deceptively simple, but its power lies in what happens internally. Rephrasing forces the model to build a genuine semantic representation of the question rather than relying on shallow pattern matching. This is especially critical when questions contain pronouns with ambiguous referents, domain-specific jargon, or implicit constraints that the user assumed were obvious.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Rephrasing Works</span>
+                                <p><strong>Forces Deep Parsing:</strong> The model must process every clause of the question to reconstruct it, not just scan for trigger words.<br><br><strong>Surfaces Assumptions:</strong> Implicit constraints become explicit when the model restates them in its own framing.<br><br><strong>Reveals Ambiguity:</strong> When a term has multiple meanings, the rephrase shows which interpretation the model chose &mdash; before it commits to an answer.<br><br><strong>Aligns Interpretation:</strong> The user sees exactly how the model understood the question and can course-correct before receiving a potentially misguided response.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">How RaR Works</h2>
+                <p class="section-subtitle fade-in-up">Three steps from question to comprehension-verified answer</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Present the Original Question</h3>
+                            <p class="element-timeline__text">Start with your question exactly as you would normally ask it. This can be a user query, a technical question, a business problem &mdash; any question where you want to ensure the model truly understands what&rsquo;s being asked before generating a response. No special formatting is required for the question itself.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;How do I improve my model&rsquo;s performance?&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Instruct the Model to Rephrase</h3>
+                            <p class="element-timeline__text">Add an instruction asking the model to restate the question in its own words before answering. For one-step RaR, include both the rephrase and answer instructions together. For two-step RaR, request only the rephrase first so you can verify comprehension before proceeding.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">One-Step</span>
+                                <p>&ldquo;Before answering, rephrase my question in your own words to confirm understanding, then provide your answer.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Model Answers from Its Rephrased Understanding</h3>
+                            <p class="element-timeline__text">The model first generates a rephrase &mdash; which itself becomes context for the answer. Because the model is now answering its own clearly-stated version of the question, the response is more focused, more relevant, and less likely to drift toward a misinterpretation. If the rephrase reveals a misunderstanding, you can correct it before the model generates a full answer.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Result</span>
+                                <p>The model rephrases: &ldquo;You&rsquo;re asking how to optimize the inference speed of a deployed machine learning model.&rdquo; Then answers specifically about latency reduction, quantization, and serving infrastructure &mdash; not generic ML advice.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">How rephrasing transforms vague questions into targeted answers</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Without RaR</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>How do I improve my model&rsquo;s performance?</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>Here are some ways to improve your model&rsquo;s performance: 1) Collect more training data. 2) Try different hyperparameters. 3) Use data augmentation. 4) Try a larger model architecture. 5) Use regularization techniques&hellip;<br><br>[Generic ML training advice that may not match the user&rsquo;s actual intent]</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Assumed &ldquo;model&rdquo; means ML training, gave generic advice</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">With RaR</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>How do I improve my model&rsquo;s performance? Before answering, rephrase my question to confirm you understand what I&rsquo;m asking.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p><strong>Rephrase:</strong> &ldquo;How can I improve the inference speed of my deployed machine learning model so it responds faster in production?&rdquo;<br><br>For optimizing inference speed: 1) Apply model quantization (INT8/FP16). 2) Use ONNX Runtime or TensorRT for optimized serving. 3) Implement batch prediction. 4) Consider model distillation to a smaller architecture. 5) Profile your inference pipeline for bottlenecks&hellip;</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Clarified intent through rephrase, gave targeted deployment advice</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON -->
+
+        <!-- === EXAMPLES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">RaR in Action</h2>
+                <p class="section-subtitle fade-in-up">See how rephrasing catches misinterpretations across different domains</p>
 
                 <div class="accordion fade-in-up" id="rar-accordion">
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Basic RaR Pattern</span>
+                            <span class="accordion-title">Resolving Ambiguous Technical Question</span>
                             <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
                         </button>
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Prompt</span>
-                                    <p>"What's the best way to handle errors in async JavaScript?<br><br>Before answering, please rephrase my question to confirm you understand what I'm asking."</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Catching Ambiguity</span>
-                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="technique-demo">
-                                <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Prompt</span>
-                                    <p>"How do I improve my model's performance?<br><br>Rephrase this question first—note any ambiguities—then answer."</p>
+                                    <span class="technique-demo__tag">Original Question</span>
+                                    <p>&ldquo;How do I handle state in my application?&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
-                                    <span class="technique-demo__tag">Benefit</span>
-                                    <p>The model might identify: "Performance could mean speed, accuracy, or resource usage. And 'model' could be ML model, data model, or business model."</p>
+                                    <span class="technique-demo__tag">RaR Instruction</span>
+                                    <p>&ldquo;Before answering, rephrase my question to confirm you understand it. Note any ambiguities you identify.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Model Rephrase</span>
+                                    <p>&ldquo;I see several possible interpretations: (1) How to manage UI component state in a React/Vue frontend application, (2) How to handle server-side session state in a web backend, or (3) How to manage application-wide state using a state management library like Redux or Zustand. Could you clarify which context you mean? I&rsquo;ll assume you&rsquo;re asking about frontend component state management in React.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Result</span>
+                                    <p>The rephrase immediately reveals that &ldquo;state&rdquo; and &ldquo;application&rdquo; are ambiguous. The user can either confirm the assumption or redirect &mdash; either way, the answer is now grounded in a specific interpretation rather than a vague overview of all possibilities.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Catching Missing Context in Business Question</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Original Question</span>
+                                    <p>&ldquo;What&rsquo;s the best pricing strategy for our new product?&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">RaR Instruction</span>
+                                    <p>&ldquo;Rephrase this question first, identifying what information you&rsquo;d need to answer it well, then provide your best answer with those caveats.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Model Rephrase</span>
+                                    <p>&ldquo;You&rsquo;re asking me to recommend a pricing strategy, but I&rsquo;m missing key context: What type of product is it (SaaS, physical, service)? Who is the target market (enterprise, SMB, consumer)? What are the competitive alternatives and their pricing? What are your margins and cost structure? I&rsquo;ll provide a framework for choosing a pricing strategy and flag where your specific context would change the recommendation.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Result</span>
+                                    <p>Instead of giving a generic &ldquo;consider value-based pricing&rdquo; answer, the model explicitly surfaces all the missing context that would change the recommendation. The user now knows what information to provide for a genuinely useful answer.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Two-Step RaR for Complex Policy Question</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Step 1 &mdash; Rephrase Only</span>
+                                    <p>&ldquo;We need to update our data retention policy to comply with the new regulations. Can you help?&rdquo;<br><br>&ldquo;Don&rsquo;t answer yet. First, rephrase what you think I&rsquo;m asking, including what &lsquo;new regulations&rsquo; might refer to and what &lsquo;help&rsquo; means in this context.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Model Rephrase</span>
+                                    <p>&ldquo;You&rsquo;re asking for help updating your organization&rsquo;s data retention policy. &lsquo;New regulations&rsquo; could refer to GDPR updates, the EU AI Act, state-level privacy laws (CCPA/CPRA), or industry-specific regulations like HIPAA. By &lsquo;help&rsquo; you might mean: drafting policy language, identifying what needs to change, creating a compliance checklist, or reviewing existing policy against requirements.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Step 2 &mdash; Corrected Answer</span>
+                                    <p>The user responds: &ldquo;Good catch &mdash; I meant CCPA/CPRA specifically, and I need a compliance checklist. Go ahead.&rdquo; The model now produces a targeted CCPA/CPRA data retention compliance checklist instead of a generic policy overview covering five different regulatory frameworks.</p>
                                 </div>
                             </div>
                         </div>
@@ -219,40 +401,304 @@
                 </div>
             </div>
         </section>
+        <!-- /EXAMPLES -->
 
+        <!-- === WHEN TO USE === -->
         <section class="section section-alt">
             <div class="container">
-                <h2 class="section-title fade-in-up">Related Frameworks</h2>
-                <div class="icon-boxes icon-boxes--four fade-in-up">
-                    <a href="flipped-interaction.html" class="icon-box icon-box--clickable">
-                        <div class="icon-box__body">
-                            <h3 class="icon-box__title">Flipped Interaction</h3>
-                            <p class="icon-box__content">Have AI ask clarifying questions.</p>
-                        </div>
-                    </a>
-                    <a href="self-ask.html" class="icon-box icon-box--clickable">
-                        <div class="icon-box__body">
-                            <h3 class="icon-box__title">Self-Ask</h3>
-                            <p class="icon-box__content">AI asks and answers sub-questions.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
+                <h2 class="section-title fade-in-up">When to Use RaR</h2>
+                <p class="section-subtitle fade-in-up">Best for questions where misinterpretation is likely or costly</p>
 
-        <section class="section">
-            <div class="container">
-                <div class="cta-corporate cta-corporate--dark">
-                    <h2 class="cta-corporate__title">Try Rephrase and Respond</h2>
-                    <p class="cta-corporate__text">Practice RaR in our prompt builder.</p>
-                    <div class="cta-corporate__actions">
-                        <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Ambiguous or Vague Questions</strong>
+                                    <p>When terms have multiple meanings or the question could be interpreted in several ways &mdash; RaR forces the model to commit to one interpretation visibly.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Cross-Domain Queries</strong>
+                                    <p>Questions that span multiple fields where terminology overlaps &mdash; &ldquo;model,&rdquo; &ldquo;performance,&rdquo; &ldquo;pipeline,&rdquo; and &ldquo;deployment&rdquo; all mean different things in different contexts.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>User-Facing AI Systems</strong>
+                                    <p>Chatbots, support systems, and assistants where input quality varies wildly &mdash; RaR acts as a built-in clarification step that improves response relevance.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Questions with Implicit Assumptions</strong>
+                                    <p>When the questioner assumes context that the model doesn&rsquo;t have &mdash; rephrasing surfaces these hidden assumptions before they lead to wrong answers.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Unambiguous Simple Questions</strong>
+                                    <p>&ldquo;What is the capital of France?&rdquo; has exactly one interpretation. Rephrasing adds latency without any comprehension benefit.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Structured Data Queries</strong>
+                                    <p>When the input is already a well-defined schema, SQL query, or API call &mdash; the format itself eliminates ambiguity, making rephrasing redundant.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>When Token Efficiency Matters</strong>
+                                    <p>The rephrase adds output tokens. In high-volume automated pipelines where cost and latency are critical, the overhead may not justify the comprehension gain.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where RaR delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Customer Support Bots</h3>
+                        <p class="use-case-showcase__desc">Customers describe problems imprecisely. RaR ensures the bot confirms its understanding before providing solutions, reducing back-and-forth and improving first-contact resolution rates.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Search Query Refinement</h3>
+                        <p class="use-case-showcase__desc">Turn vague search queries into precise information needs. The rephrase step transforms &ldquo;best database&rdquo; into &ldquo;best relational database for a small team building a SaaS product.&rdquo;</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Technical Q&amp;A</h3>
+                        <p class="use-case-showcase__desc">Technical questions often contain jargon with multiple meanings across domains. Rephrasing confirms whether &ldquo;container&rdquo; means Docker, UI component, or data structure.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Educational Tutoring</h3>
+                        <p class="use-case-showcase__desc">Students often ask questions that don&rsquo;t quite capture what they&rsquo;re confused about. Rephrasing helps the tutor AI identify the real knowledge gap before attempting to explain.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Requirements Gathering</h3>
+                        <p class="use-case-showcase__desc">Stakeholder requirements are often vague or contradictory. RaR makes the AI restate requirements in precise, testable terms before proposing solutions.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Interview Preparation</h3>
+                        <p class="use-case-showcase__desc">Practice answering interview questions by having the AI rephrase what the interviewer is really testing for, helping you understand the intent behind behavioral and technical questions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where RaR Fits</h2>
+                <p class="section-subtitle fade-in-up">RaR occupies the comprehension enhancement space in zero-shot prompting</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Direct Question</span>
+                        <span class="era-marker__title">Plain Request</span>
+                        <span class="era-marker__desc">Ask and hope the model interprets correctly</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">RE2</span>
+                        <span class="era-marker__title">Re-Reading</span>
+                        <span class="era-marker__desc">Model re-reads the question for better processing</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">RaR</span>
+                        <span class="era-marker__title">Rephrase and Respond</span>
+                        <span class="era-marker__desc">Explicit comprehension verification through rephrasing</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">S2A</span>
+                        <span class="era-marker__title">System 2 Attention</span>
+                        <span class="era-marker__desc">Deliberate attention to relevant information only</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Lightweight and Composable</div>
+                    <p>RaR adds almost no complexity to your prompts &mdash; just a single instruction line. This makes it easy to combine with other techniques. Pair it with Chain-of-Thought (&ldquo;Rephrase my question, then think step by step&rdquo;) or Role Prompting (&ldquo;As a senior architect, rephrase this question and answer it&rdquo;) for compounding quality improvements without significant overhead.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary approaches to question comprehension</p>
+
+                <a href="self-ask.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Self-Ask</span>
+                        <span class="evolution-callout__desc">Where RaR rephrases the question, Self-Ask decomposes it into sub-questions &mdash; a deeper form of question analysis that builds understanding through decomposition.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="step-back.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">Step-Back Prompting</span>
+                        <span class="evolution-callout__desc">While RaR rephrases at the same level, Step-Back abstracts to a higher-level question first &mdash; understanding the broader concept before tackling the specific case.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="flipped-interaction.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="17 1 21 5 17 9"/>
+                            <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+                            <polyline points="7 23 3 19 7 15"/>
+                            <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Flipped Interaction</span>
+                        <span class="evolution-callout__desc">Instead of rephrasing your question, the AI asks you clarifying questions &mdash; a more interactive approach to the same comprehension challenge that RaR solves in a single turn.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Rephrase Your Way to Better Answers</h2>
+                        <p class="cta-corporate__text">Try adding a rephrase instruction to your next prompt, or explore other comprehension-enhancing techniques in the Praxis Library.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA -->
     </main>
 
+    <!-- === FOOTER === -->
     <footer class="footer">
     <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
     <div class="container">
@@ -261,7 +707,6 @@
                 <a href="../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
                 <p>Master the Art of AI Communication theory through proven frameworks.</p>
             </div>
-
             <div class="footer-links">
                 <h4>Learn</h4>
                 <a href="prompt-basics.html">Prompt Basics</a>
@@ -272,7 +717,6 @@
                 <a href="flipped-interaction.html">Flipped Interaction</a>
                 <a href="chain-of-thought.html">Chain-of-Thought</a>
             </div>
-
             <div class="footer-links">
                 <h4>AI Readiness</h4>
                 <a href="../tools/analyzer.html">Prompt Analyzer</a>
@@ -284,7 +728,6 @@
                 <a href="../patterns/index.html">Patterns Library</a>
                 <a href="../pages/ai-safety.html">AI Safety</a>
             </div>
-
             <div class="footer-links">
                 <h4>Resources</h4>
                 <a href="../pages/chatgpt-guide.html">ChatGPT Guide</a>
@@ -298,13 +741,92 @@
                 <a href="../pages/about.html">About</a>
             </div>
         </div>
-
         <div class="footer-bottom">
             <p>AI for Everybody</p>
             <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
         </div>
     </div>
 </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK-TO-TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK-TO-TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
 
     <script src="../app.js" defer></script>
 </body>
