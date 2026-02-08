@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Point Cloud Prompting: Learn techniques for guiding AI models to process, analyze, and reason about 3D point cloud data from LiDAR scans, depth sensors, and photogrammetry for spatial understanding.">
+    <title>Point Cloud Prompting - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--tabbed">
+                        <div class="mega-menu-tabs" role="tablist" aria-label="Framework categories"></div>
+                        <div class="mega-menu-section" data-tab="getting-started" role="tabpanel">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts &amp; Fictions</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="structured-frameworks" role="tabpanel">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context &amp; Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="in-context-learning" role="tabpanel">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="reasoning-cot" role="tabpanel">
+                            <h4><a href="../../reasoning-cot.html">Reasoning &amp; CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="decomposition" role="tabpanel">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="self-correction" role="tabpanel">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="ensemble-methods" role="tabpanel">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="prompting-strategies" role="tabpanel">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="code" role="tabpanel">
+                            <h4>Code</h4>
+                            <a href="../code/code-prompting.html">Code Prompting</a>
+                            <a href="../code/self-debugging.html">Self-Debugging</a>
+                            <a href="../code/structured-output.html">Structured Output</a>
+
+                            <a href="../code/program-synthesis.html">Program Synthesis</a>
+                            <a href="../code/code-explanation.html">Code Explanation</a>
+                            <a href="../code/code-review.html">Code Review</a>
+                            <a href="../code/test-generation.html">Test Generation</a>
+                            <a href="../code/sql-generation.html">SQL Generation</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="image" role="tabpanel">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="audio" role="tabpanel">
+                            <h4>Audio</h4>
+                            <a href="../audio/audio-prompting.html">Audio Prompting</a>
+                            <a href="../audio/stt-prompting.html">Speech-to-Text</a>
+                            <a href="../audio/tts-prompting.html">Text-to-Speech</a>
+                            <a href="../audio/audio-classification.html">Audio Classification</a>
+                            <a href="../audio/music-gen.html">Music Generation</a>
+                            <a href="../audio/voice-cloning.html">Voice Cloning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="video" role="tabpanel">
+                            <h4>Video</h4>
+                            <a href="../video/video-prompting.html">Video Prompting</a>
+                            <a href="../video/video-gen.html">Video Generation</a>
+                            <a href="../video/temporal-reasoning.html">Temporal Reasoning</a>
+                            <a href="../video/video-qa.html">Video QA</a>
+                            <a href="../video/video-captioning.html">Video Captioning</a>
+                            <a href="../video/video-editing.html">Video Editing</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="3d" role="tabpanel">
+                            <h4>3D</h4>
+                            <a href="../3d/3d-prompting.html">3D Prompting</a>
+                            <a href="../3d/3d-model-gen.html">3D Model Generation</a>
+                            <a href="../3d/scene-understanding.html">Scene Understanding</a>
+                            <a href="../3d/pose-estimation.html">Pose Estimation</a>
+                            <a href="../3d/point-cloud.html">Point Cloud</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI &amp; ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Point Cloud Prompting</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">3D Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Point Cloud Prompting</h1>
+                <p class="page-subtitle fade-in">Techniques for guiding AI models to process, interpret, and reason about 3D point cloud data from LiDAR scans, depth sensors, and photogrammetry &mdash; transforming raw spatial measurements into structured understanding of objects, environments, and geometric relationships.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2017&ndash;2024</span>
+                        <p><strong>Introduced:</strong> Point cloud processing in deep learning began with PointNet (2017, Stanford), which introduced direct processing of unordered point sets without converting them to voxel grids or meshes first. PointNet++ extended this with hierarchical feature learning for capturing local geometric structures at multiple scales. Point cloud understanding became increasingly important as LiDAR sensors proliferated in autonomous vehicles (Waymo, Cruise), drones for surveying, and consumer mobile devices &mdash; Apple&rsquo;s iPhone 12 Pro introduced LiDAR scanning in 2020, bringing 3D capture to millions of users. The integration of point cloud representations with large language models during 2023&ndash;2024 enabled text-guided 3D analysis where users can describe what spatial features to extract from point cloud data rather than manually configuring segmentation parameters, opening the door to natural-language-driven spatial reasoning over complex 3D scenes.</p>
+                        <p><strong>Modern LLM Status:</strong> Specialized 3D foundation models and multimodal systems can interpret point cloud data when properly prompted, though most frontier LLMs work with point clouds <strong>indirectly</strong> through 2D projections, rendered depth maps, or textual descriptions of 3D scan results. Models like Point-E, PointLLM, and 3D-LLM demonstrate growing capability in understanding spatial data from natural language instructions. The core techniques covered here &mdash; specifying what geometric features to identify, defining spatial scope and resolution, structuring output around objects rather than raw coordinates &mdash; are essential because models without explicit spatial guidance tend to produce flat enumerations of point statistics rather than meaningful geometric analysis. These principles form the foundation for advanced 3D techniques including mesh reconstruction, digital twin creation, and scene-level spatial reasoning.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Bridge Raw Coordinates and Spatial Understanding</h2>
+                        <p class="split-section__text">Point cloud prompting bridges the gap between raw spatial measurements &mdash; millions of 3D coordinates captured by sensors &mdash; and human-interpretable spatial understanding. A point cloud is fundamentally a collection of points in three-dimensional space, each defined by an x, y, z coordinate and optionally enriched with color (RGB), intensity, return number, or classification values. These unstructured collections of points represent the surfaces and shapes of real-world objects and environments as measured by LiDAR scanners, depth cameras, photogrammetry pipelines, or structured-light sensors.</p>
+                        <p class="split-section__text"><strong>The core insight is that effective point cloud prompting requires explicitly specifying WHAT geometric features to identify, WHAT spatial relationships matter, WHAT level of detail is needed, and HOW to handle the inherent noise and density variations in real-world scans.</strong> A bare request to &ldquo;analyze this point cloud&rdquo; produces a generic statistical summary &mdash; point count, bounding box dimensions, and perhaps a density estimate. But when you specify the analytical lens &mdash; object segmentation, surface classification, structural deformation detection, volumetric measurement &mdash; the model shifts from passive data description to active spatial reasoning and geometric interpretation.</p>
+                        <p class="split-section__text">Think of it like handing the same LiDAR scan of a city block to a civil engineer, an urban planner, and a utility inspector. The civil engineer measures structural clearances, identifies load-bearing surfaces, and flags deformation patterns. The urban planner analyzes building setbacks, vegetation coverage ratios, and pedestrian path widths. The utility inspector traces power line sag, identifies encroaching vegetation, and measures pole lean angles. Point cloud prompting is how you tell the model which kind of spatial analyst to become.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Spatial Specificity Transforms Point Cloud Analysis</span>
+                                <p>When a model receives point cloud data without clear instructions, it defaults to reporting basic statistics &mdash; producing a dry summary of point counts, coordinate ranges, and average density with no geometric interpretation. Structured point cloud prompts redirect this behavior by defining the <strong>spatial analytical framework</strong> the model should apply: what coordinate system to reference, which geometric primitives to fit, how to segment objects from ground surfaces, what level of noise filtering is appropriate, and whether to prioritize surface classification, volumetric estimation, structural assessment, or change detection. The difference between a generic &ldquo;this point cloud contains 2.4 million points spanning a 50-meter area&rdquo; and a structured analysis identifying individual buildings, measuring facade heights, classifying vegetation types, and flagging structural anomalies comes down entirely to the quality of the accompanying prompt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Point Cloud Prompting Process</h2>
+                <p class="section-subtitle fade-in-up">Four steps from spatial data input to structured geometric analysis</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Prepare Point Cloud Data</h3>
+                            <p class="element-timeline__text">Provide the point cloud input with essential context about how it was captured. This includes the sensor type (terrestrial LiDAR, aerial LiDAR, depth camera, photogrammetry), the coordinate reference system (local, UTM, geographic), point density, and any preprocessing already applied such as noise filtering or ground classification. The data format matters significantly &mdash; whether raw XYZ coordinates, LAS/LAZ files with classification attributes, or PLY files with color information. Providing capture metadata helps the model understand the scale, precision, and expected noise characteristics of the data.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Provide a terrestrial LiDAR scan of a building facade captured at 5mm point spacing, with RGB color values, in a local coordinate system where Z represents height above ground level.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Define Analysis Objectives</h3>
+                            <p class="element-timeline__text">Specify exactly what spatial information you need extracted from the point cloud. Are you asking the model to segment individual objects, classify surface types, detect geometric primitives (planes, cylinders, spheres), measure distances and volumes, identify structural defects, or compare against a reference model? The analysis objective determines whether the model focuses on individual point neighborhoods, global shape features, object boundaries, or spatial relationships between elements. A segmentation task and a deformation analysis applied to the same scan will produce fundamentally different outputs.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Segment this building facade scan into distinct architectural elements: walls, windows, doors, cornices, and downspouts. For each element type, report the count, average dimensions, and spatial distribution pattern across the facade.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Specify Spatial Parameters</h3>
+                            <p class="element-timeline__text">Define the spatial resolution, coordinate system conventions, measurement units, and tolerance thresholds for your analysis. Spatial parameters prevent the model from producing overly coarse or inappropriately precise results. Specify whether you need millimeter-level surface detail or meter-level volumetric estimates, whether measurements should be axis-aligned or follow surface normals, how to handle occlusion gaps and shadow zones in the scan, and what noise threshold to apply when distinguishing real geometry from scanner artifacts.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Analyze at a 10cm resolution grid. Report all measurements in meters with two decimal places. Treat any point deviation greater than 5cm from the fitted plane as a potential deformation. Ignore isolated point clusters with fewer than 50 points as probable noise.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Interpret and Refine Results</h3>
+                            <p class="element-timeline__text">Evaluate the initial spatial analysis and refine by zooming into specific regions, adjusting segmentation thresholds, or requesting comparison between different areas of the scan. Iterative prompting is especially powerful with point clouds because each round can direct the model&rsquo;s attention to specific spatial regions, particular object types, boundary conditions between adjacent elements, or subtle geometric variations that were missed in the initial broad-pass analysis. Cross-referencing with design specifications or previous scans can reveal deviations and changes over time.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Your initial analysis identified 12 windows on the north facade. Focus on windows 3 through 5 on the second floor. Measure the actual opening dimensions, check whether the frames are plumb and level within a 2mm tolerance, and compare the as-built measurements against the design specification of 1200mm by 1500mm.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why structured point cloud prompts produce dramatically better spatial analysis</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Vague Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>What does this point cloud show?</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>This point cloud contains approximately 3.2 million points and appears to show a building. The data covers an area of about 40 by 25 meters. There are some points that look like vegetation nearby.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Vague, no measurements, no segmentation, no actionable spatial detail</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Structured Point Cloud Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Analyze this terrestrial LiDAR scan of a commercial building. Segment the point cloud into ground, building facade, roof, vegetation, and street furniture. For each segment, report dimensions, surface area, and condition assessment.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p><strong>Ground Surface:</strong> 680 sq m, predominantly flat with 1.2% grade sloping east. Pavement shows 3 areas of subsidence (max 4cm deviation).<br><strong>Building Facade (North):</strong> 38.4m wide, 12.6m tall, 3 stories. 18 windows detected, 2 doors at ground level. Surface deviation from vertical: within 8mm (good plumb). Minor spalling detected at NE corner, 2nd floor level.<br><strong>Roof:</strong> Flat membrane, 985 sq m. Two HVAC units (2.1m x 1.8m each). Parapet height: 0.92m. Ponding risk zone identified in SW quadrant (15mm depression).<br><strong>Vegetation:</strong> 4 deciduous trees (6&ndash;9m height), 1 hedge row along east boundary (1.4m height, 22m length).<br><strong>Street Furniture:</strong> 3 light poles, 2 benches, 1 waste receptacle, 4 bollards along frontage.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Segmented, measured, classified, and condition-assessed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Point Cloud Prompting in Action</h2>
+                <p class="section-subtitle fade-in-up">See how structured prompts unlock deeper spatial analysis</p>
+
+                <div class="accordion fade-in-up" id="point-cloud-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Building Facade Analysis</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Analyze this terrestrial LiDAR point cloud of a historic brick building facade. Segment the scan into the following architectural elements: wall surfaces, window openings, door openings, decorative cornices, downspouts, and any attached signage. For each wall surface segment, fit a best-fit plane and report the maximum deviation from flatness. Identify any areas where brick surface loss exceeds 10mm depth compared to surrounding intact surfaces. Measure all window and door openings to the nearest centimeter. Report the overall facade dimensions and whether the building shows any measurable lean or settlement.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>The prompt specifies both the segmentation categories and the analytical measurements required for each category. By requesting plane-fitting with deviation thresholds, surface loss quantification, and settlement detection, the prompt transforms a passive scan description into a structural condition assessment. Without these constraints, the model would report basic geometry &mdash; wall height, width, and point count &mdash; without detecting the deterioration patterns and dimensional anomalies that make the analysis actionable for heritage conservation and structural engineering teams.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Terrain Mapping</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Process this aerial LiDAR point cloud covering a 2km-by-2km area of mixed terrain. First, classify all points into ground, low vegetation (under 2m), medium vegetation (2m to 10m), high vegetation (over 10m), buildings, and water surfaces. Generate a bare-earth digital terrain model by interpolating only ground-classified points. Identify all drainage channels and ridgelines from the terrain surface. Calculate slope angles across the entire area and flag any zones where slope exceeds 30 degrees. Report total area covered by each land classification category as both square meters and percentage of the total survey area.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt layers ground classification, terrain modeling, hydrological feature extraction, and slope analysis onto a single aerial dataset. By defining explicit vegetation height thresholds and slope cutoff values, the prompt establishes clear quantitative boundaries rather than relying on the model&rsquo;s subjective interpretation. The request for both absolute area and percentage values ensures the output serves multiple downstream uses &mdash; from flood risk assessment teams needing drainage channel locations to land use planners requiring vegetation coverage statistics, all derived from a single structured analysis pass.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Industrial Equipment Inspection</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Analyze this high-resolution point cloud scan of a cylindrical storage tank (nominal diameter 12 meters, height 15 meters). Fit a best-fit cylinder to the shell points and report the actual measured diameter and height. Calculate the roundness deviation at 1-meter height increments &mdash; for each ring section, report the maximum inward and outward deviation from the ideal cylinder in millimeters. Identify any dents or bulges where local deviation exceeds 25mm. Inspect the tank-to-foundation junction for signs of settlement by measuring the base ring elevation at 15-degree intervals around the circumference. Flag any section where adjacent measurement points differ by more than 5mm in elevation.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt applies specific engineering inspection criteria to point cloud data, requiring the model to fit reference geometry (ideal cylinder), measure deviations at defined intervals, apply threshold-based anomaly detection, and produce a settlement profile. By specifying the nominal dimensions, height increment resolution, deviation thresholds, and angular measurement spacing, the prompt produces an inspection report that aligns with API 653 tank inspection standards. Without these quantitative parameters, the analysis would lack the precision and systematic coverage required for regulatory compliance and maintenance planning.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Point Cloud Prompting</h2>
+                <p class="section-subtitle fade-in-up">Best for structured spatial analysis of 3D measurement data</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>LiDAR Scan Analysis</strong>
+                                    <p>Processing terrestrial, aerial, or mobile LiDAR scan data to segment objects, classify surfaces, extract measurements, and generate structured reports from raw point cloud datasets captured in field surveys.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>3D Reconstruction Quality Assessment</strong>
+                                    <p>Evaluating the completeness, accuracy, and density of 3D reconstructions from photogrammetry or depth sensor fusion &mdash; identifying coverage gaps, registration errors, and areas requiring additional scanning passes.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Environmental Mapping</strong>
+                                    <p>Analyzing terrain models, vegetation canopies, urban landscapes, and natural features from airborne or drone-based point clouds to support land management, conservation planning, and environmental monitoring workflows.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Structural Inspection</strong>
+                                    <p>Detecting deformation, settlement, corrosion damage, and dimensional deviations in infrastructure assets by comparing as-built point cloud measurements against design specifications or previous scan epochs.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>2D Analysis Is Sufficient</strong>
+                                    <p>If the spatial information you need can be extracted from a plan view, elevation photo, or satellite image without requiring depth measurements or volumetric calculations, standard image prompting techniques are simpler and more efficient.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Real-Time Processing Is Required</strong>
+                                    <p>If you need live point cloud processing with millisecond latency &mdash; such as autonomous vehicle obstacle detection or robotic arm guidance &mdash; dedicated embedded perception systems outperform prompt-based approaches by orders of magnitude.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Sub-Millimeter Precision Is Required</strong>
+                                    <p>When the application demands metrology-grade accuracy below 1mm &mdash; such as precision machining verification or optical component inspection &mdash; specialized coordinate measurement software with traceable calibration chains is necessary rather than AI-assisted analysis.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>No 3D Data Is Available</strong>
+                                    <p>If you only have 2D photographs, floor plans, or textual descriptions of a space without any actual 3D measurement data, you cannot apply point cloud prompting &mdash; consider image-based 3D estimation or generative 3D modeling approaches instead.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where point cloud prompting delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Autonomous Vehicle Mapping</h3>
+                        <p class="use-case-showcase__desc">Processing LiDAR scans from vehicle-mounted sensors to build high-definition 3D maps of road corridors, identifying lane markings, curb heights, sign positions, overhead clearances, and potential navigation hazards for autonomous driving systems.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                <line x1="1" y1="10" x2="23" y2="10"/>
+                                <line x1="12" y1="4" x2="12" y2="20"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Construction Progress Monitoring</h3>
+                        <p class="use-case-showcase__desc">Comparing sequential drone-captured point clouds of construction sites against BIM models to track progress, verify as-built dimensions against design intent, quantify earthwork volumes, and detect deviations before they become costly rework.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 21h18"/>
+                                <path d="M5 21V7l7-4 7 4v14"/>
+                                <path d="M9 21v-6h6v6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Archaeological Site Documentation</h3>
+                        <p class="use-case-showcase__desc">Creating detailed 3D records of excavation sites, artifact positions, and architectural remains through photogrammetric point clouds &mdash; preserving spatial context and enabling remote analysis of dig sites long after fieldwork concludes.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22c4-4 8-7.5 8-12a8 8 0 1 0-16 0c0 4.5 4 8 8 12z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Forest Canopy Analysis</h3>
+                        <p class="use-case-showcase__desc">Analyzing airborne LiDAR penetration through forest canopies to measure individual tree heights, estimate canopy density and gap fractions, calculate biomass volumes, and assess forest health indicators across large survey areas for ecological monitoring.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="3" y1="9" x2="21" y2="9"/>
+                                <line x1="9" y1="21" x2="9" y2="9"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Urban Planning</h3>
+                        <p class="use-case-showcase__desc">Processing city-scale point clouds to model building footprints, measure street widths, analyze shadow patterns from building heights, assess pedestrian visibility corridors, and generate 3D urban context models for planning and zoning decisions.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Quality Control Inspection</h3>
+                        <p class="use-case-showcase__desc">Scanning manufactured components and comparing the as-built point cloud against CAD design models to detect dimensional deviations, surface defects, and assembly misalignments &mdash; providing automated pass/fail assessments with precise deviation measurements.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Point Cloud Prompting Fits</h2>
+                <p class="section-subtitle fade-in-up">Point cloud prompting bridges raw spatial measurement and intelligent 3D understanding</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Depth Sensing</span>
+                        <span class="era-marker__title">Raw Capture</span>
+                        <span class="era-marker__desc">Sensor data acquisition and point generation</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Point Cloud Analysis</span>
+                        <span class="era-marker__title">Spatial Understanding</span>
+                        <span class="era-marker__desc">Segmentation, classification, and measurement</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Mesh Reconstruction</span>
+                        <span class="era-marker__title">Surface Modeling</span>
+                        <span class="era-marker__desc">Converting points to continuous surface geometry</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Digital Twin Modeling</span>
+                        <span class="era-marker__title">Living Spatial Models</span>
+                        <span class="era-marker__desc">Dynamic 3D replicas with real-time data integration</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Combine Data Sources for Richer Spatial Analysis</div>
+                    <p>Point cloud prompting works best when you integrate data from multiple capture methods and pair spatial analysis with domain-specific context. A LiDAR scan provides precise geometry but no color; photogrammetry adds texture but may lack geometric precision in occluded areas; depth cameras offer real-time capture but at limited range. The sharpest analyses combine these complementary data sources and apply structured frameworks like CRISP or COSTAR to define the analytical scope. Specify point cloud-specific parameters: classification schemas, noise thresholds, coordinate reference systems, minimum point density requirements, and how to reconcile measurements when multiple scan positions overlap with slight registration offsets.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary 3D techniques</p>
+
+                <a href="3d-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">3D Prompting Basics</span>
+                        <span class="evolution-callout__desc">The foundational techniques for working with any 3D data in AI models &mdash; covering coordinate systems, spatial representations, scale conventions, and general strategies for describing three-dimensional information through text prompts.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="scene-understanding.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Scene Understanding</span>
+                        <span class="evolution-callout__desc">Focuses on holistic interpretation of 3D environments &mdash; identifying rooms, spatial relationships between objects, navigable paths, functional zones, and semantic meaning within captured scenes rather than analyzing individual geometric elements.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="3d-model-gen.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">3D Model Generation</span>
+                        <span class="evolution-callout__desc">Extends point cloud analysis into the generative domain &mdash; creating complete 3D models, meshes, and textured surfaces from text descriptions or partial scans, filling gaps in captured data and producing assets for visualization and simulation.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Explore Point Cloud Prompting</h2>
+                        <p class="cta-corporate__text">Apply structured spatial analysis techniques to your 3D scan data or build multimodal prompts with our tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>Master the Art of AI Communication theory through proven frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Discover</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">COSTAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness</h4>
+                    <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                    <a href="../../../tools/guidance.html">Prompt Builder</a>
+                    <a href="../../../tools/matcher.html">Framework Matcher</a>
+                    <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                    <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                    <a href="../../../quiz/index.html">Readiness Quiz</a>
+                    <a href="../../../patterns/index.html">Patterns Library</a>
+                    <a href="../../../pages/ai-safety.html">AI Safety</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                    <a href="../../../pages/faq.html">FAQ</a>
+                    <a href="../../../pages/glossary.html">Glossary</a>
+                    <a href="../../../pages/security.html">Security</a>
+                    <a href="../../../pages/performance.html">Performance</a>
+                    <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                    <a href="../../../pages/universal-design.html">Universal Design</a>
+                    <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                    <a href="../../../pages/about.html">About</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK TO TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK TO TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>

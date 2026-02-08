@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Program Synthesis: Techniques for guiding AI models to generate complete, functional programs from high-level specifications, natural language descriptions, and input-output examples.">
+    <title>Program Synthesis - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--tabbed">
+                        <div class="mega-menu-tabs" role="tablist" aria-label="Framework categories"></div>
+                        <div class="mega-menu-section" data-tab="getting-started" role="tabpanel">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts &amp; Fictions</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="structured-frameworks" role="tabpanel">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context &amp; Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="in-context-learning" role="tabpanel">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="reasoning-cot" role="tabpanel">
+                            <h4><a href="../../reasoning-cot.html">Reasoning &amp; CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="decomposition" role="tabpanel">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="self-correction" role="tabpanel">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="ensemble-methods" role="tabpanel">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="prompting-strategies" role="tabpanel">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="code" role="tabpanel">
+                            <h4>Code</h4>
+                            <a href="../../modality/code/code-prompting.html">Code Prompting</a>
+                            <a href="../../modality/code/self-debugging.html">Self-Debugging</a>
+                            <a href="../../modality/code/structured-output.html">Structured Output</a>
+                        
+                            <a href="../../modality/code/program-synthesis.html">Program Synthesis</a>
+                            <a href="../../modality/code/code-explanation.html">Code Explanation</a>
+                            <a href="../../modality/code/code-review.html">Code Review</a>
+                            <a href="../../modality/code/test-generation.html">Test Generation</a>
+                            <a href="../../modality/code/sql-generation.html">SQL Generation</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="image" role="tabpanel">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="audio" role="tabpanel">
+                            <h4>Audio</h4>
+                            <a href="../audio/audio-prompting.html">Audio Prompting</a>
+                            <a href="../audio/stt-prompting.html">Speech-to-Text</a>
+                            <a href="../audio/tts-prompting.html">Text-to-Speech</a>
+                            <a href="../audio/audio-classification.html">Audio Classification</a>
+                            <a href="../audio/music-gen.html">Music Generation</a>
+                            <a href="../audio/voice-cloning.html">Voice Cloning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="video" role="tabpanel">
+                            <h4>Video</h4>
+                            <a href="../video/video-prompting.html">Video Prompting</a>
+                            <a href="../video/video-gen.html">Video Generation</a>
+                            <a href="../video/temporal-reasoning.html">Temporal Reasoning</a>
+                            <a href="../video/video-qa.html">Video QA</a>
+                            <a href="../video/video-captioning.html">Video Captioning</a>
+                            <a href="../video/video-editing.html">Video Editing</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="3d" role="tabpanel">
+                            <h4>3D</h4>
+                            <a href="../3d/3d-prompting.html">3D Prompting</a>
+                            <a href="../3d/3d-model-gen.html">3D Model Generation</a>
+                            <a href="../3d/scene-understanding.html">Scene Understanding</a>
+                            <a href="../3d/pose-estimation.html">Pose Estimation</a>
+                            <a href="../3d/point-cloud.html">Point Cloud</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI &amp; ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Program Synthesis</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Code Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Program Synthesis</h1>
+                <p class="page-subtitle fade-in">Techniques for guiding AI models to generate complete, functional programs from high-level specifications, natural language descriptions, and input-output examples &mdash; bridging the gap between human intent and executable code.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2021&ndash;2023</span>
+                        <p><strong>Introduced:</strong> Program synthesis as a field predates modern AI, with roots in formal methods and automated theorem proving from the 1960s. However, the neural program synthesis era began in earnest during 2021&ndash;2023. Microsoft Research&rsquo;s DeepCoder (2017) demonstrated that neural networks could learn to compose programs from domain-specific language primitives using input-output examples. DeepMind&rsquo;s AlphaCode (2022) pushed the boundaries by generating competitive programming solutions that ranked within the top 54% of human participants on Codeforces, synthesizing entire programs from natural language problem descriptions. OpenAI&rsquo;s Codex (2021) and its integration into GitHub Copilot made program synthesis practical for everyday development, translating docstrings and comments into working functions. By 2023, large language models like GPT-4 and Claude demonstrated the ability to synthesize multi-file programs, understand complex specifications, and generate code that satisfies intricate behavioral constraints.</p>
+                        <p><strong>Modern LLM Status:</strong> Program synthesis is <strong>a core capability of modern frontier models</strong> and has become the most commercially impactful application of large language models in software engineering. Current models can synthesize programs from natural language descriptions, infer functions from input-output examples, generate code that satisfies type signatures and interface contracts, and produce entire applications from architectural specifications. The key challenge has shifted from whether models can generate code to how effectively users can specify what they want &mdash; making prompt engineering for program synthesis a critical skill. The techniques covered here focus on structuring specifications, providing examples, constraining the search space, and iterating on generated programs to achieve correct, efficient, and maintainable results.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Specification-Driven Code Generation</h2>
+                        <p class="split-section__text">Program synthesis is the process of automatically generating programs that satisfy a given specification. In the context of AI-assisted development, this means crafting prompts that serve as specifications &mdash; describing what the program should do rather than how it should do it. The model acts as a synthesizer, searching through the space of possible programs to find one that matches your intent, constraints, and behavioral requirements.</p>
+                        <p class="split-section__text"><strong>The core insight is that the quality of synthesized programs depends almost entirely on the precision and completeness of the specification you provide.</strong> A vague request like &ldquo;write a sorting function&rdquo; leaves the model to guess the data type, sort order, stability requirements, performance constraints, and edge case handling. A structured synthesis prompt that specifies input types, expected output format, behavioral constraints, performance requirements, and example input-output pairs guides the model toward a precise, correct implementation that matches your actual needs.</p>
+                        <p class="split-section__text">Think of it as the difference between telling an architect &ldquo;build me a house&rdquo; versus providing blueprints with room dimensions, material specifications, load-bearing requirements, and plumbing layouts. The architect can work from either instruction, but only the detailed specification produces the house you actually want. Program synthesis prompting is the discipline of writing those blueprints for code.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Specification Completeness Transforms Code Quality</span>
+                                <p>When a model receives a vague code request, it fills in unspecified details with reasonable but often incorrect assumptions &mdash; choosing default data types, ignoring edge cases, omitting error handling, and selecting algorithms that may not meet your performance requirements. Structured synthesis prompts eliminate this guesswork by defining the <strong>behavioral contract</strong> the program must fulfill: input types and valid ranges, output format and invariants, error conditions and their handling, performance bounds, and concrete examples of expected behavior. The difference between a function that works for the happy path and a robust implementation that handles all edge cases, validates inputs, provides meaningful error messages, and meets performance targets comes down to how thoroughly you specify the synthesis task.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Program Synthesis Process</h2>
+                <p class="section-subtitle fade-in-up">Four steps from specification to working program</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Define the Specification</h3>
+                            <p class="element-timeline__text">Begin by articulating exactly what the program should accomplish. A strong specification includes the function&rsquo;s purpose stated in plain language, the input parameters with their types and valid ranges, the expected output format and data type, any invariants the program must maintain, and the broader context of how this code will be used. The specification serves as the contract between your intent and the model&rsquo;s output &mdash; ambiguity in the specification produces ambiguity in the code.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Write a function called merge_intervals that takes a list of integer tuples representing intervals (start, end) where start is always less than or equal to end. The function should merge all overlapping intervals and return a new sorted list of non-overlapping intervals. An interval [1,3] and [2,6] should merge into [1,6]. Adjacent intervals like [1,2] and [2,3] should also merge into [1,3].&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Provide Examples</h3>
+                            <p class="element-timeline__text">Supply concrete input-output examples that illustrate the expected behavior. Examples serve a dual purpose: they disambiguate the specification by showing exactly what the code should produce for specific inputs, and they provide test cases against which the generated code can be verified. Include examples that cover the typical case, edge cases (empty inputs, single elements, boundary values), and any tricky scenarios where naive implementations commonly fail.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Examples: merge_intervals([(1,3),(2,6),(8,10),(15,18)]) returns [(1,6),(8,10),(15,18)]. merge_intervals([]) returns []. merge_intervals([(1,4),(4,5)]) returns [(1,5)]. merge_intervals([(1,10),(2,3),(4,5)]) returns [(1,10)].&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Constrain the Search Space</h3>
+                            <p class="element-timeline__text">Narrow the set of valid programs by specifying constraints on the implementation. This includes the programming language and version, libraries or frameworks to use (or avoid), algorithmic complexity requirements, coding style and conventions, error handling strategy, and any architectural patterns the code must follow. Constraints prevent the model from generating code that is technically correct but impractical &mdash; such as an O(n!) solution when O(n log n) is required, or a solution that imports a heavy library when a lightweight approach is preferred.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Implement this in Python 3.10+ using only the standard library. The algorithm must run in O(n log n) time complexity. Use type hints for all parameters and return values. Include a docstring with the function description and examples. Raise a TypeError if the input is not a list and a ValueError if any interval has start greater than end.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Verify and Iterate</h3>
+                            <p class="element-timeline__text">Review the generated program against your specification and examples. Check whether the code handles all specified edge cases, meets performance requirements, follows the requested coding conventions, and produces correct output for your examples. If the output is close but not perfect, iterate with targeted feedback &mdash; pointing out specific failures, requesting optimizations, or asking the model to explain its design choices so you can identify where the specification was misunderstood and refine it accordingly.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;The function works correctly for the basic cases but fails when the input contains duplicate intervals like [(1,3),(1,3)]. It should return [(1,3)] for this input. Also, the current implementation does not raise a ValueError for invalid intervals as specified. Please fix both issues and add the missing input validation.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why structured synthesis prompts produce dramatically better programs</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Vague Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Write a program that processes CSV files.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>A generic script that reads a CSV, prints the rows, and has no error handling, no type validation, no configurable options, and no documentation. Uses a hardcoded file path and assumes a specific column structure.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Ambiguous, fragile, no validation, no reusability</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Structured Synthesis Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Synthesize a Python class CsvProcessor that reads CSV files, validates column types against a provided schema dict, filters rows by user-defined predicates, and exports results to JSON. Input: file path (str), schema (dict mapping column names to types), filters (list of callables). Output: list of validated dicts. Handle: FileNotFoundError, malformed rows, type mismatches. Include type hints and docstrings.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>A complete, well-documented CsvProcessor class with __init__ accepting file path and schema, a validate_row method with type coercion and error reporting, a filter_rows method applying predicate chains, a to_json export method, comprehensive error handling with custom exceptions, full type annotations, and a docstring with usage examples.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Specified, validated, documented, and production-ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Program Synthesis in Action</h2>
+                <p class="section-subtitle fade-in-up">See how structured specifications produce complete, working programs</p>
+
+                <div class="accordion fade-in-up" id="program-synthesis-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Function Synthesis from I/O Examples</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Synthesize a function that transforms data according to these input-output examples: Input: [&rsquo;hello world&rsquo;, &rsquo;foo bar baz&rsquo;, &rsquo;a&rsquo;] Output: [&rsquo;Hello World&rsquo;, &rsquo;Foo Bar Baz&rsquo;, &rsquo;A&rsquo;]. Input: [&rsquo;already Capitalized&rsquo;, &rsquo;ALL CAPS&rsquo;] Output: [&rsquo;Already Capitalized&rsquo;, &rsquo;All Caps&rsquo;]. Input: [] Output: []. The function should accept a list of strings and return a new list. Implement in Python with type hints. Handle None values in the list by skipping them. Do not modify the original list.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt provides multiple input-output pairs that together unambiguously define the desired behavior &mdash; title-casing each string in the list. The examples cover the normal case, an already-capitalized input, an all-caps input, and the empty list edge case. The additional constraints about None handling, immutability, and type hints ensure the synthesized function is robust beyond what the examples alone specify. Without the examples, a prompt asking to &ldquo;capitalize strings in a list&rdquo; could reasonably produce uppercase conversion, first-letter capitalization, or title casing &mdash; the I/O pairs eliminate that ambiguity entirely.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">API Integration Generation</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Synthesize a Python module that integrates with a REST API. The module should include: (1) A WeatherClient class that wraps the OpenWeatherMap API. Constructor accepts an API key string. (2) A get_current method that takes a city name (str) and returns a dict with keys: temperature (float, Celsius), humidity (int, percentage), description (str), wind_speed (float, m/s). (3) A get_forecast method that takes a city name and days count (int, 1&ndash;7) and returns a list of daily forecast dicts with the same structure plus a date field (str, ISO 8601). (4) Retry logic: 3 attempts with exponential backoff for 5xx errors. (5) Rate limiting: maximum 60 requests per minute. (6) All HTTP errors should raise a custom WeatherApiError with the status code and response body. Use the requests library. Include type hints and docstrings.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt synthesizes an entire module by specifying the class interface, method signatures with exact parameter and return types, behavioral requirements (retry logic, rate limiting), error handling strategy, and library choices. Each method is defined as a contract: given these inputs, produce this output structure. The retry and rate limiting specifications add non-functional requirements that distinguish a production-quality integration from a tutorial-level example. Without these constraints, the model would likely produce a minimal wrapper with no error handling, no rate limiting, and unstructured return values that would require significant rework before production use.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Algorithm Implementation from Description</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Synthesize a function that implements the Levenshtein edit distance algorithm. Specification: the function takes two strings (source and target) and returns the minimum number of single-character edits (insertions, deletions, substitutions) required to transform source into target. Requirements: (a) Use dynamic programming with O(min(m,n)) space optimization rather than the naive O(m*n) matrix. (b) Accept an optional parameter max_distance (int) that enables early termination &mdash; if the distance exceeds max_distance during computation, return max_distance + 1 immediately. (c) Handle Unicode strings correctly. (d) Return 0 for identical strings, len(target) for empty source, and len(source) for empty target. Examples: edit_distance(&rsquo;kitten&rsquo;, &rsquo;sitting&rsquo;) returns 3. edit_distance(&rsquo;&rsquo;, &rsquo;hello&rsquo;) returns 5. edit_distance(&rsquo;abc&rsquo;, &rsquo;abc&rsquo;) returns 0. Implement in Python with type hints.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt combines algorithmic specification with implementation constraints that require deep understanding of the algorithm. Requesting O(min(m,n)) space optimization prevents the model from using the straightforward but memory-inefficient matrix approach. The max_distance early termination parameter adds a practical optimization that most textbook implementations lack but is essential for real-world applications like spell-checking where you only care about close matches. The Unicode requirement and concrete examples with expected outputs provide both verification criteria and implicit documentation of the function&rsquo;s intended behavior across edge cases.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Program Synthesis</h2>
+                <p class="section-subtitle fade-in-up">Best for generating complete programs from well-defined specifications</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Well-Defined Functional Requirements</strong>
+                                    <p>When you can clearly articulate what a program should do &mdash; its inputs, outputs, constraints, and edge cases &mdash; program synthesis excels at translating that specification into working, tested code faster than manual implementation.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Repetitive Patterns with Variations</strong>
+                                    <p>Generating multiple similar functions, API endpoints, data models, or CRUD operations where the structure is consistent but the specifics change &mdash; program synthesis eliminates boilerplate while maintaining consistency.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Algorithmic Problem Solving</strong>
+                                    <p>Implementing well-known algorithms, data structures, or mathematical functions where the specification is precise and the correctness criteria are objective and verifiable through test cases.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Rapid Prototyping and Exploration</strong>
+                                    <p>When you need working code quickly to validate an idea, test an approach, or build a proof of concept &mdash; program synthesis lets you iterate through design alternatives at the specification level rather than the implementation level.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Ambiguous or Evolving Requirements</strong>
+                                    <p>When you cannot clearly state what the program should do because the requirements are still being discovered through user research, stakeholder discussions, or iterative design &mdash; synthesis needs a stable specification to work from.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Safety-Critical Systems</strong>
+                                    <p>For code controlling medical devices, aircraft systems, financial transactions, or other domains where correctness must be formally verified, synthesized code should be treated as a starting point that requires rigorous manual review and formal verification.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Highly Novel Architectures</strong>
+                                    <p>When your system requires a genuinely unprecedented architecture that has no analogue in the model&rsquo;s training data, synthesis may produce code that superficially matches the specification but fails to capture the novel design intent.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Performance-Critical Hot Paths</strong>
+                                    <p>When microsecond-level optimization matters and the code requires hand-tuned assembly, cache-line alignment, or hardware-specific optimizations &mdash; synthesized code handles algorithmic complexity well but rarely achieves hand-tuned performance.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where program synthesis delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Automated Code Generation</h3>
+                        <p class="use-case-showcase__desc">Generating complete functions, classes, and modules from natural language descriptions and type signatures &mdash; turning product requirements and API contracts into working implementations that satisfy specified behavioral constraints and coding standards.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Data Pipeline Construction</h3>
+                        <p class="use-case-showcase__desc">Synthesizing ETL pipelines, data transformation scripts, and database migration code from schema definitions and transformation rules &mdash; converting data flow specifications into executable pipelines with validation, error handling, and logging built in.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"/>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Test-Driven Development</h3>
+                        <p class="use-case-showcase__desc">Providing test cases as the specification and synthesizing implementations that pass all tests &mdash; a natural fit for program synthesis where the test suite serves as a formal, executable specification of the desired program behavior.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 2l4 4-4 4"/>
+                                <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                                <path d="M7 22l-4-4 4-4"/>
+                                <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Legacy Code Migration</h3>
+                        <p class="use-case-showcase__desc">Translating programs from one language, framework, or paradigm to another by specifying the source behavior as the target specification &mdash; migrating COBOL to Java, jQuery to React, or monolithic services to microservice architectures.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Rapid Prototyping</h3>
+                        <p class="use-case-showcase__desc">Quickly generating functional prototypes from product descriptions and user stories &mdash; allowing teams to validate concepts, test user flows, and demonstrate ideas with working code before committing to a full engineering effort.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Domain-Specific Languages</h3>
+                        <p class="use-case-showcase__desc">Generating interpreters, compilers, and transpilers for domain-specific languages from grammar specifications and semantic rules &mdash; synthesizing the entire language toolchain from formal definitions of syntax and behavior.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Program Synthesis Fits</h2>
+                <p class="section-subtitle fade-in-up">Program synthesis represents the shift from code assistance to specification-driven code generation</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Manual Coding</span>
+                        <span class="era-marker__title">Human Implementation</span>
+                        <span class="era-marker__desc">Developers write every line by hand</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Code Generation</span>
+                        <span class="era-marker__title">Template-Based Output</span>
+                        <span class="era-marker__desc">AI completes code from partial context</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Program Synthesis</span>
+                        <span class="era-marker__title">Specification-Driven Creation</span>
+                        <span class="era-marker__desc">AI generates programs from formal specs</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Autonomous Programming</span>
+                        <span class="era-marker__title">Self-Directed Development</span>
+                        <span class="era-marker__desc">AI designs, implements, and verifies autonomously</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Combine Synthesis with Verification for Production Code</div>
+                    <p>Program synthesis is most powerful when paired with systematic verification. After synthesizing a program, use self-debugging techniques to have the model trace through its own code with your test cases, identifying logic errors before you run the program. Apply test generation to create comprehensive test suites that exercise edge cases the specification may not have explicitly covered. Use structured output prompting to ensure the synthesized code follows your project&rsquo;s conventions and integrates cleanly with existing modules. The synthesis-verification loop &mdash; specify, synthesize, test, refine &mdash; mirrors test-driven development but operates at the specification level rather than the implementation level, letting you iterate faster while maintaining code quality.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary code generation techniques</p>
+
+                <a href="code-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Code Prompting</span>
+                        <span class="evolution-callout__desc">The foundational discipline for AI-assisted coding &mdash; covering strategies for effective code generation, explanation, transformation, and review that form the base layer upon which program synthesis techniques are built.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="self-debugging.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Self-Debugging</span>
+                        <span class="evolution-callout__desc">Enables AI models to identify and fix errors in their own generated code &mdash; a natural complement to program synthesis that closes the loop between generation and verification, producing more reliable programs through iterative self-correction.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="structured-output.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Parallel</span>
+                        <span class="evolution-callout__title">Structured Output</span>
+                        <span class="evolution-callout__desc">Focuses on constraining AI output to specific formats like JSON, XML, or typed schemas &mdash; a parallel technique that shares program synthesis&rsquo;s emphasis on specification-driven generation but applies it to data structures rather than executable programs.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Explore Program Synthesis</h2>
+                        <p class="cta-corporate__text">Apply specification-driven code generation techniques to your projects or build structured synthesis prompts with our tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>Master the Art of AI Communication theory through proven frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Discover</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">COSTAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness</h4>
+                    <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                    <a href="../../../tools/guidance.html">Prompt Builder</a>
+                    <a href="../../../tools/matcher.html">Framework Matcher</a>
+                    <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                    <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                    <a href="../../../quiz/index.html">Readiness Quiz</a>
+                    <a href="../../../patterns/index.html">Patterns Library</a>
+                    <a href="../../../pages/ai-safety.html">AI Safety</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                    <a href="../../../pages/faq.html">FAQ</a>
+                    <a href="../../../pages/glossary.html">Glossary</a>
+                    <a href="../../../pages/security.html">Security</a>
+                    <a href="../../../pages/performance.html">Performance</a>
+                    <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                    <a href="../../../pages/universal-design.html">Universal Design</a>
+                    <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                    <a href="../../../pages/about.html">About</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK TO TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK TO TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>

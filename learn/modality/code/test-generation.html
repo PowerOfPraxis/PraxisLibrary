@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test Generation: Techniques for prompting AI models to create comprehensive test suites including unit tests, integration tests, edge case coverage, and test-driven development workflows.">
+    <title>Test Generation - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--tabbed">
+                        <div class="mega-menu-tabs" role="tablist" aria-label="Framework categories"></div>
+                        <div class="mega-menu-section" data-tab="getting-started" role="tabpanel">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts &amp; Fictions</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="structured-frameworks" role="tabpanel">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context &amp; Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="in-context-learning" role="tabpanel">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="reasoning-cot" role="tabpanel">
+                            <h4><a href="../../reasoning-cot.html">Reasoning &amp; CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="decomposition" role="tabpanel">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="self-correction" role="tabpanel">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="ensemble-methods" role="tabpanel">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="prompting-strategies" role="tabpanel">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="code" role="tabpanel">
+                            <h4>Code</h4>
+                            <a href="../../modality/code/code-prompting.html">Code Prompting</a>
+                            <a href="../../modality/code/self-debugging.html">Self-Debugging</a>
+                            <a href="../../modality/code/structured-output.html">Structured Output</a>
+                        
+                            <a href="../../modality/code/program-synthesis.html">Program Synthesis</a>
+                            <a href="../../modality/code/code-explanation.html">Code Explanation</a>
+                            <a href="../../modality/code/code-review.html">Code Review</a>
+                            <a href="../../modality/code/test-generation.html">Test Generation</a>
+                            <a href="../../modality/code/sql-generation.html">SQL Generation</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="image" role="tabpanel">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="audio" role="tabpanel">
+                            <h4>Audio</h4>
+                            <a href="../audio/audio-prompting.html">Audio Prompting</a>
+                            <a href="../audio/stt-prompting.html">Speech-to-Text</a>
+                            <a href="../audio/tts-prompting.html">Text-to-Speech</a>
+                            <a href="../audio/audio-classification.html">Audio Classification</a>
+                            <a href="../audio/music-gen.html">Music Generation</a>
+                            <a href="../audio/voice-cloning.html">Voice Cloning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="video" role="tabpanel">
+                            <h4>Video</h4>
+                            <a href="../video/video-prompting.html">Video Prompting</a>
+                            <a href="../video/video-gen.html">Video Generation</a>
+                            <a href="../video/temporal-reasoning.html">Temporal Reasoning</a>
+                            <a href="../video/video-qa.html">Video QA</a>
+                            <a href="../video/video-captioning.html">Video Captioning</a>
+                            <a href="../video/video-editing.html">Video Editing</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="3d" role="tabpanel">
+                            <h4>3D</h4>
+                            <a href="../3d/3d-prompting.html">3D Prompting</a>
+                            <a href="../3d/3d-model-gen.html">3D Model Generation</a>
+                            <a href="../3d/scene-understanding.html">Scene Understanding</a>
+                            <a href="../3d/pose-estimation.html">Pose Estimation</a>
+                            <a href="../3d/point-cloud.html">Point Cloud</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI &amp; ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Test Generation</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Code Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Test Generation</h1>
+                <p class="page-subtitle fade-in">About guiding AI models to generate comprehensive, meaningful test suites that cover edge cases, validate behavior, and support test-driven development workflows.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2022&ndash;2024</span>
+                        <p><strong>Introduced:</strong> Automated test generation has roots stretching back decades &mdash; property-based testing tools like QuickCheck (1999) and mutation testing frameworks explored machine-generated test cases long before large language models entered the picture. The modern era of AI-driven test generation began in earnest with OpenAI&rsquo;s Codex (2021) and GitHub Copilot (2022), which demonstrated that language models trained on vast code repositories could produce syntactically correct and contextually relevant test cases from natural language descriptions or existing source code. By 2023&ndash;2024, frontier models like GPT-4, Claude, and Gemini had advanced to the point where they could generate entire test suites with meaningful assertions, mock complex dependencies, identify boundary conditions, and reason about expected behavior from function signatures and docstrings alone.</p>
+                        <p><strong>Modern LLM Status:</strong> AI-driven test generation is <strong>one of the most practical and widely adopted code-generation use cases</strong> in production software development. Modern models excel at scaffolding unit tests from function implementations, generating integration test outlines from API specifications, and identifying edge cases that human developers frequently overlook. However, the quality of generated tests depends critically on prompt structure &mdash; without explicit guidance on testing strategy, coverage expectations, and the specific behaviors to validate, models default to shallow &ldquo;happy path&rdquo; tests that confirm obvious functionality while missing the boundary conditions, error states, and interaction effects where real bugs hide. The techniques covered here transform vague test requests into structured prompts that produce production-ready test suites.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Specify Code, Strategy, and Coverage</h2>
+                        <p class="split-section__text">Test generation prompting is the practice of guiding AI models to produce comprehensive, meaningful test suites by providing structured context about the code under test, the testing approach to follow, and the coverage expectations to meet. Unlike asking a model to simply &ldquo;write tests,&rdquo; effective test generation requires bridging three critical information channels &mdash; telling the model exactly what <strong>code to test</strong>, which <strong>testing strategy</strong> to apply, and what <strong>coverage expectations</strong> define success.</p>
+                        <p class="split-section__text"><strong>The core insight is that effective test generation requires explicitly specifying the CODE UNDER TEST, the TESTING STRATEGY, and the COVERAGE EXPECTATIONS.</strong> A bare request like &ldquo;write tests for this function&rdquo; produces a handful of trivial assertions that verify the most obvious behavior. But when you define the testing framework, specify which categories of inputs to exercise (valid, invalid, boundary, null, concurrent), declare the assertion style, and set explicit coverage targets, the model shifts from generating token tests to producing a rigorous validation suite that catches real defects.</p>
+                        <p class="split-section__text">Think of it like the difference between asking a new team member to &ldquo;add some tests&rdquo; versus handing them a testing plan that specifies the module boundaries, the critical paths to validate, the error conditions to simulate, the mocking strategy for external dependencies, and the minimum branch coverage threshold. The testing plan produces a dramatically more thorough and useful test suite &mdash; and the same principle applies when prompting an AI model.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Test Strategy Transforms Generated Output</span>
+                                <p>When a model receives code without a testing strategy, it defaults to the most superficial validation possible &mdash; calling the function with one or two obvious inputs and asserting the expected return value. Structured test generation prompts redirect this behavior by defining the <strong>testing methodology</strong> the model should apply: which testing framework and assertion library to use, whether to organize tests by behavior or by method, how to handle setup and teardown, which dependency injection or mocking patterns to follow, what categories of edge cases to cover (empty inputs, maximum values, type coercion, concurrent access, null references), and whether to include performance benchmarks or property-based tests. The difference between three shallow assertions and a comprehensive forty-test suite with boundary analysis, error handling verification, and mock-based integration coverage comes down entirely to the specificity of the testing prompt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Test Generation Process</h2>
+                <p class="section-subtitle fade-in-up">Four steps from source code to comprehensive test suites</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Provide the Code Under Test</h3>
+                            <p class="element-timeline__text">Supply the model with the complete source code, function signatures, class definitions, or API specifications that need test coverage. Include type annotations, docstrings, and interface contracts whenever available &mdash; these give the model essential information about expected inputs, outputs, preconditions, and postconditions. The more context the model has about what the code is supposed to do, the more meaningful its generated assertions will be. For large modules, focus the prompt on specific functions or classes rather than dumping an entire codebase.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Provide a complete function implementation including its type signature, parameter validation logic, return type, and any exceptions it may raise, along with a brief description of the business rule it implements.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Define Testing Strategy</h3>
+                            <p class="element-timeline__text">Specify the testing framework, assertion style, test organization pattern, and overall testing philosophy. Tell the model whether you want unit tests that isolate individual functions, integration tests that verify component interactions, or end-to-end tests that validate complete workflows. Define the mocking strategy for external dependencies &mdash; should the model use dependency injection, mock libraries, or test doubles? Specify whether tests should follow Arrange-Act-Assert, Given-When-Then, or another structural pattern. This framing determines whether the output is a loose collection of assertions or a well-structured test suite.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Write unit tests using pytest with the Arrange-Act-Assert pattern. Mock all database calls using unittest.mock.patch. Group tests into classes by the method being tested. Use descriptive test names that state the scenario and expected outcome.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Specify Coverage Requirements</h3>
+                            <p class="element-timeline__text">Declare explicitly what categories of test cases the suite must include. Without coverage guidance, models gravitate toward happy-path testing that verifies only the most obvious correct behavior. Specify that the suite must cover: valid inputs across the expected range, boundary values at the edges of valid ranges, invalid inputs that should trigger validation errors, null or undefined inputs, empty collections, concurrent access scenarios, large input volumes, and any domain-specific edge cases relevant to the business logic. Setting explicit coverage categories forces the model to systematically explore the input space.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Cover these categories: (1) valid inputs with typical values, (2) boundary values at minimum and maximum, (3) invalid type inputs, (4) empty and null inputs, (5) error handling paths for each exception type, (6) concurrent access to shared state, (7) performance with inputs at 10x expected volume.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Iterate on Edge Cases</h3>
+                            <p class="element-timeline__text">Review the generated test suite and use follow-up prompts to fill coverage gaps, add missing edge cases, or refine test logic. Ask the model to identify which branches of the code remain untested, suggest additional boundary conditions it did not initially consider, or generate property-based tests that explore the input space more exhaustively. Iterative refinement is particularly valuable for complex business logic where domain-specific edge cases are not obvious from the code alone &mdash; you can describe failure scenarios from production and ask the model to generate regression tests that would have caught them.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Review the test suite you generated. Identify any code branches in the original function that are not exercised by the current tests. For each uncovered branch, generate a test case with a descriptive name explaining what scenario triggers that branch.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why structured test generation prompts produce dramatically better test suites</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Vague Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Write tests for this function.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>def test_calculate_discount():<br>&nbsp;&nbsp;&nbsp;&nbsp;assert calculate_discount(100, 10) == 90<br><br>def test_calculate_discount_zero():<br>&nbsp;&nbsp;&nbsp;&nbsp;assert calculate_discount(100, 0) == 100</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Two happy-path tests, no edge cases, no error handling, no structure</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Structured Test Generation Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Write pytest unit tests for calculate_discount(price, percent). Use Arrange-Act-Assert. Cover: valid discounts, boundary values (0%, 100%), negative prices, percentages over 100, non-numeric inputs, and float precision. Each test name should describe the scenario.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p><strong>class TestCalculateDiscount:</strong><br>&nbsp;&nbsp;test_valid_discount_applies_percentage<br>&nbsp;&nbsp;test_zero_percent_returns_original_price<br>&nbsp;&nbsp;test_full_discount_returns_zero<br>&nbsp;&nbsp;test_negative_price_raises_value_error<br>&nbsp;&nbsp;test_percent_over_100_raises_value_error<br>&nbsp;&nbsp;test_string_input_raises_type_error<br>&nbsp;&nbsp;test_none_input_raises_type_error<br>&nbsp;&nbsp;test_float_precision_rounds_to_two_decimals<br>&nbsp;&nbsp;test_very_small_discount_on_large_price<br>&nbsp;&nbsp;test_boundary_just_below_100_percent</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Ten targeted tests covering boundaries, errors, types, and precision</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Test Generation in Action</h2>
+                <p class="section-subtitle fade-in-up">See how structured prompts produce production-ready test suites</p>
+
+                <div class="accordion fade-in-up" id="test-generation-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Unit Test Suite Generation</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Generate a comprehensive pytest unit test suite for the following UserService class. The class has methods: create_user(email, password), authenticate(email, password), reset_password(email), and deactivate_user(user_id). For each method, write tests covering: (a) successful execution with valid inputs, (b) validation failures for malformed email addresses and weak passwords, (c) duplicate email handling in create_user, (d) incorrect password attempts in authenticate with lockout after 5 failures, (e) reset_password for nonexistent emails, (f) deactivation of already-deactivated users. Use unittest.mock to mock the database repository. Follow Arrange-Act-Assert pattern with descriptive test names in the format test_methodname_scenario_expected_outcome.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt succeeds because it maps each method to specific failure modes and edge conditions rather than leaving the model to guess what matters. By naming the exact scenarios &mdash; lockout after 5 failures, duplicate email handling, deactivation of inactive accounts &mdash; the prompt ensures the generated suite validates real business rules, not just interface contracts. The mocking instruction prevents the model from generating tests that depend on a real database, and the naming convention requirement produces self-documenting test output that serves as living documentation of expected behavior.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Integration Test Creation</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Write integration tests for the checkout workflow that spans three services: CartService, PaymentService, and InventoryService. The workflow is: (1) CartService.get_cart(user_id) retrieves items, (2) InventoryService.reserve_items(items) locks stock, (3) PaymentService.charge(user_id, amount) processes payment, (4) InventoryService.confirm_reservation(reservation_id) finalizes the stock deduction. Test these integration scenarios: successful end-to-end checkout, payment failure after inventory reservation (verify rollback), partial inventory availability, concurrent checkout by two users for the last item in stock, and network timeout between services. Use pytest fixtures for service setup and teardown. Each test should verify the final state of all three services, not just the return value of the last call.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt targets the integration boundaries where bugs actually live &mdash; the handoff points between services where state must remain consistent across distributed operations. By specifying the exact workflow sequence and naming failure scenarios at each transition point (payment failure after reservation, concurrent access, network timeout), the prompt forces the model to generate tests that verify compensating transactions, rollback behavior, and eventual consistency rather than simply confirming that each service works in isolation. The instruction to verify final state across all three services prevents shallow pass-through tests.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Edge Case Discovery and Testing</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Analyze the following date_range_overlap(start1, end1, start2, end2) function and generate edge case tests that most developers would miss. First, list all the edge case categories you identify (boundary alignment, timezone handling, daylight saving transitions, leap years, date order validation, null inputs, same-day ranges, ranges spanning midnight). Then for each category, generate at least two pytest test cases with descriptive names. Include a final section of property-based tests using Hypothesis that verify: (a) overlap detection is commutative, (b) a range always overlaps with itself, (c) non-overlapping ranges produce consistent results regardless of argument order.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt uses a two-phase approach &mdash; first asking the model to enumerate edge case categories before generating tests for each one &mdash; which activates the model&rsquo;s reasoning about the complete input space before committing to specific test cases. The explicit category list prevents the model from fixating on one type of edge case while ignoring others. The property-based testing requirement with Hypothesis adds a generative testing layer that explores input combinations no human would enumerate manually, catching subtle invariant violations that specific example-based tests would miss.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Test Generation</h2>
+                <p class="section-subtitle fade-in-up">Best for rapidly building structured test suites with thorough coverage</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Scaffolding Test Suites for Existing Code</strong>
+                                    <p>Generating comprehensive test coverage for legacy code or newly written modules that lack tests &mdash; rapidly producing unit test scaffolds that cover the primary execution paths, error handling, and boundary conditions.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Edge Case Discovery</strong>
+                                    <p>Identifying and testing boundary conditions, unusual input combinations, and failure modes that developers commonly overlook &mdash; especially for complex business logic involving dates, currencies, permissions, or state machines.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Test-Driven Development Workflows</strong>
+                                    <p>Writing test cases before implementation by describing the desired behavior, expected inputs and outputs, and error conditions &mdash; letting the model produce the test harness that the implementation must satisfy.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Regression Test Creation</strong>
+                                    <p>Generating targeted regression tests after bug fixes to ensure the specific failure scenario never recurs &mdash; including variations of the original bug that might trigger similar defects in related code paths.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Highly Domain-Specific Validation</strong>
+                                    <p>When tests require deep domain knowledge that cannot be conveyed in a prompt &mdash; such as regulatory compliance rules, proprietary algorithm validation, or industry-specific safety standards that demand expert-written test specifications.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>UI and Visual Regression Testing</strong>
+                                    <p>When the testing target is visual appearance, layout consistency, or user interaction flows that require screenshot comparison, browser automation, or pixel-level rendering verification beyond text-based assertion capabilities.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Performance and Load Testing</strong>
+                                    <p>When the goal is to measure system behavior under sustained load, concurrent user simulation, or resource exhaustion scenarios that require specialized tools like JMeter, k6, or Locust rather than assertion-based test suites.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Security Penetration Testing</strong>
+                                    <p>When the objective is to discover security vulnerabilities through fuzzing, injection attacks, or exploit chains that require adversarial thinking and specialized security tooling beyond the scope of standard test generation frameworks.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where AI-driven test generation delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Unit Test Scaffolding</h3>
+                        <p class="use-case-showcase__desc">Rapidly generating unit test skeletons for functions, methods, and classes &mdash; covering typical inputs, return value assertions, exception handling, and state mutations with properly structured setup and teardown for each test case.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 2l4 4-4 4"/>
+                                <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                                <path d="M7 22l-4-4 4-4"/>
+                                <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Regression Test Creation</h3>
+                        <p class="use-case-showcase__desc">Building targeted test cases from bug reports and production incidents &mdash; reproducing the exact failure scenario, adding variations that exercise the same code path, and ensuring the fix holds against similar edge conditions.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">API Endpoint Testing</h3>
+                        <p class="use-case-showcase__desc">Generating test suites for REST and GraphQL API endpoints &mdash; covering request validation, authentication and authorization flows, response schema verification, status code correctness, pagination behavior, and rate limiting enforcement.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Data Validation Testing</h3>
+                        <p class="use-case-showcase__desc">Creating test cases for input validation logic &mdash; verifying that data sanitization, type checking, format validation, range constraints, and business rule enforcement all reject invalid inputs correctly while accepting all valid variations.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 8v4M12 16h.01"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Error Handling Verification</h3>
+                        <p class="use-case-showcase__desc">Systematically testing exception handling, error recovery, graceful degradation, and fallback behavior &mdash; ensuring that every anticipated failure mode produces the correct error message, status code, logging output, and cleanup action.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Performance Benchmark Tests</h3>
+                        <p class="use-case-showcase__desc">Generating test cases that measure execution time, memory usage, and throughput for critical code paths &mdash; establishing performance baselines and detecting regressions when function response times exceed acceptable thresholds under standard load.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Test Generation Fits</h2>
+                <p class="section-subtitle fade-in-up">Test generation bridges manual testing and fully autonomous quality assurance</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Manual Testing</span>
+                        <span class="era-marker__title">Hand-Written Tests</span>
+                        <span class="era-marker__desc">Developers write every test case by hand</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Test Frameworks</span>
+                        <span class="era-marker__title">Structured Automation</span>
+                        <span class="era-marker__desc">Frameworks like JUnit, pytest, and Jest standardize test patterns</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">AI Test Generation</span>
+                        <span class="era-marker__title">Prompt-Driven Suites</span>
+                        <span class="era-marker__desc">LLMs generate comprehensive tests from code and specifications</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Autonomous Test Suites</span>
+                        <span class="era-marker__title">Self-Evolving Coverage</span>
+                        <span class="era-marker__desc">AI agents that continuously generate, run, and refine tests</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Combine Test Generation with Code Review</div>
+                    <p>Test generation is most powerful when paired with AI-assisted code review and self-debugging techniques. Generate your initial test suite using structured prompts, then use the model to review both the tests and the code under test for logical inconsistencies. Ask the model to identify assertions that are tautological (always true regardless of implementation correctness), tests that are coupled to implementation details rather than behavior, and coverage gaps where critical business logic remains unvalidated. This review-then-refine cycle produces test suites that serve as genuine quality gates rather than superficial coverage metrics.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary code techniques</p>
+
+                <a href="code-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Code Prompting</span>
+                        <span class="evolution-callout__desc">The foundational techniques for guiding AI models to generate, explain, and transform code &mdash; providing the core prompting patterns that test generation builds upon for writing syntactically correct, contextually appropriate test code.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="self-debugging.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Self-Debugging</span>
+                        <span class="evolution-callout__desc">Enables AI models to identify and fix errors in their own generated code &mdash; a natural complement to test generation where failing tests become the feedback signal that drives the model&rsquo;s debugging and correction cycle.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="structured-output.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Parallel</span>
+                        <span class="evolution-callout__title">Structured Output</span>
+                        <span class="evolution-callout__desc">Techniques for constraining AI output to specific formats and schemas &mdash; directly applicable to test generation where consistent test structure, naming conventions, and assertion patterns determine whether generated tests integrate cleanly into existing test suites.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Explore Test Generation</h2>
+                        <p class="cta-corporate__text">Apply structured test generation techniques to your own codebase or build comprehensive testing prompts with our tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>Master the Art of AI Communication theory through proven frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Discover</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">COSTAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness</h4>
+                    <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                    <a href="../../../tools/guidance.html">Prompt Builder</a>
+                    <a href="../../../tools/matcher.html">Framework Matcher</a>
+                    <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                    <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                    <a href="../../../quiz/index.html">Readiness Quiz</a>
+                    <a href="../../../patterns/index.html">Patterns Library</a>
+                    <a href="../../../pages/ai-safety.html">AI Safety</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                    <a href="../../../pages/faq.html">FAQ</a>
+                    <a href="../../../pages/glossary.html">Glossary</a>
+                    <a href="../../../pages/security.html">Security</a>
+                    <a href="../../../pages/performance.html">Performance</a>
+                    <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                    <a href="../../../pages/universal-design.html">Universal Design</a>
+                    <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                    <a href="../../../pages/about.html">About</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK TO TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK TO TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>

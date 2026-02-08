@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Code Review Prompting: Techniques for guiding AI models to perform systematic, thorough code reviews covering security, performance, maintainability, and correctness.">
+    <title>Code Review Prompting - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--tabbed">
+                        <div class="mega-menu-tabs" role="tablist" aria-label="Framework categories"></div>
+                        <div class="mega-menu-section" data-tab="getting-started" role="tabpanel">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts &amp; Fictions</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="structured-frameworks" role="tabpanel">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context &amp; Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="in-context-learning" role="tabpanel">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="reasoning-cot" role="tabpanel">
+                            <h4><a href="../../reasoning-cot.html">Reasoning &amp; CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="decomposition" role="tabpanel">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="self-correction" role="tabpanel">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="ensemble-methods" role="tabpanel">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="prompting-strategies" role="tabpanel">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="code" role="tabpanel">
+                            <h4>Code</h4>
+                            <a href="../../modality/code/code-prompting.html">Code Prompting</a>
+                            <a href="../../modality/code/self-debugging.html">Self-Debugging</a>
+                            <a href="../../modality/code/structured-output.html">Structured Output</a>
+                        
+                            <a href="../../modality/code/program-synthesis.html">Program Synthesis</a>
+                            <a href="../../modality/code/code-explanation.html">Code Explanation</a>
+                            <a href="../../modality/code/code-review.html">Code Review</a>
+                            <a href="../../modality/code/test-generation.html">Test Generation</a>
+                            <a href="../../modality/code/sql-generation.html">SQL Generation</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="image" role="tabpanel">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="audio" role="tabpanel">
+                            <h4>Audio</h4>
+                            <a href="../audio/audio-prompting.html">Audio Prompting</a>
+                            <a href="../audio/stt-prompting.html">Speech-to-Text</a>
+                            <a href="../audio/tts-prompting.html">Text-to-Speech</a>
+                            <a href="../audio/audio-classification.html">Audio Classification</a>
+                            <a href="../audio/music-gen.html">Music Generation</a>
+                            <a href="../audio/voice-cloning.html">Voice Cloning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="video" role="tabpanel">
+                            <h4>Video</h4>
+                            <a href="../video/video-prompting.html">Video Prompting</a>
+                            <a href="../video/video-gen.html">Video Generation</a>
+                            <a href="../video/temporal-reasoning.html">Temporal Reasoning</a>
+                            <a href="../video/video-qa.html">Video QA</a>
+                            <a href="../video/video-captioning.html">Video Captioning</a>
+                            <a href="../video/video-editing.html">Video Editing</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="3d" role="tabpanel">
+                            <h4>3D</h4>
+                            <a href="../3d/3d-prompting.html">3D Prompting</a>
+                            <a href="../3d/3d-model-gen.html">3D Model Generation</a>
+                            <a href="../3d/scene-understanding.html">Scene Understanding</a>
+                            <a href="../3d/pose-estimation.html">Pose Estimation</a>
+                            <a href="../3d/point-cloud.html">Point Cloud</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI &amp; ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Code Review Prompting</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Code Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Code Review Prompting</h1>
+                <p class="page-subtitle fade-in">Directing AI models to perform structured, multi-dimensional code reviews that catch bugs, security vulnerabilities, performance issues, and maintainability concerns &mdash; transforming surface-level feedback into actionable, prioritized findings.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2022&ndash;2024</span>
+                        <p><strong>Introduced:</strong> AI-assisted code review evolved rapidly between 2022 and 2024, building on decades of automated static analysis tools like ESLint, SonarQube, and Pylint that could catch syntactic errors and style violations but lacked semantic understanding. The arrival of large language models capable of reasoning about code &mdash; starting with Codex and accelerating through GPT-4, Claude, and Gemini &mdash; transformed code review from pattern-matching into contextual analysis. GitHub Copilot introduced code review features that could evaluate pull requests against project conventions, while dedicated tools emerged for security scanning, performance profiling, and architectural assessment. By 2024, AI code review had moved beyond simple linting to encompass multi-dimensional analysis: understanding business logic intent, evaluating algorithmic complexity, identifying security vulnerabilities in context, and assessing how changes interact with the broader codebase.</p>
+                        <p><strong>Modern LLM Status:</strong> AI-assisted code review is <strong>widely adopted in professional development workflows</strong> and continues to improve as models gain deeper understanding of codebases, frameworks, and security patterns. Frontier models can analyze code across multiple dimensions simultaneously &mdash; security, performance, correctness, maintainability, and style &mdash; when given properly structured prompts. The core techniques covered here &mdash; specifying review dimensions, defining standards to apply, establishing severity levels, and providing codebase context &mdash; are essential because models without explicit review guidance tend to produce shallow, generic feedback that misses the issues developers actually care about. Code review prompting forms a critical complement to code explanation and self-debugging techniques, enabling comprehensive quality assurance workflows.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Tell the Reviewer What to Look For</h2>
+                        <p class="split-section__text">Code review prompting is the practice of structuring AI prompts to perform systematic, multi-dimensional analysis of source code. Rather than simply asking a model to &ldquo;review this code,&rdquo; effective code review prompting specifies <strong>what dimensions to review</strong> (security, performance, correctness, maintainability, style), <strong>what standards to apply</strong> (project conventions, language best practices, framework idioms), and <strong>what severity levels to flag</strong> (critical bugs, warnings, suggestions, nitpicks).</p>
+                        <p class="split-section__text"><strong>The core insight is that AI code review requires specifying WHAT dimensions to review, what STANDARDS to apply, and what SEVERITY levels to flag.</strong> Without this structure, models default to surface-level observations &mdash; noting variable naming inconsistencies or missing comments while overlooking SQL injection vulnerabilities, race conditions, or O(n&sup2;) algorithms hidden inside loops. A structured review prompt transforms the model from a passive reader into an active auditor with a defined checklist and clear reporting criteria.</p>
+                        <p class="split-section__text">Think of it like the difference between asking a building inspector to &ldquo;look around&rdquo; versus handing them an inspection checklist covering structural integrity, electrical safety, plumbing codes, fire exits, and accessibility compliance. The same inspector with the same expertise produces dramatically different reports depending on the structure of the review protocol. Code review prompting is that protocol for AI models.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Dimension Specificity Transforms Code Review</span>
+                                <p>When a model receives code without structured review criteria, it defaults to the most obvious observations &mdash; naming conventions, missing documentation, and simple style issues that any linter could catch. Structured review prompts redirect this behavior by defining the <strong>analytical dimensions</strong> the model should apply: what security patterns to check for, what performance thresholds matter, which correctness edge cases to consider, what maintainability standards the team follows, and how to prioritize findings by business impact rather than cosmetic importance. The difference between a generic &ldquo;looks fine, maybe add some comments&rdquo; and a structured report identifying an unvalidated user input path, a missing database index on a frequently queried column, and a potential null reference in an error handler comes down entirely to the specificity of the review prompt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Code Review Prompting Process</h2>
+                <p class="section-subtitle fade-in-up">Four steps from code submission to prioritized findings</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Submit the Code</h3>
+                            <p class="element-timeline__text">Provide the code you want reviewed, along with relevant context about the project, language, and framework. Include the specific files or diff under review, and where possible, describe the purpose of the change &mdash; whether it is a new feature, a bug fix, a refactor, or a performance optimization. Context about what the code is supposed to do is just as important as the code itself, because many code review findings depend on understanding intent: a function that appears correct in isolation may be completely wrong given the business requirements it was written to fulfill.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Provide a pull request diff for a new user authentication endpoint, noting that it handles OAuth 2.0 token validation, stores session data in Redis, and must comply with the team&rsquo;s security policy requiring rate limiting on all authentication routes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Define Review Dimensions</h3>
+                            <p class="element-timeline__text">Specify which aspects of the code the model should evaluate. Common review dimensions include security (injection, authentication, authorization, data exposure), performance (algorithmic complexity, memory usage, database queries, caching), correctness (edge cases, error handling, type safety, boundary conditions), maintainability (readability, modularity, naming, documentation), and standards compliance (language idioms, framework patterns, project conventions). Selecting dimensions focuses the review on what matters most for the specific change being evaluated.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Review this code across four dimensions: (1) Security &mdash; check for injection vulnerabilities, improper token handling, and missing input validation; (2) Performance &mdash; evaluate database query efficiency and identify any N+1 query patterns; (3) Error handling &mdash; verify all failure paths return appropriate HTTP status codes and log sufficient context; (4) Standards &mdash; check adherence to our REST API naming conventions and response format.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Specify Standards and Context</h3>
+                            <p class="element-timeline__text">Provide the standards, conventions, and project-specific context the model should apply during the review. This includes language-specific best practices, framework documentation patterns, team coding conventions, security policies, and any architectural constraints. Without explicit standards, the model applies generic best practices that may conflict with your project&rsquo;s established patterns. Including examples of approved code patterns and known anti-patterns in your codebase dramatically improves the relevance of findings.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Apply these standards: We use TypeScript strict mode with no-any rules enforced. All database queries must use parameterized statements. Error responses follow RFC 7807 Problem Details format. Authentication middleware must be applied at the router level, not per-endpoint. Redis keys must include a namespace prefix and TTL.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Request Prioritized Findings</h3>
+                            <p class="element-timeline__text">Define how the model should categorize and present its findings. A flat list of comments provides far less value than findings organized by severity (critical, warning, suggestion, nitpick), grouped by dimension (security findings together, performance findings together), and annotated with specific line references and concrete fix suggestions. Requesting prioritization ensures that the most impactful issues surface first, and that cosmetic suggestions do not bury genuine security or correctness concerns in the output.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Categorize each finding as Critical (blocks merge &mdash; security vulnerabilities, data loss risks, correctness bugs), Warning (should fix &mdash; performance issues, error handling gaps), Suggestion (recommended &mdash; maintainability improvements, readability), or Nitpick (optional &mdash; style preferences, minor naming). For each finding, cite the specific line, explain the issue, and provide a concrete code fix.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why structured review prompts produce dramatically better feedback</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Vague Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Review this code.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>The code looks generally fine. You might want to add some comments to explain what the functions do. Consider using more descriptive variable names in a few places. The formatting is consistent. Overall it seems to work as intended.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Vague, no severity levels, no specific issues, no actionable fixes</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Structured Review Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Review this authentication endpoint for security vulnerabilities, performance issues, and error handling gaps. Categorize findings as Critical, Warning, or Suggestion with line references and fix examples.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p><strong>[Critical] Line 23:</strong> User input passed directly to SQL query without parameterization. Fix: Use prepared statements with bound parameters.<br><strong>[Critical] Line 41:</strong> JWT secret read from environment without fallback validation &mdash; server starts with undefined secret in development. Fix: Add startup check that throws if JWT_SECRET is not set.<br><strong>[Warning] Line 58:</strong> Password comparison uses === instead of constant-time comparison, enabling timing attacks. Fix: Use crypto.timingSafeEqual().<br><strong>[Suggestion] Line 72:</strong> Error response leaks internal stack trace to client. Fix: Return generic error message and log details server-side.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Prioritized, line-specific, actionable with concrete fixes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Code Review Prompting in Action</h2>
+                <p class="section-subtitle fade-in-up">See how structured prompts unlock deeper code analysis</p>
+
+                <div class="accordion fade-in-up" id="code-review-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Security-Focused Review</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Review this Node.js Express API endpoint for security vulnerabilities. Check for: (a) injection attacks &mdash; SQL injection, NoSQL injection, command injection, and XSS via unescaped output; (b) authentication and authorization &mdash; verify tokens are validated before accessing protected resources, check for privilege escalation paths, confirm session handling follows OWASP guidelines; (c) data exposure &mdash; ensure sensitive fields are not included in API responses, verify logging does not capture passwords or tokens, check that error messages do not leak internal implementation details; (d) input validation &mdash; confirm all user inputs are validated for type, length, and format before processing. For each finding, classify severity as Critical, High, Medium, or Low, cite the exact line number, explain the attack vector, and provide a corrected code snippet.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt specifies four distinct security sub-dimensions with concrete check items under each, preventing the model from defaulting to generic security advice. By enumerating specific attack vectors (SQL injection, XSS, privilege escalation) and requiring severity classification with attack vector explanation, the prompt forces the model to evaluate each pathway systematically rather than scanning for the most obvious issue and stopping. The requirement for corrected code snippets ensures findings are immediately actionable rather than abstract warnings that developers must research independently to resolve.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Performance Optimization Review</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Analyze this Python data processing module for performance issues. Evaluate: (a) algorithmic complexity &mdash; identify any O(n&sup2;) or worse operations, especially nested loops over large collections or repeated linear searches that could use hash-based lookups; (b) memory efficiency &mdash; flag unnecessary data copies, large intermediate collections that could be replaced with generators, and objects retained beyond their useful lifetime; (c) database interaction &mdash; detect N+1 query patterns, missing indexes implied by query patterns, unoptimized bulk operations executed row-by-row, and queries inside loops; (d) I/O patterns &mdash; identify synchronous blocking calls that could be async, missing connection pooling, and file handles that are not properly managed with context managers. Estimate the impact of each finding on throughput when processing 100,000 records and suggest the specific optimization with example code.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>By defining four performance sub-categories with concrete anti-patterns under each, this prompt prevents the model from offering vague advice like &ldquo;consider optimizing your loops.&rdquo; The scale reference (100,000 records) anchors the analysis to a real-world workload, forcing the model to evaluate whether a finding is theoretically suboptimal or practically impactful. Requiring estimated throughput impact and specific optimization code transforms the review from academic observation into engineering guidance that developers can benchmark and implement directly.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Maintainability and Code Quality Review</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Review this React component library for maintainability and code quality. Assess: (a) component architecture &mdash; evaluate separation of concerns, identify components that mix business logic with presentation, check for prop drilling that should use context or state management, and flag components exceeding 200 lines that should be decomposed; (b) type safety &mdash; verify TypeScript types are precise rather than using &lsquo;any&rsquo; or overly broad unions, check that component props have complete interface definitions, and confirm return types are explicitly declared on public functions; (c) testability &mdash; identify side effects that make unit testing difficult, flag tightly coupled modules, and note functions with more than three code paths that lack corresponding test coverage; (d) documentation &mdash; check that public API functions have JSDoc descriptions, complex algorithms include explanatory comments, and component props include description annotations. Organize findings by component and rate overall maintainability on a scale of 1 to 5 with justification.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt targets the aspects of code quality that matter most for long-term team productivity rather than immediate functionality. By specifying concrete thresholds (200-line component limit, three code paths requiring tests) and structural patterns to check (prop drilling, separation of concerns), the prompt anchors the review in measurable criteria rather than subjective preferences. The per-component organization with an overall maintainability score provides both detailed actionable feedback and a high-level assessment that helps teams prioritize refactoring efforts across a large codebase.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Code Review Prompting</h2>
+                <p class="section-subtitle fade-in-up">Best for systematic, multi-dimensional analysis of code quality and correctness</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Pull Request Review Augmentation</strong>
+                                    <p>Supplementing human code review with AI-driven analysis that catches security vulnerabilities, performance regressions, and correctness bugs that manual reviewers may overlook under time pressure or due to unfamiliarity with specific code paths.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Security Audit Preparation</strong>
+                                    <p>Conducting systematic security reviews of authentication flows, data handling pipelines, API endpoints, and third-party integrations before formal security audits, catching common vulnerability patterns early in the development cycle.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Codebase Health Assessment</strong>
+                                    <p>Evaluating the overall quality of a codebase when onboarding to a new project, performing technical due diligence, or planning a refactoring initiative &mdash; identifying systemic patterns of technical debt across multiple files and modules.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Educational Code Feedback</strong>
+                                    <p>Providing detailed, multi-dimensional feedback on student or junior developer code submissions, explaining not just what to fix but why each issue matters and what best practice to follow, accelerating skill development through structured critique.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Automated Linting Suffices</strong>
+                                    <p>If your only concern is style consistency, formatting, and simple syntax rules, automated linters and formatters like Prettier, ESLint, or Black are faster, cheaper, and more deterministic than AI-based review for these narrow concerns.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Formal Verification Required</strong>
+                                    <p>When mathematical proof of correctness is required &mdash; such as safety-critical systems, cryptographic implementations, or aerospace software &mdash; AI code review provides useful heuristic feedback but cannot replace formal verification tools and methods.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Runtime Behavior Analysis</strong>
+                                    <p>When you need to understand actual runtime behavior, memory leaks under load, or production performance characteristics, profiling tools and observability platforms provide empirical data that static code review cannot replicate.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Proprietary or Highly Sensitive Code</strong>
+                                    <p>If security policy prohibits sharing source code with external AI services, AI-assisted code review may require on-premises model deployment or alternative approaches that keep code within the organization&rsquo;s security boundary.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where code review prompting delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 2l4 4-4 4"/>
+                                <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                                <path d="M7 22l-4-4 4-4"/>
+                                <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Pull Request Review</h3>
+                        <p class="use-case-showcase__desc">Analyzing code diffs in pull requests to identify bugs, security issues, and standards violations before merging &mdash; providing structured feedback with severity levels, line references, and suggested fixes that complement human reviewer analysis.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Security Audit</h3>
+                        <p class="use-case-showcase__desc">Systematically scanning codebases for security vulnerabilities including injection attacks, broken authentication, sensitive data exposure, XML external entity flaws, broken access control, and security misconfiguration across all application layers.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Performance Profiling</h3>
+                        <p class="use-case-showcase__desc">Identifying performance bottlenecks through static analysis &mdash; detecting inefficient algorithms, unnecessary database round-trips, missing caching opportunities, synchronous blocking operations, and memory-intensive patterns before they reach production.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Code Standards Enforcement</h3>
+                        <p class="use-case-showcase__desc">Verifying that code changes adhere to team coding standards, architectural patterns, naming conventions, documentation requirements, and framework-specific idioms &mdash; enforcing consistency across large teams and distributed codebases.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Technical Debt Identification</h3>
+                        <p class="use-case-showcase__desc">Surveying existing codebases to catalog technical debt &mdash; duplicated logic, outdated patterns, deprecated API usage, missing error handling, insufficient test coverage, and architectural violations that increase maintenance cost over time.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Pre-Production Checklist</h3>
+                        <p class="use-case-showcase__desc">Running a final quality gate before deployment that covers security hardening, error handling completeness, logging adequacy, configuration management, environment-specific settings, and operational readiness across all modified components.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Code Review Prompting Fits</h2>
+                <p class="section-subtitle fade-in-up">Code review prompting bridges static analysis tools and human expert judgment</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Manual Review</span>
+                        <span class="era-marker__title">Human-Only Code Review</span>
+                        <span class="era-marker__desc">Peer developers read and comment on code changes</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Linting Tools</span>
+                        <span class="era-marker__title">Rule-Based Static Analysis</span>
+                        <span class="era-marker__desc">Automated checkers for syntax, style, and known patterns</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">AI-Assisted Review</span>
+                        <span class="era-marker__title">Semantic Code Understanding</span>
+                        <span class="era-marker__desc">LLMs analyze intent, context, and multi-dimensional quality</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Automated Code Quality</span>
+                        <span class="era-marker__title">Continuous AI Quality Gates</span>
+                        <span class="era-marker__desc">Integrated review in CI/CD with autonomous fix suggestions</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Combine AI Review with Human Judgment</div>
+                    <p>AI-assisted code review works best as a complement to human reviewers, not a replacement. Use structured code review prompts to handle the systematic, checklist-driven analysis that humans find tedious and error-prone &mdash; scanning every line for injection vulnerabilities, verifying consistent error handling, checking for N+1 queries, and enforcing naming conventions. This frees human reviewers to focus on what they do best: evaluating architectural decisions, assessing whether the approach solves the right problem, judging code readability from a team context perspective, and considering edge cases that require domain knowledge the model may lack. The strongest code review workflows run AI review first, then present findings alongside the diff for human reviewers to triage, accept, or override.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary code techniques</p>
+
+                <a href="code-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Code Explanation as Foundation</span>
+                        <span class="evolution-callout__desc">Code prompting techniques for generating, explaining, and transforming code form the foundation for effective review &mdash; understanding how models interpret code structure, logic flow, and intent is essential before directing them to evaluate code quality across multiple dimensions.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="self-debugging.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">Self-Debugging as Evolution</span>
+                        <span class="evolution-callout__desc">Self-debugging extends code review into the correction phase &mdash; once review identifies issues, self-debugging techniques guide the model to diagnose root causes, reason through fix strategies, and iteratively verify that corrections resolve the original problem without introducing regressions.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="structured-output.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Parallel</span>
+                        <span class="evolution-callout__title">Test Generation as Parallel</span>
+                        <span class="evolution-callout__desc">Test generation prompting complements code review by creating automated tests that verify the correctness, edge case handling, and regression safety of code &mdash; providing executable validation that goes beyond the static analysis of review findings.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Explore Code Review Prompting</h2>
+                        <p class="cta-corporate__text">Apply structured code review techniques to your own projects or build multi-dimensional review prompts with our tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>Master the Art of AI Communication theory through proven frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Discover</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">COSTAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness</h4>
+                    <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                    <a href="../../../tools/guidance.html">Prompt Builder</a>
+                    <a href="../../../tools/matcher.html">Framework Matcher</a>
+                    <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                    <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                    <a href="../../../quiz/index.html">Readiness Quiz</a>
+                    <a href="../../../patterns/index.html">Patterns Library</a>
+                    <a href="../../../pages/ai-safety.html">AI Safety</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                    <a href="../../../pages/faq.html">FAQ</a>
+                    <a href="../../../pages/glossary.html">Glossary</a>
+                    <a href="../../../pages/security.html">Security</a>
+                    <a href="../../../pages/performance.html">Performance</a>
+                    <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                    <a href="../../../pages/universal-design.html">Universal Design</a>
+                    <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                    <a href="../../../pages/about.html">About</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK TO TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK TO TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>

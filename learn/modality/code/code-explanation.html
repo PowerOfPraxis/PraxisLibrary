@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Code Explanation: Techniques for prompting AI models to analyze, interpret, and explain existing code at multiple levels of abstraction, from line-by-line walkthroughs to architectural overviews.">
+    <title>Code Explanation - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--tabbed">
+                        <div class="mega-menu-tabs" role="tablist" aria-label="Framework categories"></div>
+                        <div class="mega-menu-section" data-tab="getting-started" role="tabpanel">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts &amp; Fictions</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="structured-frameworks" role="tabpanel">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context &amp; Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="in-context-learning" role="tabpanel">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="reasoning-cot" role="tabpanel">
+                            <h4><a href="../../reasoning-cot.html">Reasoning &amp; CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="decomposition" role="tabpanel">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="self-correction" role="tabpanel">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="ensemble-methods" role="tabpanel">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="prompting-strategies" role="tabpanel">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="code" role="tabpanel">
+                            <h4>Code</h4>
+                            <a href="../../modality/code/code-prompting.html">Code Prompting</a>
+                            <a href="../../modality/code/self-debugging.html">Self-Debugging</a>
+                            <a href="../../modality/code/structured-output.html">Structured Output</a>
+                        
+                            <a href="../../modality/code/program-synthesis.html">Program Synthesis</a>
+                            <a href="../../modality/code/code-explanation.html">Code Explanation</a>
+                            <a href="../../modality/code/code-review.html">Code Review</a>
+                            <a href="../../modality/code/test-generation.html">Test Generation</a>
+                            <a href="../../modality/code/sql-generation.html">SQL Generation</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="image" role="tabpanel">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="audio" role="tabpanel">
+                            <h4>Audio</h4>
+                            <a href="../audio/audio-prompting.html">Audio Prompting</a>
+                            <a href="../audio/stt-prompting.html">Speech-to-Text</a>
+                            <a href="../audio/tts-prompting.html">Text-to-Speech</a>
+                            <a href="../audio/audio-classification.html">Audio Classification</a>
+                            <a href="../audio/music-gen.html">Music Generation</a>
+                            <a href="../audio/voice-cloning.html">Voice Cloning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="video" role="tabpanel">
+                            <h4>Video</h4>
+                            <a href="../video/video-prompting.html">Video Prompting</a>
+                            <a href="../video/video-gen.html">Video Generation</a>
+                            <a href="../video/temporal-reasoning.html">Temporal Reasoning</a>
+                            <a href="../video/video-qa.html">Video QA</a>
+                            <a href="../video/video-captioning.html">Video Captioning</a>
+                            <a href="../video/video-editing.html">Video Editing</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="3d" role="tabpanel">
+                            <h4>3D</h4>
+                            <a href="../3d/3d-prompting.html">3D Prompting</a>
+                            <a href="../3d/3d-model-gen.html">3D Model Generation</a>
+                            <a href="../3d/scene-understanding.html">Scene Understanding</a>
+                            <a href="../3d/pose-estimation.html">Pose Estimation</a>
+                            <a href="../3d/point-cloud.html">Point Cloud</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI &amp; ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Code Explanation</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Code Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Code Explanation</h1>
+                <p class="page-subtitle fade-in">About prompting AI to dissect, interpret, and explain code at varying levels of detail and abstraction &mdash; from line-by-line walkthroughs to high-level architectural overviews tailored to any audience.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2022&ndash;2024</span>
+                        <p><strong>Introduced:</strong> AI-powered code explanation became a mainstream capability during 2022&ndash;2024, driven by the rapid advancement of large language models trained on vast code corpora. GitHub Copilot Chat (launched in 2023) brought conversational code explanation directly into developers&rsquo; editors, allowing them to highlight a function and ask &ldquo;what does this do?&rdquo; in natural language. ChatGPT&rsquo;s code analysis capabilities &mdash; available from late 2022 onward &mdash; demonstrated that general-purpose language models could parse, interpret, and explain code across dozens of programming languages with surprising accuracy. These tools moved code explanation from a purely human skill to a human-AI collaborative process, where the quality of the explanation depends heavily on how precisely the user specifies audience, scope, and depth.</p>
+                        <p><strong>Modern LLM Status:</strong> Code explanation is a <strong>core strength of modern frontier models</strong> and one of the most reliable code-related AI capabilities available today. Models like GPT-4, Claude, and Gemini can explain code in virtually any mainstream programming language, adjust their explanations to different skill levels, identify design patterns and anti-patterns, trace execution flow, and connect implementation details to broader architectural decisions. The key differentiator in output quality is not whether the model can explain the code &mdash; it almost certainly can &mdash; but whether the prompt specifies the right audience level, the right scope of analysis, and the right output structure. Without these constraints, models default to a generic walkthrough that may be too shallow for experts or too dense for beginners.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Audience, Scope, and Depth Define the Explanation</h2>
+                        <p class="split-section__text">Code explanation prompting is the practice of guiding AI models to analyze, interpret, and articulate what existing code does &mdash; and why it does it that way. Every piece of code can be explained in countless ways: a sorting algorithm can be described as a mathematical operation, a performance optimization, a beginner&rsquo;s learning exercise, or a security-critical data handling step, depending entirely on who is reading the explanation and what they need to understand.</p>
+                        <p class="split-section__text"><strong>The core insight is that code explanation quality depends on specifying the AUDIENCE, the SCOPE, and the DEPTH of explanation needed.</strong> A prompt that says &ldquo;explain this code&rdquo; forces the model to guess at all three dimensions, producing a generic middle-ground explanation that serves nobody particularly well. But when you define who the reader is (junior developer, security auditor, non-technical stakeholder), what scope to cover (single function, module interactions, system architecture), and how deep to go (high-level summary, line-by-line walkthrough, algorithmic complexity analysis), the model produces explanations that are immediately useful and precisely targeted.</p>
+                        <p class="split-section__text">Think of it like asking a tour guide to explain a cathedral. A structural engineer wants to hear about load-bearing walls and foundation techniques. An art historian wants to discuss the stained glass and sculptural programs. A tourist wants to know the highlights and the best photo spots. The cathedral is the same &mdash; the explanation changes entirely based on the audience. Code explanation prompting works the same way: the code is fixed, but the explanation should be shaped by who needs to understand it and why.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Specifying Audience Transforms Code Explanations</span>
+                                <p>When a model receives code without clear audience or scope instructions, it defaults to a mid-level walkthrough that restates what each line does in plain English &mdash; essentially transliterating syntax into prose without adding real understanding. Structured code explanation prompts redirect this behavior by defining the <strong>explanatory framework</strong> the model should apply: who the reader is and what they already know, which parts of the code matter most for their purpose, how much implementation detail versus conceptual context they need, whether to emphasize correctness, performance, security, maintainability, or design philosophy, and what output format (inline comments, narrative essay, structured documentation, annotated walkthrough) best serves the reader&rsquo;s use case. The difference between &ldquo;this function iterates over an array&rdquo; and &ldquo;this function implements a sliding window pattern to achieve O(n) time complexity instead of the naive O(n squared) approach, which matters here because this runs on every API request&rdquo; comes down entirely to the quality of the accompanying prompt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Code Explanation Process</h2>
+                <p class="section-subtitle fade-in-up">Four steps from raw code to targeted, audience-appropriate explanations</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Provide the Code</h3>
+                            <p class="element-timeline__text">Supply the code you want explained, along with any relevant context that is not visible in the snippet itself. This includes the programming language (if not obvious), the broader system the code belongs to, any external dependencies or APIs being called, and whether the code is production-ready, a prototype, or legacy code under consideration for refactoring. The more contextual information you provide upfront, the less the model has to guess &mdash; and guessing is where generic, unhelpful explanations originate.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Paste a Python function along with a note: &ldquo;This is part of our payment processing pipeline. It runs on every checkout request and interacts with our Redis cache layer. The codebase uses Python 3.11 with type hints throughout.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Specify the Audience Level</h3>
+                            <p class="element-timeline__text">Define who will read the explanation and what they already know. A junior developer joining the team needs different context than a senior architect reviewing code for design patterns, a security auditor scanning for vulnerabilities, or a product manager trying to understand why a feature works the way it does. The audience level determines vocabulary choices, how much foundational knowledge the explanation assumes, and whether the model should explain language-level constructs or focus exclusively on business logic and architectural decisions.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Explain this for a junior developer who knows basic Python but has never worked with async programming, Redis, or payment processing systems. Define any domain-specific terms on first use.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Define Explanation Scope</h3>
+                            <p class="element-timeline__text">Specify what dimensions of the code the explanation should cover. A line-by-line walkthrough produces a very different output than an architectural overview, a security analysis, a performance assessment, or a maintainability review. You can also scope the explanation to specific aspects: &ldquo;focus only on the error handling logic,&rdquo; &ldquo;explain the data flow through this function,&rdquo; or &ldquo;describe how this interacts with the database layer.&rdquo; Scoping prevents the model from producing an exhaustive but unfocused explanation that buries the reader in irrelevant details.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Focus on three things: (1) the overall purpose and data flow, (2) the error handling strategy and what happens when the Redis connection fails, (3) any potential race conditions in the concurrent access pattern.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Request Structured Output</h3>
+                            <p class="element-timeline__text">Tell the model how to format its explanation. Unstructured prose explanations are hard to scan and reference later. Instead, specify whether you want a narrative walkthrough with headers, annotated code blocks with inline comments, a bullet-point summary, a table mapping functions to their purposes, or a combination of formats. Structured output makes explanations reusable &mdash; they can be dropped into documentation, onboarding guides, code review comments, or technical specifications without reformatting.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Structure your explanation as: (1) A one-paragraph executive summary, (2) A section-by-section walkthrough with the code broken into logical blocks, each followed by a plain-language explanation, (3) A summary table listing each function, its inputs, outputs, and side effects.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why structured explanation prompts produce dramatically better results</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Vague Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Explain this code.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>This code defines a function that takes a list and returns a new list. It uses a loop to iterate through the elements and applies some filtering logic. The function also handles errors using a try-except block.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Generic, restates syntax, no audience awareness, no actionable insight</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Structured Explanation Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Explain this Python function to a junior developer who understands basic Python but has never worked with list comprehensions or exception handling. Cover: (1) what the function does at a high level, (2) why the filtering logic works the way it does, (3) what the try-except block protects against. Use a paragraph summary followed by an annotated code walkthrough.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p><strong>Summary:</strong> This function filters a list of user records to return only active accounts with valid email addresses. It exists because upstream data sources sometimes contain malformed entries, and downstream services will fail if they receive invalid records.<br><strong>Line 3&ndash;5 (List Comprehension):</strong> This is a compact loop syntax. Instead of writing a for-loop and appending to a new list, Python lets you filter and transform in a single line. The condition <code>user.is_active and validate_email(user.email)</code> keeps only records that pass both checks.<br><strong>Line 7&ndash;9 (Try-Except):</strong> The try-except block catches <code>ValidationError</code> specifically. If any single record has a malformed email that crashes the validator, the function logs that record and continues rather than failing the entire batch.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Audience-aware, explains why not just what, structured and referenceable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Code Explanation in Action</h2>
+                <p class="section-subtitle fade-in-up">See how targeted prompts unlock deeper code understanding</p>
+
+                <div class="accordion fade-in-up" id="code-explanation-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Algorithm Explanation for Beginners</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Explain this binary search implementation to someone who has completed an introductory programming course but has never studied algorithms formally. Cover: (a) what problem binary search solves and why it is faster than checking every element, (b) a step-by-step walkthrough of how the algorithm narrows down the search range on each iteration, (c) why the code uses integer division for the midpoint calculation, (d) what happens when the target element is not in the array. Use a real-world analogy to introduce the concept before diving into the code. Format the walkthrough as numbered steps, each referencing the specific lines of code involved.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt succeeds because it specifies the exact knowledge boundary of the reader &mdash; they know basic programming but not algorithms. This tells the model to explain algorithmic concepts from scratch while skipping explanations of loops and variables. By requesting an analogy first, the prompt ensures the reader builds intuition before encountering code. The four specific coverage areas prevent the model from producing a surface-level &ldquo;this searches for an element&rdquo; explanation and instead force it to address the performance reasoning, edge cases, and implementation subtleties that actually build understanding.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Security Audit Explanation</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Analyze this authentication middleware from a security perspective. The audience is a senior security engineer conducting a code audit. For each function in the module, explain: (a) what security-critical operation it performs, (b) what attack vectors it is designed to prevent, (c) any assumptions it makes about input sanitization or trust boundaries, (d) potential vulnerabilities or weaknesses you can identify, including timing attacks, injection risks, and improper error disclosure. Do not explain basic programming concepts &mdash; assume deep expertise in both the language and security engineering. Format as a security audit report with severity ratings for any identified issues.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt works because it establishes a specific professional lens &mdash; security audit &mdash; and explicitly tells the model not to waste space on programming basics that the audience already knows. By requesting attack vector analysis, trust boundary identification, and severity ratings, the prompt transforms a generic code walkthrough into a structured security review document. The specificity of the vulnerability categories (timing attacks, injection, error disclosure) guides the model to check for particular classes of issues rather than producing a vague &ldquo;this looks secure&rdquo; assessment.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Legacy Codebase Documentation</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;This is a legacy module from a 15-year-old Java codebase. The original authors are no longer with the company and there is no existing documentation. Explain this code for a team of mid-level developers who need to maintain and eventually refactor it. Cover: (a) the overall purpose and business logic the module implements, (b) the data flow from input to output, identifying all external dependencies and side effects, (c) any design patterns used (even if implemented inconsistently), (d) technical debt items and code smells with specific line references, (e) implicit assumptions the code makes that are not documented anywhere. Structure the output as a technical reference document with a summary section, a detailed walkthrough section, and a maintenance notes section listing the most important things a new maintainer should know.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt addresses one of the most common and highest-value code explanation use cases: making undocumented legacy code understandable. By specifying that the original authors are unavailable, the prompt tells the model it cannot rely on any external context and must derive all understanding from the code itself. The five analysis dimensions cover both what the code does (purpose, data flow) and what a maintainer needs to watch out for (tech debt, hidden assumptions). The three-part output structure produces a document that can be immediately added to the team&rsquo;s internal documentation, making the explanation a durable knowledge artifact rather than a one-time chat response.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Code Explanation</h2>
+                <p class="section-subtitle fade-in-up">Best for making existing code understandable to specific audiences</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Onboarding and Knowledge Transfer</strong>
+                                    <p>Generating audience-appropriate explanations of existing codebases for new team members, helping them understand unfamiliar systems without requiring hours of one-on-one walkthroughs from senior developers.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Code Review Preparation</strong>
+                                    <p>Producing structured explanations of complex pull requests or modules before review sessions, ensuring all reviewers understand the intent, design decisions, and trade-offs embodied in the code.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Legacy Code Comprehension</strong>
+                                    <p>Deciphering undocumented or poorly documented legacy systems where the original authors are unavailable, extracting business logic and architectural intent from the implementation itself.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Learning and Skill Development</strong>
+                                    <p>Using AI-generated explanations to learn new programming languages, frameworks, design patterns, or algorithmic techniques by studying real code with explanations calibrated to the learner&rsquo;s current level.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Code is Self-Documenting</strong>
+                                    <p>When the code uses clear naming, standard patterns, and is already well-commented, AI explanation adds little value. Well-written code with descriptive variable names and small, focused functions often explains itself better than any external summary.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>You Need to Verify Correctness</strong>
+                                    <p>If the goal is to confirm whether code behaves correctly under all conditions, testing and formal verification are more reliable than AI explanation. Models can misinterpret subtle logic and present confident explanations of code that actually contains bugs.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Proprietary or Classified Code</strong>
+                                    <p>When the code contains trade secrets, classified algorithms, or highly sensitive intellectual property that should not be sent to external AI services, even for explanation purposes. Use local models or manual review instead.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Performance-Critical Profiling</strong>
+                                    <p>When you need precise runtime performance data rather than an explanation of what the code does, profiling tools and benchmarks provide quantitative answers that AI explanations cannot reliably deliver.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where code explanation delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Code Review Documentation</h3>
+                        <p class="use-case-showcase__desc">Generating structured explanations of complex changes before code review sessions, ensuring reviewers understand the intent, trade-offs, and design decisions behind each modification without requiring the author to walk through every line verbally.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Onboarding New Developers</h3>
+                        <p class="use-case-showcase__desc">Creating audience-calibrated walkthroughs of critical system components for new hires, reducing ramp-up time by providing explanations that match their experience level and highlight the most important concepts for their role.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Technical Debt Assessment</h3>
+                        <p class="use-case-showcase__desc">Analyzing legacy or inherited codebases to identify code smells, anti-patterns, implicit assumptions, and areas where the implementation has drifted from best practices &mdash; producing actionable reports that prioritize refactoring efforts.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Educational Content Creation</h3>
+                        <p class="use-case-showcase__desc">Generating tutorial-quality explanations of code examples for courses, blog posts, documentation, and learning platforms &mdash; with explanations that progressively build understanding and connect code constructs to broader programming concepts.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2m5.66 0H14a2 2 0 0 1 2 2v3.34"/>
+                                <polyline points="8 12 11 15 16 10"/>
+                                <line x1="17" y1="1" x2="17" y2="7"/>
+                                <line x1="20" y1="4" x2="14" y2="4"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Debugging Assistance</h3>
+                        <p class="use-case-showcase__desc">Explaining what code is supposed to do versus what it actually does when a bug is present, helping developers understand the gap between intent and implementation by tracing data flow and identifying where logic diverges from expectations.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Architecture Documentation</h3>
+                        <p class="use-case-showcase__desc">Producing high-level architectural explanations from code, describing how modules interact, what design patterns are employed, where the system boundaries are, and how data flows through the application &mdash; creating living documentation derived directly from the source.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Code Explanation Fits</h2>
+                <p class="section-subtitle fade-in-up">Code explanation bridges the gap between writing code and understanding code at scale</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Reading Code</span>
+                        <span class="era-marker__title">Manual Comprehension</span>
+                        <span class="era-marker__desc">Developers read and interpret code unaided</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Code Comments</span>
+                        <span class="era-marker__title">Author-Written Context</span>
+                        <span class="era-marker__desc">Inline documentation by original developers</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">AI Code Explanation</span>
+                        <span class="era-marker__title">On-Demand Understanding</span>
+                        <span class="era-marker__desc">Audience-targeted explanations generated from code</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Automated Documentation</span>
+                        <span class="era-marker__title">Living Documentation</span>
+                        <span class="era-marker__desc">Continuously updated docs derived from source code</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Pair Explanation with Verification</div>
+                    <p>AI-generated code explanations are powerful for building understanding, but they should always be paired with verification. Models can confidently explain code incorrectly &mdash; especially when dealing with subtle concurrency issues, complex state machines, or language-specific edge cases. Use code explanation to build your initial understanding, then verify critical claims by tracing the logic manually, writing tests, or running the code with specific inputs. The combination of AI-generated explanation and human verification produces deeper understanding than either approach alone, because the explanation gives you a hypothesis to test and the verification process reveals gaps in both your understanding and the model&rsquo;s analysis.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary code techniques</p>
+
+                <a href="code-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Code Prompting</span>
+                        <span class="evolution-callout__desc">The foundational framework for all AI-assisted code tasks &mdash; covering code generation, transformation, and interaction patterns that underpin effective code explanation prompts and provide the structural vocabulary for communicating with models about code.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="structured-output.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">Structured Output</span>
+                        <span class="evolution-callout__desc">Extends code explanation into structured data generation &mdash; techniques for prompting models to produce code that outputs JSON, XML, typed schemas, and other machine-readable formats, building on the same audience and scope principles used in code explanation.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="self-debugging.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Self-Debugging</span>
+                        <span class="evolution-callout__desc">Complements code explanation by focusing on finding and fixing errors &mdash; where code explanation helps you understand what code does, self-debugging techniques guide the model to identify what the code does wrong and how to correct it through iterative reasoning.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Explore Code Explanation</h2>
+                        <p class="cta-corporate__text">Apply structured code explanation techniques to your own projects or build audience-targeted prompts with our tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>Master the Art of AI Communication theory through proven frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Discover</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">COSTAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness</h4>
+                    <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                    <a href="../../../tools/guidance.html">Prompt Builder</a>
+                    <a href="../../../tools/matcher.html">Framework Matcher</a>
+                    <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                    <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                    <a href="../../../quiz/index.html">Readiness Quiz</a>
+                    <a href="../../../patterns/index.html">Patterns Library</a>
+                    <a href="../../../pages/ai-safety.html">AI Safety</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                    <a href="../../../pages/faq.html">FAQ</a>
+                    <a href="../../../pages/glossary.html">Glossary</a>
+                    <a href="../../../pages/security.html">Security</a>
+                    <a href="../../../pages/performance.html">Performance</a>
+                    <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                    <a href="../../../pages/universal-design.html">Universal Design</a>
+                    <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                    <a href="../../../pages/about.html">About</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK TO TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK TO TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>
