@@ -1,10 +1,11 @@
-<div align="center"><h1># Praxis Educational Interactive AI Training & Tool Library</h1></div>
+<div align="center"><h1># Praxis Library - The Open Standard in AI Literacy</h1></div>
 
 <div align="center">
 
-**Your Curiosity - Unlocks Potential - Builds Tomorrow**
+**Your Curiosity - Unlocks The Potential - That Builds Tomorrow**
 
-*Master the Art of AI Communication theory through proven methodologies and practices*
+*A comprehensive, living library of 2,000+ terms, logic frameworks, and cognitive tools.
+Designed to standardize how the world understands and interacts with Artificial Intelligence.*
 
 ![AI for Everybody](https://img.shields.io/badge/AI_for-Everybody-DC3545?style=for-the-badge&labelColor=ffffff&logoColor=1f2937)
 ![UD/UDL](https://img.shields.io/badge/Built_With-UD%2FUDL-0891B2?style=for-the-badge&labelColor=06B6D4)

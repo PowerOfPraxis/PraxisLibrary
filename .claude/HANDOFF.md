@@ -1,8 +1,8 @@
 # Praxis Project Handoff Document
 
-**Last Updated:** 2026-02-07 (Session 52)
-**Last Commit:** `cfeab8a` — Phase 4D Framework Matcher COMPLETE
-**Current Phase:** Phase 4 COMPLETE (4/4), all planned phases done
+**Last Updated:** 2026-02-07 (Session 55)
+**Last Commit:** `ee88874` — Phase 4D Framework Matcher COMPLETE
+**Current Phase:** Post-build. Full audit remediation COMPLETE — all critical AND warning items resolved.
 
 ---
 
@@ -21,15 +21,73 @@
 - **Discover Hub** — COMPLETE (5/5 phases)
 - **Glossary Inline Search** — COMPLETE (Session 47)
 - **Mega-Menu Redesign** — COMPLETE (Session 48, tabbed progressive disclosure, 133+ files)
-- **Site totals:** 101+ frameworks, 2,141+ glossary terms, 149+ HTML files with current nav
+- **Site Audit System** — COMPLETE (Session 53, `.claude/testing-procedures.md`)
+- **First Full Audit** — EXECUTED Session 54, ALL items resolved Session 55
+- **Site totals:** 104 framework pages (all 13-section), 2,141+ glossary terms, 145 HTML files, 2,324 search entries
 
 ---
 
-## NEXT TASKS
+## ACTIVE WORK — Session 55 Audit Remediation COMPLETE
 
-All planned phases (1-5) are now complete. Potential future work:
+### All Critical Issues Resolved (Session 55)
+
+1. **C4 COMPLETE: All 6 comparison panel h2 fixes done** — All now say "See the Difference":
+   - S54: self-verification.html, self-refine.html
+   - S55: decomp.html, graph-of-thought.html, recursion-of-thought.html
+   - self-calibration.html was already correct (no change needed)
+2. **C1 COMPLETE: 2 inline styles fixed** — `.mt-xl` utility class already existed in styles.css:2650:
+   - `pages/security.html:491` — `style=` replaced with class `mt-xl`
+   - `pages/performance.html:574` — `style=` replaced with class `mt-xl`
+3. **C3 COMPLETE: 58 search index entries added** — Python batch script extracted title + meta description:
+   - 52 learn/ framework pages + 6 neurodivergence/ pages
+   - Total search index: 2,324 entries
+4. **Orphan deletion COMPLETE: 8 files deleted** — nul, _footer.tmp, _header.tmp, graph-of-thought-new.html, mot_new.html, analogical-reasoning-new.html, animation-features.html, scorer.html
+
+### All Warning Items Also Resolved (Session 55, continued)
+
+5. **W2 COMPLETE: 36 heading hierarchy fixes across 17 files** — Python batch script changed h4->h3 and h3->h2 in content areas
+6. **W3 COMPLETE: Global focus-visible style added** — `a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible` in styles.css
+7. **W5 COMPLETE: 2 comparison panels added** — cumulative-reasoning.html, structured-cot.html
+8. **W6 COMPLETE: 3 pillar-grid "Why It Works" sections added** — decomp.html, graph-of-thought.html, recursion-of-thought.html
+9. **W7 COMPLETE: width/height added to img** — pages/about.html (600x800)
+10. **W8 COMPLETE: _mmi_temp.html deleted** — orphan with outdated nav removed
+11. **W1 COMPLETE: ADL dashboard added to 5 pages** — code-prompting, self-debugging, structured-output, modality/index, neurodivergence/resources
+12. **3 Code modality pages fully built out** — code-prompting.html (932 lines), self-debugging.html (937 lines), structured-output.html (928 lines) — all now have complete 13-section template
+
+#### INFO — Optional/Advisory (unchanged)
+
+- CSS ~612KB / JS 533KB — consider minification for production
+- Ghost reference to `learn/advanced.html` in app.js (doesn't exist)
+- Hero badge inconsistency: 54/67 text pages use descriptive labels vs 37/37 modality pages using category names (design decision)
+- 4 tools not in mega-menu (bias, jailbreak, specificity, temperature) — linked from tools/index.html
+- `build_meta.py` is a no-op (9 bytes, `print(42)`)
+- Glossary offset uses 220px vs 160px in CLAUDE.md spec (justified — actual sticky stack is taller)
+- Files pending user decision: `2406.06608v6.pdf` (3.1MB), `assets/images/praxishome.png` (707KB), `build_meta.py`
+
+---
+
+## AUDIT RESULTS SUMMARY (Session 54, fully resolved Session 55)
+
+| Phase | Result |
+|-------|--------|
+| 1. Orphaned Files | 9 DELETED (8 S55 + _mmi_temp), 3 REVIEW remain |
+| 2. Structural Integrity | 145/145 pass |
+| 3. Format Consistency | ALL FIXED — 6 h2s, 3 Code pages rebuilt, 2 comparison panels added, 3 pillar-grids added |
+| 4. Navigation & Links | ALL FIXED — 4 dead links (S54), 58 search entries (S55) |
+| 5. Content Continuity | All counters accurate, zero banned content |
+| 6. Security & CSP | ALL FIXED — 0 inline styles, 0 inline scripts, 0 external resources |
+| 7. Accessibility | ALL FIXED — 296 aria-labels, 36 heading hierarchy fixes, 5 ADL dashboards, focus-visible, img dimensions |
+| 8. Performance | Scripts all deferred, DOM depth OK, img dimensions specified |
+
+**Passed cleanly:** Mega-menu consistency (146/146), glossary JSON valid, counters accurate, zero banned content, CSP headers A+, no inline scripts, no external resources, no dangerous JS, DOM depth OK, all scripts deferred, image alt text, skip links, path depth validation.
+
+---
+
+## FUTURE WORK
+
+- 3 Code modality pages need full 13-section template build-out
 - Additional framework pages for emerging techniques
-- Performance optimization / code splitting
+- Performance optimization / CSS+JS minification
 - User analytics or feedback mechanisms
 
 ---
@@ -38,10 +96,10 @@ All planned phases (1-5) are now complete. Potential future work:
 
 After creating pages in a new modality sub-phase:
 
-1. **Mega-Menu Navigation** — Python batch script to add new section after last modality section in all HTML files (4 depth levels: 0, 1, 2, 3). **Include `data-tab="slug" role="tabpanel"` on the new section** (tabbed menu format). Currently the last modality section is Video (`data-tab="video"`).
+1. **Mega-Menu Navigation** — Python batch script to add new section after last modality section in all HTML files (4 depth levels: 0, 1, 2, 3). **Include `data-tab="slug" role="tabpanel"` on the new section** (tabbed menu format). Currently the last modality section is 3D (`data-tab="3d"`).
 2. **Search Index** — Add entries to `data/search-index.json` (category: "Discover", subcategory: modality name)
 3. **Discover Hub** — Add cards + filter button to `learn/index.html`
-4. **Modality Hub** — Add card section to `learn/modality/index.html` (replace "Coming Soon" placeholder)
+4. **Modality Hub** — Add card section to `learn/modality/index.html`
 5. **Homepage Counter** — Update `data-counter` and CTA text in `index.html`
 6. **HANDOFF.md** — Update state and counters
 
@@ -52,7 +110,7 @@ After creating pages in a new modality sub-phase:
 Sessions 38/45/46/48 used Python scripts to batch-update navigation across all HTML files.
 
 **Pattern for adding a new modality section to mega-menu:**
-1. Find the last modality `<div class="mega-menu-section"` (currently Video: `data-tab="video"`)
+1. Find the last modality `<div class="mega-menu-section"` (currently 3D: `data-tab="3d"`)
 2. Insert new section after its closing `</div>`
 3. 4 depth variants needed (depths 0, 1, 2, 3 with appropriate relative paths)
 4. Skip files that already contain the new section
@@ -110,10 +168,11 @@ Sessions 38/45/46/48 used Python scripts to batch-update navigation across all H
 
 | Document | Purpose | Lines |
 |----------|---------|-------|
-| `.claude/SiteFrameworks.md` | **Architecture bible** — WHY behind every decision | 1,100+ |
+| `.claude/SiteFrameworks.md` | **Architecture bible** — WHY behind every decision | 1,200+ |
 | `.claude/HANDOFF.md` | Current state (this file) | -- |
 | `.claude/COMPLETED.md` | Archived completed work | -- |
-| `.claude/plans/FrameworkOverhaul.md` | Master plan -- Phases 1-5 + session log | ~1,800 |
+| `.claude/testing-procedures.md` | **Site Audit playbook** — 9-phase repeatable audit | ~560 |
+| `.claude/plans/FrameworkOverhaul.md` | Master plan -- Phases 1-5 + session log | ~1,950 |
 | `learn/self-ask.html` | Canonical 13-section template (depth 1) | 899 |
 | `learn/modality/image/image-prompting.html` | Reference for depth 3 modality pages | 883 |
 | `update_nav_video.py` | Reference for mega-menu batch update scripts (new tab) | 143 |
@@ -194,7 +253,7 @@ _public_html/
 +-- app.js                  # ALL JavaScript (~10,900 lines)
 +-- foundations/
 |   +-- index.html          # AI Foundations timeline
-+-- learn/                  # Framework pages (85+) + category pages (7)
++-- learn/                  # Framework pages (104) + category pages (8) + hub (1)
 |   +-- index.html          # Discover hub (101 framework cards, 13 categories)
 |   +-- [7 category pages]  # structured-frameworks, reasoning-cot, etc.
 |   +-- [67 text framework pages]
@@ -207,7 +266,7 @@ _public_html/
 |       +-- 3d/             # 3D frameworks (5 pages)
 +-- data/
 |   +-- glossary.json       # 2,141 AI terms
-|   +-- search-index.json   # Search entries (85 frameworks + glossary + pages)
+|   +-- search-index.json   # 2,324 search entries
 +-- pages/                  # 12 content pages (incl. glossary with inline search)
 +-- tools/                  # 12 AI readiness tools
 +-- neurodivergence/        # 6 ND pages
@@ -216,7 +275,8 @@ _public_html/
 +-- .claude/
     +-- HANDOFF.md           # THIS FILE
     +-- COMPLETED.md         # Archive of completed work
-    +-- SiteFrameworks.md    # Architecture bible (1,100+ lines)
+    +-- SiteFrameworks.md    # Architecture bible (1,200+ lines)
+    +-- testing-procedures.md # Site Audit playbook (9 phases)
     +-- plans/
         +-- FrameworkOverhaul.md          # Master plan (Phases 1-5)
         +-- discover-hub-category-pages.md # Discover Hub plan (COMPLETE)
@@ -224,7 +284,7 @@ _public_html/
 
 ---
 
-## 13 FRAMEWORK CATEGORIES (101 frameworks)
+## 13 FRAMEWORK CATEGORIES (104 framework pages)
 
 | Category | Count | Category Page | Status |
 |----------|-------|---------------|--------|

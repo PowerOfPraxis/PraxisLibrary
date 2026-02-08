@@ -14,7 +14,7 @@
         <header class="header" id="header">
         <div class="header-container">
             <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
-            <nav class="nav" id="nav">
+            <nav class="nav" id="nav" aria-label="Main navigation">
                 <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
                 <div class="nav-item has-dropdown">
                     <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
@@ -224,10 +224,11 @@
     </header>
 
     <main id="main-content">
+        <!-- === HERO SECTION === -->
         <section class="page-hero">
             <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
             <div class="container">
-                <nav class="breadcrumb fade-in">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
                     <a href="../../../index.html">Home</a>
                     <span class="separator">/</span>
                     <a href="../../index.html">Discover</a>
@@ -241,7 +242,23 @@
                 <p class="page-subtitle fade-in">AI-assisted bug identification, explanation, and fixing.</p>
             </div>
         </section>
+        <!-- /HERO SECTION -->
 
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2023</span>
+                        <p><strong>Introduced:</strong> Self-Debugging was formalized by Chen et al. (2023) building on the observation that LLMs can identify errors in code they generated. The technique extends self-correction principles to the programming domain, where code can be executed and tested to provide concrete feedback rather than relying on the model&rsquo;s judgment alone.</p>
+                        <p><strong>Modern LLM Status:</strong> By 2025&ndash;2026, self-debugging is <strong>standard practice in AI-assisted development</strong>. Modern models excel at interpreting error messages, tracing execution, and proposing minimal fixes. IDE integrations like GitHub Copilot and Cursor embed this capability directly into the development workflow.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
         <section class="section section-alt">
             <div class="container">
                 <div class="split-section">
@@ -267,8 +284,34 @@
                 </div>
             </div>
         </section>
+        <!-- /THE CONCEPT -->
 
+        <!-- === WHY IT WORKS === -->
         <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Why Self-Debugging Works</h2>
+                <p class="section-subtitle fade-in-up">Three cognitive mechanisms that make AI-assisted debugging effective</p>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Fresh Perspective</h3>
+                        <p class="pillar-card__text">Re-examining code for errors activates different reasoning patterns than initial generation, similar to how human developers catch bugs during code review. The model approaches the same code from an analytical rather than generative mindset.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Concrete Feedback</h3>
+                        <p class="pillar-card__text">Unlike creative tasks, code bugs produce specific error messages, stack traces, and failing tests that ground the debugging conversation in facts. This concrete evidence constrains the model&rsquo;s reasoning to verifiable hypotheses.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--interactive">
+                        <h3 class="pillar-card__title">Pattern Recognition</h3>
+                        <p class="pillar-card__text">Models have seen millions of bug patterns during training &mdash; off-by-one errors, null references, async issues &mdash; and can match symptoms to known root causes. This vast exposure enables rapid diagnosis of common failure modes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHY IT WORKS -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section section-alt">
             <div class="container">
                 <div class="section-header">
                     <span class="section-eyebrow">Strategies</span>
@@ -351,8 +394,10 @@
                 </div>
             </div>
         </section>
+        <!-- /HOW IT WORKS -->
 
-        <section class="section section-alt">
+        <!-- === BUG TYPES === -->
+        <section class="section">
             <div class="container">
                 <div class="section-header">
                     <span class="section-eyebrow">Bug Types</span>
@@ -379,7 +424,81 @@
                 </div>
             </div>
         </section>
+        <!-- /BUG TYPES -->
 
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why structured debugging prompts produce dramatically better results</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Without Self-Debugging</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>This code doesn&rsquo;t work. Fix it.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Problem</span>
+                                <p>Pastes code without error messages, expected behavior, or context. The model guesses at what &ldquo;doesn&rsquo;t work&rdquo; means and may change working code or miss the actual bug entirely.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>No context, no error details, no expected behavior defined</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">With Self-Debugging</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>This function should return the sum of even numbers in a list, but it returns 0 for [2,4,6]. Here is the error trace: [trace]. Walk through the logic step by step, identify where the bug is, explain why it fails, and provide a minimal fix.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Result</span>
+                                <p>The model traces execution with concrete inputs, pinpoints the exact line where the logic diverges from expected behavior, explains the root cause, and provides a targeted fix that preserves the rest of the code.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Specific inputs, error trace, step-by-step reasoning, minimal fix</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === IMPLEMENTATION PATTERNS === -->
         <section class="section">
             <div class="container">
                 <div class="section-header">
@@ -407,8 +526,227 @@
                 </div>
             </div>
         </section>
+        <!-- /IMPLEMENTATION PATTERNS -->
 
+        <!-- === WHEN TO USE === -->
         <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Self-Debugging</h2>
+                <p class="section-subtitle fade-in-up">Best for iterative bug identification with concrete error feedback</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Runtime Errors with Stack Traces</strong>
+                                    <p>When you have a clear error message and stack trace, self-debugging excels at interpreting the failure path and tracing it back to the root cause in your source code.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Logic Bugs with Known Expected Output</strong>
+                                    <p>When you know what the code should produce but it gives the wrong result, providing both expected and actual output lets the model pinpoint exactly where logic diverges.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Code Review for Potential Issues</strong>
+                                    <p>Proactive debugging where you ask the model to identify potential bugs, edge cases, and failure points before they manifest in production.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Understanding Unfamiliar Codebases</strong>
+                                    <p>Tracing through code you did not write to understand its behavior, identify assumptions, and locate potential failure points in legacy or third-party code.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Iterative Fix-Test-Refine Cycles</strong>
+                                    <p>Multi-turn debugging sessions where each fix is tested and any remaining failures feed back into the next debugging iteration until all tests pass.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Limitations</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Cannot Execute Code to Verify Fixes</strong>
+                                    <p>Models reason about code statically and cannot run it to confirm that proposed fixes actually resolve the issue. Always test fixes in your development environment.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>May Propose Fixes That Introduce New Bugs</strong>
+                                    <p>A fix that resolves one symptom can create side effects elsewhere. Each proposed change should be reviewed for unintended consequences before applying.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Struggles with Bugs Requiring Full System Context</strong>
+                                    <p>Bugs that span multiple services, involve network timing, or depend on production configuration may exceed the model&rsquo;s context window and reasoning capacity.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Cannot Debug Hardware or Environment Issues</strong>
+                                    <p>Problems caused by OS-level configuration, driver incompatibilities, memory corruption, or hardware failures are outside the scope of static code analysis.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Multi-File Dependency Bugs Need Careful Context</strong>
+                                    <p>When bugs involve interactions across many files, you must carefully curate which code to include in the prompt to stay within token limits while providing sufficient context.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where self-debugging delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Production Bug Triage</h3>
+                        <p class="use-case-showcase__desc">Quickly identify root causes from error logs and stack traces to prioritize fixes. Feed production error output directly into a debugging prompt to get rapid diagnosis and fix recommendations for critical incidents.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Code Review Assistance</h3>
+                        <p class="use-case-showcase__desc">Systematic review catching potential bugs, edge cases, and security issues before deployment. Use self-debugging proactively to identify problems before they reach production environments.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Legacy Code Understanding</h3>
+                        <p class="use-case-showcase__desc">Explain complex or poorly documented code by tracing logic and identifying potential failure points. Self-debugging techniques help map out how legacy systems actually behave versus how they were intended to work.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Learning Tool</h3>
+                        <p class="use-case-showcase__desc">Junior developers learn debugging strategies by watching AI trace through problems step by step. The structured explanation of bug identification, root cause analysis, and fix reasoning builds transferable debugging skills.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Self-Debugging Fits</h2>
+                <p class="section-subtitle fade-in-up">Self-Debugging applies self-correction principles to the code domain</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Foundation</span>
+                        <span class="era-marker__title">Code Prompting</span>
+                        <span class="era-marker__desc">Code generation techniques that produce initial output for debugging</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Parent</span>
+                        <span class="era-marker__title">Self-Correction</span>
+                        <span class="era-marker__desc">General self-correction principles applied across all domains</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Current</span>
+                        <span class="era-marker__title">Self-Debugging</span>
+                        <span class="era-marker__desc">Code-domain application of self-correction with concrete feedback</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Related</span>
+                        <span class="era-marker__title">Self-Refine / Reflexion</span>
+                        <span class="era-marker__desc">Iterative improvement and learning from errors across attempts</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Self-Debugging in the Correction Ecosystem</div>
+                    <p>Self-Debugging sits at the intersection of code generation and self-correction. It inherits the iterative improvement loop from <strong>Self-Refine</strong> (generate, critique, improve), the error-learning mechanisms from <strong>Reflexion</strong> (reflect on failures to avoid repeating them), and the structured output expectations from <strong>Code Prompting</strong> (executable, testable results). What makes Self-Debugging unique is that code provides a concrete feedback channel &mdash; error messages, stack traces, and test results &mdash; that grounds the correction process in verifiable facts rather than subjective quality judgments.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
             <div class="container">
                 <h2 class="section-title fade-in-up">Related Frameworks</h2>
                 <div class="icon-boxes icon-boxes--four fade-in-up">
@@ -439,20 +777,29 @@
                 </div>
             </div>
         </section>
+        <!-- /RELATED FRAMEWORKS -->
 
-        <section class="section">
+        <!-- === CTA SECTION === -->
+        <section class="section section-alt">
             <div class="container">
-                <div class="cta-corporate cta-corporate--dark">
-                    <h2 class="cta-corporate__title">Try Self-Debugging</h2>
-                    <div class="cta-corporate__actions">
-                        <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Try Self-Debugging</h2>
+                        <p class="cta-corporate__text">Apply structured debugging techniques to your own code or build debugging prompts with our tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- /CTA SECTION -->
     </main>
 
-        <footer class="footer">
+    <!-- === FOOTER === -->
+    <footer class="footer">
     <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
     <div class="container">
         <div class="footer-grid">
@@ -503,7 +850,87 @@
             <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
         </div>
     </div>
-</footer>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK TO TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK TO TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
 
     <script src="../../../app.js" defer></script>
 </body>

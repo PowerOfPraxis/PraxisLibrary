@@ -14,7 +14,7 @@
         <header class="header" id="header">
         <div class="header-container">
             <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
-            <nav class="nav" id="nav">
+            <nav class="nav" id="nav" aria-label="Main navigation">
                 <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
                 <div class="nav-item has-dropdown">
                     <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
@@ -227,7 +227,7 @@
         <section class="page-hero">
             <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
             <div class="container">
-                <nav class="breadcrumb fade-in">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
                     <a href="../../../index.html">Home</a>
                     <span class="separator">/</span>
                     <a href="../../index.html">Discover</a>
@@ -242,6 +242,21 @@
             </div>
         </section>
 
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2022-2023</span>
+                        <p><strong>Background:</strong> Structured output prompting became a critical discipline as developers began integrating LLM responses into application pipelines. Early approaches relied on post-processing, but research by OpenAI, Anthropic, and others demonstrated that prompt-level strategies&mdash;schema specification, prefix prompting, and format enforcement&mdash;could achieve reliable structured generation without external tooling.</p>
+                        <p><strong>Modern LLM Status:</strong> By 2025&ndash;2026, many APIs offer native structured output modes (OpenAI&rsquo;s JSON mode, Anthropic&rsquo;s tool use). However, prompt-level techniques remain essential for maximum reliability, custom formats, and models without native structured output support.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
         <section class="section section-alt">
             <div class="container">
                 <div class="split-section">
@@ -268,7 +283,51 @@
             </div>
         </section>
 
+        <!-- === WHY IT WORKS === -->
         <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Core Principles</span>
+                    <h2 class="section-title">Why It Works</h2>
+                </div>
+                <div class="pillar-grid pillar-grid--3 stagger-children">
+                    <div class="pillar-card fade-in-up">
+                        <div class="pillar-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M3 9h18M9 3v18"/>
+                            </svg>
+                        </div>
+                        <h3 class="pillar-card__title">Schema Anchoring</h3>
+                        <p class="pillar-card__text">Providing an explicit schema or example locks the model into a specific structure, dramatically reducing format drift and unexpected fields. The schema serves as a constraint that channels generation toward the target format rather than free-form prose.</p>
+                    </div>
+                    <div class="pillar-card fade-in-up">
+                        <div class="pillar-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3 class="pillar-card__title">Constraint Reduction</h3>
+                        <p class="pillar-card__text">Narrowing output to a specific format eliminates the model&rsquo;s tendency toward verbose natural language, producing cleaner machine-readable results. By constraining the output space, you reduce ambiguity and make parsing deterministic.</p>
+                    </div>
+                    <div class="pillar-card fade-in-up">
+                        <div class="pillar-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 4 23 10 17 10"/>
+                                <polyline points="1 20 1 14 7 14"/>
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                            </svg>
+                        </div>
+                        <h3 class="pillar-card__title">Validation Loop</h3>
+                        <p class="pillar-card__text">Structured outputs can be automatically validated against schemas, enabling retry-on-failure workflows that converge on correct format. When validation fails, the error message can be fed back to the model for self-correction, creating a reliable generation pipeline.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHY IT WORKS -->
+
+        <!-- === COMMON OUTPUT FORMATS === -->
+        <section class="section section-alt">
             <div class="container">
                 <div class="section-header">
                     <span class="section-eyebrow">Formats</span>
@@ -296,7 +355,8 @@
             </div>
         </section>
 
-        <section class="section section-alt">
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
             <div class="container">
                 <div class="section-header">
                     <span class="section-eyebrow">Strategies</span>
@@ -380,6 +440,53 @@
             </div>
         </section>
 
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Comparison</span>
+                    <h2 class="section-title">See the Difference</h2>
+                </div>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M15 9l-6 6M9 9l6 6"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Without Structured Output</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <p><strong>Prompt:</strong> "Extract the product info from this review."</p>
+                            <p><strong>Response:</strong> "The reviewer mentions they bought a Samsung Galaxy S24 for $799. They gave it 4 out of 5 stars and said the camera was excellent but felt the battery life could be better. Overall they seemed happy with the purchase and would recommend it to others looking for a flagship phone."</p>
+                            <p>The response contains the information, but it is buried in natural language. Parsing this programmatically requires NLP, regex, or another AI call &mdash; adding cost, latency, and fragility to every downstream system that needs the data.</p>
+                        </div>
+                    </div>
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M9 12l2 2 4-4"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">With Structured Output</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <p><strong>Prompt:</strong> "Extract product info from this review. Return only valid JSON matching: { product: string, brand: string, price: number, rating: number, pros: string[], cons: string[] }"</p>
+                            <p><strong>Response:</strong> { "product": "Galaxy S24", "brand": "Samsung", "price": 799, "rating": 4, "pros": ["Excellent camera", "Fast processor"], "cons": ["Battery life could be better"] }</p>
+                            <p>The same information, now machine-readable. One JSON.parse() call and the data flows directly into databases, APIs, and dashboards &mdash; no post-processing, no ambiguity, no fragile regex extraction.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === IMPLEMENTATION PATTERNS === -->
         <section class="section">
             <div class="container">
                 <div class="section-header">
@@ -432,7 +539,225 @@
             </div>
         </section>
 
+        <!-- === WHEN TO USE === -->
         <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Structured Output</h2>
+                <p class="section-subtitle fade-in-up">Best for machine-readable data generation from natural language</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>API Response Generation</strong>
+                                    <p>Generate response payloads that conform to API contracts for direct consumption by frontend applications and microservices.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Data Extraction from Text</strong>
+                                    <p>Pull structured records from unstructured sources like emails, documents, and web pages into consistent, parseable formats.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Configuration File Creation</strong>
+                                    <p>Generate deployment configs, environment files, and infrastructure-as-code from natural language requirements.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Database Record Formatting</strong>
+                                    <p>Transform unstructured input into database-ready records with consistent field names, types, and value constraints.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Report Generation with Consistent Schema</strong>
+                                    <p>Produce formatted reports with predictable structure for dashboards, analytics pipelines, and automated workflows.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Limitations</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Complex Nested Structures</strong>
+                                    <p>Deeply nested objects and arrays have higher error rates as the model must maintain structural consistency across many levels.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Long Output Format Drift</strong>
+                                    <p>Very long structured outputs increase the risk of format drift, where the model gradually deviates from the schema over many entries.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Truncation Risk</strong>
+                                    <p>Models may truncate large structured responses mid-structure, producing invalid output that cannot be parsed.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Whitespace-Sensitive Formats</strong>
+                                    <p>Formats like YAML rely on precise indentation that models frequently get wrong, making them fragile for structured output.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>No Guarantee Without Validation</strong>
+                                    <p>Prompt-level techniques cannot guarantee 100% valid output. Production systems should always include schema validation and retry logic.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Structured Output delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10M12 20V4M6 20v-6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">API Integration</h3>
+                        <p class="use-case-showcase__desc">Generate response payloads that conform to API contracts for direct consumption by frontend applications, eliminating manual data transformation between AI output and application logic.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Data Extraction</h3>
+                        <p class="use-case-showcase__desc">Pull structured records from unstructured text like emails, documents, and web pages, converting free-form information into consistent, queryable data formats.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                                <line x1="14" y1="4" x2="10" y2="20"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Configuration Generation</h3>
+                        <p class="use-case-showcase__desc">Create deployment configs, environment files, and infrastructure-as-code from natural language requirements, accelerating DevOps workflows with AI-generated specifications.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Automated Reporting</h3>
+                        <p class="use-case-showcase__desc">Generate formatted reports with consistent structure for dashboards and analytics pipelines, ensuring every report follows the same schema for reliable downstream processing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Structured Output Fits</h2>
+                <p class="section-subtitle fade-in-up">The data-format specialization of constrained output techniques</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Constrained Output</span>
+                        <span class="era-marker__title">Foundation</span>
+                        <span class="era-marker__desc">General format control</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Structured Output</span>
+                        <span class="era-marker__title">Specialize</span>
+                        <span class="era-marker__desc">Data-format precision</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Code Prompting</span>
+                        <span class="era-marker__title">Generate</span>
+                        <span class="era-marker__desc">Code generation output</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Self-Verification</span>
+                        <span class="era-marker__title">Validate</span>
+                        <span class="era-marker__desc">Output validation loop</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Design Pattern</div>
+                    <p>Structured Output is the data-format specialization of Constrained Output. While Constrained Output sets general boundaries on response format, Structured Output demands exact schema compliance. Combine with One-Shot Learning to provide format examples, and Self-Verification to validate the output before returning it to the application layer.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section section-alt">
             <div class="container">
                 <h2 class="section-title fade-in-up">Related Frameworks</h2>
                 <div class="icon-boxes icon-boxes--four fade-in-up">
@@ -464,7 +789,8 @@
             </div>
         </section>
 
-        <section class="section section-alt">
+        <!-- === CTA === -->
+        <section class="section">
             <div class="container">
                 <div class="cta-corporate cta-corporate--dark">
                     <h2 class="cta-corporate__title">Try Structured Output</h2>
@@ -528,6 +854,74 @@
         </div>
     </div>
 </footer>
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
 
     <script src="../../../app.js" defer></script>
 </body>

@@ -15,7 +15,7 @@
         <header class="header" id="header">
         <div class="header-container">
             <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
-            <nav class="nav" id="nav">
+            <nav class="nav" id="nav" aria-label="Main navigation">
                 <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
                 <div class="nav-item has-dropdown">
                     <a href="../learn/index.html" class="nav-link" aria-expanded="false">Discover</a>
@@ -252,7 +252,7 @@
                                 <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                             </svg>
                         </div>
-                        <h3>Research</h3>
+                        <h2>Research</h2>
                         <p>Academic studies on AI and neurodivergence</p>
                     </a>
                     <a href="#organizations" class="coverage-card">
@@ -417,7 +417,7 @@
                     <div class="card">
                         <div class="card-content">
                             <span class="card-badge card-badge--info">Autism</span>
-                            <h4>Autistic Self Advocacy Network (ASAN)</h4>
+                            <h3>Autistic Self Advocacy Network (ASAN)</h3>
                             <p>Leading autistic-run advocacy organization with resources on technology accessibility and AI tools for autistic adults.</p>
                             <p class="card-meta">autisticadvocacy.org</p>
                         </div>
@@ -474,7 +474,7 @@
                 <p class="section-intro">Step-by-step guides for neurodivergent individuals getting started with AI tools.</p>
 
                 <div class="highlight-box highlight-box--tip">
-                    <h4>Getting Started Checklist</h4>
+                    <h3>Getting Started Checklist</h3>
                     <ol>
                         <li><strong>Identify your biggest challenge</strong> - What task drains you most? Start there.</li>
                         <li><strong>Pick ONE tool</strong> - Don't overwhelm yourself. Master one before adding more.</li>
@@ -590,7 +590,7 @@
                 <p class="section-intro">Resources on making AI tools more accessible and advocating for neurodivergent-friendly design.</p>
 
                 <div class="highlight-box highlight-box--fact">
-                    <h4>Key Accessibility Principle</h4>
+                    <h3>Key Accessibility Principle</h3>
                     <p>AI tools designed for neurodivergent users often benefit everyone. Features like clear interfaces, customizable outputs, and flexible interaction modes are examples of universal design in action.</p>
                 </div>
 
@@ -682,7 +682,7 @@
                 <div class="card-grid card-grid--2">
                     <div class="card">
                         <div class="card-content">
-                            <h4>The Context Setter</h4>
+                            <h3>The Context Setter</h3>
                             <p>Use this at the start of any conversation to help the AI understand your needs:</p>
                             <div class="prompt-template">
                                 <p class="prompt-text">"I'm neurodivergent and work best with [clear structure / bullet points / step-by-step instructions / minimal jargon]. When I ask questions, please keep responses [concise / detailed but organized / focused on action items]. If I seem stuck, offer a simple first step rather than overwhelming me with options."</p>
@@ -837,48 +837,70 @@
     <!-- /FOOTER -->
 
     <!-- === ACCESSIBILITY DASHBOARD === -->
-    <button class="accessibility-toggle" id="accessibilityToggle" aria-label="Accessibility settings" title="Accessibility settings">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"/>
-            <circle cx="12" cy="8" r="1.5"/>
-            <path d="M12 11v6"/>
-            <path d="M8 13l4-2 4 2"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
         </svg>
     </button>
-    <div class="accessibility-panel" id="accessibilityPanel" aria-hidden="true">
-        <h3>Accessibility</h3>
-        <button class="accessibility-close" id="accessibilityClose" aria-label="Close panel">&times;</button>
-        <div class="accessibility-option">
-            <label for="themeToggle">Theme</label>
-            <select id="themeToggle">
-                <option value="system">System</option>
-                <option value="dark">Dark</option>
-                <option value="light">Light</option>
-            </select>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
         </div>
-        <div class="accessibility-option">
-            <label for="fontSizeRange">Font Size</label>
-            <input type="range" id="fontSizeRange" min="75" max="150" value="100">
-            <span id="fontSizeValue">100%</span>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
         </div>
-        <div class="accessibility-option">
-            <label for="lineHeightRange">Line Height</label>
-            <input type="range" id="lineHeightRange" min="1" max="2" step="0.1" value="1.6">
-            <span id="lineHeightValue">1.6</span>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
         </div>
-        <div class="accessibility-option">
-            <label for="contrastToggle">High Contrast</label>
-            <input type="checkbox" id="contrastToggle">
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
         </div>
-        <div class="accessibility-option">
-            <label for="dyslexicFontToggle">Dyslexia-Friendly Font</label>
-            <input type="checkbox" id="dyslexicFontToggle">
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
         </div>
-        <div class="accessibility-option">
-            <label for="reducedMotionToggle">Reduced Motion</label>
-            <input type="checkbox" id="reducedMotionToggle">
-        </div>
-        <button class="accessibility-reset" id="accessibilityReset">Reset All</button>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
     </div>
     <!-- /ACCESSIBILITY DASHBOARD -->
 

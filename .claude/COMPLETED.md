@@ -4,6 +4,140 @@
 
 ---
 
+## Session 55 (2026-02-07)
+**Full Audit Remediation — ALL Critical + Warning Items Resolved**
+
+### C4: Comparison Panel h2 Fixes (3 remaining + 1 already fixed)
+- [x] `learn/self-calibration.html:386` — Already said "See the Difference" (no change needed)
+- [x] `learn/decomp.html:342` — "Monolithic vs. Decomposed" -> "See the Difference"
+- [x] `learn/graph-of-thought.html:349` — "Chain/Tree Thinking vs. Graph of Thoughts" -> "See the Difference"
+- [x] `learn/recursion-of-thought.html:372` — "Flat vs. Recursive Decomposition" -> "See the Difference"
+
+### C1: Inline Style Fixes (2 files)
+- [x] `.mt-xl` utility class already existed in styles.css:2650 (no CSS change needed)
+- [x] `pages/security.html:491` — `style="margin-top: var(--space-xl);"` -> class `mt-xl`
+- [x] `pages/performance.html:574` — `style="margin-top: var(--space-xl);"` -> class `mt-xl`
+
+### C3: Search Index — 58 Missing Entries Added
+- [x] Python batch script (`add_search_entries.py`, since deleted) extracted title + meta description from each HTML file
+- [x] 52 learn/ framework pages added (15 Reasoning & CoT, 6 Decomposition, 6 Self-Correction, 6 Ensemble Methods, 8 In-Context Learning, 7 Prompting Strategies, 1 Structured Frameworks, 3 Code)
+- [x] 6 neurodivergence/ pages added (index, adhd, autism, dyslexia, tools, resources)
+- [x] Total search index: 2,324 entries (was 2,266)
+
+### Orphan Files Deleted (8 files)
+- [x] `nul` — Windows artifact
+- [x] `learn/_footer.tmp` — build fragment
+- [x] `learn/_header.tmp` — build fragment
+- [x] `learn/graph-of-thought-new.html` — test stub
+- [x] `learn/mot_new.html` — truncated draft
+- [x] `learn/analogical-reasoning-new.html` — draft duplicate
+- [x] `pages/animation-features.html` — unreachable page with 18 inline styles
+- [x] `tools/scorer.html` — dead redirect stub
+
+### Files Modified
+- `learn/decomp.html`, `learn/graph-of-thought.html`, `learn/recursion-of-thought.html` (comparison h2 fixes)
+- `pages/security.html`, `pages/performance.html` (inline style -> utility class)
+- `data/search-index.json` (+58 entries)
+- `.claude/HANDOFF.md`, `.claude/COMPLETED.md`
+
+### Files Deleted (Critical)
+- `nul`, `learn/_footer.tmp`, `learn/_header.tmp`, `learn/graph-of-thought-new.html`
+- `learn/mot_new.html`, `learn/analogical-reasoning-new.html`, `pages/animation-features.html`, `tools/scorer.html`
+
+### W2: Heading Hierarchy Fixes (36 fixes across 17 files)
+- [x] Python batch script (`fix_headings.py`, since deleted) changed h4->h3 and h3->h2 in main content areas
+- [x] 17 files fixed: neurodivergence/ (5), pages/ (3), tools/ (7), patterns/ (1), learn/ (1 - cumulative-reasoning from later fix)
+- [x] Verification scan: zero heading hierarchy violations remain
+
+### W3: Global Focus-Visible Style
+- [x] Added `a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible` with `outline: 2px solid var(--primary); outline-offset: 2px` to styles.css
+
+### W7: Image Dimensions
+- [x] `pages/about.html:272` — Added `width="600" height="800"` to me2.webp img
+
+### W8: Orphan Deletion
+- [x] `learn/_mmi_temp.html` deleted (outdated nav, only 7 of 13 tabs)
+
+### W5: Missing Comparison Panels Added
+- [x] `learn/cumulative-reasoning.html` — "Without Cumulative Reasoning" vs "With Cumulative Reasoning"
+- [x] `learn/structured-cot.html` — "Without Structured CoT" vs "With Structured CoT"
+
+### W6: Missing Pillar-Grid Sections Added
+- [x] `learn/decomp.html` — Specialization, Modularity, Error Isolation
+- [x] `learn/graph-of-thought.html` — Non-Linear Exploration, Thought Aggregation, Backtracking
+- [x] `learn/recursion-of-thought.html` — Adaptive Depth, Context Isolation, Compositional Reasoning
+
+### W1: ADL Dashboard Added to 5 Pages
+- [x] `learn/modality/code/code-prompting.html`, `self-debugging.html`, `structured-output.html` (depth 3)
+- [x] `learn/modality/index.html` (depth 2)
+- [x] `neurodivergence/resources.html` (depth 1, replaced legacy accessibility panel)
+
+### 3 Code Modality Pages Fully Built Out (7 sections each)
+- [x] `code-prompting.html`: 510 -> 932 lines (+Historical Context, Why It Works, Comparison Panel, When to Use/Limitations, Use Cases, Framework Positioning, all with ADL)
+- [x] `self-debugging.html`: 510 -> 937 lines (+Historical Context, Why It Works, Comparison Panel, When to Use/Limitations, Use Cases, Framework Positioning, all with ADL)
+- [x] `structured-output.html`: 534 -> 928 lines (+Historical Context, Why It Works, Comparison Panel, When to Use/Limitations, Use Cases, Framework Positioning, all with ADL)
+
+### Files Modified (Warning Remediation)
+- 17 files (heading hierarchy fixes)
+- `styles.css` (focus-visible style)
+- `pages/about.html` (img dimensions)
+- `learn/cumulative-reasoning.html`, `learn/structured-cot.html` (comparison panels)
+- `learn/decomp.html`, `learn/graph-of-thought.html`, `learn/recursion-of-thought.html` (pillar-grid sections)
+- 5 pages (ADL dashboard additions)
+- 3 Code modality pages (full 13-section build-out)
+
+### Files Deleted (Warning)
+- `learn/_mmi_temp.html`
+
+---
+
+## Session 54 (2026-02-07)
+**First Full Site Audit + Partial Remediation**
+
+### Site Audit Executed (9 phases, all run in parallel)
+- Phase 1: Orphaned File Scan — 8 DELETE candidates, 4 REVIEW
+- Phase 2: Structural Integrity — 148/151 files pass
+- Phase 3: Format Consistency — 6 comparison h2 violations, 3 incomplete Code pages
+- Phase 4: Navigation & Links — 4 dead links found, 52+6 missing search index entries
+- Phase 5: Content Continuity — All counters accurate, zero banned content violations
+- Phase 6: Security & CSP — 20 inline styles (18 in orphan animation-features.html), 0 inline scripts
+- Phase 7: Accessibility — 296 missing aria-labels, 7 pages missing ADL, 17 heading hierarchy issues
+- Phase 8: Performance — Scripts all deferred, DOM depth OK, 1 oversized unreferenced image
+
+### Remediation Completed
+- [x] **C2: 4 dead internal links fixed** — demo-ensembling.html, program-of-thought.html, image-prompting.html (x2)
+- [x] **C4 partial: 2 of 6 comparison panel h2 fixes** — self-verification.html, self-refine.html changed to "See the Difference"
+- [x] **C6: 296 aria-labels added** — Python batch script added `aria-label="Main navigation"` (149 files) and `aria-label="Breadcrumb"` (147 files)
+
+### Files Modified
+- `learn/demo-ensembling.html` (dead link fix)
+- `learn/program-of-thought.html` (dead link fix)
+- `learn/modality/image/image-prompting.html` (2 dead link fixes)
+- `learn/self-verification.html` (comparison h2 fix)
+- `learn/self-refine.html` (comparison h2 fix)
+- 149 HTML files (aria-label additions via batch script)
+- `.claude/HANDOFF.md`, `.claude/COMPLETED.md`, `.claude/plans/FrameworkOverhaul.md`, `.claude/testing-procedures.md`
+
+---
+
+## Session 53 (2026-02-07)
+**Site Audit System Created + Mega-Menu Tab Layout Change**
+
+### Site Audit System
+- Created `.claude/testing-procedures.md` — 9-phase comprehensive audit playbook
+- Living document with trigger prompt for repeatable audits
+
+### Mega-Menu Tab Layout Change
+- Getting Started + In-Context Learning paired side-by-side in first row (desktop, CSS-only)
+- `styles.css` lines 6140-6186, tab column widened 190px->240px
+
+### Known Issues Identified (Pre-Audit)
+- Format errors: self-verification.html, self-refine.html custom comparison h2s
+- Inline styles: pages/security.html, pages/performance.html, pages/animation-features.html
+- Orphaned files: nul, _mmi_temp.html, mot_new.html, analogical-reasoning-new.html, graph-of-thought-new.html, animation-features.html
+
+---
+
 ## Session 52 (2026-02-07)
 **Phase 4D Framework Matcher COMPLETE -- Phase 4 Site Integration FULLY COMPLETE (4/4)**
 

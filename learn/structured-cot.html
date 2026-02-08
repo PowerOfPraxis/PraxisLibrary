@@ -14,7 +14,7 @@
         <header class="header" id="header">
         <div class="header-container">
             <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
-            <nav class="nav" id="nav">
+            <nav class="nav" id="nav" aria-label="Main navigation">
                 <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
                 <div class="nav-item has-dropdown">
                     <a href="../learn/index.html" class="nav-link active" aria-expanded="false">Discover</a>
@@ -228,7 +228,7 @@
         <section class="page-hero">
             <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
             <div class="container">
-                <nav class="breadcrumb fade-in">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
                     <a href="../index.html">Home</a>
                     <span class="separator">/</span>
                     <a href="index.html">Discover</a>
@@ -351,6 +351,57 @@
             </div>
         </section>
         <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Comparison</span>
+                    <h2 class="section-title">See the Difference</h2>
+                </div>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M15 9l-6 6M9 9l6 6"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Without Structured CoT</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <p><strong>Prompt:</strong> "A factory produces 1,200 widgets per day. Defect rate is 3%. Each defect costs $15 to fix. What is the monthly defect cost assuming 22 working days?"</p>
+                            <p><strong>Free-Form Response:</strong> "OK so the factory makes 1,200 widgets a day and 3% are defective. That means about 36 are defective each day. At $15 each that is $540 per day. Over a month of 22 days that comes to $11,880."</p>
+                            <p>The answer happens to be correct, but the reasoning jumps between calculations without labeling what each number represents. There is no separation between known facts, the goal, and the steps. If the answer were wrong, tracing the error would require re-reading the entire paragraph to find the faulty step.</p>
+                        </div>
+                    </div>
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M9 12l2 2 4-4"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">With Structured CoT</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <p><strong>Given:</strong> Daily production = 1,200 widgets. Defect rate = 3%. Cost per defect = $15. Working days per month = 22.</p>
+                            <p><strong>Find:</strong> Total monthly defect cost.</p>
+                            <p><strong>Steps:</strong></p>
+                            <p>1) Daily defects: 1,200 x 0.03 = 36 widgets</p>
+                            <p>2) Daily defect cost: 36 x $15 = $540</p>
+                            <p>3) Monthly defect cost: $540 x 22 = $11,880</p>
+                            <p><strong>Answer:</strong> $11,880 per month.</p>
+                            <p>Every input is labeled, the goal is explicit, each step shows one operation, and the answer is clearly separated. Any error can be traced to a specific numbered step, and the output can be programmatically parsed by extracting labeled fields.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
 
         <!-- === COMMON TEMPLATES === -->
         <section class="section section-alt">

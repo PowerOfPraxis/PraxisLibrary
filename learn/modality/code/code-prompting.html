@@ -14,7 +14,7 @@
         <header class="header" id="header">
         <div class="header-container">
             <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
-            <nav class="nav" id="nav">
+            <nav class="nav" id="nav" aria-label="Main navigation">
                 <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
                 <div class="nav-item has-dropdown">
                     <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
@@ -227,7 +227,7 @@
         <section class="page-hero">
             <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
             <div class="container">
-                <nav class="breadcrumb fade-in">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
                     <a href="../../../index.html">Home</a>
                     <span class="separator">/</span>
                     <a href="../../index.html">Discover</a>
@@ -241,7 +241,23 @@
                 <p class="page-subtitle fade-in">Strategies for effective code generation, explanation, and transformation.</p>
             </div>
         </section>
+        <!-- /HERO SECTION -->
 
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2021-2023</span>
+                        <p><strong>Background:</strong> Code generation prompting emerged as a distinct discipline with OpenAI&rsquo;s Codex (2021) and GitHub Copilot. While early LLMs could produce code from natural language, research demonstrated that specific prompting strategies&mdash;specifying language, constraints, edge cases, and expected formats&mdash;dramatically improved code quality and reduced bugs.</p>
+                        <p><strong>Modern LLM Status:</strong> By 2025-2026, code-capable models like GPT-4, Claude, and Gemini achieve near-human performance on many coding benchmarks. However, effective prompting remains critical: specifying context, requirements, and constraints consistently produces better code than vague instructions, even with the most capable models.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
         <section class="section section-alt">
             <div class="container">
                 <div class="split-section">
@@ -267,8 +283,54 @@
                 </div>
             </div>
         </section>
+        <!-- /THE CONCEPT -->
 
+        <!-- === WHY IT WORKS === -->
         <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Why It Works</span>
+                    <h2 class="section-title">The Mechanics Behind Code Prompting</h2>
+                </div>
+
+                <div class="pillar-grid pillar-grid--3 fade-in-up">
+                    <div class="pillar-card pillar-card--featured">
+                        <div class="pillar-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <h3 class="pillar-card__title">Verifiable Output</h3>
+                        <p class="pillar-card__text">Code either runs correctly or it doesn&rsquo;t, enabling objective evaluation and systematic improvement unlike subjective text tasks.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--featured">
+                        <div class="pillar-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="9" y1="3" x2="9" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3 class="pillar-card__title">Constraint Anchoring</h3>
+                        <p class="pillar-card__text">Explicit requirements (language, framework, edge cases) constrain the solution space, reducing hallucinated or irrelevant code.</p>
+                    </div>
+                    <div class="pillar-card pillar-card--featured">
+                        <div class="pillar-card__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 4 23 10 17 10"/>
+                                <polyline points="1 20 1 14 7 14"/>
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                            </svg>
+                        </div>
+                        <h3 class="pillar-card__title">Iterative Refinement</h3>
+                        <p class="pillar-card__text">Generated code can be tested immediately and debugged in follow-up prompts, creating a rapid feedback loop.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHY IT WORKS -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section section-alt">
             <div class="container">
                 <div class="section-header">
                     <span class="section-eyebrow">Components</span>
@@ -295,7 +357,81 @@
                 </div>
             </div>
         </section>
+        <!-- /HOW IT WORKS -->
 
+        <!-- === COMPARISON PANEL === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why precise code prompts produce dramatically better results</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Vague Code Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Write a function that sorts a list</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Result</span>
+                                <p>Ambiguous language, unknown data types, no edge case handling, no type hints, no documentation. The model must guess every detail, producing generic code that likely won&rsquo;t fit your actual requirements.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Underspecified &mdash; the model fills gaps with assumptions</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Precise Code Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Write a Python 3.11 function called <code>sort_by_priority</code> that takes a list of dicts with keys &lsquo;name&rsquo; (str) and &lsquo;priority&rsquo; (int 1-5), returns a new list sorted by priority descending then name ascending. Handle empty list (return []) and missing &lsquo;priority&rsquo; key (default to 3). Include type hints and a docstring.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Result</span>
+                                <p>Every ambiguity resolved: language version, function name, input/output types, sort order, edge cases, defaults, and documentation requirements. The model produces production-ready code that matches your exact specifications.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Fully specified &mdash; constraints eliminate guesswork</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === EXAMPLES === -->
         <section class="section section-alt">
             <div class="container">
                 <div class="section-header">
@@ -407,8 +543,226 @@
                 </div>
             </div>
         </section>
+        <!-- /IMPLEMENTATION PATTERNS -->
 
+        <!-- === WHEN TO USE === -->
         <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Code Prompting</h2>
+                <p class="section-subtitle fade-in-up">Ideal for structured code tasks with clear requirements</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Code Generation from Specs</strong>
+                                    <p>Translating detailed requirements into working functions, classes, and modules with explicit constraints and expected behavior.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Code Review and Bug Finding</strong>
+                                    <p>Submitting code for analysis of potential bugs, security vulnerabilities, performance issues, and style violations.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Language/Framework Translation</strong>
+                                    <p>Converting code between programming languages or migrating from one framework to another while preserving functionality.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Boilerplate and Scaffolding</strong>
+                                    <p>Generating project structure, configuration files, and repetitive boilerplate code from high-level specifications.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Test Case Generation</strong>
+                                    <p>Creating unit tests, integration tests, and edge case coverage from function signatures and requirements documentation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Limitations</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Cannot Verify Runtime Behavior</strong>
+                                    <p>The model generates code but cannot execute it. Syntactically correct code may still fail at runtime due to environment-specific issues.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>May Generate Plausible but Incorrect Logic</strong>
+                                    <p>Code that looks correct and follows conventions can still contain subtle logical errors, especially in complex algorithms or edge cases.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Misses Project-Specific Conventions</strong>
+                                    <p>Without explicit context about your codebase, the model cannot follow internal naming conventions, architectural patterns, or team standards.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Security Vulnerabilities May Be Subtle</strong>
+                                    <p>Generated code can introduce injection flaws, improper auth checks, or insecure defaults that pass casual review but fail security audits.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Not a Substitute for Code Review</strong>
+                                    <p>AI-generated code should always be reviewed by a human developer before deployment, especially for production systems and security-critical paths.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where code prompting delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">API Development</h3>
+                        <p class="use-case-showcase__desc">Generate endpoint handlers with validation, error handling, and documentation. Specify HTTP methods, request/response schemas, authentication requirements, and status codes for production-ready API code.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Database Operations</h3>
+                        <p class="use-case-showcase__desc">Create queries, migrations, and data access layers with proper parameterization. Define schema constraints, indexing strategies, and transaction boundaries for safe, performant database code.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Automation Scripts</h3>
+                        <p class="use-case-showcase__desc">Build CI/CD scripts, data pipelines, and batch processing tools. Specify input sources, transformation logic, error recovery, and logging requirements for reliable automated workflows.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 2l4 4-4 4"/>
+                                <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                                <path d="M7 22l-4-4 4-4"/>
+                                <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Legacy Modernization</h3>
+                        <p class="use-case-showcase__desc">Translate older codebases to modern languages and frameworks. Provide source code context, target architecture constraints, and compatibility requirements for faithful, incremental migration.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Code Prompting Fits</h2>
+                <p class="section-subtitle fade-in-up">Code prompting forms the foundation of the AI-assisted development stack</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Code Prompting</span>
+                        <span class="era-marker__title">Foundation</span>
+                        <span class="era-marker__desc">Core techniques for code generation, review, and transformation</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Self-Debugging</span>
+                        <span class="era-marker__title">Iterative Debugging</span>
+                        <span class="era-marker__desc">AI identifies and fixes bugs in its own generated code</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Program Synthesis</span>
+                        <span class="era-marker__title">Formal Specifications</span>
+                        <span class="era-marker__desc">Generating code from formal specs, constraints, and examples</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Structured Output</span>
+                        <span class="era-marker__title">Data Format Generation</span>
+                        <span class="era-marker__desc">Producing JSON, XML, and structured data with schema guarantees</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Build on the Basics</div>
+                    <p>Code prompting techniques form the base layer for all AI-assisted development. Master specification, context-setting, and constraint definition here, then extend with Self-Debugging for iterative improvement, Program Synthesis for formal correctness, or Structured Output for data format guarantees.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
             <div class="container">
                 <h2 class="section-title fade-in-up">Related Frameworks</h2>
                 <div class="icon-boxes icon-boxes--four fade-in-up">
@@ -504,6 +858,74 @@
         </div>
     </div>
 </footer>
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
 
     <script src="../../../app.js" defer></script>
 </body>
