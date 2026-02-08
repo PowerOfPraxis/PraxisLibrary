@@ -55,6 +55,54 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
+    // MOBILE NAV LINK ACCENT (Logo-style split color)
+    // First part white, last word red via <span> — matches </Praxis Library> pattern
+    // ==========================================
+    if (window.matchMedia('(max-width: 767px)').matches) {
+        /** Split text into white + red <span> (logo pattern).
+         *  Wraps both halves in a single container to prevent
+         *  flex spacing from creating gaps in single words. */
+        function splitNavAccent(target) {
+            var text = target.textContent.trim();
+            if (!text) return;
+            var words = text.split(' ');
+            var firstPart, secondPart;
+            if (words.length > 1) {
+                secondPart = words.pop();
+                firstPart = words.join(' ') + ' ';
+            } else if (text.indexOf('-') > 0) {
+                var hIdx = text.lastIndexOf('-');
+                firstPart = text.slice(0, hIdx + 1);
+                secondPart = text.slice(hIdx + 1);
+            } else {
+                var mid = Math.ceil(text.length / 2);
+                firstPart = text.slice(0, mid);
+                secondPart = text.slice(mid);
+            }
+            target.textContent = '';
+            var wrapper = document.createElement('span');
+            wrapper.className = 'nav-accent-wrap';
+            wrapper.appendChild(document.createTextNode(firstPart));
+            var accent = document.createElement('span');
+            accent.className = 'nav-accent';
+            accent.textContent = secondPart;
+            wrapper.appendChild(accent);
+            target.appendChild(wrapper);
+        }
+
+        // Split top-level nav links (AI Foundations, Discover, etc.)
+        document.querySelectorAll('.nav > a.nav-link, .nav-item.has-dropdown > a.nav-link').forEach(function(link) {
+            splitNavAccent(link);
+        });
+
+        // Split accordion section headers (Structured Frameworks, In-Context Learning, etc.)
+        document.querySelectorAll('.mega-menu--tabbed .mega-menu-section[data-tab] h4').forEach(function(h4) {
+            var link = h4.querySelector('a');
+            splitNavAccent(link || h4);
+        });
+    }
+
+    // ==========================================
     // ACCORDION NAVIGATION (Mega Menu)
     // Click-based expand/collapse for dropdown menus
     // ==========================================

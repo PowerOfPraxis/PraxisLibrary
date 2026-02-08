@@ -286,6 +286,11 @@ body.menu-open .header .nav-link {
     color: rgba(255, 255, 255, 0.9);
 }
 
+/* Mobile nav accent (JS-injected, matches logo pattern) */
+body.menu-open .header .nav-accent {
+    color: var(--primary);
+}
+
 body.menu-open .header .logo {
     color: white;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -6219,11 +6224,13 @@ body.menu-open {
 /* Tabbed mega-menu mobile accordion ---- */
 @media (max-width: 767px) {
     /* Override generic mobile grid: tabbed menu is a vertical accordion */
-    .mega-menu--tabbed {
+    .mega-menu.mega-menu--tabbed {
         display: block;
         width: auto;
         max-width: none;
         padding: 0;
+        grid-template-columns: none;
+        columns: initial;
     }
 
     /* Hide desktop tab buttons on mobile */
@@ -6273,6 +6280,8 @@ body.menu-open {
         padding: 0;
         max-height: none;
         overflow: visible;
+        columns: 1;
+        column-gap: 0;
     }
 
     /* Show h4 as tappable accordion header */
@@ -6287,14 +6296,23 @@ body.menu-open {
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.3px;
-        color: var(--primary);
+        color: #fff;
         user-select: none;
     }
 
-    /* Clickable headers (h4 containing a link) — white */
+    /* Accent color in h4 (JS-injected, matches logo pattern) */
+    .mega-menu--tabbed .mega-menu-section[data-tab] h4 .nav-accent {
+        color: var(--primary);
+    }
+
+    /* Clickable headers (h4 containing a link) — white base, red accent */
     .mega-menu--tabbed .mega-menu-section[data-tab] h4 a {
         color: #fff !important;
         text-decoration: none;
+    }
+
+    .mega-menu--tabbed .mega-menu-section[data-tab] h4 a .nav-accent {
+        color: var(--primary) !important;
     }
 
     /* Chevron indicator */
@@ -6312,7 +6330,7 @@ body.menu-open {
     }
 
     .mega-menu--tabbed .mega-menu-section[data-tab].is-expanded h4 {
-        color: var(--primary);
+        color: #fff;
     }
 
     .mega-menu--tabbed .mega-menu-section[data-tab].is-expanded h4 a {
@@ -6345,7 +6363,7 @@ body.menu-open {
     }
 
     .header.scrolled .mega-menu--tabbed .mega-menu-section[data-tab] h4 {
-        color: var(--primary);
+        color: #fff;
     }
 
     .header.scrolled .mega-menu--tabbed .mega-menu-section[data-tab] h4 a {
