@@ -15,7 +15,7 @@
         <header class="header" id="header">
         <div class="header-container">
             <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
-            <nav class="nav" id="nav">
+            <nav class="nav" id="nav" aria-label="Main navigation">
                 <a href="../foundations/index.html" class="nav-link">AI Foundations</a>
                 <div class="nav-item has-dropdown">
                     <a href="../learn/index.html" class="nav-link active" aria-expanded="false">Discover</a>
@@ -230,7 +230,7 @@
         <section class="page-hero">
             <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
             <div class="container">
-                <nav class="breadcrumb fade-in">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
                     <a href="../index.html">Home</a>
                     <span class="separator">/</span>
                     <a href="index.html">Discover</a>
@@ -365,6 +365,55 @@
             </div>
         </section>
         <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-eyebrow">Comparison</span>
+                    <h2 class="section-title">See the Difference</h2>
+                </div>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M15 9l-6 6M9 9l6 6"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Without Cumulative Reasoning</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <p><strong>Prompt:</strong> "Alice is faster than Bob. Charlie is faster than Diana. Bob is faster than Charlie. Eve is faster than Alice. Diana is faster than Frank. Who is the slowest?"</p>
+                            <p><strong>Single-Pass Answer:</strong> "Let me think about this. Eve is faster than Alice, Alice is faster than Bob, Bob is faster than Charlie, Charlie is faster than Diana, and Diana is faster than Frank. So the order from fastest to slowest seems to be Eve, Alice, Bob, Charlie, Diana, Frank. The slowest is Frank."</p>
+                            <p>The model produces the correct answer here, but the reasoning is one unverified chain. For harder problems with more relationships or contradictions, this single-pass approach often drops facts, misapplies transitivity, or jumps to conclusions without checking intermediate steps. There is no mechanism to catch errors before the final answer is produced.</p>
+                        </div>
+                    </div>
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M9 12l2 2 4-4"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">With Cumulative Reasoning</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <p><strong>Initial Context:</strong> {Eve &gt; Alice, Alice &gt; Bob, Bob &gt; Charlie, Charlie &gt; Diana, Diana &gt; Frank}</p>
+                            <p><strong>Cycle 1 &mdash; Propose:</strong> "Eve is faster than Bob." <strong>Verify:</strong> Eve &gt; Alice &gt; Bob. Transitivity holds. Added.</p>
+                            <p><strong>Cycle 2 &mdash; Propose:</strong> "Alice is faster than Charlie." <strong>Verify:</strong> Alice &gt; Bob &gt; Charlie. Valid. Added.</p>
+                            <p><strong>Cycle 3 &mdash; Propose:</strong> "Bob is faster than Diana." <strong>Verify:</strong> Bob &gt; Charlie &gt; Diana. Valid. Added.</p>
+                            <p><strong>Reporter Check:</strong> Frank has no one ranked below him. Every other person is faster than at least one other. Sufficient evidence accumulated.</p>
+                            <p><strong>Final Answer:</strong> Frank is the slowest. Each intermediate conclusion was individually verified before the answer was derived, making the reasoning auditable and error-resistant.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
 
         <!-- === THE THREE MODULES === -->
         <section class="section section-alt">
