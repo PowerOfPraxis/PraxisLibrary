@@ -1,8 +1,8 @@
 # Praxis Project Handoff Document
 
-**Last Updated:** 2026-02-07 (Session 55)
-**Last Commit:** `ee88874` — Phase 4D Framework Matcher COMPLETE
-**Current Phase:** Post-build. Full audit remediation COMPLETE — all critical AND warning items resolved.
+**Last Updated:** 2026-02-07 (Session 56)
+**Last Commit:** `c94a43e` — Mega-menu sidebar quick links redesign
+**Current Phase:** Post-build. Search + navigation UX improvements.
 
 ---
 
@@ -27,32 +27,34 @@
 
 ---
 
-## ACTIVE WORK — Session 55 Audit Remediation COMPLETE
+## SESSION 56 — Search + Navigation UX (2026-02-07)
 
-### All Critical Issues Resolved (Session 55)
+### Completed This Session
 
-1. **C4 COMPLETE: All 6 comparison panel h2 fixes done** — All now say "See the Difference":
-   - S54: self-verification.html, self-refine.html
-   - S55: decomp.html, graph-of-thought.html, recursion-of-thought.html
-   - self-calibration.html was already correct (no change needed)
-2. **C1 COMPLETE: 2 inline styles fixed** — `.mt-xl` utility class already existed in styles.css:2650:
-   - `pages/security.html:491` — `style=` replaced with class `mt-xl`
-   - `pages/performance.html:574` — `style=` replaced with class `mt-xl`
-3. **C3 COMPLETE: 58 search index entries added** — Python batch script extracted title + meta description:
-   - 52 learn/ framework pages + 6 neurodivergence/ pages
-   - Total search index: 2,324 entries
-4. **Orphan deletion COMPLETE: 8 files deleted** — nul, _footer.tmp, _header.tmp, graph-of-thought-new.html, mot_new.html, analogical-reasoning-new.html, animation-features.html, scorer.html
+1. **Main search 8-tier glossary scoring** (`8ec2558`) — `searchPraxis()` now uses the same scoring algorithm as `searchGlossaryTerms()` for Glossary category entries: exact name (200), acronym (190), normalized (170), starts-with (150), acronym starts-with (120), whole word (100), substring (80), definition (30). Three helper functions added: `extractSearchAcronym()`, `normalizeSearchMatch()`, `scoreGlossaryEntry()`. Non-Glossary entries keep existing term-by-term scoring.
 
-### All Warning Items Also Resolved (Session 55, continued)
+2. **Glossary hash scroll fix** (`6cbe34f`) — Clicking glossary terms from main search was scrolling to wrong positions because `content-visibility: auto` on `.glossary-section` uses 500px placeholder heights. Fixed by mirroring the `selectResult()` pattern: disable content-visibility on all 26 sections, double-rAF for layout reflow, `getBoundingClientRect()` for accurate position, manual `window.scrollTo()` with 220px offset, restore content-visibility after 1.5s, highlight pulse on target term. `scrollIntoView()` does NOT work with `content-visibility: auto`.
 
-5. **W2 COMPLETE: 36 heading hierarchy fixes across 17 files** — Python batch script changed h4->h3 and h3->h2 in content areas
-6. **W3 COMPLETE: Global focus-visible style added** — `a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible` in styles.css
-7. **W5 COMPLETE: 2 comparison panels added** — cumulative-reasoning.html, structured-cot.html
-8. **W6 COMPLETE: 3 pillar-grid "Why It Works" sections added** — decomp.html, graph-of-thought.html, recursion-of-thought.html
-9. **W7 COMPLETE: width/height added to img** — pages/about.html (600x800)
-10. **W8 COMPLETE: _mmi_temp.html deleted** — orphan with outdated nav removed
-11. **W1 COMPLETE: ADL dashboard added to 5 pages** — code-prompting, self-debugging, structured-output, modality/index, neurodivergence/resources
-12. **3 Code modality pages fully built out** — code-prompting.html (932 lines), self-debugging.html (937 lines), structured-output.html (928 lines) — all now have complete 13-section template
+3. **Mega-menu sidebar redesign** (`c94a43e`) — Getting Started removed as a tab (only had 2 links). Prompt Basics + Facts & Fictions now pinned as direct quick links at top of sidebar, always visible without clicking a tab. New `.mega-menu-sidebar` wrapper contains `.mega-menu-quick-links` + `.mega-menu-tabs`. Removed the paired 50%/50% Getting Started + ICL tab CSS. In-Context Learning is now a normal full-width tab. 145 HTML files + CSS updated via `update_nav_sidebar.py`. Mobile: quick links show as horizontal row at top of dropdown.
+
+### Mega-Menu Tab Slug Mapping (12 categories, was 13)
+
+| Category | Slug |
+|----------|------|
+| Structured Frameworks | `structured-frameworks` |
+| In-Context Learning | `in-context-learning` |
+| Reasoning & CoT | `reasoning-cot` |
+| Decomposition | `decomposition` |
+| Self-Correction | `self-correction` |
+| Ensemble Methods | `ensemble-methods` |
+| Prompting Strategies | `prompting-strategies` |
+| Code | `code` |
+| Image | `image` |
+| Audio | `audio` |
+| Video | `video` |
+| 3D | `3d` |
+
+**Getting Started** is no longer a tab — its links live in `.mega-menu-quick-links` inside `.mega-menu-sidebar`.
 
 #### INFO — Optional/Advisory (unchanged)
 
@@ -120,45 +122,47 @@ Sessions 38/45/46/48 used Python scripts to batch-update navigation across all H
 
 ---
 
-## MEGA-MENU TABBED ARCHITECTURE (Session 48)
+## MEGA-MENU TABBED ARCHITECTURE (Session 48, updated Session 56)
 
-**Layout:** Tabbed progressive disclosure (replaced flat multi-column)
+**Layout:** Sidebar + tabbed progressive disclosure
 
 ```css
-/* Desktop: 680px, left tabs + right content panels with 2-column flow */
+/* Desktop: 680px, sidebar (quick links + tabs) + right content panels */
 .mega-menu--tabbed { display: flex; width: 680px; }
-.mega-menu-tabs { flex: 0 0 190px; }
+.mega-menu-sidebar { flex: 0 0 190px; display: flex; flex-direction: column; }
+.mega-menu-quick-links { /* Prompt Basics + Facts & Fictions — always visible */ }
+.mega-menu-tabs { /* Tab buttons generated by JS */ }
 .mega-menu--tabbed .mega-menu-section[data-tab] { flex: 1; display: none; columns: 2; }
 .mega-menu--tabbed .mega-menu-section[data-tab].is-active { display: block; }
 
-/* Mobile: accordion with collapsible headers */
+/* Mobile: quick links visible, tabs hidden, sections as accordion */
 @media (max-width: 767px) {
+    .mega-menu-sidebar { border-right: none; }
+    .mega-menu-quick-links { flex-direction: row; } /* horizontal links */
     .mega-menu-tabs { display: none; }
     .mega-menu--tabbed .mega-menu-section[data-tab] h4 { /* tappable accordion header */ }
     .mega-menu--tabbed .mega-menu-section.is-expanded a { display: block; }
 }
 ```
 
+**HTML structure (all 145 files):**
+```html
+<div class="mega-menu mega-menu--tabbed">
+    <div class="mega-menu-sidebar">
+        <div class="mega-menu-quick-links">
+            <a href="learn/prompt-basics.html">Prompt Basics</a>
+            <a href="learn/facts-fictions.html">Facts & Fictions</a>
+        </div>
+        <div class="mega-menu-tabs" role="tablist"></div>
+    </div>
+    <div class="mega-menu-section" data-tab="structured-frameworks">...</div>
+    <!-- 11 more data-tab sections -->
+</div>
+```
+
 **Mobile styling:** Headers 0.86rem, links 0.92rem. Non-clickable headers: `var(--primary)` (red). Clickable headers/links: `#fff`.
 
-**Tab Slug Mapping (13 categories):**
-| Category | Slug |
-|----------|------|
-| Getting Started | `getting-started` |
-| Structured Frameworks | `structured-frameworks` |
-| In-Context Learning | `in-context-learning` |
-| Reasoning & CoT | `reasoning-cot` |
-| Decomposition | `decomposition` |
-| Self-Correction | `self-correction` |
-| Ensemble Methods | `ensemble-methods` |
-| Prompting Strategies | `prompting-strategies` |
-| Code | `code` |
-| Image | `image` |
-| Audio | `audio` |
-| Video | `video` |
-| 3D | `3d` |
-
-**JS:** `TabbedMenu` object in `app.js` — runtime tab button generation from `[data-tab]` section h4 text, mouseenter switching (desktop), h4 click accordion (mobile), roving tabindex keyboard nav.
+**JS:** `TabbedMenu` object in `app.js` — runtime tab button generation from `[data-tab]` section h4 text, mouseenter switching (desktop), h4 click accordion (mobile), roving tabindex keyboard nav. No changes needed — queries `.mega-menu-tabs` inside `.mega-menu-sidebar`.
 
 **Resources menu** still uses `mega-menu--multi-column` (unchanged).
 
@@ -179,6 +183,7 @@ Sessions 38/45/46/48 used Python scripts to batch-update navigation across all H
 | `update_nav_code.py` | Reference for adding links within existing mega-menu tab | 131 |
 | `update_nav_3d.py` | Reference for adding 3D tab (13th mega-menu tab) | 131 |
 | `update_nav_tabbed.py` | Reference for tabbed-menu conversion script | 157 |
+| `update_nav_sidebar.py` | Reference for sidebar quick links conversion (S56) | ~90 |
 
 ---
 
