@@ -7827,153 +7827,321 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // GLOSSARY JSON LOADER
-    // Loads all terms from data/glossary.json into letter sections
+    // GLOSSARY SYSTEM (SHARDED + LAZY LOADED)
+    // Loads terms from data/glossary/ sharded JSON files on demand
+    // Uses manifest.json for metadata, search-compact.json for cross-shard search
     // Uses DOM API only (no innerHTML) for CSP compliance
     // ==========================================
 
+    /** Glossary shard cache — stores loaded letter data */
+    var glossaryShardCache = {};
+    /** Glossary manifest data */
+    var glossaryManifest = null;
+    /** Compact search index for all terms (lazy-loaded) */
+    var glossaryCompactIndex = null;
+    var glossaryCompactLoading = false;
+    /** Track which letters are currently loading */
+    var glossaryLettersLoading = {};
+
     /**
-     * Load glossary terms from JSON and render into page
+     * Render terms from a shard into a letter section
+     * Uses DOM API only (no innerHTML) for CSP compliance
+     * @param {string} letter - The letter key (a-z)
+     * @param {Array} terms - Array of term objects from shard
      */
-    async function loadGlossaryFromJSON() {
-        const filterBar = document.querySelector('.glossary-filter-bar');
-        if (!filterBar) return;
+    function renderGlossaryTerms(letter, terms) {
+        var section = document.getElementById('letter-' + letter);
+        if (!section) return;
 
-        try {
-            const response = await fetch(resolveInternalUrl('data/glossary.json'));
-            if (!response.ok) return;
+        var container = section.querySelector('.glossary-terms');
+        if (!container) return;
 
-            const data = await response.json();
-            const terms = data.terms || [];
+        // Clear any loading state or previous content
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+        section.classList.remove('glossary-section--loading');
 
-            terms.forEach(term => {
-                const firstLetter = term.term.charAt(0).toUpperCase();
-                const letterKey = firstLetter.match(/[A-Z]/) ? firstLetter.toLowerCase() : null;
-                if (!letterKey) return;
+        terms.forEach(function(term) {
+            var termEl = document.createElement('div');
+            termEl.className = 'glossary-term';
+            termEl.id = term.id || '';
 
-                const section = document.getElementById(`letter-${letterKey}`);
-                if (!section) return;
+            var h3 = document.createElement('h3');
+            h3.textContent = term.term;
+            termEl.appendChild(h3);
 
-                const termsContainer = section.querySelector('.glossary-terms');
-                if (!termsContainer) return;
+            var p = document.createElement('p');
+            p.textContent = term.definition;
+            termEl.appendChild(p);
 
-                // Build term element using DOM API
-                const termEl = document.createElement('div');
-                termEl.className = 'glossary-term';
-                termEl.id = term.id || '';
-
-                const h3 = document.createElement('h3');
-                h3.textContent = term.term;
-                termEl.appendChild(h3);
-
-                const p = document.createElement('p');
-                p.textContent = term.definition;
-                termEl.appendChild(p);
-
-                if (term.link) {
-                    const a = document.createElement('a');
-                    a.href = term.link;
-                    a.className = 'term-link';
-                    a.textContent = 'Learn more \u2192';
-                    termEl.appendChild(a);
-                }
-
-                if (term.tags && term.tags.length > 0) {
-                    const tagsDiv = document.createElement('div');
-                    tagsDiv.className = 'term-tags';
-                    term.tags.forEach(tag => {
-                        const span = document.createElement('span');
-                        span.className = 'term-tag';
-                        span.textContent = tag;
-                        tagsDiv.appendChild(span);
-                    });
-                    termEl.appendChild(tagsDiv);
-                }
-
-                termsContainer.appendChild(termEl);
-            });
-
-            // Update visible count
-            const allTerms = document.querySelectorAll('.glossary-term');
-            const countEl = document.getElementById('glossary-visible-count');
-            if (countEl) {
-                countEl.textContent = allTerms.length;
+            if (term.link) {
+                var a = document.createElement('a');
+                a.href = term.link;
+                a.className = 'term-link';
+                a.textContent = 'Learn more \u2192';
+                termEl.appendChild(a);
             }
 
-            const subtitle = document.querySelector('.page-subtitle');
-            if (subtitle && allTerms.length > 0) {
-                subtitle.textContent = subtitle.textContent.replace(/\d+\+?\s*terms/, `${allTerms.length}+ terms`);
+            if (term.tags && term.tags.length > 0) {
+                var tagsDiv = document.createElement('div');
+                tagsDiv.className = 'term-tags';
+                term.tags.forEach(function(tag) {
+                    var span = document.createElement('span');
+                    span.className = 'term-tag';
+                    span.textContent = tag;
+                    tagsDiv.appendChild(span);
+                });
+                termEl.appendChild(tagsDiv);
             }
 
-            // Update glossary search placeholder with actual count
-            const searchInput = document.getElementById('glossary-search-input');
-            if (searchInput && allTerms.length > 0) {
-                searchInput.placeholder = 'Search ' + allTerms.length + '+ glossary terms...';
-            }
+            container.appendChild(termEl);
+        });
+    }
 
-        } catch (error) {
-            console.warn('[Glossary] Could not load glossary JSON:', error);
+    /**
+     * Show loading state for a letter section
+     * @param {string} letter - The letter key
+     */
+    function showLetterLoadingState(letter) {
+        var section = document.getElementById('letter-' + letter);
+        if (section) {
+            section.classList.add('glossary-section--loading');
         }
     }
 
-    // Load JSON terms, then initialize filters, then scroll to hash target
-    loadGlossaryFromJSON().then(() => {
-        initGlossaryFilters();
-        initGlossarySearch();
-
-        // After terms are loaded, scroll to hash target if present
-        // This handles links from main search like glossary.html#term-xxx
-        // Uses the same pattern as selectResult() — disable content-visibility on all
-        // sections to force real heights, then getBoundingClientRect() for accurate position.
-        // scrollIntoView() does NOT work with content-visibility:auto placeholder heights.
-        var glossaryHash = window.location.hash;
-        if (glossaryHash && (glossaryHash.startsWith('#term-') || glossaryHash.startsWith('#letter-'))) {
-            var hashTarget = document.getElementById(glossaryHash.substring(1));
-            if (hashTarget) {
-                // Ensure target is visible (not filtered out)
-                hashTarget.classList.remove('hidden');
-                var hashParentSection = hashTarget.closest('.glossary-section');
-                if (hashParentSection) {
-                    hashParentSection.classList.remove('hidden');
-                }
-
-                // Disable content-visibility on ALL glossary sections so the browser
-                // computes real heights for every section, giving accurate positions
-                var hashAllSections = document.querySelectorAll('.glossary-section');
-                hashAllSections.forEach(function(section) {
-                    section.style.contentVisibility = 'visible';
-                });
-
-                // Double-rAF: first frame triggers layout reflow with real heights,
-                // second frame ensures paint is complete before measuring
-                requestAnimationFrame(function() {
-                    requestAnimationFrame(function() {
-                        var rect = hashTarget.getBoundingClientRect();
-                        var scrollOffset = 220;
-                        var targetY = window.pageYOffset + rect.top - scrollOffset;
-
-                        window.scrollTo({
-                            top: Math.max(0, targetY),
-                            behavior: 'smooth'
-                        });
-
-                        // Restore content-visibility after scroll animation finishes
-                        setTimeout(function() {
-                            hashAllSections.forEach(function(section) {
-                                section.style.contentVisibility = '';
-                            });
-                        }, 1500);
-
-                        // Highlight the term for visual feedback
-                        hashTarget.classList.add('glossary-term--highlighted');
-                        setTimeout(function() {
-                            hashTarget.classList.remove('glossary-term--highlighted');
-                        }, 2500);
-                    });
-                });
-            }
+    /**
+     * Load a single letter shard on demand
+     * Caches the result so subsequent requests are instant
+     * @param {string} letter - The letter key (a-z)
+     * @returns {Promise<Array>} - The terms array
+     */
+    async function loadGlossaryLetter(letter) {
+        // Return from cache if already loaded
+        if (glossaryShardCache[letter]) {
+            return glossaryShardCache[letter].terms;
         }
-    });
+
+        // Prevent duplicate concurrent loads
+        if (glossaryLettersLoading[letter]) {
+            return new Promise(function(resolve) {
+                var check = setInterval(function() {
+                    if (glossaryShardCache[letter]) {
+                        clearInterval(check);
+                        resolve(glossaryShardCache[letter].terms);
+                    }
+                }, 50);
+            });
+        }
+
+        glossaryLettersLoading[letter] = true;
+        showLetterLoadingState(letter);
+
+        try {
+            var response = await fetch(resolveInternalUrl('data/glossary/' + letter + '.json'));
+            if (!response.ok) {
+                throw new Error('Failed to load shard: ' + letter + '.json');
+            }
+            var shard = await response.json();
+            glossaryShardCache[letter] = shard;
+            renderGlossaryTerms(letter, shard.terms || []);
+            return shard.terms || [];
+        } catch (error) {
+            console.warn('[Glossary] Could not load shard ' + letter + ':', error);
+            var section = document.getElementById('letter-' + letter);
+            if (section) {
+                section.classList.remove('glossary-section--loading');
+                section.classList.add('glossary-section--error');
+            }
+            return [];
+        } finally {
+            delete glossaryLettersLoading[letter];
+        }
+    }
+
+    /**
+     * Load the compact search index (lazy, on first search interaction)
+     * @returns {Promise<Array>} - The compact index array
+     */
+    async function loadGlossaryCompactIndex() {
+        if (glossaryCompactIndex) return glossaryCompactIndex;
+        if (glossaryCompactLoading) {
+            return new Promise(function(resolve) {
+                var check = setInterval(function() {
+                    if (glossaryCompactIndex) {
+                        clearInterval(check);
+                        resolve(glossaryCompactIndex);
+                    }
+                }, 50);
+            });
+        }
+
+        glossaryCompactLoading = true;
+        try {
+            var response = await fetch(resolveInternalUrl('data/glossary/search-compact.json'));
+            if (!response.ok) throw new Error('Failed to load compact index');
+            glossaryCompactIndex = await response.json();
+            return glossaryCompactIndex;
+        } catch (error) {
+            console.warn('[Glossary] Could not load compact search index:', error);
+            glossaryCompactIndex = [];
+            return [];
+        } finally {
+            glossaryCompactLoading = false;
+        }
+    }
+
+    /**
+     * Determine the letter key from a term ID
+     * e.g. "term-github-copilot" -> "g"
+     * @param {string} termId - The term ID
+     * @returns {string} - The letter key
+     */
+    function letterFromTermId(termId) {
+        var slug = termId.replace(/^term-/, '');
+        if (!slug) return 'a';
+        var firstChar = slug.charAt(0).toLowerCase();
+        if (firstChar.match(/[a-z]/)) return firstChar;
+        return '_other';
+    }
+
+    /**
+     * Scroll to a specific element with content-visibility handling
+     * Uses double-rAF pattern for accurate position measurement
+     * @param {HTMLElement} target - The element to scroll to
+     */
+    function scrollToGlossaryTarget(target) {
+        if (!target) return;
+
+        // Ensure target is visible
+        target.classList.remove('hidden');
+        var parentSection = target.closest('.glossary-section');
+        if (parentSection) {
+            parentSection.classList.remove('hidden');
+        }
+
+        // Disable content-visibility on ALL glossary sections for accurate measurement
+        var allSections = document.querySelectorAll('.glossary-section');
+        allSections.forEach(function(section) {
+            section.style.contentVisibility = 'visible';
+        });
+
+        // Double-rAF for accurate position after layout reflow
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+                var rect = target.getBoundingClientRect();
+                var scrollOffset = 220;
+                var targetY = window.pageYOffset + rect.top - scrollOffset;
+
+                window.scrollTo({
+                    top: Math.max(0, targetY),
+                    behavior: 'smooth'
+                });
+
+                // Restore content-visibility after scroll animation
+                setTimeout(function() {
+                    allSections.forEach(function(section) {
+                        section.style.contentVisibility = '';
+                    });
+                }, 1500);
+
+                // Highlight the term
+                target.classList.add('glossary-term--highlighted');
+                setTimeout(function() {
+                    target.classList.remove('glossary-term--highlighted');
+                }, 2500);
+            });
+        });
+    }
+
+    /**
+     * Initialize the glossary system
+     * Loads manifest, determines initial letter, loads shard, sets up UI
+     */
+    async function initGlossarySystem() {
+        var filterBar = document.querySelector('.glossary-filter-bar');
+        if (!filterBar) return; // Only run on glossary page
+
+        try {
+            // 1. Load manifest
+            var manifestResponse = await fetch(resolveInternalUrl('data/glossary/manifest.json'));
+            if (!manifestResponse.ok) throw new Error('Failed to load manifest');
+            glossaryManifest = await manifestResponse.json();
+
+            // 2. Update page counts from manifest
+            var totalTerms = glossaryManifest.totalTerms || 0;
+            var countEl = document.getElementById('glossary-visible-count');
+            if (countEl) countEl.textContent = totalTerms;
+
+            var subtitle = document.querySelector('.page-subtitle');
+            if (subtitle && totalTerms > 0) {
+                subtitle.textContent = subtitle.textContent.replace(/\d+\+?\s*terms/, totalTerms + '+ terms');
+            }
+
+            var searchInput = document.getElementById('glossary-search-input');
+            if (searchInput && totalTerms > 0) {
+                searchInput.placeholder = 'Search ' + totalTerms + '+ glossary terms...';
+            }
+
+            // 3. Update A-Z nav with per-letter counts
+            var letters = glossaryManifest.letters || {};
+            Object.keys(letters).forEach(function(letterKey) {
+                var navLink = document.querySelector('.glossary-nav a[href="#letter-' + letterKey + '"]');
+                if (navLink && letters[letterKey].count) {
+                    navLink.setAttribute('title', letters[letterKey].count + ' terms');
+                }
+            });
+
+            // 4. Determine which letter(s) to load initially
+            var hash = window.location.hash;
+            var targetLetter = 'a';
+            var targetTermId = null;
+
+            if (hash && hash.startsWith('#letter-')) {
+                targetLetter = hash.replace('#letter-', '').toLowerCase();
+            } else if (hash && hash.startsWith('#term-')) {
+                targetTermId = hash.substring(1);
+                targetLetter = letterFromTermId(targetTermId);
+            }
+
+            // 5. Load ALL letter shards in parallel for full page functionality
+            // At current scale (~2K terms, ~819KB total) this is fast
+            // As glossary grows to 15K+, switch to on-demand loading per letter
+            var letterKeys = Object.keys(letters).sort();
+            // Load target letter first for fast initial render
+            if (letterKeys.indexOf(targetLetter) !== -1) {
+                await loadGlossaryLetter(targetLetter);
+            }
+            // Then load remaining letters in parallel
+            var remainingLetters = letterKeys.filter(function(l) { return l !== targetLetter; });
+            await Promise.all(remainingLetters.map(function(l) {
+                return loadGlossaryLetter(l);
+            }));
+
+            // 6. Initialize filters and search (after all terms are in DOM)
+            initGlossaryFilters();
+            initGlossarySearch();
+
+            // 7. Handle hash-based scrolling
+            if (targetTermId) {
+                var hashTarget = document.getElementById(targetTermId);
+                if (hashTarget) {
+                    scrollToGlossaryTarget(hashTarget);
+                }
+            } else if (hash && hash.startsWith('#letter-')) {
+                var letterTarget = document.getElementById(hash.substring(1));
+                if (letterTarget) {
+                    scrollToGlossaryTarget(letterTarget);
+                }
+            }
+
+        } catch (error) {
+            console.warn('[Glossary] System initialization failed:', error);
+        }
+    }
+
+    // Start the glossary system
+    initGlossarySystem();
 
     // ==========================================
     // GLOSSARY FILTER & SORT
@@ -7995,15 +8163,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const glossaryTerms = document.querySelectorAll('.glossary-term');
 
         // Category mappings - maps filter buttons to term-tag values
+        // 12 categories aligned with glossary domain taxonomy
         const categoryMappings = {
             'all': null, // Show all
-            'fundamentals': ['Fundamentals', 'Core Concept', 'Concept', 'Field', 'Historical', 'Foundational'],
-            'architecture': ['Architecture', 'Neural Networks', 'Transformers', 'Model', 'Model Type', 'LLM'],
+            'fundamentals': ['Fundamentals', 'Core Concept', 'Concept', 'Field', 'Foundational'],
+            'models': ['Model', 'Architecture', 'Neural Networks', 'Transformers', 'LLM', 'Model Type'],
             'training': ['Training', 'Optimization', 'Process', 'Hyperparameter', 'Data', 'Learning Type'],
+            'algorithms': ['Algorithm', 'Mathematics', 'Loss Function', 'Activation'],
+            'datasets': ['Dataset', 'Benchmark', 'Evaluation', 'Metrics'],
+            'hardware': ['Hardware', 'Infrastructure', 'GPU', 'TPU', 'Compute', 'Chip', 'Performance'],
             'prompting': ['Prompting', 'Technique', 'Reasoning', 'Framework', 'Pattern', 'Skill'],
-            'safety': ['Safety', 'Ethics', 'Alignment', 'Security', 'Risk', 'Trust', 'Fairness', 'Transparency'],
-            'products': ['Product', 'Company', 'LLM Provider', 'OpenAI', 'Anthropic', 'Google', 'Meta', 'Microsoft', 'Platform'],
-            'technical': ['Technical', 'API', 'NLP', 'NLP Task', 'ML Task', 'Metrics', 'Evaluation', 'Algorithm', 'Application', 'Integration', 'Infrastructure', 'Hardware', 'Performance']
+            'safety': ['Safety', 'Ethics', 'Alignment', 'Security', 'Risk', 'Trust', 'Fairness', 'Transparency', 'Policy', 'Regulation'],
+            'products': ['Product', 'Company', 'LLM Provider', 'OpenAI', 'Anthropic', 'Google', 'Meta', 'Microsoft', 'Platform', 'Provider', 'Tool'],
+            'history': ['Historical', 'Milestones', 'Pioneers', 'Research'],
+            'technical': ['Technical', 'API', 'NLP', 'NLP Task', 'ML Task', 'Application', 'Integration']
         };
 
         let currentFilter = 'all';
@@ -8098,19 +8271,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!noResultsEl) {
                     noResultsEl = document.createElement('div');
                     noResultsEl.className = 'glossary-no-results';
-                    noResultsEl.innerHTML = `
-                        <div class="glossary-no-results-icon">🔍</div>
-                        <h3>No terms found</h3>
-                        <p>No glossary terms match the selected filter. Try selecting a different category.</p>
-                    `;
+
+                    var heading = document.createElement('h3');
+                    heading.textContent = 'No terms found';
+                    noResultsEl.appendChild(heading);
+
+                    var message = document.createElement('p');
+                    message.textContent = 'No glossary terms match the selected filter. Try selecting a different category.';
+                    noResultsEl.appendChild(message);
+
                     const firstSection = document.querySelector('.glossary-section');
                     if (firstSection && firstSection.parentElement) {
                         firstSection.parentElement.insertBefore(noResultsEl, firstSection);
                     }
                 }
-                noResultsEl.style.display = 'block';
+                noResultsEl.classList.remove('hidden');
             } else if (noResultsEl) {
-                noResultsEl.style.display = 'none';
+                noResultsEl.classList.add('hidden');
             }
         }
 
@@ -8399,50 +8576,11 @@ document.addEventListener('DOMContentLoaded', () => {
             var target = document.getElementById(termId);
             if (!target) return;
 
-            // Ensure the term is not filtered/hidden
-            target.classList.remove('hidden');
-            var parentSection = target.closest('.glossary-section');
-            if (parentSection) {
-                parentSection.classList.remove('hidden');
-            }
-
-            // Disable content-visibility on ALL glossary sections so the browser
-            // computes real heights for every section, giving accurate positions
-            var allSections = document.querySelectorAll('.glossary-section');
-            allSections.forEach(function(section) {
-                section.style.contentVisibility = 'visible';
-            });
-
             // Update the URL hash
             history.pushState(null, '', '#' + termId);
 
-            // Double-rAF: first frame triggers layout reflow with real heights,
-            // second frame ensures paint is complete before measuring
-            requestAnimationFrame(function() {
-                requestAnimationFrame(function() {
-                    var rect = target.getBoundingClientRect();
-                    var scrollOffset = 220; // header (70) + search (58) + A-Z nav (56) + breathing
-                    var targetY = window.pageYOffset + rect.top - scrollOffset;
-
-                    window.scrollTo({
-                        top: Math.max(0, targetY),
-                        behavior: 'smooth'
-                    });
-
-                    // Restore content-visibility after scroll animation finishes
-                    setTimeout(function() {
-                        allSections.forEach(function(section) {
-                            section.style.contentVisibility = '';
-                        });
-                    }, 1500);
-
-                    // Highlight the term
-                    target.classList.add('glossary-term--highlighted');
-                    setTimeout(function() {
-                        target.classList.remove('glossary-term--highlighted');
-                    }, 2500);
-                });
-            });
+            // Use shared scroll helper (handles content-visibility, highlight, etc.)
+            scrollToGlossaryTarget(target);
         }
 
         /**
@@ -8550,7 +8688,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Initialize glossary search after terms are loaded
-    // (called from the loadGlossaryFromJSON().then() chain)
+    // (called from initGlossarySystem after all shards are rendered)
 
     // ==========================================
     // CONTENT LIBRARY SEARCH
@@ -9291,8 +9429,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async function searchPraxis(query, options = {}) {
         if (!query || query.trim().length < 2) return [];
 
-        // Ensure search index is loaded
-        await loadSearchIndex();
+        // Load both site search index and glossary compact index in parallel
+        await Promise.all([loadSearchIndex(), loadGlossaryCompactIndex()]);
 
         const trimmedQuery = query.trim();
         const lowerQuery = trimmedQuery.toLowerCase();
@@ -9309,46 +9447,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const results = [];
 
+        // 1. Score non-glossary site entries from search-index.json
         PRAXIS_SEARCH_INDEX.forEach(entry => {
             let score = 0;
+            const titleLower = entry.title.toLowerCase();
+            const excerptLower = entry.excerpt.toLowerCase();
+            const keywordsLower = entry.keywords.join(' ').toLowerCase();
 
-            if (entry.category === 'Glossary') {
-                // Glossary entries use the 8-tier scoring algorithm
-                // matching the glossary page search behavior
-                score = scoreGlossaryEntry(entry, lowerQuery, normalizedQuery, wordBoundaryRegex);
-            } else {
-                // Non-glossary entries use standard term-by-term scoring
-                const titleLower = entry.title.toLowerCase();
-                const excerptLower = entry.excerpt.toLowerCase();
-                const keywordsLower = entry.keywords.join(' ').toLowerCase();
-
-                searchTerms.forEach(term => {
-                    // Title matches (highest weight)
-                    if (titleLower.includes(term)) {
-                        score += titleLower === term ? 100 : 50;
-                    }
-                    // Keyword matches (high weight)
-                    if (keywordsLower.includes(term)) {
-                        score += 30;
-                    }
-                    // Excerpt matches (medium weight)
-                    if (excerptLower.includes(term)) {
-                        score += 10;
-                    }
-                    // Category/subcategory matches
-                    if (entry.category.toLowerCase().includes(term)) {
-                        score += 15;
-                    }
-                    if (entry.subcategory.toLowerCase().includes(term)) {
-                        score += 15;
-                    }
-                });
-            }
+            searchTerms.forEach(term => {
+                if (titleLower.includes(term)) {
+                    score += titleLower === term ? 100 : 50;
+                }
+                if (keywordsLower.includes(term)) {
+                    score += 30;
+                }
+                if (excerptLower.includes(term)) {
+                    score += 10;
+                }
+                if (entry.category.toLowerCase().includes(term)) {
+                    score += 15;
+                }
+                if (entry.subcategory.toLowerCase().includes(term)) {
+                    score += 15;
+                }
+            });
 
             if (score > 0) {
                 results.push({ ...entry, score });
             }
         });
+
+        // 2. Score glossary entries from search-compact.json
+        // Compact fields: id, t (term), tg (tags), d (domain), x (excerpt), l (letter), k (keywords)
+        if (glossaryCompactIndex && glossaryCompactIndex.length > 0) {
+            glossaryCompactIndex.forEach(function(entry) {
+                // Adapt compact format to scoreGlossaryEntry's expected fields
+                var adapted = { title: entry.t, excerpt: entry.x || '' };
+                var score = scoreGlossaryEntry(adapted, lowerQuery, normalizedQuery, wordBoundaryRegex);
+
+                // Also check keywords from compact index
+                if (score === 0 && entry.k) {
+                    var kw = entry.k.join(' ').toLowerCase();
+                    if (kw.indexOf(lowerQuery) !== -1) {
+                        score = 25;
+                    }
+                }
+
+                if (score > 0) {
+                    results.push({
+                        id: entry.id,
+                        title: entry.t,
+                        category: 'Glossary',
+                        subcategory: entry.d || 'general',
+                        keywords: entry.k || [],
+                        excerpt: entry.x || '',
+                        url: 'pages/glossary.html#' + entry.id,
+                        score: score
+                    });
+                }
+            });
+        }
 
         // Sort by score descending, then by title length (shorter = more relevant), then alphabetically
         results.sort((a, b) => {
@@ -9359,7 +9517,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Group by category
         const grouped = {};
-        const categoryOrder = ['Glossary', 'Discover', 'Tools', 'Patterns', 'FAQ', 'Resources'];
+        const categoryOrder = ['Glossary', 'Discover', 'Tools', 'Patterns', 'FAQ', 'Resources', 'Neurodivergence'];
 
         results.forEach(result => {
             if (!grouped[result.category]) {
