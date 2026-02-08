@@ -1,7 +1,7 @@
 # Praxis Project Handoff Document
 
-**Last Updated:** 2026-02-08 (Session 58)
-**Last Commit:** Session 58 (Sidebar flip + AI ethics banner + CLAUDE.md rule)
+**Last Updated:** 2026-02-08 (Session 59)
+**Last Commit:** Session 59 (Modality divider + Facts & Fictions restoration)
 **Current Phase:** Post-build. Emerging frameworks + page upgrades.
 
 ---
@@ -28,85 +28,31 @@
 
 ---
 
-## SESSION 58 — Mega-Menu UX + AI Ethics Banner (2026-02-08)
+## SESSION 59 — Modality Divider + Facts & Fictions Restoration (2026-02-08)
 
 ### Completed This Session
 
-1. **Mobile mega-menu layout fix** — `.mega-menu--tabbed` was overridden by later `.mega-menu { display: grid }` due to equal CSS specificity. Fixed by increasing specificity to `.mega-menu.mega-menu--tabbed` and resetting `columns: 1` on mobile sections.
+1. **Modality group divider in mega-menu sidebar** — Verified and committed the previously-written JS + CSS that inserts a visual divider line + "Modality" label between the Prompting Strategies tab and the Code tab in the mega-menu sidebar. Groups the 5 modality tabs (Code, Image, Audio, Video, 3D) as a distinct sub-group. JS: `app.js` line ~292 inside `TabbedMenu.setup()`. CSS: `.mega-menu-tab-divider` + `.mega-menu-tab-label` in `styles.css` line ~6193.
 
-2. **Mobile nav split-color branding** — New `splitNavAccent()` function in app.js applies the white/red split-color treatment (matching `</Praxis Library>` logo) to parent nav links and accordion headers. Multi-word: last word red. Hyphenated: split at hyphen. Single words: split at midpoint. Uses `<span class="nav-accent-wrap">` container to prevent flex gap issues.
-
-3. **Desktop mega-menu sidebar flip** — Moved sidebar from left to right using CSS `order: 2`, swapped `border-right` to `border-left`, flipped `border-radius`, and changed tab active indicators from `border-left` to `border-right`.
-
-4. **AI Ethics reminder banner** — Slim, muted banner injected via JS on all 108 framework pages (pages with `.cta-corporate` under `/learn/`). Placed above CTA section. CSP-compliant: uses DOM API only (createElement, textContent, appendChild — no innerHTML). CSS component: `.ai-reminder-bar` with subtle slate background, left border accent, 0.78rem font. Dark theme support included.
-
-5. **AI Ethics critical rule** — Added "AI Ethics & Disclosure (Required)" as Critical Rule #6 in CLAUDE.md: all prompt examples must model responsible AI use, demonstrate verification, no blind trust encouragement, AI disclosure best practices.
+2. **Facts & Fictions page restoration** — Restored the original 13 research-backed myth/fact cards that were lost during the Session 37 13-section template remake. The page had been reduced to 3 generic accordion myths; now has the full original content integrated into the 13-section template structure:
+   - **Research Highlights** — 4 stat cards (106 experiments, 60% accuracy swing, 8,214 participants, 100x tests)
+   - **AI Capability Myths** (4 cards) — pattern matching, not search engines, tasks not jobs, model unpredictability
+   - **Prompt Engineering Myths** (3 cards) — context-dependent effects, CoT variability, hidden output variability
+   - **AI Productivity Myths** (4 cards) — variable gains, human-AI underperformance, creativity homogenization, automation blind spots
+   - **AI Behavior Myths** (2 cards) — citation fabrication, sycophancy bias
+   - **Government Warnings** — FTC Operation AI Comply + NIST AI Risk Framework cards
+   - **Sources** — 10 academic/government citations (MIT, Wharton, UC Berkeley, NIST, FTC, NIH)
+   - Page grew from 934 to 1,583 lines. All other 13-section template content preserved.
 
 ### Files Modified
-- `styles.css` — Sidebar flip CSS, mobile mega-menu fix, `.ai-reminder-bar` component
-- `app.js` — `splitNavAccent()` function, AI ethics banner injection IIFE
-- `CLAUDE.md` — AI Ethics & Disclosure critical rule added
+- `app.js` — Modality divider code (written Session 58, committed Session 59)
+- `styles.css` — Modality divider CSS (written Session 58, committed Session 59)
+- `learn/facts-fictions.html` — Full myth/fact card restoration
+- `.claude/HANDOFF.md`, `.claude/COMPLETED.md`, `.claude/plans/FrameworkOverhaul.md` — Session docs
 
 ### Commits
-- `27034fd` — Mobile nav split-color branding + mega-menu layout fix (pushed)
-- `7308933` — Desktop sidebar flip, AI ethics banner, CLAUDE.md rule (pushed)
-
-### IN PROGRESS — Two Pending Items (UNCOMMITTED)
-
-#### 1. Modality Group Divider + Label in Sidebar Tabs — CODE WRITTEN, NEEDS VERIFICATION
-
-**What:** Visual divider line + small "Modality" group label in the mega-menu sidebar tabs between "Prompting Strategies" (last text-based tab) and "Code" (first modality tab). Groups the 5 modality tabs (Code, Image, Audio, Video, 3D) as a distinct sub-group.
-
-**Status:** JS and CSS code written and uncommitted. Needs visual verification from user before committing.
-
-**JS change** — `app.js` line ~292 inside `TabbedMenu.setup()` `sections.forEach()` loop:
-```javascript
-// Insert modality group divider + label before first modality tab
-if (slug === 'code') {
-    var divider = document.createElement('div');
-    divider.className = 'mega-menu-tab-divider';
-    divider.setAttribute('role', 'separator');
-    tablist.appendChild(divider);
-    var groupLabel = document.createElement('span');
-    groupLabel.className = 'mega-menu-tab-label';
-    groupLabel.textContent = 'Modality';
-    tablist.appendChild(groupLabel);
-}
-```
-This code is inserted right before the `const btn = document.createElement('button')` block, inside the `sections.forEach((section, i) => {...})` loop.
-
-**CSS change** — `styles.css` line ~6193, after `.mega-menu-tab.is-active`:
-```css
-.mega-menu-tab-divider {
-    height: 1px;
-    background: var(--border-color);
-    margin: var(--space-xs) var(--space-md);
-}
-.mega-menu-tab-label {
-    display: block;
-    font-size: 0.6rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    padding: var(--space-xs) var(--space-md) 0;
-}
-```
-
-**Next step:** Open any framework page in desktop browser, verify divider appears in sidebar between "Prompting Strategies" and "Code" tabs. If it looks good, commit.
-
-#### 2. Facts & Fictions Page — Original Myth/Fact Cards Lost, Needs Restoration
-
-**What:** The `learn/facts-fictions.html` page lost its original myth/fact card content during the Session 37 13-section template remake. The current page (934 lines) has 3 generic accordion myths ("AI Is Truly Creative", "AI Is Conscious or Sentient", "AI Will Replace All Jobs") but the original had detailed, specific fact/fiction cards using `.myth-fact-card` components that were more comprehensive and valid.
-
-**What needs to happen:**
-1. Retrieve the original page content from git history (pre-Session 37, before commit `17009ee`)
-2. Extract the original myth/fact card content
-3. Integrate that content into the current 13-section template structure (keep the template, restore the original myth/fact cards into the Examples/accordion section)
-
-**How to retrieve:** `git show 17009ee~1:learn/facts-fictions.html` (the version just before the Session 37 remake)
-
-**Not started — needs git history retrieval first.**
+- `a866c4f` — Modality group divider in mega-menu sidebar tabs + Session 58 docs
+- `40d084e` — Restore original myth/fact cards to Facts & Fictions page
 
 ---
 

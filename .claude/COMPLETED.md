@@ -4,6 +4,29 @@
 
 ---
 
+## Session 59 (2026-02-08)
+**Modality Divider + Facts & Fictions Restoration**
+
+### Modality Group Divider
+- [x] Verified JS code in `app.js` line ~292 (inside `TabbedMenu.setup()` `sections.forEach` loop)
+- [x] Verified CSS in `styles.css` line ~6193 (`.mega-menu-tab-divider` + `.mega-menu-tab-label`)
+- [x] Inserts visual divider + "Modality" label before Code tab in mega-menu sidebar
+- [x] Groups 5 modality tabs (Code, Image, Audio, Video, 3D) as distinct sub-group
+- [x] Committed: `a866c4f`
+
+### Facts & Fictions Page Restoration
+- [x] Retrieved original content from git history (`git show 17009ee~1:learn/facts-fictions.html`)
+- [x] Replaced 3 generic accordion myths with 13 original research-backed myth/fact cards
+- [x] Restored 4 category sections: AI Capability (4), Prompting (3), Productivity (4), Behavior (2)
+- [x] Restored Research Highlights stat cards (106 experiments, 60% swing, 8,214 participants, 100x tests)
+- [x] Restored Government Warnings (FTC Operation AI Comply + NIST AI Risk Framework)
+- [x] Restored Sources section (10 academic/government citations)
+- [x] All 13-section template content preserved (Hero, Historical Context, Concept, How It Works, Comparison, When to Use, Use Cases, Framework Positioning, Related Frameworks, CTA)
+- [x] Page: 934 -> 1,583 lines. 0 inline styles, 0 inline scripts
+- [x] Committed: `40d084e`
+
+---
+
 ## Session 58 (2026-02-08)
 **Mega-Menu UX + AI Ethics Banner — Completed Items**
 
