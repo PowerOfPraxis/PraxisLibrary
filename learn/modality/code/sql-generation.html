@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SQL Generation: Techniques for prompting AI models to translate natural language questions into accurate, optimized SQL queries across different database systems and schema complexities.">
+    <title>SQL Generation - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--tabbed">
+                        <div class="mega-menu-tabs" role="tablist" aria-label="Framework categories"></div>
+                        <div class="mega-menu-section" data-tab="getting-started" role="tabpanel">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts &amp; Fictions</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="structured-frameworks" role="tabpanel">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context &amp; Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="in-context-learning" role="tabpanel">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="reasoning-cot" role="tabpanel">
+                            <h4><a href="../../reasoning-cot.html">Reasoning &amp; CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="decomposition" role="tabpanel">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="self-correction" role="tabpanel">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="ensemble-methods" role="tabpanel">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="prompting-strategies" role="tabpanel">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="code" role="tabpanel">
+                            <h4>Code</h4>
+                            <a href="../../modality/code/code-prompting.html">Code Prompting</a>
+                            <a href="../../modality/code/self-debugging.html">Self-Debugging</a>
+                            <a href="../../modality/code/structured-output.html">Structured Output</a>
+                        
+                            <a href="../../modality/code/program-synthesis.html">Program Synthesis</a>
+                            <a href="../../modality/code/code-explanation.html">Code Explanation</a>
+                            <a href="../../modality/code/code-review.html">Code Review</a>
+                            <a href="../../modality/code/test-generation.html">Test Generation</a>
+                            <a href="../../modality/code/sql-generation.html">SQL Generation</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="image" role="tabpanel">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="audio" role="tabpanel">
+                            <h4>Audio</h4>
+                            <a href="../audio/audio-prompting.html">Audio Prompting</a>
+                            <a href="../audio/stt-prompting.html">Speech-to-Text</a>
+                            <a href="../audio/tts-prompting.html">Text-to-Speech</a>
+                            <a href="../audio/audio-classification.html">Audio Classification</a>
+                            <a href="../audio/music-gen.html">Music Generation</a>
+                            <a href="../audio/voice-cloning.html">Voice Cloning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="video" role="tabpanel">
+                            <h4>Video</h4>
+                            <a href="../video/video-prompting.html">Video Prompting</a>
+                            <a href="../video/video-gen.html">Video Generation</a>
+                            <a href="../video/temporal-reasoning.html">Temporal Reasoning</a>
+                            <a href="../video/video-qa.html">Video QA</a>
+                            <a href="../video/video-captioning.html">Video Captioning</a>
+                            <a href="../video/video-editing.html">Video Editing</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="3d" role="tabpanel">
+                            <h4>3D</h4>
+                            <a href="../3d/3d-prompting.html">3D Prompting</a>
+                            <a href="../3d/3d-model-gen.html">3D Model Generation</a>
+                            <a href="../3d/scene-understanding.html">Scene Understanding</a>
+                            <a href="../3d/pose-estimation.html">Pose Estimation</a>
+                            <a href="../3d/point-cloud.html">Point Cloud</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI &amp; ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">SQL Generation</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Code Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">SQL Generation</h1>
+                <p class="page-subtitle fade-in">Guiding AI models to translate natural language into accurate, efficient SQL queries that respect schema constraints, handle complex joins, and optimize for performance across database systems.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2020&ndash;2024</span>
+                        <p><strong>Introduced:</strong> Text-to-SQL research has been an active area of natural language processing since the late 2010s, but the field accelerated dramatically between 2020 and 2024. The Spider benchmark, introduced in 2018 by Yale researchers, established the first large-scale, cross-database evaluation standard for text-to-SQL systems, testing a model&rsquo;s ability to generalize across unfamiliar database schemas. By 2023, the BIRD benchmark raised the bar further by incorporating real-world database values, external knowledge requirements, and execution-based evaluation &mdash; reflecting the messiness of production databases far more accurately than earlier academic datasets. The arrival of large language models fundamentally changed the approach: instead of training specialized semantic parsers, practitioners could now prompt general-purpose models like GPT-4, Claude, and Gemini with schema definitions and natural language questions to produce SQL directly. DIN-SQL, DAIL-SQL, and other prompt-based methods achieved state-of-the-art results on Spider by decomposing complex queries into sub-problems and providing schema context strategically.</p>
+                        <p><strong>Modern LLM Status:</strong> SQL generation is one of the <strong>strongest practical capabilities of modern language models</strong>, with frontier models achieving over 85% execution accuracy on complex cross-database benchmarks when given well-structured prompts. The key insight from research is that model performance depends far more on how the schema is presented and how the question is decomposed than on model size alone. Models still struggle with ambiguous column names, implicit join paths, database-specific functions, and queries requiring multi-step reasoning over unfamiliar schemas. The techniques covered here &mdash; providing complete schema context, specifying the SQL dialect, decomposing complex questions, and validating against expected output &mdash; are essential because even the most capable models produce incorrect or inefficient SQL when prompted without adequate schema and constraint information.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Schema Is the Prompt&rsquo;s Foundation</h2>
+                        <p class="split-section__text">SQL generation prompting combines a natural language question with a database schema definition to enable AI models to produce syntactically correct, semantically accurate SQL queries. Unlike general code generation where the model draws on broad programming knowledge, SQL generation demands precise alignment between three elements &mdash; the <strong>database schema</strong> that defines what data exists and how tables relate, the <strong>natural language question</strong> that expresses what the user wants to know, and the <strong>constraints and dialect requirements</strong> that govern how the query must be structured for a specific database engine.</p>
+                        <p class="split-section__text"><strong>The core insight is that effective SQL generation requires providing the DATABASE SCHEMA, the NATURAL LANGUAGE QUESTION, and any CONSTRAINTS or dialect requirements.</strong> A prompt that simply asks &ldquo;write a SQL query for sales data&rdquo; without schema context forces the model to hallucinate table names, column types, and join relationships. But when you provide the actual CREATE TABLE statements, specify which database engine the query will run on, and clarify any ambiguous terms in the question, the model can produce queries that execute correctly on the first attempt.</p>
+                        <p class="split-section__text">Think of it like asking a new database analyst to write a report query. Without access to the database documentation, they will guess at table structures and write queries that fail. Hand them the entity-relationship diagram, explain the naming conventions, clarify which &ldquo;date&rdquo; field you mean, and tell them whether to optimize for readability or performance &mdash; and they produce production-ready SQL. The same principle applies to language models: the quality of the generated SQL is directly proportional to the quality of the schema context in the prompt.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Schema Context Transforms SQL Accuracy</span>
+                                <p>When a model receives a natural language question without schema context, it must invent table names, guess column types, and assume relationships &mdash; producing queries that look plausible but fail on execution. Structured SQL prompts eliminate this guesswork by providing the <strong>complete data context</strong> the model needs: table definitions with column names and types, primary and foreign key relationships, sample data values for disambiguation, the target SQL dialect (PostgreSQL, MySQL, SQL Server, SQLite), any business rules or naming conventions, and whether the output should prioritize readability, performance, or both. The difference between a hallucinated query that references nonexistent tables and a production-ready query that handles edge cases, uses appropriate indexes, and follows the organization&rsquo;s SQL style comes down entirely to the schema and constraint information in the prompt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The SQL Generation Process</h2>
+                <p class="section-subtitle fade-in-up">Four steps from natural language to executable SQL</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Provide the Schema</h3>
+                            <p class="element-timeline__text">Include the complete database schema relevant to the question. This means CREATE TABLE statements with column names, data types, primary keys, foreign keys, and any constraints such as NOT NULL, UNIQUE, or CHECK. If the database has dozens of tables, include only those relevant to the question to avoid overwhelming the context window, but always include enough for the model to trace join paths. Adding brief comments describing what each table and ambiguous column represents significantly improves accuracy, especially when column names are abbreviated or use internal naming conventions that the model cannot infer from the name alone.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Provide CREATE TABLE statements for orders, customers, and order_items, including foreign key relationships and column comments explaining that &ldquo;cust_tier&rdquo; refers to the customer loyalty tier (bronze, silver, gold, platinum) and &ldquo;ord_dt&rdquo; is the order placement date.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">State the Question in Natural Language</h3>
+                            <p class="element-timeline__text">Express the data retrieval or manipulation need in clear, unambiguous natural language. Avoid vague terms that could map to multiple columns &mdash; instead of &ldquo;show me the date,&rdquo; specify &ldquo;show the order placement date.&rdquo; If the question involves aggregation, make the grouping explicit. If it involves filtering, specify the exact conditions. The more precisely the natural language question maps to specific columns and operations, the more accurate the generated SQL will be. Complex analytical questions benefit from being broken into sub-questions that can be addressed with subqueries or CTEs.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;For each customer loyalty tier, show the total revenue from orders placed in 2024, the average order value, and the number of distinct customers. Only include tiers with more than 100 orders. Sort by total revenue descending.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Specify Constraints and Dialect</h3>
+                            <p class="element-timeline__text">Define the target SQL dialect and any constraints that affect query construction. PostgreSQL, MySQL, SQL Server, Oracle, and SQLite each have different syntax for date functions, string operations, window functions, CTEs, and pagination. Specify whether the query should use specific optimization patterns (such as EXISTS instead of IN for correlated subqueries), follow organizational SQL style guidelines (uppercase keywords, aliasing conventions), or adhere to performance constraints (avoid full table scans, use specific indexes). If the query will run on a large dataset, mention the approximate table sizes so the model can make informed optimization decisions.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Generate PostgreSQL-compatible SQL. Use CTEs for readability. The orders table has approximately 50 million rows, so avoid correlated subqueries. Use uppercase for SQL keywords. Alias all tables with meaningful abbreviations.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Validate and Optimize</h3>
+                            <p class="element-timeline__text">Review the generated SQL for correctness and request refinements. Ask the model to explain its join logic, verify that all WHERE clauses correctly filter the intended data, check that GROUP BY includes all non-aggregated columns, and confirm that the query handles NULL values appropriately. For complex queries, ask the model to walk through the execution plan conceptually, identifying potential bottlenecks. If the query produces unexpected results, provide sample data and expected output so the model can debug and correct the logic. Iterative refinement is normal &mdash; even expert SQL developers rarely write complex analytical queries correctly on the first attempt.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Verify that the LEFT JOIN between orders and order_items correctly handles orders with no line items. Explain why you chose COALESCE for the revenue calculation. Would this query benefit from a covering index on orders(cust_tier, ord_dt)?&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why structured SQL prompts produce dramatically better queries</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Vague Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Write a SQL query for sales data.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>SELECT * FROM sales WHERE date &gt; &rsquo;2024-01-01&rsquo; ORDER BY amount DESC;</p>
+                                <p>The model invents a &ldquo;sales&rdquo; table, guesses at column names like &ldquo;date&rdquo; and &ldquo;amount,&rdquo; uses SELECT * which is inefficient, and has no join logic, aggregation, or filtering beyond a hardcoded date.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Hallucinated schema, no joins, no aggregation, will not execute</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Structured SQL Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Given the schema: orders(order_id PK, customer_id FK, ord_dt DATE, status VARCHAR), order_items(item_id PK, order_id FK, product_id FK, qty INT, unit_price DECIMAL), customers(customer_id PK, cust_tier VARCHAR). Write a PostgreSQL query: total revenue by customer tier for completed orders in 2024, with order count. Use CTEs and uppercase keywords.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p><strong>WITH completed_2024 AS (</strong> SELECT o.order_id, c.cust_tier, oi.qty * oi.unit_price AS line_total FROM orders o INNER JOIN customers c ON o.customer_id = c.customer_id INNER JOIN order_items oi ON o.order_id = oi.order_id WHERE o.status = &rsquo;completed&rsquo; AND o.ord_dt BETWEEN &rsquo;2024-01-01&rsquo; AND &rsquo;2024-12-31&rsquo; <strong>)</strong> SELECT cust_tier, SUM(line_total) AS total_revenue, COUNT(DISTINCT order_id) AS order_count FROM completed_2024 GROUP BY cust_tier ORDER BY total_revenue DESC;</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Correct joins, proper aggregation, CTE structure, dialect-aware, executable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">SQL Generation in Action</h2>
+                <p class="section-subtitle fade-in-up">See how structured prompts produce production-ready queries</p>
+
+                <div class="accordion fade-in-up" id="sql-generation-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Complex Join Query Generation</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Given the following schema: employees(emp_id PK, name VARCHAR, dept_id FK, hire_date DATE, salary DECIMAL, manager_id FK REFERENCES employees), departments(dept_id PK, dept_name VARCHAR, budget DECIMAL, location VARCHAR), projects(proj_id PK, proj_name VARCHAR, start_date DATE, end_date DATE, dept_id FK), assignments(assign_id PK, emp_id FK, proj_id FK, role VARCHAR, hours_allocated INT). Write a PostgreSQL query that finds all departments where the total salary of employees exceeds 80% of the department budget, along with the number of active projects (where end_date is NULL or in the future) and the average tenure of employees in years. Include department name, location, total salary, budget, budget utilization percentage, active project count, and average tenure. Sort by budget utilization descending.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>The prompt provides the complete schema with all table relationships, specifies a multi-table analytical query that requires joining four tables with different aggregation levels, and defines exact output columns with clear calculations. By specifying PostgreSQL as the dialect, the model can use appropriate date functions (EXTRACT, AGE) rather than guessing. The budget utilization threshold (80%) gives the model a clear WHERE or HAVING condition. Without this schema context, the model would have to invent table structures and would almost certainly get the self-referencing manager relationship, the budget utilization calculation, and the active project filter logic wrong.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Analytical Report Query</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Schema: transactions(txn_id PK, account_id FK, txn_date TIMESTAMP, amount DECIMAL, txn_type VARCHAR, category VARCHAR, merchant VARCHAR), accounts(account_id PK, user_id FK, account_type VARCHAR, opened_date DATE), users(user_id PK, signup_date DATE, region VARCHAR, plan_tier VARCHAR). Write a SQL Server query for a monthly spending report: for each user region and plan tier combination, calculate the month-over-month percentage change in total transaction amount for the last 12 months. Use window functions for the MoM calculation. Include only regions with at least 50 active users. Format the percentage change to two decimal places. Use CTEs for each logical step.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt combines schema provision with a sophisticated analytical requirement &mdash; month-over-month percentage change using window functions. By specifying SQL Server as the dialect, the model will use FORMAT or CAST for decimal formatting and SQL Server-specific date functions like DATEADD and DATEDIFF rather than PostgreSQL equivalents. The CTE requirement ensures the query is readable and maintainable. The active user threshold adds a non-trivial filtering step that requires counting distinct users per region before joining. This level of specificity transforms what would be a vague &ldquo;show me spending trends&rdquo; into a precisely defined analytical query that a data team could deploy directly into a reporting dashboard.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Data Migration Query</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Source schema (MySQL): legacy_products(prod_code VARCHAR PK, description TEXT, price FLOAT, cat_code VARCHAR, active TINYINT, last_modified DATETIME). Target schema (PostgreSQL): products(product_id UUID PK DEFAULT gen_random_uuid(), name VARCHAR(255), description TEXT, price_cents INTEGER, category_id INTEGER FK REFERENCES categories, is_active BOOLEAN, created_at TIMESTAMPTZ, updated_at TIMESTAMPTZ). Categories mapping: cat_code &rsquo;EL&rsquo; maps to category_id 1, &rsquo;CL&rsquo; to 2, &rsquo;FD&rsquo; to 3, &rsquo;HW&rsquo; to 4. Write the PostgreSQL INSERT...SELECT migration query that transforms the data: convert price from dollars (FLOAT) to cents (INTEGER), map category codes to IDs, convert TINYINT active flag to BOOLEAN, set created_at to the source last_modified value, and set updated_at to NOW(). Handle NULL prices by defaulting to 0 cents. Skip inactive products older than 2020.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>Data migration queries are among the most error-prone SQL tasks because they involve cross-dialect type conversions, business logic transformations, and data quality handling simultaneously. This prompt succeeds because it provides both source and target schemas explicitly, defines every transformation rule (dollars to cents, category mapping, type conversions), specifies NULL handling behavior, and includes a filtering condition for stale data. The explicit category mapping table prevents the model from guessing at code-to-ID relationships. Without these details, a migration query would almost certainly miscalculate the price conversion (forgetting to round after multiplying by 100), miss the NULL handling, or produce syntax that works in MySQL but fails in PostgreSQL.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use SQL Generation</h2>
+                <p class="section-subtitle fade-in-up">Best for translating data questions into precise, executable queries</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Ad Hoc Data Analysis</strong>
+                                    <p>Translating business questions into SQL on the fly without requiring analysts to memorize complex schema structures, join paths, or dialect-specific syntax for every query they need to run.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Complex Analytical Queries</strong>
+                                    <p>Building multi-join queries with window functions, CTEs, subqueries, and advanced aggregations that would take significant time to write manually and are prone to subtle logical errors.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Cross-Dialect Translation</strong>
+                                    <p>Converting queries between database engines &mdash; translating MySQL-specific syntax to PostgreSQL, adapting Oracle PL/SQL to SQL Server T-SQL, or migrating SQLite queries to a production-grade system.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Query Optimization and Refactoring</strong>
+                                    <p>Taking an existing slow or poorly structured query and generating an optimized version that uses better join strategies, appropriate indexing hints, or more efficient aggregation patterns for the target database engine.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Security-Critical Production Queries</strong>
+                                    <p>If the generated SQL will be executed directly in a production environment without human review, especially with user-supplied input parameters, the risk of SQL injection or unintended data modification requires hand-crafted, parameterized queries with thorough security auditing.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Simple CRUD Operations</strong>
+                                    <p>For basic INSERT, UPDATE, DELETE, or simple SELECT statements that an ORM or query builder handles well, AI-generated SQL adds unnecessary complexity without meaningful benefit over standard application frameworks.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Schema Design and DDL</strong>
+                                    <p>When the primary task is designing the database schema itself rather than querying it, database modeling tools and migration frameworks provide better guardrails for maintaining referential integrity and managing schema evolution over time.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Highly Proprietary Database Functions</strong>
+                                    <p>When queries rely heavily on vendor-specific stored procedures, custom extensions, or proprietary syntax that the model has limited training data for, domain-specific expertise will outperform generated SQL for these niche cases.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where SQL generation delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                <line x1="12" y1="22.08" x2="12" y2="12"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Business Intelligence Queries</h3>
+                        <p class="use-case-showcase__desc">Translating executive and stakeholder questions into multi-dimensional analytical queries with grouping sets, running totals, year-over-year comparisons, and cohort analyses that power dashboards and strategic decision-making.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 2l4 4-4 4"/>
+                                <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                                <path d="M7 22l-4-4 4-4"/>
+                                <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Database Migration Scripts</h3>
+                        <p class="use-case-showcase__desc">Generating INSERT...SELECT statements, data transformation queries, and cross-dialect conversions for migrating data between different database systems while handling type mismatches, encoding differences, and schema restructuring.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="20" x2="18" y2="10"/>
+                                <line x1="12" y1="20" x2="12" y2="4"/>
+                                <line x1="6" y1="20" x2="6" y2="14"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Data Analysis Automation</h3>
+                        <p class="use-case-showcase__desc">Enabling data scientists and analysts to explore datasets by describing what they want to find in plain language, rapidly iterating through different query approaches without manually writing each variation from scratch.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Report Generation</h3>
+                        <p class="use-case-showcase__desc">Building the SQL backbone for recurring reports &mdash; monthly financial summaries, customer retention analyses, inventory turnover calculations, and compliance audits &mdash; with properly structured aggregations and formatting.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Schema Exploration</h3>
+                        <p class="use-case-showcase__desc">Generating queries to understand unfamiliar databases &mdash; discovering table relationships, identifying data patterns, profiling column distributions, and mapping out foreign key chains across large schemas with hundreds of tables.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Performance Tuning</h3>
+                        <p class="use-case-showcase__desc">Analyzing slow queries and generating optimized alternatives that use better join orders, replace correlated subqueries with joins, add appropriate index hints, and restructure aggregations to reduce execution time on large datasets.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where SQL Generation Fits</h2>
+                <p class="section-subtitle fade-in-up">SQL generation bridges natural language understanding and database interaction in AI-assisted development</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Raw SQL</span>
+                        <span class="era-marker__title">Manual Query Writing</span>
+                        <span class="era-marker__desc">Hand-crafted queries requiring full syntax knowledge</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Query Builders</span>
+                        <span class="era-marker__title">Programmatic Abstraction</span>
+                        <span class="era-marker__desc">ORMs and builder patterns generating SQL from code</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">AI SQL Generation</span>
+                        <span class="era-marker__title">Natural Language to SQL</span>
+                        <span class="era-marker__desc">LLMs translating human questions into executable queries</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Natural Language Databases</span>
+                        <span class="era-marker__title">Conversational Data Access</span>
+                        <span class="era-marker__desc">Direct question-answering over structured data</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Combine Schema Context with Decomposition for Complex Queries</div>
+                    <p>SQL generation works best when you pair schema context with prompting techniques from other frameworks. For multi-step analytical queries, apply chain-of-thought reasoning to break the question into sub-queries that build on each other. Use few-shot learning by providing example question-SQL pairs from your specific database to teach the model your naming conventions and preferred query patterns. Apply self-verification by asking the model to mentally execute the query against sample data and confirm the output matches expectations. For particularly complex joins or business logic, use least-to-most decomposition &mdash; start with the simplest query that retrieves the base data, then incrementally add joins, filters, aggregations, and window functions until the full analytical query is assembled correctly.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary code generation techniques</p>
+
+                <a href="code-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Code Prompting</span>
+                        <span class="evolution-callout__desc">The foundational framework for all code generation tasks &mdash; covering strategies for specifying programming language, defining function signatures, providing context, and guiding AI models to produce correct, maintainable code across any language including SQL.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="structured-output.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Structured Output</span>
+                        <span class="evolution-callout__desc">Techniques for constraining AI output to specific formats like JSON, XML, or CSV &mdash; directly complementary to SQL generation when you need query results formatted for downstream processing, API responses, or data pipeline integration.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="../../program-of-thought.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Evolution</span>
+                        <span class="evolution-callout__title">Program of Thought</span>
+                        <span class="evolution-callout__desc">Extends code generation into reasoning &mdash; using executable code (including SQL) as an intermediate reasoning step to solve complex problems, where the model generates and conceptually runs queries to derive answers that pure text reasoning would struggle with.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Explore SQL Generation</h2>
+                        <p class="cta-corporate__text">Apply structured SQL generation techniques to your own databases or build data-driven prompts with our tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>Master the Art of AI Communication theory through proven frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Discover</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">COSTAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness</h4>
+                    <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                    <a href="../../../tools/guidance.html">Prompt Builder</a>
+                    <a href="../../../tools/matcher.html">Framework Matcher</a>
+                    <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                    <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                    <a href="../../../quiz/index.html">Readiness Quiz</a>
+                    <a href="../../../patterns/index.html">Patterns Library</a>
+                    <a href="../../../pages/ai-safety.html">AI Safety</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                    <a href="../../../pages/faq.html">FAQ</a>
+                    <a href="../../../pages/glossary.html">Glossary</a>
+                    <a href="../../../pages/security.html">Security</a>
+                    <a href="../../../pages/performance.html">Performance</a>
+                    <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                    <a href="../../../pages/universal-design.html">Universal Design</a>
+                    <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                    <a href="../../../pages/about.html">About</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK TO TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK TO TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>

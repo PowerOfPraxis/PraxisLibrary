@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pose Estimation Prompting: Learn techniques for guiding AI models to detect, analyze, and reason about human body poses, skeletal configurations, and movement patterns in 2D and 3D space.">
+    <title>Pose Estimation Prompting - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--tabbed">
+                        <div class="mega-menu-tabs" role="tablist" aria-label="Framework categories"></div>
+                        <div class="mega-menu-section" data-tab="getting-started" role="tabpanel">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts &amp; Fictions</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="structured-frameworks" role="tabpanel">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context &amp; Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="in-context-learning" role="tabpanel">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="reasoning-cot" role="tabpanel">
+                            <h4><a href="../../reasoning-cot.html">Reasoning &amp; CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="decomposition" role="tabpanel">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="self-correction" role="tabpanel">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="ensemble-methods" role="tabpanel">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="prompting-strategies" role="tabpanel">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="code" role="tabpanel">
+                            <h4>Code</h4>
+                            <a href="../code/code-prompting.html">Code Prompting</a>
+                            <a href="../code/self-debugging.html">Self-Debugging</a>
+                            <a href="../code/structured-output.html">Structured Output</a>
+
+                            <a href="../code/program-synthesis.html">Program Synthesis</a>
+                            <a href="../code/code-explanation.html">Code Explanation</a>
+                            <a href="../code/code-review.html">Code Review</a>
+                            <a href="../code/test-generation.html">Test Generation</a>
+                            <a href="../code/sql-generation.html">SQL Generation</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="image" role="tabpanel">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="audio" role="tabpanel">
+                            <h4>Audio</h4>
+                            <a href="../audio/audio-prompting.html">Audio Prompting</a>
+                            <a href="../audio/stt-prompting.html">Speech-to-Text</a>
+                            <a href="../audio/tts-prompting.html">Text-to-Speech</a>
+                            <a href="../audio/audio-classification.html">Audio Classification</a>
+                            <a href="../audio/music-gen.html">Music Generation</a>
+                            <a href="../audio/voice-cloning.html">Voice Cloning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="video" role="tabpanel">
+                            <h4>Video</h4>
+                            <a href="../video/video-prompting.html">Video Prompting</a>
+                            <a href="../video/video-gen.html">Video Generation</a>
+                            <a href="../video/temporal-reasoning.html">Temporal Reasoning</a>
+                            <a href="../video/video-qa.html">Video QA</a>
+                            <a href="../video/video-captioning.html">Video Captioning</a>
+                            <a href="../video/video-editing.html">Video Editing</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="3d" role="tabpanel">
+                            <h4>3D</h4>
+                            <a href="../3d/3d-prompting.html">3D Prompting</a>
+                            <a href="../3d/3d-model-gen.html">3D Model Generation</a>
+                            <a href="../3d/scene-understanding.html">Scene Understanding</a>
+                            <a href="../3d/pose-estimation.html">Pose Estimation</a>
+                            <a href="../3d/point-cloud.html">Point Cloud</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI &amp; ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">Pose Estimation Prompting</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">3D Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">Pose Estimation Prompting</h1>
+                <p class="page-subtitle fade-in">Techniques for guiding AI models to detect, interpret, and analyze human body configurations, joint positions, and skeletal structures &mdash; transforming visual input into structured anatomical insights through descriptive multimodal prompts.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2017&ndash;2024</span>
+                        <p><strong>Introduced:</strong> Human pose estimation has deep roots in computer vision research spanning more than a decade. OpenPose (2017, Carnegie Mellon University) enabled real-time multi-person 2D pose detection from single camera feeds, establishing keypoint-based skeletal representation as the standard approach. Google&rsquo;s MediaPipe Pose brought lightweight 3D pose estimation to mobile devices, making body tracking accessible outside laboratory settings. HRNet (High-Resolution Network) and ViTPose advanced accuracy by maintaining high-resolution representations throughout the detection pipeline rather than downsampling and recovering spatial detail. The integration of pose understanding with large multimodal models during 2023&ndash;2024 created a new paradigm: prompt-based pose analysis, where users describe what pose characteristics to analyze in natural language rather than configuring detection parameters, joint thresholds, and model architectures directly.</p>
+                        <p><strong>Modern LLM Status:</strong> Frontier vision-language models can <strong>identify body poses, describe joint positions, and reason about human movement</strong> from images and video with increasing sophistication. Models like GPT-4o and Gemini can assess posture quality, compare body positions against reference forms, and describe biomechanical relationships between limbs. However, precise keypoint coordinate extraction &mdash; outputting exact pixel positions or 3D coordinates for each joint &mdash; still benefits from specialized pose estimation models like OpenPose, MediaPipe, or MMPose. The prompt-based approach excels at qualitative analysis, comparative assessment, and contextual reasoning about poses, while dedicated pose estimation pipelines remain superior for quantitative measurement tasks requiring sub-pixel accuracy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">From Detection Parameters to Descriptive Reasoning</h2>
+                        <p class="split-section__text">Pose estimation prompting transforms body analysis from a technical detection task into a descriptive reasoning task. Instead of configuring detection thresholds, selecting keypoint models, and tuning confidence parameters, you describe what aspects of human posture, position, or movement you want the model to analyze. The model then applies its understanding of human anatomy, biomechanics, and spatial relationships to interpret body configurations from visual input.</p>
+                        <p class="split-section__text"><strong>The core insight is that natural language descriptions of what to observe about a body&rsquo;s position are often more expressive and contextually rich than raw keypoint coordinates.</strong> Telling a model to &ldquo;assess whether the subject&rsquo;s knees are tracking over their toes during the squat&rdquo; communicates both the anatomical focus and the evaluative criteria in a single instruction. A traditional pose estimation pipeline would require separate steps: detect keypoints, extract knee and toe coordinates, compute angular relationships, and then apply domain-specific rules to evaluate alignment.</p>
+                        <p class="split-section__text">Think of it as having a kinesiologist examine a photograph and describe what they observe. They do not report pixel coordinates &mdash; they describe joint angles, weight distribution, muscle engagement patterns, and postural deviations using the language of human movement. Pose estimation prompting lets you direct the model to perform this same kind of expert observational analysis.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Anatomical Context Elevates Pose Analysis</span>
+                                <p>When a model receives an image containing people without specific pose instructions, it typically produces a general scene description &mdash; noting that a person is standing, sitting, or moving without analyzing the biomechanical details. Structured pose estimation prompts redirect this behavior by defining the <strong>anatomical analytical framework</strong> the model should apply: which body regions to focus on, what postural qualities to evaluate, how to describe spatial relationships between joints, what constitutes proper versus improper alignment for the given activity, and whether to prioritize static posture assessment or dynamic movement analysis. The difference between &ldquo;a person exercising&rdquo; and a detailed breakdown of spinal alignment, hip hinge depth, shoulder positioning, and weight distribution comes down entirely to the specificity of the accompanying text prompt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Pose Estimation Prompting Process</h2>
+                <p class="section-subtitle fade-in-up">Four steps from visual input to structured anatomical analysis</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Provide Visual Input with People</h3>
+                            <p class="element-timeline__text">Upload or reference an image or video containing one or more people whose body positions you want analyzed. The quality and angle of the visual input directly affect the depth of pose analysis possible &mdash; clear, well-lit images with unobstructed views of the subject&rsquo;s body allow the model to assess joint positions, limb angles, and postural alignment with greater precision. Partially occluded subjects, extreme camera angles, or low-resolution images will limit the model&rsquo;s ability to make detailed anatomical observations.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Upload a side-view photograph of an athlete performing a deadlift, ensuring the full body from feet to head is visible with clear lighting on the limbs and torso.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Specify Pose Analysis Goals</h3>
+                            <p class="element-timeline__text">Define what aspects of the person&rsquo;s pose you want the model to analyze. Are you evaluating athletic form, assessing ergonomic positioning, tracking rehabilitation progress, or documenting body language for behavioral analysis? The analysis goal determines whether the model focuses on joint angles and biomechanical alignment, overall postural balance and symmetry, specific body regions of concern, or the relationship between the body position and the activity being performed. A sports coaching analysis and an ergonomic assessment of the same image will produce fundamentally different outputs.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Analyze this deadlift photograph for powerlifting form. Evaluate spinal alignment from lumbar through cervical, hip hinge depth relative to knee position, bar path relative to the center of gravity, and shoulder blade retraction.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Define Anatomical Focus Areas</h3>
+                            <p class="element-timeline__text">Specify which body regions, joints, or skeletal relationships require detailed examination. Without anatomical focus, the model produces a general posture description. With explicit focus areas, the analysis zooms into the biomechanical details that matter for your use case. You can direct attention to specific joint chains (ankle-knee-hip alignment), bilateral symmetry comparisons (left shoulder height versus right), segmental relationships (torso angle relative to thigh angle), or functional movement patterns (scapulohumeral rhythm during overhead reach).</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Focus your analysis on: (1) lumbar spine curvature &mdash; is the lower back maintaining neutral lordosis or rounding? (2) knee tracking &mdash; are the knees aligned over the midfoot or collapsing inward? (3) head position &mdash; is the cervical spine neutral or hyperextended?&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Request Structured Movement Assessment</h3>
+                            <p class="element-timeline__text">Define how the model should structure its pose assessment output. Request specific formats such as joint-by-joint analysis tables, risk-factor summaries, comparison against reference positions, corrective recommendations, or numerical scoring rubrics. Structured output transforms raw pose observations into actionable assessments that professionals can use directly in coaching, therapy, or ergonomic intervention plans without needing to reinterpret unstructured descriptions.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Structure your assessment as: (1) Overall form rating on a 1&ndash;10 scale with justification, (2) Joint-by-joint breakdown listing each major joint&rsquo;s position and whether it meets proper form criteria, (3) Top 3 corrective priorities ranked by injury risk, (4) Specific cues the athlete should focus on during the next repetition.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why structured pose prompts produce dramatically better body analysis</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Vague Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>What is this person doing?</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>This image shows a person exercising in a gym. They appear to be lifting a barbell. They are wearing athletic clothing and standing on a platform.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Generic activity description, no anatomical detail, no form assessment</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Structured Pose Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Analyze this athlete&rsquo;s deadlift form. Evaluate spinal alignment, hip hinge mechanics, knee tracking, shoulder position, and bar path. Rate each on a 1&ndash;5 scale and identify the top corrective priority.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p><strong>Spinal Alignment (3/5):</strong> Mild lumbar flexion visible in lower back &mdash; approximately 10&ndash;15 degrees of rounding from neutral. Thoracic spine neutral.<br><strong>Hip Hinge (4/5):</strong> Good hip-dominant pattern. Hips are hinging back with torso at roughly 45 degrees to the floor.<br><strong>Knee Tracking (5/5):</strong> Knees aligned over midfoot, no valgus collapse observed.<br><strong>Shoulders (4/5):</strong> Positioned slightly anterior to the bar. Scapulae partially retracted.<br><strong>Bar Path (4/5):</strong> Bar traveling close to the shins with minimal forward drift.<br><strong>Top Priority:</strong> Address lumbar rounding with cue &ldquo;push your chest through the wall in front of you&rdquo; to maintain neutral spine under load.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Joint-specific, scored, biomechanically detailed, with actionable correction</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Pose Estimation in Action</h2>
+                <p class="section-subtitle fade-in-up">See how structured prompts unlock deeper body pose analysis</p>
+
+                <div class="accordion fade-in-up" id="pose-estimation-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Athletic Form Analysis</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Analyze this image of a tennis player mid-serve. Evaluate the kinetic chain from ground contact through the racket arm. For each segment, describe: (a) the joint angle and position, (b) whether the position is consistent with an efficient energy transfer pattern, (c) any asymmetries between the dominant and non-dominant sides. After the segment analysis, assess the overall serve mechanics and identify the single highest-impact correction for increasing serve speed while reducing shoulder injury risk.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt applies biomechanical analysis principles by tracing the kinetic chain &mdash; the sequential transfer of force from the ground through the legs, hips, trunk, shoulder, elbow, and wrist to the racket. By requesting segment-by-segment analysis with both descriptive and evaluative components, the prompt forces the model beyond surface-level pose description into functional movement assessment. The injury risk dimension adds clinical relevance, transforming the analysis from a generic form check into a performance optimization recommendation that balances power production with joint safety.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Ergonomic Workplace Assessment</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Evaluate this photograph of an office worker at their desk for ergonomic compliance. Assess the following against established workplace ergonomic standards: (a) monitor height and distance relative to eye level, (b) seated posture &mdash; lumbar support contact, hip angle, and thigh-to-floor relationship, (c) shoulder and arm position &mdash; elbow angle, wrist alignment relative to the keyboard, and shoulder elevation, (d) head and neck position &mdash; forward head posture degree and cervical spine angle. Classify each factor as compliant, minor deviation, or significant risk, and provide specific workstation adjustment recommendations for any non-compliant factors.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt applies occupational health standards to a visual assessment, requiring the model to evaluate body positioning against objective ergonomic criteria rather than making subjective judgments. The three-tier classification system (compliant, minor deviation, significant risk) provides actionable triage that an occupational health professional or facilities manager can use to prioritize workstation modifications. By linking each postural observation to a specific adjustment recommendation, the prompt produces a complete ergonomic intervention plan rather than a list of observations that require further interpretation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Physical Therapy Progress Tracking</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Compare these two images of a patient performing an overhead shoulder raise. Image 1 is from four weeks ago and Image 2 is from today. For each image, describe: (a) the maximum shoulder flexion angle achieved, (b) any compensatory patterns such as trunk lateral flexion, scapular hiking, or rib cage flaring, (c) bilateral symmetry between left and right arms, (d) quality of the movement endpoint &mdash; does the patient appear to reach end-range smoothly or with visible effort and compensatory strain? After describing both images, summarize the changes in range of motion and movement quality, identify which compensatory patterns have improved and which persist, and suggest the next rehabilitation milestone to target.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt implements a clinical progress assessment framework by comparing two temporal snapshots of the same movement pattern. By specifying both the primary metric (shoulder flexion range) and secondary indicators (compensatory patterns, bilateral symmetry, movement quality), the prompt captures the multidimensional nature of rehabilitation progress. Therapists know that increased range of motion accompanied by worsening compensation is not true improvement &mdash; the prompt accounts for this by requiring both quantitative and qualitative comparison. The rehabilitation milestone suggestion connects the assessment directly to treatment planning, making the output clinically actionable.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Pose Estimation Prompting</h2>
+                <p class="section-subtitle fade-in-up">Best for qualitative body analysis where anatomical reasoning matters more than coordinates</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Sports Technique Analysis</strong>
+                                    <p>Evaluating athletic form across any sport &mdash; assessing biomechanical efficiency, identifying form breakdowns under fatigue, comparing technique against reference models, and generating coaching feedback with specific positional corrections.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Ergonomic Assessment</strong>
+                                    <p>Evaluating workplace postures against established ergonomic standards, identifying musculoskeletal risk factors in seated and standing work positions, and generating workstation adjustment recommendations based on observed body positioning.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Physical Therapy Monitoring</strong>
+                                    <p>Tracking rehabilitation progress by comparing body positions across time, identifying compensatory movement patterns, assessing range of motion changes, and documenting functional improvements for clinical records.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Animation Reference</strong>
+                                    <p>Analyzing reference photographs or video frames to describe body poses in terms that animators and digital artists can translate into character rigs, keyframes, and motion sequences with anatomically accurate joint positioning.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Precise Keypoint Coordinates Needed</strong>
+                                    <p>If your application requires exact pixel-level or 3D joint coordinates &mdash; such as driving a robotic system or feeding measurements into a physics simulation &mdash; dedicated pose estimation models like OpenPose or MediaPipe deliver the numerical precision that language-based analysis cannot match.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Real-Time Tracking Requirements</strong>
+                                    <p>When you need continuous pose tracking at 30 frames per second or faster &mdash; such as live motion capture, interactive fitness applications, or augmented reality overlays &mdash; specialized real-time pose estimation pipelines are essential for the latency requirements.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Multi-Person Dense Crowd Scenes</strong>
+                                    <p>Scenes with dozens of heavily occluded individuals where individual body identification is the primary challenge benefit from specialized multi-person pose estimation architectures optimized for handling occlusion, scale variation, and identity assignment across crowded frames.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Non-Human Subject Analysis</strong>
+                                    <p>If you are analyzing animal poses, robotic arm configurations, or other non-human articulated structures, the anatomical reasoning embedded in pose estimation prompting is calibrated for human biomechanics and may produce inaccurate assessments for other body plans.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where pose estimation prompting delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polygon points="10 8 16 12 10 16 10 8"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Sports Coaching</h3>
+                        <p class="use-case-showcase__desc">Analyzing athlete form from training photographs and game footage to identify technique strengths and weaknesses, compare current form against ideal biomechanical models, track technique development over a training season, and generate specific positional cues for performance improvement.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Ergonomic Evaluation</h3>
+                        <p class="use-case-showcase__desc">Assessing workstation setups and occupational postures against ergonomic standards, identifying musculoskeletal risk factors such as forward head posture or wrist deviation, and generating prioritized intervention recommendations to reduce repetitive strain injury risk in office and industrial environments.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18V5l12-2v13"/>
+                                <circle cx="6" cy="18" r="3"/>
+                                <circle cx="18" cy="16" r="3"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Dance and Choreography</h3>
+                        <p class="use-case-showcase__desc">Evaluating dancer positions against choreographic intent, analyzing alignment and extension quality, comparing ensemble synchronization across multiple performers, and describing body positions in movement notation terminology that choreographers and dance instructors can use for feedback and documentation.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Sign Language Analysis</h3>
+                        <p class="use-case-showcase__desc">Describing hand shapes, arm positions, and body orientations used in sign language communication, supporting accessibility research by analyzing signing clarity and spatial grammar, and assisting in the development of sign language recognition systems by providing detailed pose descriptions for training data annotation.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Physical Rehabilitation</h3>
+                        <p class="use-case-showcase__desc">Monitoring patient recovery by comparing exercise form photographs across therapy sessions, documenting range-of-motion improvements, identifying persistent compensatory movement patterns that indicate incomplete healing, and generating progress reports that therapists can include in clinical documentation.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="23 7 16 12 23 17 23 7"/>
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Motion Capture Reference</h3>
+                        <p class="use-case-showcase__desc">Analyzing reference footage to describe body positions in terms suitable for animation rigging, generating detailed pose breakdowns that character artists can translate into keyframe data, and evaluating motion capture cleanup by comparing captured poses against the original reference material for accuracy and naturalness.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Pose Estimation Fits</h2>
+                <p class="section-subtitle fade-in-up">Pose estimation bridges static visual understanding and dynamic movement analysis in 3D space</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Image Analysis</span>
+                        <span class="era-marker__title">Static Visual Understanding</span>
+                        <span class="era-marker__desc">General scene and object recognition</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Pose Estimation</span>
+                        <span class="era-marker__title">Skeletal and Joint Analysis</span>
+                        <span class="era-marker__desc">Body configuration and postural reasoning</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Motion Tracking</span>
+                        <span class="era-marker__title">Temporal Body Analysis</span>
+                        <span class="era-marker__desc">Tracking pose changes across time</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Action Recognition</span>
+                        <span class="era-marker__title">Activity Classification</span>
+                        <span class="era-marker__desc">Identifying actions from movement sequences</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Combine Pose Analysis with Contextual Understanding</div>
+                    <p>Pose estimation prompting works best when combined with environmental and contextual awareness. A body position that looks problematic in isolation might be perfectly appropriate for the activity being performed &mdash; a deep forward lean is a form flaw in a standing desk assessment but essential in a sprint start. Apply structured frameworks like CRISP or COSTAR to define the activity context before specifying pose criteria. Then layer anatomical focus areas, biomechanical evaluation standards appropriate to the activity, and output formats that connect pose observations to domain-specific recommendations. The richest analyses emerge when the model understands not just what the body is doing, but why it is doing it and how well it is doing it relative to the standards of the given activity.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary 3D analysis techniques</p>
+
+                <a href="3d-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">3D Prompting Basics</span>
+                        <span class="evolution-callout__desc">The foundational techniques for guiding AI models to understand, reason about, and generate three-dimensional spatial content &mdash; covering depth perception, spatial relationships, volumetric reasoning, and 3D scene comprehension that underpins all specialized 3D analysis tasks.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="scene-understanding.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Scene Understanding</span>
+                        <span class="evolution-callout__desc">Extends beyond individual body analysis to understand the full 3D environment &mdash; spatial layout, object relationships, depth ordering, and how human poses interact with surrounding objects, surfaces, and architectural elements in three-dimensional space.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="point-cloud.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Parallel</span>
+                        <span class="evolution-callout__title">Point Cloud Prompting</span>
+                        <span class="evolution-callout__desc">Works with raw 3D point data captured by depth sensors and LiDAR &mdash; enabling prompt-based analysis of body geometry, surface reconstruction, and volumetric body measurements that complement the skeletal joint analysis provided by pose estimation approaches.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Explore Pose Estimation</h2>
+                        <p class="cta-corporate__text">Apply structured pose analysis techniques to your own images or build multimodal prompts with our tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>Master the Art of AI Communication theory through proven frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Discover</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">COSTAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness</h4>
+                    <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                    <a href="../../../tools/guidance.html">Prompt Builder</a>
+                    <a href="../../../tools/matcher.html">Framework Matcher</a>
+                    <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                    <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                    <a href="../../../quiz/index.html">Readiness Quiz</a>
+                    <a href="../../../patterns/index.html">Patterns Library</a>
+                    <a href="../../../pages/ai-safety.html">AI Safety</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                    <a href="../../../pages/faq.html">FAQ</a>
+                    <a href="../../../pages/glossary.html">Glossary</a>
+                    <a href="../../../pages/security.html">Security</a>
+                    <a href="../../../pages/performance.html">Performance</a>
+                    <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                    <a href="../../../pages/universal-design.html">Universal Design</a>
+                    <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                    <a href="../../../pages/about.html">About</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK TO TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK TO TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>

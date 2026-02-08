@@ -1,8 +1,8 @@
 # Praxis Project Handoff Document
 
-**Last Updated:** 2026-02-07 (Session 48)
-**Last Commit:** `d5cca2a` — Tabbed mega-menu redesign
-**Current Phase:** Phase 3C Video NEXT (3A Image + 3B Audio COMPLETE)
+**Last Updated:** 2026-02-07 (Session 51)
+**Last Commit:** pending — Phase 3D + 3E (Phase 3 FULLY COMPLETE)
+**Current Phase:** Phase 3 COMPLETE (37/37), Phase 4D Framework Matcher NEXT
 
 ---
 
@@ -10,69 +10,26 @@
 
 - **Phase 1: Glossary** — COMPLETE (2,141 terms)
 - **Phase 2: Text Frameworks** — COMPLETE (52/52 pages, all 13-section template)
-- **Phase 3: Modality Frameworks** — IN PROGRESS (24/37 pages)
+- **Phase 3: Modality Frameworks** — COMPLETE (37/37 pages)
   - 3A Image Prompting: COMPLETE (12/12) — Session 46
   - 3B Audio/Speech: COMPLETE (6/6) — Session 48
-  - 3C Video: NOT STARTED (0/6)
-  - 3D Code/Structured: NOT STARTED (0/5 new, 3 existing pages)
-  - 3E 3D/Spatial: NOT STARTED (0/5)
+  - 3C Video: COMPLETE (6/6) — Session 49
+  - 3D Code/Structured: COMPLETE (5/5 new + 3 existing = 8 pages) — Session 50
+  - 3E 3D/Spatial: COMPLETE (5/5) — Session 51
 - **Phase 4: Site Integration** — 75% (4D Framework Matcher still pending)
 - **Phase 5: Navigation UX** — COMPLETE
 - **Discover Hub** — COMPLETE (5/5 phases)
 - **Glossary Inline Search** — COMPLETE (Session 47)
 - **Mega-Menu Redesign** — COMPLETE (Session 48, tabbed progressive disclosure, 133+ files)
-- **Site totals:** 85+ frameworks, 2,141+ glossary terms, 133+ HTML files with current nav
+- **Site totals:** 101+ frameworks, 2,141+ glossary terms, 149+ HTML files with current nav
 
 ---
 
 ## NEXT TASKS
 
-### Priority 1: Phase 3C — Video (6 pages)
+### Priority 1: Phase 4D — Framework Matcher Updates
 
-**Directory:** `learn/modality/video/`
-
-| Framework | File | Priority |
-|-----------|------|----------|
-| Video Prompting Basics | video-prompting.html | MEDIUM |
-| Video Generation Prompting | video-gen.html | MEDIUM |
-| Temporal Reasoning | temporal-reasoning.html | LOW |
-| Video QA | video-qa.html | LOW |
-| Video Captioning | video-captioning.html | LOW |
-| Video Editing Prompting | video-editing.html | LOW |
-
-**Approach:**
-- Same 13-section template as all framework pages (`learn/self-ask.html` is canonical)
-- Use depth-3 path prefixes (`../../../` for root) — same as `learn/modality/image/*.html`
-- Parallel background agents (all 6 in one batch)
-- After pages built: run post-page-creation checklist below
-- **NOTE:** When adding Video section to mega-menu, use `data-tab="video" role="tabpanel"` attributes (tabbed format)
-- **Nav script pattern:** Clone `update_nav_audio.py`, change "audio" to "video", find last section (currently Audio `data-tab="audio"`) and insert after it
-
-### Priority 2: Phase 3D — Code/Structured (5 new pages)
-
-**Directory:** `learn/modality/code/` (3 pages already exist)
-
-| Framework | File | Priority |
-|-----------|------|----------|
-| Program Synthesis | program-synthesis.html | MEDIUM |
-| Code Explanation | code-explanation.html | MEDIUM |
-| Code Review Prompting | code-review.html | MEDIUM |
-| Test Generation | test-generation.html | MEDIUM |
-| SQL Generation | sql-generation.html | MEDIUM |
-
-### Priority 3: Phase 3E — 3D/Spatial (5 pages)
-
-**Directory:** `learn/modality/3d/`
-
-| Framework | File | Priority |
-|-----------|------|----------|
-| 3D Prompting Basics | 3d-prompting.html | LOW |
-| 3D Model Generation | 3d-model-gen.html | LOW |
-| Scene Understanding | scene-understanding.html | LOW |
-| Pose Estimation Prompting | pose-estimation.html | LOW |
-| Point Cloud Prompting | point-cloud.html | LOW |
-
-### Priority 4: Phase 4D — Framework Matcher Updates
+Update `tools/matcher.html` to include all modality frameworks in recommendations.
 
 ---
 
@@ -80,7 +37,7 @@
 
 After creating pages in a new modality sub-phase:
 
-1. **Mega-Menu Navigation** — Python batch script to add new section after last modality section in all HTML files (4 depth levels: 0, 1, 2, 3). **Include `data-tab="slug" role="tabpanel"` on the new section** (tabbed menu format). Currently the last modality section is Audio (`data-tab="audio"`).
+1. **Mega-Menu Navigation** — Python batch script to add new section after last modality section in all HTML files (4 depth levels: 0, 1, 2, 3). **Include `data-tab="slug" role="tabpanel"` on the new section** (tabbed menu format). Currently the last modality section is Video (`data-tab="video"`).
 2. **Search Index** — Add entries to `data/search-index.json` (category: "Discover", subcategory: modality name)
 3. **Discover Hub** — Add cards + filter button to `learn/index.html`
 4. **Modality Hub** — Add card section to `learn/modality/index.html` (replace "Coming Soon" placeholder)
@@ -94,12 +51,13 @@ After creating pages in a new modality sub-phase:
 Sessions 38/45/46/48 used Python scripts to batch-update navigation across all HTML files.
 
 **Pattern for adding a new modality section to mega-menu:**
-1. Find the last modality `<div class="mega-menu-section"` (currently Audio: `data-tab="audio"`)
+1. Find the last modality `<div class="mega-menu-section"` (currently Video: `data-tab="video"`)
 2. Insert new section after its closing `</div>`
 3. 4 depth variants needed (depths 0, 1, 2, 3 with appropriate relative paths)
 4. Skip files that already contain the new section
-5. See `update_nav_audio.py` for reference implementation (adds Audio after Image)
-6. See `update_nav_tabbed.py` for tabbed-menu conversion script
+5. See `update_nav_video.py` for reference implementation (adds Video after Audio)
+6. See `update_nav_code.py` for reference implementation (adds links within existing Code tab)
+7. See `update_nav_tabbed.py` for tabbed-menu conversion script
 
 ---
 
@@ -124,7 +82,7 @@ Sessions 38/45/46/48 used Python scripts to batch-update navigation across all H
 
 **Mobile styling:** Headers 0.86rem, links 0.92rem. Non-clickable headers: `var(--primary)` (red). Clickable headers/links: `#fff`.
 
-**Tab Slug Mapping (11 categories):**
+**Tab Slug Mapping (13 categories):**
 | Category | Slug |
 |----------|------|
 | Getting Started | `getting-started` |
@@ -138,6 +96,8 @@ Sessions 38/45/46/48 used Python scripts to batch-update navigation across all H
 | Code | `code` |
 | Image | `image` |
 | Audio | `audio` |
+| Video | `video` |
+| 3D | `3d` |
 
 **JS:** `TabbedMenu` object in `app.js` — runtime tab button generation from `[data-tab]` section h4 text, mouseenter switching (desktop), h4 click accordion (mobile), roving tabindex keyboard nav.
 
@@ -155,7 +115,9 @@ Sessions 38/45/46/48 used Python scripts to batch-update navigation across all H
 | `.claude/plans/FrameworkOverhaul.md` | Master plan -- Phases 1-5 + session log | ~1,800 |
 | `learn/self-ask.html` | Canonical 13-section template (depth 1) | 899 |
 | `learn/modality/image/image-prompting.html` | Reference for depth 3 modality pages | 883 |
-| `update_nav_audio.py` | Reference for mega-menu batch update scripts (modality) | 143 |
+| `update_nav_video.py` | Reference for mega-menu batch update scripts (new tab) | 143 |
+| `update_nav_code.py` | Reference for adding links within existing mega-menu tab | 131 |
+| `update_nav_3d.py` | Reference for adding 3D tab (13th mega-menu tab) | 131 |
 | `update_nav_tabbed.py` | Reference for tabbed-menu conversion script | 157 |
 
 ---
@@ -226,22 +188,22 @@ JS:    // === SECTION === ... /** JSDoc comments */
 
 ```
 _public_html/
-+-- index.html              # Home page (85+ frameworks counter)
++-- index.html              # Home page (101+ frameworks counter)
 +-- styles.css              # ALL CSS (~27,700 lines)
 +-- app.js                  # ALL JavaScript (~10,900 lines)
 +-- foundations/
 |   +-- index.html          # AI Foundations timeline
 +-- learn/                  # Framework pages (85+) + category pages (7)
-|   +-- index.html          # Discover hub (85 framework cards, 11 categories)
+|   +-- index.html          # Discover hub (101 framework cards, 13 categories)
 |   +-- [7 category pages]  # structured-frameworks, reasoning-cot, etc.
 |   +-- [67 text framework pages]
 |   +-- modality/
 |       +-- index.html      # Modality hub page
-|       +-- code/           # Code frameworks (3 pages)
+|       +-- code/           # Code frameworks (8 pages)
 |       +-- image/          # Image frameworks (12 pages)
 |       +-- audio/          # Audio frameworks (6 pages)
-|       +-- video/          # Video frameworks (0 pages) -- NEXT
-|       +-- 3d/             # 3D frameworks (0 pages)
+|       +-- video/          # Video frameworks (6 pages)
+|       +-- 3d/             # 3D frameworks (5 pages)
 +-- data/
 |   +-- glossary.json       # 2,141 AI terms
 |   +-- search-index.json   # Search entries (85 frameworks + glossary + pages)
@@ -261,7 +223,7 @@ _public_html/
 
 ---
 
-## 11 FRAMEWORK CATEGORIES (85 frameworks)
+## 13 FRAMEWORK CATEGORIES (101 frameworks)
 
 | Category | Count | Category Page | Status |
 |----------|-------|---------------|--------|
@@ -273,9 +235,11 @@ _public_html/
 | In-Context Learning | 13 | `learn/in-context-learning.html` | DONE |
 | Ensemble Methods | 7 | `learn/ensemble-methods.html` | DONE |
 | Prompting Strategies | 11 | `learn/prompting-strategies.html` | DONE |
-| Code | 3 | -- | Uses `learn/modality/code/` hub |
+| Code | 8 | -- | Uses `learn/modality/code/` hub |
 | Image | 12 | -- | Uses `learn/modality/image/` via modality hub |
 | Audio | 6 | -- | Uses `learn/modality/audio/` via modality hub |
+| Video | 6 | -- | Uses `learn/modality/video/` via modality hub |
+| 3D | 5 | -- | Uses `learn/modality/3d/` via modality hub |
 
 ---
 

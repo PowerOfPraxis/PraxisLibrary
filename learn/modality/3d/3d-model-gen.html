@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="3D Model Generation: Learn techniques for prompting AI systems to create three-dimensional models, meshes, and objects from text descriptions using text-to-3D generation pipelines.">
+    <title>3D Model Generation - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav">
+                <a href="../../../foundations/index.html" class="nav-link">AI Foundations</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Discover</a>
+                    <div class="mega-menu mega-menu--tabbed">
+                        <div class="mega-menu-tabs" role="tablist" aria-label="Framework categories"></div>
+                        <div class="mega-menu-section" data-tab="getting-started" role="tabpanel">
+                            <h4>Getting Started</h4>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../facts-fictions.html">Facts &amp; Fictions</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="structured-frameworks" role="tabpanel">
+                            <h4><a href="../../structured-frameworks.html">Structured Frameworks</a></h4>
+                            <a href="../../crisp.html">CRISP</a>
+                            <a href="../../crispe.html">CRISPE</a>
+                            <a href="../../costar.html">COSTAR</a>
+                            <a href="../../context-structure.html">Context &amp; Structure</a>
+                            <a href="../../constrained-output.html">Constrained Output</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="in-context-learning" role="tabpanel">
+                            <h4><a href="../../in-context-learning.html">In-Context Learning</a></h4>
+                            <a href="../../zero-shot.html">Zero-Shot</a>
+                            <a href="../../one-shot.html">One-Shot</a>
+                            <a href="../../few-shot-learning.html">Few-Shot Learning</a>
+                            <a href="../../shot-prompting.html">Shot Prompting</a>
+                            <a href="../../example-selection.html">Example Selection</a>
+                            <a href="../../knn-prompting.html">KNN Prompting</a>
+                            <a href="../../vote-k.html">Vote-k</a>
+                            <a href="../../demo-ensembling.html">Demo Ensembling</a>
+                            <a href="../../prompt-mining.html">Prompt Mining</a>
+                            <a href="../../many-shot.html">Many-Shot</a>
+                            <a href="../../example-ordering.html">Example Ordering</a>
+                            <a href="../../self-generated-icl.html">Self-Generated ICL</a>
+                            <a href="../../active-example.html">Active Example</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="reasoning-cot" role="tabpanel">
+                            <h4><a href="../../reasoning-cot.html">Reasoning &amp; CoT</a></h4>
+                            <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                            <a href="../../zero-shot-cot.html">Zero-Shot CoT</a>
+                            <a href="../../auto-cot.html">Auto-CoT</a>
+                            <a href="../../contrastive-cot.html">Contrastive CoT</a>
+                            <a href="../../structured-cot.html">Structured CoT</a>
+                            <a href="../../faithful-cot.html">Faithful CoT</a>
+                            <a href="../../tab-cot.html">Tab-CoT</a>
+                            <a href="../../complexity-prompting.html">Complexity-Based</a>
+                            <a href="../../analogical-reasoning.html">Analogical Reasoning</a>
+                            <a href="../../step-back.html">Step-Back</a>
+                            <a href="../../thread-of-thought.html">Thread of Thought</a>
+                            <a href="../../memory-of-thought.html">Memory of Thought</a>
+                            <a href="../../active-prompting.html">Active Prompting</a>
+                            <a href="../../reversing-cot.html">Reversing CoT</a>
+                            <a href="../../uncertainty-cot.html">Uncertainty-Routed CoT</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="decomposition" role="tabpanel">
+                            <h4><a href="../../decomposition.html">Decomposition</a></h4>
+                            <a href="../../least-to-most.html">Least-to-Most</a>
+                            <a href="../../plan-and-solve.html">Plan-and-Solve</a>
+                            <a href="../../tree-of-thought.html">Tree of Thought</a>
+                            <a href="../../graph-of-thought.html">Graph of Thought</a>
+                            <a href="../../decomp.html">DECOMP</a>
+                            <a href="../../recursion-of-thought.html">Recursion of Thought</a>
+                            <a href="../../program-of-thought.html">Program of Thought</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="self-correction" role="tabpanel">
+                            <h4><a href="../../self-correction.html">Self-Correction</a></h4>
+                            <a href="../../self-refine.html">Self-Refine</a>
+                            <a href="../../self-verification.html">Self-Verification</a>
+                            <a href="../../chain-of-verification.html">Chain-of-Verification</a>
+                            <a href="../../critic.html">CRITIC</a>
+                            <a href="../../reflexion.html">Reflexion</a>
+                            <a href="../../self-calibration.html">Self-Calibration</a>
+                            <a href="../../cumulative-reasoning.html">Cumulative Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="ensemble-methods" role="tabpanel">
+                            <h4><a href="../../ensemble-methods.html">Ensemble Methods</a></h4>
+                            <a href="../../self-consistency.html">Self-Consistency</a>
+                            <a href="../../cosp.html">COSP</a>
+                            <a href="../../diverse-prompting.html">DiVeRSe</a>
+                            <a href="../../dense-prompting.html">DENSE</a>
+                            <a href="../../max-mutual-info.html">Max Mutual Info</a>
+                            <a href="../../universal-self-consistency.html">Universal Self-Consistency</a>
+                            <a href="../../meta-reasoning.html">Meta-Reasoning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="prompting-strategies" role="tabpanel">
+                            <h4><a href="../../prompting-strategies.html">Prompting Strategies</a></h4>
+                            <a href="../../react.html">ReAct</a>
+                            <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                            <a href="../../self-ask.html">Self-Ask</a>
+                            <a href="../../prompt-chaining.html">Prompt Chaining</a>
+                            <a href="../../role-prompting.html">Role Prompting</a>
+                            <a href="../../emotion-prompting.html">Emotion Prompting</a>
+                            <a href="../../style-prompting.html">Style Prompting</a>
+                            <a href="../../s2a.html">S2A</a>
+                            <a href="../../simtom.html">SimToM</a>
+                            <a href="../../rar.html">RaR</a>
+                            <a href="../../re2.html">RE2</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="code" role="tabpanel">
+                            <h4>Code</h4>
+                            <a href="../code/code-prompting.html">Code Prompting</a>
+                            <a href="../code/self-debugging.html">Self-Debugging</a>
+                            <a href="../code/structured-output.html">Structured Output</a>
+                            <a href="../code/program-synthesis.html">Program Synthesis</a>
+                            <a href="../code/code-explanation.html">Code Explanation</a>
+                            <a href="../code/code-review.html">Code Review</a>
+                            <a href="../code/test-generation.html">Test Generation</a>
+                            <a href="../code/sql-generation.html">SQL Generation</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="image" role="tabpanel">
+                            <h4>Image</h4>
+                            <a href="../image/image-prompting.html">Image Prompting</a>
+                            <a href="../image/multimodal-cot.html">Multimodal CoT</a>
+                            <a href="../image/visual-cot.html">Visual CoT</a>
+                            <a href="../image/image-as-text.html">Image-as-Text</a>
+                            <a href="../image/vqa.html">Visual QA</a>
+                            <a href="../image/image-gen-prompting.html">Image Generation</a>
+                            <a href="../image/negative-prompting.html">Negative Prompting</a>
+                            <a href="../image/controlnet-prompting.html">ControlNet</a>
+                            <a href="../image/inpainting-prompting.html">Inpainting</a>
+                            <a href="../image/style-transfer.html">Style Transfer</a>
+                            <a href="../image/image-to-image.html">Image-to-Image</a>
+                            <a href="../image/composition-prompting.html">Composition</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="audio" role="tabpanel">
+                            <h4>Audio</h4>
+                            <a href="../audio/audio-prompting.html">Audio Prompting</a>
+                            <a href="../audio/stt-prompting.html">Speech-to-Text</a>
+                            <a href="../audio/tts-prompting.html">Text-to-Speech</a>
+                            <a href="../audio/audio-classification.html">Audio Classification</a>
+                            <a href="../audio/music-gen.html">Music Generation</a>
+                            <a href="../audio/voice-cloning.html">Voice Cloning</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="video" role="tabpanel">
+                            <h4>Video</h4>
+                            <a href="../video/video-prompting.html">Video Prompting</a>
+                            <a href="../video/video-gen.html">Video Generation</a>
+                            <a href="../video/temporal-reasoning.html">Temporal Reasoning</a>
+                            <a href="../video/video-qa.html">Video QA</a>
+                            <a href="../video/video-captioning.html">Video Captioning</a>
+                            <a href="../video/video-editing.html">Video Editing</a>
+                        </div>
+                        <div class="mega-menu-section" data-tab="3d" role="tabpanel">
+                            <h4>3D</h4>
+                            <a href="../3d/3d-prompting.html">3D Prompting</a>
+                            <a href="../3d/3d-model-gen.html">3D Model Generation</a>
+                            <a href="../3d/scene-understanding.html">Scene Understanding</a>
+                            <a href="../3d/pose-estimation.html">Pose Estimation</a>
+                            <a href="../3d/point-cloud.html">Point Cloud</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">AI Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Framework Matcher</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../pages/resources.html" class="nav-link" aria-expanded="false">Resources</a>
+                    <div class="mega-menu mega-menu--multi-column">
+                        <div class="mega-menu-section">
+                            <h4>Guides</h4>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                            <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                            <a href="../../../pages/faq.html">FAQ</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>Principles</h4>
+                            <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                            <a href="../../../pages/universal-design.html">Universal Design</a>
+                            <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                            <a href="../../../pages/security.html">Security</a>
+                            <a href="../../../pages/performance.html">Performance</a>
+                        </div>
+                        <div class="mega-menu-section mega-menu-section--featured">
+                            <h4>AI &amp; ND</h4>
+                            <a href="../../../neurodivergence/index.html">ND Hub</a>
+                            <a href="../../../neurodivergence/adhd.html">AI for ADHD</a>
+                            <a href="../../../neurodivergence/autism.html">AI for Autism</a>
+                            <a href="../../../neurodivergence/dyslexia.html">AI for Dyslexia</a>
+                            <a href="../../../neurodivergence/tools.html">AI Tools</a>
+                            <a href="../../../neurodivergence/resources.html">ND Resources</a>
+                        </div>
+                        <div class="mega-menu-section">
+                            <h4>About</h4>
+                            <a href="../../../pages/about.html">About Praxis</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Discover</a>
+                    <span class="separator">/</span>
+                    <span class="current">3D Model Generation</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">3D Frameworks</span>
+                </div>
+                <h1 class="page-title fade-in">3D Model Generation</h1>
+                <p class="page-subtitle fade-in">Techniques for prompting AI systems to create three-dimensional objects, meshes, and complete models from text descriptions &mdash; transforming natural language into volumetric geometry, surface materials, and production-ready 3D assets through text-to-3D generation pipelines.</p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+        <!-- === HISTORICAL CONTEXT === -->
+        <section class="section">
+            <div class="container">
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Framework Context: 2022&ndash;2024</span>
+                        <p><strong>Introduced:</strong> Text-to-3D generation emerged from the convergence of diffusion models and neural 3D representations. DreamFusion (2022, Google Research) pioneered the use of 2D diffusion priors to optimize Neural Radiance Fields (NeRFs) from text prompts, demonstrating that a pre-trained image generation model could guide the creation of coherent 3D objects without any 3D training data. NVIDIA&rsquo;s Magic3D (2022) improved upon this with a coarse-to-fine optimization pipeline that produced higher-resolution meshes with sharper geometric detail. OpenAI contributed Point-E (2022) and Shap-E (2023), which offered significantly faster single-pass generation by directly predicting 3D point clouds and implicit representations rather than relying on expensive per-object optimization loops. These foundational approaches established the core paradigm: translating textual descriptions into volumetric structures that can be rendered from any viewpoint.</p>
+                        <p><strong>Modern LLM Status:</strong> 3D model generation is <strong>rapidly evolving</strong>, with newer systems producing increasingly detailed meshes, physically-based textures, and production-quality materials from natural language descriptions. Models like Instant3D, LRM, and their successors have dramatically reduced generation times from hours to seconds while improving geometric fidelity. The field is converging toward pipelines that combine large-scale 3D datasets with multi-view diffusion models, enabling single-image and text-conditioned 3D reconstruction that approaches the quality needed for game assets, product visualization, and rapid prototyping workflows. Prompt engineering for 3D generation remains distinct from 2D image prompting because the model must construct a spatially consistent object rather than a single viewpoint &mdash; requiring descriptions that convey volumetric form, surface properties, and geometric relationships from all angles simultaneously.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HISTORICAL CONTEXT -->
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Think Like a Sculptor Working With Words</h2>
+                        <p class="split-section__text">3D model generation prompting requires a fundamentally different mindset from 2D image prompting. When you write a prompt for an image, you describe what the camera sees from a single perspective. When you write a prompt for a 3D model, you must describe what an object <strong>is</strong> &mdash; its complete volumetric form, surface materials, geometric proportions, and how it exists in three-dimensional space. The prompt must convey enough spatial information that the model can construct a consistent object viewable from any angle, not just one flattering shot.</p>
+                        <p class="split-section__text"><strong>The core insight is that effective 3D prompts describe objects the way an engineer writes specifications or a sculptor describes a commission &mdash; in terms of form, proportion, material, and spatial relationships rather than lighting, mood, or composition.</strong> A prompt that produces a stunning 2D image of a sword may generate a poor 3D model because it describes cinematic lighting and dramatic angles rather than blade curvature, cross-guard geometry, grip texture, and pommel shape. The shift from &ldquo;how it looks in a picture&rdquo; to &ldquo;how it exists in space&rdquo; is the defining challenge of 3D prompt engineering.</p>
+                        <p class="split-section__text">Think of the difference between photographing a chair and building one. A photographer cares about the angle, lighting, and background. A furniture maker cares about joint types, leg taper ratios, seat depth, back angle, and wood grain direction. 3D model generation prompts need the furniture maker&rsquo;s vocabulary &mdash; describing the object as a physical thing that must be structurally coherent from every possible viewpoint.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Volumetric Thinking Changes Everything</span>
+                                <p>When a text-to-3D model receives a vague prompt, it must fill in enormous gaps about the object&rsquo;s back, underside, interior structure, and hidden surfaces &mdash; areas no 2D image would ever reveal. Without explicit guidance, models default to the most statistically common interpretation, often producing objects that look reasonable from the front but dissolve into amorphous geometry from the back or sides. Structured 3D prompts address this by specifying the object&rsquo;s <strong>complete spatial identity</strong>: silhouette from multiple angles, surface material behavior under different lighting conditions, topological complexity (is it solid, hollow, or perforated?), symmetry properties, and the relationship between subcomponents. The difference between a generic blob and a production-ready 3D asset comes down to whether the prompt communicates the object&rsquo;s full three-dimensional character or merely its most photogenic angle.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The 3D Generation Process</h2>
+                <p class="section-subtitle fade-in-up">Four steps from text description to three-dimensional model</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Describe the Object Form</h3>
+                            <p class="element-timeline__text">Begin by defining the object&rsquo;s overall shape, silhouette, and geometric structure. Think about how the object would appear if you rotated it 360 degrees on a turntable. Specify the primary volume (is it roughly spherical, cylindrical, boxy, or organic?), key structural features visible from multiple angles, and any distinctive geometric details like curves, edges, protrusions, or cavities. Avoid describing the object from a single viewpoint &mdash; instead, communicate its three-dimensional silhouette as completely as possible so the model can reconstruct a shape that holds up under inspection from any direction.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;A medieval war hammer with a cylindrical wooden shaft approximately four times the length of the head. The head is a rectangular steel block with a flat striking face on one side and a curved spike on the opposite side. The cross-section of the head is roughly square with beveled edges. A leather grip wraps around the lower third of the shaft.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Specify Materials and Surface</h3>
+                            <p class="element-timeline__text">Define the surface properties that will determine how the model looks when rendered under different lighting conditions. Specify material types (metal, wood, fabric, glass, stone), surface finish (polished, matte, brushed, rough, weathered), and any surface details like engravings, patterns, wear marks, or color variations. Material descriptions are critical for 3D models because the same geometry rendered in plastic versus steel versus ceramic will produce dramatically different visual results. Be explicit about how materials transition between different parts of the object.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;The head is forged dark steel with visible hammer marks and a slight blue-black patina from heat treatment. The shaft is ash wood with a natural grain pattern, lightly oiled to a satin finish. The leather grip is dark brown, wrapped in a criss-cross pattern with visible stitching where the wrapping ends. Metal rivets secure the head to the shaft.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Define Scale and Proportions</h3>
+                            <p class="element-timeline__text">Establish the relative sizes of the object&rsquo;s components and its overall scale. Proportional relationships are what make a 3D model look correct or uncanny &mdash; a chair with legs that are too thin, a character with hands that are too large, or a vehicle with mismatched wheel sizes will all feel wrong even if every individual component is well-modeled. Specify ratios between parts, overall dimensions if relevant, and any reference points that anchor the object&rsquo;s scale in reality. For stylized models, describe the intended proportional exaggeration explicitly.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;The hammer head is roughly the size of a closed fist, approximately 15 centimeters long by 8 centimeters wide. The shaft is 80 centimeters total, with the grip occupying the bottom 25 centimeters. The spike on the back of the head extends about 10 centimeters and curves slightly downward. The overall proportions should suggest a weapon meant for one-handed use.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Refine Through Multi-View Feedback</h3>
+                            <p class="element-timeline__text">Evaluate the generated model from multiple viewpoints and iterate on the prompt to correct any issues. Common problems in first-generation 3D models include the Janus problem (different faces appearing on opposite sides), geometric collapse on hidden surfaces, material inconsistency across viewing angles, and loss of fine detail in areas the model considered less important. Use follow-up prompts to address specific viewing angles where the model breaks down, add detail to under-specified regions, or adjust proportions that looked correct in 2D reference images but feel wrong in 3D space.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;The back side of the hammer head appears flat and featureless. Add a maker&rsquo;s mark &mdash; a small stamped anvil symbol recessed into the steel on the rear face. Also, the leather wrapping appears to end abruptly; add a brass ferrule ring where the grip meets the bare shaft to create a clean transition between the wrapped and unwrapped sections.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Why structured 3D prompts produce dramatically better models</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Vague Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>A cool spaceship</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Result</span>
+                                <p>An amorphous, vaguely aerodynamic shape with inconsistent surface detail. The front looks like a cockpit but the back dissolves into a featureless lump. Materials are a uniform grey with no differentiation between hull plating, windows, or engine components. The underside is completely flat. Viewing from the side reveals the object is nearly two-dimensional, like a cardboard cutout with slight depth.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>No geometry, no materials, no proportions &mdash; unusable as a 3D asset</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Structured 3D Prompt</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>A single-seat fighter spacecraft. Elongated fuselage with a pointed nose cone tapering from a hexagonal cross-section. Two swept-back wings angled at 35 degrees, each mounting a cylindrical engine nacelle at the tip. Hull is titanium grey with panel line details and recessed bolt patterns. Cockpit is a bubble canopy with amber-tinted glass, positioned one-third from the nose. Underside has retractable landing gear bays and ventral heat dissipation fins. Total length approximately three times the wingspan.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Result</span>
+                                <p>A geometrically coherent spacecraft with clear structural logic visible from every angle. The hexagonal fuselage cross-section creates defined panel surfaces. Wings, nacelles, and canopy are distinct components with proper material separation. The underside has modeled landing gear recesses. Surface detail includes panel lines, bolt patterns, and material transitions between titanium hull and amber glass.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Volumetric, multi-view consistent, material-aware, and production-viable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">3D Generation in Action</h2>
+                <p class="section-subtitle fade-in-up">See how structured prompts produce usable three-dimensional assets</p>
+
+                <div class="accordion fade-in-up" id="3d-model-gen-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Game Asset Generation</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Generate a 3D treasure chest for a fantasy RPG game. The chest is a rectangular box with a half-cylindrical lid that hinges at the back. Overall dimensions: 60 centimeters wide, 40 centimeters deep, 50 centimeters tall when closed. The body is dark oak planks running horizontally, secured by three iron bands that wrap around the front, top, and back. Each band is riveted with dome-head iron rivets spaced evenly. The front has an ornate iron lock plate shaped like a shield, with a keyhole in the center. Corner reinforcements are L-shaped iron brackets with a forged scroll pattern. The wood has deep grain texture with a dark walnut stain. The iron has a matte black finish with orange-brown rust forming in the crevices between bands and wood. The interior is lined with red velvet fabric. The chest should be game-ready at medium polygon density.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt succeeds because it describes the chest as a physical object with precise geometric construction &mdash; rectangular box, half-cylindrical lid, specific dimensions, and clear component relationships. Every surface has an assigned material with explicit finish details (dark oak with walnut stain, matte black iron with rust in crevices). The prompt specifies construction logic (planks running horizontally, bands wrapping around, L-shaped corner brackets) that gives the model structural coherence rather than just surface appearance. Including the interior lining and polygon density target ensures the output is production-appropriate rather than merely visually plausible from the outside.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Product Design Mockup</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Generate a 3D model of a modern desk lamp for industrial design review. The base is a flat circular disc, 18 centimeters in diameter and 1.5 centimeters thick, with a weighted bottom and a soft rubber pad underneath. A single articulated arm rises from the center of the base, consisting of two segments connected by a visible hinge joint. The lower segment is 30 centimeters, the upper segment is 25 centimeters. Each segment is a tapered aluminum extrusion with a rounded rectangular cross-section. The lamp head is a shallow cone, 12 centimeters in diameter, housing a frosted glass diffuser on the underside. All metal surfaces are brushed aluminum with a warm silver tone. The hinge joints are exposed stainless steel with visible hex bolt fasteners. A thin fabric-wrapped power cord exits from the bottom rear of the base. The lamp should appear as a photorealistic product rendering suitable for a catalog.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>This prompt translates industrial design language into text-to-3D instructions by specifying exact measurements, material finishes, and construction details that a product designer would include in a specification document. The articulated arm is described segment by segment with dimensions, the cross-section shape is defined (rounded rectangular), and material transitions are explicit (brushed aluminum body, stainless steel hinges, frosted glass diffuser, fabric cord). The prompt avoids subjective aesthetic terms like &ldquo;sleek&rdquo; or &ldquo;modern&rdquo; and instead lets the precise geometric and material descriptions communicate the design intent, producing a model that can be meaningfully evaluated for proportional balance and manufacturing feasibility.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Character Model Creation</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>&ldquo;Generate a 3D character model of an armored forest guardian for a strategy game. The character stands in a neutral A-pose at approximately 190 centimeters tall. The body proportions are heroic &mdash; broad shoulders roughly 2.5 head-widths across, with slightly elongated limbs. The armor is a mix of carved wooden plates and woven bark fiber. The chest plate is a single piece of curved hardwood with leaf-vein patterns carved into the surface, secured by braided vine straps over the shoulders. Pauldrons are layered wooden scales resembling overlapping oak leaves. Gauntlets are bark fiber wrapped over wooden splints. The helmet is an open-faced design with antler-like wooden branches extending upward from the temples. Skin visible at the face, neck, and joints has a weathered, bark-like texture in deep brown tones. Eyes are a pale amber color that appears to glow slightly. The character carries no weapons &mdash; hands are open at the sides. The model should be suitable for rigging with standard humanoid bone structure.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why This Works</span>
+                                    <p>Character models are among the most challenging 3D generation tasks because they must be convincing from every angle and maintain anatomical consistency. This prompt addresses the challenge by anchoring the character in a neutral A-pose (critical for rigging), specifying proportional relationships using head-width ratios rather than vague descriptors, and describing each armor component in terms of its construction and attachment method rather than just appearance. The material palette is coherent (wood, bark, vine) with explicit surface treatments (carved leaf-vein patterns, woven fiber, braided straps). By noting that the model should support standard humanoid rigging, the prompt ensures the output maintains clean topology suitable for animation rather than just static display.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use 3D Model Generation</h2>
+                <p class="section-subtitle fade-in-up">Best for creating volumetric assets from text when speed outweighs manual precision</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Rapid Prototyping and Concept Exploration</strong>
+                                    <p>Quickly generating multiple 3D concept variations from text descriptions to evaluate forms, proportions, and design directions before committing to manual modeling &mdash; turning a brainstorming session into tangible 3D shapes within minutes rather than days.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Game and Virtual World Asset Pipelines</strong>
+                                    <p>Populating game environments, virtual worlds, and interactive experiences with diverse 3D objects &mdash; props, furniture, weapons, vegetation, and environmental elements &mdash; where volume and variety matter more than hand-crafted perfection for every individual asset.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>E-Commerce and Product Visualization</strong>
+                                    <p>Creating 3D product models for online retail experiences, augmented reality try-on features, and interactive product configurators where customers need to see items from multiple angles without expensive photography studios or manual CAD modeling for every variant.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Educational and Scientific Visualization</strong>
+                                    <p>Generating 3D models of anatomical structures, molecular compounds, geological formations, historical artifacts, and engineering components for educational materials where visual accuracy and spatial understanding are essential for learning outcomes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Precision Engineering and Manufacturing</strong>
+                                    <p>When the 3D model must meet exact dimensional tolerances for CNC machining, 3D printing with tight specifications, or mechanical assembly &mdash; AI-generated models lack the precision needed for parts that must physically fit together within fractions of a millimeter.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Animation-Ready Character Rigs</strong>
+                                    <p>When you need clean topology optimized for skeletal animation, blend shapes, and deformation &mdash; AI-generated meshes often have irregular polygon flow that creates artifacts during animation without significant manual retopology and cleanup work.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Architectural and Structural Models</strong>
+                                    <p>When the 3D model must encode structural relationships, load-bearing calculations, material specifications, and building code compliance &mdash; parametric CAD tools and BIM software remain essential for architecture and civil engineering workflows.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Existing Asset Libraries</strong>
+                                    <p>When high-quality pre-made 3D models already exist for your needs in asset stores or internal libraries &mdash; generating from scratch is slower and lower quality than using professionally modeled assets that have already been optimized, rigged, and tested.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where 3D model generation delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Rapid Prototyping</h3>
+                        <p class="use-case-showcase__desc">Generating preliminary 3D models from product descriptions to evaluate design concepts, test proportional relationships, and create visual reference materials for stakeholder review &mdash; compressing weeks of manual modeling into hours of iterative text-to-3D refinement.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="2"/>
+                                <path d="M7 2v20"/>
+                                <path d="M17 2v20"/>
+                                <path d="M2 12h20"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Game Development</h3>
+                        <p class="use-case-showcase__desc">Populating game worlds with environmental props, weapons, armor, furniture, and decorative objects by generating batches of themed 3D assets from text descriptions, dramatically accelerating the asset creation pipeline for indie studios and prototype phases of larger productions.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                                <path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">E-Commerce Visualization</h3>
+                        <p class="use-case-showcase__desc">Creating interactive 3D product views for online retail platforms, allowing customers to rotate, zoom, and inspect products from any angle &mdash; replacing flat photography with immersive spatial experiences that reduce return rates and increase purchase confidence.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15.6 11.6L22 7v10l-6.4-4.5v-1z"/>
+                                <rect x="2" y="7" width="14" height="10" rx="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Film Pre-visualization</h3>
+                        <p class="use-case-showcase__desc">Building rough 3D assets for pre-visualization sequences in film and television production, enabling directors and cinematographers to block scenes, plan camera movements, and evaluate spatial relationships before committing to expensive physical set construction or detailed CG work.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Educational Models</h3>
+                        <p class="use-case-showcase__desc">Generating anatomical structures, molecular visualizations, geological cross-sections, historical artifacts, and mechanical diagrams as interactive 3D models for educational platforms &mdash; enabling students to explore spatial relationships that flat diagrams and textbook illustrations cannot convey.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Digital Twin Creation</h3>
+                        <p class="use-case-showcase__desc">Generating initial 3D representations of physical objects, equipment, and environments for digital twin applications in manufacturing, facility management, and IoT monitoring &mdash; providing a visual spatial framework that can be progressively refined with sensor data and precise measurements.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where 3D Model Generation Fits</h2>
+                <p class="section-subtitle fade-in-up">3D generation bridges flat image creation and fully interactive spatial experiences</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Image Generation</span>
+                        <span class="era-marker__title">2D Visual Creation</span>
+                        <span class="era-marker__desc">Text descriptions to flat images from a single viewpoint</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">3D Model Generation</span>
+                        <span class="era-marker__title">Volumetric Object Creation</span>
+                        <span class="era-marker__desc">Text descriptions to view-consistent 3D meshes and assets</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Scene Composition</span>
+                        <span class="era-marker__title">Spatial Arrangement</span>
+                        <span class="era-marker__desc">Combining multiple 3D objects into coherent environments</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Interactive 3D</span>
+                        <span class="era-marker__title">Dynamic Experiences</span>
+                        <span class="era-marker__desc">Physics, animation, and user interaction in generated worlds</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Bridge 2D and 3D Techniques for Stronger Results</div>
+                    <p>The most effective 3D generation prompts borrow principles from both 2D image prompting and traditional 3D modeling workflows. From image prompting, adopt the discipline of specifying materials, lighting response, and surface detail. From 3D modeling, adopt the practice of describing objects in terms of construction logic &mdash; how parts connect, what cross-sections look like, and how geometry flows from one region to another. Many text-to-3D systems internally generate multi-view images as an intermediate step, which means a prompt that produces strong, consistent 2D views from multiple angles will also produce a better 3D model. Consider including explicit multi-view descriptions in your prompt: &ldquo;from the front, the object appears as...; from the side, the silhouette shows...; from above, the outline is...&rdquo; to give the model clear geometric constraints from every direction.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Frameworks</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary 3D techniques</p>
+
+                <a href="3d-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">3D Prompting Basics</span>
+                        <span class="evolution-callout__desc">The foundational principles for communicating three-dimensional intent through text &mdash; covering spatial vocabulary, coordinate system conventions, viewpoint specification, and the core mental models that underpin all 3D prompting techniques.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="scene-understanding.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Complement</span>
+                        <span class="evolution-callout__title">Scene Understanding</span>
+                        <span class="evolution-callout__desc">Extends beyond single-object generation to analyze and reconstruct complete 3D scenes &mdash; understanding spatial relationships between multiple objects, room layouts, depth estimation, and the structural logic that connects objects within an environment.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="point-cloud.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Parallel</span>
+                        <span class="evolution-callout__title">Point Cloud Prompting</span>
+                        <span class="evolution-callout__desc">Works with 3D data in its rawest form &mdash; point clouds captured from LiDAR, photogrammetry, or depth sensors. Covers techniques for prompting AI models to classify, segment, reconstruct, and generate 3D geometry from unstructured point data.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Explore 3D Generation</h2>
+                        <p class="cta-corporate__text">Apply structured 3D prompting techniques to create volumetric assets or build spatial prompts with our tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../../../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>Master the Art of AI Communication theory through proven frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Discover</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">COSTAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness</h4>
+                    <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                    <a href="../../../tools/guidance.html">Prompt Builder</a>
+                    <a href="../../../tools/matcher.html">Framework Matcher</a>
+                    <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                    <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                    <a href="../../../quiz/index.html">Readiness Quiz</a>
+                    <a href="../../../patterns/index.html">Patterns Library</a>
+                    <a href="../../../pages/ai-safety.html">AI Safety</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="../../../pages/chatgpt-guide.html">ChatGPT Guide</a>
+                    <a href="../../../pages/faq.html">FAQ</a>
+                    <a href="../../../pages/glossary.html">Glossary</a>
+                    <a href="../../../pages/security.html">Security</a>
+                    <a href="../../../pages/performance.html">Performance</a>
+                    <a href="../../../pages/ai-for-everybody.html">AI for Everybody</a>
+                    <a href="../../../pages/universal-design.html">Universal Design</a>
+                    <a href="../../../pages/ai-assisted-building.html">AI Assisted</a>
+                    <a href="../../../pages/about.html">About</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everybody</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Bas</span></p>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK TO TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK TO TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>
