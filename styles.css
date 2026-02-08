@@ -273,10 +273,36 @@ p {
 
 /* Disable backdrop-filter when mobile menu is open —
    backdrop-filter creates a new containing block which breaks
-   position:fixed on the child .nav.active element */
+   position:fixed on the child .nav.active element.
+   Also force dark-theme nav styling so scrolled header doesn't
+   apply light-mode colors to the dark mobile menu panel. */
 body.menu-open .header {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
+    background: rgba(13, 17, 23, 0.98);
+}
+
+body.menu-open .header .nav-link {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+body.menu-open .header .logo {
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+body.menu-open .header .menu-toggle {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.menu-open .header .menu-toggle span {
+    background: white;
+}
+
+body.menu-open .header .search-trigger {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .header-inner {
@@ -6310,6 +6336,19 @@ body.menu-open {
     .nav-item.has-dropdown.is-active .mega-menu.mega-menu--tabbed {
         transform: none;
     }
+
+    /* Override scrolled header styles for tabbed menu on mobile */
+    .header.scrolled .mega-menu--tabbed {
+        background: transparent;
+    }
+
+    .header.scrolled .mega-menu--tabbed .mega-menu-section[data-tab] h4 {
+        color: var(--primary);
+    }
+
+    .header.scrolled .mega-menu--tabbed .mega-menu-section[data-tab] h4 a {
+        color: #fff;
+    }
 }
 
 /* /TABBED MEGA MENU */
@@ -6540,6 +6579,40 @@ body.menu-open {
         display: none;
     }
 
+    /* Override scrolled header styles — mobile menu is always dark */
+    .header.scrolled .mega-menu {
+        background: transparent;
+        border-color: transparent;
+        box-shadow: none;
+    }
+
+    .header.scrolled .mega-menu-section h4 {
+        color: rgba(255, 255, 255, 0.6);
+        border-bottom-color: transparent;
+    }
+
+    .header.scrolled .mega-menu-section a {
+        color: #fff;
+    }
+
+    .header.scrolled .mega-menu-section a:hover {
+        background: transparent;
+        color: #fff;
+    }
+
+    .header.scrolled .mega-menu-sidebar {
+        background: transparent;
+        border-right: none;
+    }
+
+    .header.scrolled .mega-menu-quick-links a {
+        color: #fff;
+        background: rgba(220, 53, 69, 0.15);
+    }
+
+    .header.scrolled .mega-menu-section--featured h4 {
+        color: rgba(255, 255, 255, 0.6);
+    }
 }
 
 /* ============================================
