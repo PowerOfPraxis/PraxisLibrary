@@ -56,40 +56,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
     // MOBILE NAV LINK ACCENT (Logo-style split color)
-    // First part white, last word red via <span> — matches </Praxis Library> pattern
+    // First part black, last word red via <span> — matches </Praxis Library> pattern
     // ==========================================
-    if (window.matchMedia('(max-width: 767px)').matches) {
-        /** Split text into white + red <span> (logo pattern).
-         *  Wraps both halves in a single container to prevent
-         *  flex spacing from creating gaps in single words. */
-        function splitNavAccent(target) {
-            var text = target.textContent.trim();
-            if (!text) return;
-            var words = text.split(' ');
-            var firstPart, secondPart;
-            if (words.length > 1) {
-                secondPart = words.pop();
-                firstPart = words.join(' ') + ' ';
-            } else if (text.indexOf('-') > 0) {
-                var hIdx = text.lastIndexOf('-');
-                firstPart = text.slice(0, hIdx + 1);
-                secondPart = text.slice(hIdx + 1);
-            } else {
-                var mid = Math.ceil(text.length / 2);
-                firstPart = text.slice(0, mid);
-                secondPart = text.slice(mid);
-            }
-            target.textContent = '';
-            var wrapper = document.createElement('span');
-            wrapper.className = 'nav-accent-wrap';
-            wrapper.appendChild(document.createTextNode(firstPart));
-            var accent = document.createElement('span');
-            accent.className = 'nav-accent';
-            accent.textContent = secondPart;
-            wrapper.appendChild(accent);
-            target.appendChild(wrapper);
+    /** Split text into base + red <span> (logo pattern).
+     *  Wraps both halves in a single container to prevent
+     *  flex spacing from creating gaps in single words. */
+    function splitNavAccent(target) {
+        var text = target.textContent.trim();
+        if (!text) return;
+        var words = text.split(' ');
+        var firstPart, secondPart;
+        if (words.length > 1) {
+            secondPart = words.pop();
+            firstPart = words.join(' ') + ' ';
+        } else if (text.indexOf('-') > 0) {
+            var hIdx = text.lastIndexOf('-');
+            firstPart = text.slice(0, hIdx + 1);
+            secondPart = text.slice(hIdx + 1);
+        } else {
+            var mid = Math.ceil(text.length / 2);
+            firstPart = text.slice(0, mid);
+            secondPart = text.slice(mid);
         }
+        target.textContent = '';
+        var wrapper = document.createElement('span');
+        wrapper.className = 'nav-accent-wrap';
+        wrapper.appendChild(document.createTextNode(firstPart));
+        var accent = document.createElement('span');
+        accent.className = 'nav-accent';
+        accent.textContent = secondPart;
+        wrapper.appendChild(accent);
+        target.appendChild(wrapper);
+    }
 
+    if (window.matchMedia('(max-width: 767px)').matches) {
         // Split top-level nav links (AI Foundations, Discover, etc.)
         document.querySelectorAll('.nav > a.nav-link, .nav-item.has-dropdown > a.nav-link').forEach(function(link) {
             splitNavAccent(link);
@@ -317,6 +317,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const label = h4.textContent.trim();
                 const slug = section.getAttribute('data-tab');
 
+                // Insert "Techniques" group label before first tab
+                if (i === 0) {
+                    var techLabel = document.createElement('span');
+                    techLabel.className = 'mega-menu-tab-label';
+                    techLabel.textContent = 'Techniques';
+                    tablist.appendChild(techLabel);
+                }
+
                 // Insert modality group divider + label before first modality tab
                 if (slug === 'code') {
                     var divider = document.createElement('div');
@@ -403,8 +411,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Mobile: start expanded, add Expand/Collapse All button
+            // Mobile: inject group headers, start expanded, add toggle button
             if (this.isMobile()) {
+                // Insert "Techniques" group header before first section
+                var techHeader = document.createElement('div');
+                techHeader.className = 'mega-menu-group-header';
+                techHeader.textContent = 'Techniques';
+                splitNavAccent(techHeader);
+                var firstSection = sections[0];
+                if (firstSection) {
+                    firstSection.parentNode.insertBefore(techHeader, firstSection);
+                }
+
+                // Insert "Modality" group header before code section
+                var codeSection = menu.querySelector('.mega-menu-section[data-tab="code"]');
+                if (codeSection) {
+                    var modalHeader = document.createElement('div');
+                    modalHeader.className = 'mega-menu-group-header';
+                    modalHeader.textContent = 'Modality';
+                    splitNavAccent(modalHeader);
+                    codeSection.parentNode.insertBefore(modalHeader, codeSection);
+                }
+
                 sections.forEach(s => s.classList.add('is-expanded'));
                 var toggleBtn = document.createElement('button');
                 toggleBtn.className = 'mega-menu-toggle-all';
