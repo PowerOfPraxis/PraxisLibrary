@@ -1,159 +1,124 @@
 # Praxis Project Handoff Document
 
-**Last Updated:** 2026-02-08 (Session 62 — handoff prep)
-**Last Commit:** `d395896` — Add prompt-mini legend component to CRISP concept section
-**Uncommitted Changes:** None
-**Current Phase:** Phase 6 — Prompt Infographic Rollout (106 pages remaining)
+**Last Updated:** 2026-02-08 (Session 63 — Glossary Sharding Architecture)
+**Last Commit:** `fe43f70` — docs: Session 62 handoff
+**Uncommitted Changes:** Major glossary architecture overhaul (see below)
+**Current Phase:** Phase 7 — World Source Archive (Glossary 15K+ Expansion)
 
 ---
 
 ## CURRENT STATE
 
-- **Phase 1: Glossary** — COMPLETE (2,141 terms)
+- **Phase 1: Glossary** — COMPLETE (2,141 terms, now sharded)
 - **Phase 2: Text Frameworks** — COMPLETE (52/52 pages, all 13-section template)
 - **Phase 3: Modality Frameworks** — COMPLETE (37/37 pages)
 - **Phase 4: Site Integration** — COMPLETE (4/4)
 - **Phase 5: Navigation UX** — COMPLETE
 - **Phase 6: Prompt Infographic Rollout** — IN PROGRESS (2/108 done: costar + crisp)
-- **Site totals:** 108 framework pages (all 13-section), 2,141+ glossary terms, 149 HTML files, 2,328 search entries
+- **Phase 7: World Source Archive** — IN PROGRESS (infrastructure complete, term farming next)
+- **Site totals:** 108 framework pages, 2,141 glossary terms (sharded), 149 HTML files, 187 site search entries
 
 ---
 
-## ACTIVE WORK: Phase 6 — Concept Section Redesign + Prompt Mini Legend
+## ACTIVE WORK: Phase 7 — World Source Archive (Glossary Expansion)
 
-### What Changed in Session 62
+### What Changed in Session 63
 
-**The original batch automation plan was ABANDONED.** User tested it (all 107 pages injected via Python scripts), but rejected the output as "cookie cutter" — 85/108 had identical 4-step structures with generic process descriptions instead of real prompt examples. All 107 injected pages were reverted via `git checkout`. The batch scripts were deleted.
+**Major glossary architecture overhaul** — Migrated from monolithic `data/glossary.json` (819KB, 2,141 terms) to **alphabetically sharded JSON** with lazy loading, compact search index, and Python build pipeline.
 
-**New approach: Hand-crafted, page-by-page redesign** with two components:
+### New Architecture
 
-1. **Concept section layout redesign** — Restructured from original split-section to a new layout
-2. **Prompt-mini legend** — A new compact CSS component inside the blue highlight-box
-
-### Approved Prototype: learn/crisp.html
-
-The CRISP page is the approved prototype for the new concept section format:
-
-**Layout (top to bottom):**
 ```
-┌─────────────────────────────────────────────────┐
-│  Section Title (full width)                      │
-│  Section Subtitle (full width)                   │
-├────────────────────┬────────────────────────────┤
-│  Paragraphs        │  Blue Highlight Box        │
-│  (split-section    │  (split-section__media)    │
-│   __content)       │                            │
-│                    │  ┌── Title ──────────────┐ │
-│  3 paragraphs of   │  │ Why Five Elements...  │ │
-│  explanatory text   │  │                      │ │
-│                    │  │ [paragraph text]      │ │
-│                    │  │                      │ │
-│                    │  │ ── prompt-mini ─────  │ │
-│                    │  │ ● C  Context          │ │
-│                    │  │    Background & sit.  │ │
-│                    │  │ ● R  Role             │ │
-│                    │  │    Who the AI...      │ │
-│                    │  │ ● I  Instructions     │ │
-│                    │  │    What you need...   │ │
-│                    │  │ ● S  Scope            │ │
-│                    │  │    Boundaries...      │ │
-│                    │  │ ● P  Parameters       │ │
-│                    │  │    Output format...   │ │
-│                    │  └──────────────────────┘ │
-├────────────────────┴────────────────────────────┤
+data/
+  glossary/
+    manifest.json              # ~2KB — metadata, per-letter counts, domain counts
+    search-compact.json        # ~930KB — lightweight search index for ALL terms
+    a.json through z.json      # Per-letter shards with full definitions
+  search-index.json            # ~100KB — site-wide search (NON-glossary entries only)
+  glossary.json                # DEPRECATED — kept as backup
+
+glossary_factory/
+  README.md                    # Pipeline documentation
+  migrate.py                   # One-time migration (DONE)
+  build_index.py               # Rebuild manifest + search-compact from shards
+  validate.py                  # Data integrity checks (9 passes)
+  add_terms.py                 # Batch addition from CSV/JSON seeds
+  seeds/                       # Seed files for term farming
+  output/                      # Staging area
 ```
 
-**Key CSS classes:**
-- `split-section--stretch` — Equal-height columns (not `--center` or `--align-start`)
-- `split-section__media` — Right column (has existing `align-self: stretch` support)
-- `.prompt-mini` — New component: vertical flex, fills remaining highlight-box space
-- `.prompt-mini__item` — Card rows: badge + text group, white bg, color-matched left border
-- `.prompt-mini__badge` — 32px circle, white letter, brand color bg, shadow
-- `.prompt-mini__text` — Flex column wrapper for label + description
-- `.prompt-mini__label` — 0.8rem bold label
-- `.prompt-mini__desc` — 0.7rem muted description
+### JavaScript Changes (app.js)
 
-**Key CSS additions (styles.css):**
-- `.split-section--stretch .highlight-box` — `height: 100%; margin: 0;` (fill column)
-- `.split-section--stretch .highlight-box__content` — `display: flex; flex-direction: column; height: 100%;`
-- `.prompt-mini` — `flex: 1; flex-direction: column; justify-content: center;`
-- `.prompt-mini__item` — Card with `background: rgba(255,255,255,0.7); border-left: 3px solid; border-radius;`
-- Color cycling: `nth-child(5n+1)` through `5n+5` for 5-letter acronyms (uses 4 brand colors + repeat)
+Replaced `loadGlossaryFromJSON()` with `GlossaryManager` system:
+- `initGlossarySystem()` — Main init: loads manifest, loads all shards in parallel, inits filters/search
+- `loadGlossaryLetter(letter)` — Fetch and cache single shard on demand
+- `loadGlossaryCompactIndex()` — Lazy-load search-compact.json on first search
+- `renderGlossaryTerms(letter, terms)` — DOM API rendering (CSP compliant)
+- `scrollToGlossaryTarget(target)` — Content-visibility-aware scrolling
+- `letterFromTermId(termId)` — Extract letter from term ID
 
-### What Each Page Needs (Rollout Pattern)
+Filter categories expanded from 8 to 12: All, Fundamentals, Models, Training, Algorithms, Datasets, Hardware, Prompting, Safety, Products, History, Technical
 
-For each of the remaining 106 pages:
+Site-wide search (`searchPraxis`) now loads both `search-index.json` (187 site entries) and `search-compact.json` (glossary terms) in parallel.
 
-1. **Read the page** — Understand the framework (acronym? steps? how many components?)
-2. **Restructure concept section** — Title/subtitle full-width above, `split-section--stretch`
-3. **Move highlight-box** to `split-section__media` (right column) if not already there
-4. **Craft prompt-mini HTML** — Letter badges for acronyms (CRISPE), number/icon badges for step-based frameworks
-5. **Write definitions** — Short, plain-English description for each component/step
-6. **Ensure equal-height columns** — Content fills naturally
+### Term Domain Taxonomy (6 domains)
 
-### Two Types of Prompt-Mini
+| Domain | Count | Description |
+|--------|-------|-------------|
+| models | 521 | Named architectures, model families |
+| algorithms | 231 | Math, optimization, algorithmic mechanics |
+| hardware | 230 | GPUs, TPUs, chips, compute infrastructure |
+| safety | 207 | Ethics, alignment, policy, regulation |
+| history | 153 | Pre-2010 AI milestones, pioneers, systems |
+| datasets | 121 | Datasets, benchmarks, evaluation suites |
+| general | 678 | Terms that don't fit a specific domain |
 
-**Acronym frameworks (2 remaining):** CRISPE (6 letters), already have letter→label mappings
-**Step-based frameworks (104 remaining):** Need creative adaptation — each step gets a badge, label, and short definition summarizing what that step contributes to the prompt
+### Next Steps (Term Farming)
 
-### Progress Tracker
+Goal: 15,000+ verified terms. Current: 2,141. Remaining: ~13,000.
 
-| Category | Total | Done | Remaining |
-|----------|-------|------|-----------|
-| Structured Frameworks | 5 | 2 (costar, crisp) | 3 (crispe, constrained-output, context-structure) |
-| Getting Started | 2 | 0 | 2 |
-| Reasoning & CoT | 15 | 0 | 15 |
-| Decomposition | 8 | 0 | 8 |
-| Self-Correction | 7 | 0 | 7 |
-| In-Context Learning | 13 | 0 | 13 |
-| Ensemble Methods | 7 | 0 | 7 |
-| Prompting Strategies | 14 | 0 | 14 |
-| Code | 8 | 0 | 8 |
-| Image | 12 | 0 | 12 |
-| Audio | 6 | 0 | 6 |
-| Video | 6 | 0 | 6 |
-| 3D | 5 | 0 | 5 |
-| **TOTAL** | **108** | **2** | **106** |
+Batch workflow:
+1. Prepare seed CSV (term, definition, tags, domain)
+2. Run: `python glossary_factory/add_terms.py seeds/your-seed.csv`
+3. Run: `python glossary_factory/validate.py`
+4. Run: `python glossary_factory/build_index.py`
 
-### Next Up
-Start with remaining **Structured Frameworks** (3 pages), then Getting Started (2), then proceed category by category.
+Planned batches (500 terms each): Algorithms → Models → History → Safety → Datasets → Hardware → repeat
 
-### Original Infographic Component (Still in CSS)
-The `.prompt-infographic` BEM component (~line 25397 in styles.css, ~155 lines) from the CO-STAR prototype still exists and is used on `learn/costar.html`. This is a DIFFERENT component from `.prompt-mini` — it's the larger row-based infographic with header badge row, labeled fields, and footer. It may be adapted or replaced later as the rollout evolves.
+---
+
+## PAUSED: Phase 6 — Prompt Mini Legend Rollout (106 pages remaining)
+
+Prototype: `learn/crisp.html`. See `.claude/plans/infographic-rollout-plan.md` for details.
+Progress: 2/108 done (costar + crisp).
 
 ---
 
 ## PREVIOUS SESSION SUMMARIES
 
-### Session 62 (2026-02-08) — Concept Section Redesign + Prompt Mini
-- Committed Session 61 uncommitted changes (styles.css, costar.html, about.html): `b993c8c`
-- CSS generalization: cycling 4n color pattern for infographic component: `01c41e9`
-- Attempted batch automation (Python scripts → inject all 107 pages) — user REJECTED as cookie-cutter
-- Reverted all 107 injected pages, deleted batch scripts
-- Pivoted to hand-crafted page-by-page approach
-- Redesigned CRISP concept section: title/subtitle full-width, split-section--stretch, equal-height columns
-- Created `.prompt-mini` CSS component: circular badges, card rows, color-matched borders, stacked label+desc
-- Multiple layout iterations based on user feedback (stacked → side-by-side → stretch → mini legend in highlight-box)
-- Committed: `d395896`
+### Session 63 (2026-02-08) — Glossary Sharding Architecture
+- Pivoted from Phase 6 (prompt-mini rollout) to Phase 7 (World Source Archive)
+- Created glossary_factory/ with 4 Python scripts: migrate.py, build_index.py, validate.py, add_terms.py
+- Migrated 2,141 terms from monolithic glossary.json → 26 alphabetical shard files
+- Created manifest.json (metadata) and search-compact.json (lightweight search index)
+- Replaced loadGlossaryFromJSON() with new GlossaryManager system in app.js
+- Expanded glossary filter categories from 8 → 12 (added Models, Algorithms, Datasets, Hardware, History)
+- Fixed handleNoResults() emoji violation (removed emoji, switched to DOM API)
+- Refactored selectResult() to use shared scrollToGlossaryTarget() helper
+- Stripped 2,141 glossary entries from search-index.json (1.5MB → 100KB)
+- Updated searchPraxis() to merge search-index.json + search-compact.json results
+- Added CSS loading/error states for glossary sections
+- Updated glossary.html filter bar (12 buttons) and term counts
+- Validated all data: 0 errors, 0 warnings
 
-### Session 61 (2026-02-08) — Infographic Prototype + Plan
-- Created `.prompt-infographic` CSS component
-- Built CO-STAR prototype on learn/costar.html (6 rows, letter badges)
-- Iterated design: dark→light, rainbow→neutral, large→compact, order swap
-- Created infographic rollout plan for all 108 pages
-
-### Session 60 (2026-02-08) — Split-Color Branding + Mobile Buttons
-- Split-color branding across all mega-menu text (desktop + mobile)
-- Glassy mobile quick link buttons (2x2 grid)
-- Commit: `cb805e7`
-
-### Sessions 53-59 — See `.claude/COMPLETED.md`
+### Sessions 53-62 — See `.claude/COMPLETED.md`
 
 ---
 
 ## INFO — Optional/Advisory
 
-- CSS ~612KB / JS 533KB — consider minification for production
+- CSS ~612KB / JS ~540KB — consider minification for production
+- `data/glossary.json` (819KB) is DEPRECATED but kept as backup — can be deleted once sharded system is verified in production
 - Ghost reference to `learn/advanced.html` in app.js (doesn't exist)
 - 4 tools not in mega-menu (bias, jailbreak, specificity, temperature) — linked from tools/index.html
 - Files pending user decision: `2406.06608v6.pdf` (3.1MB), `assets/images/praxishome.png` (707KB), `build_meta.py`
@@ -178,7 +143,8 @@ The `.prompt-infographic` BEM component (~line 25397 in styles.css, ~155 lines) 
 
 ## FUTURE WORK
 
-- **Phase 6: Prompt Mini Rollout** — ACTIVE (see above, 106 pages remaining)
+- **Phase 7: Term Farming** — Add 500-term batches across 6 domains toward 15K goal
+- **Phase 6: Prompt Mini Rollout** — PAUSED (106 pages remaining)
 - Performance optimization / CSS+JS minification (see `.claude/parkinglot.md`)
 - User analytics or feedback mechanisms (see `.claude/parkinglot.md`)
 - Additional framework pages for further emerging techniques
@@ -195,6 +161,8 @@ The `.prompt-infographic` BEM component (~line 25397 in styles.css, ~155 lines) 
 | `.claude/testing-procedures.md` | Site Audit playbook (9 phases) |
 | `.claude/plans/FrameworkOverhaul.md` | Master plan — Phases 1-6 + session log |
 | `.claude/plans/infographic-rollout-plan.md` | Phase 6 original plan (batch approach — ABANDONED) |
+| `.claude/plans/dreamy-foraging-raven.md` | Phase 7 World Source Archive plan (glossary 15K expansion) |
+| `glossary_factory/README.md` | Glossary build pipeline documentation |
 | `learn/costar.html` | Infographic prototype (`.prompt-infographic` component) |
 | `learn/crisp.html` | **Prompt-mini prototype** (`.prompt-mini` component — CURRENT FORMAT) |
 | `learn/self-ask.html` | Canonical 13-section template (depth 1) |
@@ -257,8 +225,17 @@ _public_html/
 |       +-- video/          # Video frameworks (6 pages)
 |       +-- 3d/             # 3D frameworks (5 pages)
 +-- data/
-|   +-- glossary.json       # 2,141 AI terms
-|   +-- search-index.json   # 2,328 search entries
+|   +-- glossary.json       # DEPRECATED — monolithic backup (2,141 terms)
+|   +-- search-index.json   # 187 site search entries (glossary stripped)
+|   +-- glossary/
+|       +-- manifest.json       # Metadata, per-letter/domain counts
+|       +-- search-compact.json # Lightweight search index (all terms)
+|       +-- a.json through z.json  # Per-letter term shards
++-- glossary_factory/       # Python build pipeline
+|   +-- migrate.py          # One-time migration (DONE)
+|   +-- build_index.py      # Rebuild manifest + search-compact
+|   +-- validate.py         # Data integrity checks
+|   +-- add_terms.py        # Batch term addition from seeds
 +-- pages/                  # 12 content pages
 +-- tools/                  # 12 AI readiness tools
 +-- neurodivergence/        # 6 ND pages

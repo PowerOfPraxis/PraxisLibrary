@@ -10964,12 +10964,12 @@ body.menu-open {
 }
 
 .glossary-filter-btn {
-    padding: 8px 16px;
+    padding: 6px 14px;
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     background: white;
     color: var(--text);
-    font-size: 0.875rem;
+    font-size: 0.82rem;
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition-fast);
@@ -11043,12 +11043,6 @@ body.menu-open {
     text-align: center;
     padding: var(--space-xl);
     color: var(--text-muted);
-}
-
-.glossary-no-results-icon {
-    font-size: 3rem;
-    margin-bottom: var(--space-md);
-    opacity: 0.5;
 }
 
 .glossary-no-results h3 {
@@ -11326,6 +11320,30 @@ body.menu-open {
 .glossary-section {
     content-visibility: auto;
     contain-intrinsic-size: auto 500px;
+}
+
+/* Loading state — skeleton shimmer while shard is being fetched */
+.glossary-section--loading .glossary-terms {
+    min-height: 200px;
+    background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-card) 50%, var(--bg-secondary) 75%);
+    background-size: 200% 100%;
+    animation: glossary-skeleton-shimmer 1.5s ease-in-out infinite;
+    border-radius: var(--radius-md);
+}
+
+@keyframes glossary-skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Error state — failed to load shard */
+.glossary-section--error .glossary-terms::before {
+    content: "Failed to load terms. Click the letter to retry.";
+    display: block;
+    text-align: center;
+    padding: var(--space-lg);
+    color: var(--text-muted);
+    font-size: 0.875rem;
 }
 
 .glossary-terms {

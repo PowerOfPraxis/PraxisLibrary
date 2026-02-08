@@ -3,7 +3,7 @@
 **Project:** Comprehensive expansion of Praxis Library frameworks based on The Prompt Report
 **Source:** arXiv:2406.06608v6 - "The Prompt Report: A Systematic Survey of Prompting Techniques"
 **Start Date:** 2026-02-04
-**Last Updated:** 2026-02-08 (Session 62)
+**Last Updated:** 2026-02-08 (Session 63)
 
 ---
 
@@ -18,7 +18,8 @@
    - Phase 3: Modality Frameworks (37 pages)
    - Phase 4: Site Integration
    - Phase 5: Navigation UX Overhaul
-   - Phase 6: Prompt Infographic Rollout (108 pages) — **ACTIVE**
+   - Phase 6: Prompt Infographic Rollout (108 pages) — PAUSED
+   - Phase 7: World Source Archive (Glossary 15K+) — **ACTIVE**
 6. [Session Log](#session-log)
 
 ---
@@ -779,7 +780,7 @@ Resources (mega-menu)
 
 ## Phase 6: Prompt Infographic Rollout
 
-**Priority:** ACTIVE — Current work
+**Priority:** PAUSED
 **Status:** IN PROGRESS (2/108 done — costar.html + crisp.html)
 **Plan:** `.claude/plans/infographic-rollout-plan.md` (original batch plan — ABANDONED)
 **Current approach:** Hand-crafted page-by-page with `.prompt-mini` component
@@ -807,7 +808,92 @@ Add a prompt-mini legend to the concept section of ALL 108 framework pages. The 
 
 ---
 
+## Phase 7: World Source Archive (Glossary Expansion)
+
+**Priority:** ACTIVE — Current work
+**Status:** Infrastructure COMPLETE. Term farming NEXT.
+**Plan:** `.claude/plans/dreamy-foraging-raven.md` (full architecture plan)
+**Pipeline:** `glossary_factory/README.md` (build pipeline docs)
+
+### Overview
+Expand the Praxis Library glossary from 2,141 terms to 15,000+ verified AI terms. Covers 6 taxonomy domains: Models (~4K), Hardware (~1.5K), Datasets/Benchmarks (~2.5K), Algorithms (~3K), History (~2K), Safety/Policy (~2K).
+
+### Infrastructure (COMPLETE — Session 63)
+1. **Alphabetical sharding** — Migrated monolithic `data/glossary.json` (819KB) to 26 per-letter JSON shards in `data/glossary/`
+2. **Compact search index** — `search-compact.json` (930KB) with abbreviated field names for fast cross-shard search
+3. **Manifest** — `manifest.json` with per-letter counts, domain counts, metadata
+4. **Python build pipeline** — `glossary_factory/` with migrate.py, build_index.py, validate.py, add_terms.py
+5. **JavaScript refactor** — Replaced `loadGlossaryFromJSON()` with `initGlossarySystem()` + lazy shard loading
+6. **Expanded filters** — 12 categories (was 8): All, Fundamentals, Models, Training, Algorithms, Datasets, Hardware, Prompting, Safety, Products, History, Technical
+7. **Site search split** — `search-index.json` stripped to 187 site-only entries (was 2,328); `searchPraxis()` merges both indexes
+
+### Term Domain Taxonomy
+| Domain | Current | Target | Description |
+|--------|---------|--------|-------------|
+| models | 521 | ~4,000 | Named architectures, model families |
+| algorithms | 231 | ~3,000 | Math, optimization, algorithmic mechanics |
+| hardware | 230 | ~1,500 | GPUs, TPUs, chips, compute |
+| safety | 207 | ~2,000 | Ethics, alignment, policy, regulation |
+| history | 153 | ~2,000 | Pre-2010 milestones, pioneers, systems |
+| datasets | 121 | ~2,500 | Datasets, benchmarks, evaluation suites |
+| general | 678 | — | Uncategorized (to be redistributed) |
+
+### Term Farming Workflow
+```
+1. Prepare seed CSV: term, definition, tags(semicolons), domain, link(optional)
+2. python glossary_factory/add_terms.py seeds/your-seed.csv
+3. python glossary_factory/validate.py
+4. python glossary_factory/build_index.py
+5. Verify on glossary page → git commit
+```
+
+### Planned Batches (500 terms each)
+Batch 1: Algorithms → Batch 2: Models → Batch 3: History → Batch 4: Safety → Batch 5: Datasets → Batch 6: Hardware → repeat
+
+### Quality Rules
+- Every term must be a **specific, verifiable entity** — no generic fluff
+- Bad: "Fast Computer" — Good: "NVIDIA H100 Tensor Core GPU"
+- Term variants are separate entries (e.g., "GitHub" and "GitHub Copilot" each get full definitions)
+- Definitions must be factual, no speculative content
+- Minimum 20 chars per definition, tags required
+
+---
+
 # SESSION LOG
+
+## Session 63 (2026-02-08)
+
+**Focus:** Glossary Sharding Architecture (Phase 7 Infrastructure)
+**Status:** COMPLETE (infrastructure done, ready for term farming)
+
+**Completed:**
+- [x] **Created glossary_factory/** — README.md + 4 Python scripts (migrate.py, build_index.py, validate.py, add_terms.py)
+- [x] **Migrated 2,141 terms** — monolithic glossary.json → 26 alphabetical shard files
+- [x] **Generated manifest.json** — per-letter counts, domain counts, categories
+- [x] **Generated search-compact.json** — 930KB lightweight search index (abbreviated fields: t, tg, d, x, l, k)
+- [x] **Validated all data** — 9-pass validation, fixed 3 empty-tag terms (term-ai, term-ai-readiness, term-context)
+- [x] **Replaced loadGlossaryFromJSON()** — New `initGlossarySystem()` with parallel shard loading, manifest-driven counts
+- [x] **Added new functions** — `renderGlossaryTerms()`, `loadGlossaryLetter()`, `loadGlossaryCompactIndex()`, `scrollToGlossaryTarget()`, `letterFromTermId()`
+- [x] **Expanded filter categories** — 8 → 12 (added Models, Algorithms, Datasets, Hardware, History; renamed Architecture→Models)
+- [x] **Fixed handleNoResults()** — Removed emoji, switched from innerHTML to DOM API, classList instead of style.display
+- [x] **Refactored selectResult()** — Uses shared `scrollToGlossaryTarget()` helper (eliminated duplicated scroll logic)
+- [x] **Stripped search-index.json** — Removed 2,141 glossary entries (1.5MB → 100KB, 187 site entries remain)
+- [x] **Updated searchPraxis()** — Loads both search-index.json + search-compact.json in parallel, merges results
+- [x] **Added CSS** — `.glossary-section--loading` shimmer animation, `.glossary-section--error` state
+- [x] **Updated glossary.html** — 12 filter buttons, corrected term counts (2145→2141)
+- [x] **Updated HANDOFF.md, COMPLETED.md, FrameworkOverhaul.md**
+
+**Key files changed:**
+- `app.js` — Lines 7830-8145 (new glossary system), 8155-8180 (expanded filters), 8262-8283 (no-results fix), 8548-8572 (selectResult), 9429-9520 (searchPraxis merge)
+- `styles.css` — Lines 10966-10977 (compact buttons), 11326-11349 (loading/error states)
+- `pages/glossary.html` — Filter bar (12 buttons), term counts
+- `data/search-index.json` — Stripped to 187 entries
+- `data/glossary/` — 26 shard files + manifest.json + search-compact.json
+- `glossary_factory/` — 4 Python scripts + README.md
+
+**Commits:** None yet (uncommitted changes)
+
+---
 
 ## Session 62 (2026-02-08)
 
