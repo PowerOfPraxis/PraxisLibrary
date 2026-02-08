@@ -60,6 +60,8 @@
 
 14. **Mobile nav Resources formatting fix** — Resources dropdown had desktop centering (`transform: translateX(-50%); left: 50%`) that wasn't reset on mobile, causing misalignment at bottom of mobile menu. Added mobile override to reset transform and position.
 
+15. **Mobile nav scrolled color inversion fix** — `.header.scrolled` styles applied light-mode colors (white backgrounds, dark text) to the mega-menu, overriding the dark mobile menu panel. Links became invisible (white text on white background). Fix: added `body.menu-open .header` overrides to force dark background, white logo/nav-link/toggle/search-trigger colors, and `@media (max-width: 767px)` overrides for `.header.scrolled .mega-menu`, `.mega-menu-section a/h4`, `.mega-menu-sidebar`, `.mega-menu-quick-links a`, and `.mega-menu--tabbed` to maintain dark theme on mobile regardless of scroll state.
+
 ### Updated Counters
 | Counter | Old | New |
 |---------|-----|-----|
