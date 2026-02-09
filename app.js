@@ -7938,7 +7938,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showLetterLoadingState(letter);
 
         try {
-            var response = await fetch(resolveInternalUrl('data/glossary/' + letter + '.json'));
+            var response = await fetch(resolveInternalUrl('data/glossary/' + letter + '.json') + '?v=' + (window._glossaryVersion || Date.now()));
             if (!response.ok) {
                 throw new Error('Failed to load shard: ' + letter + '.json');
             }
@@ -7978,7 +7978,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         glossaryCompactLoading = true;
         try {
-            var response = await fetch(resolveInternalUrl('data/glossary/search-compact.json'));
+            var response = await fetch(resolveInternalUrl('data/glossary/search-compact.json') + '?v=' + (window._glossaryVersion || Date.now()));
             if (!response.ok) throw new Error('Failed to load compact index');
             glossaryCompactIndex = await response.json();
             return glossaryCompactIndex;
@@ -8064,9 +8064,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // 1. Load manifest
-            var manifestResponse = await fetch(resolveInternalUrl('data/glossary/manifest.json'));
+            var manifestResponse = await fetch(resolveInternalUrl('data/glossary/manifest.json') + '?v=' + Date.now());
             if (!manifestResponse.ok) throw new Error('Failed to load manifest');
             glossaryManifest = await manifestResponse.json();
+            window._glossaryVersion = glossaryManifest.totalTerms || Date.now();
 
             // 2. Update page counts from manifest
             var totalTerms = glossaryManifest.totalTerms || 0;
@@ -9271,20 +9272,23 @@ document.addEventListener('DOMContentLoaded', () => {
             // Build comprehensive list of paths to try
             const pathsToTry = [];
 
+            // Cache buster to prevent stale search data
+            const cacheBust = '?v=' + Date.now();
+
             // Absolute URL with origin (most reliable)
-            pathsToTry.push(`${origin}/data/search-index.json`);
+            pathsToTry.push(`${origin}/data/search-index.json${cacheBust}`);
 
             // If in subdirectory, try parent path
             if (isSubdirectory) {
-                pathsToTry.push('../data/search-index.json');
+                pathsToTry.push('../data/search-index.json' + cacheBust);
             }
 
             // Root-relative path
-            pathsToTry.push('/data/search-index.json');
+            pathsToTry.push('/data/search-index.json' + cacheBust);
 
             // Relative paths
-            pathsToTry.push('data/search-index.json');
-            pathsToTry.push('./data/search-index.json');
+            pathsToTry.push('data/search-index.json' + cacheBust);
+            pathsToTry.push('./data/search-index.json' + cacheBust);
 
             let response = null;
             let lastError = null;
@@ -9317,7 +9321,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Update count display if modal exists
             const countEl = document.getElementById('search-modal-count');
             if (countEl) {
-                countEl.textContent = `${PRAXIS_SEARCH_INDEX.length} indexed items`;
+                countEl.textContent = `${PRAXIS_SEARCH_INDEX.length + (glossaryCompactIndex ? glossaryCompactIndex.length : 0)} indexed items`;
             }
         } catch (error) {
             console.error('[Praxis Search] Failed to load index:', error);
@@ -9713,7 +9717,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="search-modal-footer-hint"><kbd>↵</kbd> Open</span>
                             <span class="search-modal-footer-hint"><kbd>Esc</kbd> Close</span>
                         </div>
-                        <span class="search-modal-footer-count" id="search-modal-count">${searchIndexLoaded ? PRAXIS_SEARCH_INDEX.length + ' indexed items' : 'Loading index...'}</span>
+                        <span class="search-modal-footer-count" id="search-modal-count">${searchIndexLoaded ? (PRAXIS_SEARCH_INDEX.length + (glossaryCompactIndex ? glossaryCompactIndex.length : 0)) + ' indexed items' : 'Loading index...'}</span>
                     </div>
                 </div>
             </div>
@@ -9797,7 +9801,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>Results grouped by category with highlighted matches</p>
                     </div>
                 `;
-                countEl.textContent = `${PRAXIS_SEARCH_INDEX.length} indexed items`;
+                countEl.textContent = `${PRAXIS_SEARCH_INDEX.length + (glossaryCompactIndex ? glossaryCompactIndex.length : 0)} indexed items`;
             }
             return;
         }
@@ -9953,12 +9957,12 @@ document.addEventListener('DOMContentLoaded', () => {
             this.overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            // Start loading search index and update display when done
-            loadSearchIndex().then(() => {
-                // Update the count display after loading
+            // Start loading search index and glossary compact index, update display when done
+            Promise.all([loadSearchIndex(), loadGlossaryCompactIndex()]).then(() => {
+                // Update the count display after both indexes loaded
                 const countEl = document.getElementById('search-modal-count');
-                if (countEl && searchIndexLoaded && PRAXIS_SEARCH_INDEX.length > 0) {
-                    countEl.textContent = `${PRAXIS_SEARCH_INDEX.length} indexed items`;
+                if (countEl && searchIndexLoaded) {
+                    countEl.textContent = `${PRAXIS_SEARCH_INDEX.length + (glossaryCompactIndex ? glossaryCompactIndex.length : 0)} indexed items`;
                 }
             });
 
