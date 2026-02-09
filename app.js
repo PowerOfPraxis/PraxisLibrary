@@ -155,21 +155,43 @@ document.addEventListener('DOMContentLoaded', () => {
         var ctaSection = ctaCorp.closest('section');
         if (!ctaSection) return;
 
-        var bar = document.createElement('div');
-        bar.className = 'ai-reminder-bar';
-        var strong = document.createElement('strong');
-        strong.textContent = 'Responsible AI: ';
-        bar.appendChild(strong);
-        bar.appendChild(document.createTextNode(
-            'Always verify AI-generated content before use \u2014 AI can produce confident but incorrect responses. ' +
-            'When using AI professionally, disclosure is best practice. 48 US states now require transparency in key areas.'
-        ));
+        var banner = document.createElement('div');
+        banner.className = 'ai-ethics-banner';
+
+        // Icon area -- shield via CSS
+        var iconWrap = document.createElement('div');
+        iconWrap.className = 'ai-ethics-banner__icon';
+        banner.appendChild(iconWrap);
+
+        // Content area
+        var content = document.createElement('div');
+        content.className = 'ai-ethics-banner__content';
+
+        var heading = document.createElement('h3');
+        heading.className = 'ai-ethics-banner__heading';
+        heading.textContent = 'Practice Responsible AI';
+        content.appendChild(heading);
+
+        var body = document.createElement('p');
+        body.className = 'ai-ethics-banner__body';
+        body.textContent = 'Always verify AI-generated content before use. AI systems can produce ' +
+            'confident but incorrect responses. When using AI professionally, transparent ' +
+            'disclosure is both best practice and increasingly a legal requirement.';
+        content.appendChild(body);
+
+        var note = document.createElement('p');
+        note.className = 'ai-ethics-banner__note';
+        note.textContent = '48 US states now require AI transparency in key areas. ' +
+            'Critical thinking remains your strongest tool against misinformation.';
+        content.appendChild(note);
+
+        banner.appendChild(content);
 
         var wrapper = document.createElement('section');
         wrapper.className = 'section';
         var container = document.createElement('div');
         container.className = 'container';
-        container.appendChild(bar);
+        container.appendChild(banner);
         wrapper.appendChild(container);
         ctaSection.parentNode.insertBefore(wrapper, ctaSection);
     })();
@@ -573,16 +595,93 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // HEADER SCROLL EFFECT
+    // HEADER SCROLL EFFECT + ETHICS TICKER
     // ==========================================
     let headerTicking = false;
+    let headerWasScrolled = false;
+
+    /** Ethics ticker messages -- cycled on each scroll transition */
+    const ethicsTickerMessages = [
+        'Always verify AI-generated content before sharing or acting on it.',
+        'AI systems reflect the biases present in their training data -- question outputs critically.',
+        'Transparent AI disclosure builds trust -- 48 US states now require it in key areas.',
+        'Human oversight remains essential -- AI assists decisions but should not make them alone.',
+        'Prompt engineering is powerful -- use it responsibly and ethically.',
+        'AI-generated text can sound confident while being factually wrong -- always fact-check.',
+        'Consider who is affected by AI outputs before deploying them at scale.',
+        'Data privacy matters -- never input sensitive personal information into public AI tools.',
+        'AI literacy is a civic skill -- understanding AI helps you navigate the modern world.',
+        'Responsible AI use means knowing what AI cannot do as well as what it can.',
+        'Algorithmic fairness requires active effort -- test for bias across demographics.',
+        'AI models do not understand context the way humans do -- supply it explicitly.',
+        'When AI makes a mistake the human using it is still accountable for the outcome.',
+        'Synthetic media and deepfakes erode trust -- verify sources before believing content.',
+        'Open-source AI promotes transparency -- but openness alone does not guarantee safety.',
+        'Environmental cost of training large models is real -- use AI resources thoughtfully.',
+        'AI accessibility means designing tools that work for people of all abilities.',
+        'Informed consent matters -- tell people when they are interacting with AI systems.',
+        'Critical thinking is the best defense against AI-generated misinformation.',
+        'AI ethics is not optional -- it is a professional responsibility for every practitioner.',
+        'Guardrails and safety filters exist for a reason -- circumventing them creates real harm.',
+        'Documentation and reproducibility are ethical obligations in AI research.',
+        'The goal of AI should be augmenting human capability -- not replacing human judgment.',
+        'Evaluate AI tools by their impact on the most vulnerable populations first.'
+    ];
+    let ethicsTickerIndex = 0;
+    let ethicsTickerEl = null;
+    let ethicsTickerTextEl = null;
+
+    /** Create the ticker DOM element (IIFE to avoid var leaks) */
+    (function() {
+        if (!header) return;
+        var ticker = document.createElement('div');
+        ticker.className = 'ethics-ticker';
+        ticker.setAttribute('role', 'status');
+        ticker.setAttribute('aria-live', 'polite');
+
+        var inner = document.createElement('span');
+        inner.className = 'ethics-ticker__text';
+
+        var label = document.createElement('span');
+        label.className = 'ethics-ticker__label';
+        label.textContent = 'AI Ethics';
+
+        var msg = document.createElement('span');
+        msg.textContent = ethicsTickerMessages[0];
+
+        inner.appendChild(label);
+        inner.appendChild(msg);
+        ticker.appendChild(inner);
+        header.parentNode.insertBefore(ticker, header.nextSibling);
+
+        ethicsTickerEl = ticker;
+        ethicsTickerTextEl = msg;
+    })();
 
     function updateHeader() {
-        if (window.scrollY > 50) {
+        var isScrolled = window.scrollY > 50;
+
+        if (isScrolled) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
+
+        // Show/hide ethics ticker and cycle message on transition
+        if (ethicsTickerEl) {
+            if (isScrolled && !headerWasScrolled) {
+                // Transition: transparent -> scrolled -- show ticker with next message
+                ethicsTickerEl.style.top = header.offsetHeight + 'px';
+                ethicsTickerTextEl.textContent = ethicsTickerMessages[ethicsTickerIndex];
+                ethicsTickerIndex = (ethicsTickerIndex + 1) % ethicsTickerMessages.length;
+                ethicsTickerEl.classList.add('ethics-ticker--visible');
+            } else if (!isScrolled && headerWasScrolled) {
+                // Transition: scrolled -> transparent -- hide ticker
+                ethicsTickerEl.classList.remove('ethics-ticker--visible');
+            }
+        }
+
+        headerWasScrolled = isScrolled;
         headerTicking = false;
     }
 
