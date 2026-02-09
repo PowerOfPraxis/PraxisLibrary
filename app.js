@@ -12599,3 +12599,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ReactCycleAnimation.init();
 });
+
+// === CHART SCROLL ANIMATIONS ===
+/** Animate bar-chart-fill widths and gauge-circle conic-gradients on scroll */
+(function initChartAnimations() {
+    var bars = document.querySelectorAll('.bar-chart-fill[data-width]');
+    var gauges = document.querySelectorAll('.gauge-circle[data-value]');
+    if (!bars.length && !gauges.length) return;
+
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            if (el.classList.contains('bar-chart-fill')) {
+                el.style.width = el.getAttribute('data-width') + '%';
+            } else if (el.classList.contains('gauge-circle')) {
+                el.style.setProperty('--gauge-value', el.getAttribute('data-value'));
+            }
+            observer.unobserve(el);
+        });
+    }, { threshold: 0.2 });
+
+    bars.forEach(function(bar) {
+        bar.style.width = '0';
+        observer.observe(bar);
+    });
+    gauges.forEach(function(gauge) {
+        gauge.style.setProperty('--gauge-value', '0');
+        observer.observe(gauge);
+    });
+})();
