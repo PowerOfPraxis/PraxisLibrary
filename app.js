@@ -674,13 +674,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 ethicsTickerTextEl.textContent = ethicsTickerMessages[ethicsTickerIndex];
                 ethicsTickerIndex = (ethicsTickerIndex + 1) % ethicsTickerMessages.length;
                 ethicsTickerEl.classList.add('ethics-ticker--visible');
-                // Push header down by ticker height
-                header.style.setProperty('--ticker-height', ethicsTickerEl.offsetHeight + 'px');
+                // Push header + all sticky elements down by ticker height
+                var tickerH = ethicsTickerEl.offsetHeight + 'px';
+                header.style.setProperty('--ticker-height', tickerH);
                 header.classList.add('header--ticker-offset');
+                document.documentElement.style.setProperty('--ticker-offset', tickerH);
             } else if (!isScrolled && headerWasScrolled) {
-                // Transition: scrolled -> transparent -- hide ticker
+                // Transition: scrolled -> transparent -- hide ticker + reset offsets
                 ethicsTickerEl.classList.remove('ethics-ticker--visible');
                 header.classList.remove('header--ticker-offset');
+                document.documentElement.style.setProperty('--ticker-offset', '0px');
             }
         }
 
