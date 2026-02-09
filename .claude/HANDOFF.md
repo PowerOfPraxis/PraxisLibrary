@@ -1,8 +1,8 @@
 # Praxis Project Handoff Document
 
-**Last Updated:** 2026-02-08 (Session 66 — Batch 005 Datasets)
-**Last Commit:** `ed93abd` — feat: Batch 005 Datasets — 606 terms added (3,678 total)
-**Uncommitted Changes:** None
+**Last Updated:** 2026-02-08 (Session 67 — Batch 006 Hardware)
+**Last Commit:** (pending commit)
+**Uncommitted Changes:** Batch 006 Hardware terms + COMPLETED.md untracked
 **Current Phase:** Phase 7 — World Source Archive (Glossary 15K+ Expansion)
 **Working Directory:** `C:\Users\basro\Music\PraxisLibrary`
 
@@ -16,8 +16,8 @@
 - **Phase 4: Site Integration** — COMPLETE (4/4)
 - **Phase 5: Navigation UX** — COMPLETE
 - **Phase 6: Prompt Infographic Rollout** — PAUSED (2/108 done: costar + crisp)
-- **Phase 7: World Source Archive** — IN PROGRESS (4 batches done, term farming active)
-- **Site totals:** 108 framework pages, 3,678 glossary terms (sharded), 149 HTML files, 187 site search entries
+- **Phase 7: World Source Archive** — IN PROGRESS (6 batches done, term farming active)
+- **Site totals:** 108 framework pages, 4,170 glossary terms (sharded), 149 HTML files, 187 site search entries
 
 ---
 
@@ -32,15 +32,15 @@
 | 003 | History | 464 | 290 | 174 | 0 | `183fc50` |
 | 004 | Safety | 304 | 297 | 7 | 0 | `16a1da6` |
 | 005 | Datasets | 634 | 606 | 28 | 0 | `ed93abd` |
+| 006 | Hardware | 538 | 492 | 46 | 0 | (pending) |
 
-**Running total:** 2,141 → 2,357 → 2,335 (post-dedup) → 2,485 → 2,775 → 3,072 → 3,678
+**Running total:** 2,141 → 2,357 → 2,335 (post-dedup) → 2,485 → 2,775 → 3,072 → 3,678 → 4,170
 
 ### Next Steps (Term Farming)
 
-Goal: 15,000+ verified terms. Current: 3,678. Remaining: ~11,322.
+Goal: 15,000+ verified terms. Current: 4,170. Remaining: ~10,830.
 
 **Next batches (planned order):**
-- Batch 006: Hardware (~500 terms) — GPUs, TPUs, chips, infrastructure
 - Batch 007+: Second round — Models, Algorithms, General (larger batches to fill gaps)
 
 **Batch workflow:**
@@ -79,6 +79,7 @@ glossary_factory/              # LOCAL ONLY — not on GitHub
     batch-003-history.csv      # 464 terms (290 added)
     batch-004-safety.csv       # 304 terms (297 added)
     batch-005-datasets.csv     # 634 terms (606 added)
+    batch-006-hardware.csv     # 538 terms (492 added)
 ```
 
 ### Term Domain Taxonomy (7 domains)
@@ -87,11 +88,11 @@ glossary_factory/              # LOCAL ONLY — not on GitHub
 |--------|-------|--------|-------------|
 | general | 672 | — | Uncategorized terms |
 | models | 665 | ~4,000 | Named architectures, model families |
+| datasets | 725 | ~2,500 | Datasets, benchmarks, evaluation suites |
+| hardware | 718 | ~1,500 | GPUs, TPUs, chips, compute, infrastructure |
 | safety | 503 | ~2,000 | Ethics, alignment, policy, regulation |
 | algorithms | 445 | ~3,000 | Math, optimization, algorithmic mechanics |
 | history | 442 | ~2,000 | Pre-2010 milestones, pioneers, systems |
-| hardware | 226 | ~1,500 | GPUs, TPUs, chips, compute |
-| datasets | 725 | ~2,500 | Datasets, benchmarks, evaluation suites |
 
 ---
 
@@ -102,11 +103,12 @@ glossary_factory/              # LOCAL ONLY — not on GitHub
 **Tracked on GitHub (public):**
 - `assets/`, `data/`, `foundations/`, `learn/`, `neurodivergence/`, `pages/`, `patterns/`, `quiz/`, `tools/`
 - `.htaccess`, `app.js`, `favicon.svg`, `index.html`, `LICENSE`, `README.md`, `styles.css`
-- `.claude/` (project docs, plans, handoff)
+- `.claude/` (project docs, plans, handoff -- except COMPLETED.md)
 - `.gitignore`
 
 **Local only (not on GitHub):**
 - `glossary_factory/` (Python scripts + seeds)
+- `.claude/COMPLETED.md` (archived work -- local only)
 - `CLAUDE.md`, `*.py`, `*.pdf`, build scripts
 - `data/infographic-content.json`, `assets/images/Alan Turing.png`
 
@@ -120,6 +122,14 @@ Progress: 2/108 done (costar + crisp).
 ---
 
 ## PREVIOUS SESSION SUMMARIES
+
+### Session 67 (2026-02-08) — Batch 006 Hardware
+- Batch 006 Hardware: 538 CSV terms, 492 added, 46 dupes skipped, 0 invalid
+- Coverage: GPUs (NVIDIA/AMD/Intel architectures), TPUs (v1-v5), AI accelerators (startups, Chinese chips), memory systems (HBM, GDDR, emerging), networking (topologies, collective comms), fabrication (lithography, packaging, foundries), data centers (supercomputers, cooling, power), edge devices (Jetson, TinyML, mobile SoCs), historical computers (ENIAC to exascale), quantum/neuromorphic/photonic computing, distributed training strategies, inference optimization, semiconductor industry
+- Hardware domain grew from 226 to 718 terms
+- Untracked COMPLETED.md from git (kept local)
+- Repository renamed to basrosario/PraxisLibrary
+- Total glossary: 4,170 terms (up from 3,678)
 
 ### Session 66 (2026-02-08) — Batch 005 Datasets
 - Batch 005 Datasets: 634 CSV terms, 606 added, 28 dupes skipped, 0 invalid
@@ -179,7 +189,7 @@ Progress: 2/108 done (costar + crisp).
 
 ## FUTURE WORK
 
-- **Phase 7: Term Farming** — Continue 500-term batches (Datasets → Hardware → round 2) toward 15K goal
+- **Phase 7: Term Farming** — Continue 500-term batches (round 2: Models, Algorithms, General) toward 15K goal
 - **Phase 6: Prompt Mini Rollout** — PAUSED (106 pages remaining)
 - Performance optimization / CSS+JS minification (see `.claude/parkinglot.md`)
 - User analytics or feedback mechanisms (see `.claude/parkinglot.md`)
@@ -192,7 +202,7 @@ Progress: 2/108 done (costar + crisp).
 | Document | Purpose |
 |----------|---------|
 | `.claude/HANDOFF.md` | Current state (this file) |
-| `.claude/COMPLETED.md` | Archived completed work |
+| `.claude/COMPLETED.md` | Archived completed work (local only) |
 | `.claude/SiteFrameworks.md` | Architecture bible — WHY behind every decision |
 | `.claude/testing-procedures.md` | Site Audit playbook (9 phases) |
 | `.claude/plans/FrameworkOverhaul.md` | Master plan — Phases 1-7 + session log |
@@ -272,7 +282,7 @@ PraxisLibrary/
 +-- neurodivergence/        # 6 ND pages
 +-- .claude/
     +-- HANDOFF.md           # THIS FILE
-    +-- COMPLETED.md         # Archive of all completed work
+    +-- COMPLETED.md         # Archive of all completed work (LOCAL ONLY)
     +-- SiteFrameworks.md    # Architecture bible (1,200+ lines)
     +-- testing-procedures.md # Site Audit playbook (9 phases)
     +-- parkinglot.md        # Deferred work items
