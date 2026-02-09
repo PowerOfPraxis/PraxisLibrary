@@ -1,8 +1,8 @@
 # Praxis Project Handoff Document
 
 **Last Updated:** 2026-02-08 (Session 67 — Batch 006 Hardware)
-**Last Commit:** (pending commit)
-**Uncommitted Changes:** Batch 006 Hardware terms + COMPLETED.md untracked
+**Last Commit:** `3cca2c6` — feat: Batch 006 Hardware — 492 terms added (4,170 total)
+**Uncommitted Changes:** None
 **Current Phase:** Phase 7 — World Source Archive (Glossary 15K+ Expansion)
 **Working Directory:** `C:\Users\basro\Music\PraxisLibrary`
 
@@ -32,7 +32,7 @@
 | 003 | History | 464 | 290 | 174 | 0 | `183fc50` |
 | 004 | Safety | 304 | 297 | 7 | 0 | `16a1da6` |
 | 005 | Datasets | 634 | 606 | 28 | 0 | `ed93abd` |
-| 006 | Hardware | 538 | 492 | 46 | 0 | (pending) |
+| 006 | Hardware | 538 | 492 | 46 | 0 | `3cca2c6` |
 
 **Running total:** 2,141 → 2,357 → 2,335 (post-dedup) → 2,485 → 2,775 → 3,072 → 3,678 → 4,170
 
