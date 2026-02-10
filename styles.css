@@ -1467,17 +1467,19 @@ body.menu-open .header .search-trigger {
     left: 100%;
 }
 
+/* Secondary Button - light background default */
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.4);
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.25);
 }
 
 .btn-secondary:active {
@@ -1498,6 +1500,25 @@ body.menu-open .header .search-trigger {
 
 .btn-secondary:hover::after {
     left: 100%;
+}
+
+/* Secondary Button - dark context overrides */
+.hero .btn-secondary,
+.cta-card .btn-secondary,
+.cta-corporate--dark .btn-secondary,
+.cta-corporate--gradient .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.hero .btn-secondary:hover,
+.cta-card .btn-secondary:hover,
+.cta-corporate--dark .btn-secondary:hover,
+.cta-corporate--gradient .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 .btn-outline {
@@ -28562,8 +28583,8 @@ h3 + .nav-cards--compact {
     top: 14px;
     width: 10px;
     height: 10px;
-    background: var(--bg-primary);
-    border: 2px solid var(--border-color);
+    background: #f59e0b;
+    border: 2px solid #f59e0b;
     border-radius: 50%;
     z-index: 2;
 }
@@ -28572,8 +28593,8 @@ h3 + .nav-cards--compact {
 .history-event__marker {
     position: relative;
     z-index: 2;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: #f59e0b;
+    border: 1px solid #f59e0b;
     border-bottom: none;
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     padding: var(--space-sm) var(--space-lg);
@@ -28585,7 +28606,7 @@ h3 + .nav-cards--compact {
     align-items: center;
     font-size: 0.8125rem;
     font-weight: 700;
-    color: var(--text-muted);
+    color: white;
     letter-spacing: 0.02em;
 }
 
@@ -28593,7 +28614,7 @@ h3 + .nav-cards--compact {
     position: relative;
     z-index: 1;
     background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(245, 158, 11, 0.3);
     border-top: none;
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     padding: var(--space-lg);
@@ -28830,16 +28851,16 @@ h3 + .nav-cards--compact {
 
 /* Framework events - research papers */
 .history-event--framework .history-event__marker {
-    background: rgba(59, 130, 246, 0.08);
+    background: #3b82f6;
     border-color: #3b82f6;
 }
 
 .history-event--framework .history-event__year {
-    color: #3b82f6;
+    color: white;
 }
 
 .history-event--framework::before {
-    background: rgba(59, 130, 246, 0.1);
+    background: #3b82f6;
     border-color: #3b82f6;
 }
 
@@ -28847,31 +28868,39 @@ h3 + .nav-cards--compact {
     color: #3b82f6;
 }
 
+.history-event--framework .history-event__content {
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
 /* Period events - spans of time */
 .history-event--period .history-event__marker {
-    background: var(--bg-secondary);
+    background: #6b7280;
+    border-color: #6b7280;
     border-style: dashed;
     border-bottom: none;
 }
 
 .history-event--period .history-event__year {
-    color: var(--text-muted);
+    color: white;
 }
 
 .history-event--period::before {
+    background: #6b7280;
+    border-color: #6b7280;
     border-style: dashed;
 }
 
 .history-event--period .history-event__content {
     background: var(--bg-secondary);
+    border-color: rgba(107, 114, 128, 0.3);
     border-style: dashed;
     border-top: none;
 }
 
 /* Current era */
 .history-event--current .history-event__marker {
-    background: linear-gradient(135deg, var(--primary) 0%, #ff6b7a 100%);
-    border-color: var(--primary);
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    border-color: #10b981;
 }
 
 .history-event--current .history-event__year {
@@ -28879,19 +28908,19 @@ h3 + .nav-cards--compact {
 }
 
 .history-event--current::before {
-    background: var(--primary);
-    border-color: var(--primary);
+    background: #10b981;
+    border-color: #10b981;
     animation: pulse-glow 2s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
-    50% { box-shadow: 0 0 0 8px rgba(220, 53, 69, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
 }
 
 .history-event--current .history-event__content {
-    background: linear-gradient(135deg, rgba(220, 53, 69, 0.03) 0%, var(--bg-card) 100%);
-    border-color: rgba(220, 53, 69, 0.3);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.03) 0%, var(--bg-card) 100%);
+    border-color: rgba(16, 185, 129, 0.3);
 }
 
 /* Era Frameworks Directory ---- */
