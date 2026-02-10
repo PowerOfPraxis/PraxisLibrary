@@ -286,12 +286,11 @@ p {
     z-index: 1001;
     background: #1a1a2e;
     color: #fff;
-    text-align: center;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.03em;
     line-height: 1.4;
-    padding: 6px var(--space-md);
+    padding: 8px 0;
     transform: translateY(-100%);
     transition: transform 0.35s ease;
     pointer-events: none;
@@ -303,10 +302,13 @@ p {
     pointer-events: auto;
 }
 
-.ethics-ticker__text {
-    max-width: 900px;
+.ethics-ticker__inner {
+    display: flex;
+    align-items: center;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 var(--space-sm);
+    padding: 0 var(--space-md);
+    position: relative;
 }
 
 .ethics-ticker__label {
@@ -314,12 +316,15 @@ p {
     background: #fff;
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.6rem;
+    font-size: 0.74rem;
     letter-spacing: 0.1em;
-    padding: 2px 8px;
+    padding: 3px 10px;
     border-radius: 2px;
-    margin-right: 10px;
-    vertical-align: middle;
+    line-height: 1.3;
+    flex-shrink: 0;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
 }
 
 .ethics-ticker__label-ai {
@@ -328,6 +333,37 @@ p {
 
 .ethics-ticker__label-ethics {
     color: #DC3545;
+}
+
+.ethics-ticker__eyeball {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #DC3545;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+.ethics-ticker__msg {
+    flex: 1;
+    text-align: right;
+    padding: 0;
+}
+
+.ethics-ticker__cursor {
+    font-weight: 400;
+    color: #fff;
+    animation: tickerBlink 0.7s step-end infinite;
+}
+
+@keyframes tickerBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 [data-theme="dark"] .ethics-ticker {
@@ -6480,55 +6516,18 @@ body.menu-open {
     transform: translateX(-50%) translateY(0);
 }
 
-/* === TABBED MEGA MENU === */
+/* === CATEGORY MEGA MENU === */
 
-/* Nav items with tabbed menus position relative to header, not self */
-.nav-item.has-dropdown:has(.mega-menu--tabbed) {
-    position: static;
-}
-
-/* Container: fixed width, side-by-side tab + panel layout */
-.mega-menu--tabbed {
-    display: flex;
-    width: 680px;
-    max-width: calc(100vw - 2rem);
-    padding: 0;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    transform: translateY(10px);
-}
-
-.nav-item.has-dropdown:hover .mega-menu.mega-menu--tabbed,
-.nav-item.has-dropdown.is-active .mega-menu.mega-menu--tabbed {
-    transform: translateY(0);
-}
-
-/* Right column: sidebar wrapper (quick links + tab buttons) */
-.mega-menu-sidebar {
-    flex: 0 0 190px;
-    order: 2;
-    display: flex;
-    flex-direction: column;
-    border-left: 1px solid var(--border-color);
-    background: rgba(0, 0, 0, 0.03);
-    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-}
-
-[data-theme="dark"] .mega-menu-sidebar {
-    background: rgba(255, 255, 255, 0.03);
-}
-
-/* Quick links: Glossary, AI Foundations, Prompt Basics, Facts & Fictions pinned at top of sidebar */
-.mega-menu-quick-links {
+/* Quick links row at top of category menu */
+.mega-menu--categories .mega-menu-quick-links {
     display: flex;
     flex-direction: column;
     padding: var(--space-sm) var(--space-sm) var(--space-xs);
     border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--space-xs);
 }
 
-.mega-menu-quick-links a {
+.mega-menu--categories .mega-menu-quick-links a {
     display: block;
     padding: var(--space-xs) var(--space-sm);
     font-size: 0.875rem;
@@ -6538,311 +6537,48 @@ body.menu-open {
     transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-.mega-menu-quick-links a .nav-accent {
-    color: var(--primary);
-}
-
-.mega-menu-quick-links a:hover {
+.mega-menu--categories .mega-menu-quick-links a:hover {
     background: rgba(220, 53, 69, 0.1);
     color: var(--primary);
 }
 
-/* Tab buttons container */
-.mega-menu-tabs {
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-sm) 0;
+/* Category group (Techniques, Modality) */
+.mega-menu-group {
+    padding: var(--space-xs) 0;
 }
 
-[data-theme="dark"] .mega-menu-tabs {
-    background: transparent;
+.mega-menu-group + .mega-menu-group {
+    border-top: 1px solid var(--border-color);
 }
 
-/* Individual tab button */
-.mega-menu-tab {
+/* Group label */
+.mega-menu-group__label {
     display: block;
-    width: 100%;
-    padding: var(--space-sm) var(--space-md);
-    text-align: left;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    background: transparent;
-    border: none;
-    border-right: 3px solid transparent;
-    cursor: pointer;
-    transition: color var(--transition-fast), background var(--transition-fast),
-                border-color var(--transition-fast);
-    white-space: nowrap;
-    font-family: inherit;
-    line-height: 1.4;
-}
-
-.mega-menu-tab:hover {
-    color: var(--primary);
-    background: rgba(220, 53, 69, 0.05);
-}
-
-.mega-menu-tab.is-active {
-    color: var(--primary);
-    font-weight: 600;
-    border-right-color: var(--primary);
-    background: rgba(220, 53, 69, 0.08);
-}
-
-/* Tab group divider + label (separates text tabs from modality tabs) */
-.mega-menu-tab-divider {
-    height: 1px;
-    background: var(--border-color);
-    margin: var(--space-xs) var(--space-md);
-}
-
-.mega-menu-tab-label {
-    display: block;
-    font-size: 0.6rem;
+    font-size: 0.625rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--text-primary);
-    padding: var(--space-xs) var(--space-md) 0;
+    color: var(--text-muted, rgba(0, 0, 0, 0.45));
+    padding: var(--space-xs) var(--space-sm) 0;
 }
 
-.mega-menu-tab-label .nav-accent {
+/* Category link */
+.mega-menu-group__link {
+    display: block;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.mega-menu-group__link:hover {
+    background: rgba(220, 53, 69, 0.1);
     color: var(--primary);
 }
 
-/* Right column: content panels (sections are direct flex children) */
-.mega-menu--tabbed .mega-menu-section[data-tab] {
-    flex: 1;
-    min-width: 0;
-    display: none;
-    padding: var(--space-md);
-    columns: 2;
-    column-gap: var(--space-md);
-}
-
-.mega-menu--tabbed .mega-menu-section[data-tab].is-active {
-    display: block;
-}
-
-/* Panel heading spans both columns */
-.mega-menu--tabbed .mega-menu-section[data-tab] h4 {
-    display: block;
-    column-span: all;
-}
-
-/* Prevent links from splitting across columns */
-.mega-menu--tabbed .mega-menu-section[data-tab] a {
-    break-inside: avoid;
-}
-
-/* Scrolled header: tabbed menu adjustments */
-.header.scrolled .mega-menu-sidebar {
-    background: rgba(0, 0, 0, 0.02);
-    border-left-color: rgba(0, 0, 0, 0.1);
-}
-
-
-/* Hidden on desktop (injected by JS on mobile) */
-.mega-menu-toggle-all,
-.mega-menu-group-header {
-    display: none;
-}
-
-/* Tabbed mega-menu mobile accordion ---- */
-@media (max-width: 767px) {
-    /* Override generic mobile grid: tabbed menu is a vertical accordion */
-    .mega-menu.mega-menu--tabbed {
-        display: block;
-        width: auto;
-        max-width: none;
-        padding: 0;
-        grid-template-columns: none;
-        columns: initial;
-    }
-
-    /* Hide desktop tab buttons on mobile */
-    /* Hide tab buttons on mobile (accordion replaces them) */
-    .mega-menu--tabbed .mega-menu-tabs {
-        display: none;
-    }
-
-    /* Sidebar: show quick links, hide border */
-    .mega-menu--tabbed .mega-menu-sidebar {
-        border-right: none;
-        background: transparent;
-        border-radius: 0;
-    }
-
-    /* Quick links: visible on mobile as styled CTA buttons (2x2 grid) */
-    .mega-menu--tabbed .mega-menu-quick-links {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: var(--space-xs);
-        padding: var(--space-xs) var(--space-sm);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-        margin-bottom: var(--space-xs);
-    }
-
-    .mega-menu--tabbed .mega-menu-quick-links a {
-        flex: 1 1 calc(50% - var(--space-xs));
-        min-width: calc(50% - var(--space-xs));
-        text-align: center;
-        padding: var(--space-xs) var(--space-sm);
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: white;
-        background: linear-gradient(180deg, rgba(220, 53, 69, 1) 0%, rgba(190, 40, 55, 0.95) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: var(--radius-md);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12);
-    }
-
-    .mega-menu--tabbed .mega-menu-quick-links a:nth-child(even) {
-        background: linear-gradient(180deg, rgba(30, 35, 42, 0.92) 0%, rgba(13, 17, 23, 0.95) 100%);
-    }
-
-    .mega-menu--tabbed .mega-menu-quick-links a:hover {
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 6px rgba(0, 0, 0, 0.18);
-    }
-
-    /* Sections are blocks, not display:contents */
-    .mega-menu--tabbed .mega-menu-section[data-tab] {
-        display: block;
-        padding: 0;
-        max-height: none;
-        overflow: visible;
-        columns: 1;
-        column-gap: 0;
-    }
-
-    /* Show h4 as tappable accordion header */
-    .mega-menu--tabbed .mega-menu-section[data-tab] h4 {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: var(--space-xs) var(--space-sm);
-        margin: 0;
-        cursor: pointer;
-        font-size: 0.86rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-        color: var(--text-primary);
-        user-select: none;
-    }
-
-    /* Accent color in h4 (JS-injected, matches logo pattern) */
-    .mega-menu--tabbed .mega-menu-section[data-tab] h4 .nav-accent {
-        color: var(--primary);
-    }
-
-    /* Clickable headers (h4 containing a link) — dark base, red accent */
-    .mega-menu--tabbed .mega-menu-section[data-tab] h4 a {
-        color: var(--text-primary) !important;
-        text-decoration: none;
-    }
-
-    .mega-menu--tabbed .mega-menu-section[data-tab] h4 a .nav-accent {
-        color: var(--primary) !important;
-    }
-
-    /* Chevron indicator */
-    .mega-menu--tabbed .mega-menu-section[data-tab] h4::after {
-        content: '+';
-        font-size: 1rem;
-        font-weight: 400;
-        color: rgba(0, 0, 0, 0.35);
-        transition: transform 0.2s ease;
-        margin-left: var(--space-sm);
-    }
-
-    .mega-menu--tabbed .mega-menu-section[data-tab].is-expanded h4::after {
-        content: '\2212';
-    }
-
-    .mega-menu--tabbed .mega-menu-section[data-tab].is-expanded h4 {
-        color: var(--text-primary);
-    }
-
-    .mega-menu--tabbed .mega-menu-section[data-tab].is-expanded h4 a {
-        color: var(--text-primary) !important;
-    }
-
-    /* Hide sub-links by default, show when expanded (h4 a stays visible) */
-    .mega-menu--tabbed .mega-menu-section[data-tab] > a {
-        display: none;
-    }
-
-    .mega-menu--tabbed .mega-menu-section[data-tab].is-expanded > a {
-        display: block;
-        padding: var(--space-xs) var(--space-sm);
-        padding-left: var(--space-md);
-        font-size: 0.92rem;
-        color: var(--text-primary) !important;
-        background: transparent !important;
-    }
-
-    /* Group headers (Techniques, Modality) — mobile only ---- */
-    .mega-menu-group-header {
-        display: block;
-        font-size: 1.125rem;
-        font-weight: 500;
-        padding: var(--space-sm) 0;
-        margin-top: var(--space-sm);
-        color: var(--text-primary);
-    }
-
-    .mega-menu-group-header .nav-accent {
-        color: var(--primary);
-    }
-
-    /* Expand/Collapse All button ---- */
-    .mega-menu-toggle-all {
-        display: block;
-        width: 100%;
-        padding: var(--space-xs) var(--space-sm);
-        margin-bottom: var(--space-xs);
-        background: rgba(0, 0, 0, 0.04);
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: var(--radius-sm);
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        cursor: pointer;
-        transition: background 0.2s ease, color 0.2s ease;
-    }
-
-    .mega-menu-toggle-all:hover,
-    .mega-menu-toggle-all:focus-visible {
-        background: rgba(0, 0, 0, 0.08);
-        color: var(--text-primary);
-    }
-
-    /* Override desktop hover/active transform for tabbed */
-    .nav-item.has-dropdown:hover .mega-menu.mega-menu--tabbed,
-    .nav-item.has-dropdown.is-active .mega-menu.mega-menu--tabbed {
-        transform: none;
-    }
-
-    /* Override scrolled header styles for tabbed menu on mobile */
-    .header.scrolled .mega-menu--tabbed {
-        background: transparent;
-    }
-
-    .header.scrolled .mega-menu--tabbed .mega-menu-section[data-tab] h4 {
-        color: var(--text-primary);
-    }
-
-    .header.scrolled .mega-menu--tabbed .mega-menu-section[data-tab] h4 a {
-        color: var(--text-primary);
-    }
-}
-
-/* /TABBED MEGA MENU */
+/* /CATEGORY MEGA MENU */
 
 /* Links wrapper within a section */
 .mega-menu-links {
@@ -6949,8 +6685,53 @@ body.menu-open {
     }
 
     /* Hide Discover parent link on mobile (redundant with quick link) */
-    .nav-item.has-dropdown:has(.mega-menu--tabbed) > .nav-link {
+    .nav-item.has-dropdown:has(.mega-menu--categories) > .nav-link {
         display: none;
+    }
+
+    /* Category menu: single column, not 2-column grid */
+    .mega-menu.mega-menu--categories {
+        display: block;
+        grid-template-columns: none;
+    }
+
+    .mega-menu--categories .mega-menu-quick-links {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+        padding: var(--space-xs) var(--space-sm);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        margin-bottom: var(--space-xs);
+    }
+
+    .mega-menu--categories .mega-menu-quick-links a {
+        flex: 1 1 calc(50% - var(--space-xs));
+        min-width: calc(50% - var(--space-xs));
+        text-align: center;
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: white;
+        background: linear-gradient(180deg, rgba(220, 53, 69, 1) 0%, rgba(190, 40, 55, 0.95) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius-md);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12);
+    }
+
+    .mega-menu--categories .mega-menu-quick-links a:nth-child(even) {
+        background: linear-gradient(180deg, rgba(30, 35, 42, 0.92) 0%, rgba(13, 17, 23, 0.95) 100%);
+    }
+
+    .mega-menu-group__label {
+        padding: var(--space-sm) var(--space-sm) 0;
+        font-size: 0.7rem;
+    }
+
+    .mega-menu-group__link {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.92rem;
+        color: var(--text-primary);
     }
 
     /* Nav item with dropdown - simple block layout */
@@ -7060,13 +6841,13 @@ body.menu-open {
     }
 
     /* Non-tabbed mega-menus: accordion on mobile ---- */
-    .mega-menu:not(.mega-menu--tabbed) {
+    .mega-menu:not(.mega-menu--categories) {
         display: block;
         grid-template-columns: none;
     }
 
-    .mega-menu:not(.mega-menu--tabbed) .mega-menu-section,
-    .mega-menu:not(.mega-menu--tabbed) .mega-menu-section--featured {
+    .mega-menu:not(.mega-menu--categories) .mega-menu-section,
+    .mega-menu:not(.mega-menu--categories) .mega-menu-section--featured {
         display: block;
         grid-column: auto;
         background: none;
@@ -7075,7 +6856,7 @@ body.menu-open {
         border-radius: 0;
     }
 
-    .mega-menu:not(.mega-menu--tabbed) .mega-menu-section h4 {
+    .mega-menu:not(.mega-menu--categories) .mega-menu-section h4 {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -7090,16 +6871,16 @@ body.menu-open {
         user-select: none;
     }
 
-    .mega-menu:not(.mega-menu--tabbed) .mega-menu-section h4 a {
+    .mega-menu:not(.mega-menu--categories) .mega-menu-section h4 a {
         color: var(--text-primary) !important;
         text-decoration: none;
     }
 
-    .mega-menu:not(.mega-menu--tabbed) .mega-menu-section h4 .nav-accent {
+    .mega-menu:not(.mega-menu--categories) .mega-menu-section h4 .nav-accent {
         color: var(--primary) !important;
     }
 
-    .mega-menu:not(.mega-menu--tabbed) .mega-menu-section h4::after {
+    .mega-menu:not(.mega-menu--categories) .mega-menu-section h4::after {
         content: '+';
         font-size: 1rem;
         font-weight: 400;
@@ -7107,15 +6888,15 @@ body.menu-open {
         margin-left: var(--space-sm);
     }
 
-    .mega-menu:not(.mega-menu--tabbed) .mega-menu-section.is-expanded h4::after {
+    .mega-menu:not(.mega-menu--categories) .mega-menu-section.is-expanded h4::after {
         content: '\2212';
     }
 
-    .mega-menu:not(.mega-menu--tabbed) .mega-menu-section > a {
+    .mega-menu:not(.mega-menu--categories) .mega-menu-section > a {
         display: none;
     }
 
-    .mega-menu:not(.mega-menu--tabbed) .mega-menu-section.is-expanded > a {
+    .mega-menu:not(.mega-menu--categories) .mega-menu-section.is-expanded > a {
         display: block;
         padding: var(--space-xs) var(--space-sm);
         padding-left: var(--space-md);
@@ -7149,14 +6930,8 @@ body.menu-open {
         color: var(--text-primary);
     }
 
-    .header.scrolled .mega-menu-sidebar {
-        background: transparent;
-        border-right: none;
-    }
-
     .header.scrolled .mega-menu-quick-links a {
         color: var(--text-primary);
-        background: rgba(220, 53, 69, 0.1);
     }
 
     .header.scrolled .mega-menu-section--featured h4 {
@@ -16394,72 +16169,75 @@ html[data-text-scale="3"] {
 }
 
 /* AI Ethics Banner ---- */
-/* Prominent banner injected via JS on framework pages */
+/* Full-width responsible AI section injected via JS on framework pages */
 .ai-ethics-banner {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-lg);
-    padding: var(--space-xl) var(--space-xl);
-    background: #fff;
-    border: 1px solid rgba(220, 53, 69, 0.2);
-    border-left: 4px solid #DC3545;
-    border-radius: var(--radius-md);
-    max-width: 860px;
-    margin: 0 auto var(--space-xl);
-    box-shadow: 0 2px 12px rgba(220, 53, 69, 0.06);
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d1b3d 50%, #1a1a2e 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--space-3xl) var(--space-xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.ai-ethics-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(220, 53, 69, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(220, 53, 69, 0.08) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .ai-ethics-banner__icon {
-    flex-shrink: 0;
-    width: 40px;
-    height: 44px;
-    margin-top: 2px;
+    width: 64px;
+    height: 70px;
+    margin: 0 auto var(--space-lg);
     background: #DC3545;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    position: relative;
+    box-shadow: 0 4px 20px rgba(220, 53, 69, 0.4);
 }
 
 .ai-ethics-banner__content {
-    flex: 1;
-    min-width: 0;
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 .ai-ethics-banner__heading {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin: 0 0 var(--space-sm);
-    letter-spacing: -0.01em;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 var(--space-md);
+    letter-spacing: -0.02em;
 }
 
 .ai-ethics-banner__body {
-    font-size: 0.88rem;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    margin: 0 0 var(--space-sm);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 var(--space-lg);
 }
 
 .ai-ethics-banner__note {
-    font-size: 0.78rem;
+    font-size: 0.9rem;
     line-height: 1.6;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.6);
     margin: 0;
-    padding-top: var(--space-xs);
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: inline-block;
 }
 
 [data-theme="dark"] .ai-ethics-banner {
-    background: rgba(220, 53, 69, 0.04);
-    border-color: rgba(220, 53, 69, 0.15);
-    border-left-color: #DC3545;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #0d1117 0%, #1a1028 50%, #0d1117 100%);
 }
 
 [data-theme="dark"] .ai-ethics-banner__heading {
     color: #f0f0f0;
-}
-
-[data-theme="dark"] .ai-ethics-banner__note {
-    border-top-color: rgba(255, 255, 255, 0.06);
 }
 
 /* BEM-style highlight-box variant (for Facts & Fictions page) */
