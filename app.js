@@ -7150,16 +7150,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
     // QUIZ: AI READINESS - LEVEL-BASED
-    // Version 3.0 - 40 questions across 4 levels
+    // Version 4.0 - 50 questions across 5 levels
     // Level 1 (Q1-10): Good - Basic prompting
     // Level 2 (Q11-20): Pro - Methodology knowledge
     // Level 3 (Q21-30): Expert - Advanced details
     // Level 4 (Q31-40): Master - IDEs, APIs, combining methods
+    // Level 5 (Q41-50): Legendary - Cutting-edge AI knowledge
+    // Modes: Standard (L1-4, 3 lives) | Legendary (L1-5, 1 life, 15s timer)
     // ==========================================
     const quizContainer = document.getElementById('readiness-quiz');
 
     if (quizContainer) {
-        // 40 Questions across 4 levels based on Praxis site content
+        // 50 Questions across 5 levels based on Praxis site content
         const questions = [
             // ============================================
             // LEVEL 1: GOOD (Q1-10) - Basic Prompting
@@ -7615,6 +7617,120 @@ document.addEventListener('DOMContentLoaded', () => {
                 ],
                 correct: 1,
                 level: 4
+            },
+
+            // ============================================
+            // LEVEL 5: LEGENDARY (Q41-50) - Cutting-Edge AI
+            // ============================================
+            {
+                question: "What is a 'prompt injection' attack?",
+                options: [
+                    "Sending too many prompts at once to overload the AI",
+                    "Crafting input that overrides the AI's system instructions",
+                    "Injecting code into the AI's source code directly",
+                    "Using special characters that crash the AI model"
+                ],
+                correct: 1,
+                level: 5
+            },
+            {
+                question: "Constitutional AI is best described as:",
+                options: [
+                    "AI systems that follow government regulations only",
+                    "Training AI to evaluate its own outputs against a set of principles",
+                    "AI that can only be used in democratic countries",
+                    "A legal framework for AI copyright issues"
+                ],
+                correct: 1,
+                level: 5
+            },
+            {
+                question: "In RLHF (Reinforcement Learning from Human Feedback), the 'human feedback' primarily helps the model learn:",
+                options: [
+                    "Factual accuracy about the world",
+                    "How to generate text faster",
+                    "What outputs humans prefer and find helpful",
+                    "Programming languages and syntax"
+                ],
+                correct: 2,
+                level: 5
+            },
+            {
+                question: "A model's 'context window' filling up means:",
+                options: [
+                    "The AI has processed its maximum token input and will lose earlier information",
+                    "The AI has run out of computing power temporarily",
+                    "The model needs to be updated with new training data",
+                    "The conversation has been flagged for safety review"
+                ],
+                correct: 0,
+                level: 5
+            },
+            {
+                question: "When prompting a multi-modal AI with both image and text, you should:",
+                options: [
+                    "Always describe the image in text since AI cannot truly see",
+                    "Reference specific visual elements and state what analysis you need",
+                    "Only provide the image and let AI decide what to analyze",
+                    "Use image prompts only for creative tasks, never analytical ones"
+                ],
+                correct: 1,
+                level: 5
+            },
+            {
+                question: "The most effective strategy for reducing AI hallucinations in factual tasks is:",
+                options: [
+                    "Asking the AI to be more confident in its answers",
+                    "Using higher temperature settings for more exploration",
+                    "Grounding responses in provided source material and requesting citations",
+                    "Making prompts shorter so the AI has less room to fabricate"
+                ],
+                correct: 2,
+                level: 5
+            },
+            {
+                question: "In prompt chaining with conditional logic, 'branching' means:",
+                options: [
+                    "Using the same prompt across multiple AI models simultaneously",
+                    "Routing to different follow-up prompts based on the previous output's content",
+                    "Breaking a prompt into parallel threads that run at the same time",
+                    "Creating backup prompts in case the primary one fails"
+                ],
+                correct: 1,
+                level: 5
+            },
+            {
+                question: "When should you prefer fine-tuning over in-context learning (few-shot)?",
+                options: [
+                    "Always, because fine-tuning is strictly better",
+                    "When you have a large dataset and need consistent specialized behavior at scale",
+                    "When you only have 2-3 examples of what you want",
+                    "When you want the AI to forget its general knowledge"
+                ],
+                correct: 1,
+                level: 5
+            },
+            {
+                question: "AI alignment research primarily focuses on:",
+                options: [
+                    "Making AI models run faster on consumer hardware",
+                    "Ensuring AI systems behave according to human values and intentions",
+                    "Aligning the visual output of AI-generated images",
+                    "Synchronizing multiple AI models to give identical answers"
+                ],
+                correct: 1,
+                level: 5
+            },
+            {
+                question: "Meta-prompting (using AI to generate or refine prompts) is most valuable when:",
+                options: [
+                    "You want to replace human judgment entirely",
+                    "You need to optimize prompts across many variations and edge cases",
+                    "The AI cannot understand your original prompt at all",
+                    "You want to bypass the AI's safety guidelines"
+                ],
+                correct: 1,
+                level: 5
             }
         ];
 
@@ -7623,21 +7739,34 @@ document.addEventListener('DOMContentLoaded', () => {
             1: { name: 'Good', range: [0, 9], color: 'level-good', emoji: '👍' },
             2: { name: 'Pro', range: [10, 19], color: 'level-pro', emoji: '⭐' },
             3: { name: 'Expert', range: [20, 29], color: 'level-expert', emoji: '🎯' },
-            4: { name: 'Master', range: [30, 39], color: 'level-master', emoji: '🏆' }
+            4: { name: 'Master', range: [30, 39], color: 'level-master', emoji: '🏆' },
+            5: { name: 'Legendary', range: [40, 49], color: 'level-legendary', emoji: '🔥' }
         };
 
-        // Game Rules: 3 strikes and you're out!
+        // Game constants: 50 questions, 5 levels, 3 lives
+        // Timer activates at Level 4 (Master) and continues through Level 5 (Legendary)
         const MAX_STRIKES = 3;
+        const TIMER_SECONDS = 15;
+        const TOTAL_QUESTIONS = 50;
 
+        // Game state
         let currentQuestion = 0;
         let quizScore = 0;
         let strikes = 0;
+        let timerInterval = null;
+        let timerRemaining = 0;
+
+        /** Returns true when timer should be active (Level 4+ = question 31+) */
+        function isTimedQuestion() {
+            return currentQuestion >= 30;
+        }
 
         function getCurrentLevel() {
             if (currentQuestion < 10) return 1;
             if (currentQuestion < 20) return 2;
             if (currentQuestion < 30) return 3;
-            return 4;
+            if (currentQuestion < 40) return 4;
+            return 5;
         }
 
         function getStrikesDisplay() {
@@ -7645,17 +7774,92 @@ document.addEventListener('DOMContentLoaded', () => {
             return '❤️'.repeat(remaining) + '🖤'.repeat(strikes);
         }
 
+        /** Clear any running timer */
+        function clearTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        /** Start countdown timer (Level 4+ questions) */
+        function startTimer() {
+            clearTimer();
+            timerRemaining = TIMER_SECONDS * 4; // 250ms ticks for smooth animation
+            const totalTicks = timerRemaining;
+
+            timerInterval = setInterval(() => {
+                timerRemaining--;
+                const pct = (timerRemaining / totalTicks) * 100;
+                const secondsLeft = Math.ceil(timerRemaining / 4);
+                const fillEl = quizContainer.querySelector('.quiz-timer__fill');
+                const labelEl = quizContainer.querySelector('.quiz-timer__label');
+
+                if (fillEl) {
+                    fillEl.style.width = pct + '%';
+                    fillEl.classList.toggle('quiz-timer__fill--warning', secondsLeft <= 7 && secondsLeft > 3);
+                    fillEl.classList.toggle('quiz-timer__fill--danger', secondsLeft <= 3);
+                }
+                if (labelEl) {
+                    labelEl.textContent = secondsLeft + 's';
+                }
+
+                if (timerRemaining <= 0) {
+                    clearTimer();
+                    handleTimerExpiry();
+                }
+            }, 250);
+        }
+
+        /** Handle timer running out — counts as a wrong answer */
+        function handleTimerExpiry() {
+            const q = questions[currentQuestion];
+            const buttons = quizContainer.querySelectorAll('.quiz-option');
+
+            // Disable all buttons and show correct answer
+            buttons.forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === q.correct) {
+                    btn.classList.add('correct');
+                }
+            });
+
+            strikes++;
+            const strikesEl = quizContainer.querySelector('.strikes-hearts');
+            if (strikesEl) {
+                strikesEl.textContent = getStrikesDisplay();
+            }
+
+            if (strikes >= maxStrikes) {
+                setTimeout(() => showQuizResults(false), 1500);
+            } else {
+                setTimeout(() => {
+                    currentQuestion++;
+                    renderQuestion();
+                }, 1200);
+            }
+        }
+
         function renderQuestion() {
-            // Check if game is over (all questions answered OR reached Master)
-            if (currentQuestion >= questions.length) {
-                showQuizResults(true); // true = completed all questions (Master!)
+            clearTimer();
+
+            // Check if game is over (completed all 50 questions)
+            if (currentQuestion >= TOTAL_QUESTIONS) {
+                showQuizResults(true);
                 return;
             }
 
             const q = questions[currentQuestion];
             const currentLevel = getCurrentLevel();
             const levelInfo = LEVELS[currentLevel];
-            const progressWidth = (currentQuestion / questions.length) * 100;
+            const progressWidth = (currentQuestion / TOTAL_QUESTIONS) * 100;
+            const timed = isTimedQuestion();
+            const timerHtml = timed
+                ? `<div class="quiz-timer">
+                       <span class="quiz-timer__label">${TIMER_SECONDS}s</span>
+                       <div class="quiz-timer__fill" data-width="100"></div>
+                   </div>`
+                : '';
 
             quizContainer.innerHTML = `
                 <div class="quiz-level-indicator ${levelInfo.color}">
@@ -7667,11 +7871,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="strikes-label">Lives:</span>
                     <span class="strikes-hearts">${getStrikesDisplay()}</span>
                 </div>
+                ${timerHtml}
                 <div class="quiz-progress">
                     <div class="quiz-progress-fill" data-width="${progressWidth}"></div>
                 </div>
                 <div class="quiz-question">
-                    <span class="question-number">Question ${currentQuestion + 1} of 40</span>
+                    <span class="question-number">Question ${currentQuestion + 1} of ${TOTAL_QUESTIONS}</span>
                     <h3>${q.question}</h3>
                 </div>
                 <div class="quiz-options">
@@ -7687,12 +7892,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 progressFill.style.width = progressFill.dataset.width + '%';
             }
 
+            // Set timer fill width and start countdown for Level 4+ questions
+            if (timed) {
+                const timerFill = quizContainer.querySelector('.quiz-timer__fill');
+                if (timerFill) {
+                    timerFill.style.width = '100%';
+                }
+                startTimer();
+            }
+
             quizContainer.querySelectorAll('.quiz-option').forEach(btn => {
                 btn.addEventListener('click', () => selectAnswer(parseInt(btn.dataset.index)));
             });
         }
 
         function selectAnswer(index) {
+            clearTimer();
             const q = questions[currentQuestion];
             const buttons = quizContainer.querySelectorAll('.quiz-option');
             const isCorrect = index === q.correct;
@@ -7733,22 +7948,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function showQuizResults(completedAll) {
+            clearTimer();
+
             // Determine achieved level based on how far they got
             const currentLevel = getCurrentLevel();
             let achievedLevel = currentLevel;
             let message = '';
             let recommendedPath = '../learn/prompt-basics.html';
 
-            // If they got 3 strikes, they achieved the PREVIOUS level (or none)
+            // If they struck out, achieved level is one below current (or none)
             if (!completedAll && strikes >= MAX_STRIKES) {
-                // They failed at their current level, so achieved level is one below
                 achievedLevel = currentLevel > 1 ? currentLevel - 1 : 0;
             }
 
             // Set messages based on achieved level
-            if (completedAll && currentQuestion >= 40) {
-                achievedLevel = 4;
-                message = '🎉 Congratulations! You are a TRUE MASTER of AI prompting!';
+            if (completedAll && currentQuestion >= TOTAL_QUESTIONS) {
+                achievedLevel = 5;
+                message = '🔥 LEGENDARY! You conquered all 50 questions with cutting-edge AI mastery!';
                 recommendedPath = '../patterns/index.html';
             } else if (achievedLevel === 0) {
                 message = 'Keep learning! Study the basics and try again.';
@@ -7762,14 +7978,27 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (achievedLevel === 3) {
                 message = 'Expert level! Explore our resources to reach Master level.';
                 recommendedPath = '../pages/chatgpt-guide.html';
+            } else if (achievedLevel === 4) {
+                message = 'Master level! So close to Legendary — try again!';
+                recommendedPath = '../patterns/index.html';
             }
 
             const levelInfo = achievedLevel > 0 ? LEVELS[achievedLevel] : { name: 'Learner', color: 'level-learner', emoji: '📚' };
 
-            // Build game over message
-            const gameOverMsg = completedAll
-                ? '<div class="quiz-complete-badge">🏆 QUIZ COMPLETE! 🏆</div>'
-                : `<div class="quiz-gameover-badge">Game Over! Stopped at Question ${currentQuestion + 1}</div>`;
+            // Build game over message — Legendary gets special badge
+            let gameOverMsg;
+            if (completedAll && achievedLevel === 5) {
+                gameOverMsg = '<div class="quiz-legendary-badge">🔥 LEGENDARY COMPLETE 🔥</div>';
+            } else if (completedAll) {
+                gameOverMsg = '<div class="quiz-complete-badge">🏆 QUIZ COMPLETE! 🏆</div>';
+            } else {
+                gameOverMsg = `<div class="quiz-gameover-badge">Game Over! Stopped at Question ${currentQuestion + 1}</div>`;
+            }
+
+            // Challenge message
+            const challengeMsg = achievedLevel < 5
+                ? '<p class="result-challenge">Can you reach Legendary level? Try again!</p>'
+                : '';
 
             // === QUIZ RESULTS DISPLAY ===
             // Security: CSP-compliant (no inline onclick, uses event listener)
@@ -7781,14 +8010,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="result-emoji">${levelInfo.emoji}</span>
                         <span class="result-level-name">${levelInfo.name}</span>
                     </div>
-                    <div class="result-score">${quizScore} correct</div>
+                    <div class="result-score">${quizScore} correct out of ${TOTAL_QUESTIONS}</div>
                     <div class="result-strikes-final">
                         <span>Final Lives: ${getStrikesDisplay()}</span>
                     </div>
                     <p class="result-message">${message}</p>
-                    ${achievedLevel < 4 ? '<p class="result-challenge">Can you reach Master level? Try again!</p>' : ''}
+                    ${challengeMsg}
                     <div class="result-actions">
-                        <button class="btn btn-primary" id="quiz-retake-btn">${achievedLevel < 4 ? 'Try Again' : 'Play Again'}</button>
+                        <button class="btn btn-primary" id="quiz-retake-btn">${achievedLevel < 5 ? 'Try Again' : 'Play Again'}</button>
                         <a href="${recommendedPath}" class="btn btn-secondary">Study & Improve</a>
                     </div>
                 </div>
@@ -7801,6 +8030,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Start quiz immediately
         renderQuestion();
     }
 
