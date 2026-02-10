@@ -95,14 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
             splitNavAccent(link);
         });
 
-        // Split accordion section headers (Structured Frameworks, In-Context Learning, etc.)
-        document.querySelectorAll('.mega-menu--tabbed .mega-menu-section[data-tab] h4').forEach(function(h4) {
-            var link = h4.querySelector('a');
-            splitNavAccent(link || h4);
-        });
-
         // Split non-tabbed mega-menu section headers + accordion behavior
-        document.querySelectorAll('.mega-menu:not(.mega-menu--tabbed) .mega-menu-section').forEach(function(section) {
+        document.querySelectorAll('.mega-menu:not(.mega-menu--categories) .mega-menu-section').forEach(function(section) {
             var h4 = section.querySelector('h4');
             if (!h4) return;
             // Custom split for "AI & ND": "AI " white, "& ND" red
@@ -136,8 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (target.querySelector('.nav-accent')) return;
             splitNavAccent(target);
         });
-        // Desktop: apply split-color to sidebar quick links
-        document.querySelectorAll('.mega-menu-quick-links a').forEach(function(a) {
+        // Desktop: apply split-color to category menu quick links
+        document.querySelectorAll('.mega-menu--categories .mega-menu-quick-links a').forEach(function(a) {
             if (a.querySelector('.nav-accent')) return;
             splitNavAccent(a);
         });
@@ -318,228 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize accordion navigation
     AccordionNav.init();
 
-    // ==========================================
-    // TABBED MEGA MENU
-    // ==========================================
-    /**
-     * TabbedMenu — progressive disclosure for mega-menus.
-     * Desktop: left tab column (mouseenter switches panels), keyboard arrow-key nav.
-     * Mobile: all sections expanded by default, individual toggle to collapse.
-     * Tab buttons are generated at runtime from each [data-tab] section's <h4> text.
-     */
-    const TabbedMenu = {
-        /** @type {Function} */
-        isMobile: () => window.matchMedia('(max-width: 767px)').matches,
-
-        init() {
-            const tabbedMenus = document.querySelectorAll('.mega-menu--tabbed');
-            tabbedMenus.forEach(menu => this.setup(menu));
-        },
-
-        /**
-         * Set up a single tabbed mega-menu instance
-         * @param {HTMLElement} menu - The .mega-menu--tabbed element
-         */
-        setup(menu) {
-            const tablist = menu.querySelector('.mega-menu-tabs');
-            const sections = menu.querySelectorAll('.mega-menu-section[data-tab]');
-            if (!tablist || sections.length === 0) return;
-
-            // Generate tab buttons from h4 text
-            sections.forEach((section, i) => {
-                const h4 = section.querySelector('h4');
-                if (!h4) return;
-                const label = h4.textContent.trim();
-                const slug = section.getAttribute('data-tab');
-
-                // Insert "Techniques" group label before first tab
-                if (i === 0) {
-                    var techLabel = document.createElement('span');
-                    techLabel.className = 'mega-menu-tab-label';
-                    techLabel.textContent = 'Techniques';
-                    splitNavAccent(techLabel);
-                    tablist.appendChild(techLabel);
-                }
-
-                // Insert modality group divider + label before first modality tab
-                if (slug === 'code') {
-                    var divider = document.createElement('div');
-                    divider.className = 'mega-menu-tab-divider';
-                    divider.setAttribute('role', 'separator');
-                    tablist.appendChild(divider);
-                    var groupLabel = document.createElement('span');
-                    groupLabel.className = 'mega-menu-tab-label';
-                    groupLabel.textContent = 'Modality';
-                    splitNavAccent(groupLabel);
-                    tablist.appendChild(groupLabel);
-                }
-
-                const btn = document.createElement('button');
-                btn.className = 'mega-menu-tab';
-                btn.setAttribute('role', 'tab');
-                btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-                btn.setAttribute('aria-controls', 'tabpanel-' + slug);
-                btn.setAttribute('id', 'tab-' + slug);
-                btn.setAttribute('tabindex', i === 0 ? '0' : '-1');
-                btn.textContent = label;
-                tablist.appendChild(btn);
-
-                // Set ARIA attributes on the panel
-                section.setAttribute('id', 'tabpanel-' + slug);
-                section.setAttribute('aria-labelledby', 'tab-' + slug);
-
-                // First tab active by default (desktop)
-                if (i === 0) {
-                    btn.classList.add('is-active');
-                    section.classList.add('is-active');
-                }
-
-                // Desktop: mouseenter switches tabs
-                btn.addEventListener('mouseenter', () => {
-                    if (!this.isMobile()) this.activateTab(menu, btn, section);
-                });
-
-                // Click also activates (keyboard + touch fallback)
-                btn.addEventListener('click', () => {
-                    if (!this.isMobile()) this.activateTab(menu, btn, section);
-                });
-            });
-
-            // Mobile accordion: h4 click toggles section
-            // Clicking the parent <a> navigates; clicking h4 area toggles
-            sections.forEach(section => {
-                const h4 = section.querySelector('h4');
-                if (!h4) return;
-                h4.addEventListener('click', (e) => {
-                    if (this.isMobile()) {
-                        if (e.target.closest('a')) return;
-                        e.preventDefault();
-                        this.toggleAccordion(menu, section);
-                    }
-                });
-            });
-
-            // Keyboard navigation (roving tabindex on tab buttons)
-            tablist.addEventListener('keydown', (e) => {
-                const tabs = Array.from(tablist.querySelectorAll('.mega-menu-tab'));
-                const current = tabs.indexOf(document.activeElement);
-                if (current === -1) return;
-
-                let next;
-                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-                    e.preventDefault();
-                    next = (current + 1) % tabs.length;
-                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    next = (current - 1 + tabs.length) % tabs.length;
-                } else if (e.key === 'Home') {
-                    e.preventDefault();
-                    next = 0;
-                } else if (e.key === 'End') {
-                    e.preventDefault();
-                    next = tabs.length - 1;
-                }
-
-                if (next !== undefined) {
-                    const slug = sections[next].getAttribute('data-tab');
-                    const targetSection = sections[next];
-                    tabs[next].focus();
-                    this.activateTab(menu, tabs[next], targetSection);
-                }
-            });
-
-            // Mobile: inject group headers, start expanded, add toggle button
-            if (this.isMobile()) {
-                // Insert "Techniques" group header before first section
-                var techHeader = document.createElement('div');
-                techHeader.className = 'mega-menu-group-header';
-                techHeader.textContent = 'Techniques';
-                splitNavAccent(techHeader);
-                var firstSection = sections[0];
-                if (firstSection) {
-                    firstSection.parentNode.insertBefore(techHeader, firstSection);
-                }
-
-                // Insert "Modality" group header before code section
-                var codeSection = menu.querySelector('.mega-menu-section[data-tab="code"]');
-                if (codeSection) {
-                    var modalHeader = document.createElement('div');
-                    modalHeader.className = 'mega-menu-group-header';
-                    modalHeader.textContent = 'Modality';
-                    splitNavAccent(modalHeader);
-                    codeSection.parentNode.insertBefore(modalHeader, codeSection);
-                }
-
-                sections.forEach(s => s.classList.add('is-expanded'));
-                var toggleBtn = document.createElement('button');
-                toggleBtn.className = 'mega-menu-toggle-all';
-                toggleBtn.textContent = 'Collapse All';
-                toggleBtn.setAttribute('type', 'button');
-                toggleBtn.addEventListener('click', function() {
-                    var allExpanded = Array.from(sections).every(function(s) {
-                        return s.classList.contains('is-expanded');
-                    });
-                    sections.forEach(function(s) {
-                        if (allExpanded) {
-                            s.classList.remove('is-expanded');
-                        } else {
-                            s.classList.add('is-expanded');
-                        }
-                    });
-                    toggleBtn.textContent = allExpanded ? 'Expand All' : 'Collapse All';
-                });
-                var sidebar = menu.querySelector('.mega-menu-sidebar');
-                if (sidebar) {
-                    sidebar.parentNode.insertBefore(toggleBtn, sidebar.nextSibling);
-                } else {
-                    menu.insertBefore(toggleBtn, menu.firstChild);
-                }
-            }
-        },
-
-        /**
-         * Activate a tab and its associated panel (desktop)
-         * @param {HTMLElement} menu - The .mega-menu--tabbed container
-         * @param {HTMLElement} btn - The tab button to activate
-         * @param {HTMLElement} section - The panel section to show
-         */
-        activateTab(menu, btn, section) {
-            // Deactivate all tabs
-            menu.querySelectorAll('.mega-menu-tab').forEach(t => {
-                t.classList.remove('is-active');
-                t.setAttribute('aria-selected', 'false');
-                t.setAttribute('tabindex', '-1');
-            });
-            // Deactivate all panels
-            menu.querySelectorAll('.mega-menu-section[data-tab]').forEach(s => {
-                s.classList.remove('is-active');
-            });
-            // Activate selected
-            btn.classList.add('is-active');
-            btn.setAttribute('aria-selected', 'true');
-            btn.setAttribute('tabindex', '0');
-            section.classList.add('is-active');
-        },
-
-        /**
-         * Toggle a section in mobile accordion mode (independent toggle)
-         * @param {HTMLElement} menu - The .mega-menu--tabbed container
-         * @param {HTMLElement} section - The section to toggle
-         */
-        toggleAccordion(menu, section) {
-            section.classList.toggle('is-expanded');
-            var toggleBtn = menu.querySelector('.mega-menu-toggle-all');
-            if (toggleBtn) {
-                var sections = menu.querySelectorAll('.mega-menu-section[data-tab]');
-                var allExpanded = Array.from(sections).every(function(s) {
-                    return s.classList.contains('is-expanded');
-                });
-                toggleBtn.textContent = allExpanded ? 'Collapse All' : 'Expand All';
-            }
-        }
-    };
-
-    TabbedMenu.init();
+    // (TabbedMenu removed — replaced by simplified category navigation)
 
     // ==========================================
     // MOBILE ACCESSIBILITY ACCORDION
@@ -602,34 +375,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /** Ethics ticker messages -- cycled on each scroll transition */
     const ethicsTickerMessages = [
-        'Always verify AI-generated content before sharing or acting on it.',
-        'AI systems reflect the biases present in their training data -- question outputs critically.',
-        'Transparent AI disclosure builds trust -- 48 US states now require it in key areas.',
-        'Human oversight remains essential -- AI assists decisions but should not make them alone.',
-        'Prompt engineering is powerful -- use it responsibly and ethically.',
-        'AI-generated text can sound confident while being factually wrong -- always fact-check.',
-        'Consider who is affected by AI outputs before deploying them at scale.',
-        'Data privacy matters -- never input sensitive personal information into public AI tools.',
-        'AI literacy is a civic skill -- understanding AI helps you navigate the modern world.',
-        'Responsible AI use means knowing what AI cannot do as well as what it can.',
-        'Algorithmic fairness requires active effort -- test for bias across demographics.',
-        'AI models do not understand context the way humans do -- supply it explicitly.',
-        'When AI makes a mistake the human using it is still accountable for the outcome.',
-        'Synthetic media and deepfakes erode trust -- verify sources before believing content.',
-        'Open-source AI promotes transparency -- but openness alone does not guarantee safety.',
-        'Environmental cost of training large models is real -- use AI resources thoughtfully.',
-        'AI accessibility means designing tools that work for people of all abilities.',
-        'Informed consent matters -- tell people when they are interacting with AI systems.',
-        'Critical thinking is the best defense against AI-generated misinformation.',
-        'AI ethics is not optional -- it is a professional responsibility for every practitioner.',
-        'Guardrails and safety filters exist for a reason -- circumventing them creates real harm.',
-        'Documentation and reproducibility are ethical obligations in AI research.',
-        'The goal of AI should be augmenting human capability -- not replacing human judgment.',
-        'Evaluate AI tools by their impact on the most vulnerable populations first.'
+        'Always verify AI-generated content with trusted sources before sharing or acting on it in any context.',
+        'AI systems reflect the biases present in their training data -- question outputs critically and check for fairness.',
+        'Transparent AI disclosure builds trust with users and communities -- 48 US states now require it in key areas.',
+        'Human oversight remains essential in every workflow -- AI assists decisions but should not make them alone.',
+        'Prompt engineering is powerful and far-reaching -- use it responsibly, ethically, and with clear intent.',
+        'AI-generated text can sound confident while being factually wrong -- always fact-check claims against reliable sources.',
+        'Consider who is affected by AI outputs and potential harms before deploying them at scale in real-world settings.',
+        'Data privacy matters in every interaction -- never input sensitive personal information into public AI tools or chatbots.',
+        'AI literacy is a civic skill for the modern age -- understanding AI helps you navigate the world more effectively.',
+        'Responsible AI use means knowing what AI cannot do reliably as well as understanding what it can do well.',
+        'Algorithmic fairness requires active and ongoing effort -- test for bias across all demographics and use cases.',
+        'AI models do not understand context the way humans do -- you must supply it explicitly and thoroughly.',
+        'When AI makes a mistake the human using it is still fully accountable for the resulting outcome and consequences.',
+        'Synthetic media and deepfakes erode trust in authentic content -- verify sources carefully before believing what you see.',
+        'Open-source AI promotes transparency and collaboration -- but openness alone does not guarantee safety or ethical use.',
+        'Environmental cost of training large AI models is real and growing -- use computational resources thoughtfully and efficiently.',
+        'AI accessibility means designing inclusive tools that work equitably for people of all abilities and backgrounds.',
+        'Informed consent matters in every AI interaction -- always tell people when they are interacting with AI systems.',
+        'Critical thinking paired with media literacy is the best defense against AI-generated misinformation and manipulated content.',
+        'AI ethics is not optional or secondary -- it is a core professional responsibility for every practitioner and organization.',
+        'Guardrails and safety filters exist for important reasons -- circumventing them creates real and measurable harm to people.',
+        'Documentation and reproducibility are fundamental ethical obligations in all AI research and deployed applications.',
+        'The goal of AI should be augmenting human capability and creativity -- not replacing human judgment or autonomy.',
+        'Evaluate AI tools by their impact on the most vulnerable and underserved populations and communities first.'
     ];
     let ethicsTickerIndex = 0;
     let ethicsTickerEl = null;
     let ethicsTickerTextEl = null;
+    let ethicsTickerLabelEl = null;
+    let ethicsTickerLabelAI = null;
+    let ethicsTickerLabelEthics = null;
+    let ethicsTickerEyeballEl = null;
+    let ethicsTickerRunning = false;
 
     /** Create the ticker DOM element (IIFE to avoid var leaks) */
     (function() {
@@ -639,8 +417,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ticker.setAttribute('role', 'status');
         ticker.setAttribute('aria-live', 'polite');
 
-        var inner = document.createElement('span');
-        inner.className = 'ethics-ticker__text';
+        var inner = document.createElement('div');
+        inner.className = 'ethics-ticker__inner';
 
         var label = document.createElement('span');
         label.className = 'ethics-ticker__label';
@@ -650,20 +428,244 @@ document.addEventListener('DOMContentLoaded', () => {
         var labelEthics = document.createElement('span');
         labelEthics.className = 'ethics-ticker__label-ethics';
         labelEthics.textContent = ' Ethics';
+        var eyeball = document.createElement('span');
+        eyeball.className = 'ethics-ticker__eyeball';
+
         label.appendChild(labelAI);
         label.appendChild(labelEthics);
+        label.appendChild(eyeball);
+
+        var msgWrap = document.createElement('span');
+        msgWrap.className = 'ethics-ticker__msg';
 
         var msg = document.createElement('span');
-        msg.textContent = ethicsTickerMessages[0];
+        msg.textContent = '';
+
+        var cursor = document.createElement('span');
+        cursor.className = 'ethics-ticker__cursor';
+        cursor.textContent = '|';
+
+        msgWrap.appendChild(msg);
+        msgWrap.appendChild(cursor);
 
         inner.appendChild(label);
-        inner.appendChild(msg);
+        inner.appendChild(msgWrap);
         ticker.appendChild(inner);
         header.parentNode.insertBefore(ticker, header.nextSibling);
 
         ethicsTickerEl = ticker;
         ethicsTickerTextEl = msg;
+        ethicsTickerLabelEl = label;
+        ethicsTickerLabelAI = labelAI;
+        ethicsTickerLabelEthics = labelEthics;
+        ethicsTickerEyeballEl = eyeball;
     })();
+
+    /**
+     * Typewriter engine — types in → 8s normal → eyeball looks around →
+     * 2s normal → tired blink → untype → next message. Eternal loop.
+     */
+    function tickerTypewriterLoop() {
+        if (!ethicsTickerTextEl || !ethicsTickerRunning) return;
+
+        var fullText = ethicsTickerMessages[ethicsTickerIndex];
+        var charIndex = 0;
+        var typeSpeed = 45;   // ms per character typing in
+        var untypeSpeed = 25; // ms per character deleting
+
+        // Phase 1: Type in
+        function typeIn() {
+            if (!ethicsTickerRunning) return;
+            if (charIndex <= fullText.length) {
+                ethicsTickerTextEl.textContent = fullText.slice(0, charIndex);
+                charIndex++;
+                setTimeout(typeIn, typeSpeed);
+            } else {
+                ethicsTickerTextEl.textContent = fullText;
+                // Eyeball only on every other message (even index = skip, odd = play)
+                if (ethicsTickerIndex % 2 === 1) {
+                    setTimeout(eyeballLookAround, 8000);
+                } else {
+                    setTimeout(typeOut, 8000);
+                }
+            }
+        }
+
+        // Phase 2: Eyeball — text morphs into half-red/half-black eye that looks around
+        function eyeballLookAround() {
+            if (!ethicsTickerRunning || !ethicsTickerEyeballEl) { setTimeout(blinkLabel, 2000); return; }
+
+            var morphMs = 400; // crossfade duration
+
+            function easeInOut(t) {
+                return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+            }
+
+            /** Crossfade: text out + eyeball in (or reverse) */
+            function crossfade(toEyeball, cb) {
+                var start = null;
+                function step(ts) {
+                    if (!start) start = ts;
+                    var p = Math.min((ts - start) / morphMs, 1);
+                    var e = easeInOut(p);
+                    // Text: fade + shrink out; Eyeball: fade + grow in
+                    var textOpacity = toEyeball ? (1 - e) : e;
+                    var textScale = toEyeball ? (1 - e * 0.3) : (0.7 + e * 0.3);
+                    var eyeOpacity = toEyeball ? e : (1 - e);
+                    var eyeScale = toEyeball ? e : (1 - e);
+
+                    ethicsTickerLabelAI.style.opacity = textOpacity;
+                    ethicsTickerLabelEthics.style.opacity = textOpacity;
+                    ethicsTickerLabelAI.style.transform = 'scale(' + textScale + ')';
+                    ethicsTickerLabelEthics.style.transform = 'scale(' + textScale + ')';
+                    ethicsTickerEyeballEl.style.opacity = eyeOpacity;
+                    ethicsTickerEyeballEl.style.transform =
+                        'translate(-50%, -50%) scale(' + eyeScale + ')';
+
+                    if (p < 1) { requestAnimationFrame(step); } else { cb(); }
+                }
+                requestAnimationFrame(step);
+            }
+
+            // Morph text → eyeball
+            crossfade(true, function() {
+                // Ensure clean state after morph
+                ethicsTickerLabelAI.style.opacity = '0';
+                ethicsTickerLabelEthics.style.opacity = '0';
+                ethicsTickerEyeballEl.style.opacity = '1';
+                ethicsTickerEyeballEl.style.transform = 'translate(-50%, -50%) scale(1)';
+                startLooking();
+            });
+
+            // Saccade waypoints [x, y] px offsets — natural scanning pattern
+            var waypoints = [
+                [0, 0],       // center
+                [-18, 0],     // glance left
+                [-18, -2],    // drift up-left
+                [22, -1],     // saccade to right (fast jump)
+                [22, 2],      // settle down-right
+                [-10, 1],     // scan back center-left
+                [16, -1],     // quick look right again
+                [0, 0]        // settle center
+            ];
+            var moveMs = 200;  // saccade speed
+            var holdMs = 280;  // fixation at each point
+
+            function startLooking() {
+                var wpIndex = 0;
+                function moveToNext() {
+                    if (!ethicsTickerRunning) { afterLooking(); return; }
+                    if (wpIndex >= waypoints.length) { afterLooking(); return; }
+
+                    var target = waypoints[wpIndex];
+                    var prev = wpIndex > 0 ? waypoints[wpIndex - 1] : [0, 0];
+                    var start = null;
+
+                    function animate(ts) {
+                        if (!start) start = ts;
+                        var p = Math.min((ts - start) / moveMs, 1);
+                        var e = easeInOut(p);
+                        var x = prev[0] + (target[0] - prev[0]) * e;
+                        var y = prev[1] + (target[1] - prev[1]) * e;
+                        ethicsTickerEyeballEl.style.transform =
+                            'translate(calc(-50% + ' + x + 'px), calc(-50% + ' + y + 'px))';
+                        if (p < 1) { requestAnimationFrame(animate); }
+                        else { wpIndex++; setTimeout(moveToNext, holdMs); }
+                    }
+                    requestAnimationFrame(animate);
+                }
+                moveToNext();
+            }
+
+            // After looking around — hold eyeball 2.2s, then blink over it, then morph back
+            function afterLooking() {
+                setTimeout(blinkOverEyeball, 2200);
+            }
+
+            // Tired blink while eyeball is still showing (clip-path over whole label)
+            function blinkOverEyeball() {
+                if (!ethicsTickerRunning || !ethicsTickerLabelEl) { finishEyeball(); return; }
+                var blinks = 0;
+                var totalBlinks = 2;
+
+                function animateEyelid(closing, duration, cb) {
+                    var start = null;
+                    function step(ts) {
+                        if (!start) start = ts;
+                        var p = Math.min((ts - start) / duration, 1);
+                        var e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+                        var pct = closing ? (e * 100) : ((1 - e) * 100);
+                        ethicsTickerLabelEl.style.clipPath = 'inset(' + pct + '% 0 0 0)';
+                        if (p < 1) { requestAnimationFrame(step); } else { cb(); }
+                    }
+                    requestAnimationFrame(step);
+                }
+
+                function doBlink() {
+                    if (blinks >= totalBlinks) {
+                        ethicsTickerLabelEl.style.clipPath = '';
+                        finishEyeball();
+                        return;
+                    }
+                    var closeMs = blinks === 0 ? 350 : 500;
+                    var shutMs  = blinks === 0 ? 150 : 250;
+                    var openMs  = blinks === 0 ? 250 : 350;
+
+                    animateEyelid(true, closeMs, function() {
+                        setTimeout(function() {
+                            animateEyelid(false, openMs, function() {
+                                blinks++;
+                                setTimeout(doBlink, 300);
+                            });
+                        }, shutMs);
+                    });
+                }
+                doBlink();
+            }
+
+            function finishEyeball() {
+                // Morph eyeball → text (reverse crossfade)
+                crossfade(false, function() {
+                    ethicsTickerLabelAI.style.opacity = '';
+                    ethicsTickerLabelEthics.style.opacity = '';
+                    ethicsTickerLabelAI.style.transform = '';
+                    ethicsTickerLabelEthics.style.transform = '';
+                    ethicsTickerEyeballEl.style.opacity = '0';
+                    ethicsTickerEyeballEl.style.transform = 'translate(-50%, -50%) scale(0)';
+                    typeOut();
+                });
+            }
+        }
+
+        // Phase 4: Untype (delete)
+        function typeOut() {
+            if (!ethicsTickerRunning) return;
+            var currentLen = ethicsTickerTextEl.textContent.length;
+            if (currentLen > 0) {
+                ethicsTickerTextEl.textContent = fullText.slice(0, currentLen - 1);
+                setTimeout(typeOut, untypeSpeed);
+            } else {
+                ethicsTickerIndex = (ethicsTickerIndex + 1) % ethicsTickerMessages.length;
+                setTimeout(tickerTypewriterLoop, 400);
+            }
+        }
+
+        typeIn();
+    }
+
+    /** Start the typewriter loop */
+    function startTickerTimer() {
+        if (ethicsTickerRunning) return;
+        ethicsTickerRunning = true;
+        ethicsTickerTextEl.textContent = '';
+        tickerTypewriterLoop();
+    }
+
+    /** Stop the typewriter loop */
+    function stopTickerTimer() {
+        ethicsTickerRunning = false;
+        if (ethicsTickerTextEl) ethicsTickerTextEl.textContent = '';
+    }
 
     function updateHeader() {
         var isScrolled = window.scrollY > 50;
@@ -678,9 +680,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ethicsTickerEl) {
             if (isScrolled && !headerWasScrolled) {
                 // Transition: transparent -> scrolled -- show ticker above header
-                ethicsTickerTextEl.textContent = ethicsTickerMessages[ethicsTickerIndex];
-                ethicsTickerIndex = (ethicsTickerIndex + 1) % ethicsTickerMessages.length;
                 ethicsTickerEl.classList.add('ethics-ticker--visible');
+                startTickerTimer();
                 // Push header + all sticky elements down by ticker height
                 var tickerH = ethicsTickerEl.offsetHeight + 'px';
                 header.style.setProperty('--ticker-height', tickerH);
@@ -688,6 +689,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.documentElement.style.setProperty('--ticker-offset', tickerH);
             } else if (!isScrolled && headerWasScrolled) {
                 // Transition: scrolled -> transparent -- hide ticker + reset offsets
+                stopTickerTimer();
                 ethicsTickerEl.classList.remove('ethics-ticker--visible');
                 header.classList.remove('header--ticker-offset');
                 document.documentElement.style.setProperty('--ticker-offset', '0px');
