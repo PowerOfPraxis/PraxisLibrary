@@ -8884,26 +8884,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // HERO CTA AUTO-HOVER
-    // Purpose: Periodically animate hover state on hero CTA buttons
-    // Sequence: red btn hover → 1.5s pause → grey btn hover → both clear
+    // BUTTON AUTO-SHINE
+    // Purpose: Diagonal white shine sweep across all buttons site-wide
+    // Sequence: primary buttons shine → 1.5s pause → secondary buttons shine
+    // Interval: every 5 seconds
     // ==========================================
-    var heroPrimary = document.getElementById('start-learning-btn');
-    var heroSecondary = heroPrimary && heroPrimary.parentNode.querySelector('.btn-secondary');
-    if (heroPrimary && heroSecondary) {
-        function heroAutoHover() {
-            heroPrimary.classList.add('auto-hover');
+    (function initAutoShine() {
+        var allPrimary = document.querySelectorAll('.btn-primary');
+        var allSecondary = document.querySelectorAll('.btn-secondary');
+        if (!allPrimary.length && !allSecondary.length) return;
+
+        function triggerShine() {
+            // Shine primary (red) buttons first
+            allPrimary.forEach(function(btn) {
+                btn.classList.add('btn-shine');
+            });
             setTimeout(function() {
-                heroSecondary.classList.add('auto-hover');
+                allPrimary.forEach(function(btn) {
+                    btn.classList.remove('btn-shine');
+                });
+            }, 700);
+
+            // 1.5s later, shine secondary (grey) buttons
+            setTimeout(function() {
+                allSecondary.forEach(function(btn) {
+                    btn.classList.add('btn-shine');
+                });
+                setTimeout(function() {
+                    allSecondary.forEach(function(btn) {
+                        btn.classList.remove('btn-shine');
+                    });
+                }, 700);
             }, 1500);
-            setTimeout(function() {
-                heroPrimary.classList.remove('auto-hover');
-                heroSecondary.classList.remove('auto-hover');
-            }, 3500);
         }
-        setTimeout(heroAutoHover, 3000);
-        setInterval(heroAutoHover, 7000);
-    }
+
+        setTimeout(triggerShine, 3000);
+        setInterval(triggerShine, 5000);
+    })();
 
     // ==========================================
     // KEYBOARD SHORTCUTS
