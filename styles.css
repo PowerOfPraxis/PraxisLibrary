@@ -1359,59 +1359,21 @@ body.menu-open .header .search-trigger {
 
 /* Button Pulse Animation
    -------------------------------------------- */
-@keyframes btn-attention-pulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
-    }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 6px 25px rgba(220, 53, 69, 0.5);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
-    }
+/* Auto-shine sweep — diagonal white streak across button */
+@keyframes btn-shine-sweep {
+    0% { left: -100%; }
+    100% { left: 100%; }
 }
 
-@keyframes btn-secondary-pulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
-    }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 6px 25px rgba(255, 255, 255, 0.4);
-        background: rgba(255, 255, 255, 0.25);
-        border-color: rgba(255, 255, 255, 0.5);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
-    }
+/* Trigger shine via class — overrides transition with animation */
+.btn-primary.btn-shine::after {
+    animation: btn-shine-sweep 0.6s ease forwards;
+    transition: none;
 }
 
-.btn-primary.pulse-attention {
-    animation: btn-attention-pulse 0.6s ease-in-out;
-}
-
-.btn-secondary.pulse-attention {
-    animation: btn-secondary-pulse 0.6s ease-in-out;
-}
-
-/* Auto-hover effect — mimics :hover state on a timer */
-.btn-primary.auto-hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
-}
-
-.btn-secondary.auto-hover {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.25);
+.btn-secondary.btn-shine::after {
+    animation: btn-shine-sweep 0.6s ease forwards;
+    transition: none;
 }
 
 /* === DARK GRADIENT ANIMATION ===
@@ -1490,6 +1452,7 @@ body.menu-open .header .search-trigger {
 .btn-primary {
     background: var(--primary);
     color: white;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
 }
 
 .btn-primary:hover {
@@ -1502,7 +1465,7 @@ body.menu-open .header .search-trigger {
     transform: translateY(0);
 }
 
-/* Button Shine Effect */
+/* Button Shine Effect — diagonal streak */
 .btn-primary::after {
     content: '';
     position: absolute;
@@ -1510,7 +1473,7 @@ body.menu-open .header .search-trigger {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    background: linear-gradient(120deg, transparent 25%, rgba(255,255,255,0.35) 45%, rgba(255,255,255,0.35) 55%, transparent 75%);
     transition: left 0.5s ease;
 }
 
@@ -1537,7 +1500,7 @@ body.menu-open .header .search-trigger {
     transform: translateY(0);
 }
 
-/* Secondary Button Shine Effect */
+/* Secondary Button Shine Effect — diagonal streak */
 .btn-secondary::after {
     content: '';
     position: absolute;
@@ -1545,7 +1508,7 @@ body.menu-open .header .search-trigger {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(120deg, transparent 25%, rgba(255,255,255,0.25) 45%, rgba(255,255,255,0.25) 55%, transparent 75%);
     transition: left 0.5s ease;
 }
 
@@ -1560,7 +1523,8 @@ body.menu-open .header .search-trigger {
 .cta-corporate--gradient .btn-secondary {
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.08);
 }
 
 .hero .btn-secondary:hover,
