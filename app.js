@@ -3872,6 +3872,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
+    // FOUNDATIONS ERA NAVIGATION
+    // Purpose: Fixed floating nav for AI Foundations page
+    // Shows on scroll, highlights active era via IntersectionObserver
+    // ==========================================
+    const foundationsNav = document.querySelector('.foundations-nav');
+    if (foundationsNav) {
+        const eraButtons = foundationsNav.querySelectorAll('.foundations-nav__btn');
+        const eraSections = document.querySelectorAll('[id^="era-"]');
+        /** Show/hide nav on scroll past hero */
+        const heroSection = document.querySelector('.page-hero');
+        if (heroSection) {
+            const heroObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        foundationsNav.classList.remove('is-visible');
+                    } else {
+                        foundationsNav.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            heroObserver.observe(heroSection);
+        }
+        /** Highlight active era button */
+        if (eraSections.length > 0) {
+            const eraObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        eraButtons.forEach(btn => {
+                            btn.classList.toggle('active', btn.getAttribute('href') === '#' + id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+            eraSections.forEach(section => eraObserver.observe(section));
+        }
+        /** Smooth scroll on click */
+        eraButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = btn.getAttribute('href').slice(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    }
+
+    // ==========================================
     // BACK TO TOP BAR
     // Purpose: Handles click on static back-to-top bar
     // Security: CSP-compliant (no inline handlers)
