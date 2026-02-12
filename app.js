@@ -11307,8 +11307,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             </svg>
                         </button>
                     </div>
-                    <div class="search-modal-help collapsed" id="search-modal-help">
-                        <div class="search-modal-help-title" id="search-modal-help-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="search-modal-help-grid">
+                    <div class="search-modal-help" id="search-modal-help">
+                        <div class="search-modal-help-title" id="search-modal-help-toggle" role="button" tabindex="0" aria-expanded="true" aria-controls="search-modal-help-grid">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                             Quick Links
                             <svg class="search-modal-help-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
