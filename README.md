@@ -4,7 +4,7 @@
 
 **Your Curiosity - Unlocks The Potential - That Builds Tomorrow**
 
-*A comprehensive, living library of 5,300+ terms, 115 learning techniques, and 7 interactive AI tools.
+*A comprehensive, living library of 5,300+ terms, 110 techniques & frameworks, and 7 interactive AI tools.
 Designed to standardize how the world understands and interacts with Artificial Intelligence.*
 
 [![AI for Everybody](https://img.shields.io/badge/AI_for-Everybody-DC3545?style=for-the-badge&labelColor=ffffff&logoColor=1f2937)](https://praxislibrary.com/pages/ai-for-everybody.html)
@@ -337,7 +337,7 @@ praxis-library/
 ├── app.js                             # Single script (12,631 lines)
 ├── .htaccess                          # Server security config
 │
-├── learn/                             # 109 technique & concept pages
+├── learn/                             # 110 technique & framework pages
 │   ├── index.html                     # Learning hub
 │   ├── prompt-basics.html             # Fundamentals
 │   ├── crisp.html                     # CRISP methodology
@@ -747,7 +747,7 @@ The human-AI loop:
 
 ### Frameworks & Techniques Taught on This Site
 
-The library covers **115 learning pages** across categories including:
+The library covers **110 learning pages** (98 techniques + 12 frameworks) across categories including:
 
 | Category | Examples |
 |----------|----------|
