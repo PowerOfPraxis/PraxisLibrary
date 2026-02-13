@@ -761,77 +761,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // CONTENT TABS (Neurodivergence section)
-    // ==========================================
-    const contentTabContainers = document.querySelectorAll('.content-tabs');
-
-    contentTabContainers.forEach(container => {
-        const tabButtons = container.querySelectorAll('.content-tab-btn');
-        const tabPanels = container.querySelectorAll('.content-tab-panel');
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const targetTab = button.dataset.tab;
-
-                // Update active button
-                tabButtons.forEach(btn => btn.classList.remove('is-active'));
-                button.classList.add('is-active');
-
-                // Update active panel
-                tabPanels.forEach(panel => {
-                    panel.classList.remove('is-active');
-                    if (panel.id === `tab-${targetTab}`) {
-                        panel.classList.add('is-active');
-                    }
-                });
-            });
-
-            // Keyboard navigation
-            button.addEventListener('keydown', (e) => {
-                const buttons = Array.from(tabButtons);
-                const currentIndex = buttons.indexOf(button);
-                let newIndex;
-
-                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    newIndex = (currentIndex + 1) % buttons.length;
-                    buttons[newIndex].focus();
-                    buttons[newIndex].click();
-                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    newIndex = (currentIndex - 1 + buttons.length) % buttons.length;
-                    buttons[newIndex].focus();
-                    buttons[newIndex].click();
-                } else if (e.key === 'Home') {
-                    e.preventDefault();
-                    buttons[0].focus();
-                    buttons[0].click();
-                } else if (e.key === 'End') {
-                    e.preventDefault();
-                    buttons[buttons.length - 1].focus();
-                    buttons[buttons.length - 1].click();
-                }
-            });
-        });
-
-        // Support URL hash for direct tab linking
-        const hash = window.location.hash;
-        if (hash && hash.startsWith('#tab-')) {
-            const targetPanel = container.querySelector(hash);
-            if (targetPanel) {
-                const targetTabId = hash.replace('#tab-', '');
-                const targetButton = container.querySelector(`[data-tab="${targetTabId}"]`);
-                if (targetButton) {
-                    tabButtons.forEach(btn => btn.classList.remove('is-active'));
-                    tabPanels.forEach(panel => panel.classList.remove('is-active'));
-                    targetButton.classList.add('is-active');
-                    targetPanel.classList.add('is-active');
-                }
-            }
-        }
-    });
-
-    // ==========================================
     // INTERACTIVE NEURAL NETWORK ANIMATION
     // ==========================================
 
@@ -13503,122 +13432,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     JourneySelector.init();
 
-    // === AI READINESS CYCLING ANIMATION ===
-    // Auto-cycles through readiness areas with hover pause
-    const ReadinessCycler = {
-        init() {
-            this.grid = document.querySelector('[data-readiness-grid]');
-            this.features = document.querySelector('[data-readiness-features]');
-
-            if (!this.grid || !this.features) return;
-
-            this.gridItems = this.grid.querySelectorAll('.icon-grid-item');
-            this.featureItems = this.features.querySelectorAll('.feature-list__item');
-
-            if (this.gridItems.length === 0 || this.featureItems.length === 0) return;
-
-            this.currentIndex = 0;
-            this.interval = 1700; // 1.7 seconds between cycles
-            this.timer = null;
-            this.isPaused = false;
-
-            this.bindEvents();
-            // Start cycling immediately on page load
-            this.startCycling();
-        },
-
-        bindEvents() {
-            // Pause on hover for both grid and features
-            const pauseHandler = () => {
-                this.isPaused = true;
-                this.stopCycling();
-            };
-
-            const resumeHandler = () => {
-                this.isPaused = false;
-                this.startCycling();
-            };
-
-            // Grid hover events
-            this.grid.addEventListener('mouseenter', pauseHandler);
-            this.grid.addEventListener('mouseleave', resumeHandler);
-
-            // Features hover events
-            this.features.addEventListener('mouseenter', pauseHandler);
-            this.features.addEventListener('mouseleave', resumeHandler);
-
-            // Click on grid items to manually select
-            this.gridItems.forEach((item, index) => {
-                item.addEventListener('click', () => {
-                    this.goToIndex(index);
-                });
-            });
-
-            // Click on feature items to manually select
-            this.featureItems.forEach((item) => {
-                item.addEventListener('click', () => {
-                    const cycleIndex = parseInt(item.dataset.cycle, 10);
-                    if (!isNaN(cycleIndex)) {
-                        this.goToIndex(cycleIndex);
-                    }
-                });
-            });
-
-            // Pause when page is not visible
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) {
-                    this.stopCycling();
-                } else if (!this.isPaused) {
-                    this.startCycling();
-                }
-            });
-        },
-
-        startCycling() {
-            this.stopCycling();
-            this.timer = setInterval(() => {
-                this.next();
-            }, this.interval);
-        },
-
-        stopCycling() {
-            if (this.timer) {
-                clearInterval(this.timer);
-                this.timer = null;
-            }
-        },
-
-        next() {
-            this.currentIndex = (this.currentIndex + 1) % this.gridItems.length;
-            this.updateActive();
-        },
-
-        goToIndex(index) {
-            this.currentIndex = index;
-            this.updateActive();
-
-            // Restart timer if not paused
-            if (!this.isPaused) {
-                this.startCycling();
-            }
-        },
-
-        updateActive() {
-            // Update grid items
-            this.gridItems.forEach((item, index) => {
-                item.classList.toggle('is-active', index === this.currentIndex);
-            });
-
-            // Update feature items based on data-cycle attribute
-            this.featureItems.forEach((item) => {
-                const cycleIndex = parseInt(item.dataset.cycle, 10);
-                item.classList.toggle('is-active', cycleIndex === this.currentIndex);
-            });
-        }
-    };
-
-    ReadinessCycler.init();
-
     // ==========================================
     // === REACT CYCLE ANIMATION ===
     // ==========================================
@@ -15149,15 +14962,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Counts
             var counts = el('div', 'audit-category-card__counts');
-            var errSpan = el('span', 'audit-category-card__count audit-category-card__count--error');
-            errSpan.textContent = cat.error_count + 'E';
-            counts.appendChild(errSpan);
-            var warnSpan = el('span', 'audit-category-card__count audit-category-card__count--warning');
-            warnSpan.textContent = cat.warning_count + 'W';
-            counts.appendChild(warnSpan);
-            var infoSpan = el('span', 'audit-category-card__count audit-category-card__count--info');
-            infoSpan.textContent = cat.info_count + 'I';
-            counts.appendChild(infoSpan);
+            if (cat.error_count > 0 || cat.warning_count > 0) {
+                var errSpan = el('span', 'audit-category-card__count audit-category-card__count--error');
+                errSpan.textContent = cat.error_count + 'E';
+                counts.appendChild(errSpan);
+                var warnSpan = el('span', 'audit-category-card__count audit-category-card__count--warning');
+                warnSpan.textContent = cat.warning_count + 'W';
+                counts.appendChild(warnSpan);
+                var infoSpan = el('span', 'audit-category-card__count audit-category-card__count--info');
+                infoSpan.textContent = cat.info_count + 'I';
+                counts.appendChild(infoSpan);
+            } else {
+                var cleanSpan = el('span', 'audit-category-card__count audit-category-card__count--clean');
+                cleanSpan.textContent = 'Clean';
+                counts.appendChild(cleanSpan);
+            }
             card.appendChild(counts);
 
             // Meta
@@ -15409,9 +15228,6 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (cat.warning_count > 0) {
                 badgeCls += ' audit-issue-item__count-badge--warning';
                 badgeText = cat.warning_count + 'W / ' + cat.info_count + 'I';
-            } else if (cat.info_count > 0) {
-                badgeCls += ' audit-issue-item__count-badge--info';
-                badgeText = cat.info_count + ' info';
             } else {
                 badgeCls += ' audit-issue-item__count-badge--clean';
                 badgeText = 'Clean';
@@ -15474,13 +15290,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Findings section
-            var hasFindings = (cat.error_count + cat.warning_count + cat.info_count) > 0;
-            if (hasFindings) {
+            var hasErrors = cat.error_count > 0;
+            var hasWarnings = cat.warning_count > 0;
+            var hasInfos = cat.info_count > 0;
+            var hasIssues = hasErrors || hasWarnings;
+
+            if (hasIssues || hasInfos) {
                 var findingsBlock = el('div', 'audit-detail-block');
-                findingsBlock.appendChild(el('div', 'audit-detail-block__label', 'Findings'));
 
                 // Errors
                 if (cat.errors && cat.errors.length) {
+                    findingsBlock.appendChild(el('div', 'audit-detail-block__label', 'Findings'));
                     findingsBlock.appendChild(el('div', 'audit-findings-subhead', 'Errors (' + cat.errors.length + ')'));
                     cat.errors.forEach(function(issue) {
                         findingsBlock.appendChild(buildIssueRow(issue, 'error'));
@@ -15489,15 +15309,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Warnings
                 if (cat.warnings && cat.warnings.length) {
+                    if (!hasErrors) {
+                        findingsBlock.appendChild(el('div', 'audit-detail-block__label', 'Findings'));
+                    }
                     findingsBlock.appendChild(el('div', 'audit-findings-subhead', 'Warnings (' + cat.warnings.length + ')'));
                     cat.warnings.forEach(function(issue) {
                         findingsBlock.appendChild(buildIssueRow(issue, 'warning'));
                     });
                 }
 
-                // Info
+                // Info — shown as verified items
                 if (cat.infos && cat.infos.length) {
-                    findingsBlock.appendChild(el('div', 'audit-findings-subhead', 'Info (' + cat.infos.length + ')'));
+                    if (!hasIssues) {
+                        var noIssues = el('div', 'audit-no-issues');
+                        noIssues.textContent = 'No issues found.';
+                        findingsBlock.appendChild(noIssues);
+                    }
+                    findingsBlock.appendChild(el('div', 'audit-findings-subhead audit-findings-subhead--verified', 'Human Verified (' + cat.infos.length + ')'));
                     cat.infos.forEach(function(issue) {
                         findingsBlock.appendChild(buildIssueRow(issue, 'info'));
                     });
@@ -15545,6 +15373,10 @@ document.addEventListener('DOMContentLoaded', function() {
         var msg = el('div', 'audit-issue__message');
         msg.textContent = issue.message || '';
         row.appendChild(msg);
+
+        if (severity === 'info') {
+            row.appendChild(el('span', 'audit-issue__verified-badge', 'Human Verified'));
+        }
 
         if (issue.suggestion) {
             var sug = el('div', 'audit-issue__suggestion');
@@ -15631,3 +15463,148 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 })();
 
+// === KNOWLEDGE CHECK ===
+
+/**
+ * Interactive knowledge check — one question at a time.
+ * Shows feedback immediately, advances after 1.7s.
+ * Attaches to [data-knowledge-check] sections.
+ */
+(function() {
+    var ADVANCE_DELAY = 1700;
+    var checks = document.querySelectorAll('[data-knowledge-check]');
+    if (!checks.length) return;
+
+    checks.forEach(function(check) { initCheck(check); });
+
+    function initCheck(check) {
+        var questions = Array.prototype.slice.call(check.querySelectorAll('.knowledge-check__question'));
+        var scoreBox = check.querySelector('.knowledge-check__score');
+        var progressEl = check.querySelector('.knowledge-check__progress');
+        var total = questions.length;
+        var state = { current: 0, correct: 0 };
+
+        showQuestion(0);
+        updateProgress();
+
+        questions.forEach(function(q, idx) {
+            var options = q.querySelectorAll('.knowledge-check__option');
+            var feedbackEl = q.querySelector('.knowledge-check__feedback');
+
+            options.forEach(function(opt) {
+                opt.addEventListener('click', function() {
+                    if (opt.hasAttribute('data-answered')) return;
+
+                    var isCorrect = opt.getAttribute('data-correct') === 'true';
+
+                    options.forEach(function(o) {
+                        o.setAttribute('data-answered', 'true');
+                    });
+
+                    if (isCorrect) {
+                        state.correct++;
+                        opt.classList.add('knowledge-check__option--correct');
+                        if (feedbackEl) {
+                            feedbackEl.textContent = 'Correct!';
+                            feedbackEl.className = 'knowledge-check__feedback knowledge-check__feedback--correct knowledge-check__feedback--visible';
+                        }
+                    } else {
+                        opt.classList.add('knowledge-check__option--incorrect');
+                        options.forEach(function(o) {
+                            if (o.getAttribute('data-correct') === 'true') {
+                                o.classList.add('knowledge-check__option--correct');
+                            }
+                        });
+                        if (feedbackEl) {
+                            feedbackEl.textContent = 'Incorrect \u2014 the correct answer is highlighted.';
+                            feedbackEl.className = 'knowledge-check__feedback knowledge-check__feedback--incorrect knowledge-check__feedback--visible';
+                        }
+                    }
+
+                    setTimeout(function() {
+                        if (idx < total - 1) {
+                            state.current = idx + 1;
+                            showQuestion(state.current);
+                            updateProgress();
+                        } else {
+                            showScore();
+                        }
+                    }, ADVANCE_DELAY);
+                });
+            });
+        });
+
+        function showQuestion(idx) {
+            questions.forEach(function(q, i) {
+                if (i === idx) {
+                    q.classList.add('knowledge-check__question--active');
+                } else {
+                    q.classList.remove('knowledge-check__question--active');
+                }
+            });
+        }
+
+        function updateProgress() {
+            if (progressEl) {
+                progressEl.textContent = (state.current + 1) + ' / ' + total;
+            }
+        }
+
+        function showScore() {
+            questions.forEach(function(q) {
+                q.classList.remove('knowledge-check__question--active');
+            });
+            scoreBox.classList.add('knowledge-check__score--visible');
+            var pct = Math.round((state.correct / total) * 100);
+
+            var titleEl = document.createElement('p');
+            titleEl.className = 'knowledge-check__score-text';
+            titleEl.textContent = state.correct + ' of ' + total + ' correct (' + pct + '%)';
+
+            var detailEl = document.createElement('p');
+            detailEl.className = 'knowledge-check__score-detail';
+            if (pct === 100) {
+                detailEl.textContent = 'Perfect score! You have a strong grasp of this material.';
+            } else if (pct >= 60) {
+                detailEl.textContent = 'Good effort! Review the content above for anything you missed.';
+            } else {
+                detailEl.textContent = 'Consider re-reading the content above and trying again.';
+            }
+
+            var retryBtn = document.createElement('button');
+            retryBtn.className = 'knowledge-check__retry';
+            retryBtn.textContent = 'Try Again';
+            retryBtn.addEventListener('click', function() {
+                resetCheck();
+            });
+
+            scoreBox.innerHTML = '';
+            scoreBox.appendChild(titleEl);
+            scoreBox.appendChild(detailEl);
+            scoreBox.appendChild(retryBtn);
+        }
+
+        function resetCheck() {
+            scoreBox.classList.remove('knowledge-check__score--visible');
+            scoreBox.innerHTML = '';
+            state.current = 0;
+            state.correct = 0;
+
+            questions.forEach(function(q) {
+                var options = q.querySelectorAll('.knowledge-check__option');
+                options.forEach(function(o) {
+                    o.removeAttribute('data-answered');
+                    o.classList.remove('knowledge-check__option--correct', 'knowledge-check__option--incorrect');
+                });
+                var fb = q.querySelector('.knowledge-check__feedback');
+                if (fb) {
+                    fb.textContent = '';
+                    fb.className = 'knowledge-check__feedback';
+                }
+            });
+
+            showQuestion(0);
+            updateProgress();
+        }
+    }
+})();
