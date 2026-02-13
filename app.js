@@ -15608,3 +15608,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 })();
+
+// === RAI MAILTO HANDLER ===
+/** Dynamically builds mailto: href with date/time in subject and structured body */
+(function() {
+    var link = document.querySelector('[data-rai-mailto]');
+    if (!link) return;
+
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var now = new Date();
+        var date = now.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        var time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+        var subject = 'Praxis Library RAI - Notification - Date: ' + date + '  Time: ' + time;
+
+        var body = 'Please Include the page URL, a description of the issue, and any supporting details that will help us make Praxis a safe and reliable resource for everyone. We read every message and aim to acknowledge reports within 48 hours. This is the fastest way to reach us for any content, accuracy, or governance concern.\n\n\nPage URL:\n\n\n\nDescription:\n\n';
+
+        var href = 'mailto:thepraxislibrary@gmail.com'
+            + '?subject=' + encodeURIComponent(subject)
+            + '&body=' + encodeURIComponent(body);
+
+        window.location.href = href;
+    });
+})();
