@@ -15036,7 +15036,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setText('audit-severity-errors', fmtNum(summary.total_errors));
         setText('audit-severity-warnings', fmtNum(summary.total_warnings));
         setText('audit-severity-info', fmtNum(summary.total_info));
-        setText('audit-severity-verified', fmtNum(summary.total_verified || 0));
+        setText('audit-severity-verified', fmtNum(summary.citations_verified || 0));
     }
 
     // --- 4. Category Grid ---
