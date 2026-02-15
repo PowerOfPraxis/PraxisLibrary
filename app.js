@@ -14954,6 +14954,20 @@ document.addEventListener('DOMContentLoaded', function() {
         return Number(n).toLocaleString();
     }
 
+    // --- Live verified count from citation-verify localStorage ---
+    function getLiveVerifiedCount() {
+        try {
+            var state = JSON.parse(localStorage.getItem('praxis-cv4') || '{}');
+            var count = 0;
+            for (var key in state) {
+                if (state[key]) count++;
+            }
+            return count;
+        } catch (e) {
+            return null;
+        }
+    }
+
     // --- Fetch and render ---
     var jsonUrl = resolvePath('Audit/audit-report.json') + '?v=' + Date.now();
 
@@ -14963,6 +14977,10 @@ document.addEventListener('DOMContentLoaded', function() {
             return res.json();
         })
         .then(function(data) {
+            var liveCount = getLiveVerifiedCount();
+            if (liveCount !== null) {
+                data.summary.citations_verified = liveCount;
+            }
             renderOverallHealth(data.summary, data.metadata);
             renderSiteSnapshot(data.site_snapshot);
             renderSeverityDistribution(data.summary);
