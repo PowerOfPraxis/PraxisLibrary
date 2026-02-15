@@ -160,59 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // AI ETHICS REMINDER BANNER
-    // Injected on framework pages before CTA section
-    // ==========================================
-    (function() {
-        var ctaCorp = document.querySelector('.cta-corporate');
-        if (!ctaCorp) return;
-        var pathname = window.location.pathname.toLowerCase();
-        if (pathname.indexOf('/learn/') === -1 && pathname.indexOf('learn/') !== 0) return;
-        var ctaSection = ctaCorp.closest('section');
-        if (!ctaSection) return;
-
-        var banner = document.createElement('div');
-        banner.className = 'ai-ethics-banner';
-
-        // Icon area -- shield via CSS
-        var iconWrap = document.createElement('div');
-        iconWrap.className = 'ai-ethics-banner__icon';
-        banner.appendChild(iconWrap);
-
-        // Content area
-        var content = document.createElement('div');
-        content.className = 'ai-ethics-banner__content';
-
-        var heading = document.createElement('h3');
-        heading.className = 'ai-ethics-banner__heading';
-        heading.textContent = 'Practice Responsible AI';
-        content.appendChild(heading);
-
-        var body = document.createElement('p');
-        body.className = 'ai-ethics-banner__body';
-        body.textContent = 'Always verify AI-generated content before use. AI systems can produce ' +
-            'confident but incorrect responses. When using AI professionally, transparent ' +
-            'disclosure is both best practice and increasingly a legal requirement.';
-        content.appendChild(body);
-
-        var note = document.createElement('p');
-        note.className = 'ai-ethics-banner__note';
-        note.textContent = '48 US states now require AI transparency in key areas. ' +
-            'Critical thinking remains your strongest tool against misinformation.';
-        content.appendChild(note);
-
-        banner.appendChild(content);
-
-        var wrapper = document.createElement('section');
-        wrapper.className = 'section';
-        var container = document.createElement('div');
-        container.className = 'container';
-        container.appendChild(banner);
-        wrapper.appendChild(container);
-        ctaSection.parentNode.insertBefore(wrapper, ctaSection);
-    })();
-
-    // ==========================================
     // ACCORDION NAVIGATION (Mega Menu)
     // Click-based expand/collapse for dropdown menus
     // ==========================================
