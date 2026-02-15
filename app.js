@@ -14952,7 +14952,7 @@ document.addEventListener('DOMContentLoaded', function() {
             renderCategoryGrid(data.categories);
             renderChecksChart(data.categories);
             renderIssueAccordion(data.categories);
-            renderVerifiedRepository(data.categories);
+            renderVerifiedRepository(data.categories, data.verified_repository || []);
             renderReportMetadata(data.metadata, data.site_snapshot);
             animateGaugeOnScroll();
         })
@@ -15560,11 +15560,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Render the Verified Repository section — all citations requiring verification.
-     * Shows verified items (green) AND unverified warnings (yellow) in one table.
+     * Render the Verified Repository section — all 254 citation entries.
+     * Sources from verified_repository (full verified-items.json) for complete coverage.
+     * Also shows unverified warnings (yellow) from audit errors.
      * @param {Object[]} categories - audit category data
+     * @param {Object[]} registry - full verified-items.json entries
      */
-    function renderVerifiedRepository(categories) {
+    function renderVerifiedRepository(categories, registry) {
         var container = document.getElementById('audit-verified-repo');
         if (!container) return;
 
@@ -15572,22 +15574,16 @@ document.addEventListener('DOMContentLoaded', function() {
         var verifiedItems = [];
         var unverifiedItems = [];
 
-        // Collect verified items across categories, deduplicate by URL
-        categories.forEach(function(cat) {
-            if (!cat.verified || !cat.verified.length) return;
-            cat.verified.forEach(function(v) {
-                var key = v.url || v.message;
-                if (seen[key]) return;
-                seen[key] = true;
-                verifiedItems.push({
-                    url: v.url || '',
-                    anchor: v.anchor || '',
-                    filePath: v.file_path || '',
-                    line: v.line_number || 0,
-                    category: cat.name,
-                    status: 'verified'
-                });
+        // Source verified items from the full registry (all 254 entries)
+        registry.forEach(function(entry) {
+            verifiedItems.push({
+                url: entry.url || '',
+                anchor: entry.citation || '',
+                filePath: entry.page || '',
+                line: entry.line || 0,
+                status: 'verified'
             });
+            if (entry.url) seen[entry.url] = true;
         });
 
         // Collect unverified ERROR items (UNVERIFIED messages), deduplicate by URL
@@ -15604,7 +15600,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     anchor: parsed.anchor,
                     filePath: item.file_path || '',
                     line: item.line_number || 0,
-                    category: cat.name,
                     status: 'unverified'
                 });
             });
