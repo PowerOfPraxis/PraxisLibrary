@@ -1,0 +1,706 @@
+{
+  "level": 4,
+  "name": "Expert",
+  "questions": [
+    {
+      "id": "L4-001",
+      "q": "Chain-of-thought prompting improves AI output by:",
+      "options": ["Making the AI process your request more slowly", "Connecting your prompt to relevant training data", "Allowing the AI to ask you clarifying questions", "Revealing reasoning steps for easier verification"],
+      "answer": 3,
+      "explanation": "Chain-of-thought prompting makes the AI show its reasoning step by step, making it easier to verify the logic and catch errors."
+    },
+    {
+      "id": "L4-002",
+      "q": "What phrase triggers Chain-of-Thought reasoning?",
+      "options": ["'Answer quickly'", "'Let's think step by step'", "'Be more creative'", "'Use your best judgment'"],
+      "answer": 1,
+      "explanation": "'Let's think step by step' is the classic trigger phrase for Chain-of-Thought reasoning, prompting the AI to break down its thinking process."
+    },
+    {
+      "id": "L4-003",
+      "q": "Few-shot prompting (providing examples) is most valuable when:",
+      "options": ["You want the AI to be more creative and original", "The AI doesn't understand your topic area well", "You need output in a specific format or style", "Your prompt is too short and needs more content"],
+      "answer": 2,
+      "explanation": "Few-shot prompting is most valuable when you need the AI to follow a specific format, style, or pattern — the examples demonstrate exactly what you expect."
+    },
+    {
+      "id": "L4-004",
+      "q": "How many examples are typically recommended for few-shot learning?",
+      "options": ["1 example only", "2-5 examples", "10-15 examples", "As many as possible"],
+      "answer": 1,
+      "explanation": "2-5 examples typically provide enough pattern information for the AI to understand the desired format without consuming too much context window space."
+    },
+    {
+      "id": "L4-005",
+      "q": "What is the ReAct method?",
+      "options": ["A way to react emotionally to AI responses", "Alternating between Reasoning and Acting steps", "A method for reactive programming with AI", "Reacting to user feedback in real-time"],
+      "answer": 1,
+      "explanation": "ReAct (Reasoning + Acting) is a framework where the AI alternates between thinking through a problem and taking actions to gather information."
+    },
+    {
+      "id": "L4-006",
+      "q": "The ReAct loop consists of which three phases?",
+      "options": ["Read, Edit, Approve", "Request, Evaluate, Accept", "Thought, Action, Observation", "Review, Analyze, Complete"],
+      "answer": 2,
+      "explanation": "The ReAct loop cycles through Thought (reasoning about the problem), Action (doing something), and Observation (evaluating the result)."
+    },
+    {
+      "id": "L4-007",
+      "q": "When is ReAct most useful?",
+      "options": ["For simple, straightforward tasks", "When you need quick one-word answers", "For complex problems requiring multiple steps", "When creativity is more important than accuracy"],
+      "answer": 2,
+      "explanation": "ReAct excels at complex, multi-step problems where the AI needs to reason, take actions, observe results, and adjust its approach iteratively."
+    },
+    {
+      "id": "L4-008",
+      "q": "What is the Flipped Interaction method?",
+      "options": ["Asking AI to write prompts for you", "Having AI interview you before giving advice", "Reversing the order of prompt elements", "Using opposite meanings in prompts"],
+      "answer": 1,
+      "explanation": "Flipped Interaction reverses the typical dynamic — instead of you prompting the AI, the AI interviews you with targeted questions before providing its response."
+    },
+    {
+      "id": "L4-009",
+      "q": "Why does Flipped Interaction produce better results?",
+      "options": ["It confuses the AI into trying harder", "It forces specificity before solutions", "It's faster than normal prompting", "It uses less AI processing power"],
+      "answer": 1,
+      "explanation": "By having the AI ask clarifying questions first, Flipped Interaction forces specificity and gathers the context needed before generating a solution."
+    },
+    {
+      "id": "L4-010",
+      "q": "A limitation of Role Prompting is that it:",
+      "options": ["Only works with certain AI models", "Requires paid subscriptions to use", "Doesn't give AI knowledge it doesn't have", "Makes responses too short"],
+      "answer": 2,
+      "explanation": "Role prompting shapes how the AI frames its responses, but it cannot give the AI knowledge beyond its training data — it adjusts perspective, not capability."
+    },
+    {
+      "id": "L4-011",
+      "q": "What is the primary risk of NOT using Chain-of-Thought prompting for a math word problem?",
+      "options": ["The AI will refuse to answer", "The response will be too long", "The AI may jump to an incorrect final answer without showing verifiable work", "The AI will ask for more context"],
+      "answer": 2,
+      "explanation": "Without Chain-of-Thought, the AI may skip intermediate reasoning and produce a final answer that looks confident but contains hidden logical errors you cannot verify."
+    },
+    {
+      "id": "L4-012",
+      "q": "Chain-of-Thought prompting is LEAST beneficial for which type of task?",
+      "options": ["Simple factual lookups like capital cities", "Multi-step arithmetic calculations", "Logical deduction puzzles", "Comparing pros and cons of options"],
+      "answer": 0,
+      "explanation": "Simple factual retrieval (e.g., 'What is the capital of France?') does not benefit from step-by-step reasoning because no intermediate logic is required."
+    },
+    {
+      "id": "L4-013",
+      "q": "You ask the AI to solve a logic puzzle and it gives the wrong answer. What Chain-of-Thought strategy should you try?",
+      "options": ["Ask the same question again and hope for a different answer", "Tell the AI it is wrong and demand the correct answer", "Switch to a different AI model entirely", "Re-prompt with 'Walk me through your reasoning before answering'"],
+      "answer": 3,
+      "explanation": "Explicitly asking the AI to show its reasoning before answering forces it to work through the logic step by step, which often corrects errors that occur when the AI jumps to a conclusion."
+    },
+    {
+      "id": "L4-014",
+      "q": "In Chain-of-Thought prompting, what should you do if one of the AI's reasoning steps looks wrong?",
+      "options": ["Point out the specific flawed step and ask the AI to re-examine it", "Ignore it if the final answer seems correct", "Start over with a completely different prompt", "Accept it because AI reasoning is always internally consistent"],
+      "answer": 0,
+      "explanation": "One key advantage of CoT is that you can pinpoint exactly where reasoning goes wrong. Identifying the flawed step and asking the AI to reconsider it is more efficient than restarting."
+    },
+    {
+      "id": "L4-015",
+      "q": "Which is a valid Chain-of-Thought trigger besides 'Let's think step by step'?",
+      "options": ["'Give me the short version'", "'Before answering, work through the logic'", "'Be concise and direct'", "'Answer in one sentence'"],
+      "answer": 1,
+      "explanation": "'Before answering, work through the logic' achieves the same CoT effect by instructing the AI to reason through the problem before committing to a final answer."
+    },
+    {
+      "id": "L4-016",
+      "q": "Chain-of-Thought prompting helps users verify AI output because:",
+      "options": ["It makes the AI cite its training data sources", "It forces the AI to only use verified facts", "It automatically flags uncertain answers", "Each reasoning step can be independently checked for correctness"],
+      "answer": 3,
+      "explanation": "When the AI shows its work, each individual step becomes a checkpoint you can verify. This transparency is the core verification benefit of CoT prompting."
+    },
+    {
+      "id": "L4-017",
+      "q": "What happens when you combine Chain-of-Thought with a constraint like 'explain your reasoning, then give the answer in bold'?",
+      "options": ["The AI ignores the formatting constraint", "You get structured output with visible reasoning AND a clearly marked final answer", "The AI gets confused by conflicting instructions", "The reasoning disappears and only the bold answer remains"],
+      "answer": 1,
+      "explanation": "Combining CoT with formatting constraints gives you the best of both worlds — visible reasoning steps for verification plus a clearly formatted final answer for quick reference."
+    },
+    {
+      "id": "L4-018",
+      "q": "A colleague says 'Chain-of-Thought is just making the AI write more words.' What is wrong with this view?",
+      "options": ["The additional words are structured reasoning that improves accuracy and auditability", "CoT actually makes responses shorter", "CoT does not change the output at all", "The extra words are only for decoration"],
+      "answer": 0,
+      "explanation": "CoT does not just add filler text — it produces structured reasoning steps that genuinely improve the AI's accuracy on complex tasks and give the user a way to audit the logic."
+    },
+    {
+      "id": "L4-019",
+      "q": "You want the AI to evaluate whether a business idea is viable. Which CoT approach is best?",
+      "options": ["'Is this business idea viable? Yes or no.'", "'Be creative and tell me what you think.'", "'Answer quickly without overthinking it.'", "'List the pros and cons, then weigh them against each other, and finally give your assessment.'"],
+      "answer": 3,
+      "explanation": "Asking the AI to list pros and cons, weigh them, and then assess forces a structured evaluation where each step builds on the previous one — classic Chain-of-Thought reasoning."
+    },
+    {
+      "id": "L4-020",
+      "q": "Chain-of-Thought prompting can expose which common AI failure mode?",
+      "options": ["Slow response times", "Confident-sounding answers built on flawed intermediate logic", "Refusal to answer questions", "Formatting errors in output"],
+      "answer": 1,
+      "explanation": "Without CoT, an AI can produce a confident final answer that hides a flawed reasoning chain. CoT makes those hidden logical errors visible so you can catch them."
+    },
+    {
+      "id": "L4-021",
+      "q": "When using CoT for a multi-step calculation, the AI gets step 3 of 5 wrong. What is the most efficient correction?",
+      "options": ["Re-run the entire prompt from scratch", "Tell the AI 'Step 3 is incorrect because [reason]. Redo from step 3 onward.'", "Accept the final answer since most steps were correct", "Ask the AI to guess a different answer"],
+      "answer": 1,
+      "explanation": "Because CoT makes each step visible, you can surgically correct the specific error point and have the AI continue from there, saving time and preserving correct earlier work."
+    },
+    {
+      "id": "L4-022",
+      "q": "Zero-shot Chain-of-Thought means:",
+      "options": ["Providing no examples but still asking the AI to reason step by step", "Using Chain-of-Thought without any prompt at all", "The AI refusing to show its reasoning", "Asking for zero steps in the reasoning process"],
+      "answer": 0,
+      "explanation": "Zero-shot CoT means you do not provide worked examples — you simply instruct the AI to think step by step. The 'zero-shot' refers to zero demonstration examples, not zero reasoning."
+    },
+    {
+      "id": "L4-023",
+      "q": "What distinguishes few-shot CoT from zero-shot CoT?",
+      "options": ["Few-shot CoT uses a different AI model", "Zero-shot CoT is always more accurate", "Few-shot CoT includes worked examples showing the desired reasoning pattern", "Few-shot CoT skips the reasoning and shows only answers"],
+      "answer": 2,
+      "explanation": "In few-shot CoT, you provide example problems WITH their step-by-step solutions, so the AI can pattern-match the reasoning structure. Zero-shot CoT relies only on the instruction to reason."
+    },
+    {
+      "id": "L4-024",
+      "q": "Why is Chain-of-Thought particularly important when using AI for decisions that affect people?",
+      "options": ["It makes the AI's decision legally binding", "It guarantees the AI will make the right decision", "It removes human responsibility for the outcome", "It creates an auditable reasoning trail that humans can review and challenge"],
+      "answer": 3,
+      "explanation": "For high-stakes decisions, CoT creates a transparent reasoning trail. Humans can review each step, challenge flawed logic, and maintain accountability — AI should amplify, not replace, human judgment."
+    },
+    {
+      "id": "L4-025",
+      "q": "You provide the AI with 3 examples of customer complaint summaries before asking it to summarize a new complaint. This is:",
+      "options": ["Zero-shot prompting", "Chain-of-Thought prompting", "Few-shot prompting", "Role prompting"],
+      "answer": 2,
+      "explanation": "Providing examples of the desired output before asking the AI to generate new output is the definition of few-shot prompting — the examples teach the pattern."
+    },
+    {
+      "id": "L4-026",
+      "q": "What is 'one-shot' prompting?",
+      "options": ["Giving the AI only one chance to answer", "A prompting technique that always works on the first try", "Using a single word as your entire prompt", "Providing exactly one example before the actual task"],
+      "answer": 3,
+      "explanation": "One-shot prompting is a specific case of few-shot prompting where you provide exactly one example to demonstrate the desired pattern before presenting the actual task."
+    },
+    {
+      "id": "L4-027",
+      "q": "Your few-shot examples all follow the same rigid format but the AI's output deviates. What is the most likely cause?",
+      "options": ["The AI cannot learn from examples", "Your examples are inconsistent in some subtle way you did not notice", "The AI intentionally ignores examples", "Few-shot prompting never works for formatting"],
+      "answer": 1,
+      "explanation": "When few-shot output deviates, the first thing to check is whether your examples are truly consistent. Subtle differences in punctuation, spacing, or structure can confuse the pattern."
+    },
+    {
+      "id": "L4-028",
+      "q": "What is a key disadvantage of using too many few-shot examples?",
+      "options": ["They consume context window space that could be used for the actual task", "The AI will memorize the examples and repeat them verbatim", "The AI ignores all examples after the third one", "More examples always produce worse results"],
+      "answer": 0,
+      "explanation": "Every example consumes tokens from the context window. Too many examples can crowd out space needed for the actual task and the AI's response, reducing output quality."
+    },
+    {
+      "id": "L4-029",
+      "q": "Few-shot prompting works because the AI is performing:",
+      "options": ["Fine-tuning on your examples in real time", "Permanent learning that persists across sessions", "Database lookups against its training data", "In-context pattern matching from the examples you provide"],
+      "answer": 3,
+      "explanation": "Few-shot prompting leverages in-context learning — the AI recognizes the pattern in your examples and applies it to the new task. No permanent learning or fine-tuning occurs."
+    },
+    {
+      "id": "L4-030",
+      "q": "You want the AI to generate product descriptions in a specific brand voice. Which few-shot approach is best?",
+      "options": ["Describe the brand voice in abstract terms without examples", "Provide 3-4 existing product descriptions that exemplify the brand voice", "Give one example and one counter-example of what you do NOT want", "Skip examples and just say 'write in our brand voice'"],
+      "answer": 1,
+      "explanation": "Providing actual examples of the brand voice in action is far more effective than abstract descriptions. The AI picks up on tone, vocabulary, and structure from concrete demonstrations."
+    },
+    {
+      "id": "L4-031",
+      "q": "What is a 'negative example' in few-shot prompting?",
+      "options": ["An example with a pessimistic tone", "An example that demonstrates what the output should NOT look like", "An example that the AI will refuse to process", "An example containing incorrect information"],
+      "answer": 1,
+      "explanation": "A negative example shows the AI what to avoid — pairing positive examples (do this) with negative examples (not this) helps the AI understand boundaries more precisely."
+    },
+    {
+      "id": "L4-032",
+      "q": "When constructing few-shot examples, which element is most critical for consistency?",
+      "options": ["Using the exact same word count in each example", "Making each example about the same topic", "Ensuring examples are listed alphabetically", "Maintaining identical structure and formatting across all examples"],
+      "answer": 3,
+      "explanation": "Structural consistency across examples is what teaches the AI the pattern. If each example follows the same format, the AI learns the template. Content can vary, but structure must be uniform."
+    },
+    {
+      "id": "L4-033",
+      "q": "Few-shot prompting is fundamentally different from fine-tuning because:",
+      "options": ["Few-shot examples exist only in the current conversation and do not permanently change the model", "Few-shot uses more computing power", "Fine-tuning is always less effective", "Few-shot prompting requires special API access"],
+      "answer": 0,
+      "explanation": "Few-shot examples are temporary context that disappears after the conversation. Fine-tuning permanently modifies the model's weights. This distinction is fundamental to understanding both techniques."
+    },
+    {
+      "id": "L4-034",
+      "q": "You give the AI 4 examples of classifying emails as 'urgent' or 'routine,' then ask it to classify a new email. What type of few-shot task is this?",
+      "options": ["Few-shot generation", "Few-shot translation", "Few-shot classification", "Few-shot summarization"],
+      "answer": 2,
+      "explanation": "This is few-shot classification — you are providing labeled examples (emails with their categories) so the AI learns the classification criteria and applies them to new inputs."
+    },
+    {
+      "id": "L4-035",
+      "q": "Your few-shot examples accidentally include a bias (e.g., all positive reviews are long, all negative are short). What risk does this create?",
+      "options": ["The AI may learn the spurious correlation and classify by length instead of sentiment", "No risk — the AI ignores length patterns", "The AI will notify you about the bias", "The examples will be automatically balanced by the AI"],
+      "answer": 0,
+      "explanation": "The AI learns ALL patterns in your examples, including unintentional ones. If length correlates with sentiment in your examples, the AI may use length as a classification signal instead of actual content."
+    },
+    {
+      "id": "L4-036",
+      "q": "What does 'zero-shot' prompting mean?",
+      "options": ["A prompt that always fails on the first attempt", "A prompt with zero words", "Prompting without any specific goal", "Providing no examples and relying entirely on the instruction and the AI's training"],
+      "answer": 3,
+      "explanation": "Zero-shot prompting means giving the AI a task with no examples at all — the AI must rely solely on its training data and your instructions to produce the output."
+    },
+    {
+      "id": "L4-037",
+      "q": "When should you choose few-shot over zero-shot prompting?",
+      "options": ["Always — few-shot is universally better", "When the AI's zero-shot output does not match the format or style you need", "Only when working with code generation", "When you want the AI to be more creative"],
+      "answer": 1,
+      "explanation": "Few-shot is most valuable when zero-shot output is not meeting your needs — particularly when format, style, or classification criteria need to be demonstrated rather than described."
+    },
+    {
+      "id": "L4-038",
+      "q": "You give the AI 3 examples of translating formal English into casual English. Example outputs contain slang. The AI's output for a new sentence also contains slang. This demonstrates:",
+      "options": ["The AI is being unprofessional", "A failure of few-shot prompting", "The AI defaulting to its training data style", "The AI successfully learned the style pattern from your few-shot examples"],
+      "answer": 3,
+      "explanation": "The AI producing slang in its output shows it successfully learned the casual style pattern from your examples. This is few-shot prompting working exactly as intended."
+    },
+    {
+      "id": "L4-039",
+      "q": "What is the relationship between few-shot example quality and output quality?",
+      "options": ["Example quality has no effect on output", "Quantity of examples matters more than quality", "Higher quality, more consistent examples produce better output", "The AI improves bad examples automatically"],
+      "answer": 2,
+      "explanation": "Few-shot output quality is directly tied to example quality. Well-crafted, consistent examples teach clear patterns. Sloppy or contradictory examples produce confused output."
+    },
+    {
+      "id": "L4-040",
+      "q": "Few-shot prompting can help overcome which specific AI limitation?",
+      "options": ["The AI's inability to process images", "The AI's token generation speed", "The AI's inability to access the internet", "The AI's tendency to default to generic formats when you need something specific"],
+      "answer": 3,
+      "explanation": "Without examples, AI defaults to generic patterns from training. Few-shot prompting overcomes this by showing the AI exactly the specific format or style you require."
+    },
+    {
+      "id": "L4-041",
+      "q": "In a few-shot prompt, your examples should ideally cover:",
+      "options": ["A representative range of cases the AI is likely to encounter", "Only the easiest cases to keep things simple", "Only edge cases and unusual scenarios", "Identical scenarios with no variation"],
+      "answer": 0,
+      "explanation": "Examples should represent the diversity of inputs the AI will face. Covering typical cases, edge cases, and boundary conditions helps the AI generalize the pattern correctly."
+    },
+    {
+      "id": "L4-042",
+      "q": "In the ReAct framework, what is the purpose of the 'Thought' phase?",
+      "options": ["To generate the final response immediately", "To reason about what is known and what action to take next", "To wait for the user to provide more input", "To format the output for readability"],
+      "answer": 1,
+      "explanation": "The Thought phase is where the AI reasons about the current state of the problem — what information it has, what it still needs, and what action would be most productive next."
+    },
+    {
+      "id": "L4-043",
+      "q": "What happens during the 'Observation' phase of ReAct?",
+      "options": ["The AI evaluates the result of its most recent action", "The AI waits silently for the user to speak", "The AI observes the user's facial expressions", "The AI restarts the entire process from scratch"],
+      "answer": 0,
+      "explanation": "In the Observation phase, the AI examines what resulted from its action — did it get the information it needed? Was the result expected? This evaluation informs the next Thought phase."
+    },
+    {
+      "id": "L4-044",
+      "q": "ReAct differs from standard prompting because it:",
+      "options": ["Uses a faster AI model behind the scenes", "Requires the user to answer questions between each step", "Produces shorter responses than standard prompting", "Introduces an iterative loop where reasoning and actions inform each other"],
+      "answer": 3,
+      "explanation": "Standard prompting is typically one-shot: prompt in, response out. ReAct introduces iteration — the AI reasons, acts, observes, and adjusts, with each cycle building on the last."
+    },
+    {
+      "id": "L4-045",
+      "q": "A developer asks an AI to debug code using ReAct. What would a proper 'Action' step look like?",
+      "options": ["'I think the bug might be in line 5'", "'Let me examine the function that handles user input on line 12'", "'The code has some issues'", "'I'll think about this more carefully'"],
+      "answer": 1,
+      "explanation": "An Action in ReAct is a concrete, specific step — examining a particular function or line. Vague statements like 'I think' or 'I'll think about it' belong to the Thought phase, not Action."
+    },
+    {
+      "id": "L4-046",
+      "q": "Why does the ReAct loop improve accuracy on research tasks?",
+      "options": ["It makes the AI faster at retrieving information", "Each cycle narrows the search and corrects misunderstandings based on observations", "It bypasses the AI's normal safety guardrails", "It accesses a special research database"],
+      "answer": 1,
+      "explanation": "Each ReAct cycle refines the approach. The AI reasons about what it knows, takes an action to learn more, observes the result, and adjusts — progressively narrowing toward the correct answer."
+    },
+    {
+      "id": "L4-047",
+      "q": "In ReAct, what should happen if an 'Observation' reveals that the 'Action' produced unexpected results?",
+      "options": ["Enter a new Thought phase to reason about why the results were unexpected and adjust", "Ignore the unexpected results and continue as planned", "Restart the entire task from the beginning", "Report the error and stop immediately"],
+      "answer": 0,
+      "explanation": "Unexpected observations trigger a new Thought phase. The AI should reason about why results differed from expectations and formulate a revised action plan — this adaptability is ReAct's strength."
+    },
+    {
+      "id": "L4-048",
+      "q": "You ask an AI to plan a trip using the ReAct method. Which sequence is correct?",
+      "options": ["Action: book flights, Observation: check budget, Thought: pick destination", "Observation: look at a map, Thought: think about weather, Action: dream about vacation", "Thought: identify destination preferences, Action: search flight options, Observation: review prices and availability", "Action: pack bags, Thought: wonder where to go, Observation: arrive somewhere"],
+      "answer": 2,
+      "explanation": "The correct ReAct sequence starts with Thought (reasoning about what you need), then Action (gathering information), then Observation (evaluating the results) — always in T-A-O order."
+    },
+    {
+      "id": "L4-049",
+      "q": "What makes ReAct particularly well-suited for tasks involving external tools or data sources?",
+      "options": ["ReAct makes external tools run faster", "ReAct replaces the need for external tools entirely", "External tools are required for ReAct to function", "The Action phase naturally maps to tool use, while Thought and Observation manage the reasoning around it"],
+      "answer": 3,
+      "explanation": "ReAct's structure naturally accommodates tool use — the AI reasons about what tool to use (Thought), uses it (Action), and evaluates the result (Observation) before deciding the next step."
+    },
+    {
+      "id": "L4-050",
+      "q": "How many Thought-Action-Observation cycles should a ReAct prompt typically go through?",
+      "options": ["Exactly one cycle — any more is wasteful", "Exactly three cycles — no more, no less", "As many cycles as needed until the problem is solved or enough information is gathered", "The AI decides randomly how many cycles to use"],
+      "answer": 2,
+      "explanation": "ReAct is iterative by design. The number of cycles depends on problem complexity — simple problems may need one cycle, while complex ones may need many. The loop runs until resolution."
+    },
+    {
+      "id": "L4-051",
+      "q": "A user writes 'Thought: I need to find X. Action: I found X. Observation: X is correct.' What is wrong with this ReAct usage?",
+      "options": ["Nothing — this is correct ReAct usage", "The Action is fabricated — it describes a result rather than an actual step taken", "ReAct should not use labels like Thought, Action, Observation", "The Observation should come before the Action"],
+      "answer": 1,
+      "explanation": "The Action should describe a concrete step (e.g., 'Search for X'), not claim a result ('I found X'). Fabricating results defeats the purpose of ReAct, which is grounded iterative reasoning."
+    },
+    {
+      "id": "L4-052",
+      "q": "ReAct prompting is inspired by how humans naturally:",
+      "options": ["Read books from start to finish", "Memorize large amounts of data", "Follow instructions without questioning them", "Alternate between thinking about a problem and testing solutions in the real world"],
+      "answer": 3,
+      "explanation": "ReAct mirrors natural human problem-solving: we think about what to do, try something, observe the result, and adjust our thinking. This think-act-observe loop is fundamental to how humans learn."
+    },
+    {
+      "id": "L4-053",
+      "q": "What is the main advantage of ReAct over pure Chain-of-Thought prompting?",
+      "options": ["ReAct adds concrete actions and observations rather than relying solely on internal reasoning", "ReAct is faster", "ReAct uses fewer tokens", "ReAct works without any prompting at all"],
+      "answer": 0,
+      "explanation": "Pure CoT is all internal reasoning. ReAct adds grounding through actions (interacting with information) and observations (evaluating real results), reducing the chance of reasoning errors in a vacuum."
+    },
+    {
+      "id": "L4-054",
+      "q": "In a ReAct-style troubleshooting session, the Observation phase reveals the initial hypothesis was wrong. What is the correct next step?",
+      "options": ["Force the original hypothesis to work anyway", "End the session because the approach failed", "Enter a new Thought phase that incorporates the new information and forms a revised hypothesis", "Skip directly to a new Action without thinking"],
+      "answer": 2,
+      "explanation": "A disproven hypothesis is progress, not failure. The correct next step is a new Thought phase that incorporates the new evidence, forming a better hypothesis to test in the next Action."
+    },
+    {
+      "id": "L4-055",
+      "q": "Why does ReAct reduce hallucination compared to standard prompting?",
+      "options": ["It uses a special anti-hallucination algorithm", "ReAct turns off the AI's creative capabilities", "It forces the AI to say 'I don't know' more often", "Each Action grounds the reasoning in concrete information rather than pure speculation"],
+      "answer": 3,
+      "explanation": "ReAct reduces hallucination because each Action step grounds the reasoning in real information. Instead of speculating, the AI checks its reasoning against concrete data at each cycle."
+    },
+    {
+      "id": "L4-056",
+      "q": "You want to use Flipped Interaction to plan a marketing campaign. What is the correct way to start?",
+      "options": ["'Write me a marketing campaign plan for my product.'", "'I need a marketing campaign. Before you create anything, interview me about my product, audience, budget, and goals.'", "'You are a marketing expert. Give me your best ideas.'", "'Generate 10 marketing slogans for my business.'"],
+      "answer": 1,
+      "explanation": "Flipped Interaction starts by explicitly asking the AI to interview you first. This gathers the specific context needed before any solution is generated, producing far more tailored results."
+    },
+    {
+      "id": "L4-057",
+      "q": "What is the primary risk of NOT using Flipped Interaction for a complex personal problem?",
+      "options": ["The AI will generate generic advice based on assumptions instead of your specific situation", "The AI will refuse to help", "The response will be too short", "The AI will ask too many questions"],
+      "answer": 0,
+      "explanation": "Without Flipped Interaction, the AI must guess your specific context. For complex personal problems, these guesses lead to generic, one-size-fits-all advice that may not apply to your situation."
+    },
+    {
+      "id": "L4-058",
+      "q": "During a Flipped Interaction, the AI asks you a question you had not considered. This is a sign that:",
+      "options": ["The AI is wasting your time", "The technique is working — the AI is uncovering blind spots in your thinking", "You should switch to a different prompting method", "The AI does not understand your request"],
+      "answer": 1,
+      "explanation": "One of the biggest benefits of Flipped Interaction is that the AI's questions can surface aspects of the problem you had not considered, leading to more comprehensive solutions."
+    },
+    {
+      "id": "L4-059",
+      "q": "How should you handle it if the AI's questions during Flipped Interaction are too generic?",
+      "options": ["Answer them anyway and hope the output improves", "Abandon Flipped Interaction and write a detailed prompt yourself", "Ignore the questions and restate your original request", "Tell the AI to ask more specific, targeted questions relevant to your domain"],
+      "answer": 3,
+      "explanation": "If the AI's questions are too broad, redirecting it to ask more specific, domain-relevant questions keeps the Flipped Interaction on track and produces better context for the final output."
+    },
+    {
+      "id": "L4-060",
+      "q": "Flipped Interaction is LEAST effective when:",
+      "options": ["You have a complex, multi-faceted problem", "You already know exactly what you want and just need execution", "You are unsure about your requirements", "You need personalized advice"],
+      "answer": 1,
+      "explanation": "If you already know exactly what you need, the interview phase adds unnecessary overhead. Flipped Interaction shines when requirements are unclear or the problem is complex enough to benefit from discovery."
+    },
+    {
+      "id": "L4-061",
+      "q": "How many questions should the AI typically ask during a Flipped Interaction before giving its response?",
+      "options": ["Exactly 1 question", "At least 20 questions to be thorough", "As many as needed to understand the full context — usually 3 to 8", "Zero — the AI should guess what you need"],
+      "answer": 2,
+      "explanation": "The number depends on complexity, but 3-8 questions typically cover the key dimensions of a problem without overwhelming the user. The goal is sufficient context, not exhaustive interrogation."
+    },
+    {
+      "id": "L4-062",
+      "q": "What makes Flipped Interaction different from simply providing context in your prompt?",
+      "options": ["There is no difference", "The AI identifies what context it needs rather than you guessing what to include", "Flipped Interaction always produces longer responses", "It uses a different AI model under the hood"],
+      "answer": 1,
+      "explanation": "When you write context yourself, you may miss important details. In Flipped Interaction, the AI identifies its own information gaps and asks for exactly what it needs — it knows what context would help most."
+    },
+    {
+      "id": "L4-063",
+      "q": "You are using Flipped Interaction for career advice. The AI asks about your skills, experience, and goals. After you answer, what should happen next?",
+      "options": ["The AI synthesizes your specific answers into personalized, context-aware recommendations", "The AI gives generic career advice", "The AI asks the same questions again", "The AI tells you to see a human career counselor instead"],
+      "answer": 0,
+      "explanation": "After gathering your specific context through its questions, the AI should synthesize all your answers into advice that directly addresses your unique situation — not generic platitudes."
+    },
+    {
+      "id": "L4-064",
+      "q": "Flipped Interaction is especially powerful when combined with which other technique?",
+      "options": ["Using all caps in your prompt", "Sending the same prompt multiple times", "Keeping your answers as short as possible", "Chain-of-Thought, so the AI reasons through your answers before responding"],
+      "answer": 3,
+      "explanation": "Combining Flipped Interaction with CoT means the AI not only gathers your context through questions but also shows its reasoning as it synthesizes your answers into a solution."
+    },
+    {
+      "id": "L4-065",
+      "q": "A user tells the AI 'Ask me questions about my project before helping.' The AI asks one vague question and then gives a full response. What went wrong?",
+      "options": ["Nothing — one question is sufficient", "Flipped Interaction only works for simple tasks", "The prompt should have specified the number and depth of questions expected", "The AI model does not support Flipped Interaction"],
+      "answer": 2,
+      "explanation": "Without guidance on how many or what type of questions to ask, the AI may default to minimal questioning. Specifying expectations (e.g., 'ask at least 5 detailed questions') prevents premature responses."
+    },
+    {
+      "id": "L4-066",
+      "q": "What is the key psychological benefit of Flipped Interaction for the user?",
+      "options": ["It makes the user feel like the AI is paying attention to their specific needs", "It makes the AI seem more human-like", "It reduces the amount of text the user has to read", "It eliminates the need for the user to think critically"],
+      "answer": 0,
+      "explanation": "When the AI asks targeted questions, users feel heard and understood. The resulting output is more relevant because it was built on the user's actual answers, not assumptions."
+    },
+    {
+      "id": "L4-067",
+      "q": "In Flipped Interaction, you should answer the AI's questions with:",
+      "options": ["Yes or no answers only, to save time", "Detailed, honest answers — the quality of the AI's output depends on the quality of your input", "Intentionally vague answers to test the AI", "Answers copied from the internet"],
+      "answer": 1,
+      "explanation": "Flipped Interaction is a two-way exchange. The more detailed and honest your answers, the better the AI can tailor its response. Garbage in, garbage out applies here directly."
+    },
+    {
+      "id": "L4-068",
+      "q": "What is one way to start a Flipped Interaction without explicitly saying 'interview me'?",
+      "options": ["'Just give me your best guess about X.'", "'I need help with X. What do you need to know to help me effectively?'", "'X. Go.'", "'Help me with X. Do not ask any questions.'"],
+      "answer": 1,
+      "explanation": "'What do you need to know to help me effectively?' naturally triggers the Flipped Interaction pattern by inviting the AI to identify its own information gaps before responding."
+    },
+    {
+      "id": "L4-069",
+      "q": "Flipped Interaction helps prevent which common AI failure?",
+      "options": ["Slow response times", "Responses that are too short", "The AI using too much memory", "The AI solving the wrong problem because it misunderstood your needs"],
+      "answer": 3,
+      "explanation": "Many AI failures come from solving the wrong problem. Flipped Interaction prevents this by ensuring the AI understands your actual needs through targeted questions before committing to a solution."
+    },
+    {
+      "id": "L4-070",
+      "q": "You are designing a resume and ask the AI to use Flipped Interaction. Which of these is a GOOD question for the AI to ask you?",
+      "options": ["'What font do you want?'", "'How many pages should it be?'", "'What specific role are you targeting, and what key qualifications does the job listing emphasize?'", "'Do you want it in PDF format?'"],
+      "answer": 2,
+      "explanation": "A good Flipped Interaction question targets the core context that will shape the output. Knowing the target role and its requirements is far more impactful than surface-level formatting questions."
+    },
+    {
+      "id": "L4-071",
+      "q": "Flipped Interaction can be thought of as the AI conducting what type of professional activity?",
+      "options": ["A performance review", "A pop quiz", "An exit interview", "A needs assessment or discovery session"],
+      "answer": 3,
+      "explanation": "Flipped Interaction mirrors a professional needs assessment or discovery session — the AI gathers requirements, constraints, and context before proposing solutions, just like a consultant would."
+    },
+    {
+      "id": "L4-072",
+      "q": "What is Role Prompting?",
+      "options": ["Assigning the AI a professional identity or expertise to shape its response perspective", "Asking the AI to play a character in a story", "Giving the AI administrative permissions", "Telling the AI which language model to use"],
+      "answer": 0,
+      "explanation": "Role Prompting assigns the AI a professional identity (e.g., 'You are an experienced cybersecurity analyst') to shape the perspective, vocabulary, and depth of its responses."
+    },
+    {
+      "id": "L4-073",
+      "q": "Role prompting changes which aspect of AI output?",
+      "options": ["The factual accuracy of the information", "The speed at which the AI generates text", "The framing, vocabulary, and perspective of the response", "The AI's underlying knowledge base"],
+      "answer": 2,
+      "explanation": "Role prompting adjusts HOW the AI presents information — its framing, word choice, and perspective — but does not change WHAT it knows or make it more factually accurate."
+    },
+    {
+      "id": "L4-074",
+      "q": "You prompt the AI with 'You are a pediatrician.' and ask a medical question. The response sounds authoritative. You should:",
+      "options": ["Trust it completely because the AI is now acting as a doctor", "Share it with patients as medical advice", "Assume it is wrong because AI cannot be a doctor", "Treat it as one perspective to verify with a real medical professional"],
+      "answer": 3,
+      "explanation": "Role prompting does not make the AI a real doctor. The response may be well-framed but could still contain errors. Always verify AI-generated medical information with qualified professionals."
+    },
+    {
+      "id": "L4-075",
+      "q": "Which role assignment would be most effective for getting a code review?",
+      "options": ["'You are a creative writer'", "'You are a senior software engineer who prioritizes clean code, security, and performance'", "'You are a helpful assistant'", "'You are a fast typist'"],
+      "answer": 1,
+      "explanation": "A specific, relevant role with clear priorities (clean code, security, performance) gives the AI a concrete lens through which to evaluate your code, producing more targeted feedback."
+    },
+    {
+      "id": "L4-076",
+      "q": "What happens when you assign the AI a role it cannot realistically fulfill, like 'You are a licensed attorney in my jurisdiction'?",
+      "options": ["The AI gains legal expertise specific to your jurisdiction", "The AI will refuse the role entirely", "The AI becomes legally liable for its advice", "The AI may frame responses in legal language but still lacks real jurisdiction-specific knowledge and licensure"],
+      "answer": 3,
+      "explanation": "The AI will adopt legal-sounding language and framing, but it does not actually know your specific jurisdiction's laws and certainly is not licensed to practice. The role is cosmetic, not functional."
+    },
+    {
+      "id": "L4-077",
+      "q": "Role prompting is most effective when the assigned role:",
+      "options": ["Is as vague as possible to give the AI freedom", "Is specific and includes clear priorities or areas of focus", "Contradicts the actual task being requested", "Matches the AI's favorite role from training"],
+      "answer": 1,
+      "explanation": "Specific roles with clear priorities produce the best results. 'You are a financial analyst focused on risk assessment' is far more effective than 'You are a business person.'"
+    },
+    {
+      "id": "L4-078",
+      "q": "A common misconception about Role Prompting is that it:",
+      "options": ["Can shape the tone of responses", "Changes the perspective of the response", "Affects the vocabulary the AI uses", "Unlocks hidden knowledge the AI otherwise would not share"],
+      "answer": 3,
+      "explanation": "Many users believe assigning a role unlocks secret capabilities or hidden knowledge. In reality, the AI's knowledge is fixed — roles only change how that knowledge is presented and framed."
+    },
+    {
+      "id": "L4-079",
+      "q": "You assign the AI the role of 'devil's advocate.' What behavior should you expect?",
+      "options": ["The AI will agree with everything you say", "The AI will generate evil or harmful content", "The AI will challenge your assumptions and present counterarguments", "The AI will refuse to help"],
+      "answer": 2,
+      "explanation": "A devil's advocate role instructs the AI to critically examine your position and present counterarguments — a valuable technique for stress-testing ideas and uncovering blind spots."
+    },
+    {
+      "id": "L4-080",
+      "q": "Why should you specify the audience's knowledge level alongside a role assignment?",
+      "options": ["It prevents the role-based response from being too technical or too simplistic for the actual reader", "It makes the prompt look more professional", "Audience level has no effect on role prompting", "It is required by all AI models"],
+      "answer": 0,
+      "explanation": "A role like 'expert data scientist' might produce highly technical output. Adding the audience level (e.g., 'explain to a non-technical manager') ensures the expert perspective is adapted to the reader."
+    },
+    {
+      "id": "L4-081",
+      "q": "What is the danger of over-relying on Role Prompting as your primary technique?",
+      "options": ["Roles make AI responses too long", "You may mistake authoritative-sounding framing for actual expertise and skip verification", "Role prompting is too complex for beginners", "The AI charges more tokens for role-based responses"],
+      "answer": 1,
+      "explanation": "The biggest danger is confusing confident framing with competence. A role makes the AI sound like an expert, which can lull you into trusting the content without verifying it."
+    },
+    {
+      "id": "L4-082",
+      "q": "When combining Role Prompting with few-shot examples, the role should:",
+      "options": ["Be assigned first to set the context, then examples should match the role's expected output style", "Be assigned after the examples", "Be omitted because examples are enough", "Contradict the examples for creative results"],
+      "answer": 0,
+      "explanation": "The role sets the perspective first, then examples demonstrate what output from that perspective looks like. This combination gives the AI both a lens and a template."
+    },
+    {
+      "id": "L4-083",
+      "q": "You prompt: 'You are a 5-star chef. Help me fix my car engine.' What issue does this illustrate?",
+      "options": ["The AI cannot handle two tasks at once", "The AI will cook food instead of fixing the car", "Role prompting does not work for practical tasks", "A role mismatch — the assigned expertise does not align with the actual task"],
+      "answer": 3,
+      "explanation": "Assigning a chef role for a car repair question creates a role-task mismatch. The AI may try to connect the two awkwardly instead of providing relevant mechanical advice."
+    },
+    {
+      "id": "L4-084",
+      "q": "How does Role Prompting affect the AI's confidence level in its responses?",
+      "options": ["It makes the AI more uncertain and hesitant", "It often increases the AI's confident tone, regardless of actual accuracy", "It has no effect on confidence", "It makes the AI explicitly state its uncertainty more often"],
+      "answer": 1,
+      "explanation": "Roles tend to make the AI adopt the confident tone of the assigned expert. This is dangerous because the confident framing can mask uncertainty or errors in the actual content."
+    },
+    {
+      "id": "L4-085",
+      "q": "Which of these is a productive use of Role Prompting?",
+      "options": ["Asking the AI to pretend it has no safety guidelines", "Asking the AI to act as a real person and give their personal opinions", "Asking the AI to explain quantum physics as if it were a patient high school teacher", "Asking the AI to be a different AI model"],
+      "answer": 2,
+      "explanation": "Using a role to adjust the explanation level (patient high school teacher) is a productive use — it shapes the presentation style to match the audience without misrepresenting the AI's capabilities."
+    },
+    {
+      "id": "L4-086",
+      "q": "Role Prompting combined with Chain-of-Thought produces what effect?",
+      "options": ["The AI refuses to follow both instructions simultaneously", "The CoT overrides the role entirely", "Expert-framed reasoning with visible step-by-step logic from the assigned perspective", "The role overrides the CoT entirely"],
+      "answer": 2,
+      "explanation": "Combining roles with CoT gives you step-by-step reasoning from a specific expert perspective — for example, a security analyst's systematic evaluation of a system's vulnerabilities."
+    },
+    {
+      "id": "L4-087",
+      "q": "Multiple role assignments in one prompt (e.g., 'You are a lawyer AND a doctor') typically:",
+      "options": ["Confuse the AI and produce unfocused output that tries to serve both roles poorly", "Produce excellent interdisciplinary analysis", "Are impossible for the AI to process", "Are always better than a single role"],
+      "answer": 0,
+      "explanation": "Dual roles often produce diluted output as the AI tries to satisfy both perspectives simultaneously. A single, clear role typically produces more focused, higher-quality responses."
+    },
+    {
+      "id": "L4-088",
+      "q": "A prompt reads: 'You are a strict grammarian. Review this text and mark every error.' This is effective because:",
+      "options": ["The AI gains enhanced language processing abilities", "Strict roles always produce better results", "The AI will now find errors it would otherwise miss", "The role and task are aligned — a grammarian's perspective directly serves the requested task"],
+      "answer": 3,
+      "explanation": "The effectiveness comes from alignment — the grammarian role naturally focuses attention on grammar and style issues, which is exactly what the task requires. Role and task reinforce each other."
+    },
+    {
+      "id": "L4-089",
+      "q": "What is the difference between role prompting and persona prompting?",
+      "options": ["Role prompting focuses on professional expertise while persona prompting may include personality traits and communication style", "They are identical with no differences", "Persona prompting only works in chatbots", "Role prompting is outdated and persona prompting replaced it"],
+      "answer": 0,
+      "explanation": "Role prompting typically assigns a professional function (e.g., 'software engineer'). Persona prompting goes further, adding personality traits and communication style (e.g., 'a patient, encouraging mentor who uses analogies')."
+    },
+    {
+      "id": "L4-090",
+      "q": "CoT prompting is particularly important in AI-assisted education because:",
+      "options": ["It makes lessons shorter", "It replaces the need for human teachers", "Students can learn from the AI's demonstrated reasoning process, not just the final answer", "It only works for math classes"],
+      "answer": 2,
+      "explanation": "In education, showing the reasoning process is as valuable as the answer itself. CoT-prompted AI demonstrates how to think through problems, providing a learning scaffold for students."
+    },
+    {
+      "id": "L4-091",
+      "q": "A user builds a few-shot prompt where example inputs are simple but the actual task input is highly complex. What will likely happen?",
+      "options": ["The AI will handle the complex input perfectly", "Few-shot prompting automatically scales to any complexity", "The AI will simplify the complex input to match the examples", "The AI may struggle because the examples did not prepare it for the complexity level of the real task"],
+      "answer": 3,
+      "explanation": "Few-shot examples set the AI's expectations for input complexity. If examples are simple but the actual task is complex, the AI may oversimplify or fail to handle the additional complexity."
+    },
+    {
+      "id": "L4-092",
+      "q": "In the ReAct framework, what prevents the AI from getting stuck in an infinite loop?",
+      "options": ["A built-in timer that stops after 60 seconds", "Each Observation should bring new information that progresses toward a conclusion or signals when to stop", "The AI automatically stops after 3 cycles", "The user must manually interrupt the loop"],
+      "answer": 1,
+      "explanation": "Good ReAct prompting ensures each cycle produces new information. If an Observation reveals that the goal is met or that no further progress can be made, the loop naturally terminates."
+    },
+    {
+      "id": "L4-093",
+      "q": "You use CoT prompting for a factual question and the AI's step-by-step reasoning looks logical but the final fact is wrong. This illustrates:",
+      "options": ["Logical-sounding reasoning can still be built on incorrect premises — you must verify facts independently", "CoT always produces correct answers", "The AI deliberately provided wrong information", "CoT is not suitable for factual questions"],
+      "answer": 0,
+      "explanation": "CoT reveals reasoning but does not guarantee factual accuracy. The AI can construct a perfectly logical chain of reasoning based on an incorrect initial fact. Always verify the underlying facts."
+    },
+    {
+      "id": "L4-094",
+      "q": "When using few-shot prompting for a classification task, what makes the examples most effective?",
+      "options": ["All examples should belong to the same category", "Examples should be as ambiguous as possible", "Examples should include clear instances of each possible category with brief reasoning", "Only borderline cases should be used as examples"],
+      "answer": 2,
+      "explanation": "Effective classification examples include clear representatives of each category. Adding brief reasoning for why each example belongs to its category helps the AI understand the classification criteria."
+    },
+    {
+      "id": "L4-095",
+      "q": "Flipped Interaction is a form of which broader communication principle?",
+      "options": ["Monologue-based instruction", "Rapid prototyping", "Active listening and needs discovery before solution delivery", "Stream of consciousness"],
+      "answer": 2,
+      "explanation": "Flipped Interaction embodies the communication principle that understanding the problem thoroughly through active listening and discovery should come before proposing solutions."
+    },
+    {
+      "id": "L4-096",
+      "q": "An AI assigned the role of 'empathetic counselor' gives emotionally supportive but factually inaccurate health advice. This demonstrates:",
+      "options": ["That the AI is genuinely empathetic", "That role prompting always produces inaccurate output", "That the AI needs a software update", "That roles can optimize for tone at the expense of accuracy"],
+      "answer": 3,
+      "explanation": "Roles can pull the AI toward prioritizing one dimension (emotional support) at the expense of another (factual accuracy). This is a real risk when roles emphasize tone over correctness."
+    },
+    {
+      "id": "L4-097",
+      "q": "What is 'self-consistency' in the context of Chain-of-Thought prompting?",
+      "options": ["The AI agreeing with itself", "Running the same CoT prompt multiple times and selecting the most common answer to improve reliability", "Making sure the prompt has no typos", "Ensuring the AI uses the same vocabulary throughout"],
+      "answer": 1,
+      "explanation": "Self-consistency is an advanced CoT technique where you run the same reasoning prompt multiple times and take the majority answer, reducing the chance that a single flawed reasoning chain leads to a wrong answer."
+    },
+    {
+      "id": "L4-098",
+      "q": "A ReAct prompt for fact-checking a claim would look like:",
+      "options": ["'Is this claim true? Yes or no.'", "'Check this claim quickly.'", "'Thought: What evidence would verify this claim? Action: Identify the specific factual assertions. Observation: Evaluate what is verifiable.'", "'Be a fact-checker and tell me if this is true.'"],
+      "answer": 2,
+      "explanation": "A proper ReAct fact-check starts with reasoning about what evidence is needed, then takes the action of identifying specific claims, and observes what can actually be verified — systematic and thorough."
+    },
+    {
+      "id": "L4-099",
+      "q": "The biggest difference between expert and novice prompt engineers is that experts:",
+      "options": ["Use longer prompts with more words", "Only use one technique at a time", "Avoid using frameworks entirely", "Strategically combine techniques (CoT, few-shot, roles, ReAct) based on task requirements"],
+      "answer": 3,
+      "explanation": "Expert prompt engineers do not just know individual techniques — they understand when and how to combine them. A complex task might use role framing, few-shot examples, and CoT together."
+    },
+    {
+      "id": "L4-100",
+      "q": "Which combination of techniques would be most effective for getting the AI to analyze a legal contract you do not fully understand?",
+      "options": ["Flipped Interaction to gather your concerns, role prompting for legal perspective, and CoT for step-by-step analysis", "Role prompting alone: 'You are a lawyer'", "Few-shot prompting with examples of other contracts", "Sending the entire contract with no instructions"],
+      "answer": 0,
+      "explanation": "Complex real-world tasks benefit from combining techniques: Flipped Interaction gathers your specific concerns, role prompting provides the legal lens, and CoT ensures transparent reasoning you can follow."
+    }
+  ]
+}
