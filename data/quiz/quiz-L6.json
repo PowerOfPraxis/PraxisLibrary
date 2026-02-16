@@ -1,0 +1,706 @@
+{
+  "level": 6,
+  "name": "Champion",
+  "questions": [
+    {
+      "id": "L6-001",
+      "q": "What does 'AI guardrails' refer to?",
+      "options": ["Physical barriers around AI server rooms", "Safety constraints and boundaries built into AI systems to prevent harmful outputs", "The metal casing that protects AI hardware", "Speed limits on how fast AI can process data"],
+      "answer": 1,
+      "explanation": "AI guardrails are safety constraints built into AI systems that prevent harmful, inappropriate, or off-topic outputs — a key layer of responsible AI deployment."
+    },
+    {
+      "id": "L6-002",
+      "q": "A/B testing AI prompts means:",
+      "options": ["Testing prompts in alphabetical order", "Comparing two prompt versions to see which produces better results", "Running prompts on model A and model B simultaneously", "Testing prompts that start with the letter A or B"],
+      "answer": 1,
+      "explanation": "A/B testing compares two prompt versions against the same task to determine which formulation produces better, more consistent results."
+    },
+    {
+      "id": "L6-003",
+      "q": "What is an 'AI agent' in the context of modern AI systems?",
+      "options": ["A human who sells AI products to businesses", "An AI system that can autonomously plan, use tools, and take actions to complete tasks", "A chatbot that only answers frequently asked questions", "An AI that pretends to be a specific real person"],
+      "answer": 1,
+      "explanation": "An AI agent is a system that can autonomously plan multi-step strategies, use external tools, and take actions to accomplish complex goals with minimal human intervention."
+    },
+    {
+      "id": "L6-004",
+      "q": "What is 'Chain-of-Verification' prompting?",
+      "options": ["Having a human verify each sentence the AI writes", "Asking the AI to generate an answer, then verify its own claims step by step", "Connecting multiple AI models in a chain to check each other", "A blockchain-based method for verifying AI output"],
+      "answer": 1,
+      "explanation": "Chain-of-Verification asks the AI to first generate a response, then systematically verify each claim it made — catching potential hallucinations in its own output."
+    },
+    {
+      "id": "L6-005",
+      "q": "When creating a structured output schema for AI, you should:",
+      "options": ["Let the AI decide the best format on its own", "Define exact field names, types, and an example of the expected output", "Only use plain text because AI cannot handle structured data", "Use the most complex schema possible for maximum detail"],
+      "answer": 1,
+      "explanation": "Defining exact field names, data types, and providing an example output gives the AI a clear template to follow, ensuring consistent and parseable structured outputs."
+    },
+    {
+      "id": "L6-006",
+      "q": "What is 'prompt leaking' and why is it a concern?",
+      "options": ["When a prompt takes too long to process and times out", "When users trick an AI into revealing its hidden system instructions", "When AI generates text that accidentally contains the user's password", "When prompts are accidentally sent to the wrong AI model"],
+      "answer": 1,
+      "explanation": "Prompt leaking occurs when users craft inputs that trick the AI into revealing its system prompt — exposing proprietary instructions, business logic, or safety constraints."
+    },
+    {
+      "id": "L6-007",
+      "q": "Multi-turn conversation design for AI should account for:",
+      "options": ["Keeping every message under 10 words", "Context accumulation, reference resolution, and conversation state tracking", "Only using yes/no questions to keep things simple", "Ending every conversation after exactly 5 messages"],
+      "answer": 1,
+      "explanation": "Multi-turn design must handle context accumulation (building on prior messages), reference resolution (what 'it' or 'that' refers to), and tracking conversation state."
+    },
+    {
+      "id": "L6-008",
+      "q": "What is 'model distillation' in AI?",
+      "options": ["Filtering out toxic content from AI training data", "Training a smaller model to replicate a larger model's behavior", "Converting an AI model from one programming language to another", "The process of cooling down AI servers to improve performance"],
+      "answer": 1,
+      "explanation": "Model distillation trains a smaller, more efficient 'student' model to replicate the behavior and knowledge of a larger 'teacher' model, reducing deployment costs."
+    },
+    {
+      "id": "L6-009",
+      "q": "When adapting prompts across different AI models (Claude, GPT, Gemini), you should:",
+      "options": ["Use the exact same prompt — all models understand prompts identically", "Adjust for each model's strengths, formatting preferences, and instruction style", "Only use one model and never switch", "Remove all specific instructions since models interpret them differently"],
+      "answer": 1,
+      "explanation": "Different AI models have different strengths and formatting preferences — adapting prompts to each model's instruction style produces better results than one-size-fits-all."
+    },
+    {
+      "id": "L6-010",
+      "q": "What does 'grounding' an AI response mean?",
+      "options": ["Connecting the AI to the electrical ground for safety", "Anchoring AI outputs to verified source material or real data to reduce fabrication", "Making the AI write in a more down-to-earth conversational style", "Restricting the AI to only discuss ground-level topics, not abstract ones"],
+      "answer": 1,
+      "explanation": "Grounding anchors AI outputs to verified source material, real data, or provided documents — significantly reducing hallucinations and improving factual accuracy."
+    },
+    {
+      "id": "L6-011",
+      "q": "Which guardrail technique prevents an AI from generating content outside its intended domain?",
+      "options": ["Topic fencing — restricting the model to a defined set of subjects", "Temperature scaling", "Increasing the maximum token limit", "Using a larger model with more parameters"],
+      "answer": 0,
+      "explanation": "Topic fencing constrains the AI to only respond within a defined domain, preventing it from generating off-topic or out-of-scope content that could be inaccurate or harmful."
+    },
+    {
+      "id": "L6-012",
+      "q": "What is the primary risk of deploying an AI system without output guardrails?",
+      "options": ["The model will run slower due to missing constraints", "Users will not be able to input any prompts", "The system may produce harmful, biased, or factually incorrect outputs unchecked", "The AI will automatically shut down after a few queries"],
+      "answer": 2,
+      "explanation": "Without output guardrails, an AI system has no safety net to catch harmful, biased, or fabricated content before it reaches users — creating legal, reputational, and ethical risks."
+    },
+    {
+      "id": "L6-013",
+      "q": "A 'constitutional AI' approach to guardrails involves:",
+      "options": ["Writing AI rules based on a country's legal constitution", "Requiring government approval before deploying any AI model", "Only allowing AI to discuss constitutional law topics", "Training the model to self-critique and revise its outputs based on a set of principles"],
+      "answer": 3,
+      "explanation": "Constitutional AI trains models to evaluate their own outputs against a defined set of principles, self-critiquing and revising responses that violate those rules — building safety into the model itself."
+    },
+    {
+      "id": "L6-014",
+      "q": "What is an 'output classifier' in the context of AI guardrails?",
+      "options": ["A tool that sorts AI outputs by file type", "A secondary model that evaluates AI responses for safety, toxicity, or policy violations before delivery", "A system that classifies which user submitted the prompt", "A database that stores all AI outputs for future reference"],
+      "answer": 1,
+      "explanation": "An output classifier is a secondary model or filter that screens AI-generated responses for safety violations, toxicity, or policy breaches before they are delivered to the user."
+    },
+    {
+      "id": "L6-015",
+      "q": "Why should guardrails be tested with adversarial inputs?",
+      "options": ["To make the AI faster at processing hostile queries", "Adversarial inputs are the most common type of regular user query", "To verify that safety constraints hold up against deliberate attempts to bypass them", "To train the AI to generate adversarial content for security research"],
+      "answer": 2,
+      "explanation": "Adversarial testing deliberately attempts to bypass guardrails, revealing weaknesses before malicious users exploit them in production — a critical step in safety validation."
+    },
+    {
+      "id": "L6-016",
+      "q": "What is the difference between input guardrails and output guardrails?",
+      "options": ["Input guardrails filter what goes into the model; output guardrails filter what comes out", "There is no difference — they are the same thing", "Input guardrails are for text; output guardrails are for images only", "Input guardrails are optional; output guardrails are always required by law"],
+      "answer": 0,
+      "explanation": "Input guardrails screen and sanitize user prompts before they reach the model, while output guardrails evaluate and filter the model's responses before delivery — both layers are needed for robust safety."
+    },
+    {
+      "id": "L6-017",
+      "q": "A company wants its AI assistant to refuse medical diagnosis requests. This is an example of:",
+      "options": ["Model distillation", "Prompt injection", "Chain-of-Verification prompting", "A domain-specific guardrail that restricts the AI from acting outside its authorized scope"],
+      "answer": 3,
+      "explanation": "Restricting an AI from providing medical diagnoses is a domain-specific guardrail — a safety boundary that prevents the system from operating outside its authorized and safe scope."
+    },
+    {
+      "id": "L6-018",
+      "q": "What is 'graceful refusal' in guardrail design?",
+      "options": ["Silently ignoring the user's request without any response", "Crashing the application when a guardrail is triggered", "Declining a request clearly while explaining why and suggesting alternatives", "Accepting the request but providing intentionally vague answers"],
+      "answer": 2,
+      "explanation": "Graceful refusal means the AI declines inappropriate requests with a clear, helpful explanation and, where possible, suggests alternative approaches — maintaining trust and usability."
+    },
+    {
+      "id": "L6-019",
+      "q": "Rate limiting in AI guardrails serves what purpose?",
+      "options": ["Making the AI respond more slowly to seem more thoughtful", "Limiting the AI to only rate products on a 1-5 scale", "Reducing the quality of responses to save computing costs", "Preventing abuse by restricting the number of requests a user can make in a given time period"],
+      "answer": 3,
+      "explanation": "Rate limiting prevents abuse, denial-of-service attacks, and excessive resource consumption by capping how many requests a user or application can make within a defined time window."
+    },
+    {
+      "id": "L6-020",
+      "q": "What is a 'canary phrase' used for in guardrail monitoring?",
+      "options": ["A planted test phrase that, if it appears in output, signals a guardrail failure or data leak", "A secret phrase that unlocks hidden AI features", "A greeting the AI uses to start every conversation", "A keyword that triggers the AI to sing a song"],
+      "answer": 0,
+      "explanation": "A canary phrase is a deliberately planted marker that should never appear in normal output — if detected, it signals that a guardrail has been bypassed or sensitive data has leaked."
+    },
+    {
+      "id": "L6-021",
+      "q": "Why should guardrails be layered rather than relying on a single safety check?",
+      "options": ["Multiple layers make the AI respond more creatively", "Layered guardrails are cheaper to implement than a single robust one", "Defense in depth ensures that if one layer fails, others can still catch harmful outputs", "Regulations require exactly three layers of guardrails"],
+      "answer": 2,
+      "explanation": "Layered guardrails follow the defense-in-depth principle — if one safety mechanism is bypassed, subsequent layers can still catch harmful or policy-violating content before it reaches users."
+    },
+    {
+      "id": "L6-022",
+      "q": "In guardrail design, what is a 'content policy' typically used for?",
+      "options": ["Defining the font and color scheme for AI responses", "A legal document required by all AI hosting providers", "A marketing strategy for promoting the AI product", "Specifying what types of content the AI must refuse, flag, or handle with special care"],
+      "answer": 3,
+      "explanation": "A content policy defines explicit rules about what the AI must refuse (e.g., violence, illegal advice), flag for review, or handle with extra care — forming the foundation of output guardrails."
+    },
+    {
+      "id": "L6-023",
+      "q": "What distinguishes a 'ReAct' agent from a simple chatbot?",
+      "options": ["ReAct agents can only process images, not text", "ReAct agents are faster but less accurate than chatbots", "ReAct agents interleave reasoning steps with actions, observing results before deciding the next step", "ReAct agents require a physical robot body to function"],
+      "answer": 2,
+      "explanation": "ReAct (Reasoning + Acting) agents alternate between thinking through a problem and taking actions (like tool calls), observing the results of each action to inform the next step — far more capable than simple response generation."
+    },
+    {
+      "id": "L6-024",
+      "q": "What is 'tool use' in the context of AI agents?",
+      "options": ["The AI physically manipulating hardware tools", "Teaching users how to use the AI interface", "The tools developers use to build the AI model", "The agent's ability to call external functions like search engines, calculators, or APIs to gather information or perform actions"],
+      "answer": 3,
+      "explanation": "Tool use allows AI agents to extend their capabilities by calling external functions — search engines, databases, calculators, APIs — to gather real-time information or perform actions beyond text generation."
+    },
+    {
+      "id": "L6-025",
+      "q": "What is 'task decomposition' in AI agent planning?",
+      "options": ["Breaking a complex goal into smaller, manageable sub-tasks that the agent can execute sequentially or in parallel", "Letting tasks decay naturally until they are no longer needed", "Removing tasks from the agent's queue without completing them", "Compressing all tasks into a single prompt to save time"],
+      "answer": 0,
+      "explanation": "Task decomposition is the agent's ability to break a complex objective into smaller, actionable sub-tasks — a critical planning skill that enables multi-step problem solving."
+    },
+    {
+      "id": "L6-026",
+      "q": "Why do AI agents need a 'scratchpad' or working memory?",
+      "options": ["To store the user's personal information permanently", "To track intermediate results, observations, and reasoning across multiple steps of a task", "To cache the entire internet for faster access", "To practice writing before sending the final response"],
+      "answer": 1,
+      "explanation": "A scratchpad provides working memory where the agent records intermediate results, observations from tool calls, and evolving reasoning — essential for maintaining coherence across multi-step tasks."
+    },
+    {
+      "id": "L6-027",
+      "q": "What is a key risk of giving an AI agent unrestricted tool access?",
+      "options": ["The agent will become sentient", "Unrestricted access makes the agent slower", "The agent could take unintended, irreversible actions like deleting data or making unauthorized purchases", "The tools will stop working if used too frequently"],
+      "answer": 2,
+      "explanation": "Unrestricted tool access means an agent could take harmful, irreversible actions — deleting files, sending unauthorized communications, or making purchases — without human oversight or approval."
+    },
+    {
+      "id": "L6-028",
+      "q": "What does 'human-in-the-loop' mean for AI agent workflows?",
+      "options": ["A human reviews and approves critical decisions or actions before the agent proceeds", "A human must type every command the agent executes", "The AI and human take turns writing sentences", "A human physically connects cables between AI systems"],
+      "answer": 0,
+      "explanation": "Human-in-the-loop means a human checkpoint exists at critical decision points — the agent pauses for human review and approval before executing high-stakes or irreversible actions."
+    },
+    {
+      "id": "L6-029",
+      "q": "What is an 'agent loop' in autonomous AI systems?",
+      "options": ["A bug where the agent repeats the same action forever", "A circular reference in the agent's code", "A loop antenna used for AI signal processing", "The iterative cycle of observe-think-act-observe that agents use to progressively work toward a goal"],
+      "answer": 3,
+      "explanation": "The agent loop is the core operational cycle: observe the current state, reason about what to do next, take an action, then observe the result — repeating until the goal is achieved or a stopping condition is met."
+    },
+    {
+      "id": "L6-030",
+      "q": "Why is 'action reversibility' important in agent design?",
+      "options": ["So the agent can undo completed tasks for fun", "Reversibility makes the agent process data backwards for accuracy", "So the system can recover from errors by rolling back actions that produced unintended results", "It allows users to reverse the agent's personality"],
+      "answer": 2,
+      "explanation": "Action reversibility ensures the system can recover from mistakes — if an agent takes a wrong action, the ability to undo or roll back prevents cascading errors and data loss."
+    },
+    {
+      "id": "L6-031",
+      "q": "What is a 'planning module' in an AI agent architecture?",
+      "options": ["The component that generates a strategy or sequence of steps to achieve a given objective", "A calendar app integrated into the AI", "A module that plans the AI's retirement", "A financial planning tool powered by AI"],
+      "answer": 0,
+      "explanation": "The planning module is the component responsible for analyzing a goal, generating a strategy, and determining the sequence of actions and tool calls needed to achieve the objective."
+    },
+    {
+      "id": "L6-032",
+      "q": "Multi-agent systems differ from single-agent systems because:",
+      "options": ["They use multiple monitors to display results", "They require multiple users to operate simultaneously", "They run the same agent multiple times for redundancy", "Multiple specialized agents collaborate, each handling different aspects of a complex task"],
+      "answer": 3,
+      "explanation": "Multi-agent systems use multiple specialized agents that collaborate — one might handle research, another coding, another review — enabling more sophisticated problem-solving through division of labor."
+    },
+    {
+      "id": "L6-033",
+      "q": "What is 'tool selection' in an agent's decision-making process?",
+      "options": ["A human manually choosing which tools to install", "The agent's ability to evaluate available tools and choose the most appropriate one for the current sub-task", "Selecting the cheapest tool regardless of capability", "A random process where the agent picks tools at random"],
+      "answer": 1,
+      "explanation": "Tool selection is the agent's ability to assess the current sub-task requirements, evaluate its available tools, and choose the most appropriate one — a key reasoning skill for effective autonomous operation."
+    },
+    {
+      "id": "L6-034",
+      "q": "What problem does 'agent grounding' solve?",
+      "options": ["Preventing the agent from floating in zero gravity", "Connecting the agent to an electrical ground wire", "Ensuring the agent's plans and actions are based on actual environmental state rather than assumptions", "Making the agent use simpler vocabulary"],
+      "answer": 2,
+      "explanation": "Agent grounding ensures the agent bases its plans and actions on actual observed state rather than assumptions — preventing plans that are disconnected from reality and reducing compounding errors."
+    },
+    {
+      "id": "L6-035",
+      "q": "Why might an agent need a 'stopping condition'?",
+      "options": ["To prevent infinite loops and know when a task is complete, failed, or requires human intervention", "To pause for commercial breaks", "Agents never need stopping conditions — they run forever", "To stop other agents from accessing the same data"],
+      "answer": 0,
+      "explanation": "Stopping conditions prevent agents from running indefinitely, consuming resources, or looping — they define when a task is successfully complete, has failed, or requires escalation to a human."
+    },
+    {
+      "id": "L6-036",
+      "q": "In Chain-of-Verification, what happens after the AI generates its initial response?",
+      "options": ["The response is immediately sent to the user without changes", "A human must rewrite the entire response from scratch", "The AI generates verification questions about its own claims and then answers them to check for errors", "The response is translated into another language for accuracy"],
+      "answer": 2,
+      "explanation": "After generating an initial response, CoV has the AI create specific verification questions targeting its own factual claims, then independently answer those questions — catching errors before the user sees them."
+    },
+    {
+      "id": "L6-037",
+      "q": "What type of errors is Chain-of-Verification most effective at catching?",
+      "options": ["Spelling and grammar mistakes", "Errors in the user's original prompt", "Bugs in the AI model's source code", "Factual hallucinations and unsupported claims in the AI's own output"],
+      "answer": 3,
+      "explanation": "CoV is specifically designed to catch factual hallucinations — claims the AI generated that sound plausible but are incorrect — by having the model systematically verify each factual assertion."
+    },
+    {
+      "id": "L6-038",
+      "q": "A key benefit of CoV over simple 'double-check your work' prompting is:",
+      "options": ["CoV structures the verification into discrete, answerable questions rather than vague re-reading", "CoV is faster because it skips the verification step", "CoV uses a different AI model for verification", "CoV only works with mathematical problems"],
+      "answer": 0,
+      "explanation": "CoV's structured approach — generating specific, answerable verification questions — is more rigorous than vague 'double-check' instructions, which often lead the model to simply restate its original claims."
+    },
+    {
+      "id": "L6-039",
+      "q": "In a CoV workflow, if the verification step reveals an error in the original response, the AI should:",
+      "options": ["Ignore the error since the original response was generated first", "Revise the original response to correct the identified error before presenting the final answer", "Delete the entire response and refuse to answer", "Add a footnote saying the answer might be wrong"],
+      "answer": 1,
+      "explanation": "When CoV verification identifies an error, the AI should revise and correct the original response — the whole point is to produce a more accurate final answer by catching and fixing mistakes."
+    },
+    {
+      "id": "L6-040",
+      "q": "Which scenario is most appropriate for using Chain-of-Verification?",
+      "options": ["Generating creative fiction where accuracy does not matter", "Writing a poem about nature", "Producing a factual summary where incorrect claims could mislead the reader", "Translating a simple greeting into another language"],
+      "answer": 2,
+      "explanation": "CoV is most valuable when factual accuracy matters — such as summaries, reports, or technical content — where undetected hallucinations could mislead users or cause real harm."
+    },
+    {
+      "id": "L6-041",
+      "q": "What is 'self-consistency' in the context of verification prompting?",
+      "options": ["The AI always agrees with the user's opinion", "Ensuring every sentence uses the same sentence structure", "The AI repeating the same answer regardless of context", "Generating multiple independent answers to the same question and checking whether they agree"],
+      "answer": 3,
+      "explanation": "Self-consistency generates multiple independent answers to the same question — if they converge on the same answer, confidence is high; if they diverge, the claim likely needs scrutiny or additional verification."
+    },
+    {
+      "id": "L6-042",
+      "q": "How does CoV differ from simply asking 'Are you sure?' after an AI response?",
+      "options": ["CoV decomposes verification into specific factual claims and checks each one independently, rather than asking for a vague reassurance", "There is no meaningful difference", "CoV is less effective because it takes more steps", "'Are you sure?' actually catches more errors than CoV"],
+      "answer": 0,
+      "explanation": "Asking 'Are you sure?' often leads to the model confidently restating its original answer. CoV is more effective because it isolates individual claims and verifies each one independently."
+    },
+    {
+      "id": "L6-043",
+      "q": "In CoV, why is it important that verification questions be answered independently from the original response?",
+      "options": ["To make the process take longer and seem more thorough", "Independent answers use less computing power", "To prevent the model from simply confirming its original claims due to anchoring bias", "It is not important — they can reference the original response freely"],
+      "answer": 2,
+      "explanation": "If verification questions reference the original response, the model tends to confirm its original claims (anchoring bias). Independent answering forces genuine re-evaluation of each fact."
+    },
+    {
+      "id": "L6-044",
+      "q": "What is a practical limitation of Chain-of-Verification?",
+      "options": ["It only works in English", "It makes the AI's responses less accurate", "It cannot be used with any commercial AI model", "It increases token usage and latency because the model must generate, question, and re-verify its output"],
+      "answer": 3,
+      "explanation": "CoV requires additional generation steps — creating verification questions, answering them, then revising — which increases token consumption and response latency, making it a trade-off between accuracy and cost."
+    },
+    {
+      "id": "L6-045",
+      "q": "CoV is most closely related to which broader AI safety concept?",
+      "options": ["Self-evaluation and introspective reasoning — the model auditing its own outputs", "Model compression", "Transfer learning", "Data augmentation"],
+      "answer": 0,
+      "explanation": "CoV is a form of self-evaluation where the model introspects on its own outputs — a key capability for building AI systems that can identify and correct their own mistakes."
+    },
+    {
+      "id": "L6-046",
+      "q": "When a CoV prompt asks the AI to list 'what claims did I make that could be wrong,' this step is called:",
+      "options": ["Data mining — searching for hidden patterns", "Claim extraction — identifying individual verifiable assertions from the generated response", "Prompt injection — inserting new instructions", "Model fine-tuning — adjusting model weights"],
+      "answer": 1,
+      "explanation": "Claim extraction is the CoV step where the model identifies individual verifiable assertions from its own response — each claim then becomes a target for independent verification."
+    },
+    {
+      "id": "L6-047",
+      "q": "What makes a CoV verification question effective?",
+      "options": ["It should be vague enough to cover multiple claims at once", "It should always be a yes/no question", "It should target a single specific factual claim and be answerable independently", "It should ask about the user's feelings about the response"],
+      "answer": 2,
+      "explanation": "Effective verification questions are specific, targeting one factual claim each, and answerable independently — vague or compound questions reduce the precision of error detection."
+    },
+    {
+      "id": "L6-048",
+      "q": "What is 'indirect prompt injection'?",
+      "options": ["Typing a prompt very slowly", "Asking the AI the same question multiple times", "Using a VPN to access the AI from a different country", "Embedding malicious instructions in external content (like a webpage or document) that the AI processes as part of its task"],
+      "answer": 3,
+      "explanation": "Indirect prompt injection hides malicious instructions in external content — such as web pages, documents, or emails — that the AI retrieves and processes, unknowingly following the attacker's commands."
+    },
+    {
+      "id": "L6-049",
+      "q": "What is a 'jailbreak' in the context of AI safety?",
+      "options": ["A prompt technique designed to bypass the AI's safety restrictions and make it produce normally forbidden outputs", "Physically breaking an AI out of a data center", "Escaping from a virtual reality game powered by AI", "A debugging mode that developers use to fix AI errors"],
+      "answer": 0,
+      "explanation": "A jailbreak is a prompt engineering attack that attempts to bypass an AI model's safety guardrails — tricking it into ignoring its restrictions and generating content it was designed to refuse."
+    },
+    {
+      "id": "L6-050",
+      "q": "Which technique is commonly used in prompt injection attacks?",
+      "options": ["Asking politely and saying please", "Sending the prompt in all capital letters", "Instructing the AI to 'ignore previous instructions' or adopting a role that overrides safety rules", "Using correct grammar and punctuation"],
+      "answer": 2,
+      "explanation": "Common prompt injection techniques include 'ignore previous instructions,' role-playing scenarios that override safety rules, and framing harmful requests as hypothetical or educational exercises."
+    },
+    {
+      "id": "L6-051",
+      "q": "Why is prompt injection particularly dangerous for AI systems that can take real-world actions?",
+      "options": ["It makes the AI respond in a different language", "Injected instructions could cause the AI to execute unauthorized actions like sending data, making purchases, or modifying files", "It slows down the AI's response time significantly", "It only affects the formatting of the output"],
+      "answer": 1,
+      "explanation": "When AI agents can take real-world actions (send emails, execute code, access databases), prompt injection becomes especially dangerous because injected instructions can trigger unauthorized, potentially irreversible actions."
+    },
+    {
+      "id": "L6-052",
+      "q": "What is 'prompt extraction' as a security threat?",
+      "options": ["Removing prompts from a database to free up storage", "Extracting keywords from a prompt for search engine optimization", "An attacker crafting inputs to make the AI reveal its system prompt, exposing proprietary logic and safety rules", "Converting spoken prompts into written text"],
+      "answer": 2,
+      "explanation": "Prompt extraction attacks aim to make the AI disclose its system prompt — revealing proprietary instructions, business rules, safety constraints, and other sensitive configuration that should remain hidden."
+    },
+    {
+      "id": "L6-053",
+      "q": "A 'delimiter-based defense' against prompt injection involves:",
+      "options": ["Using clear separators (like XML tags or special tokens) to distinguish system instructions from user input", "Deleting all punctuation from user inputs", "Limiting prompts to exactly 100 characters", "Translating prompts into binary code"],
+      "answer": 0,
+      "explanation": "Delimiter-based defenses use clear structural separators — such as XML tags, special tokens, or markers — to help the model distinguish between trusted system instructions and untrusted user input."
+    },
+    {
+      "id": "L6-054",
+      "q": "What is 'prompt smuggling'?",
+      "options": ["Physically smuggling a written prompt across borders", "Sending prompts through encrypted channels", "Sharing prompts with competitors", "Encoding malicious instructions in ways that bypass input filters, such as using unicode characters, base64, or creative formatting"],
+      "answer": 3,
+      "explanation": "Prompt smuggling encodes malicious instructions in ways that evade input filters — using unicode lookalike characters, base64 encoding, unusual formatting, or splitting instructions across messages."
+    },
+    {
+      "id": "L6-055",
+      "q": "Why is it difficult to fully prevent prompt injection in current AI systems?",
+      "options": ["Because AI companies do not care about security", "Because language models process instructions and data in the same channel, making it hard to distinguish trusted commands from untrusted input", "Because prompt injection only exists in theory, not in practice", "Because firewalls cannot detect AI prompts"],
+      "answer": 1,
+      "explanation": "The fundamental challenge is that language models process instructions and data in the same text stream — there is no hardware-level separation between 'commands' and 'data,' making robust prevention an open research problem."
+    },
+    {
+      "id": "L6-056",
+      "q": "An AI chatbot for a bank starts responding to questions about how to commit fraud. This is most likely caused by:",
+      "options": ["The bank's interest rates being too high", "Normal model behavior for financial AI systems", "A successful prompt injection or jailbreak that bypassed the system's safety guardrails", "The chatbot being trained on too much financial data"],
+      "answer": 2,
+      "explanation": "An AI providing instructions for fraud indicates its safety guardrails have been bypassed — likely through prompt injection, jailbreak techniques, or insufficient safety constraints in the system prompt."
+    },
+    {
+      "id": "L6-057",
+      "q": "What role does 'input sanitization' play in defending against prompt injection?",
+      "options": ["It filters, escapes, or transforms user inputs to neutralize potential injection patterns before they reach the model", "It cleans the user's keyboard", "It translates all inputs into English", "It removes all vowels from the input to save space"],
+      "answer": 0,
+      "explanation": "Input sanitization processes user inputs to neutralize injection patterns — filtering known attack strings, escaping special characters, and flagging suspicious patterns before the input reaches the model."
+    },
+    {
+      "id": "L6-058",
+      "q": "What is 'data poisoning' in the context of prompt security?",
+      "options": ["Adding too much data to a database until it crashes", "Encrypting data so the AI cannot read it", "Deleting all training data from the model", "Injecting malicious content into training data or retrieval sources so the AI produces compromised outputs even from normal prompts"],
+      "answer": 3,
+      "explanation": "Data poisoning embeds malicious content in training data or retrieval sources — the AI then produces compromised outputs from seemingly normal prompts because the corruption is in the data it references, not the prompt."
+    },
+    {
+      "id": "L6-059",
+      "q": "A 'sandwich defense' against prompt injection refers to:",
+      "options": ["Placing the AI server between two firewalls", "Placing the user's input between two layers of system instructions, reinforcing rules both before and after the user content", "Feeding the AI two different prompts and picking the better result", "Only allowing AI access during lunch hours"],
+      "answer": 1,
+      "explanation": "The sandwich defense places user input between repeated system instructions — rules stated before AND after the user content — so that even if injection partially succeeds, the closing instructions reinforce the safety constraints."
+    },
+    {
+      "id": "L6-060",
+      "q": "Why is prompt leaking a business risk, not just a technical one?",
+      "options": ["Leaked prompts use more electricity", "Prompt leaking only affects open-source models", "Exposed system prompts can reveal proprietary business logic, competitive advantages, pricing strategies, and safety workarounds to competitors or attackers", "Leaked prompts slow down the model's processing speed"],
+      "answer": 2,
+      "explanation": "System prompts often contain proprietary business logic, competitive differentiators, pricing rules, and safety configurations — leaking them exposes trade secrets and reveals exactly how to bypass safety measures."
+    },
+    {
+      "id": "L6-061",
+      "q": "In model distillation, the 'teacher' model is typically:",
+      "options": ["A model that teaches humans how to code", "The oldest model in a company's model lineup", "A large, high-capability model whose behavior the smaller 'student' model learns to replicate", "A model specifically trained on educational content"],
+      "answer": 2,
+      "explanation": "The teacher model in distillation is typically a large, high-capability model — the student model learns to reproduce the teacher's outputs, gaining similar capability in a smaller, more efficient architecture."
+    },
+    {
+      "id": "L6-062",
+      "q": "What is the primary advantage of using a distilled model in production?",
+      "options": ["Lower latency, reduced costs, and smaller resource footprint while retaining most of the teacher model's capability", "Distilled models are always more accurate than the teacher model", "Distilled models do not require any GPU to run", "They can process infinite context lengths"],
+      "answer": 0,
+      "explanation": "Distilled models are smaller and faster, requiring fewer computing resources — they offer lower latency and reduced costs while retaining a large portion of the teacher model's capability, making them ideal for production deployment."
+    },
+    {
+      "id": "L6-063",
+      "q": "In distillation, 'soft labels' refer to:",
+      "options": ["Labels written in a gentle, encouraging tone", "Labels that can be easily changed or deleted", "Labels printed on soft material like fabric", "The full probability distribution over all possible outputs from the teacher model, not just the single correct answer"],
+      "answer": 3,
+      "explanation": "Soft labels are the teacher model's full probability distribution over all possible tokens — they carry richer information than hard labels (just the top answer), helping the student learn nuanced patterns."
+    },
+    {
+      "id": "L6-064",
+      "q": "What is 'task-specific distillation'?",
+      "options": ["Distilling water for use in data center cooling", "Training a student model to replicate the teacher's performance on a specific task rather than all general capabilities", "A distillation process that takes exactly one task-day to complete", "Assigning specific tasks to specific layers of a neural network"],
+      "answer": 1,
+      "explanation": "Task-specific distillation focuses the student model on replicating the teacher's performance for a particular task — trading general capability for superior performance and efficiency on the target use case."
+    },
+    {
+      "id": "L6-065",
+      "q": "What is 'capability loss' in the context of model distillation?",
+      "options": ["The teacher model losing capabilities after distillation", "Power outages that affect model training", "The reduction in performance or knowledge that occurs when compressing a large model into a smaller one", "When a model loses the ability to accept user inputs"],
+      "answer": 2,
+      "explanation": "Capability loss is the inevitable reduction in some capabilities when a large model is compressed into a smaller one — the student model cannot perfectly replicate all of the teacher's knowledge in fewer parameters."
+    },
+    {
+      "id": "L6-066",
+      "q": "Why might a company choose model distillation over using the full teacher model?",
+      "options": ["To reduce inference costs, latency, and deployment complexity while maintaining acceptable quality for their use case", "The teacher model is always worse than the student model", "Distilled models are required by international AI regulations", "The teacher model cannot be used after distillation"],
+      "answer": 0,
+      "explanation": "Companies use distillation when the full teacher model is too expensive, slow, or resource-intensive for production — the distilled model offers an optimal trade-off between quality and operational efficiency."
+    },
+    {
+      "id": "L6-067",
+      "q": "What is 'knowledge transfer' in the distillation process?",
+      "options": ["Physically moving a hard drive from one server to another", "Transferring ownership of the AI model to a new company", "Copying the teacher model's source code into the student model", "The process of encoding the teacher model's learned patterns and representations into the smaller student model"],
+      "answer": 3,
+      "explanation": "Knowledge transfer is the core mechanism of distillation — the teacher's learned patterns, decision boundaries, and representations are encoded into the student through training on the teacher's outputs."
+    },
+    {
+      "id": "L6-068",
+      "q": "How does distillation differ from simply training a small model from scratch?",
+      "options": ["There is no difference — both produce identical results", "Training from scratch is always faster", "Distillation leverages the teacher's learned knowledge as training signal, often achieving better results than training the same small architecture from scratch on raw data alone", "Distillation requires no training data at all"],
+      "answer": 2,
+      "explanation": "Distillation gives the student model a significant advantage — the teacher's outputs provide a richer learning signal than raw data alone, often enabling the small model to achieve better performance than if trained independently."
+    },
+    {
+      "id": "L6-069",
+      "q": "What is the 'temperature' parameter used for during distillation?",
+      "options": ["Softening the teacher's probability distribution so the student can learn from the relative rankings of all outputs, not just the top prediction", "Controlling the physical temperature of the training servers", "Setting the room temperature for optimal researcher productivity", "Measuring how 'hot' or trending the distilled model is"],
+      "answer": 0,
+      "explanation": "Higher temperature during distillation softens the teacher's output probabilities, revealing the relative rankings of all predictions — this richer signal helps the student learn subtle patterns beyond just the top answer."
+    },
+    {
+      "id": "L6-070",
+      "q": "What is 'online distillation'?",
+      "options": ["Distillation that can only be done over the internet", "Watching distillation tutorials on YouTube", "A process where teacher and student models are trained simultaneously, learning from each other", "Distilling models that were trained on online data"],
+      "answer": 2,
+      "explanation": "Online distillation trains teacher and student models simultaneously — they learn from each other during training, which can sometimes produce a student that matches or exceeds a pre-trained teacher's performance."
+    },
+    {
+      "id": "L6-071",
+      "q": "A potential ethical concern with model distillation is:",
+      "options": ["Distilled models are too small to be useful", "Distillation always requires unethical data collection", "Distilled models consume more energy than teacher models", "The student model may replicate the teacher's biases and errors, potentially concentrating them in a more widely deployed system"],
+      "answer": 3,
+      "explanation": "Distilled models can inherit and even amplify the teacher's biases and errors — since distilled models are often more widely deployed due to lower costs, biased outputs may reach more users than the original teacher."
+    },
+    {
+      "id": "L6-072",
+      "q": "What is 'self-distillation'?",
+      "options": ["When an AI deletes its own model weights", "When a model is used as both teacher and student, training a new version of itself to improve efficiency or performance", "When a model teaches itself to code from scratch", "When distillation happens without any computing resources"],
+      "answer": 1,
+      "explanation": "Self-distillation uses a model as its own teacher — the model generates outputs that are used to train a new version of itself, often resulting in improved efficiency or refined performance on specific tasks."
+    },
+    {
+      "id": "L6-073",
+      "q": "What is 'Retrieval-Augmented Generation' (RAG) and how does it relate to grounding?",
+      "options": ["A technique for generating random text faster", "A way to augment AI hardware with additional RAM", "A method that retrieves relevant documents from a knowledge base and includes them in the prompt, grounding the AI's response in specific source material", "A retrieval system for finding lost AI models"],
+      "answer": 2,
+      "explanation": "RAG retrieves relevant documents from a knowledge base and includes them in the AI's context — this grounds the model's response in specific, verifiable source material rather than relying solely on training data."
+    },
+    {
+      "id": "L6-074",
+      "q": "Why is grounding especially important for enterprise AI deployments?",
+      "options": ["Enterprises need verifiable, accurate outputs because errors can have legal, financial, or reputational consequences", "Enterprises prefer AI responses that sound more casual", "Grounding is only important for consumer AI, not enterprise", "Enterprise users do not care about accuracy as long as responses are fast"],
+      "answer": 0,
+      "explanation": "Enterprise environments demand verifiable accuracy — ungrounded hallucinations in business contexts can lead to legal liability, financial losses, regulatory violations, and reputational damage."
+    },
+    {
+      "id": "L6-075",
+      "q": "What is 'citation grounding' in AI responses?",
+      "options": ["The AI citing traffic laws when discussing driving", "Grounding electrical citations in a building", "Citing the AI model's version number in every response", "Requiring the AI to link each claim to a specific source passage, enabling users to verify the information"],
+      "answer": 3,
+      "explanation": "Citation grounding requires the AI to trace each claim back to a specific source passage — users can verify the information themselves, building trust and accountability in the AI's outputs."
+    },
+    {
+      "id": "L6-076",
+      "q": "What is the difference between 'parametric knowledge' and 'grounded knowledge'?",
+      "options": ["They are the same thing with different names", "Parametric knowledge comes from the model's training; grounded knowledge comes from external sources provided at inference time", "Parametric knowledge is always more accurate", "Grounded knowledge can only come from databases, not documents"],
+      "answer": 1,
+      "explanation": "Parametric knowledge is baked into the model's weights during training and may be outdated or incorrect. Grounded knowledge comes from external sources provided at query time — typically more current and verifiable."
+    },
+    {
+      "id": "L6-077",
+      "q": "What is 'temporal grounding' for AI systems?",
+      "options": ["Teaching the AI to tell time", "Setting a timer for how long the AI can respond", "Providing the AI with the current date and time-relevant context so it does not present outdated information as current", "Grounding AI responses in historical time periods only"],
+      "answer": 2,
+      "explanation": "Temporal grounding ensures the AI knows the current date and has access to time-relevant context — preventing it from presenting outdated facts as current, which is especially critical for news, pricing, and policy information."
+    },
+    {
+      "id": "L6-078",
+      "q": "When grounding AI responses with retrieved documents, 'chunk size' refers to:",
+      "options": ["The physical size of the server storing the documents", "How many documents the AI can process in one chunk of time", "The size of the AI model's memory allocation", "The length of the text segments that documents are split into for retrieval and inclusion in the AI's context"],
+      "answer": 3,
+      "explanation": "Chunk size determines how documents are split for retrieval — too large and irrelevant content dilutes the context; too small and important context is lost. Optimal chunk size balances relevance with completeness."
+    },
+    {
+      "id": "L6-079",
+      "q": "What is 'faithfulness' in the context of grounded AI responses?",
+      "options": ["The degree to which the AI's response accurately reflects and stays true to the information in the provided source material", "The AI being loyal to one user and refusing to help others", "The AI expressing religious beliefs", "How often the AI responds to the same prompt identically"],
+      "answer": 0,
+      "explanation": "Faithfulness measures whether the AI's response accurately reflects the provided source material — a faithful response does not add unsupported claims, contradict the sources, or fabricate details not present in the grounding data."
+    },
+    {
+      "id": "L6-080",
+      "q": "What is 'attributability' in AI grounding?",
+      "options": ["The AI attributing human emotions to itself", "Attributing AI errors to hardware failures", "The ability to trace every claim in the AI's response back to a specific source, making the output verifiable", "The AI crediting its own training process in every response"],
+      "answer": 2,
+      "explanation": "Attributability means every claim in the AI's response can be traced to a specific source — if a human can verify each statement against the cited material, the response has high attributability."
+    },
+    {
+      "id": "L6-081",
+      "q": "How can 'entity grounding' reduce hallucinations?",
+      "options": ["By removing all mentions of people and places from AI responses", "By linking mentioned entities (people, organizations, dates) to verified knowledge base entries, ensuring they exist and the facts about them are correct", "By grounding electrical entities in a circuit", "By only allowing the AI to discuss fictional entities"],
+      "answer": 1,
+      "explanation": "Entity grounding cross-references mentioned people, organizations, dates, and places against verified knowledge bases — catching fabricated entities and incorrect facts about real ones before they reach the user."
+    },
+    {
+      "id": "L6-082",
+      "q": "What is a 'grounding score' used for?",
+      "options": ["Measuring how well the AI's response is supported by the provided source material, often used in automated evaluation", "Scoring how well the AI understands ground-level topics", "Rating the quality of the ground wire in the server room", "Scoring the AI on a standardized grounding test"],
+      "answer": 0,
+      "explanation": "A grounding score quantitatively measures how well an AI's response is supported by the provided reference material — used in automated evaluation to flag responses that deviate from or go beyond the source data."
+    },
+    {
+      "id": "L6-083",
+      "q": "Why might over-grounding be a problem?",
+      "options": ["Grounding can never be excessive — more grounding is always better", "Over-grounding causes the AI to crash", "Over-grounded responses are always too long", "The AI may refuse to synthesize, summarize, or draw reasonable inferences, becoming rigidly literal and unhelpful"],
+      "answer": 3,
+      "explanation": "Over-grounding can make the AI so rigidly tied to source text that it cannot synthesize, paraphrase, or draw reasonable inferences — producing responses that are technically accurate but practically unhelpful."
+    },
+    {
+      "id": "L6-084",
+      "q": "What is 'context window management' in multi-turn conversations?",
+      "options": ["Strategically deciding what conversation history to keep, summarize, or drop as the dialogue exceeds the model's token limit", "Opening multiple browser windows for the AI", "Managing the windows in the room where the AI server is located", "Scheduling when the AI is available for conversations"],
+      "answer": 0,
+      "explanation": "Context window management is the strategy for handling conversation history as it grows beyond the model's token limit — deciding what to keep verbatim, what to summarize, and what to drop to maintain coherent multi-turn dialogue."
+    },
+    {
+      "id": "L6-085",
+      "q": "What is 'conversation state tracking' in multi-turn AI design?",
+      "options": ["Tracking which US state the user is chatting from", "Counting the total number of words in the conversation", "Maintaining awareness of established facts, preferences, and commitments from earlier in the conversation to ensure consistency", "Tracking how many conversations the AI has had globally"],
+      "answer": 2,
+      "explanation": "Conversation state tracking maintains a record of facts, preferences, decisions, and commitments established earlier in the dialogue — ensuring the AI's later responses remain consistent with what was previously discussed."
+    },
+    {
+      "id": "L6-086",
+      "q": "What is 'reference resolution' in multi-turn conversation?",
+      "options": ["Resolving technical issues with the reference manual", "Increasing the screen resolution for better AI display", "Resolving conflicts between multiple AI references", "Determining what pronouns and vague references (like 'it,' 'that,' or 'the first one') refer to based on conversation context"],
+      "answer": 3,
+      "explanation": "Reference resolution is understanding what pronouns and vague references point to — when a user says 'make it longer,' the AI must correctly determine what 'it' refers to from the conversation history."
+    },
+    {
+      "id": "L6-087",
+      "q": "Why does conversation drift occur in multi-turn interactions, and how should it be managed?",
+      "options": ["Drift only occurs due to user error and cannot be managed", "The conversation gradually shifts topic as context accumulates; periodic summarization and topic re-anchoring help maintain focus", "Drift makes conversations more interesting and should be encouraged", "Drift is caused by hardware issues in the AI server"],
+      "answer": 1,
+      "explanation": "Conversation drift happens as accumulated context pulls the dialogue away from the original intent. Periodic summarization and explicit topic re-anchoring help the AI stay aligned with the user's evolving goals."
+    },
+    {
+      "id": "L6-088",
+      "q": "What is 'memory' in the context of multi-turn AI systems?",
+      "options": ["The mechanism for persisting key information (user preferences, prior decisions, facts) across conversation turns or even sessions", "The RAM installed in the AI server", "The AI reciting previous conversations word-for-word", "A game where the AI tests the user's recall"],
+      "answer": 0,
+      "explanation": "Memory in multi-turn systems is the mechanism for persisting important information — user preferences, established facts, prior decisions — across turns within a session or even across separate sessions."
+    },
+    {
+      "id": "L6-089",
+      "q": "What is 'conversation summarization' used for in multi-turn design?",
+      "options": ["Writing a book report about the conversation", "Summarizing what other users have said in different conversations", "Condensing earlier conversation history into a compact summary to free context window space while preserving essential information", "Creating a public summary of all AI conversations for training"],
+      "answer": 2,
+      "explanation": "Conversation summarization compresses earlier exchanges into a compact form — preserving essential facts, decisions, and context while freeing context window space for new information in the ongoing dialogue."
+    },
+    {
+      "id": "L6-090",
+      "q": "What challenge does 'context poisoning' present in multi-turn conversations?",
+      "options": ["The conversation becoming too positive and agreeable", "The AI's context window filling with poison-related content", "The user intentionally making the conversation unpleasant", "Incorrect or misleading information from early in the conversation persists and corrupts later responses"],
+      "answer": 3,
+      "explanation": "Context poisoning occurs when incorrect information established early in a conversation persists in the context — the AI treats it as established fact, causing errors to compound and corrupt subsequent responses."
+    },
+    {
+      "id": "L6-091",
+      "q": "What is 'slot filling' in multi-turn conversation design?",
+      "options": ["Progressively gathering required pieces of information (slots) across multiple turns until all necessary data is collected", "Filling time slots in a calendar app", "Inserting coins into a slot machine", "Filling empty database slots with random data"],
+      "answer": 0,
+      "explanation": "Slot filling is a multi-turn pattern where the AI identifies required information fields (slots) and progressively collects them through natural conversation — common in booking systems, forms, and structured data collection."
+    },
+    {
+      "id": "L6-092",
+      "q": "Why is 'turn-taking design' important in conversational AI?",
+      "options": ["To ensure the AI and user alternate responses at exactly equal lengths", "To manage when the AI should ask clarifying questions versus provide answers, and how to handle interruptions or topic changes", "To limit conversations to a fixed number of turns", "Turn-taking is only relevant in voice-based AI, not text"],
+      "answer": 1,
+      "explanation": "Turn-taking design governs the conversational flow — when to ask for clarification, when to provide answers, how to handle abrupt topic changes, and how to balance being thorough with being concise."
+    },
+    {
+      "id": "L6-093",
+      "q": "What is a 'conversation repair' mechanism?",
+      "options": ["Fixing broken keyboard keys during a chat", "Restarting the AI server after a crash", "The AI's ability to detect and recover from misunderstandings, errors, or communication breakdowns within the dialogue", "A tool for editing previous messages after they are sent"],
+      "answer": 2,
+      "explanation": "Conversation repair is the AI's ability to detect when communication has broken down — through misunderstanding, ambiguity, or error — and take corrective action to get the dialogue back on track."
+    },
+    {
+      "id": "L6-094",
+      "q": "How should a well-designed multi-turn system handle contradictory user instructions?",
+      "options": ["Always follow the most recent instruction and ignore all previous ones", "Ignore both instructions and do nothing", "Follow both contradictory instructions simultaneously", "Acknowledge the contradiction, ask the user to clarify their intent, and confirm the correct direction before proceeding"],
+      "answer": 3,
+      "explanation": "Good multi-turn design detects contradictions between earlier and later instructions, surfaces the conflict to the user, and asks for clarification — rather than silently choosing one interpretation and potentially doing the wrong thing."
+    },
+    {
+      "id": "L6-095",
+      "q": "What is 'implicit context' in multi-turn conversations?",
+      "options": ["Information the user assumes the AI understands based on prior turns without restating it — like shared knowledge built through the dialogue", "Context that is explicitly stated in every message", "Hidden context that the AI stores without the user's knowledge", "Context provided by a third party who is not in the conversation"],
+      "answer": 0,
+      "explanation": "Implicit context is the shared understanding built through prior turns — users expect the AI to remember what was discussed without repeating it, just as a human conversation partner would."
+    },
+    {
+      "id": "L6-096",
+      "q": "What is a 'guardrail escalation path'?",
+      "options": ["A physical staircase in the AI data center", "A defined procedure for what happens when guardrails are triggered — from warning to blocking to alerting a human moderator", "The path data takes through the AI's neural network", "A career advancement track for AI safety engineers"],
+      "answer": 1,
+      "explanation": "An escalation path defines graduated responses when guardrails are triggered — starting with gentle warnings, escalating to content blocking, and ultimately alerting human moderators for serious or repeated violations."
+    },
+    {
+      "id": "L6-097",
+      "q": "What is 'tool hallucination' in AI agent systems?",
+      "options": ["The AI claiming to see tools that are not physically present", "When a tool produces hallucinatory visual effects", "When an agent claims to have called a tool or received results that it did not actually execute", "When developers imagine tools that do not exist yet"],
+      "answer": 2,
+      "explanation": "Tool hallucination occurs when an agent fabricates tool calls or invents results — claiming to have searched a database or called an API when no such action actually occurred, producing convincing but entirely fictional outputs."
+    },
+    {
+      "id": "L6-098",
+      "q": "What is 'grounding with structured data' and when is it useful?",
+      "options": ["Building AI systems on concrete foundations", "Structuring the ground floor of an AI data center", "Only allowing the AI to output structured data formats", "Providing the AI with tables, databases, or JSON data as reference material so responses are anchored to specific, queryable facts"],
+      "answer": 3,
+      "explanation": "Grounding with structured data provides the AI with tables, databases, or JSON as reference material — especially useful for numerical questions, comparisons, and lookups where precise values matter more than narrative context."
+    },
+    {
+      "id": "L6-099",
+      "q": "In multi-turn design, what is 'progressive disclosure'?",
+      "options": ["Providing information in layers across turns — giving a high-level answer first, then adding detail as the user asks follow-up questions", "Gradually revealing the AI's source code to the user", "Disclosing the AI's limitations only at the end of the conversation", "Slowly increasing the font size of responses over time"],
+      "answer": 0,
+      "explanation": "Progressive disclosure provides information in layers — starting with a concise, high-level answer and adding detail through follow-up turns. This prevents overwhelming the user while ensuring depth is available when needed."
+    },
+    {
+      "id": "L6-100",
+      "q": "What is the 'principle of least privilege' as applied to AI agents?",
+      "options": ["Giving the AI the fewest conversation turns possible", "Granting the agent only the minimum permissions and tool access needed for its current task, reducing the blast radius of errors", "Making the AI available only to users with the lowest privilege level", "Restricting AI usage to the least expensive pricing tier"],
+      "answer": 1,
+      "explanation": "The principle of least privilege gives an agent only the minimum permissions and tool access needed for its specific task — if something goes wrong, the limited scope prevents widespread damage."
+    }
+  ]
+}

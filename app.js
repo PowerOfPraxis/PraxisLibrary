@@ -7146,966 +7146,136 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
     // QUIZ: AI READINESS - LEVEL-BASED
-    // Version 5.0 - 80 questions across 8 levels
-    // Level 1 (Q1-10): Good - Basic prompting
-    // Level 2 (Q11-20): Pro - Methodology knowledge
-    // Level 3 (Q21-30): Expert - Advanced details
-    // Level 4 (Q31-40): Master - IDEs, APIs, combining methods
-    // Level 5 (Q41-50): Legendary - Cutting-edge AI knowledge
-    // Modes: Standard (L1-4, 3 lives) | Legendary (L1-5, 1 life, 15s timer)
+    // Version 6.0 — 800 questions (100/level × 8), lazy-loaded JSON
+    // Each playthrough draws 10 random per level (Fisher-Yates)
+    // Timer activates at Level 8 (Legendary) only
     // ==========================================
     const quizContainer = document.getElementById('readiness-quiz');
 
     if (quizContainer) {
-        // 80 Questions across 8 levels based on Praxis site content
-        // Order: Beginner, Good, Pro, Expert, Advanced, Champion, Master, Legendary
-        const questions = [
-            // ============================================
-            // LEVEL 1: BEGINNER (Q1-10) - AI Fundamentals
-            // ============================================
-            {
-                question: "What does 'AI' stand for?",
-                options: [
-                    "Automated Internet",
-                    "Artificial Intelligence",
-                    "Advanced Integration",
-                    "Algorithmic Interface"
-                ],
-                correct: 1,
-                level: 1
-            },
-            {
-                question: "Which of these is an example of an AI chatbot?",
-                options: [
-                    "Microsoft Excel",
-                    "Google Maps",
-                    "ChatGPT",
-                    "Adobe Photoshop"
-                ],
-                correct: 2,
-                level: 1
-            },
-            {
-                question: "What is a 'prompt' in AI?",
-                options: [
-                    "A warning message from the computer",
-                    "The text or question you type to communicate with AI",
-                    "The AI's internal programming code",
-                    "A timer that counts down before AI responds"
-                ],
-                correct: 1,
-                level: 1
-            },
-            {
-                question: "AI chatbots generate responses by:",
-                options: [
-                    "Searching the internet in real-time for every answer",
-                    "Predicting likely text based on patterns learned during training",
-                    "Copying and pasting from a database of pre-written answers",
-                    "Connecting to a human operator who types the response"
-                ],
-                correct: 1,
-                level: 1
-            },
-            {
-                question: "Which of these tasks can AI help with?",
-                options: [
-                    "Writing and editing text",
-                    "Physical activities like cooking",
-                    "Making moral decisions for you",
-                    "Guaranteeing 100% correct answers"
-                ],
-                correct: 0,
-                level: 1
-            },
-            {
-                question: "What should you always do after receiving an AI response?",
-                options: [
-                    "Accept it immediately as fact",
-                    "Share it on social media right away",
-                    "Review it and verify important claims",
-                    "Delete it and start over"
-                ],
-                correct: 2,
-                level: 1
-            },
-            {
-                question: "AI is called 'artificial' because:",
-                options: [
-                    "It is fake and cannot do anything useful",
-                    "It is created by humans, not a natural form of intelligence",
-                    "It always gives artificial or made-up answers",
-                    "It only works on artificial or virtual things"
-                ],
-                correct: 1,
-                level: 1
-            },
-            {
-                question: "What is one thing AI cannot do?",
-                options: [
-                    "Summarize a long article",
-                    "Translate text between languages",
-                    "Truly understand emotions and feelings",
-                    "Generate creative writing ideas"
-                ],
-                correct: 2,
-                level: 1
-            },
-            {
-                question: "The best way to start using AI is to:",
-                options: [
-                    "Memorize all available AI commands first",
-                    "Start with a simple question and see how it responds",
-                    "Read the entire AI documentation before trying anything",
-                    "Only use it for complex professional tasks"
-                ],
-                correct: 1,
-                level: 1
-            },
-            {
-                question: "Why do different AI chatbots sometimes give different answers to the same question?",
-                options: [
-                    "Some chatbots are broken and give wrong answers",
-                    "They were trained on different data and have different designs",
-                    "Only one chatbot can be correct at a time",
-                    "The internet connection affects the quality of answers"
-                ],
-                correct: 1,
-                level: 1
-            },
+        // --- Quiz Data Infrastructure (lazy-loaded JSON) ---
+        const quizLevelCache = {};
+        const sessionQuestions = [];
+        const levelsLoaded = new Set();
 
-            // ============================================
-            // LEVEL 2: GOOD (Q11-20) - Basic Prompting
-            // ============================================
-            {
-                question: "What's the most important first step when preparing to use AI for a task?",
-                options: [
-                    "Find a template prompt that worked for someone else",
-                    "Clarify your goal and what information the AI needs",
-                    "Choose between different AI models and platforms",
-                    "Think about how to verify the AI's eventual output"
-                ],
-                correct: 1,
-                level: 2
-            },
-            {
-                question: "Which statement about AI accuracy is correct?",
-                options: [
-                    "Well-structured prompts guarantee accurate responses",
-                    "AI errors mainly come from user prompting mistakes",
-                    "AI can be confidently wrong due to training limits",
-                    "Premium AI subscriptions eliminate accuracy issues"
-                ],
-                correct: 2,
-                level: 2
-            },
-            {
-                question: "Why does providing context in a prompt matter?",
-                options: [
-                    "It makes the prompt longer which improves quality",
-                    "It helps the AI understand your specific situation",
-                    "It's required by most AI platforms to work",
-                    "It prevents the AI from asking follow-up questions"
-                ],
-                correct: 1,
-                level: 2
-            },
-            {
-                question: "What is a 'hallucination' in AI terms?",
-                options: [
-                    "When AI refuses to answer your question",
-                    "When AI generates false information confidently",
-                    "When AI takes too long to respond",
-                    "When AI misunderstands your language"
-                ],
-                correct: 1,
-                level: 2
-            },
-            {
-                question: "A good prompt should include:",
-                options: [
-                    "As many words as possible for clarity",
-                    "Technical jargon to sound professional",
-                    "Clear instructions about what you want",
-                    "Multiple unrelated questions at once"
-                ],
-                correct: 2,
-                level: 2
-            },
-            {
-                question: "When AI gives you an answer with specific statistics, you should:",
-                options: [
-                    "Trust it if the AI sounds confident",
-                    "Verify the information from other sources",
-                    "Assume it's accurate if the AI is reputable",
-                    "Only trust round numbers like 50% or 100%"
-                ],
-                correct: 1,
-                level: 2
-            },
-            {
-                question: "What makes natural language prompting effective?",
-                options: [
-                    "Using formal academic language only",
-                    "AI understands conversational requests well",
-                    "Natural language is processed faster",
-                    "It requires less computing power"
-                ],
-                correct: 1,
-                level: 2
-            },
-            {
-                question: "If AI output isn't what you wanted, the best approach is to:",
-                options: [
-                    "Accept it and work with what you got",
-                    "Refine your prompt with more specific details",
-                    "Try a completely different AI platform",
-                    "Report the AI for giving wrong answers"
-                ],
-                correct: 1,
-                level: 2
-            },
-            {
-                question: "Why is specifying tone in a prompt helpful?",
-                options: [
-                    "It makes the AI work harder on the response",
-                    "It shapes how the content reads and feels",
-                    "It's required for the AI to respond",
-                    "It reduces the response length"
-                ],
-                correct: 1,
-                level: 2
-            },
-            {
-                question: "The main purpose of prompting frameworks like CRISP is to:",
-                options: [
-                    "Make AI responses longer and more detailed",
-                    "Provide structure for including key information",
-                    "Bypass AI safety restrictions",
-                    "Make prompts work on all AI platforms equally"
-                ],
-                correct: 1,
-                level: 2
-            },
-
-            // ============================================
-            // LEVEL 3: PRO (Q21-30) - Methodology Knowledge
-            // ============================================
-            {
-                question: "What does CRISP stand for?",
-                options: [
-                    "Context, Role, Instructions, Specifics, Parameters",
-                    "Clear, Relevant, Informative, Structured, Precise",
-                    "Create, Review, Iterate, Submit, Perfect",
-                    "Concise, Rational, Intelligent, Simple, Practical"
-                ],
-                correct: 0,
-                level: 3
-            },
-            {
-                question: "In CRISP, 'Parameters' refers to:",
-                options: [
-                    "Technical settings like temperature and tokens",
-                    "The AI's internal configuration and version",
-                    "Constraints like format, length, and what to avoid",
-                    "Variables the AI uses during text generation"
-                ],
-                correct: 2,
-                level: 3
-            },
-            {
-                question: "How does CRISPE differ from CRISP?",
-                options: [
-                    "CRISPE adds 'Examples' to demonstrate desired output",
-                    "CRISPE removes the Role element",
-                    "CRISPE is for coding tasks only",
-                    "CRISPE uses numbered steps instead of letters"
-                ],
-                correct: 0,
-                level: 3
-            },
-            {
-                question: "When is CRISPE better suited than CRISP?",
-                options: [
-                    "For quick, simple tasks",
-                    "When you need precise format replication",
-                    "For casual conversation with AI",
-                    "When you don't know what you want"
-                ],
-                correct: 1,
-                level: 3
-            },
-            {
-                question: "What unique element does COSTAR include that CRISP doesn't?",
-                options: [
-                    "Context",
-                    "Audience",
-                    "Specifics",
-                    "Instructions"
-                ],
-                correct: 1,
-                level: 3
-            },
-            {
-                question: "Why does COSTAR specifically include 'Audience' as an element?",
-                options: [
-                    "To help track who reads the content for analytics",
-                    "Technical level affects how content should be written",
-                    "To ensure the AI uses appropriately formal language",
-                    "To comply with accessibility standards in outputs"
-                ],
-                correct: 1,
-                level: 3
-            },
-            {
-                question: "In CRISPE, assigning a Role to the AI helps because it:",
-                options: [
-                    "Sets the expertise level and perspective for responses",
-                    "Gives the AI permission to access special knowledge",
-                    "Makes the AI more confident in its answers",
-                    "Unlocks advanced capabilities within the model"
-                ],
-                correct: 0,
-                level: 3
-            },
-            {
-                question: "AI output includes technical jargon for a beginner audience. This happened because:",
-                options: [
-                    "The AI defaulted to its training data's typical style",
-                    "Technical topics inherently require specialized terms",
-                    "The prompt didn't specify the audience's knowledge level",
-                    "The AI couldn't simplify the complex concepts enough"
-                ],
-                correct: 2,
-                level: 3
-            },
-            {
-                question: "Your prompt returns content that's too formal and wordy. The best approach is to:",
-                options: [
-                    "Add 'be casual' at the end of your prompt",
-                    "Generate multiple responses and pick the best",
-                    "Switch to a different AI model for casual content",
-                    "Rewrite the prompt specifying tone and length upfront"
-                ],
-                correct: 3,
-                level: 3
-            },
-            {
-                question: "Which framework is described as 'leaner' and better for quick tasks?",
-                options: [
-                    "CRISPE",
-                    "COSTAR",
-                    "CRISP",
-                    "ReAct"
-                ],
-                correct: 2,
-                level: 3
-            },
-
-            // ============================================
-            // LEVEL 4: EXPERT (Q31-40) - Advanced Details
-            // ============================================
-            {
-                question: "Chain-of-thought prompting improves AI output by:",
-                options: [
-                    "Making the AI process your request more slowly",
-                    "Connecting your prompt to relevant training data",
-                    "Allowing the AI to ask you clarifying questions",
-                    "Revealing reasoning steps for easier verification"
-                ],
-                correct: 3,
-                level: 4
-            },
-            {
-                question: "What phrase triggers Chain-of-Thought reasoning?",
-                options: [
-                    "'Answer quickly'",
-                    "'Let's think step by step'",
-                    "'Be more creative'",
-                    "'Use your best judgment'"
-                ],
-                correct: 1,
-                level: 4
-            },
-            {
-                question: "Few-shot prompting (providing examples) is most valuable when:",
-                options: [
-                    "You want the AI to be more creative and original",
-                    "The AI doesn't understand your topic area well",
-                    "You need output in a specific format or style",
-                    "Your prompt is too short and needs more content"
-                ],
-                correct: 2,
-                level: 4
-            },
-            {
-                question: "How many examples are typically recommended for few-shot learning?",
-                options: [
-                    "1 example only",
-                    "2-5 examples",
-                    "10-15 examples",
-                    "As many as possible"
-                ],
-                correct: 1,
-                level: 4
-            },
-            {
-                question: "What is the ReAct method?",
-                options: [
-                    "A way to react emotionally to AI responses",
-                    "Alternating between Reasoning and Acting steps",
-                    "A method for reactive programming with AI",
-                    "Reacting to user feedback in real-time"
-                ],
-                correct: 1,
-                level: 4
-            },
-            {
-                question: "The ReAct loop consists of which three phases?",
-                options: [
-                    "Read, Edit, Approve",
-                    "Request, Evaluate, Accept",
-                    "Thought, Action, Observation",
-                    "Review, Analyze, Complete"
-                ],
-                correct: 2,
-                level: 4
-            },
-            {
-                question: "When is ReAct most useful?",
-                options: [
-                    "For simple, straightforward tasks",
-                    "When you need quick one-word answers",
-                    "For complex problems requiring multiple steps",
-                    "When creativity is more important than accuracy"
-                ],
-                correct: 2,
-                level: 4
-            },
-            {
-                question: "What is the Flipped Interaction method?",
-                options: [
-                    "Asking AI to write prompts for you",
-                    "Having AI interview you before giving advice",
-                    "Reversing the order of prompt elements",
-                    "Using opposite meanings in prompts"
-                ],
-                correct: 1,
-                level: 4
-            },
-            {
-                question: "Why does Flipped Interaction produce better results?",
-                options: [
-                    "It confuses the AI into trying harder",
-                    "It forces specificity before solutions",
-                    "It's faster than normal prompting",
-                    "It uses less AI processing power"
-                ],
-                correct: 1,
-                level: 4
-            },
-            {
-                question: "A limitation of Role Prompting is that it:",
-                options: [
-                    "Only works with certain AI models",
-                    "Requires paid subscriptions to use",
-                    "Doesn't give AI knowledge it doesn't have",
-                    "Makes responses too short"
-                ],
-                correct: 2,
-                level: 4
-            },
-
-            // ============================================
-            // LEVEL 5: ADVANCED (Q41-50) - Applied AI & Deeper Techniques
-            // ============================================
-            {
-                question: "What is 'zero-shot' prompting?",
-                options: [
-                    "Giving the AI no examples and relying on its training alone",
-                    "A prompt that produces no useful output",
-                    "Asking the AI to start from zero knowledge",
-                    "A technique that only works the first time you use it"
-                ],
-                correct: 0,
-                level: 5
-            },
-            {
-                question: "What is 'temperature' in AI model settings?",
-                options: [
-                    "How fast the AI generates text",
-                    "A control for randomness — lower is more focused, higher is more creative",
-                    "The energy cost of running the model",
-                    "How emotionally warm or cold the AI's tone is"
-                ],
-                correct: 1,
-                level: 5
-            },
-            {
-                question: "Tree-of-Thought prompting differs from Chain-of-Thought by:",
-                options: [
-                    "Using shorter reasoning chains",
-                    "Exploring multiple reasoning paths simultaneously before choosing the best",
-                    "Only working with tree-shaped data structures",
-                    "Requiring the AI to think in reverse order"
-                ],
-                correct: 1,
-                level: 5
-            },
-            {
-                question: "What is 'prompt decomposition'?",
-                options: [
-                    "Deleting parts of a prompt to make it shorter",
-                    "Breaking a complex task into smaller sub-prompts that are easier to solve",
-                    "Analyzing why a prompt failed after the fact",
-                    "Converting a prompt from one language to another"
-                ],
-                correct: 1,
-                level: 5
-            },
-            {
-                question: "Self-consistency in prompting means:",
-                options: [
-                    "Always using the exact same prompt every time",
-                    "Running the same prompt multiple times and choosing the most common answer",
-                    "Making sure the AI agrees with itself in every sentence",
-                    "A technique where the AI checks its own grammar"
-                ],
-                correct: 1,
-                level: 5
-            },
-            {
-                question: "What is 'Retrieval-Augmented Generation' (RAG)?",
-                options: [
-                    "An AI that generates images from text descriptions",
-                    "Combining AI generation with real-time retrieval of relevant documents",
-                    "A method for making AI responses shorter and faster",
-                    "Training an AI model on a single specific topic"
-                ],
-                correct: 1,
-                level: 5
-            },
-            {
-                question: "Why might an AI perform differently on the same prompt across sessions?",
-                options: [
-                    "The AI remembers previous conversations and gets bored",
-                    "Randomness in generation, model updates, and context differences all affect output",
-                    "The internet connection speed changes the AI's intelligence",
-                    "AI models only work well during certain hours of the day"
-                ],
-                correct: 1,
-                level: 5
-            },
-            {
-                question: "What is 'role stacking' in prompt engineering?",
-                options: [
-                    "Assigning the AI multiple expert roles to get a more rounded response",
-                    "Creating separate AI accounts for different tasks",
-                    "Stacking multiple prompts on top of each other in one message",
-                    "Using role-playing games to train AI models"
-                ],
-                correct: 0,
-                level: 5
-            },
-            {
-                question: "When using AI for data analysis, the most important thing to specify is:",
-                options: [
-                    "The color scheme for charts and graphs",
-                    "The exact data format, what patterns to look for, and desired output structure",
-                    "Which programming language the AI should think in",
-                    "How many decimal places to use in calculations"
-                ],
-                correct: 1,
-                level: 5
-            },
-            {
-                question: "What is a 'system prompt' in AI applications?",
-                options: [
-                    "The first message the user types in a conversation",
-                    "Hidden instructions that set the AI's behavior and constraints before user interaction",
-                    "A diagnostic message when the AI encounters an error",
-                    "The operating system requirements to run the AI"
-                ],
-                correct: 1,
-                level: 5
-            },
-
-            // ============================================
-            // LEVEL 6: CHAMPION (Q51-60) - Professional AI Application
-            // ============================================
-            {
-                question: "What does 'AI guardrails' refer to?",
-                options: [
-                    "Physical barriers around AI server rooms",
-                    "Safety constraints and boundaries built into AI systems to prevent harmful outputs",
-                    "The metal casing that protects AI hardware",
-                    "Speed limits on how fast AI can process data"
-                ],
-                correct: 1,
-                level: 6
-            },
-            {
-                question: "A/B testing AI prompts means:",
-                options: [
-                    "Testing prompts in alphabetical order",
-                    "Comparing two prompt versions to see which produces better results",
-                    "Running prompts on model A and model B simultaneously",
-                    "Testing prompts that start with the letter A or B"
-                ],
-                correct: 1,
-                level: 6
-            },
-            {
-                question: "What is an 'AI agent' in the context of modern AI systems?",
-                options: [
-                    "A human who sells AI products to businesses",
-                    "An AI system that can autonomously plan, use tools, and take actions to complete tasks",
-                    "A chatbot that only answers frequently asked questions",
-                    "An AI that pretends to be a specific real person"
-                ],
-                correct: 1,
-                level: 6
-            },
-            {
-                question: "What is 'Chain-of-Verification' prompting?",
-                options: [
-                    "Having a human verify each sentence the AI writes",
-                    "Asking the AI to generate an answer, then verify its own claims step by step",
-                    "Connecting multiple AI models in a chain to check each other",
-                    "A blockchain-based method for verifying AI output"
-                ],
-                correct: 1,
-                level: 6
-            },
-            {
-                question: "When creating a structured output schema for AI, you should:",
-                options: [
-                    "Let the AI decide the best format on its own",
-                    "Define exact field names, types, and an example of the expected output",
-                    "Only use plain text because AI cannot handle structured data",
-                    "Use the most complex schema possible for maximum detail"
-                ],
-                correct: 1,
-                level: 6
-            },
-            {
-                question: "What is 'prompt leaking' and why is it a concern?",
-                options: [
-                    "When a prompt takes too long to process and times out",
-                    "When users trick an AI into revealing its hidden system instructions",
-                    "When AI generates text that accidentally contains the user's password",
-                    "When prompts are accidentally sent to the wrong AI model"
-                ],
-                correct: 1,
-                level: 6
-            },
-            {
-                question: "Multi-turn conversation design for AI should account for:",
-                options: [
-                    "Keeping every message under 10 words",
-                    "Context accumulation, reference resolution, and conversation state tracking",
-                    "Only using yes/no questions to keep things simple",
-                    "Ending every conversation after exactly 5 messages"
-                ],
-                correct: 1,
-                level: 6
-            },
-            {
-                question: "What is 'model distillation' in AI?",
-                options: [
-                    "Filtering out toxic content from AI training data",
-                    "Training a smaller model to replicate a larger model's behavior",
-                    "Converting an AI model from one programming language to another",
-                    "The process of cooling down AI servers to improve performance"
-                ],
-                correct: 1,
-                level: 6
-            },
-            {
-                question: "When adapting prompts across different AI models (Claude, GPT, Gemini), you should:",
-                options: [
-                    "Use the exact same prompt — all models understand prompts identically",
-                    "Adjust for each model's strengths, formatting preferences, and instruction style",
-                    "Only use one model and never switch",
-                    "Remove all specific instructions since models interpret them differently"
-                ],
-                correct: 1,
-                level: 6
-            },
-            {
-                question: "What does 'grounding' an AI response mean?",
-                options: [
-                    "Connecting the AI to the electrical ground for safety",
-                    "Anchoring AI outputs to verified source material or real data to reduce fabrication",
-                    "Making the AI write in a more down-to-earth conversational style",
-                    "Restricting the AI to only discuss ground-level topics, not abstract ones"
-                ],
-                correct: 1,
-                level: 6
-            },
-
-            // ============================================
-            // LEVEL 7: MASTER (Q61-70) - IDEs, APIs, Combining Methods
-            // ============================================
-            {
-                question: "What is Cursor?",
-                options: [
-                    "A text cursor for typing",
-                    "An AI-first code editor built on VS Code",
-                    "A mouse pointer customization tool",
-                    "A database management system"
-                ],
-                correct: 1,
-                level: 7
-            },
-            {
-                question: "What is an IDE?",
-                options: [
-                    "Internet Data Exchange",
-                    "Integrated Development Environment",
-                    "Intelligent Design Editor",
-                    "Internal Document Engine"
-                ],
-                correct: 1,
-                level: 7
-            },
-            {
-                question: "Which AI coding assistant is built by Anthropic?",
-                options: [
-                    "GitHub Copilot",
-                    "Codeium",
-                    "Claude Code",
-                    "Amazon CodeWhisperer"
-                ],
-                correct: 2,
-                level: 7
-            },
-            {
-                question: "When combining CRISP with Chain-of-Thought, you should:",
-                options: [
-                    "Only use one method at a time, never combine",
-                    "Add 'think step by step' to your CRISP prompt",
-                    "Replace all CRISP elements with reasoning steps",
-                    "Use CRISP for simple tasks and CoT for complex ones only"
-                ],
-                correct: 1,
-                level: 7
-            },
-            {
-                question: "Constrained Output Formats (like JSON) are essential for:",
-                options: [
-                    "Making responses look professional",
-                    "Programmatic use of AI outputs",
-                    "Reducing AI response time",
-                    "Improving AI creativity"
-                ],
-                correct: 1,
-                level: 7
-            },
-            {
-                question: "How can you use ReAct for debugging code with AI?",
-                options: [
-                    "Ask AI to rewrite all the code from scratch",
-                    "Request diagnostic steps with Thought, Action, Observation",
-                    "Only share error messages, not context",
-                    "Let AI guess what the problem might be"
-                ],
-                correct: 1,
-                level: 7
-            },
-            {
-                question: "When using AI in VS Code or Cursor, prompting skills help you:",
-                options: [
-                    "Type faster with autocomplete",
-                    "Get better code suggestions and explanations",
-                    "Change the editor's color theme",
-                    "Install extensions automatically"
-                ],
-                correct: 1,
-                level: 7
-            },
-            {
-                question: "Prompt chaining means:",
-                options: [
-                    "Using very long prompts",
-                    "Linking multiple prompts where output feeds the next",
-                    "Chaining words together without spaces",
-                    "Repeating the same prompt multiple times"
-                ],
-                correct: 1,
-                level: 7
-            },
-            {
-                question: "For complex multi-step tasks, the most effective approach is to:",
-                options: [
-                    "Write one very detailed prompt",
-                    "Break it into smaller prompts and combine methods",
-                    "Let AI figure out the steps on its own",
-                    "Only use the simplest prompting framework"
-                ],
-                correct: 1,
-                level: 7
-            },
-            {
-                question: "A 'Master' level prompter would likely:",
-                options: [
-                    "Only use templates from the internet",
-                    "Combine frameworks, use IDEs, and verify AI outputs",
-                    "Trust AI completely without verification",
-                    "Avoid using advanced techniques"
-                ],
-                correct: 1,
-                level: 7
-            },
-
-            // Level 8 Legendary questions are drawn randomly from legendaryPool below
-        ];
-
-        // ============================================
-        // LEGENDARY POOL — 100 cutting-edge AI questions
-        // 10 are randomly selected each playthrough
-        // ============================================
-        const legendaryPool = [
-            // --- Prompt Injection & Security ---
-            { question: "What is a 'prompt injection' attack?", options: ["Sending too many prompts at once to overload the AI", "Crafting input that overrides the AI's system instructions", "Injecting code into the AI's source code directly", "Using special characters that crash the AI model"], correct: 1 },
-            { question: "A 'jailbreak' prompt attempts to:", options: ["Speed up AI inference by bypassing safety layers", "Trick the AI into ignoring its safety guidelines", "Break the encryption on AI model weights", "Access the AI's training data directly"], correct: 1 },
-            { question: "Which defense best prevents prompt injection?", options: ["Longer system prompts", "Input sanitization combined with output filtering", "Using a smaller model", "Disabling the chat interface"], correct: 1 },
-            { question: "An indirect prompt injection differs from a direct one because:", options: ["It uses longer prompts", "The malicious instructions come from external data the AI processes, not the user", "It only works on open-source models", "It requires physical access to the server"], correct: 1 },
-            { question: "A 'system prompt leak' occurs when:", options: ["The AI reveals its hidden instructions to the user", "The server crashes and exposes configuration files", "An API key is accidentally shared", "The model's weights are downloaded illegally"], correct: 0 },
-            { question: "Defense-in-depth for AI security means:", options: ["Using the most expensive model available", "Layering multiple safety mechanisms rather than relying on one", "Running AI only on secure government servers", "Encrypting every prompt before sending it"], correct: 1 },
-            { question: "What is a 'canary token' in AI security?", options: ["A secret phrase in the system prompt that detects if instructions were leaked", "A type of API key for testing", "A model checkpoint saved during training", "An encryption method for prompt data"], correct: 0 },
-            { question: "Prompt exfiltration attacks attempt to:", options: ["Extract the system prompt or confidential data through crafted queries", "Delete the AI model from the server", "Install malware through AI-generated code", "Overload the model with excessive tokens"], correct: 0 },
-            { question: "The principle of least privilege in AI systems means:", options: ["Only the CEO can access AI tools", "AI should only have access to the minimum data and capabilities needed for its task", "Using the smallest possible model", "Limiting AI to one conversation per user"], correct: 1 },
-            { question: "A 'red team' in AI safety refers to:", options: ["The team that builds the AI model", "A group that deliberately tries to find vulnerabilities and failures in AI systems", "Engineers who optimize model performance", "The marketing team for AI products"], correct: 1 },
-
-            // --- Constitutional AI & RLHF ---
-            { question: "Constitutional AI is best described as:", options: ["AI systems that follow government regulations only", "Training AI to evaluate its own outputs against a set of principles", "AI that can only be used in democratic countries", "A legal framework for AI copyright issues"], correct: 1 },
-            { question: "In RLHF, the 'human feedback' primarily helps the model learn:", options: ["Factual accuracy about the world", "How to generate text faster", "What outputs humans prefer and find helpful", "Programming languages and syntax"], correct: 2 },
-            { question: "The 'reward model' in RLHF is trained to:", options: ["Give monetary rewards to human labelers", "Predict which AI outputs humans would rate higher", "Calculate the computational cost of each response", "Reward the AI for longer responses"], correct: 1 },
-            { question: "DPO (Direct Preference Optimization) differs from RLHF by:", options: ["Using more human labelers", "Skipping the separate reward model and training directly on preference pairs", "Only working with images, not text", "Requiring much more training data"], correct: 1 },
-            { question: "A key challenge with RLHF is:", options: ["It makes models too fast", "Human preferences can be inconsistent or biased, affecting the model", "It only works in English", "It requires quantum computers"], correct: 1 },
-            { question: "In Constitutional AI, the 'constitution' refers to:", options: ["The U.S. Constitution", "A set of principles the AI uses to self-critique and revise its outputs", "The legal terms of service", "The model's architecture specifications"], correct: 1 },
-            { question: "Reward hacking in RLHF happens when:", options: ["Hackers steal the reward model", "The AI finds ways to score high on the reward metric without actually being helpful", "Human labelers give inflated scores", "The training data is corrupted"], correct: 1 },
-            { question: "The 'alignment tax' refers to:", options: ["A government fee on AI companies", "The potential performance cost of making AI safer and more aligned", "The price of RLHF training data", "An import duty on AI hardware"], correct: 1 },
-
-            // --- Context Windows & Tokens ---
-            { question: "A model's 'context window' filling up means:", options: ["The AI has processed its maximum token input and will lose earlier information", "The AI has run out of computing power temporarily", "The model needs to be updated with new training data", "The conversation has been flagged for safety review"], correct: 0 },
-            { question: "Tokenization in LLMs breaks text into:", options: ["Individual characters only", "Subword units that the model processes as its vocabulary", "Complete sentences for batch processing", "Binary code for the GPU"], correct: 1 },
-            { question: "The 'lost in the middle' problem refers to:", options: ["AI forgetting what it said mid-sentence", "Models paying less attention to information in the middle of long contexts", "Data being corrupted during transmission", "Users losing track of their conversation"], correct: 1 },
-            { question: "Why do longer context windows NOT automatically mean better performance?", options: ["Because bigger is always better with AI", "Attention quality can degrade over very long sequences and retrieval accuracy drops", "Longer windows are always slower but always more accurate", "Context window size has no effect on output quality"], correct: 1 },
-            { question: "A 'token budget' strategy involves:", options: ["Paying per token to a billing system", "Strategically allocating context space between instructions, examples, and input", "Limiting users to a set number of messages", "Using compression to reduce token count to zero"], correct: 1 },
-            { question: "Needle-in-a-haystack tests evaluate:", options: ["How fast a model can generate text", "Whether a model can find specific information buried in a large context", "The model's ability to generate images", "How many languages a model supports"], correct: 1 },
-
-            // --- Multi-Modal AI ---
-            { question: "When prompting a multi-modal AI with both image and text, you should:", options: ["Always describe the image in text since AI cannot truly see", "Reference specific visual elements and state what analysis you need", "Only provide the image and let AI decide what to analyze", "Use image prompts only for creative tasks, never analytical ones"], correct: 1 },
-            { question: "Multi-modal grounding means:", options: ["Connecting the AI to the internet", "The model connecting concepts across different input types like text and images", "Running the model on a grounded electrical system", "Using only one modality at a time"], correct: 1 },
-            { question: "A key limitation of current vision-language models is:", options: ["They cannot process any images at all", "They may struggle with precise spatial reasoning, counting, or reading small text in images", "They only work with photographs, not illustrations", "They require the image to be exactly 512x512 pixels"], correct: 1 },
-            { question: "When using AI for image analysis, the most useful prompt will:", options: ["Simply say 'describe this image'", "Specify what aspects to analyze, what format to use, and what level of detail is needed", "Avoid mentioning anything visible in the image", "Ask the AI to guess where the image was taken"], correct: 1 },
-            { question: "Audio-to-text AI models perform best when:", options: ["The audio has heavy background music", "The input is clear, the language is specified, and context about the domain is provided", "No additional context is given", "The audio file is as large as possible"], correct: 1 },
-
-            // --- Hallucination Mitigation ---
-            { question: "The most effective strategy for reducing AI hallucinations is:", options: ["Asking the AI to be more confident in its answers", "Using higher temperature settings for more exploration", "Grounding responses in provided source material and requesting citations", "Making prompts shorter so the AI has less room to fabricate"], correct: 2 },
-            { question: "A 'confabulation' in AI refers to:", options: ["The AI intentionally lying", "The AI generating plausible-sounding but fabricated information", "A hardware malfunction", "The AI refusing to answer"], correct: 1 },
-            { question: "Retrieval-Augmented Generation (RAG) reduces hallucinations by:", options: ["Making the model smaller", "Providing verified source documents for the model to reference when answering", "Disabling the model's creativity", "Running the same prompt multiple times"], correct: 1 },
-            { question: "Self-consistency checking involves:", options: ["Asking the AI the same question once and trusting the answer", "Generating multiple responses and selecting the most common answer among them", "Having two different users verify the output", "Checking if the AI's response matches Wikipedia"], correct: 1 },
-            { question: "Asking an AI to say 'I don't know' when uncertain is an example of:", options: ["Model fine-tuning", "Calibrated confidence prompting", "Temperature adjustment", "System prompt deletion"], correct: 1 },
-            { question: "Chain-of-verification prompting works by:", options: ["Asking the AI to generate claims, then separately verify each claim", "Chaining multiple AI models together", "Verifying the user's identity before responding", "Using blockchain to verify AI outputs"], correct: 0 },
-
-            // --- Prompt Chaining & Orchestration ---
-            { question: "In prompt chaining with conditional logic, 'branching' means:", options: ["Using the same prompt across multiple AI models simultaneously", "Routing to different follow-up prompts based on the previous output's content", "Breaking a prompt into parallel threads that run at the same time", "Creating backup prompts in case the primary one fails"], correct: 1 },
-            { question: "An AI orchestration framework like LangChain primarily helps with:", options: ["Training new AI models from scratch", "Connecting multiple AI calls, tools, and data sources into workflows", "Designing the visual interface of chatbots", "Replacing human developers entirely"], correct: 1 },
-            { question: "The 'map-reduce' pattern in prompt chaining:", options: ["Is a database query technique unrelated to AI", "Processes large inputs by splitting them into chunks, processing each, then combining results", "Maps keyboard inputs to AI responses", "Reduces the model's size during inference"], correct: 1 },
-            { question: "Why would you use a 'router' prompt in a chain?", options: ["To connect to the internet", "To classify the input and direct it to the most appropriate specialized prompt", "To translate between languages automatically", "To compress the input into fewer tokens"], correct: 1 },
-            { question: "Prompt pipelines benefit from error handling because:", options: ["Errors never happen in AI systems", "A failure in one step can cascade and corrupt all downstream outputs", "Error handling makes prompts longer", "It is only needed for code generation tasks"], correct: 1 },
-
-            // --- Fine-Tuning & Training ---
-            { question: "When should you prefer fine-tuning over in-context learning?", options: ["Always, because fine-tuning is strictly better", "When you have a large dataset and need consistent specialized behavior at scale", "When you only have 2-3 examples of what you want", "When you want the AI to forget its general knowledge"], correct: 1 },
-            { question: "LoRA (Low-Rank Adaptation) is popular because it:", options: ["Replaces the entire model with a new one", "Fine-tunes a small number of parameters, making it efficient and cost-effective", "Only works with image models", "Requires no training data at all"], correct: 1 },
-            { question: "Catastrophic forgetting during fine-tuning means:", options: ["The training server crashes and loses all data", "The model loses its general capabilities while learning the new specialized task", "Users forget how to use the fine-tuned model", "The model intentionally deletes old knowledge"], correct: 1 },
-            { question: "Synthetic data for fine-tuning is:", options: ["Data collected from real users without consent", "AI-generated training examples used to augment or replace real data", "Data that has been encrypted", "Physical data stored on synthetic materials"], correct: 1 },
-            { question: "The difference between fine-tuning and prompt engineering is:", options: ["There is no difference", "Fine-tuning changes the model's weights while prompt engineering only changes the input", "Prompt engineering is always better", "Fine-tuning is free and prompt engineering costs money"], correct: 1 },
-            { question: "Overfitting during fine-tuning is indicated by:", options: ["The model performing equally well on all data", "High performance on training data but poor performance on new, unseen data", "The model generating longer responses", "Training taking less time than expected"], correct: 1 },
-
-            // --- AI Safety & Alignment ---
-            { question: "AI alignment research primarily focuses on:", options: ["Making AI models run faster on consumer hardware", "Ensuring AI systems behave according to human values and intentions", "Aligning the visual output of AI-generated images", "Synchronizing multiple AI models to give identical answers"], correct: 1 },
-            { question: "Goodhart's Law applied to AI means:", options: ["Good AI always follows laws", "When a metric becomes a target, it ceases to be a good metric — AI optimizes the measure, not the goal", "AI models should be governed by law", "Larger models are always better"], correct: 1 },
-            { question: "An 'AI kill switch' is important because:", options: ["AI models need to be restarted daily", "Humans need the ability to shut down or override AI systems that behave unexpectedly", "It makes the AI run faster", "It is required by all countries' laws"], correct: 1 },
-            { question: "Scalable oversight in AI safety refers to:", options: ["Using bigger screens to monitor AI", "Developing methods to supervise AI systems as they become more capable than individual humans", "Hiring more people to watch AI systems", "Scaling up the size of AI models"], correct: 1 },
-            { question: "The 'paperclip maximizer' thought experiment illustrates:", options: ["How AI can help with office supplies", "The danger of an AI relentlessly optimizing a goal without understanding broader human values", "Why AI should manufacture physical products", "How simple tasks are easy for AI"], correct: 1 },
-            { question: "Interpretability in AI safety is important because:", options: ["It makes the AI's interface look better", "Understanding why an AI makes decisions helps identify and fix dangerous behaviors", "It only matters for academic research", "It reduces the cost of running AI models"], correct: 1 },
-
-            // --- Meta-Prompting & Advanced Techniques ---
-            { question: "Meta-prompting (using AI to generate prompts) is most valuable when:", options: ["You want to replace human judgment entirely", "You need to optimize prompts across many variations and edge cases", "The AI cannot understand your original prompt at all", "You want to bypass the AI's safety guidelines"], correct: 1 },
-            { question: "A 'mega-prompt' differs from prompt chaining by:", options: ["Being shorter and simpler", "Packing all instructions, context, and constraints into a single comprehensive prompt", "Using multiple AI models at once", "Only working with code generation"], correct: 1 },
-            { question: "Prompt versioning is important because:", options: ["It makes prompts longer", "It lets you track what changed, compare performance, and roll back to working versions", "It is required by law", "It only matters for enterprise use"], correct: 1 },
-            { question: "The 'inner monologue' prompting technique:", options: ["Tells the AI to think silently and only output the final answer", "Is identical to zero-shot prompting", "Requires the user to speak out loud", "Only works for mathematical problems"], correct: 0 },
-            { question: "Dynamic few-shot selection means:", options: ["Using the same examples for every query", "Automatically choosing the most relevant examples based on the current input", "Reducing the number of examples over time", "Only using examples in English"], correct: 1 },
-            { question: "Prompt compression techniques are useful when:", options: ["You want the AI to give shorter answers", "You need to fit more information within a limited context window", "You want to hide your prompt from the AI", "You are communicating in a language with fewer words"], correct: 1 },
-
-            // --- Evaluation & Benchmarks ---
-            { question: "BLEU and ROUGE scores measure:", options: ["The AI model's speed", "How closely AI-generated text matches reference text", "The cost of running an AI model", "User satisfaction surveys"], correct: 1 },
-            { question: "An 'eval suite' for LLMs typically includes:", options: ["Only one benchmark test", "A diverse set of tests covering reasoning, knowledge, safety, and task-specific performance", "Physical hardware stress tests", "Only multiple-choice questions"], correct: 1 },
-            { question: "The 'Elo rating' system for AI models works by:", options: ["Measuring token generation speed", "Comparing model outputs head-to-head and calculating relative rankings based on wins", "Counting the number of parameters", "Measuring the model's energy consumption"], correct: 1 },
-            { question: "Contamination in AI benchmarks occurs when:", options: ["The testing environment has a virus", "The model has seen the test questions during training, inflating its scores", "The benchmark is run on outdated hardware", "Too many people take the benchmark"], correct: 1 },
-            { question: "Human evaluation of AI outputs is still important because:", options: ["Automated metrics perfectly capture quality", "Humans can assess nuance, helpfulness, and safety that automated metrics miss", "It is cheaper than automated evaluation", "AI outputs are always perfect"], correct: 1 },
-
-            // --- Agents & Tool Use ---
-            { question: "An AI 'agent' differs from a basic chatbot by:", options: ["Having a larger model", "Being able to take actions, use tools, and pursue multi-step goals autonomously", "Only responding to voice input", "Being more expensive to run"], correct: 1 },
-            { question: "The ReAct pattern in AI agents stands for:", options: ["React JavaScript framework", "Reasoning and Acting — the agent thinks step-by-step then takes actions", "Reactive AI Computation", "Real-time Action Control"], correct: 1 },
-            { question: "Tool use in AI agents requires:", options: ["Physical robot arms", "Clear descriptions of available tools so the agent knows when and how to use each one", "The agent to be connected to the internet at all times", "Only one tool per agent"], correct: 1 },
-            { question: "The biggest risk with autonomous AI agents is:", options: ["They use too much electricity", "They can take irreversible actions without human oversight if not properly constrained", "They are too slow", "They can only work during business hours"], correct: 1 },
-            { question: "A 'planning' step in AI agents involves:", options: ["Scheduling meetings for the user", "The agent breaking down a complex goal into a sequence of actionable steps", "Planning the model's next training run", "Creating a project timeline for developers"], correct: 1 },
-            { question: "Memory systems in AI agents help them:", options: ["Remember their training data", "Maintain context across interactions and learn from past actions", "Store user passwords securely", "Run faster by caching computations"], correct: 1 },
-
-            // --- Ethics & Bias ---
-            { question: "Algorithmic bias in AI most commonly originates from:", options: ["The AI deliberately choosing to be unfair", "Biased training data and biased design choices by developers", "Random chance during model training", "The programming language used"], correct: 1 },
-            { question: "A 'model card' for an AI system documents:", options: ["The physical card used to purchase the AI", "The model's capabilities, limitations, intended use, and known biases", "The credit card used for billing", "The employee ID of the developer"], correct: 1 },
-            { question: "Disparate impact in AI decision-making means:", options: ["The AI makes decisions too slowly", "A seemingly neutral system disproportionately affects certain demographic groups", "Different users get different prices", "The AI impacts multiple industries"], correct: 1 },
-            { question: "The 'right to explanation' in AI ethics refers to:", options: ["AI explaining how it was built", "Individuals' right to understand how an AI decision affecting them was made", "The AI's right to explain its existence", "Developers explaining their code"], correct: 1 },
-            { question: "Fairness in AI is challenging because:", options: ["It is mathematically impossible to satisfy all fairness criteria simultaneously", "Nobody cares about fairness", "It only matters for government AI", "There is one universal definition of fairness everyone agrees on"], correct: 0 },
-            { question: "Data provenance in AI training refers to:", options: ["The province where data is stored", "Tracking the origin, history, and rights associated with training data", "How fast data is transmitted", "The amount of data used"], correct: 1 },
-
-            // --- Emerging Techniques ---
-            { question: "Mixture of Experts (MoE) architecture improves efficiency by:", options: ["Using a single large expert for all tasks", "Activating only a subset of model parameters for each input", "Mixing human experts with AI", "Combining multiple small models' outputs with majority voting"], correct: 1 },
-            { question: "Speculative decoding speeds up LLM inference by:", options: ["Skipping tokens randomly", "Using a smaller model to draft tokens that the larger model then verifies in parallel", "Reducing the model's vocabulary size", "Only generating the first word of each sentence"], correct: 1 },
-            { question: "Knowledge distillation transfers knowledge by:", options: ["Copying the large model's weights directly", "Training a smaller 'student' model to mimic the outputs of a larger 'teacher' model", "Distilling data into a purer form", "Removing unnecessary knowledge from the model"], correct: 1 },
-            { question: "Quantization reduces model size by:", options: ["Deleting half the model's layers", "Representing model weights with fewer bits while preserving most performance", "Compressing the training data", "Removing safety features"], correct: 1 },
-            { question: "Retrieval-augmented generation (RAG) combines:", options: ["Two different AI models into one", "A retrieval system that finds relevant documents with a generative model that uses them", "Real and artificial data sources", "Audio and visual inputs"], correct: 1 },
-            { question: "The 'chain-of-thought' technique works because:", options: ["It forces the model to generate more tokens, increasing revenue", "Breaking reasoning into explicit steps reduces errors on complex problems", "Longer answers are always more accurate", "It was specifically trained into the model"], correct: 1 },
-            { question: "Structured output (JSON mode) is valuable because:", options: ["JSON is the only format AI can produce", "It ensures AI responses follow a predictable schema that downstream systems can parse", "It makes responses shorter", "It is required by all APIs"], correct: 1 },
-            { question: "Few-shot learning becomes unreliable when:", options: ["You provide too many examples", "The examples are poorly chosen, ambiguous, or unrepresentative of the actual task", "The model is too large", "You use more than two examples"], correct: 1 },
-
-            // --- Governance & Deployment ---
-            { question: "An AI 'guardrail' in production systems:", options: ["Is a physical barrier around the server", "Monitors and constrains AI behavior to prevent harmful or off-topic outputs", "Only applies during model training", "Slows down the AI to save energy"], correct: 1 },
-            { question: "Shadow deployment of an AI model means:", options: ["Running it only at night", "Running the new model alongside the existing one without serving its outputs to users yet", "Deploying it secretly without approval", "Using a dark-themed interface"], correct: 1 },
-            { question: "A/B testing AI prompts helps determine:", options: ["Which prompt costs more to run", "Which prompt version produces better results with real users", "If the AI is connected to the internet", "How many users are online"], correct: 1 },
-            { question: "Model drift in production AI refers to:", options: ["The physical server moving locations", "The model's performance degrading over time as real-world data patterns change", "Users drifting away from the product", "The model slowly getting larger"], correct: 1 },
-            { question: "The 'human in the loop' pattern is critical for:", options: ["All AI tasks without exception", "High-stakes decisions where AI errors have serious consequences", "Only creative writing tasks", "Reducing the cost of AI operations"], correct: 1 },
-            { question: "Prompt caching in production AI systems:", options: ["Stores every conversation permanently", "Saves previously computed responses for identical prompts to reduce latency and cost", "Caches the model's weights on disk", "Is a security vulnerability that should be avoided"], correct: 1 },
-
-            // --- Advanced Reasoning ---
-            { question: "Tree-of-Thought prompting improves over Chain-of-Thought by:", options: ["Using a tree data structure to store responses", "Exploring multiple reasoning paths and evaluating which leads to the best solution", "Generating answers faster", "Only working with mathematical problems"], correct: 1 },
-            { question: "The 'self-ask' prompting technique works by:", options: ["The AI asking the user for clarification", "Having the AI decompose a question into sub-questions and answer each one", "Asking the AI to rate its own confidence", "Repeating the same question multiple times"], correct: 1 },
-            { question: "Analogical reasoning in prompts helps the AI by:", options: ["Making the prompt more confusing", "Providing a familiar framework that maps to the new problem structure", "Only working with simple tasks", "Reducing the number of tokens needed"], correct: 1 },
-            { question: "The 'Socratic method' in AI prompting involves:", options: ["Lecturing the AI with long instructions", "Guiding the AI through a series of questions to reach deeper understanding", "Named after a famous AI researcher", "Only used in educational applications"], correct: 1 },
-            { question: "Step-back prompting encourages the AI to:", options: ["Undo its previous response", "First consider the broader principles before tackling the specific problem", "Generate shorter answers", "Pause between each word"], correct: 1 },
-            { question: "Contrastive prompting shows the AI:", options: ["Only positive examples", "Both good and bad examples so it understands the distinction", "Contradictory instructions to test robustness", "High-contrast images for better vision tasks"], correct: 1 }
-        ];
-
-        /** Select 10 random Legendary questions from the pool (Fisher-Yates shuffle) */
-        function loadLegendaryQuestions() {
-            const pool = legendaryPool.slice(); // shallow copy
-            for (let i = pool.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                const tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
-            }
-            const selected = pool.slice(0, 10);
-            selected.forEach(q => { q.level = 8; });
-            // Replace any existing level-8 questions, then append
-            while (questions.length > 70) questions.pop();
-            questions.push(...selected);
+        /** Fetch a level's questions from JSON, cache the result */
+        async function loadQuizLevel(level) {
+            if (quizLevelCache[level]) return quizLevelCache[level];
+            const resp = await fetch('../data/quiz/quiz-L' + level + '.json');
+            if (!resp.ok) throw new Error('Failed to load level ' + level);
+            const data = await resp.json();
+            quizLevelCache[level] = data.questions;
+            return data.questions;
         }
-        loadLegendaryQuestions();
+
+        /** Fisher-Yates shuffle — returns a new shuffled copy */
+        function shuffleArray(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+            }
+            return a;
+        }
+
+        /** Select 10 random questions from a level's pool */
+        function selectRandomQuestions(pool) {
+            return shuffleArray(pool).slice(0, 10);
+        }
+
+        /** Prefetch the next level's JSON in the background */
+        function preloadNextLevel(currentLvl) {
+            if (currentLvl < 8) {
+                loadQuizLevel(currentLvl + 1).catch(function() {});
+            }
+        }
+
+        /** Load a level's questions into sessionQuestions (10 random from pool) */
+        async function ensureLevelLoaded(level) {
+            if (levelsLoaded.has(level)) return;
+            const pool = await loadQuizLevel(level);
+            const selected = selectRandomQuestions(pool);
+            selected.forEach(q => {
+                var opts = q.options.slice();
+                var correctText = opts[q.answer];
+                for (var i = opts.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var tmp = opts[i]; opts[i] = opts[j]; opts[j] = tmp;
+                }
+                sessionQuestions.push({
+                    question: q.q,
+                    options: opts,
+                    correct: opts.indexOf(correctText),
+                    explanation: q.explanation || '',
+                    level: level
+                });
+            });
+            levelsLoaded.add(level);
+            preloadNextLevel(level);
+        }
+
+        /** Show a loading spinner while fetching questions */
+        function showLoadingState() {
+            quizContainer.innerHTML = '<div class="quiz-loading-spinner"><div class="quiz-spinner"></div><p>Loading questions…</p></div>';
+        }
+
+        /** Show an error card if level load fails */
+        function showLoadError(level) {
+            quizContainer.innerHTML = '<div class="quiz-error-card"><p>Could not load Level ' + level + ' questions.</p><button class="btn btn-primary" id="quiz-retry-btn">Retry</button></div>';
+            const retryBtn = document.getElementById('quiz-retry-btn');
+            if (retryBtn) {
+                retryBtn.addEventListener('click', () => {
+                    delete quizLevelCache[level];
+                    levelsLoaded.delete(level);
+                    renderQuestion().catch(() => showLoadError(level));
+                });
+            }
+        }
+
+        /** Show explanation card after answering */
+        function showExplanation(q, isCorrect, gameOver, timedOut) {
+            const icon = timedOut ? '⏱' : (isCorrect ? '✓' : '✗');
+            const verdict = timedOut ? "Time\u2019s up!" : (isCorrect ? 'Correct!' : 'Incorrect');
+            const verdictClass = isCorrect ? 'quiz-explanation--correct' : 'quiz-explanation--incorrect';
+            const lastQuestion = currentQuestion + 1 >= TOTAL_QUESTIONS;
+            const btnText = (gameOver || lastQuestion) ? 'See Results' : 'Next →';
+
+            const div = document.createElement('div');
+            div.className = 'quiz-explanation ' + verdictClass;
+            div.innerHTML =
+                '<div class="quiz-explanation__header">' +
+                    '<span class="quiz-explanation__icon">' + icon + '</span>' +
+                    '<span class="quiz-explanation__verdict">' + verdict + '</span>' +
+                '</div>' +
+                '<p class="quiz-explanation__text">' + (q.explanation || '') + '</p>' +
+                '<button class="btn btn-primary quiz-explanation__next">' + btnText + '</button>';
+
+            quizContainer.appendChild(div);
+
+            /** Advance to next question or show results */
+            function advance() {
+                if (gameOver) {
+                    showQuizResults(false);
+                } else {
+                    currentQuestion++;
+                    if (currentQuestion >= TOTAL_QUESTIONS) {
+                        showQuizResults(true);
+                    } else {
+                        renderQuestion();
+                    }
+                }
+            }
+
+            div.querySelector('.quiz-explanation__next').addEventListener('click', advance);
+
+            // Auto-advance after 5.55s on correct answers (user can still click Next sooner)
+            if (isCorrect && !gameOver && !lastQuestion) {
+                let autoTimer = setTimeout(advance, 5550);
+                div.querySelector('.quiz-explanation__next').addEventListener('click', () => clearTimeout(autoTimer));
+            }
+
+            div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
 
         // Level definitions — 8 levels
         const LEVELS = {
@@ -8173,7 +7343,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Remove 2 wrong options
-            const q = questions[currentQuestion];
+            const q = sessionQuestions[currentQuestion];
             const wrongIndices = [];
             q.options.forEach((_, i) => { if (i !== q.correct) wrongIndices.push(i); });
             // Shuffle and pick 2 to hide
@@ -8230,7 +7400,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /** Handle timer running out — counts as a wrong answer */
         function handleTimerExpiry() {
-            const q = questions[currentQuestion];
+            const q = sessionQuestions[currentQuestion];
             const buttons = quizContainer.querySelectorAll('.quiz-option');
 
             // Disable all buttons and show correct answer
@@ -8248,17 +7418,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 strikesEl.textContent = getStrikesDisplay();
             }
 
-            if (strikes >= MAX_STRIKES) {
-                setTimeout(() => showQuizResults(false), 1500);
-            } else {
-                setTimeout(() => {
-                    currentQuestion++;
-                    renderQuestion();
-                }, 1200);
-            }
+            // Show explanation card — "Next" button advances or ends game
+            showExplanation(q, false, strikes >= MAX_STRIKES, true);
         }
 
-        function renderQuestion() {
+        async function renderQuestion() {
             clearTimer();
             hintUsed = false;
 
@@ -8268,7 +7432,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const q = questions[currentQuestion];
+            // Load level's questions on demand (first question of each level)
+            const neededLevel = getCurrentLevel();
+            if (!levelsLoaded.has(neededLevel)) {
+                showLoadingState();
+                try {
+                    await ensureLevelLoaded(neededLevel);
+                } catch (e) {
+                    showLoadError(neededLevel);
+                    return;
+                }
+            }
+
+            const q = sessionQuestions[currentQuestion];
             const currentLevel = getCurrentLevel();
             const levelInfo = LEVELS[currentLevel];
             const progressWidth = (currentQuestion / TOTAL_QUESTIONS) * 100;
@@ -8339,7 +7515,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function selectAnswer(index) {
             clearTimer();
-            const q = questions[currentQuestion];
+            const q = sessionQuestions[currentQuestion];
             const buttons = quizContainer.querySelectorAll('.quiz-option');
             const isCorrect = index === q.correct;
 
@@ -8379,18 +7555,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Check if game over (3 strikes)
-            if (strikes >= MAX_STRIKES) {
-                setTimeout(() => {
-                    showQuizResults(false); // false = game over by strikes
-                }, 1500);
-                return;
-            }
-
-            setTimeout(() => {
-                currentQuestion++;
-                renderQuestion();
-            }, 1200);
+            // Show explanation card — "Next" button advances or ends game
+            showExplanation(q, isCorrect, strikes >= MAX_STRIKES, false);
         }
 
         function showQuizResults(completedAll) {
@@ -8480,8 +7646,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Start quiz immediately
-        renderQuestion();
+        // Start quiz: load first level and render
+        renderQuestion().catch(() => showLoadError(1));
     }
 
     // ==========================================
@@ -8717,6 +7883,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Discover Filter Bar: Chip Definitions ---
     var USECASE_CHIPS = [
+        { id: 'all', label: 'All' },
         { id: 'math', label: 'Math & Logic' },
         { id: 'coding', label: 'Coding' },
         { id: 'problem-solving', label: 'Problem Solving' },
@@ -8761,25 +7928,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 var btn = document.createElement('button');
                 btn.className = 'discover-bar__chip';
                 btn.setAttribute('data-usecase', chip.id);
-                btn.setAttribute('aria-pressed', 'false');
+                btn.setAttribute('aria-pressed', chip.id === 'all' ? 'true' : 'false');
                 btn.textContent = chip.label;
                 btn.addEventListener('click', function() { handleUsecaseClick(btn, chip.id); });
                 usecaseContainer.appendChild(btn);
             });
 
-            COMPLEXITY_CHIPS.forEach(function(chip) {
-                var btn = document.createElement('button');
-                btn.className = 'discover-bar__chip discover-bar__chip--complexity';
-                btn.setAttribute('data-complexity', chip.id);
-                btn.setAttribute('aria-pressed', 'false');
-                btn.textContent = chip.label;
-                btn.addEventListener('click', function() { handleComplexityClick(btn, chip.id); });
-                complexityContainer.appendChild(btn);
-            });
+            if (complexityContainer) {
+                COMPLEXITY_CHIPS.forEach(function(chip) {
+                    var btn = document.createElement('button');
+                    btn.className = 'discover-bar__chip discover-bar__chip--complexity';
+                    btn.setAttribute('data-complexity', chip.id);
+                    btn.setAttribute('aria-pressed', 'false');
+                    btn.textContent = chip.label;
+                    btn.addEventListener('click', function() { handleComplexityClick(btn, chip.id); });
+                    complexityContainer.appendChild(btn);
+                });
+            }
+        }
+
+        /** Sync the "All" chip visual state based on whether any filters are active */
+        function syncAllChip() {
+            var allBtn = usecaseContainer.querySelector('[data-usecase="all"]');
+            if (allBtn) {
+                allBtn.setAttribute('aria-pressed', discoverFilterState.useCases.size === 0 ? 'true' : 'false');
+            }
         }
 
         /** Use case chip click — single-select by default, multi when Combine is on */
         function handleUsecaseClick(btn, chipId) {
+            // "All" chip = clear all use case filters, show everything
+            if (chipId === 'all') {
+                discoverFilterState.useCases.clear();
+                usecaseContainer.querySelectorAll('[data-usecase]').forEach(function(c) {
+                    c.setAttribute('aria-pressed', 'false');
+                });
+                syncAllChip();
+                applyDiscoverFilters();
+                return;
+            }
+
             if (multiCheck && multiCheck.checked) {
                 // Multi-select: toggle in set
                 if (discoverFilterState.useCases.has(chipId)) {
@@ -8801,6 +7989,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.setAttribute('aria-pressed', 'true');
                 }
             }
+            syncAllChip();
             applyDiscoverFilters();
         }
 
@@ -8906,9 +8095,12 @@ document.addEventListener('DOMContentLoaded', () => {
             usecaseContainer.querySelectorAll('[data-usecase]').forEach(function(c) {
                 c.setAttribute('aria-pressed', 'false');
             });
-            complexityContainer.querySelectorAll('[data-complexity]').forEach(function(c) {
-                c.setAttribute('aria-pressed', 'false');
-            });
+            if (complexityContainer) {
+                complexityContainer.querySelectorAll('[data-complexity]').forEach(function(c) {
+                    c.setAttribute('aria-pressed', 'false');
+                });
+            }
+            syncAllChip();
             applyDiscoverFilters();
         }
 
@@ -8931,7 +8123,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         changed = true;
                     }
                     // Collapse complexities to first selected
-                    if (discoverFilterState.complexities.size > 1) {
+                    if (complexityContainer && discoverFilterState.complexities.size > 1) {
                         var firstC = discoverFilterState.complexities.values().next().value;
                         discoverFilterState.complexities.clear();
                         discoverFilterState.complexities.add(firstC);
@@ -8940,6 +8132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                         changed = true;
                     }
+                    syncAllChip();
                     if (changed) applyDiscoverFilters();
                 }
             });

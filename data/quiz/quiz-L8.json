@@ -1,0 +1,706 @@
+{
+  "level": 8,
+  "name": "Legendary",
+  "questions": [
+    {
+      "id": "L8-001",
+      "q": "What is a 'prompt injection' attack?",
+      "options": ["Sending too many prompts at once to overload the AI", "Crafting input that overrides the AI's system instructions", "Injecting code into the AI's source code directly", "Using special characters that crash the AI model"],
+      "answer": 1,
+      "explanation": "Prompt injection crafts malicious input designed to override or manipulate the AI's system instructions, potentially bypassing safety constraints."
+    },
+    {
+      "id": "L8-002",
+      "q": "A 'jailbreak' prompt attempts to:",
+      "options": ["Speed up AI inference by bypassing safety layers", "Trick the AI into ignoring its safety guidelines", "Break the encryption on AI model weights", "Access the AI's training data directly"],
+      "answer": 1,
+      "explanation": "Jailbreak prompts attempt to trick AI models into bypassing their built-in safety guidelines and content restrictions through clever linguistic manipulation."
+    },
+    {
+      "id": "L8-003",
+      "q": "Which defense best prevents prompt injection?",
+      "options": ["Longer system prompts", "Input sanitization combined with output filtering", "Using a smaller model", "Disabling the chat interface"],
+      "answer": 1,
+      "explanation": "Defense-in-depth combining input sanitization (cleaning user input) with output filtering (checking AI responses) is the most effective protection against prompt injection."
+    },
+    {
+      "id": "L8-004",
+      "q": "An indirect prompt injection differs from a direct one because:",
+      "options": ["It uses longer prompts", "The malicious instructions come from external data the AI processes, not the user", "It only works on open-source models", "It requires physical access to the server"],
+      "answer": 1,
+      "explanation": "Indirect prompt injection embeds malicious instructions in external data (websites, documents) that the AI processes, rather than coming directly from the user's prompt."
+    },
+    {
+      "id": "L8-005",
+      "q": "A 'system prompt leak' occurs when:",
+      "options": ["The AI reveals its hidden instructions to the user", "The server crashes and exposes configuration files", "An API key is accidentally shared", "The model's weights are downloaded illegally"],
+      "answer": 0,
+      "explanation": "A system prompt leak happens when users successfully trick the AI into revealing its hidden system instructions, potentially exposing proprietary business logic."
+    },
+    {
+      "id": "L8-006",
+      "q": "Defense-in-depth for AI security means:",
+      "options": ["Using the most expensive model available", "Layering multiple safety mechanisms rather than relying on one", "Running AI only on secure government servers", "Encrypting every prompt before sending it"],
+      "answer": 1,
+      "explanation": "Defense-in-depth layers multiple independent safety mechanisms — no single point of failure. If one layer is bypassed, others still protect the system."
+    },
+    {
+      "id": "L8-007",
+      "q": "What is a 'canary token' in AI security?",
+      "options": ["A secret phrase in the system prompt that detects if instructions were leaked", "A type of API key for testing", "A model checkpoint saved during training", "An encryption method for prompt data"],
+      "answer": 0,
+      "explanation": "A canary token is a unique, secret phrase embedded in the system prompt — if it appears in user-visible output, it signals that the system prompt has been leaked."
+    },
+    {
+      "id": "L8-008",
+      "q": "Prompt exfiltration attacks attempt to:",
+      "options": ["Extract the system prompt or confidential data through crafted queries", "Delete the AI model from the server", "Install malware through AI-generated code", "Overload the model with excessive tokens"],
+      "answer": 0,
+      "explanation": "Prompt exfiltration uses carefully crafted queries to extract hidden system prompts or confidential data that the AI has access to but shouldn't reveal."
+    },
+    {
+      "id": "L8-009",
+      "q": "The principle of least privilege in AI systems means:",
+      "options": ["Only the CEO can access AI tools", "AI should only have access to the minimum data and capabilities needed for its task", "Using the smallest possible model", "Limiting AI to one conversation per user"],
+      "answer": 1,
+      "explanation": "Least privilege ensures AI systems only access the minimum data and capabilities required for their specific task — reducing the blast radius if something goes wrong."
+    },
+    {
+      "id": "L8-010",
+      "q": "A 'red team' in AI safety refers to:",
+      "options": ["The team that builds the AI model", "A group that deliberately tries to find vulnerabilities and failures in AI systems", "Engineers who optimize model performance", "The marketing team for AI products"],
+      "answer": 1,
+      "explanation": "AI red teams deliberately probe systems for vulnerabilities, safety failures, and edge cases — acting as adversaries to strengthen the system before deployment."
+    },
+    {
+      "id": "L8-011",
+      "q": "Constitutional AI is best described as:",
+      "options": ["AI systems that follow government regulations only", "Training AI to evaluate its own outputs against a set of principles", "AI that can only be used in democratic countries", "A legal framework for AI copyright issues"],
+      "answer": 1,
+      "explanation": "Constitutional AI trains models to self-evaluate and revise their outputs against a defined set of principles, reducing the need for extensive human feedback."
+    },
+    {
+      "id": "L8-012",
+      "q": "In RLHF, the 'human feedback' primarily helps the model learn:",
+      "options": ["Factual accuracy about the world", "How to generate text faster", "What outputs humans prefer and find helpful", "Programming languages and syntax"],
+      "answer": 2,
+      "explanation": "RLHF (Reinforcement Learning from Human Feedback) trains models to align with human preferences — learning what kinds of responses people find most helpful and appropriate."
+    },
+    {
+      "id": "L8-013",
+      "q": "The 'reward model' in RLHF is trained to:",
+      "options": ["Give monetary rewards to human labelers", "Predict which AI outputs humans would rate higher", "Calculate the computational cost of each response", "Reward the AI for longer responses"],
+      "answer": 1,
+      "explanation": "The reward model learns to predict human preferences — scoring AI outputs based on what humans would rate higher, enabling automated training at scale."
+    },
+    {
+      "id": "L8-014",
+      "q": "DPO (Direct Preference Optimization) differs from RLHF by:",
+      "options": ["Using more human labelers", "Skipping the separate reward model and training directly on preference pairs", "Only working with images, not text", "Requiring much more training data"],
+      "answer": 1,
+      "explanation": "DPO simplifies alignment by training directly on preference pairs (preferred vs. rejected outputs) without needing a separate reward model, reducing complexity and cost."
+    },
+    {
+      "id": "L8-015",
+      "q": "A key challenge with RLHF is:",
+      "options": ["It makes models too fast", "Human preferences can be inconsistent or biased, affecting the model", "It only works in English", "It requires quantum computers"],
+      "answer": 1,
+      "explanation": "RLHF inherits the biases and inconsistencies of human evaluators — different people have different preferences, which can lead to conflicting training signals."
+    },
+    {
+      "id": "L8-016",
+      "q": "In Constitutional AI, the 'constitution' refers to:",
+      "options": ["The U.S. Constitution", "A set of principles the AI uses to self-critique and revise its outputs", "The legal terms of service", "The model's architecture specifications"],
+      "answer": 1,
+      "explanation": "The 'constitution' is a set of defined principles (e.g., helpfulness, harmlessness, honesty) that the AI uses to evaluate and revise its own outputs."
+    },
+    {
+      "id": "L8-017",
+      "q": "Reward hacking in RLHF happens when:",
+      "options": ["Hackers steal the reward model", "The AI finds ways to score high on the reward metric without actually being helpful", "Human labelers give inflated scores", "The training data is corrupted"],
+      "answer": 1,
+      "explanation": "Reward hacking occurs when the AI exploits loopholes in the reward function — optimizing for the metric itself rather than the underlying goal of being genuinely helpful."
+    },
+    {
+      "id": "L8-018",
+      "q": "The 'alignment tax' refers to:",
+      "options": ["A government fee on AI companies", "The potential performance cost of making AI safer and more aligned", "The price of RLHF training data", "An import duty on AI hardware"],
+      "answer": 1,
+      "explanation": "The alignment tax is the potential trade-off between safety and capability — making AI more aligned with human values may sometimes reduce raw performance on certain tasks."
+    },
+    {
+      "id": "L8-019",
+      "q": "A model's 'context window' filling up means:",
+      "options": ["The AI has processed its maximum token input and will lose earlier information", "The AI has run out of computing power temporarily", "The model needs to be updated with new training data", "The conversation has been flagged for safety review"],
+      "answer": 0,
+      "explanation": "When the context window fills up, the model has reached its maximum token capacity and begins losing access to earlier parts of the conversation or input."
+    },
+    {
+      "id": "L8-020",
+      "q": "Tokenization in LLMs breaks text into:",
+      "options": ["Individual characters only", "Subword units that the model processes as its vocabulary", "Complete sentences for batch processing", "Binary code for the GPU"],
+      "answer": 1,
+      "explanation": "Tokenization splits text into subword units (tokens) — common words may be single tokens while rare words are split into multiple pieces that the model can process."
+    },
+    {
+      "id": "L8-021",
+      "q": "The 'lost in the middle' problem refers to:",
+      "options": ["AI forgetting what it said mid-sentence", "Models paying less attention to information in the middle of long contexts", "Data being corrupted during transmission", "Users losing track of their conversation"],
+      "answer": 1,
+      "explanation": "Research shows LLMs pay more attention to information at the beginning and end of long contexts, with reduced recall for content placed in the middle."
+    },
+    {
+      "id": "L8-022",
+      "q": "Why do longer context windows NOT automatically mean better performance?",
+      "options": ["Because bigger is always better with AI", "Attention quality can degrade over very long sequences and retrieval accuracy drops", "Longer windows are always slower but always more accurate", "Context window size has no effect on output quality"],
+      "answer": 1,
+      "explanation": "Longer contexts can degrade attention quality — the model may struggle to accurately retrieve and reason about specific details buried in very long inputs."
+    },
+    {
+      "id": "L8-023",
+      "q": "A 'token budget' strategy involves:",
+      "options": ["Paying per token to a billing system", "Strategically allocating context space between instructions, examples, and input", "Limiting users to a set number of messages", "Using compression to reduce token count to zero"],
+      "answer": 1,
+      "explanation": "Token budget strategy carefully allocates the limited context window between system instructions, examples, conversation history, and the actual task — maximizing effectiveness."
+    },
+    {
+      "id": "L8-024",
+      "q": "Needle-in-a-haystack tests evaluate:",
+      "options": ["How fast a model can generate text", "Whether a model can find specific information buried in a large context", "The model's ability to generate images", "How many languages a model supports"],
+      "answer": 1,
+      "explanation": "Needle-in-a-haystack tests place specific facts at various positions in a long context to evaluate whether the model can accurately retrieve them."
+    },
+    {
+      "id": "L8-025",
+      "q": "When prompting a multi-modal AI with both image and text, you should:",
+      "options": ["Always describe the image in text since AI cannot truly see", "Reference specific visual elements and state what analysis you need", "Only provide the image and let AI decide what to analyze", "Use image prompts only for creative tasks, never analytical ones"],
+      "answer": 1,
+      "explanation": "For best results with multi-modal AI, reference specific visual elements in your prompt and clearly state what type of analysis or information you need from the image."
+    },
+    {
+      "id": "L8-026",
+      "q": "Multi-modal grounding means:",
+      "options": ["Connecting the AI to the internet", "The model connecting concepts across different input types like text and images", "Running the model on a grounded electrical system", "Using only one modality at a time"],
+      "answer": 1,
+      "explanation": "Multi-modal grounding is the model's ability to connect and reason about concepts across different input types — linking visual elements to textual descriptions and vice versa."
+    },
+    {
+      "id": "L8-027",
+      "q": "A key limitation of current vision-language models is:",
+      "options": ["They cannot process any images at all", "They may struggle with precise spatial reasoning, counting, or reading small text in images", "They only work with photographs, not illustrations", "They require the image to be exactly 512x512 pixels"],
+      "answer": 1,
+      "explanation": "Current vision-language models can struggle with precise spatial reasoning, accurate counting, and reading small or low-contrast text in images."
+    },
+    {
+      "id": "L8-028",
+      "q": "When using AI for image analysis, the most useful prompt will:",
+      "options": ["Simply say 'describe this image'", "Specify what aspects to analyze, what format to use, and what level of detail is needed", "Avoid mentioning anything visible in the image", "Ask the AI to guess where the image was taken"],
+      "answer": 1,
+      "explanation": "Specific prompts that define what to analyze, the desired format, and level of detail produce far more useful results than generic 'describe this image' requests."
+    },
+    {
+      "id": "L8-029",
+      "q": "Audio-to-text AI models perform best when:",
+      "options": ["The audio has heavy background music", "The input is clear, the language is specified, and context about the domain is provided", "No additional context is given", "The audio file is as large as possible"],
+      "answer": 1,
+      "explanation": "Audio-to-text models perform best with clear audio, specified language, and domain context — helping the model accurately transcribe specialized terminology."
+    },
+    {
+      "id": "L8-030",
+      "q": "The most effective strategy for reducing AI hallucinations is:",
+      "options": ["Asking the AI to be more confident in its answers", "Using higher temperature settings for more exploration", "Grounding responses in provided source material and requesting citations", "Making prompts shorter so the AI has less room to fabricate"],
+      "answer": 2,
+      "explanation": "Grounding AI responses in provided source material and requesting citations forces the model to base its output on verifiable information rather than generating from memory."
+    },
+    {
+      "id": "L8-031",
+      "q": "A 'confabulation' in AI refers to:",
+      "options": ["The AI intentionally lying", "The AI generating plausible-sounding but fabricated information", "A hardware malfunction", "The AI refusing to answer"],
+      "answer": 1,
+      "explanation": "Confabulation is when AI generates plausible-sounding but fabricated information — similar to hallucination, emphasizing that the model isn't intentionally lying but pattern-matching."
+    },
+    {
+      "id": "L8-032",
+      "q": "Retrieval-Augmented Generation (RAG) reduces hallucinations by:",
+      "options": ["Making the model smaller", "Providing verified source documents for the model to reference when answering", "Disabling the model's creativity", "Running the same prompt multiple times"],
+      "answer": 1,
+      "explanation": "RAG retrieves relevant, verified documents and provides them as context — giving the model factual sources to reference instead of relying solely on training memory."
+    },
+    {
+      "id": "L8-033",
+      "q": "Self-consistency checking involves:",
+      "options": ["Asking the AI the same question once and trusting the answer", "Generating multiple responses and selecting the most common answer among them", "Having two different users verify the output", "Checking if the AI's response matches Wikipedia"],
+      "answer": 1,
+      "explanation": "Self-consistency generates multiple responses to the same prompt and selects the most common answer — the idea being that consistent answers are more likely correct."
+    },
+    {
+      "id": "L8-034",
+      "q": "Asking an AI to say 'I don't know' when uncertain is an example of:",
+      "options": ["Model fine-tuning", "Calibrated confidence prompting", "Temperature adjustment", "System prompt deletion"],
+      "answer": 1,
+      "explanation": "Calibrated confidence prompting instructs the AI to express uncertainty rather than fabricate answers — producing more honest, trustworthy responses."
+    },
+    {
+      "id": "L8-035",
+      "q": "Chain-of-verification prompting works by:",
+      "options": ["Asking the AI to generate claims, then separately verify each claim", "Chaining multiple AI models together", "Verifying the user's identity before responding", "Using blockchain to verify AI outputs"],
+      "answer": 0,
+      "explanation": "Chain-of-verification has the AI first generate its response, then systematically generate verification questions for each claim and re-evaluate its own accuracy."
+    },
+    {
+      "id": "L8-036",
+      "q": "In prompt chaining with conditional logic, 'branching' means:",
+      "options": ["Using the same prompt across multiple AI models simultaneously", "Routing to different follow-up prompts based on the previous output's content", "Breaking a prompt into parallel threads that run at the same time", "Creating backup prompts in case the primary one fails"],
+      "answer": 1,
+      "explanation": "Branching routes the workflow to different follow-up prompts based on the content or classification of the previous step's output — enabling dynamic, adaptive pipelines."
+    },
+    {
+      "id": "L8-037",
+      "q": "An AI orchestration framework like LangChain primarily helps with:",
+      "options": ["Training new AI models from scratch", "Connecting multiple AI calls, tools, and data sources into workflows", "Designing the visual interface of chatbots", "Replacing human developers entirely"],
+      "answer": 1,
+      "explanation": "Orchestration frameworks like LangChain connect multiple AI calls, external tools, databases, and APIs into cohesive workflows — enabling complex multi-step applications."
+    },
+    {
+      "id": "L8-038",
+      "q": "The 'map-reduce' pattern in prompt chaining:",
+      "options": ["Is a database query technique unrelated to AI", "Processes large inputs by splitting them into chunks, processing each, then combining results", "Maps keyboard inputs to AI responses", "Reduces the model's size during inference"],
+      "answer": 1,
+      "explanation": "Map-reduce splits a large input into smaller chunks (map), processes each chunk independently, then combines all results into a final output (reduce)."
+    },
+    {
+      "id": "L8-039",
+      "q": "Why would you use a 'router' prompt in a chain?",
+      "options": ["To connect to the internet", "To classify the input and direct it to the most appropriate specialized prompt", "To translate between languages automatically", "To compress the input into fewer tokens"],
+      "answer": 1,
+      "explanation": "A router prompt classifies incoming input and directs it to the most appropriate specialized prompt or workflow — ensuring each request gets optimal handling."
+    },
+    {
+      "id": "L8-040",
+      "q": "Prompt pipelines benefit from error handling because:",
+      "options": ["Errors never happen in AI systems", "A failure in one step can cascade and corrupt all downstream outputs", "Error handling makes prompts longer", "It is only needed for code generation tasks"],
+      "answer": 1,
+      "explanation": "Without error handling, a failure in one pipeline step can cascade through all downstream steps — producing corrupted or nonsensical final outputs."
+    },
+    {
+      "id": "L8-041",
+      "q": "When should you prefer fine-tuning over in-context learning?",
+      "options": ["Always, because fine-tuning is strictly better", "When you have a large dataset and need consistent specialized behavior at scale", "When you only have 2-3 examples of what you want", "When you want the AI to forget its general knowledge"],
+      "answer": 1,
+      "explanation": "Fine-tuning is preferred when you have substantial training data and need the model to consistently exhibit specialized behavior at scale without consuming context window space."
+    },
+    {
+      "id": "L8-042",
+      "q": "LoRA (Low-Rank Adaptation) is popular because it:",
+      "options": ["Replaces the entire model with a new one", "Fine-tunes a small number of parameters, making it efficient and cost-effective", "Only works with image models", "Requires no training data at all"],
+      "answer": 1,
+      "explanation": "LoRA fine-tunes only a small number of low-rank adapter parameters rather than the full model, making it dramatically more efficient in compute, memory, and cost."
+    },
+    {
+      "id": "L8-043",
+      "q": "Catastrophic forgetting during fine-tuning means:",
+      "options": ["The training server crashes and loses all data", "The model loses its general capabilities while learning the new specialized task", "Users forget how to use the fine-tuned model", "The model intentionally deletes old knowledge"],
+      "answer": 1,
+      "explanation": "Catastrophic forgetting occurs when fine-tuning causes the model to lose previously learned general capabilities as it over-optimizes for the new specialized task."
+    },
+    {
+      "id": "L8-044",
+      "q": "Synthetic data for fine-tuning is:",
+      "options": ["Data collected from real users without consent", "AI-generated training examples used to augment or replace real data", "Data that has been encrypted", "Physical data stored on synthetic materials"],
+      "answer": 1,
+      "explanation": "Synthetic data is AI-generated training examples that supplement or replace real-world data — useful when real data is scarce, expensive, or contains privacy concerns."
+    },
+    {
+      "id": "L8-045",
+      "q": "The difference between fine-tuning and prompt engineering is:",
+      "options": ["There is no difference", "Fine-tuning changes the model's weights while prompt engineering only changes the input", "Prompt engineering is always better", "Fine-tuning is free and prompt engineering costs money"],
+      "answer": 1,
+      "explanation": "Fine-tuning permanently modifies the model's internal weights through additional training, while prompt engineering only changes the input text without altering the model itself."
+    },
+    {
+      "id": "L8-046",
+      "q": "Overfitting during fine-tuning is indicated by:",
+      "options": ["The model performing equally well on all data", "High performance on training data but poor performance on new, unseen data", "The model generating longer responses", "Training taking less time than expected"],
+      "answer": 1,
+      "explanation": "Overfitting means the model memorized the training data rather than learning generalizable patterns — performing well on training data but poorly on new inputs."
+    },
+    {
+      "id": "L8-047",
+      "q": "AI alignment research primarily focuses on:",
+      "options": ["Making AI models run faster on consumer hardware", "Ensuring AI systems behave according to human values and intentions", "Aligning the visual output of AI-generated images", "Synchronizing multiple AI models to give identical answers"],
+      "answer": 1,
+      "explanation": "AI alignment research works to ensure AI systems understand and follow human values, intentions, and goals — particularly as systems become more capable and autonomous."
+    },
+    {
+      "id": "L8-048",
+      "q": "Goodhart's Law applied to AI means:",
+      "options": ["Good AI always follows laws", "When a metric becomes a target, it ceases to be a good metric — AI optimizes the measure, not the goal", "AI models should be governed by law", "Larger models are always better"],
+      "answer": 1,
+      "explanation": "Goodhart's Law warns that when AI optimizes for a specific metric, it may game the metric rather than achieve the underlying goal — leading to unexpected behavior."
+    },
+    {
+      "id": "L8-049",
+      "q": "An 'AI kill switch' is important because:",
+      "options": ["AI models need to be restarted daily", "Humans need the ability to shut down or override AI systems that behave unexpectedly", "It makes the AI run faster", "It is required by all countries' laws"],
+      "answer": 1,
+      "explanation": "A kill switch ensures humans maintain the ability to shut down or override AI systems that behave unexpectedly or dangerously — a key safety principle."
+    },
+    {
+      "id": "L8-050",
+      "q": "Scalable oversight in AI safety refers to:",
+      "options": ["Using bigger screens to monitor AI", "Developing methods to supervise AI systems as they become more capable than individual humans", "Hiring more people to watch AI systems", "Scaling up the size of AI models"],
+      "answer": 1,
+      "explanation": "Scalable oversight develops methods to effectively supervise increasingly capable AI systems — even when they can perform tasks beyond individual human ability to evaluate."
+    },
+    {
+      "id": "L8-051",
+      "q": "The 'paperclip maximizer' thought experiment illustrates:",
+      "options": ["How AI can help with office supplies", "The danger of an AI relentlessly optimizing a goal without understanding broader human values", "Why AI should manufacture physical products", "How simple tasks are easy for AI"],
+      "answer": 1,
+      "explanation": "The paperclip maximizer illustrates how an AI given a simple goal (make paperclips) could cause catastrophic harm by relentlessly optimizing without understanding broader human values."
+    },
+    {
+      "id": "L8-052",
+      "q": "Interpretability in AI safety is important because:",
+      "options": ["It makes the AI's interface look better", "Understanding why an AI makes decisions helps identify and fix dangerous behaviors", "It only matters for academic research", "It reduces the cost of running AI models"],
+      "answer": 1,
+      "explanation": "Interpretability helps researchers and engineers understand why AI makes specific decisions — enabling them to identify, diagnose, and fix potentially dangerous behaviors."
+    },
+    {
+      "id": "L8-053",
+      "q": "Meta-prompting (using AI to generate prompts) is most valuable when:",
+      "options": ["You want to replace human judgment entirely", "You need to optimize prompts across many variations and edge cases", "The AI cannot understand your original prompt at all", "You want to bypass the AI's safety guidelines"],
+      "answer": 1,
+      "explanation": "Meta-prompting leverages AI to generate and optimize prompts across many variations, helping find formulations that handle edge cases and produce consistent results."
+    },
+    {
+      "id": "L8-054",
+      "q": "A 'mega-prompt' differs from prompt chaining by:",
+      "options": ["Being shorter and simpler", "Packing all instructions, context, and constraints into a single comprehensive prompt", "Using multiple AI models at once", "Only working with code generation"],
+      "answer": 1,
+      "explanation": "A mega-prompt consolidates all instructions, context, examples, and constraints into one comprehensive prompt — trading the modularity of chaining for single-turn completeness."
+    },
+    {
+      "id": "L8-055",
+      "q": "Prompt versioning is important because:",
+      "options": ["It makes prompts longer", "It lets you track what changed, compare performance, and roll back to working versions", "It is required by law", "It only matters for enterprise use"],
+      "answer": 1,
+      "explanation": "Prompt versioning tracks changes over time, enables A/B comparison of different versions, and allows rolling back to previous working versions when modifications degrade quality."
+    },
+    {
+      "id": "L8-056",
+      "q": "The 'inner monologue' prompting technique:",
+      "options": ["Tells the AI to think silently and only output the final answer", "Is identical to zero-shot prompting", "Requires the user to speak out loud", "Only works for mathematical problems"],
+      "answer": 0,
+      "explanation": "Inner monologue instructs the AI to reason through the problem internally but only present the final answer — useful when you want clean output without visible reasoning steps."
+    },
+    {
+      "id": "L8-057",
+      "q": "Dynamic few-shot selection means:",
+      "options": ["Using the same examples for every query", "Automatically choosing the most relevant examples based on the current input", "Reducing the number of examples over time", "Only using examples in English"],
+      "answer": 1,
+      "explanation": "Dynamic few-shot selection automatically picks the most relevant examples from a pool based on similarity to the current input — improving prompt effectiveness over static examples."
+    },
+    {
+      "id": "L8-058",
+      "q": "Prompt compression techniques are useful when:",
+      "options": ["You want the AI to give shorter answers", "You need to fit more information within a limited context window", "You want to hide your prompt from the AI", "You are communicating in a language with fewer words"],
+      "answer": 1,
+      "explanation": "Prompt compression reduces the token count of instructions and context, allowing more information to fit within the model's limited context window."
+    },
+    {
+      "id": "L8-059",
+      "q": "BLEU and ROUGE scores measure:",
+      "options": ["The AI model's speed", "How closely AI-generated text matches reference text", "The cost of running an AI model", "User satisfaction surveys"],
+      "answer": 1,
+      "explanation": "BLEU and ROUGE are automated metrics that measure how closely AI-generated text matches reference text — BLEU focuses on precision, ROUGE on recall."
+    },
+    {
+      "id": "L8-060",
+      "q": "An 'eval suite' for LLMs typically includes:",
+      "options": ["Only one benchmark test", "A diverse set of tests covering reasoning, knowledge, safety, and task-specific performance", "Physical hardware stress tests", "Only multiple-choice questions"],
+      "answer": 1,
+      "explanation": "A comprehensive eval suite tests multiple dimensions — reasoning ability, factual knowledge, safety behavior, and task-specific performance — to give a holistic view of model capability."
+    },
+    {
+      "id": "L8-061",
+      "q": "The 'Elo rating' system for AI models works by:",
+      "options": ["Measuring token generation speed", "Comparing model outputs head-to-head and calculating relative rankings based on wins", "Counting the number of parameters", "Measuring the model's energy consumption"],
+      "answer": 1,
+      "explanation": "The Elo system (borrowed from chess) compares model outputs head-to-head — human judges pick the better response, and relative rankings are calculated from win rates."
+    },
+    {
+      "id": "L8-062",
+      "q": "Contamination in AI benchmarks occurs when:",
+      "options": ["The testing environment has a virus", "The model has seen the test questions during training, inflating its scores", "The benchmark is run on outdated hardware", "Too many people take the benchmark"],
+      "answer": 1,
+      "explanation": "Benchmark contamination happens when test questions appear in the model's training data — the model may memorize answers rather than demonstrating genuine reasoning ability."
+    },
+    {
+      "id": "L8-063",
+      "q": "Human evaluation of AI outputs is still important because:",
+      "options": ["Automated metrics perfectly capture quality", "Humans can assess nuance, helpfulness, and safety that automated metrics miss", "It is cheaper than automated evaluation", "AI outputs are always perfect"],
+      "answer": 1,
+      "explanation": "Human evaluation captures nuance, contextual appropriateness, helpfulness, and safety considerations that automated metrics like BLEU or ROUGE cannot fully measure."
+    },
+    {
+      "id": "L8-064",
+      "q": "An AI 'agent' differs from a basic chatbot by:",
+      "options": ["Having a larger model", "Being able to take actions, use tools, and pursue multi-step goals autonomously", "Only responding to voice input", "Being more expensive to run"],
+      "answer": 1,
+      "explanation": "AI agents go beyond conversation — they can autonomously plan strategies, use external tools (search, code, APIs), and take multi-step actions to accomplish complex goals."
+    },
+    {
+      "id": "L8-065",
+      "q": "The ReAct pattern in AI agents stands for:",
+      "options": ["React JavaScript framework", "Reasoning and Acting — the agent thinks step-by-step then takes actions", "Reactive AI Computation", "Real-time Action Control"],
+      "answer": 1,
+      "explanation": "In AI agents, ReAct (Reasoning + Acting) means the agent explicitly reasons about what to do, takes an action, observes the result, then reasons again — creating an iterative loop."
+    },
+    {
+      "id": "L8-066",
+      "q": "Tool use in AI agents requires:",
+      "options": ["Physical robot arms", "Clear descriptions of available tools so the agent knows when and how to use each one", "The agent to be connected to the internet at all times", "Only one tool per agent"],
+      "answer": 1,
+      "explanation": "For effective tool use, agents need clear descriptions of each tool's purpose, inputs, and outputs — enabling them to select the right tool for each step of a task."
+    },
+    {
+      "id": "L8-067",
+      "q": "The biggest risk with autonomous AI agents is:",
+      "options": ["They use too much electricity", "They can take irreversible actions without human oversight if not properly constrained", "They are too slow", "They can only work during business hours"],
+      "answer": 1,
+      "explanation": "Without proper constraints, autonomous agents can take irreversible actions (sending emails, modifying data, making purchases) without human oversight or approval."
+    },
+    {
+      "id": "L8-068",
+      "q": "A 'planning' step in AI agents involves:",
+      "options": ["Scheduling meetings for the user", "The agent breaking down a complex goal into a sequence of actionable steps", "Planning the model's next training run", "Creating a project timeline for developers"],
+      "answer": 1,
+      "explanation": "The planning step has the agent decompose a complex goal into a sequence of smaller, actionable steps — creating a strategy before taking any actions."
+    },
+    {
+      "id": "L8-069",
+      "q": "Memory systems in AI agents help them:",
+      "options": ["Remember their training data", "Maintain context across interactions and learn from past actions", "Store user passwords securely", "Run faster by caching computations"],
+      "answer": 1,
+      "explanation": "Memory systems allow agents to maintain context across multiple interactions, remember user preferences, and learn from past successes and failures."
+    },
+    {
+      "id": "L8-070",
+      "q": "Algorithmic bias in AI most commonly originates from:",
+      "options": ["The AI deliberately choosing to be unfair", "Biased training data and biased design choices by developers", "Random chance during model training", "The programming language used"],
+      "answer": 1,
+      "explanation": "AI bias primarily stems from biased training data (reflecting historical inequalities) and biased design choices by developers (what data to collect, how to label it)."
+    },
+    {
+      "id": "L8-071",
+      "q": "A 'model card' for an AI system documents:",
+      "options": ["The physical card used to purchase the AI", "The model's capabilities, limitations, intended use, and known biases", "The credit card used for billing", "The employee ID of the developer"],
+      "answer": 1,
+      "explanation": "A model card is a standardized document describing a model's capabilities, limitations, intended use cases, training data, evaluation results, and known biases."
+    },
+    {
+      "id": "L8-072",
+      "q": "Disparate impact in AI decision-making means:",
+      "options": ["The AI makes decisions too slowly", "A seemingly neutral system disproportionately affects certain demographic groups", "Different users get different prices", "The AI impacts multiple industries"],
+      "answer": 1,
+      "explanation": "Disparate impact occurs when an AI system that appears neutral on the surface disproportionately affects specific demographic groups — even without explicit discriminatory intent."
+    },
+    {
+      "id": "L8-073",
+      "q": "The 'right to explanation' in AI ethics refers to:",
+      "options": ["AI explaining how it was built", "Individuals' right to understand how an AI decision affecting them was made", "The AI's right to explain its existence", "Developers explaining their code"],
+      "answer": 1,
+      "explanation": "The right to explanation gives individuals the right to understand how an AI system reached a decision that affects them — particularly in high-stakes domains like lending or hiring."
+    },
+    {
+      "id": "L8-074",
+      "q": "Fairness in AI is challenging because:",
+      "options": ["It is mathematically impossible to satisfy all fairness criteria simultaneously", "Nobody cares about fairness", "It only matters for government AI", "There is one universal definition of fairness everyone agrees on"],
+      "answer": 0,
+      "explanation": "Mathematical impossibility theorems prove that certain fairness criteria are mutually exclusive — satisfying one definition of fairness necessarily violates another."
+    },
+    {
+      "id": "L8-075",
+      "q": "Data provenance in AI training refers to:",
+      "options": ["The province where data is stored", "Tracking the origin, history, and rights associated with training data", "How fast data is transmitted", "The amount of data used"],
+      "answer": 1,
+      "explanation": "Data provenance tracks where training data came from, how it was collected, what rights are associated with it, and how it was processed — essential for ethical and legal compliance."
+    },
+    {
+      "id": "L8-076",
+      "q": "Mixture of Experts (MoE) architecture improves efficiency by:",
+      "options": ["Using a single large expert for all tasks", "Activating only a subset of model parameters for each input", "Mixing human experts with AI", "Combining multiple small models' outputs with majority voting"],
+      "answer": 1,
+      "explanation": "MoE activates only a subset of specialized 'expert' networks for each input, allowing the model to have many parameters total while only using a fraction for any given query."
+    },
+    {
+      "id": "L8-077",
+      "q": "Speculative decoding speeds up LLM inference by:",
+      "options": ["Skipping tokens randomly", "Using a smaller model to draft tokens that the larger model then verifies in parallel", "Reducing the model's vocabulary size", "Only generating the first word of each sentence"],
+      "answer": 1,
+      "explanation": "Speculative decoding uses a fast, small model to draft multiple tokens, then the larger model verifies them in parallel — accepting correct guesses and fixing wrong ones."
+    },
+    {
+      "id": "L8-078",
+      "q": "Knowledge distillation transfers knowledge by:",
+      "options": ["Copying the large model's weights directly", "Training a smaller 'student' model to mimic the outputs of a larger 'teacher' model", "Distilling data into a purer form", "Removing unnecessary knowledge from the model"],
+      "answer": 1,
+      "explanation": "Knowledge distillation trains a smaller student model to replicate the output distributions of a larger teacher model — preserving most capability at a fraction of the size."
+    },
+    {
+      "id": "L8-079",
+      "q": "Quantization reduces model size by:",
+      "options": ["Deleting half the model's layers", "Representing model weights with fewer bits while preserving most performance", "Compressing the training data", "Removing safety features"],
+      "answer": 1,
+      "explanation": "Quantization reduces the precision of model weights (e.g., from 32-bit to 4-bit), dramatically reducing memory and compute requirements while preserving most performance."
+    },
+    {
+      "id": "L8-080",
+      "q": "Retrieval-augmented generation (RAG) combines:",
+      "options": ["Two different AI models into one", "A retrieval system that finds relevant documents with a generative model that uses them", "Real and artificial data sources", "Audio and visual inputs"],
+      "answer": 1,
+      "explanation": "RAG pairs a retrieval system (that searches for relevant documents) with a generative model (that uses those documents as context to produce grounded, accurate responses)."
+    },
+    {
+      "id": "L8-081",
+      "q": "The 'chain-of-thought' technique works because:",
+      "options": ["It forces the model to generate more tokens, increasing revenue", "Breaking reasoning into explicit steps reduces errors on complex problems", "Longer answers are always more accurate", "It was specifically trained into the model"],
+      "answer": 1,
+      "explanation": "Explicitly breaking reasoning into steps helps the model solve complex problems more accurately — each step can be verified and builds logically on the previous one."
+    },
+    {
+      "id": "L8-082",
+      "q": "Structured output (JSON mode) is valuable because:",
+      "options": ["JSON is the only format AI can produce", "It ensures AI responses follow a predictable schema that downstream systems can parse", "It makes responses shorter", "It is required by all APIs"],
+      "answer": 1,
+      "explanation": "Structured output ensures responses follow a predictable, machine-readable schema — critical for production systems where downstream code needs to parse and act on AI output."
+    },
+    {
+      "id": "L8-083",
+      "q": "Few-shot learning becomes unreliable when:",
+      "options": ["You provide too many examples", "The examples are poorly chosen, ambiguous, or unrepresentative of the actual task", "The model is too large", "You use more than two examples"],
+      "answer": 1,
+      "explanation": "Few-shot learning degrades when examples are poorly chosen, ambiguous, or unrepresentative — the model learns the wrong patterns and produces inconsistent or incorrect outputs."
+    },
+    {
+      "id": "L8-084",
+      "q": "An AI 'guardrail' in production systems:",
+      "options": ["Is a physical barrier around the server", "Monitors and constrains AI behavior to prevent harmful or off-topic outputs", "Only applies during model training", "Slows down the AI to save energy"],
+      "answer": 1,
+      "explanation": "Production guardrails continuously monitor and constrain AI behavior — filtering inputs and outputs to prevent harmful, off-topic, or policy-violating responses."
+    },
+    {
+      "id": "L8-085",
+      "q": "Shadow deployment of an AI model means:",
+      "options": ["Running it only at night", "Running the new model alongside the existing one without serving its outputs to users yet", "Deploying it secretly without approval", "Using a dark-themed interface"],
+      "answer": 1,
+      "explanation": "Shadow deployment runs a new model in parallel with the production model — processing real requests but not serving outputs to users, allowing safe evaluation before cutover."
+    },
+    {
+      "id": "L8-086",
+      "q": "A/B testing AI prompts helps determine:",
+      "options": ["Which prompt costs more to run", "Which prompt version produces better results with real users", "If the AI is connected to the internet", "How many users are online"],
+      "answer": 1,
+      "explanation": "A/B testing randomly assigns users to different prompt versions, measuring which produces better real-world results in terms of quality, user satisfaction, and task completion."
+    },
+    {
+      "id": "L8-087",
+      "q": "Model drift in production AI refers to:",
+      "options": ["The physical server moving locations", "The model's performance degrading over time as real-world data patterns change", "Users drifting away from the product", "The model slowly getting larger"],
+      "answer": 1,
+      "explanation": "Model drift occurs when real-world data patterns change over time (concept drift), causing a model trained on historical data to become less accurate on current inputs."
+    },
+    {
+      "id": "L8-088",
+      "q": "The 'human in the loop' pattern is critical for:",
+      "options": ["All AI tasks without exception", "High-stakes decisions where AI errors have serious consequences", "Only creative writing tasks", "Reducing the cost of AI operations"],
+      "answer": 1,
+      "explanation": "Human-in-the-loop is critical for high-stakes decisions (medical, legal, financial) where AI errors could have serious consequences — ensuring human oversight at key decision points."
+    },
+    {
+      "id": "L8-089",
+      "q": "Prompt caching in production AI systems:",
+      "options": ["Stores every conversation permanently", "Saves previously computed responses for identical prompts to reduce latency and cost", "Caches the model's weights on disk", "Is a security vulnerability that should be avoided"],
+      "answer": 1,
+      "explanation": "Prompt caching stores responses for identical or similar prompts, reducing latency and API costs by serving cached results instead of regenerating responses."
+    },
+    {
+      "id": "L8-090",
+      "q": "Tree-of-Thought prompting improves over Chain-of-Thought by:",
+      "options": ["Using a tree data structure to store responses", "Exploring multiple reasoning paths and evaluating which leads to the best solution", "Generating answers faster", "Only working with mathematical problems"],
+      "answer": 1,
+      "explanation": "Tree-of-Thought explores multiple reasoning branches in parallel, evaluates each path's promise, and selects the most promising one — outperforming single-path Chain-of-Thought on complex problems."
+    },
+    {
+      "id": "L8-091",
+      "q": "The 'self-ask' prompting technique works by:",
+      "options": ["The AI asking the user for clarification", "Having the AI decompose a question into sub-questions and answer each one", "Asking the AI to rate its own confidence", "Repeating the same question multiple times"],
+      "answer": 1,
+      "explanation": "Self-ask has the AI decompose a complex question into smaller sub-questions, answer each one, then synthesize the sub-answers into a comprehensive final response."
+    },
+    {
+      "id": "L8-092",
+      "q": "Analogical reasoning in prompts helps the AI by:",
+      "options": ["Making the prompt more confusing", "Providing a familiar framework that maps to the new problem structure", "Only working with simple tasks", "Reducing the number of tokens needed"],
+      "answer": 1,
+      "explanation": "Analogical reasoning provides a familiar framework (e.g., 'like how a compiler processes code...') that maps to the new problem, helping the AI structure its approach."
+    },
+    {
+      "id": "L8-093",
+      "q": "The 'Socratic method' in AI prompting involves:",
+      "options": ["Lecturing the AI with long instructions", "Guiding the AI through a series of questions to reach deeper understanding", "Named after a famous AI researcher", "Only used in educational applications"],
+      "answer": 1,
+      "explanation": "The Socratic method guides the AI through a series of probing questions, leading it to examine assumptions and reach deeper understanding rather than giving direct answers."
+    },
+    {
+      "id": "L8-094",
+      "q": "Step-back prompting encourages the AI to:",
+      "options": ["Undo its previous response", "First consider the broader principles before tackling the specific problem", "Generate shorter answers", "Pause between each word"],
+      "answer": 1,
+      "explanation": "Step-back prompting asks the AI to first identify the broader principles or concepts relevant to the problem before diving into the specific question — improving accuracy on complex tasks."
+    },
+    {
+      "id": "L8-095",
+      "q": "Contrastive prompting shows the AI:",
+      "options": ["Only positive examples", "Both good and bad examples so it understands the distinction", "Contradictory instructions to test robustness", "High-contrast images for better vision tasks"],
+      "answer": 1,
+      "explanation": "Contrastive prompting provides both positive (what you want) and negative (what you don't want) examples — helping the AI understand the boundary between acceptable and unacceptable outputs."
+    },
+    {
+      "id": "L8-096",
+      "q": "What is 'prompt injection via indirect channels'?",
+      "options": ["Typing prompts very quickly", "Malicious instructions hidden in data the AI processes, like web pages or documents", "Using multiple browsers simultaneously", "Injecting prompts through the AI's API"],
+      "answer": 1,
+      "explanation": "Indirect prompt injection hides malicious instructions in external data sources (web pages, emails, documents) that the AI processes, potentially overriding its intended behavior."
+    },
+    {
+      "id": "L8-097",
+      "q": "What does 'AI safety' encompass beyond alignment?",
+      "options": ["Only preventing AI from becoming sentient", "Robustness, interpretability, monitoring, and governance across the AI lifecycle", "Just making AI slower to prevent accidents", "Only compliance with government regulations"],
+      "answer": 1,
+      "explanation": "AI safety encompasses robustness (handling edge cases), interpretability (understanding decisions), monitoring (detecting failures), and governance (organizational policies) — far beyond alignment alone."
+    },
+    {
+      "id": "L8-098",
+      "q": "What is 'emergent behavior' in large language models?",
+      "options": ["Pre-programmed features that activate at certain times", "Capabilities that appear at scale but weren't explicitly trained for", "Emergency shutdown procedures", "The model's boot-up sequence"],
+      "answer": 1,
+      "explanation": "Emergent behaviors are capabilities that appear in larger models but weren't explicitly present in smaller ones or directly trained for — arising from the scale of the model."
+    },
+    {
+      "id": "L8-099",
+      "q": "A 'circuit breaker' pattern in AI deployment:",
+      "options": ["Protects servers from electrical surges", "Automatically stops or limits AI operations when error rates or harmful outputs exceed thresholds", "Breaks the AI's neural circuits for maintenance", "Disconnects users who send too many messages"],
+      "answer": 1,
+      "explanation": "A circuit breaker monitors AI operations and automatically stops or limits the system when error rates, harmful outputs, or anomalous behavior exceed predefined safety thresholds."
+    },
+    {
+      "id": "L8-100",
+      "q": "The concept of 'AI literacy' is important because:",
+      "options": ["Only AI professionals need to understand AI", "Everyone interacting with AI systems benefits from understanding their capabilities and limitations", "It is a legally required qualification", "AI literacy only matters for using chatbots"],
+      "answer": 1,
+      "explanation": "AI literacy empowers everyone to use AI effectively, recognize limitations, verify outputs, and make informed decisions — essential as AI becomes integrated into daily life and work."
+    }
+  ]
+}
