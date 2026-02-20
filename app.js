@@ -432,8 +432,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.style.setProperty('--ticker-offset', '0px');
 
     /**
-     * Scroll engine — slide in from label → hold 10s → fade out →
-     * 5s pause → next message. Eternal loop.
+     * Ticker engine — fade in message in place, hold 13s,
+     * fade out → 1.11s blank → fade in next message. Eternal loop.
      */
     function tickerScrollLoop() {
         if (!ethicsTickerTextEl || !ethicsTickerRunning) return;
@@ -452,27 +452,23 @@ document.addEventListener('DOMContentLoaded', () => {
             msgWrap.style.paddingRight = padRight > 0 ? padRight + 'px' : '0';
         }
 
-        // Reset state
-        msgWrap.classList.remove('ethics-ticker__msg--visible', 'ethics-ticker__msg--fading');
+        // Set text and fade in
         ethicsTickerTextEl.textContent = fullText;
-
-        // Force reflow then slide in
-        void msgWrap.offsetWidth;
+        msgWrap.classList.remove('ethics-ticker__msg--hidden');
         msgWrap.classList.add('ethics-ticker__msg--visible');
 
-        // Hold 10s after slide-in completes (800ms transition)
+        // Hold 13s → fade out (400ms) → 1.11s blank → next
         setTimeout(function() {
             if (!ethicsTickerRunning) return;
-            msgWrap.classList.add('ethics-ticker__msg--fading');
+            msgWrap.classList.add('ethics-ticker__msg--hidden');
 
-            // After fade-out completes (500ms) + 5s pause → next
+            // After fade-out (400ms) → clear text → 1.11s blank → next
             setTimeout(function() {
-                msgWrap.classList.remove('ethics-ticker__msg--visible', 'ethics-ticker__msg--fading');
                 ethicsTickerTextEl.textContent = '';
                 ethicsTickerIndex = (ethicsTickerIndex + 1) % ethicsTickerMessages.length;
-                setTimeout(tickerScrollLoop, 5000);
-            }, 500);
-        }, 800 + 10000);
+                setTimeout(tickerScrollLoop, 1110);
+            }, 400);
+        }, 13000);
     }
 
     /** Start the scroll loop */
@@ -488,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ethicsTickerRunning = false;
         if (ethicsTickerTextEl) {
             var msgWrap = ethicsTickerTextEl.parentNode;
-            if (msgWrap) msgWrap.classList.remove('ethics-ticker__msg--visible', 'ethics-ticker__msg--fading');
+            if (msgWrap) msgWrap.classList.remove('ethics-ticker__msg--visible', 'ethics-ticker__msg--hidden');
             ethicsTickerTextEl.textContent = '';
         }
     }
@@ -7079,18 +7075,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const lastQuestion = currentQuestion + 1 >= TOTAL_QUESTIONS;
             const btnText = (gameOver || lastQuestion) ? 'See Results' : 'Next →';
 
-            const div = document.createElement('div');
-            div.className = 'quiz-explanation ' + verdictClass;
-            div.innerHTML =
-                '<div class="quiz-explanation__header">' +
-                    '<span class="quiz-explanation__icon">' + icon + '</span>' +
-                    '<span class="quiz-explanation__verdict">' + verdict + '</span>' +
-                '</div>' +
-                '<p class="quiz-explanation__text">' + (q.explanation || '') + '</p>' +
-                '<button class="btn btn-primary quiz-explanation__next">' + btnText + '</button>';
-
-            quizContainer.appendChild(div);
-
             /** Advance to next question or show results */
             function advance() {
                 if (gameOver) {
@@ -7105,14 +7089,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            div.querySelector('.quiz-explanation__next').addEventListener('click', advance);
-
-            // Auto-advance after 5.55s on correct answers (user can still click Next sooner)
+            // Correct answer: show verdict only, auto-advance after 1.44s
             if (isCorrect && !gameOver && !lastQuestion) {
-                let autoTimer = setTimeout(advance, 5550);
-                div.querySelector('.quiz-explanation__next').addEventListener('click', () => clearTimeout(autoTimer));
+                const div = document.createElement('div');
+                div.className = 'quiz-explanation ' + verdictClass;
+                div.innerHTML =
+                    '<div class="quiz-explanation__header">' +
+                        '<span class="quiz-explanation__icon">' + icon + '</span>' +
+                        '<span class="quiz-explanation__verdict">' + verdict + '</span>' +
+                    '</div>';
+                quizContainer.appendChild(div);
+                div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                setTimeout(advance, 1440);
+                return;
             }
 
+            // Incorrect / game over / last question: full explanation with button
+            const div = document.createElement('div');
+            div.className = 'quiz-explanation ' + verdictClass;
+            div.innerHTML =
+                '<div class="quiz-explanation__header">' +
+                    '<span class="quiz-explanation__icon">' + icon + '</span>' +
+                    '<span class="quiz-explanation__verdict">' + verdict + '</span>' +
+                '</div>' +
+                '<p class="quiz-explanation__text">' + (q.explanation || '') + '</p>' +
+                '<button class="btn btn-primary quiz-explanation__next">' + btnText + '</button>';
+
+            quizContainer.appendChild(div);
+            div.querySelector('.quiz-explanation__next').addEventListener('click', advance);
             div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
