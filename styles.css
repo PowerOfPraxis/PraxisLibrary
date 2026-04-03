@@ -12210,10 +12210,9 @@ body.menu-open {
    Left-aligned for site consistency
    -------------------------------------------- */
 .glossary-nav {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 6px;
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    gap: 4px;
     margin-bottom: var(--space-lg);
     /* Sticky positioning for floating navigation */
     position: sticky;
@@ -12221,8 +12220,6 @@ body.menu-open {
     z-index: 100;
     background: var(--bg-secondary);
     padding: var(--space-md) 0;
-    /* Allow horizontal scroll on very small screens */
-    overflow-x: auto;
     /* Visual separator when stuck */
     border-bottom: 1px solid transparent;
 }
@@ -12231,8 +12228,6 @@ body.menu-open {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 32px;
-    width: 32px;
     height: 32px;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -12242,7 +12237,6 @@ body.menu-open {
     font-weight: 600;
     text-decoration: none;
     transition: var(--transition-fast);
-    flex-shrink: 0;
 }
 
 .glossary-nav a:hover,
@@ -12356,11 +12350,11 @@ body.menu-open {
 
 @media (min-width: 768px) {
     .glossary-nav {
-        gap: 8px;
+        grid-template-columns: repeat(26, 1fr);
+        gap: 5px;
     }
 
     .glossary-nav a {
-        width: 36px;
         height: 36px;
         font-size: 0.85rem;
     }

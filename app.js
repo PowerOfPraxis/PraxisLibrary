@@ -3645,6 +3645,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // SMOOTH SCROLL FOR ANCHOR LINKS
     // ==========================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Skip glossary nav links — handled by initGlossaryNavClicks()
+        if (anchor.closest('.glossary-nav')) return;
+
         anchor.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
             if (targetId === '#' || targetId === '') return;
@@ -9070,9 +9073,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // Double-rAF for accurate position after layout reflow
         requestAnimationFrame(function() {
             requestAnimationFrame(function() {
-                // Use instant scroll to avoid animation loop on mobile.
-                // scrollToVisible accounts for banner + ticker + header heights.
-                scrollToVisible(target, 'instant');
+                // For letter sections, scroll to top with offset for sticky elements.
+                // For individual terms, center in viewport.
+                var isLetterSection = target.classList.contains('glossary-section');
+                if (isLetterSection) {
+                    var ticker = document.querySelector('.ethics-ticker');
+                    var headerEl = document.getElementById('header');
+                    var glossaryNavEl = document.querySelector('.glossary-nav');
+                    var stickyH = 0;
+                    if (ticker) stickyH += ticker.offsetHeight;
+                    if (headerEl) stickyH += headerEl.offsetHeight;
+                    if (glossaryNavEl) stickyH += glossaryNavEl.offsetHeight;
+                    var rect = target.getBoundingClientRect();
+                    var absTop = rect.top + window.scrollY;
+                    window.scrollTo({ top: Math.max(0, absTop - stickyH - 16), behavior: 'smooth' });
+                } else {
+                    scrollToVisible(target, 'instant');
+                }
 
                 // Restore content-visibility after browser has painted
                 setTimeout(function() {
@@ -9081,12 +9098,90 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }, 300);
 
-                // Highlight the term
-                target.classList.add('glossary-term--highlighted');
-                setTimeout(function() {
-                    target.classList.remove('glossary-term--highlighted');
-                }, 2500);
+                // Highlight the term (only for individual terms, not letter sections)
+                if (!isLetterSection) {
+                    target.classList.add('glossary-term--highlighted');
+                    setTimeout(function() {
+                        target.classList.remove('glossary-term--highlighted');
+                    }, 2500);
+                }
             });
+        });
+    }
+
+    /**
+     * Wire click handlers on A-Z nav links
+     * Overrides the generic smooth-scroll anchor handler with
+     * glossary-aware scrolling that handles content-visibility
+     */
+    function initGlossaryNavClicks() {
+        var navLinks = document.querySelectorAll('.glossary-nav a[href^="#letter-"]');
+        navLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var targetId = this.getAttribute('href').substring(1);
+                var target = document.getElementById(targetId);
+                if (!target) return;
+
+                // Update active state immediately
+                navLinks.forEach(function(l) { l.classList.remove('active'); });
+                this.classList.add('active');
+
+                // Update URL hash
+                history.pushState(null, null, '#' + targetId);
+
+                // Use glossary-aware scroll (disables content-visibility first)
+                scrollToGlossaryTarget(target);
+            });
+        });
+    }
+
+    /**
+     * Track which letter section is visible and highlight corresponding nav link
+     * Uses IntersectionObserver for efficient scroll-based tracking
+     */
+    function initGlossaryNavObserver() {
+        var sections = document.querySelectorAll('.glossary-section[id^="letter-"]');
+        var navLinks = document.querySelectorAll('.glossary-nav a[href^="#letter-"]');
+        if (!sections.length || !navLinks.length) return;
+
+        // Build lookup: letter-id -> nav link
+        var navMap = {};
+        navLinks.forEach(function(link) {
+            var id = link.getAttribute('href').substring(1);
+            navMap[id] = link;
+        });
+
+        // Track which sections are currently intersecting
+        var visibleSections = {};
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                visibleSections[entry.target.id] = entry.isIntersecting;
+            });
+
+            // Find the topmost visible section
+            var topSection = null;
+            for (var i = 0; i < sections.length; i++) {
+                if (visibleSections[sections[i].id] && !sections[i].classList.contains('hidden')) {
+                    topSection = sections[i].id;
+                    break;
+                }
+            }
+
+            if (topSection && navMap[topSection]) {
+                navLinks.forEach(function(l) { l.classList.remove('active'); });
+                navMap[topSection].classList.add('active');
+            }
+        }, {
+            rootMargin: '-120px 0px -60% 0px',
+            threshold: 0
+        });
+
+        sections.forEach(function(section) {
+            observer.observe(section);
         });
     }
 
@@ -9159,7 +9254,13 @@ document.addEventListener('DOMContentLoaded', () => {
             initGlossaryFilters();
             initGlossarySearch();
 
-            // 7. Handle hash-based scrolling
+            // 7. Wire A-Z nav click handlers (override generic anchor handler)
+            initGlossaryNavClicks();
+
+            // 8. Track active letter on scroll
+            initGlossaryNavObserver();
+
+            // 9. Handle hash-based scrolling
             if (targetTermId) {
                 var hashTarget = document.getElementById(targetTermId);
                 if (hashTarget) {
