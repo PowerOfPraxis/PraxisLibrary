@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Decomposition Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Branch-Solve-Merge (BSM)</h1>
-                <p class="page-subtitle fade-in">Some problems are too large for a single reasoning chain. Branch-Solve-Merge breaks them into independent sub-tasks, solves each in parallel, then merges the solutions &mdash; like a team of specialists who each handle their domain before combining findings into a unified report.</p>
+                <p class="page-subtitle fade-in">Some problems are too large for a single reasoning chain. Branch-Solve-Merge breaks them into independent sub-tasks, solves each in parallel, then merges the solutions, like a team of specialists who each handle their domain before combining findings into a unified report.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,7 +200,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> Branch-Solve-Merge was published in 2023 by Saha et al., addressing the bottleneck of sequential decomposition. While techniques like Least-to-Most solve sub-problems one after another, BSM identifies sub-tasks that can be solved independently &mdash; in parallel. A &ldquo;Branch&rdquo; planner decomposes the task, independent &ldquo;Solve&rdquo; modules handle each branch, and a &ldquo;Merge&rdquo; module synthesizes the results. This achieves both better quality and faster execution on tasks with naturally parallel structure.</p>
+                        <p><strong>Introduced:</strong> Branch-Solve-Merge was published in 2023 by Saha et al., addressing the bottleneck of sequential decomposition. While techniques like Least-to-Most solve sub-problems one after another, BSM identifies sub-tasks that can be solved independently, in parallel. A &ldquo;Branch&rdquo; planner decomposes the task, independent &ldquo;Solve&rdquo; modules handle each branch, and a &ldquo;Merge&rdquo; module synthesizes the results. This achieves both better quality and faster execution on tasks with naturally parallel structure.</p>
                         <p><strong>Modern LLM Status:</strong> BSM&rsquo;s parallel decomposition pattern maps directly to modern agentic architectures where multiple AI agents work simultaneously on different aspects of a problem. Production systems increasingly use BSM-style patterns for document analysis, code review, and research synthesis where different sections can be analyzed independently before merging findings.</p>
                     </div>
                 </div>
@@ -215,9 +215,9 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Parallel Over Sequential</h2>
-                        <p class="split-section__text">Sequential decomposition (solve A, then B, then C) creates bottlenecks &mdash; each step waits for the previous one. BSM identifies which sub-tasks are truly independent (no dependencies between them) and processes them simultaneously. The Branch module analyzes the task structure to find these independent components.</p>
+                        <p class="split-section__text">Sequential decomposition (solve A, then B, then C) creates bottlenecks, each step waits for the previous one. BSM identifies which sub-tasks are truly independent (no dependencies between them) and processes them simultaneously. The Branch module analyzes the task structure to find these independent components.</p>
                         <p class="split-section__text"><strong>Each Solve module works on its branch without needing results from other branches.</strong> The Merge module then combines all branch solutions, resolving any conflicts and creating a coherent unified output. This is fundamentally different from chain-style techniques where each step depends on the previous one.</p>
-                        <p class="split-section__text">Think of it like a newsroom: instead of one journalist writing an entire investigative report alone, a team of reporters each covers their beat &mdash; finance, politics, technology &mdash; then an editor merges their findings into a cohesive story.</p>
+                        <p class="split-section__text">Think of it like a newsroom: instead of one journalist writing an entire investigative report alone, a team of reporters each covers their beat, finance, politics, technology, then an editor merges their findings into a cohesive story.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
@@ -245,10 +245,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Task Analysis</h3>
-                            <p class="element-timeline__text">Examine the problem for naturally independent sub-components. Look for aspects that can be analyzed without depending on each other &mdash; different topics, different data sources, different evaluation criteria.</p>
+                            <p class="element-timeline__text">Examine the problem for naturally independent sub-components. Look for aspects that can be analyzed without depending on each other, different topics, different data sources, different evaluation criteria.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Analyze this 50-page acquisition proposal&rdquo; &mdash; Financial analysis, legal review, market assessment, and technical due diligence are naturally independent branches.</p>
+                                <p>&ldquo;Analyze this 50-page acquisition proposal&rdquo;, Financial analysis, legal review, market assessment, and technical due diligence are naturally independent branches.</p>
                             </div>
                         </div>
                     </div>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Parallel Solving</h3>
-                            <p class="element-timeline__text">Each branch is solved independently using the most appropriate technique for that sub-task. Branches can use different prompting strategies &mdash; one might use Chain-of-Thought, another might use structured analysis. The independence is what makes parallelism possible.</p>
+                            <p class="element-timeline__text">Each branch is solved independently using the most appropriate technique for that sub-task. Branches can use different prompting strategies, one might use Chain-of-Thought, another might use structured analysis. The independence is what makes parallelism possible.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Financial branch produces revenue analysis and risk metrics. Legal branch produces compliance checklist and red flags. Market branch produces competitive positioning map. Technical branch produces infrastructure assessment and integration risks.</p>
@@ -433,7 +433,7 @@
                                     <p><strong>Branch 1 (Auth Module):</strong> Token validation logic is correct. Session handling follows OWASP guidelines. One concern: refresh token rotation not implemented for the new OAuth flow.<br><br>
                                     <strong>Branch 2 (Database Layer):</strong> Migration scripts are clean. Indexes added for new query patterns. Potential N+1 query in the user permissions lookup (line 247).<br><br>
                                     <strong>Branch 3 (API Endpoints):</strong> Rate limiting properly configured. Input validation comprehensive. Missing error handling for the edge case where token expires mid-request.<br><br>
-                                    <strong>Merge:</strong> The PR is structurally sound with good security practices. Three items need attention before approval: (1) Add refresh token rotation in auth module, (2) Fix the N+1 query in permissions lookup, (3) Add token-expiry error handling in API layer. Items 1 and 3 are related &mdash; the missing token rotation could trigger the unhandled expiry case. Recommend verifying all findings against the actual code before merging.</p>
+                                    <strong>Merge:</strong> The PR is structurally sound with good security practices. Three items need attention before approval: (1) Add refresh token rotation in auth module, (2) Fix the N+1 query in permissions lookup, (3) Add token-expiry error handling in API layer. Items 1 and 3 are related, the missing token rotation could trigger the unhandled expiry case. Recommend verifying all findings against the actual code before merging.</p>
                                 </div>
                             </div>
                         </div>
@@ -502,7 +502,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Aspect Evaluation</strong>
-                                    <p>Assessments that span multiple criteria &mdash; financial, technical, legal, operational &mdash; where each dimension deserves dedicated attention.</p>
+                                    <p>Assessments that span multiple criteria, financial, technical, legal, operational, where each dimension deserves dedicated attention.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -512,7 +512,7 @@
                                 </svg>
                                 <div>
                                     <strong>Production Systems Where Speed Matters</strong>
-                                    <p>When parallel execution can reduce total processing time &mdash; multiple API calls running simultaneously rather than sequentially.</p>
+                                    <p>When parallel execution can reduce total processing time, multiple API calls running simultaneously rather than sequentially.</p>
                                 </div>
                             </div>
                         </div>
@@ -527,7 +527,7 @@
                                 </svg>
                                 <div>
                                     <strong>Tasks with Tightly Sequential Dependencies</strong>
-                                    <p>When each step genuinely depends on the previous step&rsquo;s output &mdash; BSM requires independence between branches to work correctly.</p>
+                                    <p>When each step genuinely depends on the previous step&rsquo;s output, BSM requires independence between branches to work correctly.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -537,7 +537,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Single-Step Problems</strong>
-                                    <p>Questions that can be answered directly without decomposition &mdash; the branching overhead adds complexity without benefit.</p>
+                                    <p>Questions that can be answered directly without decomposition, the branching overhead adds complexity without benefit.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -606,7 +606,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Business Due Diligence</h3>
-                        <p class="use-case-showcase__desc">Branch by dimension &mdash; financial, legal, market, operational &mdash; evaluate each independently, then merge into a unified risk-reward assessment.</p>
+                        <p class="use-case-showcase__desc">Branch by dimension, financial, legal, market, operational, evaluate each independently, then merge into a unified risk-reward assessment.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -690,7 +690,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Decomposed Prompting</span>
-                        <span class="evolution-callout__desc">The sequential decomposition technique that BSM extends with parallel execution &mdash; specialized handlers process sub-tasks one after another.</span>
+                        <span class="evolution-callout__desc">The sequential decomposition technique that BSM extends with parallel execution, specialized handlers process sub-tasks one after another.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -708,7 +708,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Skeleton of Thought</span>
-                        <span class="evolution-callout__desc">Creates a skeleton outline first, then expands each point in parallel &mdash; a related parallel execution pattern focused on content generation.</span>
+                        <span class="evolution-callout__desc">Creates a skeleton outline first, then expands each point in parallel, a related parallel execution pattern focused on content generation.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -729,7 +729,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Least-to-Most Prompting</span>
-                        <span class="evolution-callout__desc">Decomposes problems from simplest to most complex sub-task &mdash; a sequential complement to BSM&rsquo;s parallel approach for dependent sub-problems.</span>
+                        <span class="evolution-callout__desc">Decomposes problems from simplest to most complex sub-task, a sequential complement to BSM&rsquo;s parallel approach for dependent sub-problems.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -806,7 +806,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

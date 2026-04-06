@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">In-Context Learning Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Many-Shot Prompting</h1>
-                <p class="page-subtitle fade-in">When a handful of examples falls short, fill the context window. Many-Shot Prompting provides the model with hundreds or thousands of demonstrations &mdash; leveraging massive context windows to teach complex patterns through sheer volume of evidence rather than clever instruction.</p>
+                <p class="page-subtitle fade-in">When a handful of examples falls short, fill the context window. Many-Shot Prompting provides the model with hundreds or thousands of demonstrations, leveraging massive context windows to teach complex patterns through sheer volume of evidence rather than clever instruction.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">More Examples, Better Patterns</h2>
                         <p class="split-section__text">Few-shot prompting works well for straightforward tasks, but it has a fundamental limitation: a small number of examples can only represent a narrow slice of the problem space. When your task involves 25 categories instead of 3, or when edge cases are common rather than rare, a handful of demonstrations leaves the model guessing about everything it has not seen. Many-Shot Prompting eliminates that guesswork by flooding the context with evidence.</p>
-                        <p class="split-section__text"><strong>The approach is deliberately simple.</strong> Rather than engineering clever instructions or multi-step reasoning chains, you let the examples do the teaching. Hundreds of input-output pairs establish the pattern so unambiguously that the model absorbs formatting rules, classification boundaries, and domain vocabulary purely from observation &mdash; the same way a human might learn a new coding style by reading hundreds of examples rather than studying a style guide.</p>
-                        <p class="split-section__text">Think of it as the difference between explaining the rules of a board game verbally versus simply playing fifty rounds. After enough rounds, the rules become intuitive &mdash; even the subtle ones nobody thought to mention.</p>
+                        <p class="split-section__text"><strong>The approach is deliberately simple.</strong> Rather than engineering clever instructions or multi-step reasoning chains, you let the examples do the teaching. Hundreds of input-output pairs establish the pattern so unambiguously that the model absorbs formatting rules, classification boundaries, and domain vocabulary purely from observation, the same way a human might learn a new coding style by reading hundreds of examples rather than studying a style guide.</p>
+                        <p class="split-section__text">Think of it as the difference between explaining the rules of a board game verbally versus simply playing fifty rounds. After enough rounds, the rules become intuitive, even the subtle ones nobody thought to mention.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Volume Succeeds Where Brevity Fails</span>
-                                <p>Few-shot examples inevitably create selection bias &mdash; whichever 3-5 examples you choose will overrepresent some patterns and miss others entirely. Many-Shot sidesteps this by including enough examples to cover the full distribution of inputs. The model sees common cases, rare edge cases, ambiguous borderlines, and formatting exceptions all within the same prompt. This statistical coverage produces more consistent and reliable outputs than any carefully curated small set can achieve.</p>
+                                <p>Few-shot examples inevitably create selection bias, whichever 3-5 examples you choose will overrepresent some patterns and miss others entirely. Many-Shot sidesteps this by including enough examples to cover the full distribution of inputs. The model sees common cases, rare edge cases, ambiguous borderlines, and formatting exceptions all within the same prompt. This statistical coverage produces more consistent and reliable outputs than any carefully curated small set can achieve.</p>
                             </div>
                         </div>
                     </div>
@@ -245,10 +245,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Assemble a Large Example Set</h3>
-                            <p class="element-timeline__text">Gather dozens to thousands of input-output examples that represent the full scope of your target task. Prioritize coverage over perfection &mdash; include common cases, edge cases, ambiguous inputs, and the complete range of expected output categories. The goal is to build a dataset that mirrors the real-world distribution the model will encounter.</p>
+                            <p class="element-timeline__text">Gather dozens to thousands of input-output examples that represent the full scope of your target task. Prioritize coverage over perfection, include common cases, edge cases, ambiguous inputs, and the complete range of expected output categories. The goal is to build a dataset that mirrors the real-world distribution the model will encounter.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>For a support ticket classifier with 25 categories, collect 10-20 labeled tickets per category &mdash; yielding 250-500 examples that cover every routing destination including rare ones like &ldquo;billing dispute escalation&rdquo; or &ldquo;API rate limit inquiry.&rdquo;</p>
+                                <p>For a support ticket classifier with 25 categories, collect 10-20 labeled tickets per category, yielding 250-500 examples that cover every routing destination including rare ones like &ldquo;billing dispute escalation&rdquo; or &ldquo;API rate limit inquiry.&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Format Examples Consistently</h3>
-                            <p class="element-timeline__text">Structure every example with identical formatting &mdash; the same delimiters, labels, and input-output markers throughout the entire set. Consistency in presentation is what allows the model to distinguish the pattern signal from noise. Even minor formatting inconsistencies across hundreds of examples can degrade performance because the model wastes capacity learning format variations instead of task patterns.</p>
+                            <p class="element-timeline__text">Structure every example with identical formatting, the same delimiters, labels, and input-output markers throughout the entire set. Consistency in presentation is what allows the model to distinguish the pattern signal from noise. Even minor formatting inconsistencies across hundreds of examples can degrade performance because the model wastes capacity learning format variations instead of task patterns.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Every example follows the same template: <strong>Input:</strong> [customer message] / <strong>Category:</strong> [label] / <strong>Priority:</strong> [high|medium|low]. No deviations, no extra fields in some examples, no missing labels in others.</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Pack Examples into Context</h3>
-                            <p class="element-timeline__text">Include as many examples as the context window allows, prioritizing diversity and coverage over redundancy. If you cannot fit all examples, select a representative subset that maintains proportional coverage of each category or pattern. Order can matter &mdash; place the most representative examples early and ensure that no category or pattern type is clustered exclusively at the end where it might receive less attention.</p>
+                            <p class="element-timeline__text">Include as many examples as the context window allows, prioritizing diversity and coverage over redundancy. If you cannot fit all examples, select a representative subset that maintains proportional coverage of each category or pattern. Order can matter, place the most representative examples early and ensure that no category or pattern type is clustered exclusively at the end where it might receive less attention.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>With a 128K-token context window and examples averaging 80 tokens each, you can fit roughly 1,200 examples with room for instructions and the target query. Interleave categories rather than grouping them to ensure even exposure.</p>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Present the Target Query</h3>
-                            <p class="element-timeline__text">After all demonstrations, present the new input using the exact same format as the examples &mdash; minus the output. The model completes the pattern by generating an output that follows the conventions established across hundreds of prior demonstrations. The sheer weight of consistent examples makes deviation from the learned pattern extremely unlikely.</p>
+                            <p class="element-timeline__text">After all demonstrations, present the new input using the exact same format as the examples, minus the output. The model completes the pattern by generating an output that follows the conventions established across hundreds of prior demonstrations. The sheer weight of consistent examples makes deviation from the learned pattern extremely unlikely.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Input:</strong> &ldquo;My API calls are returning 429 errors since yesterday and I need this resolved for a demo tomorrow morning.&rdquo; / <strong>Category:</strong> [model generates: API rate limit inquiry] / <strong>Priority:</strong> [model generates: high]</p>
@@ -355,7 +355,7 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">200+ Demonstrations Including</span>
-                                <p>Examples covering: positive, negative, neutral, mixed-positive, mixed-negative, sarcastic, conditional-positive, feature-specific praise with overall dissatisfaction, and dozens more nuanced patterns &mdash; each with consistent labeling across the full taxonomy.</p>
+                                <p>Examples covering: positive, negative, neutral, mixed-positive, mixed-negative, sarcastic, conditional-positive, feature-specific praise with overall dissatisfaction, and dozens more nuanced patterns, each with consistent labeling across the full taxonomy.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Response</span>
@@ -407,17 +407,17 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Scenario</span>
-                                    <p>A customer support team needs to route incoming tickets into 25+ categories with subcategories. Few-shot attempts with 3-5 examples per category fail on ambiguous tickets &mdash; a complaint about &ldquo;slow API responses during peak hours&rdquo; gets routed to &ldquo;General Performance&rdquo; instead of &ldquo;API Rate Limiting &mdash; Infrastructure.&rdquo;</p>
+                                    <p>A customer support team needs to route incoming tickets into 25+ categories with subcategories. Few-shot attempts with 3-5 examples per category fail on ambiguous tickets, a complaint about &ldquo;slow API responses during peak hours&rdquo; gets routed to &ldquo;General Performance&rdquo; instead of &ldquo;API Rate Limiting, Infrastructure.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Many-Shot Approach</span>
                                     <p><strong>Example set:</strong> 200 labeled tickets covering all 25 categories, including 15-20 deliberately ambiguous cases that demonstrate correct routing for borderline inputs.<br><br>
                                     <strong>Key examples included:</strong><br>
-                                    &ldquo;Dashboard loads slowly after 3pm EST&rdquo; &rarr; Infrastructure &mdash; Peak Load<br>
-                                    &ldquo;API returns 429 too many requests&rdquo; &rarr; API Rate Limiting &mdash; Infrastructure<br>
-                                    &ldquo;Everything feels sluggish today&rdquo; &rarr; General Performance &mdash; Triage Needed<br>
-                                    &ldquo;API response times doubled since last deployment&rdquo; &rarr; API Performance &mdash; Deployment Related<br><br>
-                                    <strong>Result on ambiguous ticket:</strong> &ldquo;Slow API responses during peak hours&rdquo; correctly routed to &ldquo;API Rate Limiting &mdash; Infrastructure&rdquo; because the model absorbed the distinction between general slowness and API-specific performance from dozens of similar boundary cases.</p>
+                                    &ldquo;Dashboard loads slowly after 3pm EST&rdquo; &rarr; Infrastructure, Peak Load<br>
+                                    &ldquo;API returns 429 too many requests&rdquo; &rarr; API Rate Limiting, Infrastructure<br>
+                                    &ldquo;Everything feels sluggish today&rdquo; &rarr; General Performance, Triage Needed<br>
+                                    &ldquo;API response times doubled since last deployment&rdquo; &rarr; API Performance, Deployment Related<br><br>
+                                    <strong>Result on ambiguous ticket:</strong> &ldquo;Slow API responses during peak hours&rdquo; correctly routed to &ldquo;API Rate Limiting, Infrastructure&rdquo; because the model absorbed the distinction between general slowness and API-specific performance from dozens of similar boundary cases.</p>
                                 </div>
                             </div>
                         </div>
@@ -432,12 +432,12 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Scenario</span>
-                                    <p>A pharmaceutical company needs to translate clinical trial documentation from English to Japanese, maintaining exact medical terminology. Few-shot with 5 term pairs produces inconsistent translations &mdash; &ldquo;adverse event&rdquo; alternates between three different Japanese renderings across a single document.</p>
+                                    <p>A pharmaceutical company needs to translate clinical trial documentation from English to Japanese, maintaining exact medical terminology. Few-shot with 5 term pairs produces inconsistent translations, &ldquo;adverse event&rdquo; alternates between three different Japanese renderings across a single document.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Many-Shot Approach</span>
                                     <p><strong>Example set:</strong> 500 verified English-Japanese medical term pairs from the company&rsquo;s approved glossary, plus 150 full-sentence translation pairs from previously approved clinical documents.<br><br>
-                                    <strong>Coverage includes:</strong> Drug names, anatomical terms, adverse event classifications, regulatory phrases, statistical terminology, and dosage expressions &mdash; each appearing in multiple sentence contexts to reinforce correct usage.<br><br>
+                                    <strong>Coverage includes:</strong> Drug names, anatomical terms, adverse event classifications, regulatory phrases, statistical terminology, and dosage expressions, each appearing in multiple sentence contexts to reinforce correct usage.<br><br>
                                     <strong>Result:</strong> Translations maintain terminological consistency across the entire document. &ldquo;Adverse event&rdquo; renders identically every time because the model saw the approved translation in 40+ different sentence contexts within the prompt. Domain-specific compounds like &ldquo;double-blind placebo-controlled&rdquo; translate correctly because the model observed the exact pattern in its demonstrations rather than attempting creative translation.</p>
                                 </div>
                             </div>
@@ -453,7 +453,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Scenario</span>
-                                    <p>A data migration project requires converting addresses from 12 different legacy formats into a single standardized schema. Few-shot with one example per format misses regional variations &mdash; UK postcodes, German PLZ codes, and Japanese address ordering each have dozens of sub-formats that a single example cannot represent.</p>
+                                    <p>A data migration project requires converting addresses from 12 different legacy formats into a single standardized schema. Few-shot with one example per format misses regional variations, UK postcodes, German PLZ codes, and Japanese address ordering each have dozens of sub-formats that a single example cannot represent.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Many-Shot Approach</span>
@@ -462,8 +462,8 @@
                                     UK: &ldquo;Flat 3B, 42 High St, London SW1A 1AA&rdquo; &rarr; standardized<br>
                                     Germany: &ldquo;Hauptstra&szlig;e 15, 80331 M&uuml;nchen&rdquo; &rarr; standardized<br>
                                     Japan: &ldquo;150-0001 Tokyo Shibuya-ku...&rdquo; &rarr; standardized<br>
-                                    US (variations): PO Box, rural routes, military APO, suite/unit formats &mdash; 80+ examples covering the long tail of American address formatting.<br><br>
-                                    <strong>Result:</strong> The model handles novel addresses from any of the 12 formats with over 97% accuracy, including edge cases like addresses with building names, floor numbers, care-of lines, and mixed-language entries &mdash; because it absorbed the transformation rules from hundreds of real-world examples rather than relying on explicit format specifications.</p>
+                                    US (variations): PO Box, rural routes, military APO, suite/unit formats, 80+ examples covering the long tail of American address formatting.<br><br>
+                                    <strong>Result:</strong> The model handles novel addresses from any of the 12 formats with over 97% accuracy, including edge cases like addresses with building names, floor numbers, care-of lines, and mixed-language entries, because it absorbed the transformation rules from hundreds of real-world examples rather than relying on explicit format specifications.</p>
                                 </div>
                             </div>
                         </div>
@@ -490,7 +490,7 @@
                                 </svg>
                                 <div>
                                     <strong>Complex Classification with Many Categories</strong>
-                                    <p>Tasks involving dozens of output categories where boundaries are subtle &mdash; few-shot cannot represent enough of the decision space to produce consistent results.</p>
+                                    <p>Tasks involving dozens of output categories where boundaries are subtle, few-shot cannot represent enough of the decision space to produce consistent results.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -500,7 +500,7 @@
                                 </svg>
                                 <div>
                                     <strong>Domain-Specific Tasks</strong>
-                                    <p>Work requiring specialized vocabulary, formatting conventions, or reasoning patterns that the model has not internalized from general training &mdash; medical coding, legal terminology, proprietary taxonomies.</p>
+                                    <p>Work requiring specialized vocabulary, formatting conventions, or reasoning patterns that the model has not internalized from general training, medical coding, legal terminology, proprietary taxonomies.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -510,7 +510,7 @@
                                 </svg>
                                 <div>
                                     <strong>Format Standardization</strong>
-                                    <p>Converting diverse input formats to a single standard where the transformation rules are easier to demonstrate than to describe &mdash; addresses, dates, names, product codes.</p>
+                                    <p>Converting diverse input formats to a single standard where the transformation rules are easier to demonstrate than to describe, addresses, dates, names, product codes.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -520,7 +520,7 @@
                                 </svg>
                                 <div>
                                     <strong>Inconsistent Few-Shot Performance</strong>
-                                    <p>When few-shot results vary depending on which examples you choose, it signals that the task needs broader coverage &mdash; many-shot eliminates selection sensitivity.</p>
+                                    <p>When few-shot results vary depending on which examples you choose, it signals that the task needs broader coverage, many-shot eliminates selection sensitivity.</p>
                                 </div>
                             </div>
                         </div>
@@ -535,7 +535,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Tasks That Few-Shot Handles Well</strong>
-                                    <p>If 3-5 examples already produce consistent, accurate results, scaling to hundreds adds cost and latency without measurable improvement &mdash; do not waste tokens on solved problems.</p>
+                                    <p>If 3-5 examples already produce consistent, accurate results, scaling to hundreds adds cost and latency without measurable improvement, do not waste tokens on solved problems.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -555,7 +555,7 @@
                                 </svg>
                                 <div>
                                     <strong>Context Window Is Limited</strong>
-                                    <p>Models with context windows under 32K tokens cannot fit enough examples for many-shot to outperform well-chosen few-shot examples &mdash; the technique requires room to scale.</p>
+                                    <p>Models with context windows under 32K tokens cannot fit enough examples for many-shot to outperform well-chosen few-shot examples, the technique requires room to scale.</p>
                                 </div>
                             </div>
                         </div>
@@ -595,7 +595,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Format Normalization</h3>
-                        <p class="use-case-showcase__desc">Standardize inconsistent data entries &mdash; dates, phone numbers, addresses, product identifiers &mdash; by demonstrating the transformation with hundreds of real-world conversion pairs.</p>
+                        <p class="use-case-showcase__desc">Standardize inconsistent data entries, dates, phone numbers, addresses, product identifiers, by demonstrating the transformation with hundreds of real-world conversion pairs.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -677,7 +677,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine with Reinforced ICL</div>
-                    <p>Many-Shot becomes even more powerful when combined with Reinforced In-Context Learning. Instead of packing examples randomly, you can use the initial model outputs to identify which example categories produce the most errors, then over-represent those categories in your final example set. This targeted approach means your context window budget is spent on the examples that matter most &mdash; the boundary cases and ambiguous inputs where additional demonstrations make the biggest difference.</p>
+                    <p>Many-Shot becomes even more powerful when combined with Reinforced In-Context Learning. Instead of packing examples randomly, you can use the initial model outputs to identify which example categories produce the most errors, then over-represent those categories in your final example set. This targeted approach means your context window budget is spent on the examples that matter most, the boundary cases and ambiguous inputs where additional demonstrations make the biggest difference.</p>
                 </div>
             </div>
         </section>
@@ -701,7 +701,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Few-Shot Learning</span>
-                        <span class="evolution-callout__desc">The classic approach that Many-Shot extends by dramatically increasing example count &mdash; from a curated handful to hundreds or thousands of demonstrations.</span>
+                        <span class="evolution-callout__desc">The classic approach that Many-Shot extends by dramatically increasing example count, from a curated handful to hundreds or thousands of demonstrations.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -719,7 +719,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Example Selection</span>
-                        <span class="evolution-callout__desc">When you cannot fit all examples in context, Example Selection helps choose the most informative subset &mdash; maximizing pattern coverage within token budget constraints.</span>
+                        <span class="evolution-callout__desc">When you cannot fit all examples in context, Example Selection helps choose the most informative subset, maximizing pattern coverage within token budget constraints.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -740,7 +740,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">KNN Prompting</span>
-                        <span class="evolution-callout__desc">Dynamically retrieves the most relevant examples from a large pool based on query similarity &mdash; bringing many-shot coverage with few-shot token efficiency.</span>
+                        <span class="evolution-callout__desc">Dynamically retrieves the most relevant examples from a large pool based on query similarity, bringing many-shot coverage with few-shot token efficiency.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -817,7 +817,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

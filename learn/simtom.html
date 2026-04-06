@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SimToM: Simulate Theory of Mind by filtering context to each person's perspective — answer questions based on what specific individuals know, not everything you know.">
+    <meta name="description" content="SimToM: Simulate Theory of Mind by filtering context to each person's perspective, answer questions based on what specific individuals know, not everything you know.">
     <!-- SEO Meta -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Praxis Library">
@@ -13,7 +13,7 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="SimToM - Praxis">
-    <meta property="og:description" content="SimToM: Simulate Theory of Mind by filtering context to each person&#x27;s perspective — answer questions based on what specific individuals know, not everything you know.">
+    <meta property="og:description" content="SimToM: Simulate Theory of Mind by filtering context to each person&#x27;s perspective, answer questions based on what specific individuals know, not everything you know.">
     <meta property="og:url" content="https://praxislibrary.com/learn/simtom.html">
     <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
     <meta property="og:site_name" content="Praxis Library">
@@ -21,7 +21,7 @@
     <!-- Social Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SimToM - Praxis">
-    <meta name="twitter:description" content="SimToM: Simulate Theory of Mind by filtering context to each person&#x27;s perspective — answer questions based on what specific individuals know, not everything you know.">
+    <meta name="twitter:description" content="SimToM: Simulate Theory of Mind by filtering context to each person&#x27;s perspective, answer questions based on what specific individuals know, not everything you know.">
     <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
     <script type="application/ld+json">
 {
@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Perspective Taking</span>
                 </div>
                 <h1 class="page-title fade-in">SimToM</h1>
-                <p class="page-subtitle fade-in">Simulating Theory of Mind means explicitly modeling what different people know and believe &mdash; filtering the context to each individual&rsquo;s perspective so the model answers perspective-dependent questions correctly, rather than reasoning from everything it knows.</p>
+                <p class="page-subtitle fade-in">Simulating Theory of Mind means explicitly modeling what different people know and believe, filtering the context to each individual&rsquo;s perspective so the model answers perspective-dependent questions correctly, rather than reasoning from everything it knows.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> SimToM was published in 2023 by Wilf et al. The technique addresses a fundamental limitation in LLMs: they see all information simultaneously and struggle to reason from limited perspectives &mdash; a problem known as the &ldquo;curse of knowledge.&rdquo; SimToM introduces a two-step approach: first, filter the context to only what a specific person knows, then answer the question from that filtered perspective alone. By forcing the model to explicitly separate &ldquo;what I know&rdquo; from &ldquo;what this person knows,&rdquo; SimToM transforms perspective-taking from a hidden inference into a structured, auditable process.</p>
-                        <p><strong>Modern LLM Status:</strong> Theory of Mind remains challenging for LLMs. While models have improved at basic perspective-taking tasks, they still default to omniscient reasoning when faced with complex multi-agent scenarios. SimToM&rsquo;s explicit perspective-filtering <strong>consistently outperforms direct prompting</strong> on perspective-dependent questions. The technique is most valuable when scenarios involve multiple agents with different knowledge states, hidden information, or false beliefs &mdash; situations where even advanced models struggle without explicit guidance to separate what each person knows.</p>
+                        <p><strong>Introduced:</strong> SimToM was published in 2023 by Wilf et al. The technique addresses a fundamental limitation in LLMs: they see all information simultaneously and struggle to reason from limited perspectives, a problem known as the &ldquo;curse of knowledge.&rdquo; SimToM introduces a two-step approach: first, filter the context to only what a specific person knows, then answer the question from that filtered perspective alone. By forcing the model to explicitly separate &ldquo;what I know&rdquo; from &ldquo;what this person knows,&rdquo; SimToM transforms perspective-taking from a hidden inference into a structured, auditable process.</p>
+                        <p><strong>Modern LLM Status:</strong> Theory of Mind remains challenging for LLMs. While models have improved at basic perspective-taking tasks, they still default to omniscient reasoning when faced with complex multi-agent scenarios. SimToM&rsquo;s explicit perspective-filtering <strong>consistently outperforms direct prompting</strong> on perspective-dependent questions. The technique is most valuable when scenarios involve multiple agents with different knowledge states, hidden information, or false beliefs, situations where even advanced models struggle without explicit guidance to separate what each person knows.</p>
                     </div>
                 </div>
             </div>
@@ -215,9 +215,9 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Think From Their Shoes, Not Yours</h2>
-                        <p class="split-section__text">LLMs suffer from an omniscience problem. When given a scenario describing multiple people with different knowledge, the model sees everything at once &mdash; every detail, every hidden action, every private conversation. It cannot naturally &ldquo;forget&rdquo; what it has read. This means when asked &ldquo;What does Alice think?&rdquo;, the model often answers based on what it knows rather than what Alice knows, producing confidently wrong answers to perspective-dependent questions.</p>
-                        <p class="split-section__text"><strong>SimToM forces explicit perspective separation.</strong> The process works in two deliberate steps: first, list only the facts that the target person would know based on the scenario; second, answer the question using only that filtered information. This separation prevents information leakage &mdash; the model cannot accidentally use knowledge that the target person does not have, because that knowledge has been removed from the working context entirely.</p>
-                        <p class="split-section__text">Think of it like a detective who interviews witnesses separately. Each witness only saw part of the event. To understand what Witness A believes happened, the detective does not consult Witness B&rsquo;s statement &mdash; they reconstruct the event purely from Witness A&rsquo;s vantage point. SimToM applies this same principle to language models: reconstruct the world from each person&rsquo;s limited view before reasoning about their beliefs.</p>
+                        <p class="split-section__text">LLMs suffer from an omniscience problem. When given a scenario describing multiple people with different knowledge, the model sees everything at once, every detail, every hidden action, every private conversation. It cannot naturally &ldquo;forget&rdquo; what it has read. This means when asked &ldquo;What does Alice think?&rdquo;, the model often answers based on what it knows rather than what Alice knows, producing confidently wrong answers to perspective-dependent questions.</p>
+                        <p class="split-section__text"><strong>SimToM forces explicit perspective separation.</strong> The process works in two deliberate steps: first, list only the facts that the target person would know based on the scenario; second, answer the question using only that filtered information. This separation prevents information leakage, the model cannot accidentally use knowledge that the target person does not have, because that knowledge has been removed from the working context entirely.</p>
+                        <p class="split-section__text">Think of it like a detective who interviews witnesses separately. Each witness only saw part of the event. To understand what Witness A believes happened, the detective does not consult Witness B&rsquo;s statement, they reconstruct the event purely from Witness A&rsquo;s vantage point. SimToM applies this same principle to language models: reconstruct the world from each person&rsquo;s limited view before reasoning about their beliefs.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Read the Full Context</h3>
-                            <p class="element-timeline__text">Absorb the complete scenario with all information about all parties. This includes every action taken, every statement made, and every event that occurred &mdash; regardless of who witnessed it. At this stage, you have the omniscient view of the entire situation.</p>
+                            <p class="element-timeline__text">Absorb the complete scenario with all information about all parties. This includes every action taken, every statement made, and every event that occurred, regardless of who witnessed it. At this stage, you have the omniscient view of the entire situation.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Alice put a toy in the blue box. Alice left the room. Bob entered and moved the toy from the blue box to the red drawer. Bob left. Alice returned.&rdquo;</p>
@@ -262,7 +262,7 @@
                             <p class="element-timeline__text">Extract only the facts that the target person would know, creating a reduced context. Go through each event in the scenario and ask: &ldquo;Was the target person present for this? Could they have observed this?&rdquo; Include only the events they witnessed and discard everything else. This creates a filtered world model specific to that individual.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p><strong>Alice&rsquo;s filtered context:</strong> &ldquo;Alice put a toy in the blue box. Alice left the room. Alice returned.&rdquo; &mdash; Alice was not present when Bob moved the toy, so that event is excluded from her perspective entirely.</p>
+                                <p><strong>Alice&rsquo;s filtered context:</strong> &ldquo;Alice put a toy in the blue box. Alice left the room. Alice returned.&rdquo;, Alice was not present when Bob moved the toy, so that event is excluded from her perspective entirely.</p>
                             </div>
                         </div>
                     </div>
@@ -331,7 +331,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Omniscient answer &mdash; uses Bob&rsquo;s action that Alice never witnessed</span>
+                            <span>Omniscient answer, uses Bob&rsquo;s action that Alice never witnessed</span>
                         </div>
                     </div>
 
@@ -351,7 +351,7 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Perspective-Filtered Reasoning</span>
-                                <p><strong>Step 1 &mdash; Filter to Alice&rsquo;s perspective:</strong> Alice put a toy in the box. Alice left the room. Alice has no information about events during her absence.<br><br><strong>Step 2 &mdash; Answer from Alice&rsquo;s filtered context:</strong> Based only on what Alice knows, the toy is in the box where she placed it.</p>
+                                <p><strong>Step 1, Filter to Alice&rsquo;s perspective:</strong> Alice put a toy in the box. Alice left the room. Alice has no information about events during her absence.<br><br><strong>Step 2, Answer from Alice&rsquo;s filtered context:</strong> Based only on what Alice knows, the toy is in the box where she placed it.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Final Answer</span>
@@ -363,7 +363,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Correct perspective-aware answer &mdash; no information leakage from Bob&rsquo;s actions</span>
+                            <span>Correct perspective-aware answer, no information leakage from Bob&rsquo;s actions</span>
                         </div>
                     </div>
                 </div>
@@ -407,9 +407,9 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">SimToM Decomposition</span>
-                                    <p><strong>Step 1 &mdash; Filter to Sally&rsquo;s perspective:</strong><br>
+                                    <p><strong>Step 1, Filter to Sally&rsquo;s perspective:</strong><br>
                                     Sally placed her marble in the basket. Sally left the room. Sally returned to the room. Sally does not know about any events that occurred while she was away.<br><br>
-                                    <strong>Step 2 &mdash; Answer from Sally&rsquo;s filtered context:</strong><br>
+                                    <strong>Step 2, Answer from Sally&rsquo;s filtered context:</strong><br>
                                     Sally will look for her marble in the basket. From her perspective, that is the last place she put it, and she has no information suggesting it was moved.<br><br>
                                     <strong>Verification:</strong> The answer does not reference Anne&rsquo;s box or Anne&rsquo;s action of moving the marble. Perspective integrity is maintained.</p>
                                 </div>
@@ -430,9 +430,9 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">SimToM Decomposition</span>
-                                    <p><strong>Step 1 &mdash; Filter to Dana&rsquo;s perspective:</strong><br>
+                                    <p><strong>Step 1, Filter to Dana&rsquo;s perspective:</strong><br>
                                     Dana works at the company. Dana is asking for a long-term project assignment. Dana has not been informed of any upcoming layoffs or organizational changes. Dana has no knowledge of private conversations between the CEO and the VP.<br><br>
-                                    <strong>Step 2 &mdash; Answer from Dana&rsquo;s filtered context:</strong><br>
+                                    <strong>Step 2, Answer from Dana&rsquo;s filtered context:</strong><br>
                                     Dana believes job security at the company is stable. Her request for a long-term project indicates she expects to remain employed and sees no reason for concern. She has no information about upcoming layoffs.<br><br>
                                     <strong>Verification:</strong> The answer does not reference the CEO&rsquo;s announcement, the planned layoffs, or the VP&rsquo;s knowledge. Dana&rsquo;s perspective is preserved without information leakage.</p>
                                 </div>
@@ -499,7 +499,7 @@
                                 </svg>
                                 <div>
                                     <strong>False Belief Scenarios</strong>
-                                    <p>Classic Theory of Mind tests where one person holds an outdated or incorrect belief because they missed a critical event &mdash; the Sally-Anne test and its variants.</p>
+                                    <p>Classic Theory of Mind tests where one person holds an outdated or incorrect belief because they missed a critical event, the Sally-Anne test and its variants.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -509,7 +509,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Agent Negotiation Modeling</strong>
-                                    <p>Simulating negotiations where each party has private information &mdash; understanding what each side knows prevents unrealistic assumptions about shared knowledge.</p>
+                                    <p>Simulating negotiations where each party has private information, understanding what each side knows prevents unrealistic assumptions about shared knowledge.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -519,7 +519,7 @@
                                 </svg>
                                 <div>
                                     <strong>Privacy-Aware Reasoning</strong>
-                                    <p>Situations requiring strict information boundaries &mdash; ensuring responses do not reveal information that a specific user, role, or agent should not have access to.</p>
+                                    <p>Situations requiring strict information boundaries, ensuring responses do not reveal information that a specific user, role, or agent should not have access to.</p>
                                 </div>
                             </div>
                         </div>
@@ -534,7 +534,7 @@
                                 </svg>
                                 <div>
                                     <strong>All Parties Share the Same Information</strong>
-                                    <p>When everyone in the scenario has access to the same facts, perspective filtering adds unnecessary complexity &mdash; there is no information asymmetry to manage.</p>
+                                    <p>When everyone in the scenario has access to the same facts, perspective filtering adds unnecessary complexity, there is no information asymmetry to manage.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -544,7 +544,7 @@
                                 </svg>
                                 <div>
                                     <strong>Questions Don&rsquo;t Depend on Who Knows What</strong>
-                                    <p>If the question asks for objective facts rather than someone&rsquo;s belief or expectation, perspective filtering is unnecessary &mdash; the answer is the same regardless of viewpoint.</p>
+                                    <p>If the question asks for objective facts rather than someone&rsquo;s belief or expectation, perspective filtering is unnecessary, the answer is the same regardless of viewpoint.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -554,7 +554,7 @@
                                 </svg>
                                 <div>
                                     <strong>Single-Agent Factual Questions</strong>
-                                    <p>Questions with one subject and no perspective-dependent component &mdash; &ldquo;What is the capital of France?&rdquo; has no hidden perspective to filter.</p>
+                                    <p>Questions with one subject and no perspective-dependent component, &ldquo;What is the capital of France?&rdquo; has no hidden perspective to filter.</p>
                                 </div>
                             </div>
                         </div>
@@ -581,7 +581,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Social Reasoning</h3>
-                        <p class="use-case-showcase__desc">Model interpersonal dynamics by tracking what each person knows, believes, and expects &mdash; essential for understanding misunderstandings, secrets, and social conflicts in narrative analysis.</p>
+                        <p class="use-case-showcase__desc">Model interpersonal dynamics by tracking what each person knows, believes, and expects, essential for understanding misunderstandings, secrets, and social conflicts in narrative analysis.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -602,7 +602,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Privacy Compliance</h3>
-                        <p class="use-case-showcase__desc">Ensure AI responses respect information boundaries by filtering context to what each user role is authorized to know &mdash; preventing accidental disclosure of restricted data in multi-user systems.</p>
+                        <p class="use-case-showcase__desc">Ensure AI responses respect information boundaries by filtering context to what each user role is authorized to know, preventing accidental disclosure of restricted data in multi-user systems.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -673,7 +673,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine with Chain-of-Thought</div>
-                    <p>SimToM&rsquo;s perspective filtering pairs powerfully with Chain-of-Thought reasoning. After filtering context to a specific person&rsquo;s knowledge, use CoT to reason step-by-step through their decision-making process. This combination gives you both accurate knowledge boundaries and transparent reasoning within those boundaries &mdash; producing perspective-aware answers with full reasoning visibility.</p>
+                    <p>SimToM&rsquo;s perspective filtering pairs powerfully with Chain-of-Thought reasoning. After filtering context to a specific person&rsquo;s knowledge, use CoT to reason step-by-step through their decision-making process. This combination gives you both accurate knowledge boundaries and transparent reasoning within those boundaries, producing perspective-aware answers with full reasoning visibility.</p>
                 </div>
             </div>
         </section>
@@ -695,7 +695,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Role Prompting</span>
-                        <span class="evolution-callout__desc">Adopts a persona but without explicit knowledge filtering &mdash; SimToM adds the critical step of restricting information to what that persona would actually know.</span>
+                        <span class="evolution-callout__desc">Adopts a persona but without explicit knowledge filtering, SimToM adds the critical step of restricting information to what that persona would actually know.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -716,7 +716,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Step-by-step reasoning that pairs naturally with SimToM &mdash; use CoT within the filtered perspective to reason transparently from a specific person&rsquo;s knowledge.</span>
+                        <span class="evolution-callout__desc">Step-by-step reasoning that pairs naturally with SimToM, use CoT within the filtered perspective to reason transparently from a specific person&rsquo;s knowledge.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -737,7 +737,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Enhancement</span>
                         <span class="evolution-callout__title">Self-Consistency</span>
-                        <span class="evolution-callout__desc">Generate multiple perspective-filtered reasoning paths and select the most consistent answer &mdash; reduces variance in perspective-dependent judgments.</span>
+                        <span class="evolution-callout__desc">Generate multiple perspective-filtered reasoning paths and select the most consistent answer, reduces variance in perspective-dependent judgments.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -814,7 +814,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

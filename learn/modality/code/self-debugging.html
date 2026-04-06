@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">Code Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">Self-Debugging</h1>
-                <p class="page-subtitle fade-in">Turn debugging from a hunt into a conversation &mdash; feed error messages, stack traces, and failing tests back to the AI so it can trace the logic, pinpoint the root cause, and propose minimal, targeted fixes.</p>
+                <p class="page-subtitle fade-in">Turn debugging from a hunt into a conversation, feed error messages, stack traces, and failing tests back to the AI so it can trace the logic, pinpoint the root cause, and propose minimal, targeted fixes.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -213,7 +213,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Self-Debugging was formalized by Chen et al. (2023) at Carnegie Mellon University, building on the observation that large language models can identify errors in code they have generated. The technique extends general self-correction principles to the programming domain, where code can be executed and tested to provide concrete, unambiguous feedback rather than relying on the model&rsquo;s subjective judgment alone. The original paper demonstrated that feeding execution results back to the model for iterative repair significantly improved pass rates on coding benchmarks compared to single-shot generation.</p>
-                        <p><strong>Modern LLM Status:</strong> By 2025&ndash;2026, self-debugging is <strong>standard practice in AI-assisted development</strong>. Modern models excel at interpreting error messages, tracing execution paths, and proposing minimal fixes. IDE integrations like GitHub Copilot, Cursor, and Claude Code embed this capability directly into the development workflow, creating tight generate-test-fix loops. The key differentiator in quality is not whether the model can debug &mdash; it almost certainly can &mdash; but whether the developer provides sufficient context: the error message, the expected behavior, the relevant code, and the scope of acceptable changes.</p>
+                        <p><strong>Modern LLM Status:</strong> By 2025&ndash;2026, self-debugging is <strong>standard practice in AI-assisted development</strong>. Modern models excel at interpreting error messages, tracing execution paths, and proposing minimal fixes. IDE integrations like GitHub Copilot, Cursor, and Claude Code embed this capability directly into the development workflow, creating tight generate-test-fix loops. The key differentiator in quality is not whether the model can debug, it almost certainly can, but whether the developer provides sufficient context: the error message, the expected behavior, the relevant code, and the scope of acceptable changes.</p>
                     </div>
                 </div>
             </div>
@@ -226,16 +226,16 @@
                 <div class="split-section split-section--center fade-in-up">
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
-                        <h2 class="split-section__title">The Model That Created the Bug Can Find It &mdash; If You Show It the Evidence</h2>
+                        <h2 class="split-section__title">The Model That Created the Bug Can Find It, If You Show It the Evidence</h2>
                         <p class="split-section__text">Self-Debugging exploits a fundamental property of code that distinguishes it from every other AI task domain: <strong>code failures produce concrete, specific, machine-readable evidence</strong>. An error message tells you the exact line that crashed. A failing test tells you exactly which assertion failed and what the actual value was versus the expected value. A stack trace maps the exact execution path through the program. No other prompting domain provides this level of objective, verifiable feedback.</p>
-                        <p class="split-section__text"><strong>The core insight is that re-examining code for errors activates different reasoning patterns than initial generation.</strong> When a model generates code, it operates in a creative, forward-looking mode &mdash; assembling patterns to satisfy requirements. When it debugs, it switches to an analytical, backward-tracing mode &mdash; starting from the symptom and working backward through the logic to identify where the code&rsquo;s actual behavior diverges from its intended behavior. This cognitive shift is the same one human developers experience when they switch from writing code to reviewing it.</p>
-                        <p class="split-section__text">Think of it like a chess player who, after making a move, is asked to analyze the board from the opponent&rsquo;s perspective. The same knowledge that produced the move can now identify its weaknesses &mdash; but only when the perspective shifts from &ldquo;how do I advance my plan?&rdquo; to &ldquo;where is the flaw in this position?&rdquo;</p>
+                        <p class="split-section__text"><strong>The core insight is that re-examining code for errors activates different reasoning patterns than initial generation.</strong> When a model generates code, it operates in a creative, forward-looking mode, assembling patterns to satisfy requirements. When it debugs, it switches to an analytical, backward-tracing mode, starting from the symptom and working backward through the logic to identify where the code&rsquo;s actual behavior diverges from its intended behavior. This cognitive shift is the same one human developers experience when they switch from writing code to reviewing it.</p>
+                        <p class="split-section__text">Think of it like a chess player who, after making a move, is asked to analyze the board from the opponent&rsquo;s perspective. The same knowledge that produced the move can now identify its weaknesses, but only when the perspective shifts from &ldquo;how do I advance my plan?&rdquo; to &ldquo;where is the flaw in this position?&rdquo;</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Concrete Feedback Changes Everything</span>
-                                <p>In general self-correction tasks, the model must judge its own output quality subjectively &mdash; &ldquo;is this essay good?&rdquo; has no definitive answer. But in debugging, the feedback is <strong>binary and specific</strong>: the code either passes all tests or it does not. An error message either matches the root cause or it does not. This objectivity transforms self-correction from a hit-or-miss heuristic into a <strong>systematic, convergent process</strong>. Each debugging iteration narrows the problem space with concrete evidence, making the approach dramatically more reliable than self-correction in subjective domains.</p>
+                                <p>In general self-correction tasks, the model must judge its own output quality subjectively, &ldquo;is this essay good?&rdquo; has no definitive answer. But in debugging, the feedback is <strong>binary and specific</strong>: the code either passes all tests or it does not. An error message either matches the root cause or it does not. This objectivity transforms self-correction from a hit-or-miss heuristic into a <strong>systematic, convergent process</strong>. Each debugging iteration narrows the problem space with concrete evidence, making the approach dramatically more reliable than self-correction in subjective domains.</p>
                             </div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate or Receive the Code</h3>
-                            <p class="element-timeline__text">Start with code that has a known problem &mdash; either AI-generated code that failed its tests, existing code that has started producing errors, or legacy code with a suspected bug. The code can come from any source; what matters is that you have a concrete failure to investigate rather than a vague sense that something is wrong.</p>
+                            <p class="element-timeline__text">Start with code that has a known problem, either AI-generated code that failed its tests, existing code that has started producing errors, or legacy code with a suspected bug. The code can come from any source; what matters is that you have a concrete failure to investigate rather than a vague sense that something is wrong.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>An AI-generated <code>calculate_discount()</code> function passes basic tests but returns incorrect values when the discount percentage exceeds 100% or when the price is zero.</p>
@@ -285,10 +285,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Prompt the Model to Diagnose</h3>
-                            <p class="element-timeline__text">Provide the code, the failure evidence, and a structured debugging request. Ask the model to trace through the execution with the failing inputs, identify the exact point where behavior diverges from expectations, explain the root cause, and propose a minimal fix. The key word is &ldquo;minimal&rdquo; &mdash; you want the smallest change that resolves the bug, not a refactor of the entire function.</p>
+                            <p class="element-timeline__text">Provide the code, the failure evidence, and a structured debugging request. Ask the model to trace through the execution with the failing inputs, identify the exact point where behavior diverges from expectations, explain the root cause, and propose a minimal fix. The key word is &ldquo;minimal&rdquo;, you want the smallest change that resolves the bug, not a refactor of the entire function.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Trace through <code>calculate_discount(100.0, 150)</code> step by step. Identify where the validation should catch the invalid percentage. Explain why it currently allows values over 100. Provide a minimal fix &mdash; change only the lines necessary to add the missing validation.&rdquo;</p>
+                                <p>&ldquo;Trace through <code>calculate_discount(100.0, 150)</code> step by step. Identify where the validation should catch the invalid percentage. Explain why it currently allows values over 100. Provide a minimal fix, change only the lines necessary to add the missing validation.&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -299,7 +299,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Apply and Test the Fix</h3>
-                            <p class="element-timeline__text">Apply the model&rsquo;s proposed fix to your code and run the failing tests again. Also run the full test suite to check for regressions &mdash; a fix that solves one problem while breaking three others is not a fix. If the original tests now pass and no new failures appear, the debugging cycle is complete. If not, collect the new failure evidence and return to step 3 for another iteration.</p>
+                            <p class="element-timeline__text">Apply the model&rsquo;s proposed fix to your code and run the failing tests again. Also run the full test suite to check for regressions, a fix that solves one problem while breaking three others is not a fix. If the original tests now pass and no new failures appear, the debugging cycle is complete. If not, collect the new failure evidence and return to step 3 for another iteration.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>After adding validation for discount percentages over 100, run the full test suite. The edge case test now passes, but verify that the normal discount calculations (10%, 25%, 50%) still return correct values.</p>
@@ -313,7 +313,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Iterate Until All Tests Pass</h3>
-                            <p class="element-timeline__text">Self-Debugging is inherently iterative. Complex bugs may require multiple rounds of diagnosis and repair, where each round resolves one layer of the problem and reveals the next. The key advantage of AI-assisted debugging is that each iteration is fast &mdash; the model can analyze code and propose fixes in seconds rather than the minutes or hours a human might spend tracing through unfamiliar logic. Track which bugs have been fixed and which remain to avoid circular debugging.</p>
+                            <p class="element-timeline__text">Self-Debugging is inherently iterative. Complex bugs may require multiple rounds of diagnosis and repair, where each round resolves one layer of the problem and reveals the next. The key advantage of AI-assisted debugging is that each iteration is fast, the model can analyze code and propose fixes in seconds rather than the minutes or hours a human might spend tracing through unfamiliar logic. Track which bugs have been fixed and which remain to avoid circular debugging.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Round 1 fixed the missing validation. Round 2 reveals that the validation error message references the wrong parameter name. Round 3 confirms all tests pass and the error messages are accurate.</p>
@@ -452,7 +452,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>By requesting explicit variable tracing, the prompt forces the model to simulate execution rather than pattern-match against common binary search bugs. The step-by-step trace reveals whether the issue is in the midpoint calculation, the boundary updates (<code>mid + 1</code> vs <code>mid</code>), or the termination condition &mdash; and the developer can verify each step independently.</p>
+                                    <p>By requesting explicit variable tracing, the prompt forces the model to simulate execution rather than pattern-match against common binary search bugs. The step-by-step trace reveals whether the issue is in the midpoint calculation, the boundary updates (<code>mid + 1</code> vs <code>mid</code>), or the termination condition, and the developer can verify each step independently.</p>
                                 </div>
                             </div>
                         </div>
@@ -471,7 +471,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>The prompt provides exact inputs, expected outputs, and actual outputs for each failure &mdash; plus which tests already pass (establishing constraints the fix must not violate). The model can see three distinct issues: missing format support, incorrect day/month parsing order, and missing empty-string validation. Each fix is independently verifiable against the provided test cases.</p>
+                                    <p>The prompt provides exact inputs, expected outputs, and actual outputs for each failure, plus which tests already pass (establishing constraints the fix must not violate). The model can see three distinct issues: missing format support, incorrect day/month parsing order, and missing empty-string validation. Each fix is independently verifiable against the provided test cases.</p>
                                 </div>
                             </div>
                         </div>
@@ -518,7 +518,7 @@
                                 </svg>
                                 <div>
                                     <strong>Proactive Code Review</strong>
-                                    <p>Ask the model to identify potential bugs, edge cases, and failure points before they manifest in production &mdash; defensive debugging before deployment.</p>
+                                    <p>Ask the model to identify potential bugs, edge cases, and failure points before they manifest in production, defensive debugging before deployment.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -694,7 +694,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Self-Debugging in the Correction Ecosystem</div>
-                    <p>Self-Debugging sits at the intersection of code generation and self-correction. It inherits the iterative improvement loop from <strong>Self-Refine</strong> (generate, critique, improve), the error-learning mechanisms from <strong>Reflexion</strong> (reflect on failures to avoid repeating them), and the structured output expectations from <strong>Code Prompting</strong> (executable, testable results). What makes Self-Debugging unique is that code provides a concrete feedback channel &mdash; error messages, stack traces, and test results &mdash; that grounds the correction process in verifiable facts rather than subjective quality judgments.</p>
+                    <p>Self-Debugging sits at the intersection of code generation and self-correction. It inherits the iterative improvement loop from <strong>Self-Refine</strong> (generate, critique, improve), the error-learning mechanisms from <strong>Reflexion</strong> (reflect on failures to avoid repeating them), and the structured output expectations from <strong>Code Prompting</strong> (executable, testable results). What makes Self-Debugging unique is that code provides a concrete feedback channel, error messages, stack traces, and test results, that grounds the correction process in verifiable facts rather than subjective quality judgments.</p>
                 </div>
             </div>
         </section>
@@ -716,7 +716,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Code Prompting</span>
-                        <span class="evolution-callout__desc">The code generation techniques that produce the initial output &mdash; better prompts mean fewer bugs to debug in the first place.</span>
+                        <span class="evolution-callout__desc">The code generation techniques that produce the initial output, better prompts mean fewer bugs to debug in the first place.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -757,7 +757,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Reflexion</span>
-                        <span class="evolution-callout__desc">Adds a memory layer to self-correction &mdash; the model reflects on past failures to avoid repeating them, enabling learning across multiple debugging attempts.</span>
+                        <span class="evolution-callout__desc">Adds a memory layer to self-correction, the model reflects on past failures to avoid repeating them, enabling learning across multiple debugging attempts.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -835,7 +835,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

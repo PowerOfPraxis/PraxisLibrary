@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">Code Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">Code Review Prompting</h1>
-                <p class="page-subtitle fade-in">Directing AI models to perform structured, multi-dimensional code reviews that catch bugs, security vulnerabilities, performance issues, and maintainability concerns &mdash; transforming surface-level feedback into actionable, prioritized findings.</p>
+                <p class="page-subtitle fade-in">Directing AI models to perform structured, multi-dimensional code reviews that catch bugs, security vulnerabilities, performance issues, and maintainability concerns, transforming surface-level feedback into actionable, prioritized findings.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -212,8 +212,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022&ndash;2024</span>
-                        <p><strong>Introduced:</strong> AI-assisted code review evolved rapidly between 2022 and 2024, building on decades of automated static analysis tools like ESLint, SonarQube, and Pylint that could catch syntactic errors and style violations but lacked semantic understanding. The arrival of large language models capable of reasoning about code &mdash; starting with Codex and accelerating through GPT-4, Claude, and Gemini &mdash; transformed code review from pattern-matching into contextual analysis. GitHub Copilot introduced code review features that could evaluate pull requests against project conventions, while dedicated tools emerged for security scanning, performance profiling, and architectural assessment. By 2024, AI code review had moved beyond simple linting to encompass multi-dimensional analysis: understanding business logic intent, evaluating algorithmic complexity, identifying security vulnerabilities in context, and assessing how changes interact with the broader codebase.</p>
-                        <p><strong>Modern LLM Status:</strong> AI-assisted code review is <strong>widely adopted in professional development workflows</strong> and continues to improve as models gain deeper understanding of codebases, frameworks, and security patterns. Frontier models can analyze code across multiple dimensions simultaneously &mdash; security, performance, correctness, maintainability, and style &mdash; when given properly structured prompts. The core techniques covered here &mdash; specifying review dimensions, defining standards to apply, establishing severity levels, and providing codebase context &mdash; are essential because models without explicit review guidance tend to produce shallow, generic feedback that misses the issues developers actually care about. Code review prompting forms a critical complement to code explanation and self-debugging techniques, enabling comprehensive quality assurance workflows.</p>
+                        <p><strong>Introduced:</strong> AI-assisted code review evolved rapidly between 2022 and 2024, building on decades of automated static analysis tools like ESLint, SonarQube, and Pylint that could catch syntactic errors and style violations but lacked semantic understanding. The arrival of large language models capable of reasoning about code, starting with Codex and accelerating through ChatGPT, Claude, and Gemini, transformed code review from pattern-matching into contextual analysis. GitHub Copilot introduced code review features that could evaluate pull requests against project conventions, while dedicated tools emerged for security scanning, performance profiling, and architectural assessment. By 2024, AI code review had moved beyond simple linting to encompass multi-dimensional analysis: understanding business logic intent, evaluating algorithmic complexity, identifying security vulnerabilities in context, and assessing how changes interact with the broader codebase.</p>
+                        <p><strong>Modern LLM Status:</strong> AI-assisted code review is <strong>widely adopted in professional development workflows</strong> and continues to improve as models gain deeper understanding of codebases, frameworks, and security patterns. Frontier models can analyze code across multiple dimensions simultaneously, security, performance, correctness, maintainability, and style, when given properly structured prompts. The core techniques covered here, specifying review dimensions, defining standards to apply, establishing severity levels, and providing codebase context, are essential because models without explicit review guidance tend to produce shallow, generic feedback that misses the issues developers actually care about. Code review prompting forms a critical complement to code explanation and self-debugging techniques, enabling comprehensive quality assurance workflows.</p>
                     </div>
                 </div>
             </div>
@@ -228,14 +228,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Tell the Reviewer What to Look For</h2>
                         <p class="split-section__text">Code review prompting is the practice of structuring AI prompts to perform systematic, multi-dimensional analysis of source code. Rather than simply asking a model to &ldquo;review this code,&rdquo; effective code review prompting specifies <strong>what dimensions to review</strong> (security, performance, correctness, maintainability, style), <strong>what standards to apply</strong> (project conventions, language best practices, framework idioms), and <strong>what severity levels to flag</strong> (critical bugs, warnings, suggestions, nitpicks).</p>
-                        <p class="split-section__text"><strong>The core insight is that AI code review requires specifying WHAT dimensions to review, what STANDARDS to apply, and what SEVERITY levels to flag.</strong> Without this structure, models default to surface-level observations &mdash; noting variable naming inconsistencies or missing comments while overlooking SQL injection vulnerabilities, race conditions, or O(n&sup2;) algorithms hidden inside loops. A structured review prompt transforms the model from a passive reader into an active auditor with a defined checklist and clear reporting criteria.</p>
+                        <p class="split-section__text"><strong>The core insight is that AI code review requires specifying WHAT dimensions to review, what STANDARDS to apply, and what SEVERITY levels to flag.</strong> Without this structure, models default to surface-level observations, noting variable naming inconsistencies or missing comments while overlooking SQL injection vulnerabilities, race conditions, or O(n&sup2;) algorithms hidden inside loops. A structured review prompt transforms the model from a passive reader into an active auditor with a defined checklist and clear reporting criteria.</p>
                         <p class="split-section__text">Think of it like the difference between asking a building inspector to &ldquo;look around&rdquo; versus handing them an inspection checklist covering structural integrity, electrical safety, plumbing codes, fire exits, and accessibility compliance. The same inspector with the same expertise produces dramatically different reports depending on the structure of the review protocol. Code review prompting is that protocol for AI models.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Dimension Specificity Transforms Code Review</span>
-                                <p>When a model receives code without structured review criteria, it defaults to the most obvious observations &mdash; naming conventions, missing documentation, and simple style issues that any linter could catch. Structured review prompts redirect this behavior by defining the <strong>analytical dimensions</strong> the model should apply: what security patterns to check for, what performance thresholds matter, which correctness edge cases to consider, what maintainability standards the team follows, and how to prioritize findings by business impact rather than cosmetic importance. The difference between a generic &ldquo;looks fine, maybe add some comments&rdquo; and a structured report identifying an unvalidated user input path, a missing database index on a frequently queried column, and a potential null reference in an error handler comes down entirely to the specificity of the review prompt.</p>
+                                <p>When a model receives code without structured review criteria, it defaults to the most obvious observations, naming conventions, missing documentation, and simple style issues that any linter could catch. Structured review prompts redirect this behavior by defining the <strong>analytical dimensions</strong> the model should apply: what security patterns to check for, what performance thresholds matter, which correctness edge cases to consider, what maintainability standards the team follows, and how to prioritize findings by business impact rather than cosmetic importance. The difference between a generic &ldquo;looks fine, maybe add some comments&rdquo; and a structured report identifying an unvalidated user input path, a missing database index on a frequently queried column, and a potential null reference in an error handler comes down entirely to the specificity of the review prompt.</p>
                             </div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Submit the Code</h3>
-                            <p class="element-timeline__text">Provide the code you want reviewed, along with relevant context about the project, language, and framework. Include the specific files or diff under review, and where possible, describe the purpose of the change &mdash; whether it is a new feature, a bug fix, a refactor, or a performance optimization. Context about what the code is supposed to do is just as important as the code itself, because many code review findings depend on understanding intent: a function that appears correct in isolation may be completely wrong given the business requirements it was written to fulfill.</p>
+                            <p class="element-timeline__text">Provide the code you want reviewed, along with relevant context about the project, language, and framework. Include the specific files or diff under review, and where possible, describe the purpose of the change, whether it is a new feature, a bug fix, a refactor, or a performance optimization. Context about what the code is supposed to do is just as important as the code itself, because many code review findings depend on understanding intent: a function that appears correct in isolation may be completely wrong given the business requirements it was written to fulfill.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Provide a pull request diff for a new user authentication endpoint, noting that it handles OAuth 2.0 token validation, stores session data in Redis, and must comply with the team&rsquo;s security policy requiring rate limiting on all authentication routes.</p>
@@ -274,7 +274,7 @@
                             <p class="element-timeline__text">Specify which aspects of the code the model should evaluate. Common review dimensions include security (injection, authentication, authorization, data exposure), performance (algorithmic complexity, memory usage, database queries, caching), correctness (edge cases, error handling, type safety, boundary conditions), maintainability (readability, modularity, naming, documentation), and standards compliance (language idioms, framework patterns, project conventions). Selecting dimensions focuses the review on what matters most for the specific change being evaluated.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Review this code across four dimensions: (1) Security &mdash; check for injection vulnerabilities, improper token handling, and missing input validation; (2) Performance &mdash; evaluate database query efficiency and identify any N+1 query patterns; (3) Error handling &mdash; verify all failure paths return appropriate HTTP status codes and log sufficient context; (4) Standards &mdash; check adherence to our REST API naming conventions and response format.&rdquo;</p>
+                                <p>&ldquo;Review this code across four dimensions: (1) Security, check for injection vulnerabilities, improper token handling, and missing input validation; (2) Performance, evaluate database query efficiency and identify any N+1 query patterns; (3) Error handling, verify all failure paths return appropriate HTTP status codes and log sufficient context; (4) Standards, check adherence to our REST API naming conventions and response format.&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -302,7 +302,7 @@
                             <p class="element-timeline__text">Define how the model should categorize and present its findings. A flat list of comments provides far less value than findings organized by severity (critical, warning, suggestion, nitpick), grouped by dimension (security findings together, performance findings together), and annotated with specific line references and concrete fix suggestions. Requesting prioritization ensures that the most impactful issues surface first, and that cosmetic suggestions do not bury genuine security or correctness concerns in the output.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Categorize each finding as Critical (blocks merge &mdash; security vulnerabilities, data loss risks, correctness bugs), Warning (should fix &mdash; performance issues, error handling gaps), Suggestion (recommended &mdash; maintainability improvements, readability), or Nitpick (optional &mdash; style preferences, minor naming). For each finding, cite the specific line, explain the issue, and provide a concrete code fix.&rdquo;</p>
+                                <p>&ldquo;Categorize each finding as Critical (blocks merge, security vulnerabilities, data loss risks, correctness bugs), Warning (should fix, performance issues, error handling gaps), Suggestion (recommended, maintainability improvements, readability), or Nitpick (optional, style preferences, minor naming). For each finding, cite the specific line, explain the issue, and provide a concrete code fix.&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -367,7 +367,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Response</span>
-                                <p><strong>[Critical] Line 23:</strong> User input passed directly to SQL query without parameterization. Fix: Use prepared statements with bound parameters.<br><strong>[Critical] Line 41:</strong> JWT secret read from environment without fallback validation &mdash; server starts with undefined secret in development. Fix: Add startup check that throws if JWT_SECRET is not set.<br><strong>[Warning] Line 58:</strong> Password comparison uses === instead of constant-time comparison, enabling timing attacks. Fix: Use crypto.timingSafeEqual().<br><strong>[Suggestion] Line 72:</strong> Error response leaks internal stack trace to client. Fix: Return generic error message and log details server-side.</p>
+                                <p><strong>[Critical] Line 23:</strong> User input passed directly to SQL query without parameterization. Fix: Use prepared statements with bound parameters.<br><strong>[Critical] Line 41:</strong> JWT secret read from environment without fallback validation, server starts with undefined secret in development. Fix: Add startup check that throws if JWT_SECRET is not set.<br><strong>[Warning] Line 58:</strong> Password comparison uses === instead of constant-time comparison, enabling timing attacks. Fix: Use crypto.timingSafeEqual().<br><strong>[Suggestion] Line 72:</strong> Error response leaks internal stack trace to client. Fix: Return generic error message and log details server-side.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -415,7 +415,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Prompt</span>
-                                    <p>&ldquo;Review this Node.js Express API endpoint for security vulnerabilities. Check for: (a) injection attacks &mdash; SQL injection, NoSQL injection, command injection, and XSS via unescaped output; (b) authentication and authorization &mdash; verify tokens are validated before accessing protected resources, check for privilege escalation paths, confirm session handling follows OWASP guidelines; (c) data exposure &mdash; ensure sensitive fields are not included in API responses, verify logging does not capture passwords or tokens, check that error messages do not leak internal implementation details; (d) input validation &mdash; confirm all user inputs are validated for type, length, and format before processing. For each finding, classify severity as Critical, High, Medium, or Low, cite the exact line number, explain the attack vector, and provide a corrected code snippet.&rdquo;</p>
+                                    <p>&ldquo;Review this Node.js Express API endpoint for security vulnerabilities. Check for: (a) injection attacks, SQL injection, NoSQL injection, command injection, and XSS via unescaped output; (b) authentication and authorization, verify tokens are validated before accessing protected resources, check for privilege escalation paths, confirm session handling follows OWASP guidelines; (c) data exposure, ensure sensitive fields are not included in API responses, verify logging does not capture passwords or tokens, check that error messages do not leak internal implementation details; (d) input validation, confirm all user inputs are validated for type, length, and format before processing. For each finding, classify severity as Critical, High, Medium, or Low, cite the exact line number, explain the attack vector, and provide a corrected code snippet.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
@@ -434,7 +434,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Prompt</span>
-                                    <p>&ldquo;Analyze this Python data processing module for performance issues. Evaluate: (a) algorithmic complexity &mdash; identify any O(n&sup2;) or worse operations, especially nested loops over large collections or repeated linear searches that could use hash-based lookups; (b) memory efficiency &mdash; flag unnecessary data copies, large intermediate collections that could be replaced with generators, and objects retained beyond their useful lifetime; (c) database interaction &mdash; detect N+1 query patterns, missing indexes implied by query patterns, unoptimized bulk operations executed row-by-row, and queries inside loops; (d) I/O patterns &mdash; identify synchronous blocking calls that could be async, missing connection pooling, and file handles that are not properly managed with context managers. Estimate the impact of each finding on throughput when processing 100,000 records and suggest the specific optimization with example code.&rdquo;</p>
+                                    <p>&ldquo;Analyze this Python data processing module for performance issues. Evaluate: (a) algorithmic complexity, identify any O(n&sup2;) or worse operations, especially nested loops over large collections or repeated linear searches that could use hash-based lookups; (b) memory efficiency, flag unnecessary data copies, large intermediate collections that could be replaced with generators, and objects retained beyond their useful lifetime; (c) database interaction, detect N+1 query patterns, missing indexes implied by query patterns, unoptimized bulk operations executed row-by-row, and queries inside loops; (d) I/O patterns, identify synchronous blocking calls that could be async, missing connection pooling, and file handles that are not properly managed with context managers. Estimate the impact of each finding on throughput when processing 100,000 records and suggest the specific optimization with example code.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
@@ -453,7 +453,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Prompt</span>
-                                    <p>&ldquo;Review this React component library for maintainability and code quality. Assess: (a) component architecture &mdash; evaluate separation of concerns, identify components that mix business logic with presentation, check for prop drilling that should use context or state management, and flag components exceeding 200 lines that should be decomposed; (b) type safety &mdash; verify TypeScript types are precise rather than using &lsquo;any&rsquo; or overly broad unions, check that component props have complete interface definitions, and confirm return types are explicitly declared on public functions; (c) testability &mdash; identify side effects that make unit testing difficult, flag tightly coupled modules, and note functions with more than three code paths that lack corresponding test coverage; (d) documentation &mdash; check that public API functions have JSDoc descriptions, complex algorithms include explanatory comments, and component props include description annotations. Organize findings by component and rate overall maintainability on a scale of 1 to 5 with justification.&rdquo;</p>
+                                    <p>&ldquo;Review this React component library for maintainability and code quality. Assess: (a) component architecture, evaluate separation of concerns, identify components that mix business logic with presentation, check for prop drilling that should use context or state management, and flag components exceeding 200 lines that should be decomposed; (b) type safety, verify TypeScript types are precise rather than using &lsquo;any&rsquo; or overly broad unions, check that component props have complete interface definitions, and confirm return types are explicitly declared on public functions; (c) testability, identify side effects that make unit testing difficult, flag tightly coupled modules, and note functions with more than three code paths that lack corresponding test coverage; (d) documentation, check that public API functions have JSDoc descriptions, complex algorithms include explanatory comments, and component props include description annotations. Organize findings by component and rate overall maintainability on a scale of 1 to 5 with justification.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
@@ -504,7 +504,7 @@
                                 </svg>
                                 <div>
                                     <strong>Codebase Health Assessment</strong>
-                                    <p>Evaluating the overall quality of a codebase when onboarding to a new project, performing technical due diligence, or planning a refactoring initiative &mdash; identifying systemic patterns of technical debt across multiple files and modules.</p>
+                                    <p>Evaluating the overall quality of a codebase when onboarding to a new project, performing technical due diligence, or planning a refactoring initiative, identifying systemic patterns of technical debt across multiple files and modules.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -539,7 +539,7 @@
                                 </svg>
                                 <div>
                                     <strong>Formal Verification Required</strong>
-                                    <p>When mathematical proof of correctness is required &mdash; such as safety-critical systems, cryptographic implementations, or aerospace software &mdash; AI code review provides useful heuristic feedback but cannot replace formal verification tools and methods.</p>
+                                    <p>When mathematical proof of correctness is required, such as safety-critical systems, cryptographic implementations, or aerospace software, AI code review provides useful heuristic feedback but cannot replace formal verification tools and methods.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -586,7 +586,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Pull Request Review</h3>
-                        <p class="use-case-showcase__desc">Analyzing code diffs in pull requests to identify bugs, security issues, and standards violations before merging &mdash; providing structured feedback with severity levels, line references, and suggested fixes that complement human reviewer analysis.</p>
+                        <p class="use-case-showcase__desc">Analyzing code diffs in pull requests to identify bugs, security issues, and standards violations before merging, providing structured feedback with severity levels, line references, and suggested fixes that complement human reviewer analysis.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -606,7 +606,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Performance Profiling</h3>
-                        <p class="use-case-showcase__desc">Identifying performance bottlenecks through static analysis &mdash; detecting inefficient algorithms, unnecessary database round-trips, missing caching opportunities, synchronous blocking operations, and memory-intensive patterns before they reach production.</p>
+                        <p class="use-case-showcase__desc">Identifying performance bottlenecks through static analysis, detecting inefficient algorithms, unnecessary database round-trips, missing caching opportunities, synchronous blocking operations, and memory-intensive patterns before they reach production.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -619,7 +619,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Code Standards Enforcement</h3>
-                        <p class="use-case-showcase__desc">Verifying that code changes adhere to team coding standards, architectural patterns, naming conventions, documentation requirements, and framework-specific idioms &mdash; enforcing consistency across large teams and distributed codebases.</p>
+                        <p class="use-case-showcase__desc">Verifying that code changes adhere to team coding standards, architectural patterns, naming conventions, documentation requirements, and framework-specific idioms, enforcing consistency across large teams and distributed codebases.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -631,7 +631,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Technical Debt Identification</h3>
-                        <p class="use-case-showcase__desc">Surveying existing codebases to catalog technical debt &mdash; duplicated logic, outdated patterns, deprecated API usage, missing error handling, insufficient test coverage, and architectural violations that increase maintenance cost over time.</p>
+                        <p class="use-case-showcase__desc">Surveying existing codebases to catalog technical debt, duplicated logic, outdated patterns, deprecated API usage, missing error handling, insufficient test coverage, and architectural violations that increase maintenance cost over time.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -680,7 +680,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine AI Review with Human Judgment</div>
-                    <p>AI-assisted code review works best as a complement to human reviewers, not a replacement. Use structured code review prompts to handle the systematic, checklist-driven analysis that humans find tedious and error-prone &mdash; scanning every line for injection vulnerabilities, verifying consistent error handling, checking for N+1 queries, and enforcing naming conventions. This frees human reviewers to focus on what they do best: evaluating architectural decisions, assessing whether the approach solves the right problem, judging code readability from a team context perspective, and considering edge cases that require domain knowledge the model may lack. The strongest code review workflows run AI review first, then present findings alongside the diff for human reviewers to triage, accept, or override.</p>
+                    <p>AI-assisted code review works best as a complement to human reviewers, not a replacement. Use structured code review prompts to handle the systematic, checklist-driven analysis that humans find tedious and error-prone, scanning every line for injection vulnerabilities, verifying consistent error handling, checking for N+1 queries, and enforcing naming conventions. This frees human reviewers to focus on what they do best: evaluating architectural decisions, assessing whether the approach solves the right problem, judging code readability from a team context perspective, and considering edge cases that require domain knowledge the model may lack. The strongest code review workflows run AI review first, then present findings alongside the diff for human reviewers to triage, accept, or override.</p>
                 </div>
             </div>
         </section>
@@ -704,7 +704,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Code Explanation as Foundation</span>
-                        <span class="evolution-callout__desc">Code prompting techniques for generating, explaining, and transforming code form the foundation for effective review &mdash; understanding how models interpret code structure, logic flow, and intent is essential before directing them to evaluate code quality across multiple dimensions.</span>
+                        <span class="evolution-callout__desc">Code prompting techniques for generating, explaining, and transforming code form the foundation for effective review, understanding how models interpret code structure, logic flow, and intent is essential before directing them to evaluate code quality across multiple dimensions.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -722,7 +722,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Self-Debugging as Evolution</span>
-                        <span class="evolution-callout__desc">Self-debugging extends code review into the correction phase &mdash; once review identifies issues, self-debugging techniques guide the model to diagnose root causes, reason through fix strategies, and iteratively verify that corrections resolve the original problem without introducing regressions.</span>
+                        <span class="evolution-callout__desc">Self-debugging extends code review into the correction phase, once review identifies issues, self-debugging techniques guide the model to diagnose root causes, reason through fix strategies, and iteratively verify that corrections resolve the original problem without introducing regressions.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -743,7 +743,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Parallel</span>
                         <span class="evolution-callout__title">Test Generation as Parallel</span>
-                        <span class="evolution-callout__desc">Test generation prompting complements code review by creating automated tests that verify the correctness, edge case handling, and regression safety of code &mdash; providing executable validation that goes beyond the static analysis of review findings.</span>
+                        <span class="evolution-callout__desc">Test generation prompting complements code review by creating automated tests that verify the correctness, edge case handling, and regression safety of code, providing executable validation that goes beyond the static analysis of review findings.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -820,7 +820,7 @@
 
             <div class="footer-bottom">
                 <p>AI for Everyone</p>
-                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
             </div>
 
             <div class="footer-policies">

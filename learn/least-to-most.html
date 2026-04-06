@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Decomposition</span>
                 </div>
                 <h1 class="page-title fade-in">Least-to-Most Prompting</h1>
-                <p class="page-subtitle fade-in">Complex problems become manageable when you break them into simpler pieces and solve them in order. Least-to-Most decomposes a hard question into easy sub-questions, solves each one progressively, and passes every answer forward &mdash; building a staircase of understanding from the ground up.</p>
+                <p class="page-subtitle fade-in">Complex problems become manageable when you break them into simpler pieces and solve them in order. Least-to-Most decomposes a hard question into easy sub-questions, solves each one progressively, and passes every answer forward, building a staircase of understanding from the ground up.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> Least-to-Most Prompting was published in 2022 by Zhou et al. at Google Research. The technique was designed to overcome a key limitation of chain-of-thought prompting: the inability to generalize to problems harder than those shown in the few-shot examples. Least-to-Most introduces a two-stage protocol &mdash; first decompose the complex problem into a sequence of simpler sub-problems, then solve each sub-problem from easiest to hardest, passing the context of previously solved sub-problems forward. The original paper demonstrated dramatic improvements on symbolic manipulation, compositional generalization (SCAN benchmark), and math word problems.</p>
-                        <p><strong>Modern LLM Status:</strong> The progressive decomposition strategy of Least-to-Most has been <strong>partially absorbed into modern LLM reasoning capabilities</strong>. Claude, GPT-4, and Gemini can often decompose problems implicitly when prompted with chain-of-thought. However, Least-to-Most&rsquo;s explicit two-stage structure remains valuable when you need <strong>guaranteed decomposition before solving</strong>, when dealing with problems that require length generalization beyond the examples provided, or when each sub-problem&rsquo;s solution must be independently verifiable. The technique is especially relevant for compositional tasks, multi-step math, and any domain where building from simple to complex is the natural problem-solving strategy.</p>
+                        <p><strong>Introduced:</strong> Least-to-Most Prompting was published in 2022 by Zhou et al. at Google Research. The technique was designed to overcome a key limitation of chain-of-thought prompting: the inability to generalize to problems harder than those shown in the few-shot examples. Least-to-Most introduces a two-stage protocol, first decompose the complex problem into a sequence of simpler sub-problems, then solve each sub-problem from easiest to hardest, passing the context of previously solved sub-problems forward. The original paper demonstrated dramatic improvements on symbolic manipulation, compositional generalization (SCAN benchmark), and math word problems.</p>
+                        <p><strong>Modern LLM Status:</strong> The progressive decomposition strategy of Least-to-Most has been <strong>partially absorbed into modern LLM reasoning capabilities</strong>. Claude, ChatGPT, and Gemini can often decompose problems implicitly when prompted with chain-of-thought. However, Least-to-Most&rsquo;s explicit two-stage structure remains valuable when you need <strong>guaranteed decomposition before solving</strong>, when dealing with problems that require length generalization beyond the examples provided, or when each sub-problem&rsquo;s solution must be independently verifiable. The technique is especially relevant for compositional tasks, multi-step math, and any domain where building from simple to complex is the natural problem-solving strategy.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Progressive Decomposition: Simple to Complex</h2>
-                        <p class="split-section__text">Most complex problems are not monolithic &mdash; they are stacks of simpler problems in disguise. A multi-step math word problem, a long sequence of instructions, or a reading comprehension question spanning several paragraphs all share the same structure: solve the easy parts first, then use those answers to tackle the hard parts.</p>
+                        <p class="split-section__text">Most complex problems are not monolithic, they are stacks of simpler problems in disguise. A multi-step math word problem, a long sequence of instructions, or a reading comprehension question spanning several paragraphs all share the same structure: solve the easy parts first, then use those answers to tackle the hard parts.</p>
                         <p class="split-section__text"><strong>Least-to-Most formalizes this intuition into a two-stage process.</strong> In Stage 1, the model decomposes the original problem into an ordered list of sub-problems, arranged from simplest to most complex. In Stage 2, the model solves each sub-problem in order, and critically, the answer to each sub-problem is appended to the context before attempting the next one. This means each successive sub-problem benefits from all previously established answers.</p>
-                        <p class="split-section__text">Think of it like building a staircase. You don&rsquo;t leap to the top floor &mdash; you lay one step at a time, and each new step rests on the ones beneath it. The final step reaches the answer that a single leap could never reliably achieve.</p>
+                        <p class="split-section__text">Think of it like building a staircase. You don&rsquo;t leap to the top floor, you lay one step at a time, and each new step rests on the ones beneath it. The final step reaches the answer that a single leap could never reliably achieve.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Progressive Solving Beats Monolithic Reasoning</span>
-                                <p>When a model attempts to solve a complex problem in a single pass, it must hold all dependencies, intermediate values, and logical connections in working memory simultaneously. This leads to dropped steps, arithmetic errors, and hallucinated shortcuts. Least-to-Most eliminates this cognitive overload by ensuring the model only ever faces a problem it can solve with the information already established &mdash; turning a high-wire act into a series of confident, grounded steps.</p>
+                                <p>When a model attempts to solve a complex problem in a single pass, it must hold all dependencies, intermediate values, and logical connections in working memory simultaneously. This leads to dropped steps, arithmetic errors, and hallucinated shortcuts. Least-to-Most eliminates this cognitive overload by ensuring the model only ever faces a problem it can solve with the information already established, turning a high-wire act into a series of confident, grounded steps.</p>
                             </div>
                         </div>
                     </div>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Stage 1: Decompose Into Ordered Sub-Problems</h3>
-                            <p class="element-timeline__text">The model identifies the sub-problems hidden within the original question and orders them from simplest to most complex. Each sub-problem should be solvable using only the original information plus answers from earlier sub-problems. This decomposition step is what distinguishes Least-to-Most from standard chain-of-thought &mdash; the problem structure is made explicit before any solving begins.</p>
+                            <p class="element-timeline__text">The model identifies the sub-problems hidden within the original question and orders them from simplest to most complex. Each sub-problem should be solvable using only the original information plus answers from earlier sub-problems. This decomposition step is what distinguishes Least-to-Most from standard chain-of-thought, the problem structure is made explicit before any solving begins.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Sub-problems identified:</strong><br>1. How many apples does Carl have?<br>2. How many apples does Ben have?<br>3. How many apples does Amy have?</p>
@@ -494,7 +494,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Step Math Problems</strong>
-                                    <p>Word problems with chained relationships where each value depends on previous calculations &mdash; the progressive context passing eliminates arithmetic drift.</p>
+                                    <p>Word problems with chained relationships where each value depends on previous calculations, the progressive context passing eliminates arithmetic drift.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -504,7 +504,7 @@
                                 </svg>
                                 <div>
                                     <strong>Compositional Generalization</strong>
-                                    <p>Tasks that combine primitive operations into longer sequences &mdash; Least-to-Most enables solving sequences longer and harder than the examples provided.</p>
+                                    <p>Tasks that combine primitive operations into longer sequences, Least-to-Most enables solving sequences longer and harder than the examples provided.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -514,7 +514,7 @@
                                 </svg>
                                 <div>
                                     <strong>Length Generalization</strong>
-                                    <p>When the target problem is significantly harder or longer than the few-shot examples &mdash; decomposition bridges the complexity gap that chain-of-thought cannot.</p>
+                                    <p>When the target problem is significantly harder or longer than the few-shot examples, decomposition bridges the complexity gap that chain-of-thought cannot.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -524,7 +524,7 @@
                                 </svg>
                                 <div>
                                     <strong>Dependency-Chain Problems</strong>
-                                    <p>Any problem where the answer to one part is required input for the next &mdash; Least-to-Most makes the dependency order explicit and ensures nothing is skipped.</p>
+                                    <p>Any problem where the answer to one part is required input for the next, Least-to-Most makes the dependency order explicit and ensures nothing is skipped.</p>
                                 </div>
                             </div>
                         </div>
@@ -539,7 +539,7 @@
                                 </svg>
                                 <div>
                                     <strong>Single-Step Problems</strong>
-                                    <p>Problems solvable with one direct calculation or lookup &mdash; decomposition adds overhead without benefit when there is nothing to decompose.</p>
+                                    <p>Problems solvable with one direct calculation or lookup, decomposition adds overhead without benefit when there is nothing to decompose.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -549,7 +549,7 @@
                                 </svg>
                                 <div>
                                     <strong>Parallel Sub-Problems</strong>
-                                    <p>When sub-problems are independent and don&rsquo;t build on each other &mdash; Least-to-Most&rsquo;s sequential context-passing adds no value if there are no dependencies between parts.</p>
+                                    <p>When sub-problems are independent and don&rsquo;t build on each other, Least-to-Most&rsquo;s sequential context-passing adds no value if there are no dependencies between parts.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -559,7 +559,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative or Open-Ended Tasks</strong>
-                                    <p>Writing, brainstorming, or subjective tasks where there is no objectively correct decomposition order &mdash; Least-to-Most is designed for structured, deterministic problem-solving.</p>
+                                    <p>Writing, brainstorming, or subjective tasks where there is no objectively correct decomposition order, Least-to-Most is designed for structured, deterministic problem-solving.</p>
                                 </div>
                             </div>
                         </div>
@@ -584,7 +584,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Complex Debugging</h3>
-                        <p class="use-case-showcase__desc">Trace bugs through layered systems by first understanding expected behavior, then actual behavior, then isolating the discrepancy &mdash; each step building on the last.</p>
+                        <p class="use-case-showcase__desc">Trace bugs through layered systems by first understanding expected behavior, then actual behavior, then isolating the discrepancy, each step building on the last.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -620,7 +620,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Financial Modeling</h3>
-                        <p class="use-case-showcase__desc">Build financial projections by solving base assumptions first, then intermediate calculations, then final projections &mdash; each layer grounded in verified prior results.</p>
+                        <p class="use-case-showcase__desc">Build financial projections by solving base assumptions first, then intermediate calculations, then final projections, each layer grounded in verified prior results.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -704,7 +704,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Plan-and-Solve</span>
-                        <span class="evolution-callout__desc">Extends Least-to-Most by having the model devise an explicit plan before executing each step &mdash; adding strategic planning to progressive decomposition.</span>
+                        <span class="evolution-callout__desc">Extends Least-to-Most by having the model devise an explicit plan before executing each step, adding strategic planning to progressive decomposition.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -722,7 +722,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Decomposed Prompting</span>
-                        <span class="evolution-callout__desc">Takes decomposition further by routing each sub-task to specialized handlers &mdash; a modular extension where different solvers handle different sub-problem types.</span>
+                        <span class="evolution-callout__desc">Takes decomposition further by routing each sub-task to specialized handlers, a modular extension where different solvers handle different sub-problem types.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -819,7 +819,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

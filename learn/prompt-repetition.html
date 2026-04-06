@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Enhancement Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Prompt Repetition</h1>
-                <p class="page-subtitle fade-in">Sometimes the simplest techniques are the most surprising. Prompt Repetition &mdash; literally repeating key instructions or constraints within your prompt &mdash; produces measurable performance improvements. Like emphasizing a critical point in conversation by saying it twice, repetition ensures the model treats your most important requirements as priorities rather than afterthoughts.</p>
+                <p class="page-subtitle fade-in">Sometimes the simplest techniques are the most surprising. Prompt Repetition, literally repeating key instructions or constraints within your prompt, produces measurable performance improvements. Like emphasizing a critical point in conversation by saying it twice, repetition ensures the model treats your most important requirements as priorities rather than afterthoughts.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2024</span>
-                        <p><strong>Introduced:</strong> Prompt Repetition was formally studied in 2024, building on the RE2 (Re-Reading) research that demonstrated how re-presenting the prompt or key instructions to the model improves performance on non-reasoning tasks. The technique draws a parallel to the emphasis effect in human communication &mdash; repeating important information increases the likelihood it will be prioritized. Research showed consistent improvements of 3-8% across classification, extraction, and instruction-following benchmarks when critical constraints were repeated.</p>
-                        <p><strong>Modern LLM Status:</strong> Prompt Repetition&rsquo;s core insight has been <strong>partially absorbed into modern LLMs</strong>. However, repeating critical constraints and instructions remains a practical strategy in 2026, especially for complex prompts where key requirements might otherwise be diluted by surrounding context. As prompts grow longer with expanded context windows, the attention dilution problem becomes more relevant &mdash; making strategic repetition increasingly valuable rather than less.</p>
+                        <p><strong>Introduced:</strong> Prompt Repetition was formally studied in 2024, building on the RE2 (Re-Reading) research that demonstrated how re-presenting the prompt or key instructions to the model improves performance on non-reasoning tasks. The technique draws a parallel to the emphasis effect in human communication, repeating important information increases the likelihood it will be prioritized. Research showed consistent improvements of 3-8% across classification, extraction, and instruction-following benchmarks when critical constraints were repeated.</p>
+                        <p><strong>Modern LLM Status:</strong> Prompt Repetition&rsquo;s core insight has been <strong>partially absorbed into modern LLMs</strong>. However, repeating critical constraints and instructions remains a practical strategy in 2026, especially for complex prompts where key requirements might otherwise be diluted by surrounding context. As prompts grow longer with expanded context windows, the attention dilution problem becomes more relevant, making strategic repetition increasingly valuable rather than less.</p>
                     </div>
                 </div>
             </div>
@@ -214,16 +214,16 @@
                 <div class="split-section split-section--center fade-in-up">
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
-                        <h2 class="split-section__title">Say It Again &mdash; It Actually Works</h2>
-                        <p class="split-section__text">Language models process prompts through attention mechanisms that assign weight to different parts of the input. In long or complex prompts, critical instructions can receive diluted attention &mdash; buried among context, examples, and supporting details. The model &ldquo;sees&rdquo; the instruction but does not prioritize it as strongly as you intended.</p>
-                        <p class="split-section__text"><strong>Repetition is an attention amplifier.</strong> When an instruction appears twice in the prompt &mdash; once in the initial instructions and again near the end, or restated after examples &mdash; the attention mechanism assigns it higher cumulative weight. The model treats repeated content as more important, which is exactly the behavior you want for non-negotiable constraints like output format, safety requirements, or critical task parameters.</p>
-                        <p class="split-section__text">Think of it like a manager who says &ldquo;the deadline is Friday&rdquo; at the start of a meeting and again at the end. The second mention is not redundant &mdash; it signals priority. The same principle applies to LLM attention.</p>
+                        <h2 class="split-section__title">Say It Again, It Actually Works</h2>
+                        <p class="split-section__text">Language models process prompts through attention mechanisms that assign weight to different parts of the input. In long or complex prompts, critical instructions can receive diluted attention, buried among context, examples, and supporting details. The model &ldquo;sees&rdquo; the instruction but does not prioritize it as strongly as you intended.</p>
+                        <p class="split-section__text"><strong>Repetition is an attention amplifier.</strong> When an instruction appears twice in the prompt, once in the initial instructions and again near the end, or restated after examples, the attention mechanism assigns it higher cumulative weight. The model treats repeated content as more important, which is exactly the behavior you want for non-negotiable constraints like output format, safety requirements, or critical task parameters.</p>
+                        <p class="split-section__text">Think of it like a manager who says &ldquo;the deadline is Friday&rdquo; at the start of a meeting and again at the end. The second mention is not redundant, it signals priority. The same principle applies to LLM attention.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">The Attention Dilution Problem</span>
-                                <p>As context windows expand to 200K+ tokens, prompts can contain enormous amounts of information. But attention is not distributed equally &mdash; content at the beginning and end of prompts receives more weight (the &ldquo;primacy&rdquo; and &ldquo;recency&rdquo; effects), while instructions in the middle can be partially overlooked. Prompt Repetition counteracts this by placing critical instructions at <strong>multiple attention peaks</strong>, ensuring they are prioritized regardless of where other content pushes them in the attention distribution.</p>
+                                <p>As context windows expand to 200K+ tokens, prompts can contain enormous amounts of information. But attention is not distributed equally, content at the beginning and end of prompts receives more weight (the &ldquo;primacy&rdquo; and &ldquo;recency&rdquo; effects), while instructions in the middle can be partially overlooked. Prompt Repetition counteracts this by placing critical instructions at <strong>multiple attention peaks</strong>, ensuring they are prioritized regardless of where other content pushes them in the attention distribution.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Identify Your Critical Constraints</h3>
-                            <p class="element-timeline__text">Determine which instructions in your prompt are non-negotiable. These are the requirements where failure would make the entire output useless &mdash; output format specifications, safety boundaries, factual accuracy requirements, or specific rules the model must follow regardless of context.</p>
+                            <p class="element-timeline__text">Determine which instructions in your prompt are non-negotiable. These are the requirements where failure would make the entire output useless, output format specifications, safety boundaries, factual accuracy requirements, or specific rules the model must follow regardless of context.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>For a medical content task: &ldquo;Do not provide specific medical diagnoses or treatment recommendations. Always direct users to consult a healthcare professional.&rdquo;</p>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Place the Initial Instruction</h3>
-                            <p class="element-timeline__text">State the critical constraint clearly in the initial instructions, where it naturally belongs. This first mention establishes the rule in the model&rsquo;s context. At this point, the prompt looks like any well-written prompt &mdash; the repetition comes in the next steps.</p>
+                            <p class="element-timeline__text">State the critical constraint clearly in the initial instructions, where it naturally belongs. This first mention establishes the rule in the model&rsquo;s context. At this point, the prompt looks like any well-written prompt, the repetition comes in the next steps.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;You are a health information assistant. Important: Do not provide specific medical diagnoses or treatment recommendations. Always direct users to consult a healthcare professional. Your role is to provide general health education content...&rdquo;</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Repeat at Strategic Positions</h3>
-                            <p class="element-timeline__text">Re-state the critical constraint after examples, before the actual task input, or at the end of the prompt. The repetition does not need to be word-for-word &mdash; slight rephrasing can actually help by activating different semantic associations. The key is that the same core requirement appears at multiple points the model&rsquo;s attention mechanism will weigh heavily.</p>
+                            <p class="element-timeline__text">Re-state the critical constraint after examples, before the actual task input, or at the end of the prompt. The repetition does not need to be word-for-word, slight rephrasing can actually help by activating different semantic associations. The key is that the same core requirement appears at multiple points the model&rsquo;s attention mechanism will weigh heavily.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>After several examples of good responses: &ldquo;Reminder: Never provide specific diagnoses or treatment plans. Direct all medical questions to qualified healthcare professionals. Now respond to the following user query...&rdquo;</p>
@@ -403,7 +403,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Prompt with Repetition</span>
-                                    <p>&ldquo;Analyze the following customer feedback and return your analysis as a JSON object with these exact keys: sentiment, topics, urgency, and suggested_action. <strong>Your entire response must be valid JSON only &mdash; no explanatory text before or after.</strong><br><br>
+                                    <p>&ldquo;Analyze the following customer feedback and return your analysis as a JSON object with these exact keys: sentiment, topics, urgency, and suggested_action. <strong>Your entire response must be valid JSON only, no explanatory text before or after.</strong><br><br>
                                     Here is the customer feedback: &lsquo;I have been waiting three weeks for my replacement part. Every time I call, I get a different answer about when it will ship. I am about to cancel my subscription and switch to your competitor. This is my fifth year as a customer and I am extremely frustrated.&rsquo;<br><br>
                                     <strong>Important: Respond with valid JSON only. Do not include any text outside the JSON object.</strong> Always note that AI-generated sentiment analysis should be verified before taking action on customer accounts.&rdquo;</p>
                                 </div>
@@ -436,9 +436,9 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Compliant Response</span>
-                                    <p>Great question &mdash; these are two different financial tools that serve different purposes, and understanding the difference can help you have a more informed conversation with a financial advisor.<br><br>
+                                    <p>Great question, these are two different financial tools that serve different purposes, and understanding the difference can help you have a more informed conversation with a financial advisor.<br><br>
                                     <strong>High-yield savings accounts</strong> are designed for money you might need access to soon. They offer a guaranteed interest rate (currently in the 4-5% range for many accounts) and are typically FDIC-insured up to $250,000. The trade-off is that returns are generally lower over long time horizons compared to market investments.<br><br>
-                                    <strong>Index funds</strong> are investment vehicles that track a market index. Historically, broad market index funds have provided higher average annual returns over long periods (decades), but they come with risk &mdash; your balance can decrease in the short term, and past performance does not guarantee future results.<br><br>
+                                    <strong>Index funds</strong> are investment vehicles that track a market index. Historically, broad market index funds have provided higher average annual returns over long periods (decades), but they come with risk, your balance can decrease in the short term, and past performance does not guarantee future results.<br><br>
                                     Key factors that matter for this decision include your time horizon, risk tolerance, emergency fund needs, and overall financial goals. A licensed financial advisor can evaluate your specific situation and help you determine the right allocation for your circumstances.<br><br>
                                     <em>This is general financial education, not personalized advice. Please consult a qualified financial advisor for recommendations specific to your situation.</em></p>
                                 </div>
@@ -455,7 +455,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Prompt with Repetition</span>
-                                    <p>&ldquo;Write a technical blog post about Kubernetes container orchestration for an audience of <strong>senior DevOps engineers with 5+ years of experience</strong>. Assume they already understand containerization, networking, and CI/CD pipelines. Do not explain basic concepts &mdash; focus on advanced patterns and production insights.<br><br>
+                                    <p>&ldquo;Write a technical blog post about Kubernetes container orchestration for an audience of <strong>senior DevOps engineers with 5+ years of experience</strong>. Assume they already understand containerization, networking, and CI/CD pipelines. Do not explain basic concepts, focus on advanced patterns and production insights.<br><br>
                                     Cover these topics: (1) Custom resource definitions for multi-tenant clusters, (2) Advanced scheduling with topology spread constraints, (3) eBPF-based observability integration.<br><br>
                                     <strong>Target audience reminder: Senior DevOps engineers. Skip all introductory explanations. Write at an expert level throughout. Every paragraph should deliver actionable production knowledge.</strong> As with all technical content, verify configuration examples in a test environment before deploying to production.&rdquo;</p>
                                 </div>
@@ -489,7 +489,7 @@
                                 </svg>
                                 <div>
                                     <strong>Long or Complex Prompts</strong>
-                                    <p>When your prompt is hundreds of tokens with examples, context, and instructions &mdash; critical constraints can get buried. Repetition ensures they stay prominent.</p>
+                                    <p>When your prompt is hundreds of tokens with examples, context, and instructions, critical constraints can get buried. Repetition ensures they stay prominent.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -499,7 +499,7 @@
                                 </svg>
                                 <div>
                                     <strong>Safety-Critical Applications</strong>
-                                    <p>Medical, legal, financial, or safety contexts where violating a constraint could cause real harm &mdash; repeating boundaries reduces the risk of constraint drift.</p>
+                                    <p>Medical, legal, financial, or safety contexts where violating a constraint could cause real harm, repeating boundaries reduces the risk of constraint drift.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -509,7 +509,7 @@
                                 </svg>
                                 <div>
                                     <strong>Strict Output Format Requirements</strong>
-                                    <p>When the response must be valid JSON, specific CSV format, or exact template structure &mdash; repeating format requirements dramatically reduces formatting errors.</p>
+                                    <p>When the response must be valid JSON, specific CSV format, or exact template structure, repeating format requirements dramatically reduces formatting errors.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -519,7 +519,7 @@
                                 </svg>
                                 <div>
                                     <strong>Audience-Specific Content</strong>
-                                    <p>When maintaining a specific reading level, technical depth, or tone is essential &mdash; the model can drift toward its default register without repeated reminders.</p>
+                                    <p>When maintaining a specific reading level, technical depth, or tone is essential, the model can drift toward its default register without repeated reminders.</p>
                                 </div>
                             </div>
                         </div>
@@ -544,7 +544,7 @@
                                 </svg>
                                 <div>
                                     <strong>Token-Constrained Scenarios</strong>
-                                    <p>When you are already near the context limit and every token counts &mdash; the few tokens spent on repetition might be better used for additional context or examples.</p>
+                                    <p>When you are already near the context limit and every token counts, the few tokens spent on repetition might be better used for additional context or examples.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -554,7 +554,7 @@
                                 </svg>
                                 <div>
                                     <strong>Open-Ended Creative Tasks</strong>
-                                    <p>When the goal is exploratory or creative and you want the model to have maximum flexibility &mdash; over-repeating constraints can make the output feel formulaic or overly cautious.</p>
+                                    <p>When the goal is exploratory or creative and you want the model to have maximum flexibility, over-repeating constraints can make the output feel formulaic or overly cautious.</p>
                                 </div>
                             </div>
                         </div>
@@ -672,7 +672,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine with Any Technique</div>
-                    <p>Prompt Repetition is not a standalone methodology &mdash; it is an enhancement layer. Add it to Chain-of-Thought, Self-Ask, Meta Prompting, or any other technique by repeating the most critical instructions at strategic points. It is especially powerful in production system prompts where reliability matters more than token efficiency. Think of it as the seatbelt of prompt engineering: a small addition that prevents the most common failures.</p>
+                    <p>Prompt Repetition is not a standalone methodology, it is an enhancement layer. Add it to Chain-of-Thought, Self-Ask, Meta Prompting, or any other technique by repeating the most critical instructions at strategic points. It is especially powerful in production system prompts where reliability matters more than token efficiency. Think of it as the seatbelt of prompt engineering: a small addition that prevents the most common failures.</p>
                 </div>
             </div>
         </section>
@@ -696,7 +696,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">RE2 (Re-Reading)</span>
-                        <span class="evolution-callout__desc">The foundational research showing that re-presenting the prompt to the model improves comprehension &mdash; Prompt Repetition extends this to strategic constraint reinforcement.</span>
+                        <span class="evolution-callout__desc">The foundational research showing that re-presenting the prompt to the model improves comprehension, Prompt Repetition extends this to strategic constraint reinforcement.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -714,7 +714,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Ask</span>
-                        <span class="evolution-callout__desc">Self-Ask&rsquo;s structured sub-question format naturally incorporates repetition &mdash; each follow-up question restates aspects of the original query, reinforcing the core intent throughout.</span>
+                        <span class="evolution-callout__desc">Self-Ask&rsquo;s structured sub-question format naturally incorporates repetition, each follow-up question restates aspects of the original query, reinforcing the core intent throughout.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -735,7 +735,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Enhancement Target</span>
                         <span class="evolution-callout__title">Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Chain-of-Thought prompts benefit significantly from Prompt Repetition &mdash; repeating &ldquo;think step by step&rdquo; or key constraints after examples ensures the model maintains its reasoning discipline throughout long outputs.</span>
+                        <span class="evolution-callout__desc">Chain-of-Thought prompts benefit significantly from Prompt Repetition, repeating &ldquo;think step by step&rdquo; or key constraints after examples ensures the model maintains its reasoning discipline throughout long outputs.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -812,7 +812,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Retrieval Framework</span>
                 </div>
                 <h1 class="page-title fade-in">Retrieval-Augmented Generation</h1>
-                <p class="page-subtitle fade-in">Language models know a lot, but not everything &mdash; and they cannot tell the difference. RAG solves this by retrieving relevant documents before generating a response, grounding the AI in real, verifiable information rather than parametric memory alone.</p>
+                <p class="page-subtitle fade-in">Language models know a lot, but not everything, and they cannot tell the difference. RAG solves this by retrieving relevant documents before generating a response, grounding the AI in real, verifiable information rather than parametric memory alone.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Framework Context: 2020</span>
-                        <p><strong>Introduced:</strong> RAG was introduced in 2020 by Lewis et al. at Facebook AI Research (now Meta AI) in the paper &ldquo;Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.&rdquo; The core innovation combined a neural retriever (DPR &mdash; Dense Passage Retrieval) with a sequence-to-sequence generator, allowing the model to fetch relevant passages from a knowledge base and condition its output on retrieved evidence. This addressed a fundamental limitation of parametric-only models: they encode knowledge in weights during training but cannot update, verify, or cite that knowledge at inference time.</p>
-                        <p><strong>Modern LLM Status:</strong> RAG has become <strong>the dominant architecture for production AI applications that require factual accuracy</strong>. Every major enterprise AI deployment &mdash; from customer support to legal research to medical information systems &mdash; uses some form of RAG. Modern implementations pair vector databases (Pinecone, Weaviate, ChromaDB) with embedding models for semantic search, then feed retrieved chunks into the LLM&rsquo;s context window. Advanced RAG patterns include multi-step retrieval, re-ranking, hybrid search (combining keyword and semantic search), and citation generation. The technique has evolved from a research concept into the backbone of trustworthy AI systems.</p>
+                        <p><strong>Introduced:</strong> RAG was introduced in 2020 by Lewis et al. at Facebook AI Research (now Meta AI) in the paper &ldquo;Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.&rdquo; The core innovation combined a neural retriever (DPR, Dense Passage Retrieval) with a sequence-to-sequence generator, allowing the model to fetch relevant passages from a knowledge base and condition its output on retrieved evidence. This addressed a fundamental limitation of parametric-only models: they encode knowledge in weights during training but cannot update, verify, or cite that knowledge at inference time.</p>
+                        <p><strong>Modern LLM Status:</strong> RAG has become <strong>the dominant architecture for production AI applications that require factual accuracy</strong>. Every major enterprise AI deployment, from customer support to legal research to medical information systems, uses some form of RAG. Modern implementations pair vector databases (Pinecone, Weaviate, ChromaDB) with embedding models for semantic search, then feed retrieved chunks into the LLM&rsquo;s context window. Advanced RAG patterns include multi-step retrieval, re-ranking, hybrid search (combining keyword and semantic search), and citation generation. The technique has evolved from a research concept into the backbone of trustworthy AI systems.</p>
                     </div>
                 </div>
             </div>
@@ -217,13 +217,13 @@
                         <h2 class="split-section__title">Give the Model a Library Card</h2>
                         <p class="split-section__text">A language model&rsquo;s knowledge is frozen at training time. It cannot access new information, verify its own claims, or distinguish between what it truly knows and what it is confabulating. When asked about your company&rsquo;s refund policy, last quarter&rsquo;s earnings, or a document uploaded yesterday, the model has two choices: refuse to answer or hallucinate something plausible. Neither is acceptable in production.</p>
                         <p class="split-section__text"><strong>RAG bridges the gap between parametric knowledge and real-time information.</strong> Before generating a response, a retrieval system searches a knowledge base for documents relevant to the user&rsquo;s query. These retrieved passages are then injected into the model&rsquo;s context alongside the question, giving it concrete evidence to reason over. The model becomes a skilled synthesizer of provided information rather than an unreliable memory bank.</p>
-                        <p class="split-section__text">Think of it like the difference between a student taking a closed-book exam and an open-book exam. The closed-book student must rely entirely on memorization &mdash; and will confidently write wrong answers when memory fails. The open-book student consults their materials, cites specific passages, and produces answers grounded in verifiable sources.</p>
+                        <p class="split-section__text">Think of it like the difference between a student taking a closed-book exam and an open-book exam. The closed-book student must rely entirely on memorization, and will confidently write wrong answers when memory fails. The open-book student consults their materials, cites specific passages, and produces answers grounded in verifiable sources.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Retrieval Beats Bigger Models</span>
-                                <p>Scaling model parameters does not solve the fundamental knowledge problem. A model with a trillion parameters still cannot know about documents created after its training cutoff, proprietary company data it was never trained on, or rapidly changing information like stock prices or policy updates. RAG is not a workaround for small models &mdash; it is the architecturally correct solution for any application where factual accuracy matters. Even the most capable models benefit from retrieved evidence, because it transforms guessing into grounded synthesis.</p>
+                                <p>Scaling model parameters does not solve the fundamental knowledge problem. A model with a trillion parameters still cannot know about documents created after its training cutoff, proprietary company data it was never trained on, or rapidly changing information like stock prices or policy updates. RAG is not a workaround for small models, it is the architecturally correct solution for any application where factual accuracy matters. Even the most capable models benefit from retrieved evidence, because it transforms guessing into grounded synthesis.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Receive the Query</h3>
-                            <p class="element-timeline__text">The user submits a question or request. The system captures this query and prepares it for the retrieval step. In advanced implementations, the query may be reformulated or expanded to improve retrieval quality &mdash; for example, decomposing a complex question into multiple sub-queries.</p>
+                            <p class="element-timeline__text">The user submits a question or request. The system captures this query and prepares it for the retrieval step. In advanced implementations, the query may be reformulated or expanded to improve retrieval quality, for example, decomposing a complex question into multiple sub-queries.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>User asks: &ldquo;What is our company&rsquo;s policy on remote work for international employees?&rdquo;</p>
@@ -290,7 +290,7 @@
                             <p class="element-timeline__text">The LLM reads the retrieved documents and the query, then synthesizes a response that draws directly from the provided evidence. The response includes citations pointing back to source documents, allowing users to verify claims and building trust through transparency.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The model responds with a structured answer citing Section 4 of the International Remote Work Policy, noting eligibility requirements, tax implications from the Compliance Guide, and VPN setup instructions from the IT Security Policy &mdash; with source references for each claim.</p>
+                                <p>The model responds with a structured answer citing Section 4 of the International Remote Work Policy, noting eligibility requirements, tax implications from the Compliance Guide, and VPN setup instructions from the IT Security Policy, with source references for each claim.</p>
                             </div>
                         </div>
                     </div>
@@ -457,7 +457,7 @@
                                     (1) ADA Standards of Medical Care 2024, Section 11: Chronic Kidney Disease<br>
                                     (2) KDIGO Clinical Practice Guideline for Diabetes Management in CKD<br>
                                     (3) FDA Drug Safety Communication: SGLT2 Inhibitors<br><br>
-                                    <strong>Generated Response:</strong> The LLM synthesizes treatment recommendations with specific citations &mdash; SGLT2 inhibitors as first-line per KDIGO guidelines, GFR thresholds for medication adjustments per ADA standards, and monitoring requirements from the FDA safety communication. Each recommendation includes its source reference. The response concludes with a disclaimer that clinical guidelines inform but do not replace individualized clinical decision-making.</p>
+                                    <strong>Generated Response:</strong> The LLM synthesizes treatment recommendations with specific citations, SGLT2 inhibitors as first-line per KDIGO guidelines, GFR thresholds for medication adjustments per ADA standards, and monitoring requirements from the FDA safety communication. Each recommendation includes its source reference. The response concludes with a disclaimer that clinical guidelines inform but do not replace individualized clinical decision-making.</p>
                                 </div>
                             </div>
                         </div>
@@ -494,7 +494,7 @@
                                 </svg>
                                 <div>
                                     <strong>Accuracy-Critical Deployments</strong>
-                                    <p>When hallucinated or outdated information carries real consequences &mdash; legal, medical, financial, or compliance contexts.</p>
+                                    <p>When hallucinated or outdated information carries real consequences, legal, medical, financial, or compliance contexts.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -504,7 +504,7 @@
                                 </svg>
                                 <div>
                                     <strong>Dynamic Knowledge Bases</strong>
-                                    <p>When the underlying information changes frequently &mdash; product catalogs, policy documents, regulatory updates &mdash; and the AI must always reflect current data.</p>
+                                    <p>When the underlying information changes frequently, product catalogs, policy documents, regulatory updates, and the AI must always reflect current data.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -514,7 +514,7 @@
                                 </svg>
                                 <div>
                                     <strong>Auditable AI Systems</strong>
-                                    <p>When stakeholders need to verify where answers came from &mdash; RAG&rsquo;s citation mechanism creates a transparent evidence trail.</p>
+                                    <p>When stakeholders need to verify where answers came from, RAG&rsquo;s citation mechanism creates a transparent evidence trail.</p>
                                 </div>
                             </div>
                         </div>
@@ -529,7 +529,7 @@
                                 </svg>
                                 <div>
                                     <strong>General Knowledge Questions</strong>
-                                    <p>Questions well within the model&rsquo;s training data where retrieval adds latency without improving accuracy &mdash; &ldquo;What is photosynthesis?&rdquo;</p>
+                                    <p>Questions well within the model&rsquo;s training data where retrieval adds latency without improving accuracy, &ldquo;What is photosynthesis?&rdquo;</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -573,7 +573,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Customer Support</h3>
-                        <p class="use-case-showcase__desc">Answer product questions using current documentation, troubleshooting guides, and known issue databases &mdash; always citing the specific article or guide section.</p>
+                        <p class="use-case-showcase__desc">Answer product questions using current documentation, troubleshooting guides, and known issue databases, always citing the specific article or guide section.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -666,7 +666,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Enterprise AI Standard</div>
-                    <p>RAG has become the de facto architecture for enterprise AI. When Gartner, McKinsey, and Forrester advise companies on AI adoption, RAG is consistently the recommended starting point. The reason is simple: enterprises cannot deploy AI systems that hallucinate about their own products, policies, or data. RAG provides the grounding layer that makes AI trustworthy enough for production use &mdash; transforming an impressive but unreliable demo into a system that stakeholders can actually depend on.</p>
+                    <p>RAG has become the de facto architecture for enterprise AI. When Gartner, McKinsey, and Forrester advise companies on AI adoption, RAG is consistently the recommended starting point. The reason is simple: enterprises cannot deploy AI systems that hallucinate about their own products, policies, or data. RAG provides the grounding layer that makes AI trustworthy enough for production use, transforming an impressive but unreliable demo into a system that stakeholders can actually depend on.</p>
                 </div>
             </div>
         </section>
@@ -690,7 +690,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Ask</span>
-                        <span class="evolution-callout__desc">Self-Ask&rsquo;s sub-question decomposition pairs naturally with RAG &mdash; each sub-question can trigger its own retrieval step, improving multi-hop factual accuracy.</span>
+                        <span class="evolution-callout__desc">Self-Ask&rsquo;s sub-question decomposition pairs naturally with RAG, each sub-question can trigger its own retrieval step, improving multi-hop factual accuracy.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -708,7 +708,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Extension</span>
                         <span class="evolution-callout__title">ReAct</span>
-                        <span class="evolution-callout__desc">ReAct adds reasoning and action loops around retrieval &mdash; the model decides when to search, evaluates results, and iterates until it has sufficient evidence.</span>
+                        <span class="evolution-callout__desc">ReAct adds reasoning and action loops around retrieval, the model decides when to search, evaluates results, and iterates until it has sufficient evidence.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -729,7 +729,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Quality Layer</span>
                         <span class="evolution-callout__title">Chain-of-Verification</span>
-                        <span class="evolution-callout__desc">After RAG retrieves and generates, Chain-of-Verification checks each claim against the source documents &mdash; catching any remaining hallucinations or misattributions.</span>
+                        <span class="evolution-callout__desc">After RAG retrieves and generates, Chain-of-Verification checks each claim against the source documents, catching any remaining hallucinations or misattributions.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -806,7 +806,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

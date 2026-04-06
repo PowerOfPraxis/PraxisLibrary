@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Example Selection Technique</span>
                 </div>
                 <h1 class="page-title fade-in">KNN Prompting</h1>
-                <p class="page-subtitle fade-in">Not all few-shot examples are created equal. KNN Prompting dynamically selects the most relevant demonstrations for each query using nearest-neighbor retrieval &mdash; replacing static example lists with context-aware, similarity-driven selection that adapts to every input.</p>
+                <p class="page-subtitle fade-in">Not all few-shot examples are created equal. KNN Prompting dynamically selects the most relevant demonstrations for each query using nearest-neighbor retrieval, replacing static example lists with context-aware, similarity-driven selection that adapts to every input.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> KNN Prompting was published in 2022 by Xu et al. The technique addresses a fundamental limitation of standard few-shot prompting: the examples you choose dramatically affect performance, yet most practitioners select them arbitrarily or use the same fixed set for every query. KNN Prompting formalizes example selection as a retrieval problem &mdash; for each new input, it encodes the query into a vector embedding, searches a pool of labeled examples for the k nearest neighbors by cosine similarity, and uses those semantically closest examples as few-shot demonstrations. The result is a prompt that is tailored to the specific characteristics of each individual query.</p>
-                        <p><strong>Modern LLM Status:</strong> The core principle of selecting relevant examples based on semantic similarity has become <strong>foundational to retrieval-augmented systems</strong> and remains highly practical. Modern embedding models like text-embedding-3 and open-source sentence transformers make KNN-style retrieval faster and more accurate than ever. While today&rsquo;s large models are more robust to example choice than their 2022 predecessors, dynamically selected examples still consistently outperform random ones &mdash; especially in specialized domains, low-resource languages, and tasks where the input distribution is highly varied. The principle lives on in every RAG pipeline that retrieves contextually relevant content.</p>
+                        <p><strong>Introduced:</strong> KNN Prompting was published in 2022 by Xu et al. The technique addresses a fundamental limitation of standard few-shot prompting: the examples you choose dramatically affect performance, yet most practitioners select them arbitrarily or use the same fixed set for every query. KNN Prompting formalizes example selection as a retrieval problem, for each new input, it encodes the query into a vector embedding, searches a pool of labeled examples for the k nearest neighbors by cosine similarity, and uses those semantically closest examples as few-shot demonstrations. The result is a prompt that is tailored to the specific characteristics of each individual query.</p>
+                        <p><strong>Modern LLM Status:</strong> The core principle of selecting relevant examples based on semantic similarity has become <strong>foundational to retrieval-augmented systems</strong> and remains highly practical. Modern embedding models like text-embedding-3 and open-source sentence transformers make KNN-style retrieval faster and more accurate than ever. While today&rsquo;s large models are more robust to example choice than their 2022 predecessors, dynamically selected examples still consistently outperform random ones, especially in specialized domains, low-resource languages, and tasks where the input distribution is highly varied. The principle lives on in every RAG pipeline that retrieves contextually relevant content.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Similar Examples Teach Better</h2>
-                        <p class="split-section__text">When you show a model how to handle a task, the examples you provide act as implicit instructions. If those examples closely resemble the current query &mdash; in structure, topic, vocabulary, or complexity &mdash; the model extracts more relevant patterns. A sentiment analysis prompt for a product review about headphones benefits far more from seeing other electronics reviews than from seeing restaurant reviews.</p>
-                        <p class="split-section__text"><strong>KNN Prompting automates this intuition.</strong> Instead of hand-picking examples or cycling through a fixed set, it treats example selection as a search problem. Every candidate example and the incoming query are converted into vector embeddings &mdash; dense numerical representations that capture semantic meaning. The system then retrieves the k examples whose embeddings are closest to the query&rsquo;s embedding, ensuring maximum relevance on every single prompt.</p>
+                        <p class="split-section__text">When you show a model how to handle a task, the examples you provide act as implicit instructions. If those examples closely resemble the current query, in structure, topic, vocabulary, or complexity, the model extracts more relevant patterns. A sentiment analysis prompt for a product review about headphones benefits far more from seeing other electronics reviews than from seeing restaurant reviews.</p>
+                        <p class="split-section__text"><strong>KNN Prompting automates this intuition.</strong> Instead of hand-picking examples or cycling through a fixed set, it treats example selection as a search problem. Every candidate example and the incoming query are converted into vector embeddings, dense numerical representations that capture semantic meaning. The system then retrieves the k examples whose embeddings are closest to the query&rsquo;s embedding, ensuring maximum relevance on every single prompt.</p>
                         <p class="split-section__text">Think of it like a librarian who, instead of handing you the same three reference books regardless of your question, goes into the stacks and pulls the most topically relevant volumes for each specific inquiry you bring.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Embedding-Based Similarity</span>
-                                <p>Vector embeddings compress text into high-dimensional numerical space where semantically similar texts land near each other. &ldquo;I love this phone&rdquo; and &ldquo;This device is amazing&rdquo; end up close together despite sharing no words, while &ldquo;The bank was steep&rdquo; and &ldquo;The bank approved my loan&rdquo; land far apart despite sharing a keyword. KNN Prompting leverages this geometric property to find examples that are <strong>meaningfully</strong> similar &mdash; not just superficially similar.</p>
+                                <p>Vector embeddings compress text into high-dimensional numerical space where semantically similar texts land near each other. &ldquo;I love this phone&rdquo; and &ldquo;This device is amazing&rdquo; end up close together despite sharing no words, while &ldquo;The bank was steep&rdquo; and &ldquo;The bank approved my loan&rdquo; land far apart despite sharing a keyword. KNN Prompting leverages this geometric property to find examples that are <strong>meaningfully</strong> similar, not just superficially similar.</p>
                             </div>
                         </div>
                     </div>
@@ -245,10 +245,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Build the Example Pool</h3>
-                            <p class="element-timeline__text">Curate a diverse collection of labeled input-output pairs that cover the range of your task. Each example should include the input text and its corresponding correct output. The pool should be large enough to contain relevant neighbors for any likely query &mdash; hundreds to thousands of examples is typical. Quality matters: noisy or mislabeled examples will propagate errors into every prompt that retrieves them.</p>
+                            <p class="element-timeline__text">Curate a diverse collection of labeled input-output pairs that cover the range of your task. Each example should include the input text and its corresponding correct output. The pool should be large enough to contain relevant neighbors for any likely query, hundreds to thousands of examples is typical. Quality matters: noisy or mislabeled examples will propagate errors into every prompt that retrieves them.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>For a sentiment classifier, assemble 500+ product reviews each labeled as positive, negative, or neutral &mdash; spanning categories like electronics, clothing, food, and software to ensure broad coverage.</p>
+                                <p>For a sentiment classifier, assemble 500+ product reviews each labeled as positive, negative, or neutral, spanning categories like electronics, clothing, food, and software to ensure broad coverage.</p>
                             </div>
                         </div>
                     </div>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Encode into Vector Embeddings</h3>
-                            <p class="element-timeline__text">Pass every example in the pool through an embedding model to generate a vector representation for each one. These embeddings are computed once and stored in a vector index for fast retrieval. When a new query arrives, it is also encoded using the same embedding model. The choice of embedding model determines what &ldquo;similarity&rdquo; means for your retrieval &mdash; domain-specific embeddings often outperform general-purpose ones.</p>
+                            <p class="element-timeline__text">Pass every example in the pool through an embedding model to generate a vector representation for each one. These embeddings are computed once and stored in a vector index for fast retrieval. When a new query arrives, it is also encoded using the same embedding model. The choice of embedding model determines what &ldquo;similarity&rdquo; means for your retrieval, domain-specific embeddings often outperform general-purpose ones.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Using a sentence transformer, convert each review into a 768-dimensional vector. Store all vectors in a FAISS index for sub-millisecond retrieval. When a new review arrives, embed it with the same model to produce a query vector.</p>
@@ -273,10 +273,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Retrieve k Nearest Neighbors</h3>
-                            <p class="element-timeline__text">Compute the cosine similarity between the query vector and every example vector in the pool, then select the top k most similar examples. The value of k is a tunable parameter &mdash; typically 3 to 8, balancing between providing enough context and staying within token limits. Some implementations also apply diversity filters to avoid retrieving near-duplicate examples that waste prompt space.</p>
+                            <p class="element-timeline__text">Compute the cosine similarity between the query vector and every example vector in the pool, then select the top k most similar examples. The value of k is a tunable parameter, typically 3 to 8, balancing between providing enough context and staying within token limits. Some implementations also apply diversity filters to avoid retrieving near-duplicate examples that waste prompt space.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>For a query about wireless earbuds, the retriever returns 5 nearest examples: three headphone reviews, one Bluetooth speaker review, and one smartwatch review &mdash; all semantically close to the audio-device domain.</p>
+                                <p>For a query about wireless earbuds, the retriever returns 5 nearest examples: three headphone reviews, one Bluetooth speaker review, and one smartwatch review, all semantically close to the audio-device domain.</p>
                             </div>
                         </div>
                     </div>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Construct the Prompt</h3>
-                            <p class="element-timeline__text">Assemble the final prompt by placing the retrieved examples as few-shot demonstrations followed by the actual query. The examples serve as in-context demonstrations that prime the model with patterns most relevant to the current input. Order matters &mdash; placing the most similar example closest to the query often yields the best results, as models tend to attend more strongly to nearby context.</p>
+                            <p class="element-timeline__text">Assemble the final prompt by placing the retrieved examples as few-shot demonstrations followed by the actual query. The examples serve as in-context demonstrations that prime the model with patterns most relevant to the current input. Order matters, placing the most similar example closest to the query often yields the best results, as models tend to attend more strongly to nearby context.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Prompt:</strong> Classify the sentiment of each review.<br>Review: &ldquo;These headphones have incredible noise cancellation.&rdquo; Sentiment: Positive<br>Review: &ldquo;The Bluetooth keeps disconnecting from my phone.&rdquo; Sentiment: Negative<br>Review: &ldquo;Battery life is about average for this price range.&rdquo; Sentiment: Neutral<br>Review: &ldquo;The sound quality on these wireless earbuds blew me away.&rdquo; Sentiment:</p>
@@ -323,7 +323,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Query</span>
-                                <p>&ldquo;The firmware update bricked my router and support was unhelpful.&rdquo; &mdash; The model must generalize from food, service, and movie examples to a technical hardware complaint.</p>
+                                <p>&ldquo;The firmware update bricked my router and support was unhelpful.&rdquo;, The model must generalize from food, service, and movie examples to a technical hardware complaint.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -355,7 +355,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Query</span>
-                                <p>&ldquo;The firmware update bricked my router and support was unhelpful.&rdquo; &mdash; The model sees closely related tech-support examples and classifies with high confidence.</p>
+                                <p>&ldquo;The firmware update bricked my router and support was unhelpful.&rdquo;, The model sees closely related tech-support examples and classifies with high confidence.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -413,7 +413,7 @@
                                     &ldquo;ANC works great on the train, though the ear tips don&rsquo;t stay in well during workouts.&rdquo; &rarr; Mixed<br><br>
                                     <strong>Retrieved Example 3 (similarity: 0.89):</strong><br>
                                     &ldquo;Battery life is excellent but the Bluetooth connection drops every few minutes.&rdquo; &rarr; Mixed<br><br>
-                                    <strong>Model Output:</strong> Mixed &mdash; The model correctly identifies the positive-negative structure because all retrieved examples demonstrate the same &ldquo;good feature, bad feature&rdquo; pattern in the audio-device domain.</p>
+                                    <strong>Model Output:</strong> Mixed, The model correctly identifies the positive-negative structure because all retrieved examples demonstrate the same &ldquo;good feature, bad feature&rdquo; pattern in the audio-device domain.</p>
                                 </div>
                             </div>
                         </div>
@@ -438,7 +438,7 @@
                                     &ldquo;Create an API route that fetches paginated transaction data for a given account.&rdquo; &rarr; GET /accounts/:id/transactions with cursor-based pagination, returning next_cursor and has_more fields.<br><br>
                                     <strong>Retrieved Example 3:</strong><br>
                                     &ldquo;Build an endpoint to retrieve a user&rsquo;s activity log with filtering by date range.&rdquo; &rarr; GET /users/:id/activity with start_date and end_date params, paginated response with total_count.<br><br>
-                                    <strong>Result:</strong> The model generates a well-structured paginated endpoint because it saw three closely related parameterized data-retrieval examples &mdash; far more useful than generic CRUD examples would have been.</p>
+                                    <strong>Result:</strong> The model generates a well-structured paginated endpoint because it saw three closely related parameterized data-retrieval examples, far more useful than generic CRUD examples would have been.</p>
                                 </div>
                             </div>
                         </div>
@@ -490,7 +490,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Variance Input Distributions</strong>
-                                    <p>When queries span many topics, styles, or domains &mdash; no single fixed example set can cover the full range, but KNN retrieval adapts to each input automatically.</p>
+                                    <p>When queries span many topics, styles, or domains, no single fixed example set can cover the full range, but KNN retrieval adapts to each input automatically.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -500,7 +500,7 @@
                                 </svg>
                                 <div>
                                     <strong>Classification at Scale</strong>
-                                    <p>Sentiment analysis, intent detection, topic categorization &mdash; any classification task where performance depends heavily on seeing relevant labeled examples in context.</p>
+                                    <p>Sentiment analysis, intent detection, topic categorization, any classification task where performance depends heavily on seeing relevant labeled examples in context.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -520,7 +520,7 @@
                                 </svg>
                                 <div>
                                     <strong>Large Example Libraries</strong>
-                                    <p>When you have hundreds or thousands of labeled examples but can only fit a handful into any single prompt &mdash; KNN retrieval makes the entire pool accessible on demand.</p>
+                                    <p>When you have hundreds or thousands of labeled examples but can only fit a handful into any single prompt, KNN retrieval makes the entire pool accessible on demand.</p>
                                 </div>
                             </div>
                         </div>
@@ -535,7 +535,7 @@
                                 </svg>
                                 <div>
                                     <strong>Uniform Input Distribution</strong>
-                                    <p>If all your queries are structurally identical &mdash; same format, same domain, same complexity &mdash; fixed examples work just as well without the retrieval overhead.</p>
+                                    <p>If all your queries are structurally identical, same format, same domain, same complexity, fixed examples work just as well without the retrieval overhead.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -634,7 +634,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Threat Intelligence</h3>
-                        <p class="use-case-showcase__desc">Classify security alerts by retrieving examples from similar attack vectors, network patterns, or vulnerability types &mdash; ensuring the model applies the correct threat categorization framework.</p>
+                        <p class="use-case-showcase__desc">Classify security alerts by retrieving examples from similar attack vectors, network patterns, or vulnerability types, ensuring the model applies the correct threat categorization framework.</p>
                     </div>
                 </div>
             </div>
@@ -672,7 +672,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Retrieval Sweet Spot</div>
-                    <p>KNN Prompting occupies a practical sweet spot on the retrieval spectrum. It is simpler to implement than full RAG pipelines &mdash; you need only an embedding model and a vector index, not a complete document-chunking infrastructure. Yet it captures most of the performance gains that come from context relevance. For classification, structured output, and domain-specific tasks, KNN Prompting often delivers RAG-level improvements with significantly less engineering overhead.</p>
+                    <p>KNN Prompting occupies a practical sweet spot on the retrieval spectrum. It is simpler to implement than full RAG pipelines, you need only an embedding model and a vector index, not a complete document-chunking infrastructure. Yet it captures most of the performance gains that come from context relevance. For classification, structured output, and domain-specific tasks, KNN Prompting often delivers RAG-level improvements with significantly less engineering overhead.</p>
                 </div>
             </div>
         </section>
@@ -715,7 +715,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Parent Category</span>
                         <span class="evolution-callout__title">Example Selection</span>
-                        <span class="evolution-callout__desc">The broader family of techniques for choosing optimal few-shot examples &mdash; KNN Prompting is one specific strategy within this category, using embedding similarity as its selection criterion.</span>
+                        <span class="evolution-callout__desc">The broader family of techniques for choosing optimal few-shot examples, KNN Prompting is one specific strategy within this category, using embedding similarity as its selection criterion.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -736,7 +736,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Consistency</span>
-                        <span class="evolution-callout__desc">Combine KNN-selected examples with self-consistency&rsquo;s multiple sampling paths &mdash; retrieve relevant examples, generate multiple answers, and take the majority vote for maximum reliability.</span>
+                        <span class="evolution-callout__desc">Combine KNN-selected examples with self-consistency&rsquo;s multiple sampling paths, retrieve relevant examples, generate multiple answers, and take the majority vote for maximum reliability.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -814,7 +814,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

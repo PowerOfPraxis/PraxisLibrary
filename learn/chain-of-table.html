@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Decomposition Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Chain of Table</h1>
-                <p class="page-subtitle fade-in">Tables hold structured knowledge, but reasoning over them requires structured thinking. Chain of Table guides AI through explicit table operations &mdash; filtering rows, sorting columns, aggregating values &mdash; creating a visible chain of data transformations from question to answer.</p>
+                <p class="page-subtitle fade-in">Tables hold structured knowledge, but reasoning over them requires structured thinking. Chain of Table guides AI through explicit table operations, filtering rows, sorting columns, aggregating values, creating a visible chain of data transformations from question to answer.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -216,7 +216,7 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Make Every Data Operation Visible</h2>
                         <p class="split-section__text">Standard prompting asks a model to look at a table and produce an answer, performing all reasoning internally. Chain of Table makes each data operation explicit. Need to find the highest-revenue quarter? First filter to the relevant year, then sort by revenue, then select the top row.</p>
-                        <p class="split-section__text"><strong>Each operation produces a visible intermediate table that can be inspected.</strong> Errors in data manipulation become visible at the step where they occur. If the model miscounts rows or confuses columns, the mistake shows up in the intermediate result &mdash; not hidden inside a final number that looks plausible but is wrong.</p>
+                        <p class="split-section__text"><strong>Each operation produces a visible intermediate table that can be inspected.</strong> Errors in data manipulation become visible at the step where they occur. If the model miscounts rows or confuses columns, the mistake shows up in the intermediate result, not hidden inside a final number that looks plausible but is wrong.</p>
                         <p class="split-section__text">Think of it like showing your work in a math class: instead of jumping from the problem to the answer, you write each calculation step. If the answer is wrong, your teacher (or your reviewer) can find exactly where the error crept in.</p>
                     </div>
                     <div class="split-section__visual">
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Execute Step-by-Step</h3>
-                            <p class="element-timeline__text">Apply each operation (filter, sort, group, aggregate) and produce the intermediate table. Each intermediate result should be inspectable &mdash; you should be able to verify that the filter kept the right rows, that the aggregation is correct, and that sorting is in the right order.</p>
+                            <p class="element-timeline__text">Apply each operation (filter, sort, group, aggregate) and produce the intermediate table. Each intermediate result should be inspectable, you should be able to verify that the filter kept the right rows, that the aggregation is correct, and that sorting is in the right order.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Step 1 result:</strong> 30 rows (Q4 only). <strong>Step 2-3 result:</strong> 5 rows (one per region with summed revenue). <strong>Step 4 result:</strong> Rows sorted: West $4.2M, East $3.8M, Central $3.1M, South $2.7M, North $2.4M.</p>
@@ -407,11 +407,11 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Chain of Table Approach</span>
-                                    <p><strong>Step 1 &mdash; Filter:</strong> FiscalYear = 2024 (reduces to 12 rows: 4 quarters x 3 departments).<br><br>
-                                    <strong>Step 2 &mdash; Group by:</strong> Department. Three groups: Engineering, Marketing, Operations.<br><br>
-                                    <strong>Step 3 &mdash; Aggregate:</strong> SUM(ActualSpend) and SUM(Budget) per department.<br>Engineering: $2.4M actual / $2.1M budget.<br>Marketing: $1.8M actual / $1.5M budget.<br>Operations: $3.2M actual / $3.0M budget.<br><br>
-                                    <strong>Step 4 &mdash; Calculate:</strong> Add column: OverBudgetPct = ((Actual - Budget) / Budget) x 100.<br>Engineering: 14.3%. Marketing: 20.0%. Operations: 6.7%.<br><br>
-                                    <strong>Step 5 &mdash; Sort:</strong> OverBudgetPct descending. Select top row.<br><br>
+                                    <p><strong>Step 1, Filter:</strong> FiscalYear = 2024 (reduces to 12 rows: 4 quarters x 3 departments).<br><br>
+                                    <strong>Step 2, Group by:</strong> Department. Three groups: Engineering, Marketing, Operations.<br><br>
+                                    <strong>Step 3, Aggregate:</strong> SUM(ActualSpend) and SUM(Budget) per department.<br>Engineering: $2.4M actual / $2.1M budget.<br>Marketing: $1.8M actual / $1.5M budget.<br>Operations: $3.2M actual / $3.0M budget.<br><br>
+                                    <strong>Step 4, Calculate:</strong> Add column: OverBudgetPct = ((Actual - Budget) / Budget) x 100.<br>Engineering: 14.3%. Marketing: 20.0%. Operations: 6.7%.<br><br>
+                                    <strong>Step 5, Sort:</strong> OverBudgetPct descending. Select top row.<br><br>
                                     <strong>Answer:</strong> Marketing exceeded its budget by the largest percentage (20.0%), spending $1.8M against a $1.5M budget. Always verify financial figures against actual accounting records before making business decisions.</p>
                                 </div>
                             </div>
@@ -431,9 +431,9 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Chain of Table Approach</span>
-                                    <p><strong>Step 1 &mdash; Filter:</strong> PointsPerGame &gt; 25.0 (reduces from 450 players to 18).<br><br>
-                                    <strong>Step 2 &mdash; Calculate:</strong> Add column: AstToRatio = AssistsPerGame / TurnoversPerGame.<br><br>
-                                    <strong>Step 3 &mdash; Sort:</strong> AstToRatio descending.<br>Top 3: Player A (3.8 ratio, 7.2 ast / 1.9 to), Player B (3.4 ratio, 10.1 ast / 3.0 to), Player C (3.1 ratio, 5.8 ast / 1.9 to).<br><br>
+                                    <p><strong>Step 1, Filter:</strong> PointsPerGame &gt; 25.0 (reduces from 450 players to 18).<br><br>
+                                    <strong>Step 2, Calculate:</strong> Add column: AstToRatio = AssistsPerGame / TurnoversPerGame.<br><br>
+                                    <strong>Step 3, Sort:</strong> AstToRatio descending.<br>Top 3: Player A (3.8 ratio, 7.2 ast / 1.9 to), Player B (3.4 ratio, 10.1 ast / 3.0 to), Player C (3.1 ratio, 5.8 ast / 1.9 to).<br><br>
                                     <strong>Answer:</strong> Among players averaging 25+ points, Player A had the best assist-to-turnover ratio at 3.8:1. Interestingly, Player B had more total assists but a lower ratio due to higher turnovers. Verify all statistics against official league records before publishing.</p>
                                 </div>
                             </div>
@@ -453,11 +453,11 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Chain of Table Approach</span>
-                                    <p><strong>Step 1 &mdash; Calculate:</strong> Add column: ReorderThreshold = AvgWeeklySales x 2 (two weeks of safety stock).<br><br>
-                                    <strong>Step 2 &mdash; Calculate:</strong> Add column: NeedsReorder = (CurrentStock &lt; ReorderThreshold).<br><br>
-                                    <strong>Step 3 &mdash; Filter:</strong> NeedsReorder = TRUE (reduces from 340 products to 23).<br><br>
-                                    <strong>Step 4 &mdash; Calculate:</strong> Add column: DaysUntilStockout = CurrentStock / (AvgWeeklySales / 7).<br><br>
-                                    <strong>Step 5 &mdash; Sort:</strong> DaysUntilStockout ascending (most urgent first).<br>Top 3: Widget-X7 (3.2 days), Sensor-M4 (5.1 days), Cable-C9 (6.8 days).<br><br>
+                                    <p><strong>Step 1, Calculate:</strong> Add column: ReorderThreshold = AvgWeeklySales x 2 (two weeks of safety stock).<br><br>
+                                    <strong>Step 2, Calculate:</strong> Add column: NeedsReorder = (CurrentStock &lt; ReorderThreshold).<br><br>
+                                    <strong>Step 3, Filter:</strong> NeedsReorder = TRUE (reduces from 340 products to 23).<br><br>
+                                    <strong>Step 4, Calculate:</strong> Add column: DaysUntilStockout = CurrentStock / (AvgWeeklySales / 7).<br><br>
+                                    <strong>Step 5, Sort:</strong> DaysUntilStockout ascending (most urgent first).<br>Top 3: Widget-X7 (3.2 days), Sensor-M4 (5.1 days), Cable-C9 (6.8 days).<br><br>
                                     <strong>Answer:</strong> 23 products need reordering. Most urgent: Widget-X7 with only 3.2 days of stock remaining. All 23 products are below the two-week safety stock threshold. Always cross-check inventory calculations against live warehouse management systems.</p>
                                 </div>
                             </div>
@@ -485,7 +485,7 @@
                                 </svg>
                                 <div>
                                     <strong>Complex Table Queries Requiring Multiple Operations</strong>
-                                    <p>Questions that need filter + group + aggregate + sort sequences &mdash; too many operations for reliable mental arithmetic.</p>
+                                    <p>Questions that need filter + group + aggregate + sort sequences, too many operations for reliable mental arithmetic.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -495,7 +495,7 @@
                                 </svg>
                                 <div>
                                     <strong>Data Analysis with Verification Needs</strong>
-                                    <p>When the accuracy of each data transformation must be checkable &mdash; financial reports, compliance data, or any high-stakes numerical analysis.</p>
+                                    <p>When the accuracy of each data transformation must be checkable, financial reports, compliance data, or any high-stakes numerical analysis.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -530,7 +530,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Single-Column Lookups</strong>
-                                    <p>&ldquo;What is the value in row 3, column B?&rdquo; requires no multi-step operations &mdash; a direct lookup is sufficient.</p>
+                                    <p>&ldquo;What is the value in row 3, column B?&rdquo; requires no multi-step operations, a direct lookup is sufficient.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -540,7 +540,7 @@
                                 </svg>
                                 <div>
                                     <strong>Non-Tabular Data</strong>
-                                    <p>When data is unstructured text, images, or narrative &mdash; Chain of Table is specifically designed for structured row-column data.</p>
+                                    <p>When data is unstructured text, images, or narrative, Chain of Table is specifically designed for structured row-column data.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -710,7 +710,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Program of Thought</span>
-                        <span class="evolution-callout__desc">Uses code generation for computation &mdash; a complementary approach where Chain of Table uses table operations and Program of Thought uses executable programs.</span>
+                        <span class="evolution-callout__desc">Uses code generation for computation, a complementary approach where Chain of Table uses table operations and Program of Thought uses executable programs.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -731,7 +731,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Structured Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Adds structured formatting to reasoning chains &mdash; pairs well with Chain of Table for data analysis that requires both computational and narrative reasoning.</span>
+                        <span class="evolution-callout__desc">Adds structured formatting to reasoning chains, pairs well with Chain of Table for data analysis that requires both computational and narrative reasoning.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -808,7 +808,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

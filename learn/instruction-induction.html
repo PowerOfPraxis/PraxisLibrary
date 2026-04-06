@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Meta-learning Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Instruction Induction</h1>
-                <p class="page-subtitle fade-in">Instead of writing instructions for a model, show it examples and let it figure out the instructions itself. Instruction Induction reverses the typical prompt engineering flow &mdash; given input-output pairs, the model generates the natural language instruction that would produce those outputs from those inputs.</p>
+                <p class="page-subtitle fade-in">Instead of writing instructions for a model, show it examples and let it figure out the instructions itself. Instruction Induction reverses the typical prompt engineering flow, given input-output pairs, the model generates the natural language instruction that would produce those outputs from those inputs.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Instruction Induction was formalized in 2023 by Honovich et al. as a systematic study of whether language models can infer task descriptions from a small number of demonstrations. The researchers showed that given as few as 5 input-output pairs, large language models could generate accurate natural language instructions describing the underlying task. This represented a paradigm shift: instead of humans writing prompts for models, models could write prompts for themselves by observing examples of the desired behavior.</p>
-                        <p><strong>Modern LLM Status:</strong> Instruction Induction&rsquo;s core insight &mdash; that models can reverse-engineer instructions from examples &mdash; laid the groundwork for automated prompt optimization. In 2026, tools like <strong>DSPy and MIPRO</strong> have industrialized this concept, automatically generating and optimizing prompts at scale. The manual technique remains useful for understanding what instructions a model infers from your examples, which helps <strong>debug unexpected behavior</strong> and verify that your demonstrations communicate what you intend.</p>
+                        <p><strong>Modern LLM Status:</strong> Instruction Induction&rsquo;s core insight, that models can reverse-engineer instructions from examples, laid the groundwork for automated prompt optimization. In 2026, tools like <strong>DSPy and MIPRO</strong> have industrialized this concept, automatically generating and optimizing prompts at scale. The manual technique remains useful for understanding what instructions a model infers from your examples, which helps <strong>debug unexpected behavior</strong> and verify that your demonstrations communicate what you intend.</p>
                     </div>
                 </div>
             </div>
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Let Examples Speak for Themselves</h2>
                         <p class="split-section__text">Traditional prompt engineering works top-down: you write an instruction, then verify the model follows it. But what if you have examples of desired behavior and cannot articulate the rule? A teacher grading essays might struggle to write explicit rubric criteria but can easily show examples of A-grade versus C-grade work. Instruction Induction captures this &ldquo;I know it when I see it&rdquo; knowledge.</p>
-                        <p class="split-section__text"><strong>Instruction Induction flips the direction.</strong> You provide a handful of input-output pairs &mdash; demonstrations of the task you want performed &mdash; and ask the model: &ldquo;What instruction would produce these outputs from these inputs?&rdquo; The model generates a hypothesis about the underlying task, expressed as a natural language instruction. That induced instruction can then be used as a prompt for new inputs.</p>
+                        <p class="split-section__text"><strong>Instruction Induction flips the direction.</strong> You provide a handful of input-output pairs, demonstrations of the task you want performed, and ask the model: &ldquo;What instruction would produce these outputs from these inputs?&rdquo; The model generates a hypothesis about the underlying task, expressed as a natural language instruction. That induced instruction can then be used as a prompt for new inputs.</p>
                         <p class="split-section__text">Think of it like reverse engineering a recipe from tasting several dishes. Instead of starting with the recipe (the instruction), you start with the results (the examples) and work backward to discover the recipe the chef must have followed.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Induction Reveals Hidden Assumptions</span>
-                                <p>When you write a prompt manually, your own assumptions are invisible to you. You may think your instruction is clear, but the model interprets it differently. Instruction Induction provides a mirror: by asking the model what instruction it would infer from your examples, you discover how the model <strong>actually</strong> understands the task. If the induced instruction does not match your intent, your examples are communicating something different from what you assumed &mdash; and you can fix that before deploying the prompt.</p>
+                                <p>When you write a prompt manually, your own assumptions are invisible to you. You may think your instruction is clear, but the model interprets it differently. Instruction Induction provides a mirror: by asking the model what instruction it would infer from your examples, you discover how the model <strong>actually</strong> understands the task. If the induced instruction does not match your intent, your examples are communicating something different from what you assumed, and you can fix that before deploying the prompt.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Collect Input-Output Demonstrations</h3>
-                            <p class="element-timeline__text">Gather a small set of representative examples showing the task you want performed. Each example pairs an input with its correct output. Quality matters more than quantity &mdash; 5 to 10 diverse examples that cover edge cases and typical cases are usually sufficient for the model to identify the underlying pattern.</p>
+                            <p class="element-timeline__text">Gather a small set of representative examples showing the task you want performed. Each example pairs an input with its correct output. Quality matters more than quantity, 5 to 10 diverse examples that cover edge cases and typical cases are usually sufficient for the model to identify the underlying pattern.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Input: &ldquo;The food was amazing but the service was terrible&rdquo; &rarr; Output: &ldquo;Mixed&rdquo;<br>Input: &ldquo;Everything was perfect from start to finish&rdquo; &rarr; Output: &ldquo;Positive&rdquo;<br>Input: &ldquo;Worst experience I have ever had&rdquo; &rarr; Output: &ldquo;Negative&rdquo;<br>Input: &ldquo;The decor was nice, nothing else was&rdquo; &rarr; Output: &ldquo;Negative&rdquo;</p>
@@ -290,7 +290,7 @@
                             <p class="element-timeline__text">Test the induced instruction on new inputs to verify it produces the expected outputs. If the instruction works well, use it as your prompt. If it does not, the gap between the induced instruction and your intent reveals exactly where your examples were ambiguous or misleading. Refine the examples and repeat the induction. Always verify the induced instruction against your ground truth before deploying it.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Test input: &ldquo;Average meal, great atmosphere&rdquo; &rarr; Using induced instruction, model outputs: &ldquo;Mixed&rdquo; &mdash; This matches expectations, confirming the instruction captures the intended nuance.</p>
+                                <p>Test input: &ldquo;Average meal, great atmosphere&rdquo; &rarr; Using induced instruction, model outputs: &ldquo;Mixed&rdquo;, This matches expectations, confirming the instruction captures the intended nuance.</p>
                             </div>
                         </div>
                     </div>
@@ -435,7 +435,7 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Induced Instruction</span>
                                     <p><strong>Model generates:</strong> &ldquo;Reformat the comma-separated record into a standardized format: Last name (capitalized), First name (capitalized) followed by age in parentheses, then a dash and the city name (capitalized) with its two-letter US state abbreviation. The format is: LastName, FirstName (Age) - City, ST.&rdquo;<br><br>
-                                    <strong>Why this matters:</strong> The model identified multiple transformation rules: name reversal, capitalization, state abbreviation addition, and specific punctuation formatting. It even inferred that the city names should be mapped to state codes &mdash; a rule that was implicit in the examples but never stated. Verify the induced instruction handles edge cases (non-US cities, hyphenated names) before production use.</p>
+                                    <strong>Why this matters:</strong> The model identified multiple transformation rules: name reversal, capitalization, state abbreviation addition, and specific punctuation formatting. It even inferred that the city names should be mapped to state codes, a rule that was implicit in the examples but never stated. Verify the induced instruction handles edge cases (non-US cities, hyphenated names) before production use.</p>
                                 </div>
                             </div>
                         </div>
@@ -484,7 +484,7 @@
                                 </svg>
                                 <div>
                                     <strong>Tacit Knowledge Extraction</strong>
-                                    <p>When you know what good output looks like but struggle to articulate the rules &mdash; let the model discover the instruction from your examples.</p>
+                                    <p>When you know what good output looks like but struggle to articulate the rules, let the model discover the instruction from your examples.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -494,7 +494,7 @@
                                 </svg>
                                 <div>
                                     <strong>Prompt Debugging</strong>
-                                    <p>When few-shot examples produce inconsistent results, use induction to see what instruction the model actually infers &mdash; the gap reveals the problem.</p>
+                                    <p>When few-shot examples produce inconsistent results, use induction to see what instruction the model actually infers, the gap reveals the problem.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -504,7 +504,7 @@
                                 </svg>
                                 <div>
                                     <strong>Automated Prompt Generation</strong>
-                                    <p>When building prompt pipelines where human-written instructions are a bottleneck &mdash; let the model generate candidate instructions from training examples.</p>
+                                    <p>When building prompt pipelines where human-written instructions are a bottleneck, let the model generate candidate instructions from training examples.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -529,7 +529,7 @@
                                 </svg>
                                 <div>
                                     <strong>Clear, Well-Defined Tasks</strong>
-                                    <p>When you can already articulate the instruction precisely &mdash; induction adds unnecessary complexity for tasks with obvious rules.</p>
+                                    <p>When you can already articulate the instruction precisely, induction adds unnecessary complexity for tasks with obvious rules.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -539,7 +539,7 @@
                                 </svg>
                                 <div>
                                     <strong>Insufficient Examples</strong>
-                                    <p>With fewer than 3-5 examples, the model may induce overly specific or incorrect instructions &mdash; you need enough variety for reliable pattern detection.</p>
+                                    <p>With fewer than 3-5 examples, the model may induce overly specific or incorrect instructions, you need enough variety for reliable pattern detection.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -597,7 +597,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Prompt Optimization</h3>
-                        <p class="use-case-showcase__desc">Use induction as the first step in a prompt optimization pipeline &mdash; generate candidate instructions from examples, then test and refine them systematically.</p>
+                        <p class="use-case-showcase__desc">Use induction as the first step in a prompt optimization pipeline, generate candidate instructions from examples, then test and refine them systematically.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -607,7 +607,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Knowledge Transfer</h3>
-                        <p class="use-case-showcase__desc">When an expert leaves a team, use their past work (input-output examples) to induce the decision rules they followed &mdash; preserving institutional knowledge as explicit instructions.</p>
+                        <p class="use-case-showcase__desc">When an expert leaves a team, use their past work (input-output examples) to induce the decision rules they followed, preserving institutional knowledge as explicit instructions.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -617,7 +617,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Compliance Rule Discovery</h3>
-                        <p class="use-case-showcase__desc">From examples of approved/rejected decisions, induce the implicit compliance criteria being applied &mdash; useful for auditing consistency and identifying undocumented rules.</p>
+                        <p class="use-case-showcase__desc">From examples of approved/rejected decisions, induce the implicit compliance criteria being applied, useful for auditing consistency and identifying undocumented rules.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -629,7 +629,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Few-Shot Prompt Auditing</h3>
-                        <p class="use-case-showcase__desc">Audit existing few-shot prompts by inducing what instruction the model actually infers &mdash; compare it against your intended instruction to find alignment gaps.</p>
+                        <p class="use-case-showcase__desc">Audit existing few-shot prompts by inducing what instruction the model actually infers, compare it against your intended instruction to find alignment gaps.</p>
                     </div>
                 </div>
             </div>
@@ -691,7 +691,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">APE (Automatic Prompt Engineer)</span>
-                        <span class="evolution-callout__desc">Extends induction by generating multiple candidate instructions and selecting the best through systematic evaluation &mdash; automated prompt optimization at scale.</span>
+                        <span class="evolution-callout__desc">Extends induction by generating multiple candidate instructions and selecting the best through systematic evaluation, automated prompt optimization at scale.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -709,7 +709,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Prompt Mining</span>
-                        <span class="evolution-callout__desc">Discovers effective prompt templates by mining training data patterns &mdash; where Induction works from examples, Mining works from corpus statistics.</span>
+                        <span class="evolution-callout__desc">Discovers effective prompt templates by mining training data patterns, where Induction works from examples, Mining works from corpus statistics.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -730,7 +730,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Meta Prompting</span>
-                        <span class="evolution-callout__desc">The broader category of using prompts to generate or improve other prompts &mdash; Instruction Induction is one specific meta-prompting strategy.</span>
+                        <span class="evolution-callout__desc">The broader category of using prompts to generate or improve other prompts, Instruction Induction is one specific meta-prompting strategy.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -807,7 +807,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

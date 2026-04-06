@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">Code Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">Structured Output</h1>
-                <p class="page-subtitle fade-in">Get AI to produce reliable JSON, XML, YAML, and other machine-readable data formats &mdash; using schema specification, format enforcement, and validation loops to ensure every response is parseable by downstream systems.</p>
+                <p class="page-subtitle fade-in">Get AI to produce reliable JSON, XML, YAML, and other machine-readable data formats, using schema specification, format enforcement, and validation loops to ensure every response is parseable by downstream systems.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -212,7 +212,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022&ndash;2024</span>
-                        <p><strong>Background:</strong> Structured output prompting became a critical discipline as developers began integrating LLM responses into application pipelines. Early approaches relied on post-processing &mdash; parsing natural language responses with regex or secondary AI calls &mdash; but research by OpenAI, Anthropic, Google, and the broader ML engineering community demonstrated that prompt-level strategies (schema specification, prefix prompting, and format enforcement) could achieve reliable structured generation without external tooling. The emergence of JSON Mode in major APIs during 2023&ndash;2024 validated the demand for guaranteed-format output.</p>
+                        <p><strong>Background:</strong> Structured output prompting became a critical discipline as developers began integrating LLM responses into application pipelines. Early approaches relied on post-processing, parsing natural language responses with regex or secondary AI calls, but research by OpenAI, Anthropic, Google, and the broader ML engineering community demonstrated that prompt-level strategies (schema specification, prefix prompting, and format enforcement) could achieve reliable structured generation without external tooling. The emergence of JSON Mode in major APIs during 2023&ndash;2024 validated the demand for guaranteed-format output.</p>
                         <p><strong>Modern LLM Status:</strong> By 2025&ndash;2026, many APIs offer native structured output modes (OpenAI&rsquo;s JSON mode, Anthropic&rsquo;s tool use, Google&rsquo;s controlled generation). However, <strong>prompt-level techniques remain essential</strong> for maximum reliability, custom formats beyond JSON, models without native structured output support, and situations where you need finer control over field names, nesting depth, and optional values than API-level constraints provide.</p>
                     </div>
                 </div>
@@ -226,8 +226,8 @@
                 <div class="split-section split-section--center fade-in-up">
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
-                        <h2 class="split-section__title">The Model Wants to Write Prose &mdash; Your Job Is to Constrain It to Data</h2>
-                        <p class="split-section__text">Language models are trained on vast amounts of natural language text. Their default mode is to generate fluent, verbose, conversational prose. But when you need machine-readable data &mdash; a JSON object, an XML document, a CSV table &mdash; that natural verbosity becomes the enemy. The model wants to say &ldquo;Here is the JSON output for your request:&rdquo; before the data, add commentary after it, use inconsistent field names, or drift away from your schema as the output gets longer.</p>
+                        <h2 class="split-section__title">The Model Wants to Write Prose, Your Job Is to Constrain It to Data</h2>
+                        <p class="split-section__text">Language models are trained on vast amounts of natural language text. Their default mode is to generate fluent, verbose, conversational prose. But when you need machine-readable data, a JSON object, an XML document, a CSV table, that natural verbosity becomes the enemy. The model wants to say &ldquo;Here is the JSON output for your request:&rdquo; before the data, add commentary after it, use inconsistent field names, or drift away from your schema as the output gets longer.</p>
                         <p class="split-section__text"><strong>Structured Output prompting is the discipline of constraining the model&rsquo;s generation to produce exact, schema-compliant data formats.</strong> This requires a combination of techniques: providing explicit schemas that define the expected structure, using format enforcement phrases that suppress natural language wrapping, showing examples that demonstrate the exact output format, and implementing validation loops that catch and correct format errors before they reach downstream systems.</p>
                         <p class="split-section__text">Think of it as the difference between asking someone to &ldquo;tell you about the weather&rdquo; (which produces a paragraph) and asking them to &ldquo;fill in this form with temperature, humidity, and wind speed&rdquo; (which produces structured data). The same information, but the second request constrains the response format to exactly what your system needs.</p>
                     </div>
@@ -235,7 +235,7 @@
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Format Compliance Is a Pipeline Requirement</span>
-                                <p>In application pipelines, a single malformed JSON response can crash a downstream service, corrupt a database record, or trigger a cascade of errors across microservices. Unlike human-facing text where approximate correctness is fine, structured output demands <strong>exact syntactic validity</strong>: every bracket must match, every string must be properly escaped, every required field must be present. This is why structured output prompting has developed more rigorous techniques than general prompting &mdash; the cost of format failure is immediate, concrete, and system-wide rather than merely producing a suboptimal answer.</p>
+                                <p>In application pipelines, a single malformed JSON response can crash a downstream service, corrupt a database record, or trigger a cascade of errors across microservices. Unlike human-facing text where approximate correctness is fine, structured output demands <strong>exact syntactic validity</strong>: every bracket must match, every string must be properly escaped, every required field must be present. This is why structured output prompting has developed more rigorous techniques than general prompting, the cost of format failure is immediate, concrete, and system-wide rather than merely producing a suboptimal answer.</p>
                             </div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Specify the Exact Schema</h3>
-                            <p class="element-timeline__text">Provide an explicit schema showing every field name, its data type, whether it is required or optional, and any constraints on its values. The schema serves as a contract between your prompt and the model&rsquo;s output &mdash; every field you define will appear in the output, and fields you do not define should not. Use JSON Schema notation, TypeScript interfaces, or Pydantic models for maximum clarity.</p>
+                            <p class="element-timeline__text">Provide an explicit schema showing every field name, its data type, whether it is required or optional, and any constraints on its values. The schema serves as a contract between your prompt and the model&rsquo;s output, every field you define will appear in the output, and fields you do not define should not. Use JSON Schema notation, TypeScript interfaces, or Pydantic models for maximum clarity.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Return JSON matching this schema: { &lsquo;name&rsquo;: string (required), &lsquo;email&rsquo;: string or null, &lsquo;age&rsquo;: integer (18-120), &lsquo;roles&rsquo;: string[] (at least one) }&rdquo;</p>
@@ -343,7 +343,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Information buried in prose &mdash; requires NLP or regex to extract</span>
+                            <span>Information buried in prose, requires NLP or regex to extract</span>
                         </div>
                     </div>
 
@@ -375,7 +375,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Machine-readable &mdash; one JSON.parse() and data flows into any system</span>
+                            <span>Machine-readable, one JSON.parse() and data flows into any system</span>
                         </div>
                     </div>
                 </div>
@@ -721,7 +721,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Sibling</span>
                         <span class="evolution-callout__title">Code Prompting</span>
-                        <span class="evolution-callout__desc">Shares the same precision requirements as Structured Output but targets executable code rather than data formats &mdash; both demand exact syntax and verifiable correctness.</span>
+                        <span class="evolution-callout__desc">Shares the same precision requirements as Structured Output but targets executable code rather than data formats, both demand exact syntax and verifiable correctness.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -740,7 +740,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Verification</span>
-                        <span class="evolution-callout__desc">Add a verification step where the model checks its own structured output against the schema before returning it &mdash; catching format errors before they reach your application.</span>
+                        <span class="evolution-callout__desc">Add a verification step where the model checks its own structured output against the schema before returning it, catching format errors before they reach your application.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -817,7 +817,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

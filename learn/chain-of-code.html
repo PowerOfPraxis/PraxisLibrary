@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Code Reasoning Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Chain of Code (CoC)</h1>
-                <p class="page-subtitle fade-in">Some reasoning tasks need real computation. Others need language understanding. Chain of Code handles both &mdash; interweaving actual code execution with language model simulation to reason across executable and semantic boundaries in a single unified process.</p>
+                <p class="page-subtitle fade-in">Some reasoning tasks need real computation. Others need language understanding. Chain of Code handles both, interweaving actual code execution with language model simulation to reason across executable and semantic boundaries in a single unified process.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Chain of Code was published in 2023, extending the Program of Thoughts approach by introducing the &ldquo;LMulator&rdquo; concept. The key innovation is a hybrid execution model: when code is directly executable (arithmetic, data processing, sorting), it runs in a real interpreter. When the task is semantic (sentiment analysis, commonsense reasoning), the language model simulates what the code would return. This interleaving achieved 84% on BIG-Bench Hard, a +12% improvement over standard Chain-of-Thought prompting.</p>
-                        <p><strong>Modern LLM Status:</strong> Chain of Code&rsquo;s hybrid approach &mdash; mixing real code execution with language model simulation &mdash; has become a foundational pattern in 2026. Modern coding assistants routinely interweave executable and non-executable reasoning. The LMulator concept anticipated how modern agents handle tasks that partially require computation and partially require language understanding. Today&rsquo;s AI systems like Claude, GPT-4, and Gemini naturally blend code execution with natural language reasoning in their tool-use capabilities.</p>
+                        <p><strong>Modern LLM Status:</strong> Chain of Code&rsquo;s hybrid approach, mixing real code execution with language model simulation, has become a foundational pattern in 2026. Modern coding assistants routinely interweave executable and non-executable reasoning. The LMulator concept anticipated how modern agents handle tasks that partially require computation and partially require language understanding. Today&rsquo;s AI systems like Claude, ChatGPT, and Gemini naturally blend code execution with natural language reasoning in their tool-use capabilities.</p>
                     </div>
                 </div>
             </div>
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Code That Thinks, Language That Computes</h2>
                         <p class="split-section__text">Traditional code execution fails when reasoning requires common sense or world knowledge. Traditional language reasoning fails when problems require precise computation. Chain of Code bridges this gap by creating a seamless pipeline where the model writes code as its reasoning medium, then selectively executes or simulates each step depending on whether the operation is computable or semantic.</p>
-                        <p class="split-section__text"><strong>The LMulator is the breakthrough.</strong> When the model encounters a line of code that a Python interpreter cannot run &mdash; like <code>is_sarcastic(&quot;Oh great, another meeting&quot;)</code> &mdash; the language model steps in as a simulated interpreter, returning what the function <em>would</em> produce based on its understanding of language. The real interpreter handles arithmetic, sorting, and data manipulation. The LMulator handles meaning, context, and judgment.</p>
+                        <p class="split-section__text"><strong>The LMulator is the breakthrough.</strong> When the model encounters a line of code that a Python interpreter cannot run, like <code>is_sarcastic(&quot;Oh great, another meeting&quot;)</code>, the language model steps in as a simulated interpreter, returning what the function <em>would</em> produce based on its understanding of language. The real interpreter handles arithmetic, sorting, and data manipulation. The LMulator handles meaning, context, and judgment.</p>
                         <p class="split-section__text">Think of it as a relay race between a calculator and a poet. The calculator handles the numbers; the poet handles the nuance. Together, they solve problems neither could tackle alone.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Hybrid Execution Outperforms Pure Approaches</span>
-                                <p>Pure code execution (Program of Thoughts) breaks down when tasks require semantic understanding &mdash; you cannot write a Python function that genuinely determines if a statement is ironic. Pure language reasoning (Chain-of-Thought) introduces arithmetic errors and logical inconsistencies. Chain of Code&rsquo;s interleaving approach routes each sub-problem to the right engine: <strong>computation to the interpreter, meaning to the model</strong>. This selective routing is why CoC achieves +12% over CoT on BIG-Bench Hard.</p>
+                                <p>Pure code execution (Program of Thoughts) breaks down when tasks require semantic understanding, you cannot write a Python function that genuinely determines if a statement is ironic. Pure language reasoning (Chain-of-Thought) introduces arithmetic errors and logical inconsistencies. Chain of Code&rsquo;s interleaving approach routes each sub-problem to the right engine: <strong>computation to the interpreter, meaning to the model</strong>. This selective routing is why CoC achieves +12% over CoT on BIG-Bench Hard.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate Code as Reasoning</h3>
-                            <p class="element-timeline__text">The model writes code that encodes the full reasoning process &mdash; not just the computable parts, but also semantic operations expressed as function calls. The code serves as a structured reasoning scaffold, making every step explicit and ordered.</p>
+                            <p class="element-timeline__text">The model writes code that encodes the full reasoning process, not just the computable parts, but also semantic operations expressed as function calls. The code serves as a structured reasoning scaffold, making every step explicit and ordered.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Given &ldquo;How many of these items are edible: a rock, an apple, a car tire, bread, a pencil?&rdquo; the model writes code like: <code>items = [&quot;rock&quot;, &quot;apple&quot;, &quot;car tire&quot;, &quot;bread&quot;, &quot;pencil&quot;]; edible = [x for x in items if is_edible(x)]; count = len(edible)</code></p>
@@ -259,10 +259,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Attempt Real Execution</h3>
-                            <p class="element-timeline__text">The generated code is sent to an actual Python interpreter. Lines that are purely computational &mdash; arithmetic, list operations, string manipulation &mdash; execute normally and return real results. This ensures mathematical precision that language models alone cannot guarantee.</p>
+                            <p class="element-timeline__text">The generated code is sent to an actual Python interpreter. Lines that are purely computational, arithmetic, list operations, string manipulation, execute normally and return real results. This ensures mathematical precision that language models alone cannot guarantee.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The interpreter executes <code>len(edible)</code> and list comprehension syntax correctly, but hits an error on <code>is_edible(x)</code> because that function is not defined in Python &mdash; it requires world knowledge.</p>
+                                <p>The interpreter executes <code>len(edible)</code> and list comprehension syntax correctly, but hits an error on <code>is_edible(x)</code> because that function is not defined in Python, it requires world knowledge.</p>
                             </div>
                         </div>
                     </div>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">LMulator Simulates Semantic Steps</h3>
-                            <p class="element-timeline__text">When the interpreter encounters a function it cannot execute &mdash; one that requires semantic understanding &mdash; the language model acts as an &ldquo;LMulator&rdquo; (LM + emulator). It simulates what the function would return based on its knowledge, providing the result as if the code had run successfully.</p>
+                            <p class="element-timeline__text">When the interpreter encounters a function it cannot execute, one that requires semantic understanding, the language model acts as an &ldquo;LMulator&rdquo; (LM + emulator). It simulates what the function would return based on its knowledge, providing the result as if the code had run successfully.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>The LMulator processes <code>is_edible(&quot;rock&quot;)</code> &rarr; <code>False</code>, <code>is_edible(&quot;apple&quot;)</code> &rarr; <code>True</code>, <code>is_edible(&quot;car tire&quot;)</code> &rarr; <code>False</code>, <code>is_edible(&quot;bread&quot;)</code> &rarr; <code>True</code>, <code>is_edible(&quot;pencil&quot;)</code> &rarr; <code>False</code>.</p>
@@ -430,7 +430,7 @@
                                     <span class="technique-demo__tag">Chain of Code Execution</span>
                                     <p><strong>Semantic (LMulator):</strong> <code>sentiment(&quot;Absolutely love it!&quot;)</code> &rarr; <code>&quot;positive&quot;</code>; <code>sentiment(&quot;Terrible quality, broke on day one.&quot;)</code> &rarr; <code>&quot;negative&quot;</code>; <code>sentiment(&quot;Best purchase this year.&quot;)</code> &rarr; <code>&quot;positive&quot;</code>; <code>sentiment(&quot;Would not recommend to anyone.&quot;)</code> &rarr; <code>&quot;negative&quot;</code>; <code>sentiment(&quot;Solid product, works as advertised.&quot;)</code> &rarr; <code>&quot;positive&quot;</code>.<br><br>
                                     <strong>Code (Interpreter):</strong> <code>positive = 3; negative = 2; pct = (positive / 5) * 100</code> &rarr; <code>60.0</code>.<br><br>
-                                    <strong>Final answer:</strong> 3 positive reviews, 2 negative reviews, 60% positive rate. <em>Sentiment classification is subjective &mdash; always verify AI sentiment analysis against your own reading of the text.</em></p>
+                                    <strong>Final answer:</strong> 3 positive reviews, 2 negative reviews, 60% positive rate. <em>Sentiment classification is subjective, always verify AI sentiment analysis against your own reading of the text.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -445,7 +445,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Task</span>
-                                    <p>&ldquo;From this list of cities &mdash; Tokyo, Paris, Sydney, Cairo, Toronto &mdash; identify which are in the Northern Hemisphere, sort them alphabetically, and report the count and sorted list.&rdquo;</p>
+                                    <p>&ldquo;From this list of cities, Tokyo, Paris, Sydney, Cairo, Toronto, identify which are in the Northern Hemisphere, sort them alphabetically, and report the count and sorted list.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Chain of Code Execution</span>
@@ -488,7 +488,7 @@
                                 </svg>
                                 <div>
                                     <strong>BIG-Bench Hard Problems</strong>
-                                    <p>Complex benchmark tasks that stump pure CoT &mdash; CoC achieved 84% accuracy on BIG-Bench Hard by combining the strengths of both reasoning modes.</p>
+                                    <p>Complex benchmark tasks that stump pure CoT, CoC achieved 84% accuracy on BIG-Bench Hard by combining the strengths of both reasoning modes.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -533,7 +533,7 @@
                                 </svg>
                                 <div>
                                     <strong>Purely Creative Tasks</strong>
-                                    <p>Writing, brainstorming, and open-ended generation tasks that involve no computation &mdash; the code execution layer adds overhead without benefit.</p>
+                                    <p>Writing, brainstorming, and open-ended generation tasks that involve no computation, the code execution layer adds overhead without benefit.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -543,7 +543,7 @@
                                 </svg>
                                 <div>
                                     <strong>No Code Execution Environment</strong>
-                                    <p>When you lack access to a code interpreter, CoC loses its primary advantage &mdash; use Chain-of-Thought instead for language-only environments.</p>
+                                    <p>When you lack access to a code interpreter, CoC loses its primary advantage, use Chain-of-Thought instead for language-only environments.</p>
                                 </div>
                             </div>
                         </div>
@@ -568,7 +568,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Document Classification with Stats</h3>
-                        <p class="use-case-showcase__desc">Classify documents by topic using semantic understanding, then compute distribution statistics, percentages, and trends using precise arithmetic &mdash; all in one pass.</p>
+                        <p class="use-case-showcase__desc">Classify documents by topic using semantic understanding, then compute distribution statistics, percentages, and trends using precise arithmetic, all in one pass.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -661,7 +661,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The LMulator Pattern Today</div>
-                    <p>The LMulator concept &mdash; where a language model simulates code execution for operations that require world knowledge &mdash; has evolved into the broader &ldquo;tool use&rdquo; paradigm in modern AI. Today&rsquo;s agents dynamically decide whether to run code, call an API, search the web, or reason linguistically. Chain of Code was one of the first techniques to formalize this selective routing, making it a conceptual ancestor of modern agentic architectures.</p>
+                    <p>The LMulator concept, where a language model simulates code execution for operations that require world knowledge, has evolved into the broader &ldquo;tool use&rdquo; paradigm in modern AI. Today&rsquo;s agents dynamically decide whether to run code, call an API, search the web, or reason linguistically. Chain of Code was one of the first techniques to formalize this selective routing, making it a conceptual ancestor of modern agentic architectures.</p>
                 </div>
             </div>
         </section>
@@ -703,7 +703,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Sibling</span>
                         <span class="evolution-callout__title">PAL (Program-Aided Language Models)</span>
-                        <span class="evolution-callout__desc">Generates Python programs and executes them via interpreter &mdash; Chain of Code extends this by adding semantic simulation for non-computable steps.</span>
+                        <span class="evolution-callout__desc">Generates Python programs and executes them via interpreter, Chain of Code extends this by adding semantic simulation for non-computable steps.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -724,7 +724,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Faithful Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Ensures reasoning chains are faithful to the evidence by combining natural language with symbolic verification &mdash; a complementary approach to CoC&rsquo;s hybrid execution.</span>
+                        <span class="evolution-callout__desc">Ensures reasoning chains are faithful to the evidence by combining natural language with symbolic verification, a complementary approach to CoC&rsquo;s hybrid execution.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -801,7 +801,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

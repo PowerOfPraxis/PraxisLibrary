@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">Image Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">Image-to-Image Prompting</h1>
-                <p class="page-subtitle fade-in">Transform existing images through AI by providing reference inputs combined with text instructions &mdash; controlling style, content, and the degree of transformation to produce targeted visual outputs.</p>
+                <p class="page-subtitle fade-in">Transform existing images through AI by providing reference inputs combined with text instructions, controlling style, content, and the degree of transformation to produce targeted visual outputs.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -212,7 +212,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> Image-to-image (img2img) generation became widely accessible with the release of Stable Diffusion in 2022. The technique uses an existing image as a starting point for the diffusion process, allowing the AI to transform, restyle, or enhance images while retaining structural elements from the original. Rather than generating from pure noise, the model partially destructs the input image by adding controlled noise, then reconstructs it guided by a text prompt. The denoising strength parameter controls how much the output deviates from the input &mdash; a concept that gave users precise, slider-based control over the balance between faithfulness and creative transformation.</p>
+                        <p><strong>Introduced:</strong> Image-to-image (img2img) generation became widely accessible with the release of Stable Diffusion in 2022. The technique uses an existing image as a starting point for the diffusion process, allowing the AI to transform, restyle, or enhance images while retaining structural elements from the original. Rather than generating from pure noise, the model partially destructs the input image by adding controlled noise, then reconstructs it guided by a text prompt. The denoising strength parameter controls how much the output deviates from the input, a concept that gave users precise, slider-based control over the balance between faithfulness and creative transformation.</p>
                         <p><strong>Modern LLM Status:</strong> Image-to-image is a <strong>standard workflow in all major image generation platforms</strong> including Stable Diffusion, Midjourney, and DALL-E. The technique forms the foundation for more specialized approaches like inpainting (editing specific regions), outpainting (extending image boundaries), and ControlNet workflows (guiding generation with structural maps). Every serious image generation pipeline now supports img2img as a core capability, and it remains the primary method for iterative visual refinement, style transfer, and concept art pipelines.</p>
                     </div>
                 </div>
@@ -228,14 +228,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Start from an Image, Not from Noise</h2>
                         <p class="split-section__text">Standard text-to-image generation begins with pure random noise and gradually refines it into a coherent image guided only by a text prompt. Image-to-image flips this starting point: instead of noise, the model begins with an existing image. It partially destructs that image by adding a controlled amount of noise, then reconstructs it under the guidance of a new text prompt. The result is a transformation that preserves structural elements from the original while applying the creative direction specified in the prompt.</p>
-                        <p class="split-section__text"><strong>The critical control is the denoising strength slider.</strong> This single parameter determines how much the output can deviate from the source image. At low values (0.2&ndash;0.4), the model makes subtle adjustments &mdash; cleaning up lines, refining details, or applying minor stylistic shifts while preserving most of the original composition. At high values (0.7&ndash;0.9), the model dramatically transforms the image, keeping only the rough layout and proportions while reimagining everything else. This gives practitioners precise, predictable control over the balance between faithfulness to the original and the degree of creative transformation.</p>
+                        <p class="split-section__text"><strong>The critical control is the denoising strength slider.</strong> This single parameter determines how much the output can deviate from the source image. At low values (0.2&ndash;0.4), the model makes subtle adjustments, cleaning up lines, refining details, or applying minor stylistic shifts while preserving most of the original composition. At high values (0.7&ndash;0.9), the model dramatically transforms the image, keeping only the rough layout and proportions while reimagining everything else. This gives practitioners precise, predictable control over the balance between faithfulness to the original and the degree of creative transformation.</p>
                         <p class="split-section__text">Think of it like a painter working over a pencil sketch. A light touch preserves the sketch&rsquo;s lines while adding color and detail. A heavy hand covers the sketch entirely, using it only as a loose compositional guide for something entirely new.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Starting from an Image Matters</span>
-                                <p>Text-to-image generation is inherently unpredictable &mdash; the same prompt can produce wildly different compositions across runs. Image-to-image solves this by anchoring generation to a known starting point. You control the composition, the subject placement, and the overall layout through your reference image, while the prompt controls the aesthetic and thematic transformation. This combination of visual anchoring and textual direction makes img2img far more controllable than pure text-to-image generation for iterative creative workflows.</p>
+                                <p>Text-to-image generation is inherently unpredictable, the same prompt can produce wildly different compositions across runs. Image-to-image solves this by anchoring generation to a known starting point. You control the composition, the subject placement, and the overall layout through your reference image, while the prompt controls the aesthetic and thematic transformation. This combination of visual anchoring and textual direction makes img2img far more controllable than pure text-to-image generation for iterative creative workflows.</p>
                             </div>
                         </div>
                     </div>
@@ -271,7 +271,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Write Transformation Prompt</h3>
-                            <p class="element-timeline__text">Describe the desired output, emphasizing the changes you want from the original rather than restating what is already in the image. Focus on the target style, medium, lighting, color palette, and any specific modifications. The prompt steers the reconstruction &mdash; think of it as instructions for how the model should reinterpret the reference during the denoising phase.</p>
+                            <p class="element-timeline__text">Describe the desired output, emphasizing the changes you want from the original rather than restating what is already in the image. Focus on the target style, medium, lighting, color palette, and any specific modifications. The prompt steers the reconstruction, think of it as instructions for how the model should reinterpret the reference during the denoising phase.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Photorealistic architectural rendering, modern glass and steel building, golden hour lighting, lush green landscaping, professional photography, 8K resolution.&rdquo;</p>
@@ -299,7 +299,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Iterate with Adjustments</h3>
-                            <p class="element-timeline__text">Review the output and refine by adjusting the denoising strength, modifying the prompt, or using a previous output as the new input for another pass. Iteration is central to the img2img workflow &mdash; each pass can bring the result closer to your vision. You can also feed the output back as a new reference for progressive refinement, gradually building toward the final result across multiple generations.</p>
+                            <p class="element-timeline__text">Review the output and refine by adjusting the denoising strength, modifying the prompt, or using a previous output as the new input for another pass. Iteration is central to the img2img workflow, each pass can bring the result closer to your vision. You can also feed the output back as a new reference for progressive refinement, gradually building toward the final result across multiple generations.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>First pass at 0.65 produces a good rendering but the windows are too small. Lower denoising to 0.3 and add &ldquo;large floor-to-ceiling windows&rdquo; to the prompt. Run again using the first output as the new reference.</p>
@@ -335,7 +335,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Result</span>
-                                <p>The sketch&rsquo;s lines are cleaned up and refined. Pencil strokes become smoother, proportions are corrected slightly, and basic shading is added. The output still clearly reads as a sketch &mdash; the medium and style are preserved while the execution is improved. Fine details from the original, including line weight and hatching patterns, remain recognizable.</p>
+                                <p>The sketch&rsquo;s lines are cleaned up and refined. Pencil strokes become smoother, proportions are corrected slightly, and basic shading is added. The output still clearly reads as a sketch, the medium and style are preserved while the execution is improved. Fine details from the original, including line weight and hatching patterns, remain recognizable.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -367,7 +367,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Result</span>
-                                <p>A fully photorealistic architectural rendering that preserves the sketch&rsquo;s overall layout and proportions &mdash; the building&rsquo;s footprint, window placement, and tree positions match the original composition. But every surface is now rendered with realistic materials: glass reflecting the sky, steel beams catching golden hour light, detailed landscaping with individual leaves and grass blades. The pencil sketch is gone; only its structure remains.</p>
+                                <p>A fully photorealistic architectural rendering that preserves the sketch&rsquo;s overall layout and proportions, the building&rsquo;s footprint, window placement, and tree positions match the original composition. But every surface is now rendered with realistic materials: glass reflecting the sky, steel beams catching golden hour light, detailed landscaping with individual leaves and grass blades. The pencil sketch is gone; only its structure remains.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -405,7 +405,7 @@
                                     <span class="technique-demo__tag">Prompt + Settings</span>
                                     <p><strong>Prompt:</strong> &ldquo;Detailed digital illustration, fantasy castle perched on dramatic cliffs, epic scale, volumetric lighting, atmospheric fog, rich color palette, concept art quality, matte painting style.&rdquo;<br><br>
                                     <strong>Denoising Strength:</strong> 0.70<br><br>
-                                    <strong>Result:</strong> The rough sketch transforms into a polished digital illustration. The castle&rsquo;s position on the cliff, the turret placement, and the winding path all match the original layout. But now every surface has texture &mdash; weathered stone walls, moss-covered battlements, volumetric fog rolling through the valley below. The sketch provided the composition; the prompt and high denoising provided the finish.</p>
+                                    <strong>Result:</strong> The rough sketch transforms into a polished digital illustration. The castle&rsquo;s position on the cliff, the turret placement, and the winding path all match the original layout. But now every surface has texture, weathered stone walls, moss-covered battlements, volumetric fog rolling through the valley below. The sketch provided the composition; the prompt and high denoising provided the finish.</p>
                                 </div>
                             </div>
                         </div>
@@ -420,7 +420,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Source Image</span>
-                                    <p>A photograph of a tree-lined suburban street in full summer &mdash; green canopy, bright sunlight, green lawns, a clear blue sky. The street has parked cars, houses with front porches, and a sidewalk running along both sides.</p>
+                                    <p>A photograph of a tree-lined suburban street in full summer, green canopy, bright sunlight, green lawns, a clear blue sky. The street has parked cars, houses with front porches, and a sidewalk running along both sides.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Prompt + Settings</span>
@@ -447,7 +447,7 @@
                                     <span class="technique-demo__tag">Prompt + Settings</span>
                                     <p><strong>Prompt:</strong> &ldquo;Oil painting in the style of the Impressionists, visible brushstrokes, soft edges, vibrant dappled light, rich color palette with blues and warm yellows, canvas texture, gallery-quality fine art painting.&rdquo;<br><br>
                                     <strong>Denoising Strength:</strong> 0.60<br><br>
-                                    <strong>Result:</strong> The photograph&rsquo;s composition is preserved &mdash; the subject&rsquo;s pose, the garden layout, and the spatial relationships remain the same. But the photographic medium is replaced entirely with oil painting characteristics: visible brushstrokes define the flowering bushes, the subject&rsquo;s features are softened with Impressionist handling, dappled light plays across the scene with broken color technique, and the entire surface has a canvas-like texture. The moderate denoising allows the style to change completely while the composition stays anchored to the original photograph.</p>
+                                    <strong>Result:</strong> The photograph&rsquo;s composition is preserved, the subject&rsquo;s pose, the garden layout, and the spatial relationships remain the same. But the photographic medium is replaced entirely with oil painting characteristics: visible brushstrokes define the flowering bushes, the subject&rsquo;s features are softened with Impressionist handling, dappled light plays across the scene with broken color technique, and the entire surface has a canvas-like texture. The moderate denoising allows the style to change completely while the composition stays anchored to the original photograph.</p>
                                 </div>
                             </div>
                         </div>
@@ -474,7 +474,7 @@
                                 </svg>
                                 <div>
                                     <strong>Iterating on Existing Visuals</strong>
-                                    <p>When you have an image that is close to what you need but requires refinement, style adjustment, or quality improvement &mdash; img2img lets you evolve rather than start over.</p>
+                                    <p>When you have an image that is close to what you need but requires refinement, style adjustment, or quality improvement, img2img lets you evolve rather than start over.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -494,7 +494,7 @@
                                 </svg>
                                 <div>
                                     <strong>Style Conversion of Photographs</strong>
-                                    <p>Transforming photographs into different artistic media &mdash; oil paintings, watercolors, anime, pixel art &mdash; while maintaining the subject, composition, and spatial relationships.</p>
+                                    <p>Transforming photographs into different artistic media, oil paintings, watercolors, anime, pixel art, while maintaining the subject, composition, and spatial relationships.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -504,7 +504,7 @@
                                 </svg>
                                 <div>
                                     <strong>Batch-Consistent Transformations</strong>
-                                    <p>Applying the same stylistic transformation across a series of source images for consistent visual output &mdash; such as converting a product catalog to a unified illustration style.</p>
+                                    <p>Applying the same stylistic transformation across a series of source images for consistent visual output, such as converting a product catalog to a unified illustration style.</p>
                                 </div>
                             </div>
                         </div>
@@ -529,7 +529,7 @@
                                 </svg>
                                 <div>
                                     <strong>No Useful Structural Information</strong>
-                                    <p>If the source image has nothing worth preserving &mdash; no useful composition, layout, or subject placement &mdash; then img2img adds complexity without benefit over pure text-to-image.</p>
+                                    <p>If the source image has nothing worth preserving, no useful composition, layout, or subject placement, then img2img adds complexity without benefit over pure text-to-image.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -566,7 +566,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Concept Art Pipeline</h3>
-                        <p class="use-case-showcase__desc">Artists sketch rough compositions by hand, then use img2img to rapidly explore different rendering styles, lighting conditions, and color palettes &mdash; iterating from thumbnail to finished concept in a fraction of traditional timelines.</p>
+                        <p class="use-case-showcase__desc">Artists sketch rough compositions by hand, then use img2img to rapidly explore different rendering styles, lighting conditions, and color palettes, iterating from thumbnail to finished concept in a fraction of traditional timelines.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -588,7 +588,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Seasonal Marketing Variants</h3>
-                        <p class="use-case-showcase__desc">Transform a single product or brand image across seasons &mdash; summer to winter, day to night, spring to autumn &mdash; creating campaign-ready visual variants from one source photograph while maintaining brand-consistent composition.</p>
+                        <p class="use-case-showcase__desc">Transform a single product or brand image across seasons, summer to winter, day to night, spring to autumn, creating campaign-ready visual variants from one source photograph while maintaining brand-consistent composition.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -685,7 +685,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Image Generation Prompting</span>
-                        <span class="evolution-callout__desc">The foundational text-to-image techniques that img2img builds upon &mdash; understanding prompt construction for image generation is essential for writing effective transformation prompts.</span>
+                        <span class="evolution-callout__desc">The foundational text-to-image techniques that img2img builds upon, understanding prompt construction for image generation is essential for writing effective transformation prompts.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -703,7 +703,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Inpainting</span>
-                        <span class="evolution-callout__desc">Takes img2img further by allowing you to mask specific regions for targeted editing &mdash; changing only selected areas while preserving the rest of the image exactly as it is.</span>
+                        <span class="evolution-callout__desc">Takes img2img further by allowing you to mask specific regions for targeted editing, changing only selected areas while preserving the rest of the image exactly as it is.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -724,7 +724,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Style Transfer</span>
-                        <span class="evolution-callout__desc">A complementary technique focused specifically on applying the visual style of one reference image to the content of another &mdash; separating style from structure for targeted aesthetic transformation.</span>
+                        <span class="evolution-callout__desc">A complementary technique focused specifically on applying the visual style of one reference image to the content of another, separating style from structure for targeted aesthetic transformation.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -801,7 +801,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

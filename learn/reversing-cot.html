@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Verification</span>
                 </div>
                 <h1 class="page-title fade-in">Reversing Chain-of-Thought</h1>
-                <p class="page-subtitle fade-in">If your reasoning is correct, it should work in reverse. Reversing CoT verifies answers by tracing logic backwards from conclusion to premises — catching errors that forward-only reasoning misses.</p>
+                <p class="page-subtitle fade-in">If your reasoning is correct, it should work in reverse. Reversing CoT verifies answers by tracing logic backwards from conclusion to premises, catching errors that forward-only reasoning misses.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,7 +200,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> Reversing Chain-of-Thought was published in 2023 by Xue et al. The framework applies the mathematical concept of inverse operations to verify reasoning chains. Just as mathematicians verify solutions by working backwards through equations, Reversing CoT takes a completed chain of reasoning and traces it in reverse — from conclusion back to premises — to check whether each logical step holds when examined from the opposite direction.</p>
+                        <p><strong>Introduced:</strong> Reversing Chain-of-Thought was published in 2023 by Xue et al. The framework applies the mathematical concept of inverse operations to verify reasoning chains. Just as mathematicians verify solutions by working backwards through equations, Reversing CoT takes a completed chain of reasoning and traces it in reverse, from conclusion back to premises, to check whether each logical step holds when examined from the opposite direction.</p>
                         <p><strong>Modern LLM Status:</strong> The backward-verification approach is a practical and effective <strong>prompt engineering pattern</strong>. Modern LLMs handle "work backwards to check your answer" instructions well, executing reverse reasoning chains with good fidelity. The technique is especially effective for mathematics, algebra, logic puzzles, and any domain where operations have well-defined inverses. Combining forward reasoning with backward verification in a single prompt produces more reliable outputs than forward reasoning alone.</p>
                     </div>
                 </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Proof by Reversal</h2>
-                        <p class="split-section__text">When you solve 3x + 5 = 20 and get x = 5, you verify by plugging back in: 3(5) + 5 = 20. That checks out. This is Reversing Chain-of-Thought applied to all reasoning — not just math.</p>
-                        <p class="split-section__text"><strong>If your forward chain says "A leads to B leads to C," work backwards:</strong> does C imply B? Does B imply A? If the reverse chain reconstructs the original starting conditions, the forward reasoning holds. If it doesn't reach the starting conditions, the forward reasoning had an error somewhere — even if it looked plausible going forward.</p>
-                        <p class="split-section__text">Think of it like reading a proof backwards. Every step that was valid going forward must also be valid in reverse. If you hit a gap, that gap was always there — you just couldn't see it from the forward direction.</p>
+                        <p class="split-section__text">When you solve 3x + 5 = 20 and get x = 5, you verify by plugging back in: 3(5) + 5 = 20. That checks out. This is Reversing Chain-of-Thought applied to all reasoning, not just math.</p>
+                        <p class="split-section__text"><strong>If your forward chain says "A leads to B leads to C," work backwards:</strong> does C imply B? Does B imply A? If the reverse chain reconstructs the original starting conditions, the forward reasoning holds. If it doesn't reach the starting conditions, the forward reasoning had an error somewhere, even if it looked plausible going forward.</p>
+                        <p class="split-section__text">Think of it like reading a proof backwards. Every step that was valid going forward must also be valid in reverse. If you hit a gap, that gap was always there, you just couldn't see it from the forward direction.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Reversal Works</span>
-                                <p>Forward reasoning can contain <strong>compensating errors</strong> — two mistakes that cancel each other out, producing a correct-looking answer through flawed logic. It can also contain <strong>reasoning gaps</strong> — unjustified jumps from one step to the next that seem natural going forward.</p>
+                                <p>Forward reasoning can contain <strong>compensating errors</strong>, two mistakes that cancel each other out, producing a correct-looking answer through flawed logic. It can also contain <strong>reasoning gaps</strong>, unjustified jumps from one step to the next that seem natural going forward.</p>
                                 <p>Reversing forces you to justify each transition independently from the opposite direction. An error that slips past going forward often becomes obvious going backward, because the inverse step doesn't produce the expected intermediate result.</p>
                             </div>
                         </div>
@@ -246,7 +246,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Solve Forward</h3>
-                            <p class="element-timeline__text">Apply standard chain-of-thought reasoning to arrive at an answer. This is the claim to be verified — the output of your normal reasoning process, produced without any special verification steps.</p>
+                            <p class="element-timeline__text">Apply standard chain-of-thought reasoning to arrive at an answer. This is the claim to be verified, the output of your normal reasoning process, produced without any special verification steps.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Problem: "A train travels at 60 mph for 2.5 hours. How far does it go?" Forward reasoning: Distance = speed x time = 60 x 2.5 = 150 miles.</p>
@@ -263,7 +263,7 @@
                             <p class="element-timeline__text">Take the conclusion and work backwards, applying inverse operations at each step. If you multiplied going forward, divide going backward. If you added, subtract. Reconstruct the original conditions from the answer.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Reverse: Start with 150 miles. Divide by time: 150 / 2.5 = 60 mph. Does this match the given speed? Yes — the original speed was 60 mph.</p>
+                                <p>Reverse: Start with 150 miles. Divide by time: 150 / 2.5 = 60 mph. Does this match the given speed? Yes, the original speed was 60 mph.</p>
                             </div>
                         </div>
                     </div>
@@ -277,7 +277,7 @@
                             <p class="element-timeline__text">Check whether the backward chain reconstructs the original problem conditions exactly. Every value derived by reversal should match the corresponding value in the original problem statement.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Original conditions: 60 mph speed, 2.5 hours duration. Backward-derived: 60 mph from 150 miles and 2.5 hours. All values match — verification complete.</p>
+                                <p>Original conditions: 60 mph speed, 2.5 hours duration. Backward-derived: 60 mph from 150 miles and 2.5 hours. All values match, verification complete.</p>
                             </div>
                         </div>
                     </div>
@@ -425,7 +425,7 @@
                                     3(17/3 + 2) - 5 = 3(17/3 + 6/3) - 5 = 3(23/3) - 5 = 23 - 5 = 18<br><br>
                                     <strong>Expected:</strong> 16<br>
                                     <strong>Got:</strong> 18<br><br>
-                                    The reverse check fails — 18 does not equal 16. Re-examining Step 2: 6 - 5 = 1, not -1. The sign error is exposed. Correcting: 3x + 1 = 16, so 3x = 15, x = 5. Reverse verify: 3(5 + 2) - 5 = 21 - 5 = 16. Now it matches.</p>
+                                    The reverse check fails, 18 does not equal 16. Re-examining Step 2: 6 - 5 = 1, not -1. The sign error is exposed. Correcting: 3x + 1 = 16, so 3x = 15, x = 5. Reverse verify: 3(5 + 2) - 5 = 21 - 5 = 16. Now it matches.</p>
                                 </div>
                             </div>
                         </div>
@@ -464,7 +464,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Forward Solution</span>
-                                    <p>Three friends — Alice, Bob, and Carol — sit in seats 1, 2, and 3.<br><br>
+                                    <p>Three friends, Alice, Bob, and Carol, sit in seats 1, 2, and 3.<br><br>
                                     Constraints: (1) Alice doesn't sit in seat 1. (2) Bob sits next to Carol. (3) Carol doesn't sit in seat 3.<br><br>
                                     Forward reasoning: "Carol can't be in seat 3, so Carol is in seat 1 or 2. Bob must be next to Carol. If Carol is in seat 1, Bob is in seat 2, and Alice is in seat 3."<br><br>
                                     Proposed solution: Carol = Seat 1, Bob = Seat 2, Alice = Seat 3.</p>
@@ -475,7 +475,7 @@
                                     <strong>Constraint 3:</strong> "Carol doesn't sit in seat 3." Carol is in seat 1. Satisfied.<br>
                                     <strong>Constraint 2:</strong> "Bob sits next to Carol." Bob is in seat 2, Carol in seat 1. Seats 1 and 2 are adjacent. Satisfied.<br>
                                     <strong>Constraint 1:</strong> "Alice doesn't sit in seat 1." Alice is in seat 3. Satisfied.<br><br>
-                                    All three constraints verified against the solution. If any constraint had failed — say Alice had been placed in seat 1 — the backward check would have immediately identified the violated rule and pinpointed the error.</p>
+                                    All three constraints verified against the solution. If any constraint had failed, say Alice had been placed in seat 1, the backward check would have immediately identified the violated rule and pinpointed the error.</p>
                                 </div>
                             </div>
                         </div>
@@ -688,7 +688,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine Them</div>
-                    <p>Use Reversing CoT for mathematical and logical verification where operations have clear inverses, then Chain-of-Verification for factual claims that can't be reversed. Together they cover both computable and non-computable verification — backward proof for math, systematic questions for facts.</p>
+                    <p>Use Reversing CoT for mathematical and logical verification where operations have clear inverses, then Chain-of-Verification for factual claims that can't be reversed. Together they cover both computable and non-computable verification, backward proof for math, systematic questions for facts.</p>
                 </div>
             </div>
         </section>
@@ -710,7 +710,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Self-Verification</span>
-                        <span class="evolution-callout__desc">Broader answer validation — Reversing CoT is a specific verification strategy using backward reasoning.</span>
+                        <span class="evolution-callout__desc">Broader answer validation, Reversing CoT is a specific verification strategy using backward reasoning.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -750,7 +750,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Chain-of-Verification</span>
-                        <span class="evolution-callout__desc">Systematic verification through planned questions — covers factual claims that reversal can't check.</span>
+                        <span class="evolution-callout__desc">Systematic verification through planned questions, covers factual claims that reversal can't check.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -827,7 +827,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

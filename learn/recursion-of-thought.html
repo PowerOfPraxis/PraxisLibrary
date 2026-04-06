@@ -191,7 +191,7 @@
                     <span class="hero-badge__text">Advanced Decomposition</span>
                 </div>
                 <h1 class="page-title fade-in">Recursion of Thought</h1>
-                <p class="page-subtitle fade-in">Some problems cannot be solved at one level of depth. Recursion of Thought applies divide-and-conquer recursively &mdash; decomposing sub-problems into their own sub-problems until reaching base cases simple enough to solve directly.</p>
+                <p class="page-subtitle fade-in">Some problems cannot be solved at one level of depth. Recursion of Thought applies divide-and-conquer recursively, decomposing sub-problems into their own sub-problems until reaching base cases simple enough to solve directly.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -203,7 +203,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Recursion of Thought was published in 2023 by Lee et al. The key insight is that context windows are limited, so when a problem is too complex for a single pass, RoT uses a special &ldquo;going-up&rdquo; token to pause the current problem, recurse into a sub-problem in a fresh context, solve it, and return the result to the parent level. This mirrors how recursive functions in programming call themselves on smaller inputs until reaching a base case, then unwind the call stack to assemble the final answer.</p>
-                        <p><strong>Modern LLM Status:</strong> RoT&rsquo;s recursive decomposition principle has directly influenced <strong>agentic AI architectures</strong> where parent agents spawn child agents for sub-tasks. Modern frameworks like AutoGen and CrewAI implement recursive delegation patterns that echo RoT&rsquo;s design. However, RoT as a pure prompting technique remains <strong>research-stage</strong> &mdash; it requires programmatic orchestration to manage the recursion stack across multiple context windows. Understanding RoT is valuable for designing hierarchical agent systems and recognizing the limits of single-context reasoning.</p>
+                        <p><strong>Modern LLM Status:</strong> RoT&rsquo;s recursive decomposition principle has directly influenced <strong>agentic AI architectures</strong> where parent agents spawn child agents for sub-tasks. Modern frameworks like AutoGen and CrewAI implement recursive delegation patterns that echo RoT&rsquo;s design. However, RoT as a pure prompting technique remains <strong>research-stage</strong>, it requires programmatic orchestration to manage the recursion stack across multiple context windows. Understanding RoT is valuable for designing hierarchical agent systems and recognizing the limits of single-context reasoning.</p>
                     </div>
                 </div>
             </div>
@@ -217,15 +217,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">When Sub-Problems Have Sub-Problems</h2>
-                        <p class="split-section__text">Standard decomposition frameworks like Least-to-Most break a problem into parts and solve each part. But what happens when one of those parts is itself too complex to solve directly? Flat decomposition hits a ceiling &mdash; it assumes one level of breakdown is enough. For genuinely complex problems, it is not.</p>
+                        <p class="split-section__text">Standard decomposition frameworks like Least-to-Most break a problem into parts and solve each part. But what happens when one of those parts is itself too complex to solve directly? Flat decomposition hits a ceiling, it assumes one level of breakdown is enough. For genuinely complex problems, it is not.</p>
                         <p class="split-section__text"><strong>Recursion of Thought eliminates this ceiling.</strong> Instead of decomposing once, RoT applies the same decomposition strategy at every level. If a sub-problem is still too hard, decompose it again. And again. Each level follows the identical pattern: check if the problem is a base case, and if not, break it down further. This creates a tree of reasoning where the leaves are simple, solvable problems and the internal nodes are combination points where results flow back upward.</p>
-                        <p class="split-section__text">The critical innovation is the &ldquo;going-up&rdquo; token &mdash; a mechanism that allows the model to pause its current reasoning, open a new context for a sub-problem, solve it there, and return the result to continue the parent computation. This overcomes the fundamental limitation of fixed context windows by distributing reasoning across multiple contexts organized in a recursive call stack.</p>
+                        <p class="split-section__text">The critical innovation is the &ldquo;going-up&rdquo; token, a mechanism that allows the model to pause its current reasoning, open a new context for a sub-problem, solve it there, and return the result to continue the parent computation. This overcomes the fundamental limitation of fixed context windows by distributing reasoning across multiple contexts organized in a recursive call stack.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">The Programming Analogy</span>
-                                <p>In computer science, recursion is one of the most powerful problem-solving paradigms. A recursive function solves a problem by: (1) checking the base case &mdash; if the input is small enough, return the answer directly; (2) otherwise, breaking the input into smaller pieces, calling itself on each piece, and combining the results.</p>
+                                <p>In computer science, recursion is one of the most powerful problem-solving paradigms. A recursive function solves a problem by: (1) checking the base case, if the input is small enough, return the answer directly; (2) otherwise, breaking the input into smaller pieces, calling itself on each piece, and combining the results.</p>
                                 <p>RoT applies this exact pattern to language model reasoning. The &ldquo;function&rdquo; is the decomposition prompt itself, the &ldquo;input&rdquo; is the problem, the &ldquo;base case&rdquo; is a question simple enough for the model to answer in one step, and the &ldquo;recursive call&rdquo; is spawning a new context to handle a sub-problem. The result is a reasoning tree of arbitrary depth, limited only by the complexity of the original problem.</p>
                             </div>
                         </div>
@@ -253,7 +253,7 @@
                             </svg>
                         </div>
                         <h3 class="pillar-card__title">Adaptive Depth</h3>
-                        <p class="pillar-card__text">Recursion depth automatically matches problem complexity. Simple branches resolve at level one while complex branches recurse deeper &mdash; no need to predict the required depth in advance. The reasoning tree grows exactly as deep as the problem demands.</p>
+                        <p class="pillar-card__text">Recursion depth automatically matches problem complexity. Simple branches resolve at level one while complex branches recurse deeper, no need to predict the required depth in advance. The reasoning tree grows exactly as deep as the problem demands.</p>
                     </div>
                     <div class="pillar-card fade-in-up">
                         <div class="pillar-card__icon">
@@ -297,7 +297,7 @@
                             <p class="element-timeline__text">Before doing any decomposition, first assess whether the current problem is simple enough to solve directly. A base case is a question that can be answered in a single reasoning step without further breakdown. If it is a base case, solve it immediately and return the result.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>"What is 7 times 8?" &mdash; This is a base case. Answer directly: 56. No decomposition needed.</p>
+                                <p>"What is 7 times 8?", This is a base case. Answer directly: 56. No decomposition needed.</p>
                             </div>
                         </div>
                     </div>
@@ -322,10 +322,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Recurse into Each Sub-Problem</h3>
-                            <p class="element-timeline__text">For each sub-problem, open a new context and apply the same process from Step 1. If the sub-problem is a base case, solve it. If it is still too complex, decompose it again. This is the recursive step &mdash; the same strategy applied at a deeper level. The &ldquo;going-up&rdquo; token signals when to pause the parent and descend into a child context.</p>
+                            <p class="element-timeline__text">For each sub-problem, open a new context and apply the same process from Step 1. If the sub-problem is a base case, solve it. If it is still too complex, decompose it again. This is the recursive step, the same strategy applied at a deeper level. The &ldquo;going-up&rdquo; token signals when to pause the parent and descend into a child context.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>"Summarize Chapter 3" is still too long for one pass. Decompose further: "Summarize Section 3.1," "Summarize Section 3.2," "Summarize Section 3.3." Each section is now a base case &mdash; short enough to summarize directly.</p>
+                                <p>"Summarize Chapter 3" is still too long for one pass. Decompose further: "Summarize Section 3.1," "Summarize Section 3.2," "Summarize Section 3.3." Each section is now a base case, short enough to summarize directly.</p>
                             </div>
                         </div>
                     </div>
@@ -336,10 +336,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Solve Base Cases Directly</h3>
-                            <p class="element-timeline__text">At the deepest level of recursion, every sub-problem is a base case. Solve each one directly using straightforward reasoning. These are the &ldquo;leaf nodes&rdquo; of the reasoning tree &mdash; concrete answers that require no further decomposition.</p>
+                            <p class="element-timeline__text">At the deepest level of recursion, every sub-problem is a base case. Solve each one directly using straightforward reasoning. These are the &ldquo;leaf nodes&rdquo; of the reasoning tree, concrete answers that require no further decomposition.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>"Summarize Section 3.1" &mdash; a 2-page section on methodology. Base case reached. Output: "Section 3.1 describes the survey methodology, including a sample of 500 participants across three age groups."</p>
+                                <p>"Summarize Section 3.1", a 2-page section on methodology. Base case reached. Output: "Section 3.1 describes the survey methodology, including a sample of 500 participants across three age groups."</p>
                             </div>
                         </div>
                     </div>
@@ -386,7 +386,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">The Limitation</span>
-                                <p>If a sub-problem is too large for a single pass, flat decomposition has no recourse. Example: &ldquo;Summarize this book&rdquo; splits into chapters &mdash; but an 80-page chapter still cannot be summarized in one pass.</p>
+                                <p>If a sub-problem is too large for a single pass, flat decomposition has no recourse. Example: &ldquo;Summarize this book&rdquo; splits into chapters, but an 80-page chapter still cannot be summarized in one pass.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -418,7 +418,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">The Advantage</span>
-                                <p>By spawning new contexts for sub-problems, each reasoning step operates within manageable scope. Example: &ldquo;Summarize this book&rdquo; becomes chapters, then sections, then sub-sections &mdash; recursing until every piece fits a single context.</p>
+                                <p>By spawning new contexts for sub-problems, each reasoning step operates within manageable scope. Example: &ldquo;Summarize this book&rdquo; becomes chapters, then sections, then sub-sections, recursing until every piece fits a single context.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -454,10 +454,10 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Recursive Decomposition</span>
-                                    <p><strong>Level 0 (Root):</strong> "Summarize the full 200-page report." Not a base case &mdash; far too long for one context. Decompose.<br><br>
-                                    <strong>Level 1 &mdash; Decompose:</strong> Split into 12 regional sections plus an introduction and conclusion = 14 sub-problems.<br><br>
-                                    <strong>Level 2 &mdash; Recurse into Region 5:</strong> "Summarize the Southeast Asia section (22 pages)." Still too long for one pass. Decompose further: "Policy Overview (4 pages)," "Implementation Timeline (6 pages)," "Case Studies (8 pages)," "Recommendations (4 pages)."<br><br>
-                                    <strong>Level 3 &mdash; Base Cases:</strong> "Summarize Case Studies (8 pages)" &mdash; manageable in one context. Solve directly: "Three case studies in Vietnam, Thailand, and Indonesia demonstrate that early-warning flood systems reduced displacement by 40% when paired with community training programs."<br><br>
+                                    <p><strong>Level 0 (Root):</strong> "Summarize the full 200-page report." Not a base case, far too long for one context. Decompose.<br><br>
+                                    <strong>Level 1, Decompose:</strong> Split into 12 regional sections plus an introduction and conclusion = 14 sub-problems.<br><br>
+                                    <strong>Level 2, Recurse into Region 5:</strong> "Summarize the Southeast Asia section (22 pages)." Still too long for one pass. Decompose further: "Policy Overview (4 pages)," "Implementation Timeline (6 pages)," "Case Studies (8 pages)," "Recommendations (4 pages)."<br><br>
+                                    <strong>Level 3, Base Cases:</strong> "Summarize Case Studies (8 pages)", manageable in one context. Solve directly: "Three case studies in Vietnam, Thailand, and Indonesia demonstrate that early-warning flood systems reduced displacement by 40% when paired with community training programs."<br><br>
                                     <strong>Combine Level 2:</strong> Merge the four sub-section summaries into: "The Southeast Asia section recommends scaled early-warning systems based on successful pilots, with a 2025-2030 implementation timeline and $2.1B estimated investment."<br><br>
                                     <strong>Combine Level 1:</strong> Merge all 14 section summaries into a coherent executive summary of the full report.<br><br>
                                     <strong>Result:</strong> A structured, accurate summary that could not have been produced in a single pass due to the volume and complexity of the source material.</p>
@@ -479,12 +479,12 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Recursive Decomposition</span>
-                                    <p><strong>Level 0 (Root):</strong> "Calculate posterior probability using Bayes&rsquo; theorem with the given parameters." Not a base case &mdash; requires multiple intermediate calculations. Decompose.<br><br>
-                                    <strong>Level 1 &mdash; Decompose:</strong> Bayes&rsquo; theorem: P(Disease|Positive) = P(Positive|Disease) * P(Disease) / P(Positive). Three sub-problems: (A) Calculate P(Positive|Disease) * P(Disease), (B) Calculate P(Positive), (C) Divide A by B.<br><br>
-                                    <strong>Level 2 &mdash; Sub-problem A:</strong> P(Positive|Disease) = 0.95 (sensitivity). P(Disease) = 1/10000 = 0.0001. Multiply: 0.95 * 0.0001 = 0.000095. Base case &mdash; solved.<br><br>
-                                    <strong>Level 2 &mdash; Sub-problem B:</strong> P(Positive) = P(Pos|Disease)*P(Disease) + P(Pos|No Disease)*P(No Disease). Not a base case &mdash; decompose further.<br><br>
-                                    <strong>Level 3 &mdash; Sub-problem B1:</strong> P(Pos|No Disease) = 1 - specificity = 1 - 0.99 = 0.01. P(No Disease) = 1 - 0.0001 = 0.9999. Multiply: 0.01 * 0.9999 = 0.009999. Base case &mdash; solved.<br><br>
-                                    <strong>Level 3 &mdash; Sub-problem B2:</strong> P(Positive) = 0.000095 + 0.009999 = 0.010094. Base case &mdash; solved.<br><br>
+                                    <p><strong>Level 0 (Root):</strong> "Calculate posterior probability using Bayes&rsquo; theorem with the given parameters." Not a base case, requires multiple intermediate calculations. Decompose.<br><br>
+                                    <strong>Level 1, Decompose:</strong> Bayes&rsquo; theorem: P(Disease|Positive) = P(Positive|Disease) * P(Disease) / P(Positive). Three sub-problems: (A) Calculate P(Positive|Disease) * P(Disease), (B) Calculate P(Positive), (C) Divide A by B.<br><br>
+                                    <strong>Level 2, Sub-problem A:</strong> P(Positive|Disease) = 0.95 (sensitivity). P(Disease) = 1/10000 = 0.0001. Multiply: 0.95 * 0.0001 = 0.000095. Base case, solved.<br><br>
+                                    <strong>Level 2, Sub-problem B:</strong> P(Positive) = P(Pos|Disease)*P(Disease) + P(Pos|No Disease)*P(No Disease). Not a base case, decompose further.<br><br>
+                                    <strong>Level 3, Sub-problem B1:</strong> P(Pos|No Disease) = 1 - specificity = 1 - 0.99 = 0.01. P(No Disease) = 1 - 0.0001 = 0.9999. Multiply: 0.01 * 0.9999 = 0.009999. Base case, solved.<br><br>
+                                    <strong>Level 3, Sub-problem B2:</strong> P(Positive) = 0.000095 + 0.009999 = 0.010094. Base case, solved.<br><br>
                                     <strong>Combine Level 1:</strong> P(Disease|Positive) = 0.000095 / 0.010094 = 0.00941 = approximately 0.94%.<br><br>
                                     <strong>Result:</strong> Despite the positive test, there is only about a 0.94% chance the patient actually has the disease. The low prevalence means false positives vastly outnumber true positives.</p>
                                 </div>
@@ -505,12 +505,12 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Recursive Decomposition</span>
-                                    <p><strong>Level 0 (Root):</strong> "Analyze full organizational efficiency." Not a base case &mdash; too many interacting components. Decompose by division.<br><br>
-                                    <strong>Level 1 &mdash; Decompose:</strong> Four sub-problems: Analyze Manufacturing Division, Analyze Sales Division, Analyze R&amp;D Division, Analyze Operations Division.<br><br>
-                                    <strong>Level 2 &mdash; Recurse into Manufacturing:</strong> "Analyze Manufacturing Division efficiency." Still too broad with 5 departments. Decompose: Production, Quality Control, Logistics, Procurement, Maintenance.<br><br>
-                                    <strong>Level 3 &mdash; Base Cases:</strong> "Analyze Procurement Department" &mdash; single department with defined processes. Base case. Solve directly: "Procurement shows 23-day average vendor approval cycle vs. 10-day industry standard. Dual-approval bottleneck in contracts under $50K adds unnecessary overhead. Recommendation: raise single-approval threshold to $50K."<br><br>
+                                    <p><strong>Level 0 (Root):</strong> "Analyze full organizational efficiency." Not a base case, too many interacting components. Decompose by division.<br><br>
+                                    <strong>Level 1, Decompose:</strong> Four sub-problems: Analyze Manufacturing Division, Analyze Sales Division, Analyze R&amp;D Division, Analyze Operations Division.<br><br>
+                                    <strong>Level 2, Recurse into Manufacturing:</strong> "Analyze Manufacturing Division efficiency." Still too broad with 5 departments. Decompose: Production, Quality Control, Logistics, Procurement, Maintenance.<br><br>
+                                    <strong>Level 3, Base Cases:</strong> "Analyze Procurement Department", single department with defined processes. Base case. Solve directly: "Procurement shows 23-day average vendor approval cycle vs. 10-day industry standard. Dual-approval bottleneck in contracts under $50K adds unnecessary overhead. Recommendation: raise single-approval threshold to $50K."<br><br>
                                     <strong>Combine Level 2:</strong> Merge the 5 department analyses into a Manufacturing Division report: "Manufacturing shows strong production throughput but procurement and maintenance are bottlenecks. Cross-department redundancy: both QC and Production maintain separate testing equipment inventories."<br><br>
-                                    <strong>Combine Level 1:</strong> Merge all 4 division reports into a corporate-level analysis. Identify cross-division patterns: "Three of four divisions maintain independent IT support teams &mdash; consolidation could save 15% on IT staffing costs."<br><br>
+                                    <strong>Combine Level 1:</strong> Merge all 4 division reports into a corporate-level analysis. Identify cross-division patterns: "Three of four divisions maintain independent IT support teams, consolidation could save 15% on IT staffing costs."<br><br>
                                     <strong>Result:</strong> A three-level analysis identifying bottlenecks at the department, division, and corporate levels, with actionable recommendations at each level. A flat approach would miss the department-level details or the cross-division patterns.</p>
                                 </div>
                             </div>
@@ -693,7 +693,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Complex Project Planning</h3>
-                        <p class="use-case-showcase__desc">Break down large projects into phases, phases into workstreams, workstreams into tasks, and tasks into subtasks &mdash; each level planned with appropriate detail.</p>
+                        <p class="use-case-showcase__desc">Break down large projects into phases, phases into workstreams, workstreams into tasks, and tasks into subtasks, each level planned with appropriate detail.</p>
                     </div>
                 </div>
             </div>
@@ -731,7 +731,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Design Pattern</div>
-                    <p>Recursion of Thought maps directly to modern agentic AI architectures. When a parent agent encounters a task too complex for its context, it spawns a child agent &mdash; exactly like a recursive function call. Techniques like AutoGen and CrewAI implement this pattern. Use RoT as your mental model when designing hierarchical agent systems that need to handle arbitrary problem depth.</p>
+                    <p>Recursion of Thought maps directly to modern agentic AI architectures. When a parent agent encounters a task too complex for its context, it spawns a child agent, exactly like a recursive function call. Techniques like AutoGen and CrewAI implement this pattern. Use RoT as your mental model when designing hierarchical agent systems that need to handle arbitrary problem depth.</p>
                 </div>
             </div>
         </section>
@@ -754,7 +754,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Decomposed Prompting</span>
-                        <span class="evolution-callout__desc">Modular sub-problem solving with specialized handlers &mdash; Recursion of Thought extends this with multi-level recursive depth.</span>
+                        <span class="evolution-callout__desc">Modular sub-problem solving with specialized handlers, Recursion of Thought extends this with multi-level recursive depth.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -774,7 +774,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Least-to-Most</span>
-                        <span class="evolution-callout__desc">Linear decomposition from simplest to hardest &mdash; Recursion of Thought generalizes this to multi-level tree structures.</span>
+                        <span class="evolution-callout__desc">Linear decomposition from simplest to hardest, Recursion of Thought generalizes this to multi-level tree structures.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -795,7 +795,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Graph of Thought</span>
-                        <span class="evolution-callout__desc">Extends tree reasoning to non-linear graph structures &mdash; allowing cross-branch connections that recursion alone cannot represent.</span>
+                        <span class="evolution-callout__desc">Extends tree reasoning to non-linear graph structures, allowing cross-branch connections that recursion alone cannot represent.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -873,7 +873,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

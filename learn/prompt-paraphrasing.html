@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Ensembling Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Prompt Paraphrasing</h1>
-                <p class="page-subtitle fade-in">Should your results change just because you phrased the question slightly differently? Prompt Paraphrasing says no &mdash; it generates multiple semantically equivalent versions of your prompt, collects responses from each, and combines the results to produce answers that are robust to the arbitrary choices of wording you happened to make.</p>
+                <p class="page-subtitle fade-in">Should your results change just because you phrased the question slightly differently? Prompt Paraphrasing says no, it generates multiple semantically equivalent versions of your prompt, collects responses from each, and combines the results to produce answers that are robust to the arbitrary choices of wording you happened to make.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Prompt Paraphrasing emerged in 2023 as researchers documented a surprising vulnerability in LLMs: models could give dramatically different answers to semantically identical questions phrased in slightly different ways. The technique addresses this by creating paraphrased versions of the original prompt using back-translation or LLM rewriting, generating responses for each variant, and then selecting or combining the best results. This ensembling approach reduces sensitivity to prompt wording and produces more stable, reliable outputs.</p>
-                        <p><strong>Modern LLM Status:</strong> Prompt Paraphrasing addressed a real weakness in earlier models &mdash; sensitivity to exact wording. While modern LLMs in 2026 are more robust to phrasing variations, the technique remains valuable for <strong>high-stakes applications where you need to validate that your results aren&rsquo;t artifacts of specific wording choices</strong>. In production systems handling medical, legal, or financial queries, paraphrasing serves as a reliability check: if the answer changes when you ask the same question differently, the original answer may not be trustworthy.</p>
+                        <p><strong>Modern LLM Status:</strong> Prompt Paraphrasing addressed a real weakness in earlier models, sensitivity to exact wording. While modern LLMs in 2026 are more robust to phrasing variations, the technique remains valuable for <strong>high-stakes applications where you need to validate that your results aren&rsquo;t artifacts of specific wording choices</strong>. In production systems handling medical, legal, or financial queries, paraphrasing serves as a reliability check: if the answer changes when you ask the same question differently, the original answer may not be trustworthy.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Same Question, Many Voices</h2>
-                        <p class="split-section__text">A single prompt is a single sample from the space of all possible ways to express an idea. Just as a single coin flip doesn&rsquo;t tell you the probability of heads, a single prompt phrasing doesn&rsquo;t tell you the model&rsquo;s true capability on a question. You might have written the one phrasing that confuses it &mdash; or the one that happens to trigger the right reasoning path.</p>
-                        <p class="split-section__text"><strong>Prompt Paraphrasing eliminates this lottery.</strong> Instead of betting on a single phrasing, you generate multiple semantically equivalent versions of the same question: rearranged syntax, swapped synonyms, altered sentence structure. Each variant probes the model from a different linguistic angle. When you ensemble the responses &mdash; taking the majority answer, averaging confidence scores, or selecting the most consistent output &mdash; you get a result that reflects the model&rsquo;s genuine understanding rather than its reaction to one particular arrangement of words.</p>
+                        <p class="split-section__text">A single prompt is a single sample from the space of all possible ways to express an idea. Just as a single coin flip doesn&rsquo;t tell you the probability of heads, a single prompt phrasing doesn&rsquo;t tell you the model&rsquo;s true capability on a question. You might have written the one phrasing that confuses it, or the one that happens to trigger the right reasoning path.</p>
+                        <p class="split-section__text"><strong>Prompt Paraphrasing eliminates this lottery.</strong> Instead of betting on a single phrasing, you generate multiple semantically equivalent versions of the same question: rearranged syntax, swapped synonyms, altered sentence structure. Each variant probes the model from a different linguistic angle. When you ensemble the responses, taking the majority answer, averaging confidence scores, or selecting the most consistent output, you get a result that reflects the model&rsquo;s genuine understanding rather than its reaction to one particular arrangement of words.</p>
                         <p class="split-section__text">Think of it like polling a group of translators. Each translates your question into a slightly different phrasing, the model answers each version, and you trust the answer that emerges most consistently across all phrasings.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Wording Sensitivity Matters</span>
-                                <p>Research showed that changing a single word in a prompt &mdash; &ldquo;analyze&rdquo; to &ldquo;examine,&rdquo; or &ldquo;describe&rdquo; to &ldquo;explain&rdquo; &mdash; could swing model accuracy by 10-20 percentage points on benchmark tasks. This fragility means that reported performance numbers often reflect prompt engineering skill as much as model capability. Prompt Paraphrasing marginalizes over this noise, giving you <strong>a more honest measure of what the model actually knows</strong> versus what it happens to produce for one lucky phrasing.</p>
+                                <p>Research showed that changing a single word in a prompt, &ldquo;analyze&rdquo; to &ldquo;examine,&rdquo; or &ldquo;describe&rdquo; to &ldquo;explain&rdquo;, could swing model accuracy by 10-20 percentage points on benchmark tasks. This fragility means that reported performance numbers often reflect prompt engineering skill as much as model capability. Prompt Paraphrasing marginalizes over this noise, giving you <strong>a more honest measure of what the model actually knows</strong> versus what it happens to produce for one lucky phrasing.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Write Your Original Prompt</h3>
-                            <p class="element-timeline__text">Start with your best attempt at a prompt for the task. This serves as the seed from which paraphrased variants will be generated. The original doesn&rsquo;t need to be perfect &mdash; the whole point is to compensate for any weaknesses in this initial phrasing.</p>
+                            <p class="element-timeline__text">Start with your best attempt at a prompt for the task. This serves as the seed from which paraphrased variants will be generated. The original doesn&rsquo;t need to be perfect, the whole point is to compensate for any weaknesses in this initial phrasing.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Classify the following customer review as positive, negative, or neutral. Review: &lsquo;The product arrived late but the quality exceeded my expectations.&rsquo;&rdquo;</p>
@@ -263,7 +263,7 @@
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Variant 1:</strong> &ldquo;Determine the sentiment of this customer review: positive, negative, or neutral. &lsquo;The product arrived late but the quality exceeded my expectations.&rsquo;&rdquo;<br>
-                                <strong>Variant 2:</strong> &ldquo;What is the overall tone of this review &mdash; positive, negative, or neutral? &lsquo;The product arrived late but the quality exceeded my expectations.&rsquo;&rdquo;<br>
+                                <strong>Variant 2:</strong> &ldquo;What is the overall tone of this review, positive, negative, or neutral? &lsquo;The product arrived late but the quality exceeded my expectations.&rsquo;&rdquo;<br>
                                 <strong>Variant 3:</strong> &ldquo;Read this customer feedback and label it as positive, negative, or neutral: &lsquo;The product arrived late but the quality exceeded my expectations.&rsquo;&rdquo;</p>
                             </div>
                         </div>
@@ -292,10 +292,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Ensemble the Results</h3>
-                            <p class="element-timeline__text">Combine the responses using an aggregation strategy: majority vote for classification tasks, averaging for numerical outputs, or consistency filtering for open-ended generation. If responses diverge significantly, that disagreement itself is valuable information &mdash; it signals the question may be ambiguous or the model is uncertain.</p>
+                            <p class="element-timeline__text">Combine the responses using an aggregation strategy: majority vote for classification tasks, averaging for numerical outputs, or consistency filtering for open-ended generation. If responses diverge significantly, that disagreement itself is valuable information, it signals the question may be ambiguous or the model is uncertain.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p><strong>Majority vote:</strong> 3 out of 4 responses say &ldquo;Positive&rdquo; &mdash; the ensemble answer is Positive. The one &ldquo;Neutral&rdquo; response flags that the mixed sentiment in the review creates some ambiguity, which is worth noting in the confidence assessment. <em>Always verify ensemble results against your domain expertise.</em></p>
+                                <p><strong>Majority vote:</strong> 3 out of 4 responses say &ldquo;Positive&rdquo;, the ensemble answer is Positive. The one &ldquo;Neutral&rdquo; response flags that the mixed sentiment in the review creates some ambiguity, which is worth noting in the confidence assessment. <em>Always verify ensemble results against your domain expertise.</em></p>
                             </div>
                         </div>
                     </div>
@@ -328,7 +328,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Response</span>
-                                <p>Not spam &mdash; it could be a legitimate promotional offer from a service the recipient signed up for.</p>
+                                <p>Not spam, it could be a legitimate promotional offer from a service the recipient signed up for.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -363,7 +363,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Ensemble Result</span>
-                                <p>Spam (3/4 majority). The original &ldquo;not spam&rdquo; answer was an artifact of that specific phrasing &mdash; the ensemble reveals the model&rsquo;s true assessment when phrasing bias is removed.</p>
+                                <p>Spam (3/4 majority). The original &ldquo;not spam&rdquo; answer was an artifact of that specific phrasing, the ensemble reveals the model&rsquo;s true assessment when phrasing bias is removed.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -419,7 +419,7 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Ensemble Analysis</span>
                                     <p>All four phrasings returned overlapping but not identical condition lists. Conditions appearing in 4/4 responses: hypothyroidism, iron-deficiency anemia. Conditions appearing in 3/4: vitamin D deficiency. Conditions appearing in only 1/4: chronic fatigue syndrome (only the &ldquo;possible diagnoses&rdquo; phrasing).<br><br>
-                                    <strong>Ensemble insight:</strong> High-confidence conditions (present across all phrasings) are hypothyroidism and iron-deficiency anemia. The condition that appeared in only one variant should not be dismissed but warrants additional investigation before being included in a differential. <em>This is for informational purposes only &mdash; always consult qualified healthcare professionals for medical decisions.</em></p>
+                                    <strong>Ensemble insight:</strong> High-confidence conditions (present across all phrasings) are hypothyroidism and iron-deficiency anemia. The condition that appeared in only one variant should not be dismissed but warrants additional investigation before being included in a differential. <em>This is for informational purposes only, always consult qualified healthcare professionals for medical decisions.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -442,7 +442,7 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Ensemble Analysis</span>
                                     <p>The &ldquo;key risks&rdquo; phrasing identified 3 risks. The &ldquo;liabilities&rdquo; phrasing found 5 (including financial exposure the others missed). The &ldquo;unfavorable terms&rdquo; phrasing caught an asymmetric termination clause that only appeared in 1 of 4 responses. The &ldquo;lawyer flag&rdquo; phrasing surfaced an ambiguous indemnification scope.<br><br>
-                                    <strong>Ensemble insight:</strong> The union of risks across all phrasings produced a more comprehensive risk profile than any single prompt. Different phrasings activated different analytical lenses &mdash; financial, structural, and adversarial. <em>AI-generated legal analysis should always be reviewed by a qualified attorney before acting on it.</em></p>
+                                    <strong>Ensemble insight:</strong> The union of risks across all phrasings produced a more comprehensive risk profile than any single prompt. Different phrasings activated different analytical lenses, financial, structural, and adversarial. <em>AI-generated legal analysis should always be reviewed by a qualified attorney before acting on it.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -492,7 +492,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Stakes Classification</strong>
-                                    <p>Medical triage, legal analysis, financial risk assessment &mdash; any domain where a wrong answer from a single prompt phrasing could have serious consequences.</p>
+                                    <p>Medical triage, legal analysis, financial risk assessment, any domain where a wrong answer from a single prompt phrasing could have serious consequences.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -502,7 +502,7 @@
                                 </svg>
                                 <div>
                                     <strong>Confidence Estimation</strong>
-                                    <p>When you need to know how certain the model is &mdash; high agreement across paraphrases signals confidence; divergence signals uncertainty.</p>
+                                    <p>When you need to know how certain the model is, high agreement across paraphrases signals confidence; divergence signals uncertainty.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -522,7 +522,7 @@
                                 </svg>
                                 <div>
                                     <strong>Comprehensive Coverage</strong>
-                                    <p>For open-ended analysis, different phrasings activate different perspectives &mdash; the union of responses across variants is richer than any single response.</p>
+                                    <p>For open-ended analysis, different phrasings activate different perspectives, the union of responses across variants is richer than any single response.</p>
                                 </div>
                             </div>
                         </div>
@@ -547,7 +547,7 @@
                                 </svg>
                                 <div>
                                     <strong>Real-Time Applications</strong>
-                                    <p>When response latency is critical &mdash; running 4-7 parallel prompt variants multiplies both time and cost, making it impractical for live user interactions.</p>
+                                    <p>When response latency is critical, running 4-7 parallel prompt variants multiplies both time and cost, making it impractical for live user interactions.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -557,7 +557,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative Generation Tasks</strong>
-                                    <p>When you want diverse, creative outputs &mdash; paraphrasing and ensembling tend to converge toward the &ldquo;average&rdquo; answer, smoothing out the creative outliers you may actually want.</p>
+                                    <p>When you want diverse, creative outputs, paraphrasing and ensembling tend to converge toward the &ldquo;average&rdquo; answer, smoothing out the creative outliers you may actually want.</p>
                                 </div>
                             </div>
                         </div>
@@ -699,7 +699,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Self-Consistency</span>
-                        <span class="evolution-callout__desc">The complementary ensembling approach that varies sampling rather than prompt wording &mdash; combine with Paraphrasing for maximum robustness.</span>
+                        <span class="evolution-callout__desc">The complementary ensembling approach that varies sampling rather than prompt wording, combine with Paraphrasing for maximum robustness.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -738,7 +738,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Demonstration Ensembling</span>
-                        <span class="evolution-callout__desc">Instead of varying the prompt wording, varies the few-shot examples provided &mdash; another axis of diversity for building more robust LLM responses.</span>
+                        <span class="evolution-callout__desc">Instead of varying the prompt wording, varies the few-shot examples provided, another axis of diversity for building more robust LLM responses.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -815,7 +815,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

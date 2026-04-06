@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Prompt Automation Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Prompt Mining</h1>
-                <p class="page-subtitle fade-in">Instead of hand-crafting prompts through intuition and trial-and-error, Prompt Mining automates the discovery of effective prompt templates &mdash; systematically searching through candidate phrasings, evaluating each one against real tasks, and surfacing formulations that humans would never think to try.</p>
+                <p class="page-subtitle fade-in">Instead of hand-crafting prompts through intuition and trial-and-error, Prompt Mining automates the discovery of effective prompt templates, systematically searching through candidate phrasings, evaluating each one against real tasks, and surfacing formulations that humans would never think to try.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022, Jiang et al.</span>
                         <p><strong>Introduced:</strong> Prompt Mining was introduced by Jiang et al. in 2022 as an automated approach to prompt discovery. The core idea is straightforward but powerful: instead of relying on human intuition to craft the perfect prompt, the technique systematically searches through possible phrasings to find templates that maximize task performance. The original method focused on fill-in-the-blank cloze-style templates, mining large text corpora (such as Wikipedia) to discover naturally occurring sentence patterns that could serve as effective prompts for masked language models. By treating prompt design as a search problem rather than an art form, the technique removed the bottleneck of manual prompt engineering.</p>
-                        <p><strong>Modern LLM Status:</strong> The idea of systematically searching for optimal prompts has evolved into broader prompt optimization frameworks. Modern tools like DSPy and automatic prompt engineering systems build on these foundational ideas, using gradient-based methods, evolutionary search, and LLM-driven rewriting to discover high-performing prompts at scale. The specific corpus-mining approach &mdash; searching for cloze templates in text corpora &mdash; is less common with today&rsquo;s instruction-tuned models, which respond well to natural language instructions. However, the <strong>core principle remains deeply relevant</strong>: small phrasing differences can dramatically affect model performance, and automated search consistently finds formulations that outperform human-crafted prompts.</p>
+                        <p><strong>Modern LLM Status:</strong> The idea of systematically searching for optimal prompts has evolved into broader prompt optimization frameworks. Modern tools like DSPy and automatic prompt engineering systems build on these foundational ideas, using gradient-based methods, evolutionary search, and LLM-driven rewriting to discover high-performing prompts at scale. The specific corpus-mining approach, searching for cloze templates in text corpora, is less common with today&rsquo;s instruction-tuned models, which respond well to natural language instructions. However, the <strong>core principle remains deeply relevant</strong>: small phrasing differences can dramatically affect model performance, and automated search consistently finds formulations that outperform human-crafted prompts.</p>
                     </div>
                 </div>
             </div>
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Phrasing Is Performance</h2>
                         <p class="split-section__text">A surprising truth about language models: the exact words you use in a prompt can swing accuracy by double-digit percentages. Asking &ldquo;Is this review positive or negative?&rdquo; versus &ldquo;The sentiment of this review is ___&rdquo; versus &ldquo;This review expresses a ___ opinion&rdquo; can produce wildly different results on the same model with the same data. Human prompt engineers typically test a handful of variations and pick the best one, but the search space of possible phrasings is enormous.</p>
-                        <p class="split-section__text"><strong>Prompt Mining turns prompt design into a search problem.</strong> Instead of relying on intuition, it generates hundreds or thousands of candidate prompt templates, evaluates each one against a validation set, and selects the top performers. The technique treats the prompt as a variable to be optimized, not a fixed input to be guessed at. This is the same philosophical shift that transformed machine learning itself &mdash; replacing hand-tuned features with learned representations.</p>
-                        <p class="split-section__text">Think of it like testing a thousand different keys on a lock rather than trying to pick it by hand. Most keys will not fit, but the automated search will find the ones that do &mdash; including shapes no locksmith would have thought to try.</p>
+                        <p class="split-section__text"><strong>Prompt Mining turns prompt design into a search problem.</strong> Instead of relying on intuition, it generates hundreds or thousands of candidate prompt templates, evaluates each one against a validation set, and selects the top performers. The technique treats the prompt as a variable to be optimized, not a fixed input to be guessed at. This is the same philosophical shift that transformed machine learning itself, replacing hand-tuned features with learned representations.</p>
+                        <p class="split-section__text">Think of it like testing a thousand different keys on a lock rather than trying to pick it by hand. Most keys will not fit, but the automated search will find the ones that do, including shapes no locksmith would have thought to try.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Automated Search Beats Human Intuition</span>
-                                <p>Human prompt engineers bring useful domain knowledge, but they also bring biases. We tend to phrase prompts in ways that sound natural to us, favoring grammatically elegant or verbose instructions. Models, however, often respond better to terse, unusual, or even grammatically awkward phrasings that no human would naturally write. Prompt Mining explores this counter-intuitive space &mdash; discovering that sometimes <strong>&ldquo;Review. Sentiment:&rdquo;</strong> outperforms a carefully worded paragraph of instructions.</p>
+                                <p>Human prompt engineers bring useful domain knowledge, but they also bring biases. We tend to phrase prompts in ways that sound natural to us, favoring grammatically elegant or verbose instructions. Models, however, often respond better to terse, unusual, or even grammatically awkward phrasings that no human would naturally write. Prompt Mining explores this counter-intuitive space, discovering that sometimes <strong>&ldquo;Review. Sentiment:&rdquo;</strong> outperforms a carefully worded paragraph of instructions.</p>
                             </div>
                         </div>
                     </div>
@@ -262,7 +262,7 @@
                             <p class="element-timeline__text">Produce a large pool of candidate prompts using one or more generation strategies. The original Prompt Mining technique searched text corpora for naturally occurring sentence patterns containing the relevant entities. Modern approaches include paraphrasing existing prompts, using an LLM to generate alternative phrasings, applying template transformations (active to passive, question to statement), and even evolutionary mutation of high-performing candidates.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>From the seed &ldquo;Is this review positive or negative?&rdquo; &mdash; generate 200 variations: &ldquo;This review is ___&rdquo;, &ldquo;The sentiment expressed here is ___&rdquo;, &ldquo;Rate the tone: ___&rdquo;, &ldquo;Review polarity:&rdquo;, &ldquo;[Review] Overall feeling:&rdquo;, and hundreds more.</p>
+                                <p>From the seed &ldquo;Is this review positive or negative?&rdquo;, generate 200 variations: &ldquo;This review is ___&rdquo;, &ldquo;The sentiment expressed here is ___&rdquo;, &ldquo;Rate the tone: ___&rdquo;, &ldquo;Review polarity:&rdquo;, &ldquo;[Review] Overall feeling:&rdquo;, and hundreds more.</p>
                             </div>
                         </div>
                     </div>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Evaluate Each Candidate on the Validation Set</h3>
-                            <p class="element-timeline__text">Run every candidate prompt against the validation examples and score the results. This is the computationally expensive step &mdash; each candidate requires a full pass through the evaluation data. Efficient implementations use early stopping (discarding clearly underperforming candidates after a subset), batching, and stratified sampling to manage cost while maintaining statistical reliability.</p>
+                            <p class="element-timeline__text">Run every candidate prompt against the validation examples and score the results. This is the computationally expensive step, each candidate requires a full pass through the evaluation data. Efficient implementations use early stopping (discarding clearly underperforming candidates after a subset), batching, and stratified sampling to manage cost while maintaining statistical reliability.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>200 candidates tested on 500 reviews each = 100,000 model calls. With early stopping after 50 reviews, poor candidates are eliminated quickly, reducing total calls to roughly 15,000. Top 10 candidates are then evaluated on the full set.</p>
@@ -287,10 +287,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Select Top Performers and Optionally Refine</h3>
-                            <p class="element-timeline__text">Rank candidates by their validation performance and select the best template. Optionally, use the top performers as seeds for a second round of generation &mdash; creating variations of the winners and evaluating again. This iterative refinement narrows in on the optimal phrasing. The final prompt can also be ensembled: using multiple high-performing templates together and aggregating their outputs for even greater reliability.</p>
+                            <p class="element-timeline__text">Rank candidates by their validation performance and select the best template. Optionally, use the top performers as seeds for a second round of generation, creating variations of the winners and evaluating again. This iterative refinement narrows in on the optimal phrasing. The final prompt can also be ensembled: using multiple high-performing templates together and aggregating their outputs for even greater reliability.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Winner: &ldquo;[Review] Sentiment:&rdquo; scores 84% accuracy &mdash; a 12-point improvement over the baseline. The top 3 candidates are ensembled for production, boosting accuracy to 87%.</p>
+                                <p>Winner: &ldquo;[Review] Sentiment:&rdquo; scores 84% accuracy, a 12-point improvement over the baseline. The top 3 candidates are ensembled for production, boosting accuracy to 87%.</p>
                             </div>
                         </div>
                     </div>
@@ -355,7 +355,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Outcome</span>
-                                <p>Discovers that the terse template &ldquo;[Review] Sentiment:&rdquo; achieves 86% accuracy &mdash; a phrasing no human engineer tested because it &ldquo;doesn&rsquo;t look like a real prompt.&rdquo; The model prefers concise, structured inputs over verbose instructions for this task.</p>
+                                <p>Discovers that the terse template &ldquo;[Review] Sentiment:&rdquo; achieves 86% accuracy, a phrasing no human engineer tested because it &ldquo;doesn&rsquo;t look like a real prompt.&rdquo; The model prefers concise, structured inputs over verbose instructions for this task.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -409,11 +409,11 @@
                                     <span class="technique-demo__tag">Mining Results</span>
                                     <p><strong>Candidate pool:</strong> 300 templates generated from corpus mining and paraphrase generation.<br><br>
                                     <strong>Top 5 discovered templates:</strong><br>
-                                    1. &ldquo;[Review] Overall:&rdquo; &mdash; 85.2% accuracy<br>
-                                    2. &ldquo;The review expressed a ___ sentiment.&rdquo; &mdash; 84.8% accuracy<br>
-                                    3. &ldquo;Review tone: ___&rdquo; &mdash; 84.1% accuracy<br>
-                                    4. &ldquo;This is a ___ review.&rdquo; &mdash; 83.6% accuracy<br>
-                                    5. &ldquo;Sentiment of the above:&rdquo; &mdash; 83.2% accuracy<br><br>
+                                    1. &ldquo;[Review] Overall:&rdquo;, 85.2% accuracy<br>
+                                    2. &ldquo;The review expressed a ___ sentiment.&rdquo;, 84.8% accuracy<br>
+                                    3. &ldquo;Review tone: ___&rdquo;, 84.1% accuracy<br>
+                                    4. &ldquo;This is a ___ review.&rdquo;, 83.6% accuracy<br>
+                                    5. &ldquo;Sentiment of the above:&rdquo;, 83.2% accuracy<br><br>
                                     <strong>Human baseline:</strong> 76.4% accuracy<br><br>
                                     <strong>Key insight:</strong> The winning template is shorter and less &ldquo;polite&rdquo; than any human-written version. The verbose, instruction-style prompt actually confused the model by introducing unnecessary context that diluted the classification signal.</p>
                                 </div>
@@ -484,7 +484,7 @@
                                 </svg>
                                 <div>
                                     <strong>Production Classification Systems</strong>
-                                    <p>When a prompt runs millions of times, even a small accuracy improvement translates to thousands fewer errors &mdash; making the upfront search cost trivial by comparison.</p>
+                                    <p>When a prompt runs millions of times, even a small accuracy improvement translates to thousands fewer errors, making the upfront search cost trivial by comparison.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -494,7 +494,7 @@
                                 </svg>
                                 <div>
                                     <strong>Model Migration</strong>
-                                    <p>When switching between models or updating to a new version, previously optimized prompts may underperform &mdash; Prompt Mining re-optimizes templates for the new model&rsquo;s characteristics.</p>
+                                    <p>When switching between models or updating to a new version, previously optimized prompts may underperform, Prompt Mining re-optimizes templates for the new model&rsquo;s characteristics.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -514,7 +514,7 @@
                                 </svg>
                                 <div>
                                     <strong>Non-English and Specialized Domains</strong>
-                                    <p>Human intuition about effective phrasing is weakest in unfamiliar languages or technical domains &mdash; automated search fills the expertise gap systematically.</p>
+                                    <p>Human intuition about effective phrasing is weakest in unfamiliar languages or technical domains, automated search fills the expertise gap systematically.</p>
                                 </div>
                             </div>
                         </div>
@@ -549,7 +549,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative or Subjective Outputs</strong>
-                                    <p>Tasks like creative writing, brainstorming, or opinion generation have no single correct answer &mdash; making automated scoring unreliable and the mining process ill-defined.</p>
+                                    <p>Tasks like creative writing, brainstorming, or opinion generation have no single correct answer, making automated scoring unreliable and the mining process ill-defined.</p>
                                 </div>
                             </div>
                         </div>
@@ -586,7 +586,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Document Processing</h3>
-                        <p class="use-case-showcase__desc">Mine optimal extraction templates for pulling structured data from contracts, invoices, or medical records &mdash; tasks where prompt phrasing directly affects extraction accuracy.</p>
+                        <p class="use-case-showcase__desc">Mine optimal extraction templates for pulling structured data from contracts, invoices, or medical records, tasks where prompt phrasing directly affects extraction accuracy.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -619,7 +619,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Medical NLP</h3>
-                        <p class="use-case-showcase__desc">Optimize prompts for clinical text understanding &mdash; extracting diagnoses, medications, and procedures from notes &mdash; where domain-specific phrasing patterns differ dramatically from general language.</p>
+                        <p class="use-case-showcase__desc">Optimize prompts for clinical text understanding, extracting diagnoses, medications, and procedures from notes, where domain-specific phrasing patterns differ dramatically from general language.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -669,7 +669,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Broader Trend: Prompts as Learned Parameters</div>
-                    <p>Prompt Mining represents a pivotal conceptual shift: treating prompts not as static instructions written by humans, but as <strong>optimizable parameters</strong> that can be searched, tuned, and refined through data-driven methods. This same principle now drives the entire field of automatic prompt engineering &mdash; from soft prompt tuning in research to production optimization frameworks like DSPy. The lesson endures: whenever you have labeled data and a clear metric, let the algorithm find the prompt.</p>
+                    <p>Prompt Mining represents a pivotal conceptual shift: treating prompts not as static instructions written by humans, but as <strong>optimizable parameters</strong> that can be searched, tuned, and refined through data-driven methods. This same principle now drives the entire field of automatic prompt engineering, from soft prompt tuning in research to production optimization frameworks like DSPy. The lesson endures: whenever you have labeled data and a clear metric, let the algorithm find the prompt.</p>
                 </div>
             </div>
         </section>
@@ -690,7 +690,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related Discovery</span>
                         <span class="evolution-callout__title">Auto-CoT / Zero-Shot CoT</span>
-                        <span class="evolution-callout__desc">Another prompt automation breakthrough &mdash; discovering that &ldquo;Let&rsquo;s think step by step&rdquo; unlocks reasoning without examples, found through systematic prompt search rather than manual design.</span>
+                        <span class="evolution-callout__desc">Another prompt automation breakthrough, discovering that &ldquo;Let&rsquo;s think step by step&rdquo; unlocks reasoning without examples, found through systematic prompt search rather than manual design.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -711,7 +711,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Rephrase and Respond (RAR)</span>
-                        <span class="evolution-callout__desc">Instead of mining corpora for templates, RAR asks the model itself to rephrase the prompt before answering &mdash; a lightweight, model-driven approach to finding better phrasings on the fly.</span>
+                        <span class="evolution-callout__desc">Instead of mining corpora for templates, RAR asks the model itself to rephrase the prompt before answering, a lightweight, model-driven approach to finding better phrasings on the fly.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -730,7 +730,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Example Selection</span>
-                        <span class="evolution-callout__desc">While Prompt Mining optimizes the template text, Example Selection optimizes which few-shot examples to include &mdash; a complementary dimension of prompt optimization that can be combined for maximum effect.</span>
+                        <span class="evolution-callout__desc">While Prompt Mining optimizes the template text, Example Selection optimizes which few-shot examples to include, a complementary dimension of prompt optimization that can be combined for maximum effect.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -808,7 +808,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

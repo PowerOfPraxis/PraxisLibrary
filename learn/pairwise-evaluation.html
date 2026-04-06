@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Ensemble Methods Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Pairwise Evaluation</h1>
-                <p class="page-subtitle fade-in">Absolute scoring is hard &mdash; even for humans. Is this essay a 7 or an 8 out of 10? Pairwise Evaluation sidesteps this problem entirely: instead of scoring outputs individually, it compares them in pairs. &ldquo;Is A better than B?&rdquo; is a much easier and more reliable question than &ldquo;What score does A deserve?&rdquo;</p>
+                <p class="page-subtitle fade-in">Absolute scoring is hard, even for humans. Is this essay a 7 or an 8 out of 10? Pairwise Evaluation sidesteps this problem entirely: instead of scoring outputs individually, it compares them in pairs. &ldquo;Is A better than B?&rdquo; is a much easier and more reliable question than &ldquo;What score does A deserve?&rdquo;</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Compare, Don&rsquo;t Score</h2>
-                        <p class="split-section__text">Consider rating 5 essays on a 10-point scale &mdash; you&rsquo;ll agonize over whether each is a 6 or 7, and your scores will shift depending on the order you read them. Now consider simply comparing pairs: &ldquo;Is Essay A better than Essay B?&rdquo; This relative judgment is both easier and more consistent.</p>
+                        <p class="split-section__text">Consider rating 5 essays on a 10-point scale, you&rsquo;ll agonize over whether each is a 6 or 7, and your scores will shift depending on the order you read them. Now consider simply comparing pairs: &ldquo;Is Essay A better than Essay B?&rdquo; This relative judgment is both easier and more consistent.</p>
                         <p class="split-section__text"><strong>Pairwise Evaluation applies this principle systematically.</strong> Given N candidates, it generates all possible pairs (or a strategic subset), makes a comparison judgment for each pair, and derives a ranking from the aggregated comparisons using methods like Elo ratings or Bradley-Terry models. The result is a robust ranking that emerges from many small, reliable decisions rather than a few fragile absolute scores.</p>
-                        <p class="split-section__text">Think of it like a round-robin tournament: instead of asking judges to assign point totals to each athlete, you simply have them compete head-to-head. The overall standings emerge naturally from the accumulated match results &mdash; and they&rsquo;re far more trustworthy than any single judge&rsquo;s scorecard.</p>
+                        <p class="split-section__text">Think of it like a round-robin tournament: instead of asking judges to assign point totals to each athlete, you simply have them compete head-to-head. The overall standings emerge naturally from the accumulated match results, and they&rsquo;re far more trustworthy than any single judge&rsquo;s scorecard.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Relative Beats Absolute</span>
-                                <p>Absolute scoring requires calibrated standards (&ldquo;what does a 7 mean?&rdquo;) that are hard to maintain consistently. Relative comparison only requires answering &ldquo;which is better?&rdquo; &mdash; a judgment that humans and AI make much more reliably. By aggregating many reliable pairwise comparisons, highly accurate rankings emerge.</p>
+                                <p>Absolute scoring requires calibrated standards (&ldquo;what does a 7 mean?&rdquo;) that are hard to maintain consistently. Relative comparison only requires answering &ldquo;which is better?&rdquo;, a judgment that humans and AI make much more reliably. By aggregating many reliable pairwise comparisons, highly accurate rankings emerge.</p>
                             </div>
                         </div>
                     </div>
@@ -259,10 +259,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate Pairs</h3>
-                            <p class="element-timeline__text">Create all N*(N-1)/2 pairs from the candidate set, or sample strategically for large candidate pools. For 5 candidates, that&rsquo;s 10 pairs. For 20 candidates, that&rsquo;s 190 pairs &mdash; at which point strategic sampling (Swiss-system or random subsets) becomes practical to keep costs manageable.</p>
+                            <p class="element-timeline__text">Create all N*(N-1)/2 pairs from the candidate set, or sample strategically for large candidate pools. For 5 candidates, that&rsquo;s 10 pairs. For 20 candidates, that&rsquo;s 190 pairs, at which point strategic sampling (Swiss-system or random subsets) becomes practical to keep costs manageable.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Given candidates A, B, C, D &mdash; generate pairs: (A,B), (A,C), (A,D), (B,C), (B,D), (C,D) for a total of 6 comparisons.</p>
+                                <p>Given candidates A, B, C, D, generate pairs: (A,B), (A,C), (A,D), (B,C), (B,D), (C,D) for a total of 6 comparisons.</p>
                             </div>
                         </div>
                     </div>
@@ -290,7 +290,7 @@
                             <p class="element-timeline__text">Use Elo ratings, Bradley-Terry models, or majority voting to derive rankings from the pairwise results. Each method has trade-offs: Elo is simple and well-understood, Bradley-Terry provides probability estimates, and majority voting is most transparent. The aggregation method converts individual comparisons into a global ordering.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>After 6 comparisons: A won 3, B won 2, C won 1, D won 0 &mdash; Elo ratings: A (1,532), B (1,510), C (1,478), D (1,480).</p>
+                                <p>After 6 comparisons: A won 3, B won 2, C won 1, D won 0, Elo ratings: A (1,532), B (1,510), C (1,478), D (1,480).</p>
                             </div>
                         </div>
                     </div>
@@ -304,7 +304,7 @@
                             <p class="element-timeline__text">Produce the final ordering with confidence scores based on agreement consistency. High confidence means the ranking is stable across comparisons; low confidence flags candidates whose relative positions are uncertain and may benefit from additional comparison rounds.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p><strong>Final ranking:</strong> 1. Draft A (high confidence) &mdash; 2. Draft B (high confidence) &mdash; 3. Draft C (low confidence, close to D) &mdash; 4. Draft D (low confidence).</p>
+                                <p><strong>Final ranking:</strong> 1. Draft A (high confidence), 2. Draft B (high confidence), 3. Draft C (low confidence, close to D), 4. Draft D (low confidence).</p>
                             </div>
                         </div>
                     </div>
@@ -365,11 +365,11 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Pairwise Comparison</span>
-                                <p><strong>Response A vs Response B:</strong> Which response better answers the user&rsquo;s question? Consider helpfulness, accuracy, and clarity.<br><br><strong>Verdict:</strong> Response A is preferred. It provides a more structured explanation with concrete examples, while Response B is accurate but overly abstract.<br><br><strong>Response A vs Response C:</strong> Response A preferred again &mdash; more actionable advice.<br><strong>Response B vs Response C:</strong> Response B preferred &mdash; better factual coverage.</p>
+                                <p><strong>Response A vs Response B:</strong> Which response better answers the user&rsquo;s question? Consider helpfulness, accuracy, and clarity.<br><br><strong>Verdict:</strong> Response A is preferred. It provides a more structured explanation with concrete examples, while Response B is accurate but overly abstract.<br><br><strong>Response A vs Response C:</strong> Response A preferred again, more actionable advice.<br><strong>Response B vs Response C:</strong> Response B preferred, better factual coverage.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Aggregated Ranking</span>
-                                <p>1. Response A (2 wins) &mdash; 2. Response B (1 win) &mdash; 3. Response C (0 wins). Ranking consistent across both orderings, high agreement confidence.</p>
+                                <p>1. Response A (2 wins), 2. Response B (1 win), 3. Response C (0 wins). Ranking consistent across both orderings, high agreement confidence.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -424,7 +424,7 @@
                                     <p><strong>Draft A vs Draft B:</strong> Draft A is preferred. It opens with a compelling statistic and establishes stakes immediately, while Draft B uses a generic opening that could apply to any topic.<br><br>
                                     <strong>Draft A vs Draft C:</strong> Draft A is preferred. Draft C has strong emotional appeal but lacks the factual grounding that Draft A provides. For an informational article, Draft A&rsquo;s evidence-first approach better serves the audience.<br><br>
                                     <strong>Draft B vs Draft C:</strong> Draft C is preferred. While neither is as strong as Draft A, Draft C at least engages the reader emotionally, whereas Draft B reads as flat and formulaic.<br><br>
-                                    <strong>Aggregated ranking:</strong> 1. Draft A (2 wins, 0 losses) &mdash; 2. Draft C (1 win, 1 loss) &mdash; 3. Draft B (0 wins, 2 losses).<br><br>
+                                    <strong>Aggregated ranking:</strong> 1. Draft A (2 wins, 0 losses), 2. Draft C (1 win, 1 loss), 3. Draft B (0 wins, 2 losses).<br><br>
                                     <em>Note: Always verify that AI-generated evaluations align with your editorial standards. Use pairwise results as input to human decision-making, not as a replacement for it.</em></p>
                                 </div>
                             </div>
@@ -447,7 +447,7 @@
                                     <p><strong>Model X vs Model Y:</strong> Model X preferred. Both produce correct code, but Model X includes error handling and meaningful variable names. Model Y&rsquo;s solution works but uses single-letter variables and no comments.<br><br>
                                     <strong>Model X vs Model Z:</strong> Model Z preferred. Model Z&rsquo;s solution is not only correct and well-documented, it also handles edge cases that Model X misses (empty input, negative numbers).<br><br>
                                     <strong>Model Y vs Model Z:</strong> Model Z preferred. Model Z is superior on every criterion: correctness, readability, and robustness.<br><br>
-                                    <strong>Aggregated ranking:</strong> 1. Model Z (2 wins) &mdash; 2. Model X (1 win) &mdash; 3. Model Y (0 wins). High confidence &mdash; no ordering conflicts detected.<br><br>
+                                    <strong>Aggregated ranking:</strong> 1. Model Z (2 wins), 2. Model X (1 win), 3. Model Y (0 wins). High confidence, no ordering conflicts detected.<br><br>
                                     <em>Note: Pairwise evaluation of code should be supplemented with actual test execution. AI-based comparison identifies stylistic and structural differences but cannot guarantee runtime correctness.</em></p>
                                 </div>
                             </div>
@@ -473,7 +473,7 @@
                                     <strong>Candidate 2 vs Candidate 3:</strong> Candidate 3 preferred. Significant experience advantage.<br>
                                     <strong>Candidate 2 vs Candidate 4:</strong> Candidate 4 preferred. More industry experience.<br>
                                     <strong>Candidate 3 vs Candidate 4:</strong> Candidate 3 preferred. Broader scope and leadership.<br><br>
-                                    <strong>Aggregated ranking:</strong> 1. Candidate 3 (3 wins) &mdash; 2. Candidate 1 (2 wins) &mdash; 3. Candidate 4 (1 win) &mdash; 4. Candidate 2 (0 wins).<br><br>
+                                    <strong>Aggregated ranking:</strong> 1. Candidate 3 (3 wins), 2. Candidate 1 (2 wins), 3. Candidate 4 (1 win), 4. Candidate 2 (0 wins).<br><br>
                                     <em>Note: AI-assisted resume screening must be reviewed by human recruiters. Pairwise comparison can surface relative strengths, but hiring decisions require human judgment on cultural fit, potential, and context that AI cannot fully assess.</em></p>
                                 </div>
                             </div>
@@ -501,7 +501,7 @@
                                 </svg>
                                 <div>
                                     <strong>Evaluating AI-Generated Content</strong>
-                                    <p>Comparing multiple drafts, summaries, or responses to find the best output &mdash; relative comparison is far more reliable than assigning individual quality scores.</p>
+                                    <p>Comparing multiple drafts, summaries, or responses to find the best output, relative comparison is far more reliable than assigning individual quality scores.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -511,7 +511,7 @@
                                 </svg>
                                 <div>
                                     <strong>Benchmarking Model Performance</strong>
-                                    <p>Comparing different models or configurations on the same tasks &mdash; the foundation of systems like Chatbot Arena and MT-Bench.</p>
+                                    <p>Comparing different models or configurations on the same tasks, the foundation of systems like Chatbot Arena and MT-Bench.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -521,7 +521,7 @@
                                 </svg>
                                 <div>
                                     <strong>Selecting Best Outputs from Multiple Candidates</strong>
-                                    <p>When you generate several candidate responses and need to pick the winner &mdash; pairwise comparison identifies the strongest option through aggregated preferences.</p>
+                                    <p>When you generate several candidate responses and need to pick the winner, pairwise comparison identifies the strongest option through aggregated preferences.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -546,7 +546,7 @@
                                 </svg>
                                 <div>
                                     <strong>Only One Output to Evaluate</strong>
-                                    <p>Pairwise comparison requires at least two candidates &mdash; if you have a single output, use absolute scoring or rubric-based evaluation instead.</p>
+                                    <p>Pairwise comparison requires at least two candidates, if you have a single output, use absolute scoring or rubric-based evaluation instead.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -556,7 +556,7 @@
                                 </svg>
                                 <div>
                                     <strong>Absolute Scores Are Required</strong>
-                                    <p>When the application demands specific numeric scores (not rankings) &mdash; pairwise evaluation produces orderings, not calibrated point values.</p>
+                                    <p>When the application demands specific numeric scores (not rankings), pairwise evaluation produces orderings, not calibrated point values.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -566,7 +566,7 @@
                                 </svg>
                                 <div>
                                     <strong>Very Large Candidate Sets</strong>
-                                    <p>With O(N&sup2;) pairs, evaluation costs grow quadratically &mdash; 100 candidates means 4,950 comparisons. Use sampling strategies or tournament brackets for large pools.</p>
+                                    <p>With O(N&sup2;) pairs, evaluation costs grow quadratically, 100 candidates means 4,950 comparisons. Use sampling strategies or tournament brackets for large pools.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -576,7 +576,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Pass/Fail Judgments</strong>
-                                    <p>When all you need is a binary decision (correct/incorrect, safe/unsafe) &mdash; pairwise comparison adds unnecessary complexity to straightforward validation.</p>
+                                    <p>When all you need is a binary decision (correct/incorrect, safe/unsafe), pairwise comparison adds unnecessary complexity to straightforward validation.</p>
                                 </div>
                             </div>
                         </div>
@@ -602,7 +602,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">LLM Benchmarking</h3>
-                        <p class="use-case-showcase__desc">Compare model outputs head-to-head across tasks, aggregating pairwise preferences into Elo ratings that rank models by capability &mdash; the methodology behind Chatbot Arena.</p>
+                        <p class="use-case-showcase__desc">Compare model outputs head-to-head across tasks, aggregating pairwise preferences into Elo ratings that rank models by capability, the methodology behind Chatbot Arena.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -628,7 +628,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">A/B Testing Analysis</h3>
-                        <p class="use-case-showcase__desc">Evaluate user experience variants by comparing them in pairs &mdash; pairwise preference data reveals which designs users genuinely prefer beyond noisy click-rate metrics.</p>
+                        <p class="use-case-showcase__desc">Evaluate user experience variants by comparing them in pairs, pairwise preference data reveals which designs users genuinely prefer beyond noisy click-rate metrics.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -662,7 +662,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Quality Assurance</h3>
-                        <p class="use-case-showcase__desc">Compare output versions during QA review to identify regressions or improvements &mdash; pairwise comparison catches subtle quality changes that absolute metrics miss.</p>
+                        <p class="use-case-showcase__desc">Compare output versions during QA review to identify regressions or improvements, pairwise comparison catches subtle quality changes that absolute metrics miss.</p>
                     </div>
                 </div>
             </div>
@@ -724,7 +724,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Ensemble Methods</span>
-                        <span class="evolution-callout__desc">The broader family of techniques that combine multiple outputs for better results &mdash; Pairwise Evaluation is a core method within this family.</span>
+                        <span class="evolution-callout__desc">The broader family of techniques that combine multiple outputs for better results, Pairwise Evaluation is a core method within this family.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -742,7 +742,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Self-Consistency</span>
-                        <span class="evolution-callout__desc">Generates multiple answers to the same question and selects the most common &mdash; a complementary approach that uses voting rather than pairwise comparison.</span>
+                        <span class="evolution-callout__desc">Generates multiple answers to the same question and selects the most common, a complementary approach that uses voting rather than pairwise comparison.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -763,7 +763,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Diverse Prompting</span>
-                        <span class="evolution-callout__desc">Generates varied candidate outputs using different prompt strategies &mdash; a natural upstream step that feeds diverse candidates into Pairwise Evaluation.</span>
+                        <span class="evolution-callout__desc">Generates varied candidate outputs using different prompt strategies, a natural upstream step that feeds diverse candidates into Pairwise Evaluation.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -840,7 +840,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

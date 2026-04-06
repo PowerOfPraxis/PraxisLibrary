@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Reasoning &amp; CoT Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Buffer of Thoughts (BoT)</h1>
-                <p class="page-subtitle fade-in">What if an AI could learn from its own reasoning patterns and reuse them? Buffer of Thoughts maintains a library of distilled thought-templates &mdash; proven reasoning structures extracted from past successes &mdash; and retrieves the most relevant template when facing a new problem.</p>
+                <p class="page-subtitle fade-in">What if an AI could learn from its own reasoning patterns and reuse them? Buffer of Thoughts maintains a library of distilled thought-templates, proven reasoning structures extracted from past successes, and retrieves the most relevant template when facing a new problem.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2024</span>
-                        <p><strong>Introduced:</strong> Buffer of Thoughts was introduced in 2024 and selected as a NeurIPS 2024 Spotlight paper. The technique addresses a key limitation of existing reasoning methods: each problem is solved from scratch, even when similar reasoning patterns have worked before. BoT introduces a &ldquo;meta-buffer&rdquo; &mdash; a library of high-level thought-templates distilled from successful reasoning chains. When a new problem arrives, the system retrieves the most relevant template and instantiates it for the specific problem, achieving 11-51% improvements across reasoning benchmarks.</p>
-                        <p><strong>Modern LLM Status:</strong> BoT represents the frontier of meta-reasoning approaches. While most prompting techniques treat each query independently, BoT introduces the concept of reasoning memory &mdash; the idea that good reasoning patterns should be accumulated and reused. This aligns with how expert human problem-solvers work: they recognize problem types and apply known solution patterns. In production systems, BoT&rsquo;s template library concept maps naturally to curated prompt libraries and retrieval-augmented reasoning pipelines.</p>
+                        <p><strong>Introduced:</strong> Buffer of Thoughts was introduced in 2024 and selected as a NeurIPS 2024 Spotlight paper. The technique addresses a key limitation of existing reasoning methods: each problem is solved from scratch, even when similar reasoning patterns have worked before. BoT introduces a &ldquo;meta-buffer&rdquo;, a library of high-level thought-templates distilled from successful reasoning chains. When a new problem arrives, the system retrieves the most relevant template and instantiates it for the specific problem, achieving 11-51% improvements across reasoning benchmarks.</p>
+                        <p><strong>Modern LLM Status:</strong> BoT represents the frontier of meta-reasoning approaches. While most prompting techniques treat each query independently, BoT introduces the concept of reasoning memory, the idea that good reasoning patterns should be accumulated and reused. This aligns with how expert human problem-solvers work: they recognize problem types and apply known solution patterns. In production systems, BoT&rsquo;s template library concept maps naturally to curated prompt libraries and retrieval-augmented reasoning pipelines.</p>
                     </div>
                 </div>
             </div>
@@ -216,8 +216,8 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Reuse Proven Reasoning Patterns</h2>
                         <p class="split-section__text">Most prompting techniques start fresh with each problem. Chain-of-Thought generates new reasoning steps every time. Tree of Thoughts builds new trees from scratch. This is like an expert who forgets everything they&rsquo;ve learned between problems.</p>
-                        <p class="split-section__text"><strong>Buffer of Thoughts changes this by maintaining a &ldquo;meta-buffer&rdquo;</strong> &mdash; a collection of high-level thought-templates that capture proven reasoning strategies. When a new problem arrives, BoT: (1) identifies the problem type, (2) retrieves the most relevant thought-template from the buffer, (3) instantiates that template with problem-specific details, and (4) uses the instantiated template to guide reasoning.</p>
-                        <p class="split-section__text">Think of it like a master chef who doesn&rsquo;t reinvent cooking from first principles for every dish &mdash; they draw on a library of proven techniques (saut&eacute;, braise, emulsify) and apply the right technique to the right ingredients.</p>
+                        <p class="split-section__text"><strong>Buffer of Thoughts changes this by maintaining a &ldquo;meta-buffer&rdquo;</strong>, a collection of high-level thought-templates that capture proven reasoning strategies. When a new problem arrives, BoT: (1) identifies the problem type, (2) retrieves the most relevant thought-template from the buffer, (3) instantiates that template with problem-specific details, and (4) uses the instantiated template to guide reasoning.</p>
+                        <p class="split-section__text">Think of it like a master chef who doesn&rsquo;t reinvent cooking from first principles for every dish, they draw on a library of proven techniques (saut&eacute;, braise, emulsify) and apply the right technique to the right ingredients.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
@@ -304,7 +304,7 @@
                             <p class="element-timeline__text">After solving the problem, evaluate whether the reasoning chain revealed a new useful pattern. If so, distill it into a new template and add it to the buffer for future use.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The edge case about &ldquo;no condiment&rdquo; suggests a new template variant: COMBINATORIAL_WITH_OPTIONAL_DIMENSIONS &mdash; when some dimensions include a null/none option, add 1 to that dimension&rsquo;s count before multiplying.</p>
+                                <p>The edge case about &ldquo;no condiment&rdquo; suggests a new template variant: COMBINATORIAL_WITH_OPTIONAL_DIMENSIONS, when some dimensions include a null/none option, add 1 to that dimension&rsquo;s count before multiplying.</p>
                             </div>
                         </div>
                     </div>
@@ -365,11 +365,11 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Template-Guided Prompt</span>
-                                <p>[Retrieved template: COMBINATORIAL_COUNTING &mdash; identify independent choice dimensions, confirm independence, apply multiplication principle, verify with edge cases] Apply this template: If a store has 3 types of bread, 4 types of cheese, and 2 condiments, how many unique sandwiches?</p>
+                                <p>[Retrieved template: COMBINATORIAL_COUNTING, identify independent choice dimensions, confirm independence, apply multiplication principle, verify with edge cases] Apply this template: If a store has 3 types of bread, 4 types of cheese, and 2 condiments, how many unique sandwiches?</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Template-Guided Response</span>
-                                <p><strong>Dimensions:</strong> bread (3), cheese (4), condiment (2).<br><strong>Independence check:</strong> Each choice is independent &mdash; bread doesn&rsquo;t constrain cheese or condiment selection. Confirmed.<br><strong>Multiplication principle:</strong> 3 &times; 4 &times; 2 = 24.<br><strong>Edge cases:</strong> Is &ldquo;no condiment&rdquo; a valid option? If yes, condiment dimension becomes 3 (2 + none), giving 3 &times; 4 &times; 3 = 36. The problem states &ldquo;2 condiments&rdquo; without a &ldquo;none&rdquo; option, so 24 is the answer.<br><strong>Final answer:</strong> 24 unique sandwiches.</p>
+                                <p><strong>Dimensions:</strong> bread (3), cheese (4), condiment (2).<br><strong>Independence check:</strong> Each choice is independent, bread doesn&rsquo;t constrain cheese or condiment selection. Confirmed.<br><strong>Multiplication principle:</strong> 3 &times; 4 &times; 2 = 24.<br><strong>Edge cases:</strong> Is &ldquo;no condiment&rdquo; a valid option? If yes, condiment dimension becomes 3 (2 + none), giving 3 &times; 4 &times; 3 = 36. The problem states &ldquo;2 condiments&rdquo; without a &ldquo;none&rdquo; option, so 24 is the answer.<br><strong>Final answer:</strong> 24 unique sandwiches.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -421,7 +421,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">BoT with PROOF_BY_CASES Template</span>
-                                    <p><strong>Retrieved Template:</strong> PROOF_BY_CASES &mdash; (1) Express terms using formal definitions, (2) Perform algebraic manipulation, (3) Show result matches target form, (4) State conclusion.<br><br>
+                                    <p><strong>Retrieved Template:</strong> PROOF_BY_CASES, (1) Express terms using formal definitions, (2) Perform algebraic manipulation, (3) Show result matches target form, (4) State conclusion.<br><br>
                                     <strong>Step 1 (Formal definitions):</strong> An odd number can be expressed as 2k + 1 where k is an integer. Let our two odd numbers be (2a + 1) and (2b + 1).<br><br>
                                     <strong>Step 2 (Algebraic manipulation):</strong> Sum = (2a + 1) + (2b + 1) = 2a + 2b + 2 = 2(a + b + 1).<br><br>
                                     <strong>Step 3 (Match target form):</strong> The result 2(a + b + 1) is of the form 2n where n = (a + b + 1), which is an integer. By definition, any number of the form 2n is even.<br><br>
@@ -445,7 +445,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">BoT with SYSTEMATIC_DIAGNOSIS Template</span>
-                                    <p><strong>Retrieved Template:</strong> SYSTEMATIC_DIAGNOSIS &mdash; (1) Isolate the differentiating factor, (2) Generate hypotheses ranked by likelihood, (3) Design minimal test for each, (4) Eliminate systematically, (5) Confirm root cause.<br><br>
+                                    <p><strong>Retrieved Template:</strong> SYSTEMATIC_DIAGNOSIS, (1) Isolate the differentiating factor, (2) Generate hypotheses ranked by likelihood, (3) Design minimal test for each, (4) Eliminate systematically, (5) Confirm root cause.<br><br>
                                     <strong>Step 1 (Isolating factor):</strong> Works for post-2023 accounts, fails for pre-2023. The differentiating factor is account creation date, suggesting a schema or data migration issue.<br><br>
                                     <strong>Step 2 (Hypotheses):</strong><br>
                                     H1: Pre-2023 accounts use legacy schema missing a required field (most likely)<br>
@@ -475,7 +475,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">BoT with COMPARE_AND_CONTRAST Template</span>
-                                    <p><strong>Retrieved Template:</strong> COMPARE_AND_CONTRAST &mdash; (1) Identify key variables in each source, (2) Find methodological differences, (3) Identify confounding factors, (4) Synthesize a unified understanding, (5) State confidence and limitations.<br><br>
+                                    <p><strong>Retrieved Template:</strong> COMPARE_AND_CONTRAST, (1) Identify key variables in each source, (2) Find methodological differences, (3) Identify confounding factors, (4) Synthesize a unified understanding, (5) State confidence and limitations.<br><br>
                                     <strong>Step 1 (Key variables):</strong> Study A measures output per hour. Study B measures project completion rates. Different productivity metrics yield different conclusions.<br><br>
                                     <strong>Step 2 (Methodological differences):</strong> Study A surveyed tech workers (individual contributors). Study B surveyed cross-functional teams requiring frequent collaboration. The populations differ fundamentally.<br><br>
                                     <strong>Step 3 (Confounding factors):</strong> Study A was conducted during pandemic lockdowns (forced remote). Study B was post-pandemic (voluntary remote). Selection effects differ dramatically.<br><br>
@@ -507,7 +507,7 @@
                                 </svg>
                                 <div>
                                     <strong>Repeated Problem Types Where Patterns Emerge</strong>
-                                    <p>When you solve similar problems regularly &mdash; debugging, code review, data analysis &mdash; templates capture what works and ensure consistent quality.</p>
+                                    <p>When you solve similar problems regularly, debugging, code review, data analysis, templates capture what works and ensure consistent quality.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -527,7 +527,7 @@
                                 </svg>
                                 <div>
                                     <strong>Complex Problems That Benefit from Structured Approaches</strong>
-                                    <p>Multi-step reasoning tasks where skipping a step leads to errors &mdash; templates enforce completeness and consistency across every attempt.</p>
+                                    <p>Multi-step reasoning tasks where skipping a step leads to errors, templates enforce completeness and consistency across every attempt.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -552,7 +552,7 @@
                                 </svg>
                                 <div>
                                     <strong>Entirely Novel Problem Types with No Precedent</strong>
-                                    <p>If no existing template matches the problem type, BoT offers no advantage over standard reasoning &mdash; you need to solve it fresh first, then distill the pattern.</p>
+                                    <p>If no existing template matches the problem type, BoT offers no advantage over standard reasoning, you need to solve it fresh first, then distill the pattern.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -562,7 +562,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Single-Step Questions</strong>
-                                    <p>Straightforward lookups or one-step calculations don&rsquo;t benefit from template overhead &mdash; the template retrieval and instantiation adds unnecessary complexity.</p>
+                                    <p>Straightforward lookups or one-step calculations don&rsquo;t benefit from template overhead, the template retrieval and instantiation adds unnecessary complexity.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -572,7 +572,7 @@
                                 </svg>
                                 <div>
                                     <strong>Tasks Where Fresh Creative Thinking Is Preferred</strong>
-                                    <p>Creative writing, brainstorming, and open-ended exploration benefit from unconstrained thinking &mdash; templates can inadvertently limit creative output by imposing structure.</p>
+                                    <p>Creative writing, brainstorming, and open-ended exploration benefit from unconstrained thinking, templates can inadvertently limit creative output by imposing structure.</p>
                                 </div>
                             </div>
                         </div>
@@ -596,7 +596,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Automated QA Systems</h3>
-                        <p class="use-case-showcase__desc">Maintain templates for common test patterns &mdash; boundary testing, regression checks, integration validation &mdash; ensuring consistent, thorough quality assurance across every release.</p>
+                        <p class="use-case-showcase__desc">Maintain templates for common test patterns, boundary testing, regression checks, integration validation, ensuring consistent, thorough quality assurance across every release.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -607,7 +607,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Tutoring Platforms</h3>
-                        <p class="use-case-showcase__desc">Build subject-specific reasoning templates that guide students through problem types &mdash; algebra word problems, physics derivations, essay analysis &mdash; with consistent pedagogical approaches.</p>
+                        <p class="use-case-showcase__desc">Build subject-specific reasoning templates that guide students through problem types, algebra word problems, physics derivations, essay analysis, with consistent pedagogical approaches.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -620,7 +620,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Code Review Pipelines</h3>
-                        <p class="use-case-showcase__desc">Apply review templates that check for security vulnerabilities, performance issues, code style, and architectural consistency &mdash; the same expert-level review every time.</p>
+                        <p class="use-case-showcase__desc">Apply review templates that check for security vulnerabilities, performance issues, code style, and architectural consistency, the same expert-level review every time.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -642,7 +642,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Customer Support Escalation</h3>
-                        <p class="use-case-showcase__desc">Template common escalation patterns &mdash; billing disputes, technical issues, account recovery &mdash; so every support interaction follows proven resolution paths.</p>
+                        <p class="use-case-showcase__desc">Template common escalation patterns, billing disputes, technical issues, account recovery, so every support interaction follows proven resolution paths.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -830,7 +830,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

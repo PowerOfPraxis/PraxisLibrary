@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Output Control</span>
                 </div>
                 <h1 class="page-title fade-in">Constrained Output</h1>
-                <p class="page-subtitle fade-in">LLMs are verbose by default &mdash; they explain, elaborate, and editorialize. Constrained Output strips away that freedom, forcing the model to deliver responses in exact formats, within strict length limits, and following precise structural rules that downstream systems can reliably parse.</p>
+                <p class="page-subtitle fade-in">LLMs are verbose by default, they explain, elaborate, and editorialize. Constrained Output strips away that freedom, forcing the model to deliver responses in exact formats, within strict length limits, and following precise structural rules that downstream systems can reliably parse.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2020</span>
                         <p><strong>Introduced:</strong> Constrained Output techniques emerged organically around 2020 as practitioners moved from experimental AI usage to production systems. Rather than originating from a single paper, the approach evolved from the practical necessity of parsing LLM responses programmatically. Early adopters discovered that without explicit format instructions, models would wrap JSON in explanatory prose, ignore word-count limits, and add conversational preambles that broke automated pipelines. The technique formalized what developers learned through trial and error: you must tell the model <strong>exactly</strong> what shape the output should take and explicitly prohibit everything else.</p>
-                        <p><strong>Modern LLM Status:</strong> Constrained Output has become <strong>more important than ever</strong> in the age of function calling and structured generation. Modern APIs from OpenAI, Anthropic, and Google now offer native JSON mode, tool-use schemas, and response-format parameters that enforce constraints at the infrastructure level. However, prompt-level constraints remain essential for controlling length, tone, section structure, and any format not covered by built-in modes. The technique is foundational &mdash; nearly every production LLM application uses some form of output constraint, making it one of the most universally applied prompting patterns.</p>
+                        <p><strong>Modern LLM Status:</strong> Constrained Output has become <strong>more important than ever</strong> in the age of function calling and structured generation. Modern APIs from OpenAI, Anthropic, and Google now offer native JSON mode, tool-use schemas, and response-format parameters that enforce constraints at the infrastructure level. However, prompt-level constraints remain essential for controlling length, tone, section structure, and any format not covered by built-in modes. The technique is foundational, nearly every production LLM application uses some form of output constraint, making it one of the most universally applied prompting patterns.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Tell the Model What Shape to Fill</h2>
-                        <p class="split-section__text">Language models generate text token by token with no inherent concept of &ldquo;format.&rdquo; Left unconstrained, they default to conversational prose &mdash; helpful for chat, but catastrophic for any system that needs to parse, store, or route the output. A JSON parser does not care about the model&rsquo;s friendly preamble; it crashes on &ldquo;Sure! Here&rsquo;s the data you requested:&rdquo; before the actual payload.</p>
+                        <p class="split-section__text">Language models generate text token by token with no inherent concept of &ldquo;format.&rdquo; Left unconstrained, they default to conversational prose, helpful for chat, but catastrophic for any system that needs to parse, store, or route the output. A JSON parser does not care about the model&rsquo;s friendly preamble; it crashes on &ldquo;Sure! Here&rsquo;s the data you requested:&rdquo; before the actual payload.</p>
                         <p class="split-section__text"><strong>Constrained Output solves this by replacing ambiguity with specification.</strong> Instead of asking &ldquo;What are the key points?&rdquo; you define the exact container: the data format (JSON, XML, CSV, markdown table), the field names and types, the length boundaries (word counts, character limits, number of items), and an explicit prohibition on anything outside the specification. The model fills the mold you provide rather than inventing its own shape.</p>
-                        <p class="split-section__text">Think of it like giving someone a form to complete instead of asking them to write a letter. The form has labeled fields, character limits, and checkboxes &mdash; there is no room for tangents, no space for pleasantries, and no ambiguity about what goes where.</p>
+                        <p class="split-section__text">Think of it like giving someone a form to complete instead of asking them to write a letter. The form has labeled fields, character limits, and checkboxes, there is no room for tangents, no space for pleasantries, and no ambiguity about what goes where.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Explicit Constraints Beat Hoping for the Best</span>
-                                <p>Without constraints, the same prompt can produce wildly different output structures across runs &mdash; sometimes bullet points, sometimes paragraphs, sometimes numbered lists with explanatory headers. This inconsistency is invisible in casual use but becomes a pipeline-breaking problem at scale. Constrained Output eliminates structural variance by making the format part of the instruction, not an afterthought. The result: <strong>every response fits the same predictable shape</strong>, whether it is the first call or the ten-thousandth.</p>
+                                <p>Without constraints, the same prompt can produce wildly different output structures across runs, sometimes bullet points, sometimes paragraphs, sometimes numbered lists with explanatory headers. This inconsistency is invisible in casual use but becomes a pipeline-breaking problem at scale. Constrained Output eliminates structural variance by making the format part of the instruction, not an afterthought. The result: <strong>every response fits the same predictable shape</strong>, whether it is the first call or the ten-thousandth.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Define the Output Format</h3>
-                            <p class="element-timeline__text">Choose the exact structure your response must follow. This could be a data format like JSON or XML, a document structure with specific headings and sections, a table with defined columns, or a simple list with a fixed number of items. The key is specificity &mdash; name every field, specify every section, and leave nothing to the model&rsquo;s discretion.</p>
+                            <p class="element-timeline__text">Choose the exact structure your response must follow. This could be a data format like JSON or XML, a document structure with specific headings and sections, a table with defined columns, or a simple list with a fixed number of items. The key is specificity, name every field, specify every section, and leave nothing to the model&rsquo;s discretion.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Respond in valid JSON with these exact fields: title (string), summary (string, max 50 words), tags (array of 3 strings), priority (one of: high, medium, low).&rdquo;</p>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Set Length and Quantity Boundaries</h3>
-                            <p class="element-timeline__text">Specify exactly how much content you need. Word counts, character limits, number of list items, number of paragraphs &mdash; every quantitative dimension should be explicitly bounded. Models are poor at estimating length on their own, so concrete numbers dramatically improve compliance. Ranges work better than exact counts for natural-sounding text.</p>
+                            <p class="element-timeline__text">Specify exactly how much content you need. Word counts, character limits, number of list items, number of paragraphs, every quantitative dimension should be explicitly bounded. Models are poor at estimating length on their own, so concrete numbers dramatically improve compliance. Ranges work better than exact counts for natural-sounding text.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Write exactly 3 bullet points, each between 15 and 25 words. Do not include an introduction or conclusion.&rdquo;</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Prohibit Unwanted Additions</h3>
-                            <p class="element-timeline__text">Explicitly forbid the model from adding content outside your specification. Without this step, models routinely prepend &ldquo;Here is the result:&rdquo; or append &ldquo;Let me know if you need anything else!&rdquo; &mdash; text that seems helpful but breaks parsers. The prohibition should be clear and direct: no preambles, no explanations, no commentary beyond what you specified.</p>
+                            <p class="element-timeline__text">Explicitly forbid the model from adding content outside your specification. Without this step, models routinely prepend &ldquo;Here is the result:&rdquo; or append &ldquo;Let me know if you need anything else!&rdquo;, text that seems helpful but breaks parsers. The prohibition should be clear and direct: no preambles, no explanations, no commentary beyond what you specified.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Return only the JSON object. Do not include any text before or after the JSON. Do not wrap it in markdown code fences. Do not add explanations.&rdquo;</p>
@@ -472,7 +472,7 @@
                                 </svg>
                                 <div>
                                     <strong>API and Pipeline Integration</strong>
-                                    <p>When LLM output feeds directly into code, databases, or other systems &mdash; unparseable responses break the entire chain.</p>
+                                    <p>When LLM output feeds directly into code, databases, or other systems, unparseable responses break the entire chain.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -492,7 +492,7 @@
                                 </svg>
                                 <div>
                                     <strong>Consistent Report Generation</strong>
-                                    <p>When stakeholders expect identical section layouts across reports &mdash; executive summaries, status updates, and audit documents that must match a template.</p>
+                                    <p>When stakeholders expect identical section layouts across reports, executive summaries, status updates, and audit documents that must match a template.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -502,7 +502,7 @@
                                 </svg>
                                 <div>
                                     <strong>Token and Cost Optimization</strong>
-                                    <p>When you need concise output and cannot afford verbose responses &mdash; length constraints reduce token consumption and API costs directly.</p>
+                                    <p>When you need concise output and cannot afford verbose responses, length constraints reduce token consumption and API costs directly.</p>
                                 </div>
                             </div>
                         </div>
@@ -517,7 +517,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative or Exploratory Writing</strong>
-                                    <p>When you want the model to surprise you &mdash; brainstorming, storytelling, or ideation tasks where rigid structure would stifle the output.</p>
+                                    <p>When you want the model to surprise you, brainstorming, storytelling, or ideation tasks where rigid structure would stifle the output.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -527,7 +527,7 @@
                                 </svg>
                                 <div>
                                     <strong>Conversational Interfaces</strong>
-                                    <p>Chatbots and assistants where natural, flowing dialogue is the goal &mdash; heavy constraints make responses feel robotic and unnatural to human users.</p>
+                                    <p>Chatbots and assistants where natural, flowing dialogue is the goal, heavy constraints make responses feel robotic and unnatural to human users.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -537,7 +537,7 @@
                                 </svg>
                                 <div>
                                     <strong>Complex Reasoning Tasks</strong>
-                                    <p>When the model needs freedom to think through a problem step by step &mdash; premature format constraints can force answers before reasoning is complete.</p>
+                                    <p>When the model needs freedom to think through a problem step by step, premature format constraints can force answers before reasoning is complete.</p>
                                 </div>
                             </div>
                         </div>
@@ -574,7 +574,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Database Population</h3>
-                        <p class="use-case-showcase__desc">Extract structured records from unstructured text &mdash; ensuring each output maps cleanly to database columns with correct types and value ranges.</p>
+                        <p class="use-case-showcase__desc">Extract structured records from unstructured text, ensuring each output maps cleanly to database columns with correct types and value ranges.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -609,7 +609,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Chatbot Slot Filling</h3>
-                        <p class="use-case-showcase__desc">Extract specific fields from user messages in conversational AI &mdash; intent, entities, sentiment &mdash; in a fixed schema that the dialog manager can route reliably.</p>
+                        <p class="use-case-showcase__desc">Extract specific fields from user messages in conversational AI, intent, entities, sentiment, in a fixed schema that the dialog manager can route reliably.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -621,7 +621,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Content Moderation Labels</h3>
-                        <p class="use-case-showcase__desc">Classify content into predefined categories with confidence scores, outputting only the label and number &mdash; no explanatory commentary that would slow automated filtering.</p>
+                        <p class="use-case-showcase__desc">Classify content into predefined categories with confidence scores, outputting only the label and number, no explanatory commentary that would slow automated filtering.</p>
                     </div>
                 </div>
             </div>
@@ -659,7 +659,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Layer Your Constraints</div>
-                    <p>The most reliable production systems combine prompt-level constraints with API-level enforcement. Use Constrained Output techniques in your prompt <strong>and</strong> enable JSON mode or response format parameters in the API call. When the prompt tells the model what shape to produce and the API layer validates compliance, format violations drop to near zero &mdash; even across millions of requests.</p>
+                    <p>The most reliable production systems combine prompt-level constraints with API-level enforcement. Use Constrained Output techniques in your prompt <strong>and</strong> enable JSON mode or response format parameters in the API call. When the prompt tells the model what shape to produce and the API layer validates compliance, format violations drop to near zero, even across millions of requests.</p>
                 </div>
             </div>
         </section>
@@ -703,7 +703,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">CRISP Framework</span>
-                        <span class="evolution-callout__desc">A comprehensive prompt framework that includes output specification as one of its core components &mdash; giving output constraints a structured context.</span>
+                        <span class="evolution-callout__desc">A comprehensive prompt framework that includes output specification as one of its core components, giving output constraints a structured context.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -722,7 +722,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Workflow</span>
                         <span class="evolution-callout__title">Prompt Chaining</span>
-                        <span class="evolution-callout__desc">Use constrained output to create reliable handoff points between chained prompts &mdash; each step&rsquo;s structured output becomes the next step&rsquo;s clean input.</span>
+                        <span class="evolution-callout__desc">Use constrained output to create reliable handoff points between chained prompts, each step&rsquo;s structured output becomes the next step&rsquo;s clean input.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -799,7 +799,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

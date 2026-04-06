@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Query Language Architecture</span>
                 </div>
                 <h1 class="page-title fade-in">LMQL (Language Model Query Language)</h1>
-                <p class="page-subtitle fade-in">What if you could query a language model the way you query a database? LMQL brings SQL-like structure to LLM interaction &mdash; combining natural language prompts with Python scripting and declarative constraints to produce structured, type-safe, cost-efficient outputs.</p>
+                <p class="page-subtitle fade-in">What if you could query a language model the way you query a database? LMQL brings SQL-like structure to LLM interaction, combining natural language prompts with Python scripting and declarative constraints to produce structured, type-safe, cost-efficient outputs.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> LMQL was developed in 2022 by Beurer-Kellner, Fischer, and Vechev at ETH Zurich. The language was designed to address a fundamental limitation of natural language prompting: the lack of programmatic control over model outputs. By introducing SQL-like query syntax with Python interoperability, LMQL enabled developers to specify output constraints (type, length, format), control decoding strategies, and integrate external tool calls &mdash; all within a single query. The original implementation demonstrated inference cost reductions of up to 80% through efficient constraint-guided decoding.</p>
-                        <p><strong>Modern LLM Status:</strong> LMQL pioneered the concept of programmatic LLM interaction with constraints. While many models in 2026 natively support structured output (JSON mode, function calling), LMQL&rsquo;s approach of combining natural language with programmatic constraints influenced tools like DSPy, Outlines, and Guidance. The query language paradigm remains relevant for complex orchestration tasks where developers need fine-grained control over model behavior, multi-step pipelines with type-safe intermediate results, and cost optimization through constraint-guided decoding. The core insight &mdash; that LLM interaction benefits from the same structured query paradigms used in databases &mdash; has become a foundational idea in the LLM tooling ecosystem.</p>
+                        <p><strong>Introduced:</strong> LMQL was developed in 2022 by Beurer-Kellner, Fischer, and Vechev at ETH Zurich. The language was designed to address a fundamental limitation of natural language prompting: the lack of programmatic control over model outputs. By introducing SQL-like query syntax with Python interoperability, LMQL enabled developers to specify output constraints (type, length, format), control decoding strategies, and integrate external tool calls, all within a single query. The original implementation demonstrated inference cost reductions of up to 80% through efficient constraint-guided decoding.</p>
+                        <p><strong>Modern LLM Status:</strong> LMQL pioneered the concept of programmatic LLM interaction with constraints. While many models in 2026 natively support structured output (JSON mode, function calling), LMQL&rsquo;s approach of combining natural language with programmatic constraints influenced tools like DSPy, Outlines, and Guidance. The query language paradigm remains relevant for complex orchestration tasks where developers need fine-grained control over model behavior, multi-step pipelines with type-safe intermediate results, and cost optimization through constraint-guided decoding. The core insight, that LLM interaction benefits from the same structured query paradigms used in databases, has become a foundational idea in the LLM tooling ecosystem.</p>
                     </div>
                 </div>
             </div>
@@ -215,8 +215,8 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Query Languages for Language Models</h2>
-                        <p class="split-section__text">Natural language prompting is flexible but imprecise. You can ask a model to &ldquo;return a JSON object with three fields,&rdquo; but there is no guarantee it will comply. The output might include markdown formatting, extra commentary, missing fields, or malformed syntax. Every downstream system that consumes model output must handle these failures &mdash; and often does so poorly.</p>
-                        <p class="split-section__text"><strong>LMQL treats this as a query problem.</strong> Just as SQL lets you declare what data you want from a database without specifying how to retrieve it, LMQL lets you declare what output structure you need from a model without manually engineering the prompt to coerce compliance. You write constraints &mdash; type requirements, length limits, value ranges, format specifications &mdash; and the LMQL runtime handles the decoding strategy to satisfy them.</p>
+                        <p class="split-section__text">Natural language prompting is flexible but imprecise. You can ask a model to &ldquo;return a JSON object with three fields,&rdquo; but there is no guarantee it will comply. The output might include markdown formatting, extra commentary, missing fields, or malformed syntax. Every downstream system that consumes model output must handle these failures, and often does so poorly.</p>
+                        <p class="split-section__text"><strong>LMQL treats this as a query problem.</strong> Just as SQL lets you declare what data you want from a database without specifying how to retrieve it, LMQL lets you declare what output structure you need from a model without manually engineering the prompt to coerce compliance. You write constraints, type requirements, length limits, value ranges, format specifications, and the LMQL runtime handles the decoding strategy to satisfy them.</p>
                         <p class="split-section__text">Think of it as the difference between asking a librarian to &ldquo;find me something about history&rdquo; versus submitting a structured catalog query with subject codes, date ranges, and format requirements. Both get results, but only one guarantees the shape of what comes back.</p>
                     </div>
                     <div class="split-section__visual">
@@ -245,10 +245,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Define the Query Template</h3>
-                            <p class="element-timeline__text">Write a prompt template that combines natural language with placeholder variables. These variables represent the parts of the output you want the model to generate. The template reads like a conversation with blanks &mdash; familiar to anyone who has written SQL SELECT statements or Python f-strings.</p>
+                            <p class="element-timeline__text">Write a prompt template that combines natural language with placeholder variables. These variables represent the parts of the output you want the model to generate. The template reads like a conversation with blanks, familiar to anyone who has written SQL SELECT statements or Python f-strings.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Classify the following review: [REVIEW_TEXT]. Sentiment: [SENTIMENT]. Confidence: [CONFIDENCE].&rdquo; &mdash; The bracketed variables are what the model will fill in.</p>
+                                <p>&ldquo;Classify the following review: [REVIEW_TEXT]. Sentiment: [SENTIMENT]. Confidence: [CONFIDENCE].&rdquo;, The bracketed variables are what the model will fill in.</p>
                             </div>
                         </div>
                     </div>
@@ -259,10 +259,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Declare Output Constraints</h3>
-                            <p class="element-timeline__text">Specify constraints on each variable using a WHERE clause. Constraints can enforce type (string, int, float), limit value ranges (SENTIMENT in [&ldquo;positive&rdquo;, &ldquo;negative&rdquo;, &ldquo;neutral&rdquo;]), restrict length (len(SUMMARY) &lt; 100), or apply custom validation functions. These constraints are not suggestions &mdash; they are enforced during token generation.</p>
+                            <p class="element-timeline__text">Specify constraints on each variable using a WHERE clause. Constraints can enforce type (string, int, float), limit value ranges (SENTIMENT in [&ldquo;positive&rdquo;, &ldquo;negative&rdquo;, &ldquo;neutral&rdquo;]), restrict length (len(SUMMARY) &lt; 100), or apply custom validation functions. These constraints are not suggestions, they are enforced during token generation.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;WHERE SENTIMENT in [&lsquo;positive&rsquo;, &lsquo;negative&rsquo;, &lsquo;neutral&rsquo;] AND CONFIDENCE &gt; 0 AND CONFIDENCE &lt;= 1.0&rdquo; &mdash; The model can only produce these exact values.</p>
+                                <p>&ldquo;WHERE SENTIMENT in [&lsquo;positive&rsquo;, &lsquo;negative&rsquo;, &lsquo;neutral&rsquo;] AND CONFIDENCE &gt; 0 AND CONFIDENCE &lt;= 1.0&rdquo;, The model can only produce these exact values.</p>
                             </div>
                         </div>
                     </div>
@@ -276,7 +276,7 @@
                             <p class="element-timeline__text">The LMQL runtime compiles your query into an optimized decoding plan. Instead of generating all tokens freely and checking constraints afterward, it masks invalid tokens <strong>during</strong> generation. This means the model never wastes compute producing outputs that will be rejected, resulting in significant cost savings and guaranteed constraint satisfaction.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>When generating SENTIMENT, the decoder only allows tokens that can form &ldquo;positive,&rdquo; &ldquo;negative,&rdquo; or &ldquo;neutral&rdquo; &mdash; all other vocabulary tokens are masked to probability zero.</p>
+                                <p>When generating SENTIMENT, the decoder only allows tokens that can form &ldquo;positive,&rdquo; &ldquo;negative,&rdquo; or &ldquo;neutral&rdquo;, all other vocabulary tokens are masked to probability zero.</p>
                             </div>
                         </div>
                     </div>
@@ -287,10 +287,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Receive Structured, Validated Output</h3>
-                            <p class="element-timeline__text">The query returns structured results with each variable populated according to its constraints. No post-processing parsing is needed &mdash; the output is already in the correct format, type, and range. You can pipe these results directly into downstream systems, chain them into multi-step pipelines, or use them as inputs to subsequent LMQL queries.</p>
+                            <p class="element-timeline__text">The query returns structured results with each variable populated according to its constraints. No post-processing parsing is needed, the output is already in the correct format, type, and range. You can pipe these results directly into downstream systems, chain them into multi-step pipelines, or use them as inputs to subsequent LMQL queries.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Returns: SENTIMENT = &ldquo;positive&rdquo;, CONFIDENCE = 0.92 &mdash; Both values are guaranteed to satisfy the declared constraints without any parsing or validation code.</p>
+                                <p>Returns: SENTIMENT = &ldquo;positive&rdquo;, CONFIDENCE = 0.92, Both values are guaranteed to satisfy the declared constraints without any parsing or validation code.</p>
                             </div>
                         </div>
                     </div>
@@ -363,7 +363,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Valid enum, correct type, length-compliant, no extra text &mdash; machine-parseable</span>
+                            <span>Valid enum, correct type, length-compliant, no extra text, machine-parseable</span>
                         </div>
                     </div>
                 </div>
@@ -422,11 +422,11 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">LMQL Query</span>
-                                    <p>A patient presents with fatigue, weight gain, and cold sensitivity.<br><br><strong>Step 1 &mdash; Identify possible conditions:</strong> [CONDITIONS]<br><strong>Step 2 &mdash; Most likely diagnosis:</strong> [DIAGNOSIS]<br><strong>Step 3 &mdash; Recommended initial test:</strong> [TEST]<br><strong>Step 4 &mdash; Urgency level:</strong> [URGENCY]<br><br><strong>WHERE</strong> URGENCY in [&ldquo;Routine&rdquo;, &ldquo;Urgent&rdquo;, &ldquo;Emergency&rdquo;] AND len(CONDITIONS) &lt; 300 AND len(DIAGNOSIS) &lt; 100 AND len(TEST) &lt; 100</p>
+                                    <p>A patient presents with fatigue, weight gain, and cold sensitivity.<br><br><strong>Step 1, Identify possible conditions:</strong> [CONDITIONS]<br><strong>Step 2, Most likely diagnosis:</strong> [DIAGNOSIS]<br><strong>Step 3, Recommended initial test:</strong> [TEST]<br><strong>Step 4, Urgency level:</strong> [URGENCY]<br><br><strong>WHERE</strong> URGENCY in [&ldquo;Routine&rdquo;, &ldquo;Urgent&rdquo;, &ldquo;Emergency&rdquo;] AND len(CONDITIONS) &lt; 300 AND len(DIAGNOSIS) &lt; 100 AND len(TEST) &lt; 100</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Constrained Output</span>
-                                    <p>CONDITIONS = &ldquo;Hypothyroidism, iron deficiency anemia, chronic fatigue syndrome, depression, adrenal insufficiency&rdquo;<br>DIAGNOSIS = &ldquo;Hypothyroidism (underactive thyroid)&rdquo;<br>TEST = &ldquo;TSH (thyroid-stimulating hormone) blood test&rdquo;<br>URGENCY = &ldquo;Routine&rdquo;<br><br><em>This is an AI-generated analysis for educational purposes only. Never use AI output for medical diagnosis &mdash; always consult a licensed healthcare professional. Verify all suggestions independently.</em></p>
+                                    <p>CONDITIONS = &ldquo;Hypothyroidism, iron deficiency anemia, chronic fatigue syndrome, depression, adrenal insufficiency&rdquo;<br>DIAGNOSIS = &ldquo;Hypothyroidism (underactive thyroid)&rdquo;<br>TEST = &ldquo;TSH (thyroid-stimulating hormone) blood test&rdquo;<br>URGENCY = &ldquo;Routine&rdquo;<br><br><em>This is an AI-generated analysis for educational purposes only. Never use AI output for medical diagnosis, always consult a licensed healthcare professional. Verify all suggestions independently.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -482,7 +482,7 @@
                                 </svg>
                                 <div>
                                     <strong>Classification and Extraction</strong>
-                                    <p>Tasks that require outputs from a fixed set of categories, labels, or structured fields &mdash; where free-form responses create parsing headaches.</p>
+                                    <p>Tasks that require outputs from a fixed set of categories, labels, or structured fields, where free-form responses create parsing headaches.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -502,7 +502,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Step Orchestration</strong>
-                                    <p>Complex pipelines where each step&rsquo;s output must meet specific constraints before feeding into the next step &mdash; type-safe chaining of LLM calls.</p>
+                                    <p>Complex pipelines where each step&rsquo;s output must meet specific constraints before feeding into the next step, type-safe chaining of LLM calls.</p>
                                 </div>
                             </div>
                         </div>
@@ -527,7 +527,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple One-Shot Interactions</strong>
-                                    <p>Quick, conversational queries where the overhead of defining a query schema outweighs the benefit &mdash; just ask the model directly.</p>
+                                    <p>Quick, conversational queries where the overhead of defining a query schema outweighs the benefit, just ask the model directly.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -537,7 +537,7 @@
                                 </svg>
                                 <div>
                                     <strong>Models with Native Structured Output</strong>
-                                    <p>When using APIs that already support JSON mode, function calling, or tool use natively &mdash; the built-in constraints may be sufficient without LMQL&rsquo;s layer.</p>
+                                    <p>When using APIs that already support JSON mode, function calling, or tool use natively, the built-in constraints may be sufficient without LMQL&rsquo;s layer.</p>
                                 </div>
                             </div>
                         </div>
@@ -655,8 +655,8 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Legacy That Matters</div>
-                    <p>Even if you never write an LMQL query directly, understanding its paradigm shift is valuable: the idea that LLM interaction can be <strong>declarative rather than imperative</strong> &mdash; specifying what you want rather than hoping the model produces it &mdash; fundamentally changed how the industry thinks about prompt engineering. Every JSON mode, function calling API, and structured output feature in modern LLMs traces its intellectual lineage back to the constraint-guided approach LMQL pioneered.</p>
-                    <p>The key takeaway for prompt engineers: <strong>think in terms of constraints, not instructions.</strong> Instead of telling the model &ldquo;please format your response as JSON,&rdquo; define what the output structure must be. Whether you use LMQL, a native JSON mode, or a structured output library, the mental model is the same &mdash; declare the shape of what you need, and let the system enforce it.</p>
+                    <p>Even if you never write an LMQL query directly, understanding its paradigm shift is valuable: the idea that LLM interaction can be <strong>declarative rather than imperative</strong>, specifying what you want rather than hoping the model produces it, fundamentally changed how the industry thinks about prompt engineering. Every JSON mode, function calling API, and structured output feature in modern LLMs traces its intellectual lineage back to the constraint-guided approach LMQL pioneered.</p>
+                    <p>The key takeaway for prompt engineers: <strong>think in terms of constraints, not instructions.</strong> Instead of telling the model &ldquo;please format your response as JSON,&rdquo; define what the output structure must be. Whether you use LMQL, a native JSON mode, or a structured output library, the mental model is the same, declare the shape of what you need, and let the system enforce it.</p>
                 </div>
             </div>
         </section>
@@ -680,7 +680,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Structured Output</span>
-                        <span class="evolution-callout__desc">The broader category of techniques for producing formatted, parseable outputs from LLMs &mdash; LMQL is one implementation of this paradigm.</span>
+                        <span class="evolution-callout__desc">The broader category of techniques for producing formatted, parseable outputs from LLMs, LMQL is one implementation of this paradigm.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -699,7 +699,7 @@
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Constrained Output</span>
                         <span class="evolution-callout__desc">Techniques that limit model output to predefined formats
-                            or value sets &mdash; LMQL&rsquo;s WHERE clause is a programmatic
+                            or value sets, LMQL&rsquo;s WHERE clause is a programmatic
                             implementation of this concept.</span>
                     </div>
                     <span class="evolution-callout__arrow">
@@ -800,7 +800,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

@@ -191,7 +191,7 @@
                     <span class="hero-badge__text">Decomposition Framework</span>
                 </div>
                 <h1 class="page-title fade-in">Skeleton-of-Thought</h1>
-                <p class="page-subtitle fade-in">Standard generation is strictly sequential &mdash; each token waits for the previous one. Skeleton-of-Thought breaks this bottleneck by first generating a concise outline, then expanding each point independently and in parallel, dramatically reducing latency while producing well-structured responses.</p>
+                <p class="page-subtitle fade-in">Standard generation is strictly sequential, each token waits for the previous one. Skeleton-of-Thought breaks this bottleneck by first generating a concise outline, then expanding each point independently and in parallel, dramatically reducing latency while producing well-structured responses.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -203,7 +203,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Framework Context: 2023</span>
                         <p><strong>Introduced:</strong> Skeleton-of-Thought (SoT) was introduced in 2023 by Ning et al. in &ldquo;Skeleton-of-Thought: Large Language Models Can Do Parallel Decoding.&rdquo; The research demonstrated that LLM response latency could be reduced by up to 2x by splitting generation into two phases: first producing a skeleton (outline of key points), then expanding each skeleton point independently. Because the expansion of each point does not depend on the others, these expansions can run in parallel across multiple API calls or batched requests. The technique was tested on GPT-4, Claude, and LLaMA models across diverse question types.</p>
-                        <p><strong>Modern LLM Status:</strong> Skeleton-of-Thought has become <strong>an important latency optimization technique for production AI systems</strong>. The core insight &mdash; that many responses can be decomposed into independently expandable sections &mdash; influences modern streaming architectures and parallel generation strategies. While native LLM inference is still autoregressive (sequential token generation), SoT&rsquo;s principle has been adopted in practice through parallel API calls, speculative decoding research, and structured output generation. The technique is particularly valuable for long-form content generation, multi-part answers, and any application where response latency affects user experience.</p>
+                        <p><strong>Modern LLM Status:</strong> Skeleton-of-Thought has become <strong>an important latency optimization technique for production AI systems</strong>. The core insight, that many responses can be decomposed into independently expandable sections, influences modern streaming architectures and parallel generation strategies. While native LLM inference is still autoregressive (sequential token generation), SoT&rsquo;s principle has been adopted in practice through parallel API calls, speculative decoding research, and structured output generation. The technique is particularly valuable for long-form content generation, multi-part answers, and any application where response latency affects user experience.</p>
                     </div>
                 </div>
             </div>
@@ -218,14 +218,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Outline First, Expand in Parallel</h2>
                         <p class="split-section__text">Traditional LLM generation is brutally sequential: every token depends on every previous token. A 2,000-word response requires the model to generate each word one after another, with no opportunity for parallelism. The first sentence must be complete before the second begins, the first paragraph before the second. For complex, multi-part responses, this sequential bottleneck means users wait while the model slowly writes from beginning to end.</p>
-                        <p class="split-section__text"><strong>Skeleton-of-Thought exploits a key observation: many responses have independently expandable sections.</strong> When asked to explain a concept, the model might produce five key points. Each point can be elaborated without knowing the details of the others &mdash; only the skeleton (the outline of points) needs to be generated sequentially. Once the skeleton exists, all expansions can happen simultaneously, collapsing a serial process into a parallel one.</p>
-                        <p class="split-section__text">Think of it like building a house. The framing (skeleton) must go up first &mdash; you need to know where the rooms are. But once the frame is in place, you can wire the electrical, plumb the pipes, and install the drywall all at the same time. You don&rsquo;t need to finish the kitchen before starting the bathroom. Skeleton-of-Thought applies this same parallel-after-planning principle to text generation.</p>
+                        <p class="split-section__text"><strong>Skeleton-of-Thought exploits a key observation: many responses have independently expandable sections.</strong> When asked to explain a concept, the model might produce five key points. Each point can be elaborated without knowing the details of the others, only the skeleton (the outline of points) needs to be generated sequentially. Once the skeleton exists, all expansions can happen simultaneously, collapsing a serial process into a parallel one.</p>
+                        <p class="split-section__text">Think of it like building a house. The framing (skeleton) must go up first, you need to know where the rooms are. But once the frame is in place, you can wire the electrical, plumb the pipes, and install the drywall all at the same time. You don&rsquo;t need to finish the kitchen before starting the bathroom. Skeleton-of-Thought applies this same parallel-after-planning principle to text generation.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Speed Without Sacrificing Structure</span>
-                                <p>The beauty of Skeleton-of-Thought is that the speed improvement comes from better organization, not from cutting corners. The skeleton phase forces the model to plan its response structure before writing, which often produces more coherent and well-organized output than standard sequential generation. You get faster responses AND better structure &mdash; the outline-first approach is a rare case where the optimization also improves quality.</p>
+                                <p>The beauty of Skeleton-of-Thought is that the speed improvement comes from better organization, not from cutting corners. The skeleton phase forces the model to plan its response structure before writing, which often produces more coherent and well-organized output than standard sequential generation. You get faster responses AND better structure, the outline-first approach is a rare case where the optimization also improves quality.</p>
                             </div>
                         </div>
                     </div>
@@ -247,7 +247,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate the Skeleton</h3>
-                            <p class="element-timeline__text">The model receives the question and produces a concise outline &mdash; a numbered list of key points, sections, or arguments it plans to cover. This skeleton captures the structure of the complete response in a compact form. The skeleton generation is sequential (fast, since it produces only short bullet points) and provides the blueprint for parallel expansion.</p>
+                            <p class="element-timeline__text">The model receives the question and produces a concise outline, a numbered list of key points, sections, or arguments it plans to cover. This skeleton captures the structure of the complete response in a compact form. The skeleton generation is sequential (fast, since it produces only short bullet points) and provides the blueprint for parallel expansion.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Question: &ldquo;What are the advantages of renewable energy over fossil fuels?&rdquo;<br><br><strong>Skeleton:</strong><br>1. Environmental impact and emissions reduction<br>2. Long-term cost economics<br>3. Energy independence and security<br>4. Job creation and economic growth<br>5. Technological scalability</p>
@@ -278,7 +278,7 @@
                             <p class="element-timeline__text">The expanded sections are collected and concatenated in skeleton order. Optional post-processing can add transitions between sections, an introduction, or a conclusion. The result is a complete, well-structured response generated in significantly less wall-clock time than sequential generation would require.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The five expanded paragraphs are assembled into a cohesive response with the skeleton providing the heading structure. A brief introduction and conclusion are added. Total generation time: roughly the time of the skeleton plus the longest single expansion &mdash; not the sum of all expansions.</p>
+                                <p>The five expanded paragraphs are assembled into a cohesive response with the skeleton providing the heading structure. A brief introduction and conclusion are added. Total generation time: roughly the time of the skeleton plus the longest single expansion, not the sum of all expansions.</p>
                             </div>
                         </div>
                     </div>
@@ -319,7 +319,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Full serial generation &mdash; each section waits for the previous to complete</span>
+                            <span>Full serial generation, each section waits for the previous to complete</span>
                         </div>
                     </div>
 
@@ -343,7 +343,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Response</span>
-                                <p>Phase 1 produces a 5-point skeleton in 2&ndash;3 seconds. Phase 2 expands all 5 points simultaneously &mdash; each taking 5&ndash;8 seconds, but running in parallel. Total time: skeleton time plus the longest expansion, roughly 10&ndash;11 seconds. Same quality, up to 2x faster.</p>
+                                <p>Phase 1 produces a 5-point skeleton in 2&ndash;3 seconds. Phase 2 expands all 5 points simultaneously, each taking 5&ndash;8 seconds, but running in parallel. Total time: skeleton time plus the longest expansion, roughly 10&ndash;11 seconds. Same quality, up to 2x faster.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -351,7 +351,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Parallel expansion &mdash; all sections generated simultaneously after skeleton</span>
+                            <span>Parallel expansion, all sections generated simultaneously after skeleton</span>
                         </div>
                     </div>
                 </div>
@@ -402,7 +402,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Parallel Expansion</span>
-                                    <p>All 6 sections are expanded independently and in parallel. Each expansion prompt includes the original question, the full skeleton for structural context, and the specific section to elaborate. Section 1 details repository structure and required permissions. Section 3 covers YAML syntax for build matrices and test runners. Section 6 addresses permission errors, caching issues, and runner timeouts. The final assembled document has clear section headers derived from the skeleton and detailed content from each parallel expansion &mdash; produced in the time it would take to sequentially generate just two of the six sections.</p>
+                                    <p>All 6 sections are expanded independently and in parallel. Each expansion prompt includes the original question, the full skeleton for structural context, and the specific section to elaborate. Section 1 details repository structure and required permissions. Section 3 covers YAML syntax for build matrices and test runners. Section 6 addresses permission errors, caching issues, and runner timeouts. The final assembled document has clear section headers derived from the skeleton and detailed content from each parallel expansion, produced in the time it would take to sequentially generate just two of the six sections.</p>
                                 </div>
                             </div>
                         </div>
@@ -428,7 +428,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Parallel Expansion</span>
-                                    <p>Each section is expanded independently with appropriate academic depth. Section 1 covers the enclosure movement and seed drill innovations. Section 3 details urbanization patterns and the emergence of the factory system. Section 5 examines deforestation, air pollution, and resource extraction at industrial scale. The parallel generation produces the full 2,500-word essay-style response in the time it would take to generate a single section sequentially &mdash; each expansion runs simultaneously, and the assembled result maintains coherent academic tone throughout.</p>
+                                    <p>Each section is expanded independently with appropriate academic depth. Section 1 covers the enclosure movement and seed drill innovations. Section 3 details urbanization patterns and the emergence of the factory system. Section 5 examines deforestation, air pollution, and resource extraction at industrial scale. The parallel generation produces the full 2,500-word essay-style response in the time it would take to generate a single section sequentially, each expansion runs simultaneously, and the assembled result maintains coherent academic tone throughout.</p>
                                 </div>
                             </div>
                         </div>
@@ -454,7 +454,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Parallel Expansion</span>
-                                    <p>Each section is expanded independently with specific technical comparisons. Section 2 benchmarks virtual DOM diffing, hydration costs, and tree-shaking effectiveness across all three frameworks. Section 5 compares Redux/Zustand, Pinia/Vuex, and NgRx/Signals with code-level tradeoffs. Section 6 synthesizes the findings into a context-dependent recommendation. The parallel approach produces the full comparison in under 15 seconds rather than the 45+ seconds of sequential generation &mdash; particularly valuable when developers need quick, comprehensive framework evaluations.</p>
+                                    <p>Each section is expanded independently with specific technical comparisons. Section 2 benchmarks virtual DOM diffing, hydration costs, and tree-shaking effectiveness across all three frameworks. Section 5 compares Redux/Zustand, Pinia/Vuex, and NgRx/Signals with code-level tradeoffs. Section 6 synthesizes the findings into a context-dependent recommendation. The parallel approach produces the full comparison in under 15 seconds rather than the 45+ seconds of sequential generation, particularly valuable when developers need quick, comprehensive framework evaluations.</p>
                                 </div>
                             </div>
                         </div>
@@ -481,7 +481,7 @@
                                 </svg>
                                 <div>
                                     <strong>Long-Form Content Generation</strong>
-                                    <p>When generating responses with multiple distinct sections or points that can be elaborated independently &mdash; reports, guides, analyses, comparisons.</p>
+                                    <p>When generating responses with multiple distinct sections or points that can be elaborated independently, reports, guides, analyses, comparisons.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -491,7 +491,7 @@
                                 </svg>
                                 <div>
                                     <strong>Latency-Sensitive Applications</strong>
-                                    <p>When users are waiting for responses and reducing wall-clock time directly improves the experience &mdash; chatbots, real-time assistants, interactive tools.</p>
+                                    <p>When users are waiting for responses and reducing wall-clock time directly improves the experience, chatbots, real-time assistants, interactive tools.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -501,7 +501,7 @@
                                 </svg>
                                 <div>
                                     <strong>Structured Output Requirements</strong>
-                                    <p>When the response needs clear organization with headings, sections, or numbered points &mdash; the skeleton phase naturally produces well-structured content.</p>
+                                    <p>When the response needs clear organization with headings, sections, or numbered points, the skeleton phase naturally produces well-structured content.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -511,7 +511,7 @@
                                 </svg>
                                 <div>
                                     <strong>Batch Processing Pipelines</strong>
-                                    <p>When generating many multi-section responses at scale &mdash; the parallel expansion multiplies throughput across the entire pipeline.</p>
+                                    <p>When generating many multi-section responses at scale, the parallel expansion multiplies throughput across the entire pipeline.</p>
                                 </div>
                             </div>
                         </div>
@@ -546,7 +546,7 @@
                                 </svg>
                                 <div>
                                     <strong>Tightly Interdependent Arguments</strong>
-                                    <p>Complex logical arguments where later points build directly on the specific details (not just the topic) of earlier points &mdash; these resist independent expansion.</p>
+                                    <p>Complex logical arguments where later points build directly on the specific details (not just the topic) of earlier points, these resist independent expansion.</p>
                                 </div>
                             </div>
                         </div>
@@ -665,7 +665,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Architecture Principle Behind SoT</div>
-                    <p>Skeleton-of-Thought embodies a fundamental computer science principle: identify the serial dependencies in a process, minimize them, and parallelize everything else. In traditional generation, the serial dependency spans the entire response &mdash; every token depends on all previous tokens. SoT reduces the serial dependency to just the skeleton, making the bulk of the generation (the expansions) embarrassingly parallel. This same principle drives performance optimization across all of computing, from CPU pipelines to distributed systems.</p>
+                    <p>Skeleton-of-Thought embodies a fundamental computer science principle: identify the serial dependencies in a process, minimize them, and parallelize everything else. In traditional generation, the serial dependency spans the entire response, every token depends on all previous tokens. SoT reduces the serial dependency to just the skeleton, making the bulk of the generation (the expansions) embarrassingly parallel. This same principle drives performance optimization across all of computing, from CPU pipelines to distributed systems.</p>
                 </div>
             </div>
         </section>
@@ -689,7 +689,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Plan-and-Solve</span>
-                        <span class="evolution-callout__desc">Plan-and-Solve introduced the plan-then-execute pattern that Skeleton-of-Thought adapts for parallel generation &mdash; the skeleton is the plan, and the expansions are the execution.</span>
+                        <span class="evolution-callout__desc">Plan-and-Solve introduced the plan-then-execute pattern that Skeleton-of-Thought adapts for parallel generation, the skeleton is the plan, and the expansions are the execution.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -805,7 +805,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

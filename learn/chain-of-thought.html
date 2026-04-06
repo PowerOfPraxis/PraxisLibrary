@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Reasoning Enhancement</span>
                 </div>
                 <h1 class="page-title fade-in">Chain-of-Thought Prompting</h1>
-                <p class="page-subtitle fade-in">When AI shows its work, everything changes. Chain-of-Thought prompting unlocks step-by-step reasoning &mdash; transforming opaque leaps into transparent, verifiable logic that dramatically reduces errors on complex problems.</p>
+                <p class="page-subtitle fade-in">When AI shows its work, everything changes. Chain-of-Thought prompting unlocks step-by-step reasoning, transforming opaque leaps into transparent, verifiable logic that dramatically reduces errors on complex problems.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> Chain-of-Thought (CoT) prompting was published in 2022 by Wei et al. at Google Brain. The landmark paper demonstrated that including intermediate reasoning steps in few-shot examples &mdash; rather than just input-output pairs &mdash; dramatically improved LLM performance on arithmetic, commonsense, and symbolic reasoning benchmarks. The technique was deceptively simple: show the model <em>how</em> to think, not just <em>what</em> to answer, and it would follow suit. This single insight launched an entire family of reasoning-enhancement techniques.</p>
-                        <p><strong>Modern LLM Status:</strong> Chain-of-Thought reasoning has been <strong>deeply integrated into modern LLM architectures</strong>. Claude, GPT-4, and Gemini all employ internal reasoning processes inspired by CoT. Many models now &ldquo;think&rdquo; step-by-step by default for complex queries. However, explicitly prompting for Chain-of-Thought remains valuable when you need <strong>visible, auditable reasoning trails</strong>, when working with smaller models that do not reason automatically, or when tackling problems where the default reasoning depth is insufficient. CoT is the foundation technique from which nearly all modern prompt-based reasoning methods descend.</p>
+                        <p><strong>Introduced:</strong> Chain-of-Thought (CoT) prompting was published in 2022 by Wei et al. at Google Brain. The landmark paper demonstrated that including intermediate reasoning steps in few-shot examples, rather than just input-output pairs, dramatically improved LLM performance on arithmetic, commonsense, and symbolic reasoning benchmarks. The technique was deceptively simple: show the model <em>how</em> to think, not just <em>what</em> to answer, and it would follow suit. This single insight launched an entire family of reasoning-enhancement techniques.</p>
+                        <p><strong>Modern LLM Status:</strong> Chain-of-Thought reasoning has been <strong>deeply integrated into modern LLM architectures</strong>. Claude, ChatGPT, and Gemini all employ internal reasoning processes inspired by CoT. Many models now &ldquo;think&rdquo; step-by-step by default for complex queries. However, explicitly prompting for Chain-of-Thought remains valuable when you need <strong>visible, auditable reasoning trails</strong>, when working with smaller models that do not reason automatically, or when tackling problems where the default reasoning depth is insufficient. CoT is the foundation technique from which nearly all modern prompt-based reasoning methods descend.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Make the Thinking Visible</h2>
-                        <p class="split-section__text">When you ask a language model a complex question, it normally generates an answer in a single leap &mdash; internally compressing all reasoning into a final token prediction. This works for simple tasks, but for multi-step problems the model can silently skip steps, conflate variables, or lose track of intermediate results. The error hides inside the black box.</p>
-                        <p class="split-section__text"><strong>Chain-of-Thought changes the game by externalizing the reasoning process.</strong> By providing few-shot examples that include intermediate steps &mdash; not just questions and answers, but questions, step-by-step reasoning, and then answers &mdash; you teach the model to generate its own reasoning chain before committing to a conclusion. Each generated token in the chain becomes context for the next, creating a scaffold that guides the model toward the correct answer.</p>
+                        <p class="split-section__text">When you ask a language model a complex question, it normally generates an answer in a single leap, internally compressing all reasoning into a final token prediction. This works for simple tasks, but for multi-step problems the model can silently skip steps, conflate variables, or lose track of intermediate results. The error hides inside the black box.</p>
+                        <p class="split-section__text"><strong>Chain-of-Thought changes the game by externalizing the reasoning process.</strong> By providing few-shot examples that include intermediate steps, not just questions and answers, but questions, step-by-step reasoning, and then answers, you teach the model to generate its own reasoning chain before committing to a conclusion. Each generated token in the chain becomes context for the next, creating a scaffold that guides the model toward the correct answer.</p>
                         <p class="split-section__text">Think of it like showing your work on a math exam. The answer alone might be right or wrong, but the work reveals exactly where the logic holds or breaks. Chain-of-Thought gives LLMs the same &ldquo;scratch paper&rdquo; that humans rely on for complex problem-solving.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Steps Beat Leaps</span>
-                                <p>When a model generates intermediate reasoning tokens, each step constrains the probability distribution for the next step. A correct &ldquo;Step 1&rdquo; makes a correct &ldquo;Step 2&rdquo; far more likely &mdash; the reasoning chain creates a self-reinforcing path toward accuracy. Without these intermediate tokens, the model must compress all reasoning into a single forward pass, which is where complex problems overwhelm its capacity and errors emerge.</p>
+                                <p>When a model generates intermediate reasoning tokens, each step constrains the probability distribution for the next step. A correct &ldquo;Step 1&rdquo; makes a correct &ldquo;Step 2&rdquo; far more likely, the reasoning chain creates a self-reinforcing path toward accuracy. Without these intermediate tokens, the model must compress all reasoning into a single forward pass, which is where complex problems overwhelm its capacity and errors emerge.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Provide Reasoning Demonstrations</h3>
-                            <p class="element-timeline__text">Include few-shot examples in your prompt that demonstrate not just the final answer, but every intermediate reasoning step. Each example should walk through the problem methodically &mdash; identifying relevant information, performing intermediate calculations or inferences, and arriving at the answer through visible logic.</p>
+                            <p class="element-timeline__text">Include few-shot examples in your prompt that demonstrate not just the final answer, but every intermediate reasoning step. Each example should walk through the problem methodically, identifying relevant information, performing intermediate calculations or inferences, and arriving at the answer through visible logic.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Q: Roger has 5 tennis balls. He buys 2 more cans of 3 tennis balls each. How many does he have now? A: Roger started with 5 balls. 2 cans of 3 balls each means 2 &times; 3 = 6 new balls. 5 + 6 = 11. The answer is 11.&rdquo;</p>
@@ -262,7 +262,7 @@
                             <p class="element-timeline__text">After one or more reasoning demonstrations, present your actual question in the same format. The model recognizes the pattern from your examples and generates its own chain of reasoning steps before producing a final answer. The demonstrations serve as a template that the model follows structurally.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Q: The cafeteria had 23 apples. If they used 20 to make lunch and bought 6 more, how many do they have?&rdquo; &mdash; The model now knows to show its work before answering.</p>
+                                <p>&ldquo;Q: The cafeteria had 23 apples. If they used 20 to make lunch and bought 6 more, how many do they have?&rdquo;, The model now knows to show its work before answering.</p>
                             </div>
                         </div>
                     </div>
@@ -341,7 +341,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Final Answer</span>
-                                <p>Sarah can buy 5 pencils. She spends $12 on notebooks, receives $8 in change, and each pencil costs $1.50 &mdash; so 5 pencils cost $7.50 with $0.50 left over.</p>
+                                <p>Sarah can buy 5 pencils. She spends $12 on notebooks, receives $8 in change, and each pencil costs $1.50, so 5 pencils cost $7.50 with $0.50 left over.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -411,15 +411,15 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Problem</span>
-                                    <p>&ldquo;Three friends &mdash; Alice, Bob, and Carol &mdash; each ordered a different drink: coffee, tea, and juice. Alice did not order coffee. The person who ordered tea is sitting between the other two. Bob is sitting on the far left. What did each person order?&rdquo;</p>
+                                    <p>&ldquo;Three friends, Alice, Bob, and Carol, each ordered a different drink: coffee, tea, and juice. Alice did not order coffee. The person who ordered tea is sitting between the other two. Bob is sitting on the far left. What did each person order?&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Chain-of-Thought Response</span>
                                     <p><strong>Step 1:</strong> Establish the seating arrangement.<br>Bob is on the far left. The tea drinker sits between the other two, so the tea drinker is in the middle seat.<br><br>
                                     <strong>Step 2:</strong> Determine who sits in the middle.<br>Since Bob is on the far left, the middle seat is either Alice or Carol. The person on the far right is the remaining friend.<br><br>
-                                    <strong>Step 3:</strong> Apply the constraint about Alice.<br>Alice did not order coffee. If Alice were in the middle, she would drink tea (not coffee) &mdash; that works. If Alice were on the right, she could drink tea or juice but not coffee.<br><br>
+                                    <strong>Step 3:</strong> Apply the constraint about Alice.<br>Alice did not order coffee. If Alice were in the middle, she would drink tea (not coffee), that works. If Alice were on the right, she could drink tea or juice but not coffee.<br><br>
                                     <strong>Step 4:</strong> Test Alice in the middle seat.<br>If Alice is in the middle, she drinks tea. Carol is on the right. Bob is on the left. Bob and Carol drink coffee and juice in some order. No constraints prevent this. This arrangement is valid.<br><br>
-                                    <strong>Step 5:</strong> Verify by testing Carol in the middle.<br>If Carol is in the middle, Carol drinks tea. Alice is on the right. Bob is on the left. Bob and Alice drink coffee and juice. But Alice cannot order coffee, so Alice drinks juice and Bob drinks coffee. This also works, giving us two possible solutions. However, re-reading the puzzle: &ldquo;The person who ordered tea is sitting between the other two&rdquo; &mdash; both solutions satisfy all constraints.<br><br>
+                                    <strong>Step 5:</strong> Verify by testing Carol in the middle.<br>If Carol is in the middle, Carol drinks tea. Alice is on the right. Bob is on the left. Bob and Alice drink coffee and juice. But Alice cannot order coffee, so Alice drinks juice and Bob drinks coffee. This also works, giving us two possible solutions. However, re-reading the puzzle: &ldquo;The person who ordered tea is sitting between the other two&rdquo;, both solutions satisfy all constraints.<br><br>
                                     <strong>Answer:</strong> With the given constraints, there are two valid solutions: (1) Bob has coffee, Alice has tea (middle), Carol has juice; or (2) Bob has coffee, Carol has tea (middle), Alice has juice. Both satisfy all stated conditions.</p>
                                 </div>
                             </div>
@@ -443,7 +443,7 @@
                                     <strong>Step 2:</strong> Calculate Q2 revenue.<br>Q1 revenue with 10% decline: $1,200,000 &times; 0.90 = $1,080,000.<br><br>
                                     <strong>Step 3:</strong> Calculate Q3 revenue.<br>Q2 revenue with 15% growth: $1,080,000 &times; 1.15 = $1,242,000.<br><br>
                                     <strong>Step 4:</strong> Calculate Q4 revenue.<br>Q3 revenue with 5% decline: $1,242,000 &times; 0.95 = $1,179,900.<br><br>
-                                    <strong>Step 5:</strong> Compare to starting revenue.<br>$1,179,900 vs. $1,000,000 starting revenue &mdash; that is $179,900 higher, or about 18% above where they started.<br><br>
+                                    <strong>Step 5:</strong> Compare to starting revenue.<br>$1,179,900 vs. $1,000,000 starting revenue, that is $179,900 higher, or about 18% above where they started.<br><br>
                                     <strong>Answer:</strong> Q4 revenue was $1,179,900. Despite two quarters of decline, the company ended the year approximately 18% higher than where they started.</p>
                                 </div>
                             </div>
@@ -481,7 +481,7 @@
                                 </svg>
                                 <div>
                                     <strong>Commonsense Reasoning</strong>
-                                    <p>Questions that require chaining everyday knowledge together &mdash; understanding cause and effect, physical relationships, or social dynamics across multiple steps.</p>
+                                    <p>Questions that require chaining everyday knowledge together, understanding cause and effect, physical relationships, or social dynamics across multiple steps.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -516,7 +516,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Factual Lookups</strong>
-                                    <p>Questions with single-step answers &mdash; &ldquo;What is the capital of France?&rdquo; does not benefit from step-by-step reasoning.</p>
+                                    <p>Questions with single-step answers, &ldquo;What is the capital of France?&rdquo; does not benefit from step-by-step reasoning.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -526,7 +526,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative Generation Tasks</strong>
-                                    <p>Writing stories, poetry, or brainstorming sessions where freeform generation is the goal &mdash; structured reasoning steps can constrain creative output.</p>
+                                    <p>Writing stories, poetry, or brainstorming sessions where freeform generation is the goal, structured reasoning steps can constrain creative output.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -536,7 +536,7 @@
                                 </svg>
                                 <div>
                                     <strong>Latency-Sensitive Applications</strong>
-                                    <p>When speed matters more than accuracy &mdash; CoT generates significantly more tokens, increasing both response time and API costs for each query.</p>
+                                    <p>When speed matters more than accuracy, CoT generates significantly more tokens, increasing both response time and API costs for each query.</p>
                                 </div>
                             </div>
                         </div>
@@ -655,7 +655,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Technique That Started It All</div>
-                    <p>Chain-of-Thought was the breakthrough that proved prompting alone could unlock reasoning capabilities in large language models. Before Wei et al.&rsquo;s 2022 paper, the prevailing assumption was that LLMs needed fine-tuning or architectural changes to reason well. CoT showed that simply <em>demonstrating</em> reasoning in the prompt was enough &mdash; and that insight spawned an entire research ecosystem of reasoning-enhancement techniques: Zero-Shot CoT, Self-Consistency, Tree of Thought, Self-Ask, and dozens more.</p>
+                    <p>Chain-of-Thought was the breakthrough that proved prompting alone could unlock reasoning capabilities in large language models. Before Wei et al.&rsquo;s 2022 paper, the prevailing assumption was that LLMs needed fine-tuning or architectural changes to reason well. CoT showed that simply <em>demonstrating</em> reasoning in the prompt was enough, and that insight spawned an entire research ecosystem of reasoning-enhancement techniques: Zero-Shot CoT, Self-Consistency, Tree of Thought, Self-Ask, and dozens more.</p>
                 </div>
             </div>
         </section>
@@ -676,7 +676,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Simplification</span>
                         <span class="evolution-callout__title">Zero-Shot Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Achieve step-by-step reasoning without any examples &mdash; just add &ldquo;Let&rsquo;s think step by step&rdquo; to your prompt and the model generates its own reasoning chain.</span>
+                        <span class="evolution-callout__desc">Achieve step-by-step reasoning without any examples, just add &ldquo;Let&rsquo;s think step by step&rdquo; to your prompt and the model generates its own reasoning chain.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -695,7 +695,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Enhancement</span>
                         <span class="evolution-callout__title">Self-Consistency</span>
-                        <span class="evolution-callout__desc">Generate multiple Chain-of-Thought reasoning paths for the same problem, then select the most common answer &mdash; majority voting over diverse reasoning chains.</span>
+                        <span class="evolution-callout__desc">Generate multiple Chain-of-Thought reasoning paths for the same problem, then select the most common answer, majority voting over diverse reasoning chains.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -716,7 +716,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Tree of Thought</span>
-                        <span class="evolution-callout__desc">Extends CoT from a single reasoning chain to a branching tree &mdash; exploring multiple reasoning paths, evaluating each, and backtracking when a path leads to a dead end.</span>
+                        <span class="evolution-callout__desc">Extends CoT from a single reasoning chain to a branching tree, exploring multiple reasoning paths, evaluating each, and backtracking when a path leads to a dead end.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -793,7 +793,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

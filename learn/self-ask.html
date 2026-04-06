@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Decomposition Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Self-Ask Prompting</h1>
-                <p class="page-subtitle fade-in">Complex questions hide simpler ones inside them. Self-Ask forces the model to surface those hidden sub-questions explicitly &mdash; asking and answering each one in sequence before assembling a final, well-supported answer.</p>
+                <p class="page-subtitle fade-in">Complex questions hide simpler ones inside them. Self-Ask forces the model to surface those hidden sub-questions explicitly, asking and answering each one in sequence before assembling a final, well-supported answer.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> Self-Ask was published in 2022 by Press et al. The technique addresses multi-hop reasoning &mdash; questions that require chaining together multiple facts to reach an answer. Instead of hoping the model silently connects the dots, Self-Ask introduces a structured protocol: the model explicitly asks &ldquo;Are follow-up questions needed here?&rdquo; then generates and answers each sub-question before synthesizing a final response. The original paper paired Self-Ask with a search engine for intermediate lookups, anticipating retrieval-augmented generation (RAG) patterns.</p>
-                        <p><strong>Modern LLM Status:</strong> The core insight of Self-Ask &mdash; decomposing complex questions into explicit sub-questions &mdash; has been <strong>largely absorbed into standard LLM behavior</strong>. Claude, GPT-4, and Gemini naturally break down multi-hop questions internally. However, Self-Ask&rsquo;s explicit &ldquo;Follow-up question / Intermediate answer&rdquo; format remains valuable when you need <strong>fully transparent, auditable reasoning chains</strong> where each inference step is visible and verifiable. The technique is most relevant today for interpretability, debugging, and educational contexts.</p>
+                        <p><strong>Introduced:</strong> Self-Ask was published in 2022 by Press et al. The technique addresses multi-hop reasoning, questions that require chaining together multiple facts to reach an answer. Instead of hoping the model silently connects the dots, Self-Ask introduces a structured protocol: the model explicitly asks &ldquo;Are follow-up questions needed here?&rdquo; then generates and answers each sub-question before synthesizing a final response. The original paper paired Self-Ask with a search engine for intermediate lookups, anticipating retrieval-augmented generation (RAG) patterns.</p>
+                        <p><strong>Modern LLM Status:</strong> The core insight of Self-Ask, decomposing complex questions into explicit sub-questions, has been <strong>largely absorbed into standard LLM behavior</strong>. Claude, ChatGPT, and Gemini naturally break down multi-hop questions internally. However, Self-Ask&rsquo;s explicit &ldquo;Follow-up question / Intermediate answer&rdquo; format remains valuable when you need <strong>fully transparent, auditable reasoning chains</strong> where each inference step is visible and verifiable. The technique is most relevant today for interpretability, debugging, and educational contexts.</p>
                     </div>
                 </div>
             </div>
@@ -217,13 +217,13 @@
                         <h2 class="split-section__title">Make the Model Question Itself</h2>
                         <p class="split-section__text">Many questions appear simple on the surface but actually require connecting multiple facts in sequence. &ldquo;Was the president who signed NAFTA born before or after the moon landing?&rdquo; seems straightforward, but it hides two prerequisite questions: who signed NAFTA, and when were they born? Standard prompting asks the model to make these connections silently, where errors can hide undetected.</p>
                         <p class="split-section__text"><strong>Self-Ask flips the process into the open.</strong> The model is instructed to pause and ask: &ldquo;Are follow-up questions needed here?&rdquo; When the answer is yes, it generates each sub-question explicitly, answers it, then uses that intermediate answer to fuel the next step. The reasoning chain becomes a visible, step-by-step interrogation rather than a black-box leap.</p>
-                        <p class="split-section__text">Think of it like a detective who, instead of jumping to a conclusion, writes down each question they need to answer on a whiteboard &mdash; then methodically solves each one before connecting the evidence into a final verdict.</p>
+                        <p class="split-section__text">Think of it like a detective who, instead of jumping to a conclusion, writes down each question they need to answer on a whiteboard, then methodically solves each one before connecting the evidence into a final verdict.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Explicit Questions Beat Implicit Reasoning</span>
-                                <p>When a model reasons silently through a multi-hop question, it can skip steps, conflate facts, or quietly substitute one entity for another &mdash; and you would never know. Self-Ask&rsquo;s explicit sub-question format makes every inference visible: if the model gets the wrong intermediate answer, you can see exactly <strong>where</strong> the chain broke. This transforms opaque reasoning into a debuggable, auditable trail.</p>
+                                <p>When a model reasons silently through a multi-hop question, it can skip steps, conflate facts, or quietly substitute one entity for another, and you would never know. Self-Ask&rsquo;s explicit sub-question format makes every inference visible: if the model gets the wrong intermediate answer, you can see exactly <strong>where</strong> the chain broke. This transforms opaque reasoning into a debuggable, auditable trail.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Receive the Complex Question</h3>
-                            <p class="element-timeline__text">Start with a question that requires multiple facts or reasoning steps to answer. The question should involve connecting information that no single lookup can resolve &mdash; these are called compositional or multi-hop questions.</p>
+                            <p class="element-timeline__text">Start with a question that requires multiple facts or reasoning steps to answer. The question should involve connecting information that no single lookup can resolve, these are called compositional or multi-hop questions.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Did the company that created the iPhone also make the first personal computer to sell one million units?&rdquo;</p>
@@ -259,10 +259,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Ask &ldquo;Are Follow-Up Questions Needed?&rdquo;</h3>
-                            <p class="element-timeline__text">The model evaluates the question and determines whether it can answer directly or needs to decompose it first. This decision gate is the signature move of Self-Ask &mdash; it forces the model to consciously assess complexity before proceeding rather than guessing at an answer.</p>
+                            <p class="element-timeline__text">The model evaluates the question and determines whether it can answer directly or needs to decompose it first. This decision gate is the signature move of Self-Ask, it forces the model to consciously assess complexity before proceeding rather than guessing at an answer.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Are follow-up questions needed here: Yes.&rdquo; &mdash; The model recognizes it needs to identify the iPhone creator and the first million-unit PC separately.</p>
+                                <p>&ldquo;Are follow-up questions needed here: Yes.&rdquo;, The model recognizes it needs to identify the iPhone creator and the first million-unit PC separately.</p>
                             </div>
                         </div>
                     </div>
@@ -351,11 +351,11 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Decomposed Reasoning</span>
-                                <p><strong>Follow-up:</strong> What policies contributed to the 2008 crisis?<br><strong>Intermediate:</strong> Key factors include the Gramm-Leach-Bliley Act (1999) and the Commodity Futures Modernization Act (2000), plus regulatory failures in mortgage oversight.<br><strong>Follow-up:</strong> Who was president when those acts were signed?<br><strong>Intermediate:</strong> Bill Clinton (Democrat) signed both acts.<br><strong>Follow-up:</strong> Were there additional contributing factors under later administrations?<br><strong>Intermediate:</strong> Yes &mdash; the Bush administration (Republican) maintained deregulatory policies and oversight gaps that amplified the risk.</p>
+                                <p><strong>Follow-up:</strong> What policies contributed to the 2008 crisis?<br><strong>Intermediate:</strong> Key factors include the Gramm-Leach-Bliley Act (1999) and the Commodity Futures Modernization Act (2000), plus regulatory failures in mortgage oversight.<br><strong>Follow-up:</strong> Who was president when those acts were signed?<br><strong>Intermediate:</strong> Bill Clinton (Democrat) signed both acts.<br><strong>Follow-up:</strong> Were there additional contributing factors under later administrations?<br><strong>Intermediate:</strong> Yes, the Bush administration (Republican) maintained deregulatory policies and oversight gaps that amplified the risk.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Final Answer</span>
-                                <p>The crisis resulted from policies enacted across both parties &mdash; foundational deregulation under Clinton (Democrat) and continued deregulatory posture under Bush (Republican). Attributing it to a single presidency oversimplifies the multi-administration causal chain.</p>
+                                <p>The crisis resulted from policies enacted across both parties, foundational deregulation under Clinton (Democrat) and continued deregulatory posture under Bush (Republican). Attributing it to a single presidency oversimplifies the multi-administration causal chain.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -470,7 +470,7 @@
                                     <strong>Intermediate answer:</strong> Mendeleev died on February 2, 1907.<br><br>
                                     <strong>Follow-up:</strong> Was 1875 before 1907?<br>
                                     <strong>Intermediate answer:</strong> Yes, 1875 is 32 years before 1907.<br><br>
-                                    <strong>So the final answer is:</strong> Gallium was discovered before Mendeleev died. He predicted it in 1871, it was found in 1875, and he lived until 1907 &mdash; meaning he witnessed the confirmation of his prediction during his lifetime.</p>
+                                    <strong>So the final answer is:</strong> Gallium was discovered before Mendeleev died. He predicted it in 1871, it was found in 1875, and he lived until 1907, meaning he witnessed the confirmation of his prediction during his lifetime.</p>
                                 </div>
                             </div>
                         </div>
@@ -497,7 +497,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Hop Questions</strong>
-                                    <p>Questions that chain multiple facts together &mdash; &ldquo;Who was the president when the company founded by the inventor of the telephone went public?&rdquo;</p>
+                                    <p>Questions that chain multiple facts together, &ldquo;Who was the president when the company founded by the inventor of the telephone went public?&rdquo;</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -507,7 +507,7 @@
                                 </svg>
                                 <div>
                                     <strong>Reasoning Audits</strong>
-                                    <p>When you need to verify every step of the model&rsquo;s logic &mdash; each sub-question and answer creates a checkable evidence trail.</p>
+                                    <p>When you need to verify every step of the model&rsquo;s logic, each sub-question and answer creates a checkable evidence trail.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -517,7 +517,7 @@
                                 </svg>
                                 <div>
                                     <strong>Educational Contexts</strong>
-                                    <p>Teaching students how complex questions decompose &mdash; Self-Ask makes the hidden reasoning structure visible and instructive.</p>
+                                    <p>Teaching students how complex questions decompose, Self-Ask makes the hidden reasoning structure visible and instructive.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -527,7 +527,7 @@
                                 </svg>
                                 <div>
                                     <strong>Fact-Checking Pipelines</strong>
-                                    <p>Breaking claims into verifiable sub-claims &mdash; each intermediate answer can be independently confirmed against trusted sources.</p>
+                                    <p>Breaking claims into verifiable sub-claims, each intermediate answer can be independently confirmed against trusted sources.</p>
                                 </div>
                             </div>
                         </div>
@@ -542,7 +542,7 @@
                                 </svg>
                                 <div>
                                     <strong>Single-Hop Questions</strong>
-                                    <p>Questions answerable with a single fact lookup &mdash; &ldquo;What is the capital of France?&rdquo; needs no decomposition.</p>
+                                    <p>Questions answerable with a single fact lookup, &ldquo;What is the capital of France?&rdquo; needs no decomposition.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -552,7 +552,7 @@
                                 </svg>
                                 <div>
                                     <strong>Speed-Critical Applications</strong>
-                                    <p>When latency matters more than transparency &mdash; Self-Ask adds tokens and processing time for each sub-question and answer pair.</p>
+                                    <p>When latency matters more than transparency, Self-Ask adds tokens and processing time for each sub-question and answer pair.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -562,7 +562,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative or Open-Ended Tasks</strong>
-                                    <p>Writing, brainstorming, or opinion-based questions where there is no factual chain to decompose &mdash; Self-Ask is designed for factual multi-hop reasoning.</p>
+                                    <p>Writing, brainstorming, or opinion-based questions where there is no factual chain to decompose, Self-Ask is designed for factual multi-hop reasoning.</p>
                                 </div>
                             </div>
                         </div>
@@ -642,7 +642,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Financial Analysis</h3>
-                        <p class="use-case-showcase__desc">Break investment thesis questions into sub-analyses: market conditions, company fundamentals, competitive positioning, and risk factors &mdash; each answered and sourced independently.</p>
+                        <p class="use-case-showcase__desc">Break investment thesis questions into sub-analyses: market conditions, company fundamentals, competitive positioning, and risk factors, each answered and sourced independently.</p>
                     </div>
                 </div>
             </div>
@@ -680,7 +680,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine with Search</div>
-                    <p>Self-Ask was originally designed to pair each sub-question with a search engine lookup &mdash; making it a precursor to modern retrieval-augmented generation (RAG). In production systems, you can route each &ldquo;Follow-up question&rdquo; to a knowledge base or API, then feed the retrieved answer back as the &ldquo;Intermediate answer&rdquo; for maximum factual grounding.</p>
+                    <p>Self-Ask was originally designed to pair each sub-question with a search engine lookup, making it a precursor to modern retrieval-augmented generation (RAG). In production systems, you can route each &ldquo;Follow-up question&rdquo; to a knowledge base or API, then feed the retrieved answer back as the &ldquo;Intermediate answer&rdquo; for maximum factual grounding.</p>
                 </div>
             </div>
         </section>
@@ -722,7 +722,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Decomposed Prompting</span>
-                        <span class="evolution-callout__desc">Takes decomposition further by routing each sub-task to specialized handlers &mdash; a modular extension of Self-Ask&rsquo;s question-splitting approach.</span>
+                        <span class="evolution-callout__desc">Takes decomposition further by routing each sub-task to specialized handlers, a modular extension of Self-Ask&rsquo;s question-splitting approach.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -743,7 +743,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Step-Back Prompting</span>
-                        <span class="evolution-callout__desc">Instead of decomposing forward into sub-questions, Step-Back abstracts upward to broader principles before answering &mdash; a complementary reasoning direction.</span>
+                        <span class="evolution-callout__desc">Instead of decomposing forward into sub-questions, Step-Back abstracts upward to broader principles before answering, a complementary reasoning direction.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -820,7 +820,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

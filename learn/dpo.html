@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Alignment Method</span>
                 </div>
                 <h1 class="page-title fade-in">DPO (Direct Preference Optimization)</h1>
-                <p class="page-subtitle fade-in">A simpler alternative to RLHF that directly optimizes model policy from preference data &mdash; eliminating the need for a separate reward model while remaining mathematically equivalent, more stable to train, and computationally lighter.</p>
+                <p class="page-subtitle fade-in">A simpler alternative to RLHF that directly optimizes model policy from preference data, eliminating the need for a separate reward model while remaining mathematically equivalent, more stable to train, and computationally lighter.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> DPO was published in 2023 by Rafailov et al. at Stanford University. The technique emerged as a response to the complexity of Reinforcement Learning from Human Feedback (RLHF), which requires training a separate reward model and then using reinforcement learning to optimize the language model against it. DPO showed that you can mathematically reparameterize the RLHF objective to directly optimize the policy model using simple pairwise preference data &mdash; preferred vs. rejected responses &mdash; without ever fitting a reward model. This dramatically simplified the alignment pipeline.</p>
-                        <p><strong>Modern LLM Status:</strong> DPO has become one of the most widely used alignment techniques in 2026. Its simplicity compared to RLHF &mdash; no separate reward model needed &mdash; made it the default choice for fine-tuning labs and open-source model trainers. Variants like IPO (Identity Preference Optimization), KTO (Kahneman-Tversky Optimization), and ORPO (Odds Ratio Preference Optimization) have extended DPO&rsquo;s core principle, but the original formulation remains dominant. Nearly every major open-weight model release in 2025&ndash;2026 includes a DPO or DPO-variant stage in its training pipeline.</p>
+                        <p><strong>Introduced:</strong> DPO was published in 2023 by Rafailov et al. at Stanford University. The technique emerged as a response to the complexity of Reinforcement Learning from Human Feedback (RLHF), which requires training a separate reward model and then using reinforcement learning to optimize the language model against it. DPO showed that you can mathematically reparameterize the RLHF objective to directly optimize the policy model using simple pairwise preference data, preferred vs. rejected responses, without ever fitting a reward model. This dramatically simplified the alignment pipeline.</p>
+                        <p><strong>Modern LLM Status:</strong> DPO has become one of the most widely used alignment techniques in 2026. Its simplicity compared to RLHF, no separate reward model needed, made it the default choice for fine-tuning labs and open-source model trainers. Variants like IPO (Identity Preference Optimization), KTO (Kahneman-Tversky Optimization), and ORPO (Odds Ratio Preference Optimization) have extended DPO&rsquo;s core principle, but the original formulation remains dominant. Nearly every major open-weight model release in 2025&ndash;2026 includes a DPO or DPO-variant stage in its training pipeline.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Skip the Reward Model</h2>
-                        <p class="split-section__text">Traditional RLHF alignment works in two stages: first, train a reward model on human preference data (which response is better?), then use reinforcement learning (typically PPO) to optimize the language model to maximize that reward. This pipeline is effective but complex &mdash; the reward model can overfit, the RL training is unstable, and the computational cost is significant.</p>
-                        <p class="split-section__text"><strong>DPO collapses this into a single step.</strong> By showing that the optimal policy under the RLHF objective has a closed-form solution, DPO derives a loss function that operates directly on preference pairs. Given a prompt and two responses (one preferred, one rejected), DPO increases the probability of the preferred response while decreasing the probability of the rejected one &mdash; all through standard supervised learning with no RL loop required.</p>
-                        <p class="split-section__text">Think of it like learning to cook. RLHF is like first training a food critic (reward model), then having a chef practice dishes while the critic scores them (RL loop). DPO skips the critic entirely &mdash; the chef directly learns from tasting both dishes and knowing which one the diner preferred.</p>
+                        <p class="split-section__text">Traditional RLHF alignment works in two stages: first, train a reward model on human preference data (which response is better?), then use reinforcement learning (typically PPO) to optimize the language model to maximize that reward. This pipeline is effective but complex, the reward model can overfit, the RL training is unstable, and the computational cost is significant.</p>
+                        <p class="split-section__text"><strong>DPO collapses this into a single step.</strong> By showing that the optimal policy under the RLHF objective has a closed-form solution, DPO derives a loss function that operates directly on preference pairs. Given a prompt and two responses (one preferred, one rejected), DPO increases the probability of the preferred response while decreasing the probability of the rejected one, all through standard supervised learning with no RL loop required.</p>
+                        <p class="split-section__text">Think of it like learning to cook. RLHF is like first training a food critic (reward model), then having a chef practice dishes while the critic scores them (RL loop). DPO skips the critic entirely, the chef directly learns from tasting both dishes and knowing which one the diner preferred.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Simplicity Matters for Alignment</span>
-                                <p>Every additional component in an alignment pipeline is a potential failure point. RLHF&rsquo;s reward model can develop blind spots, its RL training can mode-collapse, and hyperparameter tuning is notoriously finicky. DPO eliminates these failure modes by reducing the problem to a classification-like loss on preference pairs. Fewer moving parts means more reproducible results, faster iteration cycles, and alignment work that is accessible to teams without deep RL expertise &mdash; which has been critical for democratizing model alignment.</p>
+                                <p>Every additional component in an alignment pipeline is a potential failure point. RLHF&rsquo;s reward model can develop blind spots, its RL training can mode-collapse, and hyperparameter tuning is notoriously finicky. DPO eliminates these failure modes by reducing the problem to a classification-like loss on preference pairs. Fewer moving parts means more reproducible results, faster iteration cycles, and alignment work that is accessible to teams without deep RL expertise, which has been critical for democratizing model alignment.</p>
                             </div>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                             <p class="element-timeline__text">Gather pairs of model responses to the same prompt, where human annotators (or an AI judge) have indicated which response is preferred. Each data point is a triplet: the prompt, the preferred (chosen) response, and the rejected response. The quality and diversity of this preference data directly determines how well the model aligns.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Prompt: &ldquo;Explain quantum entanglement simply.&rdquo; &mdash; Response A (preferred): clear, accurate analogy. Response B (rejected): technically correct but confusing jargon.</p>
+                                <p>Prompt: &ldquo;Explain quantum entanglement simply.&rdquo;, Response A (preferred): clear, accurate analogy. Response B (rejected): technically correct but confusing jargon.</p>
                             </div>
                         </div>
                     </div>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Compute Log-Probability Ratios</h3>
-                            <p class="element-timeline__text">For each preference pair, DPO computes the log-probabilities of both the chosen and rejected responses under the current policy model and a frozen reference model (typically the supervised fine-tuned checkpoint). The ratio between these probabilities is the signal that drives learning &mdash; it measures how much the policy has diverged from the reference for each response.</p>
+                            <p class="element-timeline__text">For each preference pair, DPO computes the log-probabilities of both the chosen and rejected responses under the current policy model and a frozen reference model (typically the supervised fine-tuned checkpoint). The ratio between these probabilities is the signal that drives learning, it measures how much the policy has diverged from the reference for each response.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>If the policy assigns higher probability to the preferred response relative to the reference model, the loss is already low. If it favors the rejected response, the loss is high and gradients push the model to correct.</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Optimize with the DPO Loss</h3>
-                            <p class="element-timeline__text">The DPO loss function is a binary cross-entropy style objective on the implicit reward margin between chosen and rejected responses. It increases the relative likelihood of preferred responses while penalizing rejected ones, all while staying close to the reference model through a KL-divergence constraint controlled by a temperature parameter (beta). This is pure supervised learning &mdash; standard gradient descent, no RL.</p>
+                            <p class="element-timeline__text">The DPO loss function is a binary cross-entropy style objective on the implicit reward margin between chosen and rejected responses. It increases the relative likelihood of preferred responses while penalizing rejected ones, all while staying close to the reference model through a KL-divergence constraint controlled by a temperature parameter (beta). This is pure supervised learning, standard gradient descent, no RL.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>With beta=0.1 (a common setting), the model learns strong preferences but stays close to its base capabilities. Higher beta values enforce tighter adherence to the reference model; lower values allow more aggressive preference learning.</p>
@@ -409,7 +409,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">What DPO Learns</span>
-                                    <p>From this preference pair, DPO teaches the model to acknowledge the user&rsquo;s curiosity while redirecting to safe, constructive alternatives. The preferred response is helpful (explains the mechanism) without being harmful (no actionable exploit instructions). Over thousands of such pairs, the model learns nuanced refusal calibration &mdash; not a blanket &ldquo;I can&rsquo;t help with that&rdquo; but a thoughtful, context-appropriate response. <strong>Note:</strong> Always verify that aligned models handle edge cases correctly through independent safety evaluation.</p>
+                                    <p>From this preference pair, DPO teaches the model to acknowledge the user&rsquo;s curiosity while redirecting to safe, constructive alternatives. The preferred response is helpful (explains the mechanism) without being harmful (no actionable exploit instructions). Over thousands of such pairs, the model learns nuanced refusal calibration, not a blanket &ldquo;I can&rsquo;t help with that&rdquo; but a thoughtful, context-appropriate response. <strong>Note:</strong> Always verify that aligned models handle edge cases correctly through independent safety evaluation.</p>
                                 </div>
                             </div>
                         </div>
@@ -425,12 +425,12 @@
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Preference Pair</span>
                                     <p><strong>Prompt:</strong> &ldquo;Explain machine learning to a 10-year-old.&rdquo;<br><br>
-                                    <strong>Preferred response:</strong> &ldquo;Imagine you&rsquo;re teaching a robot to sort your toys. At first, the robot doesn&rsquo;t know which bin each toy goes in. But every time it puts a toy in the wrong bin, you say &lsquo;try again!&rsquo; and every time it gets it right, you say &lsquo;nice job!&rsquo; After sorting hundreds of toys, the robot gets really good at it &mdash; even with toys it&rsquo;s never seen before. That&rsquo;s machine learning: a computer getting better at a task by practicing with lots of examples.&rdquo;<br><br>
+                                    <strong>Preferred response:</strong> &ldquo;Imagine you&rsquo;re teaching a robot to sort your toys. At first, the robot doesn&rsquo;t know which bin each toy goes in. But every time it puts a toy in the wrong bin, you say &lsquo;try again!&rsquo; and every time it gets it right, you say &lsquo;nice job!&rsquo; After sorting hundreds of toys, the robot gets really good at it, even with toys it&rsquo;s never seen before. That&rsquo;s machine learning: a computer getting better at a task by practicing with lots of examples.&rdquo;<br><br>
                                     <strong>Rejected response:</strong> &ldquo;Machine learning is a subset of artificial intelligence that uses statistical methods to enable computer systems to learn from data and improve their performance on tasks without being explicitly programmed using gradient descent optimization...&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">What DPO Learns</span>
-                                    <p>DPO teaches the model to match its language to the audience. The preferred response uses concrete analogies a child can visualize, while the rejected response &mdash; though technically accurate &mdash; fails to meet the user where they are. Through many such pairs, the model learns that helpfulness means adapting complexity, not maximizing information density. <strong>Remember:</strong> Even well-aligned models can misjudge audience level, so review AI explanations before sharing them with others.</p>
+                                    <p>DPO teaches the model to match its language to the audience. The preferred response uses concrete analogies a child can visualize, while the rejected response, though technically accurate, fails to meet the user where they are. Through many such pairs, the model learns that helpfulness means adapting complexity, not maximizing information density. <strong>Remember:</strong> Even well-aligned models can misjudge audience level, so review AI explanations before sharing them with others.</p>
                                 </div>
                             </div>
                         </div>
@@ -446,12 +446,12 @@
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Preference Pair</span>
                                     <p><strong>Prompt:</strong> &ldquo;What will the stock market do next quarter?&rdquo;<br><br>
-                                    <strong>Preferred response:</strong> &ldquo;I can&rsquo;t predict future stock market performance &mdash; no one can with reliability. What I can do is help you understand factors that analysts typically consider: current economic indicators, Federal Reserve policy signals, corporate earnings trends, and geopolitical risks. If you share your specific investment context, I can help you think through a framework for evaluating these factors. For actual investment decisions, always consult a qualified financial advisor.&rdquo;<br><br>
+                                    <strong>Preferred response:</strong> &ldquo;I can&rsquo;t predict future stock market performance, no one can with reliability. What I can do is help you understand factors that analysts typically consider: current economic indicators, Federal Reserve policy signals, corporate earnings trends, and geopolitical risks. If you share your specific investment context, I can help you think through a framework for evaluating these factors. For actual investment decisions, always consult a qualified financial advisor.&rdquo;<br><br>
                                     <strong>Rejected response:</strong> &ldquo;Based on current trends, the market is likely to rise 8-12% next quarter due to strong employment numbers and expected Fed rate cuts.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">What DPO Learns</span>
-                                    <p>DPO trains the model to be honest about the limits of its knowledge rather than generating confident-sounding but unreliable predictions. The preferred response is transparent about uncertainty while still being maximally helpful within those bounds. This preference pattern teaches the model that honesty and helpfulness are not in conflict &mdash; you can acknowledge what you do not know while still providing genuine value. <strong>Critical:</strong> Always cross-check financial information from AI with qualified professionals and authoritative sources.</p>
+                                    <p>DPO trains the model to be honest about the limits of its knowledge rather than generating confident-sounding but unreliable predictions. The preferred response is transparent about uncertainty while still being maximally helpful within those bounds. This preference pattern teaches the model that honesty and helpfulness are not in conflict, you can acknowledge what you do not know while still providing genuine value. <strong>Critical:</strong> Always cross-check financial information from AI with qualified professionals and authoritative sources.</p>
                                 </div>
                             </div>
                         </div>
@@ -478,7 +478,7 @@
                                 </svg>
                                 <div>
                                     <strong>Post-SFT Alignment</strong>
-                                    <p>After supervised fine-tuning, use DPO to align the model with human preferences for helpfulness, safety, and honesty &mdash; the standard alignment stage in modern training pipelines.</p>
+                                    <p>After supervised fine-tuning, use DPO to align the model with human preferences for helpfulness, safety, and honesty, the standard alignment stage in modern training pipelines.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -498,7 +498,7 @@
                                 </svg>
                                 <div>
                                     <strong>Style and Tone Calibration</strong>
-                                    <p>When you want the model to adopt a specific communication style &mdash; more concise, more formal, more empathetic &mdash; DPO can encode these preferences directly from comparison data.</p>
+                                    <p>When you want the model to adopt a specific communication style, more concise, more formal, more empathetic, DPO can encode these preferences directly from comparison data.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -508,7 +508,7 @@
                                 </svg>
                                 <div>
                                     <strong>Safety Fine-Tuning</strong>
-                                    <p>Teaching models nuanced refusal behavior &mdash; when to decline, when to redirect, and when to help with appropriate caveats &mdash; through carefully curated preference pairs.</p>
+                                    <p>Teaching models nuanced refusal behavior, when to decline, when to redirect, and when to help with appropriate caveats, through carefully curated preference pairs.</p>
                                 </div>
                             </div>
                         </div>
@@ -543,7 +543,7 @@
                                 </svg>
                                 <div>
                                     <strong>Complex Reward Landscapes</strong>
-                                    <p>When preferences depend on multiple interacting factors that are hard to capture in pairwise comparisons &mdash; online RLHF with a learned reward model may capture these nuances better.</p>
+                                    <p>When preferences depend on multiple interacting factors that are hard to capture in pairwise comparisons, online RLHF with a learned reward model may capture these nuances better.</p>
                                 </div>
                             </div>
                         </div>
@@ -611,7 +611,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Honesty Calibration</h3>
-                        <p class="use-case-showcase__desc">Teach models to express appropriate uncertainty, avoid hallucination, and decline to speculate when they lack sufficient knowledge &mdash; critical for trustworthy AI systems.</p>
+                        <p class="use-case-showcase__desc">Teach models to express appropriate uncertainty, avoid hallucination, and decline to speculate when they lack sufficient knowledge, critical for trustworthy AI systems.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -623,7 +623,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Open-Weight Model Release</h3>
-                        <p class="use-case-showcase__desc">Enable open-source teams to produce well-aligned models without requiring expensive RL infrastructure &mdash; DPO&rsquo;s simplicity has made quality alignment accessible to the broader community.</p>
+                        <p class="use-case-showcase__desc">Enable open-source teams to produce well-aligned models without requiring expensive RL infrastructure, DPO&rsquo;s simplicity has made quality alignment accessible to the broader community.</p>
                     </div>
                 </div>
             </div>
@@ -661,7 +661,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Alignment Revolution</div>
-                    <p>DPO did not just simplify RLHF &mdash; it fundamentally changed who could participate in alignment research. Before DPO, aligning a model required deep reinforcement learning expertise and significant compute for PPO training. After DPO, any team comfortable with supervised fine-tuning could align a model. This democratization has been one of the most impactful shifts in AI development, driving the rapid improvement of open-weight models from 2023 to 2026.</p>
+                    <p>DPO did not just simplify RLHF, it fundamentally changed who could participate in alignment research. Before DPO, aligning a model required deep reinforcement learning expertise and significant compute for PPO training. After DPO, any team comfortable with supervised fine-tuning could align a model. This democratization has been one of the most impactful shifts in AI development, driving the rapid improvement of open-weight models from 2023 to 2026.</p>
                 </div>
             </div>
         </section>
@@ -703,7 +703,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">STaR (Self-Taught Reasoner)</span>
-                        <span class="evolution-callout__desc">Improves reasoning through self-generated rationales &mdash; where DPO aligns on preferences, STaR bootstraps from the model&rsquo;s own successful reasoning traces.</span>
+                        <span class="evolution-callout__desc">Improves reasoning through self-generated rationales, where DPO aligns on preferences, STaR bootstraps from the model&rsquo;s own successful reasoning traces.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -724,7 +724,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Instruction Hierarchy</span>
-                        <span class="evolution-callout__desc">Defines priority levels for conflicting instructions &mdash; DPO can be used to train models to respect instruction hierarchy through carefully constructed preference pairs.</span>
+                        <span class="evolution-callout__desc">Defines priority levels for conflicting instructions, DPO can be used to train models to respect instruction hierarchy through carefully constructed preference pairs.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -801,7 +801,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

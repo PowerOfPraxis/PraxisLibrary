@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">3D Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">3D Model Generation</h1>
-                <p class="page-subtitle fade-in">Techniques for prompting AI systems to create three-dimensional objects, meshes, and complete models from text descriptions &mdash; transforming natural language into volumetric geometry, surface materials, and production-ready 3D assets through text-to-3D generation pipelines.</p>
+                <p class="page-subtitle fade-in">Techniques for prompting AI systems to create three-dimensional objects, meshes, and complete models from text descriptions, transforming natural language into volumetric geometry, surface materials, and production-ready 3D assets through text-to-3D generation pipelines.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -212,7 +212,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022&ndash;2024</span>
                         <p><strong>Introduced:</strong> Text-to-3D generation emerged from the convergence of diffusion models and neural 3D representations. DreamFusion (2022, Google Research) pioneered the use of 2D diffusion priors to optimize Neural Radiance Fields (NeRFs) from text prompts, demonstrating that a pre-trained image generation model could guide the creation of coherent 3D objects without any 3D training data. NVIDIA&rsquo;s Magic3D (2022) improved upon this with a coarse-to-fine optimization pipeline that produced higher-resolution meshes with sharper geometric detail. OpenAI contributed Point-E (2022) and Shap-E (2023), which offered significantly faster single-pass generation by directly predicting 3D point clouds and implicit representations rather than relying on expensive per-object optimization loops. These foundational approaches established the core paradigm: translating textual descriptions into volumetric structures that can be rendered from any viewpoint.</p>
-                        <p><strong>Modern LLM Status:</strong> 3D model generation is <strong>rapidly evolving</strong>, with newer systems producing increasingly detailed meshes, physically-based textures, and production-quality materials from natural language descriptions. Models like Instant3D, LRM, and their successors have dramatically reduced generation times from hours to seconds while improving geometric fidelity. The field is converging toward pipelines that combine large-scale 3D datasets with multi-view diffusion models, enabling single-image and text-conditioned 3D reconstruction that approaches the quality needed for game assets, product visualization, and rapid prototyping workflows. Prompt engineering for 3D generation remains distinct from 2D image prompting because the model must construct a spatially consistent object rather than a single viewpoint &mdash; requiring descriptions that convey volumetric form, surface properties, and geometric relationships from all angles simultaneously.</p>
+                        <p><strong>Modern LLM Status:</strong> 3D model generation is <strong>rapidly evolving</strong>, with newer systems producing increasingly detailed meshes, physically-based textures, and production-quality materials from natural language descriptions. Models like Instant3D, LRM, and their successors have dramatically reduced generation times from hours to seconds while improving geometric fidelity. The field is converging toward pipelines that combine large-scale 3D datasets with multi-view diffusion models, enabling single-image and text-conditioned 3D reconstruction that approaches the quality needed for game assets, product visualization, and rapid prototyping workflows. Prompt engineering for 3D generation remains distinct from 2D image prompting because the model must construct a spatially consistent object rather than a single viewpoint, requiring descriptions that convey volumetric form, surface properties, and geometric relationships from all angles simultaneously.</p>
                     </div>
                 </div>
             </div>
@@ -225,15 +225,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Think Like a Sculptor Working With Words</h2>
-                        <p class="split-section__text">3D model generation prompting requires a fundamentally different mindset from 2D image prompting. When you write a prompt for an image, you describe what the camera sees from a single perspective. When you write a prompt for a 3D model, you must describe what an object <strong>is</strong> &mdash; its complete volumetric form, surface materials, geometric proportions, and how it exists in three-dimensional space. The prompt must convey enough spatial information that the model can construct a consistent object viewable from any angle, not just one flattering shot.</p>
-                        <p class="split-section__text"><strong>The core insight is that effective 3D prompts describe objects the way an engineer writes specifications or a sculptor describes a commission &mdash; in terms of form, proportion, material, and spatial relationships rather than lighting, mood, or composition.</strong> A prompt that produces a stunning 2D image of a sword may generate a poor 3D model because it describes cinematic lighting and dramatic angles rather than blade curvature, cross-guard geometry, grip texture, and pommel shape. The shift from &ldquo;how it looks in a picture&rdquo; to &ldquo;how it exists in space&rdquo; is the defining challenge of 3D prompt engineering.</p>
-                        <p class="split-section__text">Think of the difference between photographing a chair and building one. A photographer cares about the angle, lighting, and background. A furniture maker cares about joint types, leg taper ratios, seat depth, back angle, and wood grain direction. 3D model generation prompts need the furniture maker&rsquo;s vocabulary &mdash; describing the object as a physical thing that must be structurally coherent from every possible viewpoint.</p>
+                        <p class="split-section__text">3D model generation prompting requires a fundamentally different mindset from 2D image prompting. When you write a prompt for an image, you describe what the camera sees from a single perspective. When you write a prompt for a 3D model, you must describe what an object <strong>is</strong>, its complete volumetric form, surface materials, geometric proportions, and how it exists in three-dimensional space. The prompt must convey enough spatial information that the model can construct a consistent object viewable from any angle, not just one flattering shot.</p>
+                        <p class="split-section__text"><strong>The core insight is that effective 3D prompts describe objects the way an engineer writes specifications or a sculptor describes a commission, in terms of form, proportion, material, and spatial relationships rather than lighting, mood, or composition.</strong> A prompt that produces a stunning 2D image of a sword may generate a poor 3D model because it describes cinematic lighting and dramatic angles rather than blade curvature, cross-guard geometry, grip texture, and pommel shape. The shift from &ldquo;how it looks in a picture&rdquo; to &ldquo;how it exists in space&rdquo; is the defining challenge of 3D prompt engineering.</p>
+                        <p class="split-section__text">Think of the difference between photographing a chair and building one. A photographer cares about the angle, lighting, and background. A furniture maker cares about joint types, leg taper ratios, seat depth, back angle, and wood grain direction. 3D model generation prompts need the furniture maker&rsquo;s vocabulary, describing the object as a physical thing that must be structurally coherent from every possible viewpoint.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Volumetric Thinking Changes Everything</span>
-                                <p>When a text-to-3D model receives a vague prompt, it must fill in enormous gaps about the object&rsquo;s back, underside, interior structure, and hidden surfaces &mdash; areas no 2D image would ever reveal. Without explicit guidance, models default to the most statistically common interpretation, often producing objects that look reasonable from the front but dissolve into amorphous geometry from the back or sides. Structured 3D prompts address this by specifying the object&rsquo;s <strong>complete spatial identity</strong>: silhouette from multiple angles, surface material behavior under different lighting conditions, topological complexity (is it solid, hollow, or perforated?), symmetry properties, and the relationship between subcomponents. The difference between a generic blob and a production-ready 3D asset comes down to whether the prompt communicates the object&rsquo;s full three-dimensional character or merely its most photogenic angle.</p>
+                                <p>When a text-to-3D model receives a vague prompt, it must fill in enormous gaps about the object&rsquo;s back, underside, interior structure, and hidden surfaces, areas no 2D image would ever reveal. Without explicit guidance, models default to the most statistically common interpretation, often producing objects that look reasonable from the front but dissolve into amorphous geometry from the back or sides. Structured 3D prompts address this by specifying the object&rsquo;s <strong>complete spatial identity</strong>: silhouette from multiple angles, surface material behavior under different lighting conditions, topological complexity (is it solid, hollow, or perforated?), symmetry properties, and the relationship between subcomponents. The difference between a generic blob and a production-ready 3D asset comes down to whether the prompt communicates the object&rsquo;s full three-dimensional character or merely its most photogenic angle.</p>
                             </div>
                         </div>
                     </div>
@@ -254,7 +254,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Describe the Object Form</h3>
-                            <p class="element-timeline__text">Begin by defining the object&rsquo;s overall shape, silhouette, and geometric structure. Think about how the object would appear if you rotated it 360 degrees on a turntable. Specify the primary volume (is it roughly spherical, cylindrical, boxy, or organic?), key structural features visible from multiple angles, and any distinctive geometric details like curves, edges, protrusions, or cavities. Avoid describing the object from a single viewpoint &mdash; instead, communicate its three-dimensional silhouette as completely as possible so the model can reconstruct a shape that holds up under inspection from any direction.</p>
+                            <p class="element-timeline__text">Begin by defining the object&rsquo;s overall shape, silhouette, and geometric structure. Think about how the object would appear if you rotated it 360 degrees on a turntable. Specify the primary volume (is it roughly spherical, cylindrical, boxy, or organic?), key structural features visible from multiple angles, and any distinctive geometric details like curves, edges, protrusions, or cavities. Avoid describing the object from a single viewpoint, instead, communicate its three-dimensional silhouette as completely as possible so the model can reconstruct a shape that holds up under inspection from any direction.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;A medieval war hammer with a cylindrical wooden shaft approximately four times the length of the head. The head is a rectangular steel block with a flat striking face on one side and a curved spike on the opposite side. The cross-section of the head is roughly square with beveled edges. A leather grip wraps around the lower third of the shaft.&rdquo;</p>
@@ -282,7 +282,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Define Scale and Proportions</h3>
-                            <p class="element-timeline__text">Establish the relative sizes of the object&rsquo;s components and its overall scale. Proportional relationships are what make a 3D model look correct or uncanny &mdash; a chair with legs that are too thin, a character with hands that are too large, or a vehicle with mismatched wheel sizes will all feel wrong even if every individual component is well-modeled. Specify ratios between parts, overall dimensions if relevant, and any reference points that anchor the object&rsquo;s scale in reality. For stylized models, describe the intended proportional exaggeration explicitly.</p>
+                            <p class="element-timeline__text">Establish the relative sizes of the object&rsquo;s components and its overall scale. Proportional relationships are what make a 3D model look correct or uncanny, a chair with legs that are too thin, a character with hands that are too large, or a vehicle with mismatched wheel sizes will all feel wrong even if every individual component is well-modeled. Specify ratios between parts, overall dimensions if relevant, and any reference points that anchor the object&rsquo;s scale in reality. For stylized models, describe the intended proportional exaggeration explicitly.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;The hammer head is roughly the size of a closed fist, approximately 15 centimeters long by 8 centimeters wide. The shaft is 80 centimeters total, with the grip occupying the bottom 25 centimeters. The spike on the back of the head extends about 10 centimeters and curves slightly downward. The overall proportions should suggest a weapon meant for one-handed use.&rdquo;</p>
@@ -299,7 +299,7 @@
                             <p class="element-timeline__text">Evaluate the generated model from multiple viewpoints and iterate on the prompt to correct any issues. Common problems in first-generation 3D models include the Janus problem (different faces appearing on opposite sides), geometric collapse on hidden surfaces, material inconsistency across viewing angles, and loss of fine detail in areas the model considered less important. Use follow-up prompts to address specific viewing angles where the model breaks down, add detail to under-specified regions, or adjust proportions that looked correct in 2D reference images but feel wrong in 3D space.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;The back side of the hammer head appears flat and featureless. Add a maker&rsquo;s mark &mdash; a small stamped anvil symbol recessed into the steel on the rear face. Also, the leather wrapping appears to end abruptly; add a brass ferrule ring where the grip meets the bare shaft to create a clean transition between the wrapped and unwrapped sections.&rdquo;</p>
+                                <p>&ldquo;The back side of the hammer head appears flat and featureless. Add a maker&rsquo;s mark, a small stamped anvil symbol recessed into the steel on the rear face. Also, the leather wrapping appears to end abruptly; add a brass ferrule ring where the grip meets the bare shaft to create a clean transition between the wrapped and unwrapped sections.&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -339,7 +339,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>No geometry, no materials, no proportions &mdash; unusable as a 3D asset</span>
+                            <span>No geometry, no materials, no proportions, unusable as a 3D asset</span>
                         </div>
                     </div>
 
@@ -415,7 +415,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>This prompt succeeds because it describes the chest as a physical object with precise geometric construction &mdash; rectangular box, half-cylindrical lid, specific dimensions, and clear component relationships. Every surface has an assigned material with explicit finish details (dark oak with walnut stain, matte black iron with rust in crevices). The prompt specifies construction logic (planks running horizontally, bands wrapping around, L-shaped corner brackets) that gives the model structural coherence rather than just surface appearance. Including the interior lining and polygon density target ensures the output is production-appropriate rather than merely visually plausible from the outside.</p>
+                                    <p>This prompt succeeds because it describes the chest as a physical object with precise geometric construction, rectangular box, half-cylindrical lid, specific dimensions, and clear component relationships. Every surface has an assigned material with explicit finish details (dark oak with walnut stain, matte black iron with rust in crevices). The prompt specifies construction logic (planks running horizontally, bands wrapping around, L-shaped corner brackets) that gives the model structural coherence rather than just surface appearance. Including the interior lining and polygon density target ensures the output is production-appropriate rather than merely visually plausible from the outside.</p>
                                 </div>
                             </div>
                         </div>
@@ -449,7 +449,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Prompt</span>
-                                    <p>&ldquo;Generate a 3D character model of an armored forest guardian for a strategy game. The character stands in a neutral A-pose at approximately 190 centimeters tall. The body proportions are heroic &mdash; broad shoulders roughly 2.5 head-widths across, with slightly elongated limbs. The armor is a mix of carved wooden plates and woven bark fiber. The chest plate is a single piece of curved hardwood with leaf-vein patterns carved into the surface, secured by braided vine straps over the shoulders. Pauldrons are layered wooden scales resembling overlapping oak leaves. Gauntlets are bark fiber wrapped over wooden splints. The helmet is an open-faced design with antler-like wooden branches extending upward from the temples. Skin visible at the face, neck, and joints has a weathered, bark-like texture in deep brown tones. Eyes are a pale amber color that appears to glow slightly. The character carries no weapons &mdash; hands are open at the sides. The model should be suitable for rigging with standard humanoid bone structure.&rdquo;</p>
+                                    <p>&ldquo;Generate a 3D character model of an armored forest guardian for a strategy game. The character stands in a neutral A-pose at approximately 190 centimeters tall. The body proportions are heroic, broad shoulders roughly 2.5 head-widths across, with slightly elongated limbs. The armor is a mix of carved wooden plates and woven bark fiber. The chest plate is a single piece of curved hardwood with leaf-vein patterns carved into the surface, secured by braided vine straps over the shoulders. Pauldrons are layered wooden scales resembling overlapping oak leaves. Gauntlets are bark fiber wrapped over wooden splints. The helmet is an open-faced design with antler-like wooden branches extending upward from the temples. Skin visible at the face, neck, and joints has a weathered, bark-like texture in deep brown tones. Eyes are a pale amber color that appears to glow slightly. The character carries no weapons, hands are open at the sides. The model should be suitable for rigging with standard humanoid bone structure.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
@@ -479,7 +479,7 @@
                                 </svg>
                                 <div>
                                     <strong>Rapid Prototyping and Concept Exploration</strong>
-                                    <p>Quickly generating multiple 3D concept variations from text descriptions to evaluate forms, proportions, and design directions before committing to manual modeling &mdash; turning a brainstorming session into tangible 3D shapes within minutes rather than days.</p>
+                                    <p>Quickly generating multiple 3D concept variations from text descriptions to evaluate forms, proportions, and design directions before committing to manual modeling, turning a brainstorming session into tangible 3D shapes within minutes rather than days.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -489,7 +489,7 @@
                                 </svg>
                                 <div>
                                     <strong>Game and Virtual World Asset Pipelines</strong>
-                                    <p>Populating game environments, virtual worlds, and interactive experiences with diverse 3D objects &mdash; props, furniture, weapons, vegetation, and environmental elements &mdash; where volume and variety matter more than hand-crafted perfection for every individual asset.</p>
+                                    <p>Populating game environments, virtual worlds, and interactive experiences with diverse 3D objects, props, furniture, weapons, vegetation, and environmental elements, where volume and variety matter more than hand-crafted perfection for every individual asset.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -524,7 +524,7 @@
                                 </svg>
                                 <div>
                                     <strong>Precision Engineering and Manufacturing</strong>
-                                    <p>When the 3D model must meet exact dimensional tolerances for CNC machining, 3D printing with tight specifications, or mechanical assembly &mdash; AI-generated models lack the precision needed for parts that must physically fit together within fractions of a millimeter.</p>
+                                    <p>When the 3D model must meet exact dimensional tolerances for CNC machining, 3D printing with tight specifications, or mechanical assembly, AI-generated models lack the precision needed for parts that must physically fit together within fractions of a millimeter.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -534,7 +534,7 @@
                                 </svg>
                                 <div>
                                     <strong>Animation-Ready Character Rigs</strong>
-                                    <p>When you need clean topology optimized for skeletal animation, blend shapes, and deformation &mdash; AI-generated meshes often have irregular polygon flow that creates artifacts during animation without significant manual retopology and cleanup work.</p>
+                                    <p>When you need clean topology optimized for skeletal animation, blend shapes, and deformation, AI-generated meshes often have irregular polygon flow that creates artifacts during animation without significant manual retopology and cleanup work.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -544,7 +544,7 @@
                                 </svg>
                                 <div>
                                     <strong>Architectural and Structural Models</strong>
-                                    <p>When the 3D model must encode structural relationships, load-bearing calculations, material specifications, and building code compliance &mdash; parametric CAD tools and BIM software remain essential for architecture and civil engineering workflows.</p>
+                                    <p>When the 3D model must encode structural relationships, load-bearing calculations, material specifications, and building code compliance, parametric CAD tools and BIM software remain essential for architecture and civil engineering workflows.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -554,7 +554,7 @@
                                 </svg>
                                 <div>
                                     <strong>Existing Asset Libraries</strong>
-                                    <p>When high-quality pre-made 3D models already exist for your needs in asset stores or internal libraries &mdash; generating from scratch is slower and lower quality than using professionally modeled assets that have already been optimized, rigged, and tested.</p>
+                                    <p>When high-quality pre-made 3D models already exist for your needs in asset stores or internal libraries, generating from scratch is slower and lower quality than using professionally modeled assets that have already been optimized, rigged, and tested.</p>
                                 </div>
                             </div>
                         </div>
@@ -580,7 +580,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Rapid Prototyping</h3>
-                        <p class="use-case-showcase__desc">Generating preliminary 3D models from product descriptions to evaluate design concepts, test proportional relationships, and create visual reference materials for stakeholder review &mdash; compressing weeks of manual modeling into hours of iterative text-to-3D refinement.</p>
+                        <p class="use-case-showcase__desc">Generating preliminary 3D models from product descriptions to evaluate design concepts, test proportional relationships, and create visual reference materials for stakeholder review, compressing weeks of manual modeling into hours of iterative text-to-3D refinement.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -605,7 +605,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">E-Commerce Visualization</h3>
-                        <p class="use-case-showcase__desc">Creating interactive 3D product views for online retail platforms, allowing customers to rotate, zoom, and inspect products from any angle &mdash; replacing flat photography with immersive spatial experiences that reduce return rates and increase purchase confidence.</p>
+                        <p class="use-case-showcase__desc">Creating interactive 3D product views for online retail platforms, allowing customers to rotate, zoom, and inspect products from any angle, replacing flat photography with immersive spatial experiences that reduce return rates and increase purchase confidence.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -627,7 +627,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Educational Models</h3>
-                        <p class="use-case-showcase__desc">Generating anatomical structures, molecular visualizations, geological cross-sections, historical artifacts, and mechanical diagrams as interactive 3D models for educational platforms &mdash; enabling students to explore spatial relationships that flat diagrams and textbook illustrations cannot convey.</p>
+                        <p class="use-case-showcase__desc">Generating anatomical structures, molecular visualizations, geological cross-sections, historical artifacts, and mechanical diagrams as interactive 3D models for educational platforms, enabling students to explore spatial relationships that flat diagrams and textbook illustrations cannot convey.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -638,7 +638,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Digital Twin Creation</h3>
-                        <p class="use-case-showcase__desc">Generating initial 3D representations of physical objects, equipment, and environments for digital twin applications in manufacturing, facility management, and IoT monitoring &mdash; providing a visual spatial framework that can be progressively refined with sensor data and precise measurements.</p>
+                        <p class="use-case-showcase__desc">Generating initial 3D representations of physical objects, equipment, and environments for digital twin applications in manufacturing, facility management, and IoT monitoring, providing a visual spatial framework that can be progressively refined with sensor data and precise measurements.</p>
                     </div>
                 </div>
             </div>
@@ -676,7 +676,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Bridge 2D and 3D Techniques for Stronger Results</div>
-                    <p>The most effective 3D generation prompts borrow principles from both 2D image prompting and traditional 3D modeling workflows. From image prompting, adopt the discipline of specifying materials, lighting response, and surface detail. From 3D modeling, adopt the practice of describing objects in terms of construction logic &mdash; how parts connect, what cross-sections look like, and how geometry flows from one region to another. Many text-to-3D systems internally generate multi-view images as an intermediate step, which means a prompt that produces strong, consistent 2D views from multiple angles will also produce a better 3D model. Consider including explicit multi-view descriptions in your prompt: &ldquo;from the front, the object appears as...; from the side, the silhouette shows...; from above, the outline is...&rdquo; to give the model clear geometric constraints from every direction.</p>
+                    <p>The most effective 3D generation prompts borrow principles from both 2D image prompting and traditional 3D modeling workflows. From image prompting, adopt the discipline of specifying materials, lighting response, and surface detail. From 3D modeling, adopt the practice of describing objects in terms of construction logic, how parts connect, what cross-sections look like, and how geometry flows from one region to another. Many text-to-3D systems internally generate multi-view images as an intermediate step, which means a prompt that produces strong, consistent 2D views from multiple angles will also produce a better 3D model. Consider including explicit multi-view descriptions in your prompt: &ldquo;from the front, the object appears as...; from the side, the silhouette shows...; from above, the outline is...&rdquo; to give the model clear geometric constraints from every direction.</p>
                 </div>
             </div>
         </section>
@@ -697,7 +697,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">3D Prompting Basics</span>
-                        <span class="evolution-callout__desc">The foundational principles for communicating three-dimensional intent through text &mdash; covering spatial vocabulary, coordinate system conventions, viewpoint specification, and the core mental models that underpin all 3D prompting techniques.</span>
+                        <span class="evolution-callout__desc">The foundational principles for communicating three-dimensional intent through text, covering spatial vocabulary, coordinate system conventions, viewpoint specification, and the core mental models that underpin all 3D prompting techniques.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -718,7 +718,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Scene Understanding</span>
-                        <span class="evolution-callout__desc">Extends beyond single-object generation to analyze and reconstruct complete 3D scenes &mdash; understanding spatial relationships between multiple objects, room layouts, depth estimation, and the structural logic that connects objects within an environment.</span>
+                        <span class="evolution-callout__desc">Extends beyond single-object generation to analyze and reconstruct complete 3D scenes, understanding spatial relationships between multiple objects, room layouts, depth estimation, and the structural logic that connects objects within an environment.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -739,7 +739,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Parallel</span>
                         <span class="evolution-callout__title">Point Cloud Prompting</span>
-                        <span class="evolution-callout__desc">Works with 3D data in its rawest form &mdash; point clouds captured from LiDAR, photogrammetry, or depth sensors. Covers techniques for prompting AI models to classify, segment, reconstruct, and generate 3D geometry from unstructured point data.</span>
+                        <span class="evolution-callout__desc">Works with 3D data in its rawest form, point clouds captured from LiDAR, photogrammetry, or depth sensors. Covers techniques for prompting AI models to classify, segment, reconstruct, and generate 3D geometry from unstructured point data.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -816,7 +816,7 @@
 
             <div class="footer-bottom">
                 <p>AI for Everyone</p>
-                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
             </div>
 
             <div class="footer-policies">

@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">In-Context Learning Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Example Ordering</h1>
-                <p class="page-subtitle fade-in">The same few-shot examples can produce wildly different results depending on their sequence. Example Ordering studies and optimizes the arrangement of demonstrations &mdash; turning a hidden source of variance into a deliberate lever for performance.</p>
+                <p class="page-subtitle fade-in">The same few-shot examples can produce wildly different results depending on their sequence. Example Ordering studies and optimizes the arrangement of demonstrations, turning a hidden source of variance into a deliberate lever for performance.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> Example Ordering was formally studied by Lu et al. in 2022 in the paper &ldquo;Fantastically Ordered Prompts and Where to Find Them.&rdquo; The research demonstrated that simply permuting the order of few-shot examples could swing accuracy from near-random to near-optimal on the same task with the same model &mdash; sometimes by more than 20 percentage points. This revealed that ordering is not a cosmetic detail but a first-class variable in prompt engineering that demands the same attention as example selection itself.</p>
-                        <p><strong>Modern LLM Status:</strong> Example Ordering remains an <strong>active and relevant technique</strong>. While modern LLMs such as Claude, GPT-4, and Gemini are somewhat more robust to ordering effects than earlier models, the phenomenon persists, especially for classification tasks, mathematical reasoning, and tasks with label imbalance. Research has consistently shown that recency bias, majority label bias, and category clustering effects continue to influence model outputs. Understanding ordering effects is essential for anyone doing serious few-shot prompting, and optimizing arrangement remains one of the simplest ways to improve results without changing any content.</p>
+                        <p><strong>Introduced:</strong> Example Ordering was formally studied by Lu et al. in 2022 in the paper &ldquo;Fantastically Ordered Prompts and Where to Find Them.&rdquo; The research demonstrated that simply permuting the order of few-shot examples could swing accuracy from near-random to near-optimal on the same task with the same model, sometimes by more than 20 percentage points. This revealed that ordering is not a cosmetic detail but a first-class variable in prompt engineering that demands the same attention as example selection itself.</p>
+                        <p><strong>Modern LLM Status:</strong> Example Ordering remains an <strong>active and relevant technique</strong>. While modern LLMs such as Claude, ChatGPT, and Gemini are somewhat more robust to ordering effects than earlier models, the phenomenon persists, especially for classification tasks, mathematical reasoning, and tasks with label imbalance. Research has consistently shown that recency bias, majority label bias, and category clustering effects continue to influence model outputs. Understanding ordering effects is essential for anyone doing serious few-shot prompting, and optimizing arrangement remains one of the simplest ways to improve results without changing any content.</p>
                     </div>
                 </div>
             </div>
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Sequence Is a Silent Variable</h2>
                         <p class="split-section__text">When you provide few-shot examples to a language model, you probably focus on choosing the right examples. But there is a second, equally powerful variable hiding in plain sight: the order in which those examples appear. Two practitioners using identical examples for the same task can get dramatically different results simply because one arranged them differently.</p>
-                        <p class="split-section__text"><strong>The underlying mechanisms are well-documented.</strong> Recency bias causes models to weight later examples more heavily &mdash; the last example you provide disproportionately shapes the output. Majority label bias means that if recent examples cluster around one label, the model over-predicts that label. And category anchoring occurs when examples from the same class appear consecutively, causing the model to fixate on that pattern and under-represent others.</p>
-                        <p class="split-section__text">Think of it like a jury hearing witness testimony. The order in which witnesses present their evidence shapes the narrative the jury constructs &mdash; even when the underlying facts are identical. Example Ordering applies this same principle deliberately, arranging demonstrations to guide the model toward balanced, accurate predictions.</p>
+                        <p class="split-section__text"><strong>The underlying mechanisms are well-documented.</strong> Recency bias causes models to weight later examples more heavily, the last example you provide disproportionately shapes the output. Majority label bias means that if recent examples cluster around one label, the model over-predicts that label. And category anchoring occurs when examples from the same class appear consecutively, causing the model to fixate on that pattern and under-represent others.</p>
+                        <p class="split-section__text">Think of it like a jury hearing witness testimony. The order in which witnesses present their evidence shapes the narrative the jury constructs, even when the underlying facts are identical. Example Ordering applies this same principle deliberately, arranging demonstrations to guide the model toward balanced, accurate predictions.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Order Matters More Than You Think</span>
-                                <p>Lu et al. found that on some tasks, the worst ordering of the same examples performed at near-chance level while the best ordering achieved near state-of-the-art accuracy. This variance was not a marginal effect &mdash; it was the difference between a usable system and a broken one. The most alarming finding was that practitioners had no reliable intuition about which ordering would work best, making systematic approaches essential rather than optional.</p>
+                                <p>Lu et al. found that on some tasks, the worst ordering of the same examples performed at near-chance level while the best ordering achieved near state-of-the-art accuracy. This variance was not a marginal effect, it was the difference between a usable system and a broken one. The most alarming finding was that practitioners had no reliable intuition about which ordering would work best, making systematic approaches essential rather than optional.</p>
                             </div>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                             <p class="element-timeline__text">Choose a set of few-shot demonstrations for the target task. Typically three to ten examples work well for standard tasks, though the exact number depends on the complexity of the domain and the diversity of categories you need to represent. Ensure the examples themselves are high-quality before worrying about their arrangement.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>For a sentiment analysis task, select 6 product reviews &mdash; 3 positive and 3 negative &mdash; each clearly representative of its category and covering different product types.</p>
+                                <p>For a sentiment analysis task, select 6 product reviews, 3 positive and 3 negative, each clearly representative of its category and covering different product types.</p>
                             </div>
                         </div>
                     </div>
@@ -276,7 +276,7 @@
                             <p class="element-timeline__text">Use evidence-based strategies to arrange your examples. Alternate labels to prevent majority bias so the model does not see consecutive examples of the same class. Place the most representative or complex examples last to leverage recency advantage. Distribute diverse categories evenly throughout the sequence rather than clustering them together.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Instead of grouping all positive reviews first, interleave them: positive, negative, positive, negative, positive, negative. Place the most nuanced review &mdash; one with mixed signals that resolves to a clear label &mdash; in the final position.</p>
+                                <p>Instead of grouping all positive reviews first, interleave them: positive, negative, positive, negative, positive, negative. Place the most nuanced review, one with mixed signals that resolves to a clear label, in the final position.</p>
                             </div>
                         </div>
                     </div>
@@ -290,7 +290,7 @@
                             <p class="element-timeline__text">Test the chosen ordering against examples the model has not seen during optimization. This confirms the arrangement generalizes beyond the validation set and is not overfitting to a narrow subset of inputs. Compare the optimized ordering against both random orderings and the reverse arrangement to quantify the improvement.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Evaluate your interleaved arrangement on a fresh set of 100 reviews. The optimized ordering achieves 91% accuracy versus 74% average across random orderings &mdash; a 17-point improvement from arrangement alone.</p>
+                                <p>Evaluate your interleaved arrangement on a fresh set of 100 reviews. The optimized ordering achieves 91% accuracy versus 74% average across random orderings, a 17-point improvement from arrangement alone.</p>
                             </div>
                         </div>
                     </div>
@@ -323,7 +323,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Result</span>
-                                <p>Model over-predicts &ldquo;Negative&rdquo; due to recency bias &mdash; all three negative examples appear last, anchoring the model toward that label for ambiguous inputs.</p>
+                                <p>Model over-predicts &ldquo;Negative&rdquo; due to recency bias, all three negative examples appear last, anchoring the model toward that label for ambiguous inputs.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -403,13 +403,13 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">The Challenge</span>
-                                    <p>A team classifying product reviews noticed their few-shot prompt achieved only 72% accuracy on ambiguous reviews &mdash; cases where the language was mixed or subtle. The six examples they used were all high-quality, but three positive reviews appeared before three negative ones.</p>
+                                    <p>A team classifying product reviews noticed their few-shot prompt achieved only 72% accuracy on ambiguous reviews, cases where the language was mixed or subtle. The six examples they used were all high-quality, but three positive reviews appeared before three negative ones.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Optimized Ordering</span>
                                     <p><strong>Problem identified:</strong> The three consecutive negative examples at the end created strong recency bias. When the model encountered an ambiguous review like &ldquo;decent product but shipping was slow,&rdquo; it defaulted to &ldquo;Negative&rdquo; because that was the most recently reinforced pattern.<br><br>
-                                    <strong>Ordering fix:</strong> Interleave positive and negative reviews so labels alternate throughout the sequence. Place the most nuanced example &mdash; a review with mixed language that clearly resolves to one sentiment &mdash; in the final position to calibrate the model for borderline cases.<br><br>
-                                    <strong>Result:</strong> Accuracy on ambiguous reviews jumped from 72% to 91%. The model stopped defaulting to the last-seen label and instead evaluated each review on its own linguistic signals. No examples were added or removed &mdash; only their order changed.</p>
+                                    <strong>Ordering fix:</strong> Interleave positive and negative reviews so labels alternate throughout the sequence. Place the most nuanced example, a review with mixed language that clearly resolves to one sentiment, in the final position to calibrate the model for borderline cases.<br><br>
+                                    <strong>Result:</strong> Accuracy on ambiguous reviews jumped from 72% to 91%. The model stopped defaulting to the last-seen label and instead evaluated each review on its own linguistic signals. No examples were added or removed, only their order changed.</p>
                                 </div>
                             </div>
                         </div>
@@ -429,7 +429,7 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Optimized Ordering</span>
                                     <p><strong>Problem identified:</strong> When a simple arithmetic example appeared last, the model&rsquo;s recency bias caused it to apply simplistic strategies even to complex algebra problems. The most sophisticated reasoning pattern was buried in the middle of the sequence where it had the least influence.<br><br>
-                                    <strong>Ordering fix:</strong> Arrange examples in ascending complexity &mdash; basic arithmetic first, then simple algebra, then multi-step problems, with the most complex worked example in the final position. This leverages recency bias constructively by ensuring the most sophisticated reasoning pattern is freshest in context when the model encounters the target problem.<br><br>
+                                    <strong>Ordering fix:</strong> Arrange examples in ascending complexity, basic arithmetic first, then simple algebra, then multi-step problems, with the most complex worked example in the final position. This leverages recency bias constructively by ensuring the most sophisticated reasoning pattern is freshest in context when the model encounters the target problem.<br><br>
                                     <strong>Result:</strong> The model&rsquo;s success rate on multi-step problems improved from 58% to 79%. By placing the most complex demonstration last, the model approached new hard problems with the most advanced solution strategy readily available rather than defaulting to the simplest pattern it saw.</p>
                                 </div>
                             </div>
@@ -445,7 +445,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">The Challenge</span>
-                                    <p>A customer support system classified incoming tickets into five categories: billing, technical, shipping, returns, and general inquiry. The few-shot prompt grouped examples by category &mdash; two billing examples, then two technical, then two shipping, and so on. The model heavily over-predicted &ldquo;general inquiry&rdquo; because it was the last category in the sequence.</p>
+                                    <p>A customer support system classified incoming tickets into five categories: billing, technical, shipping, returns, and general inquiry. The few-shot prompt grouped examples by category, two billing examples, then two technical, then two shipping, and so on. The model heavily over-predicted &ldquo;general inquiry&rdquo; because it was the last category in the sequence.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Optimized Ordering</span>
@@ -478,7 +478,7 @@
                                 </svg>
                                 <div>
                                     <strong>Few-Shot Classification with Multiple Categories</strong>
-                                    <p>Tasks where you provide labeled examples across several classes &mdash; ordering determines whether the model gives balanced predictions or over-predicts whichever category it saw most recently.</p>
+                                    <p>Tasks where you provide labeled examples across several classes, ordering determines whether the model gives balanced predictions or over-predicts whichever category it saw most recently.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -488,7 +488,7 @@
                                 </svg>
                                 <div>
                                     <strong>Inconsistent Results with the Same Examples</strong>
-                                    <p>When you notice that the same prompt produces different quality outputs across runs or slight modifications &mdash; ordering sensitivity is likely a contributing factor worth investigating.</p>
+                                    <p>When you notice that the same prompt produces different quality outputs across runs or slight modifications, ordering sensitivity is likely a contributing factor worth investigating.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -498,7 +498,7 @@
                                 </svg>
                                 <div>
                                     <strong>Label-Sensitive Tasks</strong>
-                                    <p>Sentiment analysis, intent detection, and topic classification &mdash; any task where label distribution in examples directly influences the model&rsquo;s prediction tendencies.</p>
+                                    <p>Sentiment analysis, intent detection, and topic classification, any task where label distribution in examples directly influences the model&rsquo;s prediction tendencies.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -508,7 +508,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Stakes Applications Requiring Reproducibility</strong>
-                                    <p>When results must be consistent and defensible &mdash; medical triage, legal classification, or financial categorization where ordering-induced variance is unacceptable.</p>
+                                    <p>When results must be consistent and defensible, medical triage, legal classification, or financial categorization where ordering-induced variance is unacceptable.</p>
                                 </div>
                             </div>
                         </div>
@@ -533,7 +533,7 @@
                                 </svg>
                                 <div>
                                     <strong>Single Output Category or Format</strong>
-                                    <p>Tasks where all examples share the same label or output structure &mdash; such as summarization or translation &mdash; have no label bias to mitigate through ordering.</p>
+                                    <p>Tasks where all examples share the same label or output structure, such as summarization or translation, have no label bias to mitigate through ordering.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -601,7 +601,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Code Bug Classification</h3>
-                        <p class="use-case-showcase__desc">Alternate examples of different bug types &mdash; logic errors, syntax issues, performance problems &mdash; to prevent the model from over-classifying toward whichever category it saw last.</p>
+                        <p class="use-case-showcase__desc">Alternate examples of different bug types, logic errors, syntax issues, performance problems, to prevent the model from over-classifying toward whichever category it saw last.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -661,7 +661,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Ordering-Selection Synergy</div>
-                    <p>Example Selection and Example Ordering are two sides of the same coin. Selection determines which demonstrations appear in your prompt, while ordering determines their arrangement. Optimizing one without the other leaves performance on the table. The strongest few-shot prompts apply both &mdash; first selecting high-quality, representative examples, then arranging them to minimize positional bias and maximize the model&rsquo;s ability to generalize from the pattern.</p>
+                    <p>Example Selection and Example Ordering are two sides of the same coin. Selection determines which demonstrations appear in your prompt, while ordering determines their arrangement. Optimizing one without the other leaves performance on the table. The strongest few-shot prompts apply both, first selecting high-quality, representative examples, then arranging them to minimize positional bias and maximize the model&rsquo;s ability to generalize from the pattern.</p>
                 </div>
             </div>
         </section>
@@ -683,7 +683,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Few-Shot Learning</span>
-                        <span class="evolution-callout__desc">Example Ordering optimizes the arrangement of the examples that Few-Shot Learning provides &mdash; the foundation upon which ordering strategies are built.</span>
+                        <span class="evolution-callout__desc">Example Ordering optimizes the arrangement of the examples that Few-Shot Learning provides, the foundation upon which ordering strategies are built.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -704,7 +704,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Prerequisite</span>
                         <span class="evolution-callout__title">Example Selection</span>
-                        <span class="evolution-callout__desc">Select the right examples first, then optimize their ordering for maximum impact &mdash; selection and ordering together form the complete few-shot optimization pipeline.</span>
+                        <span class="evolution-callout__desc">Select the right examples first, then optimize their ordering for maximum impact, selection and ordering together form the complete few-shot optimization pipeline.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -722,7 +722,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Demo Ensembling</span>
-                        <span class="evolution-callout__desc">Run multiple orderings simultaneously and aggregate results to eliminate ordering sensitivity entirely &mdash; a brute-force solution to the problem Example Ordering solves with strategy.</span>
+                        <span class="evolution-callout__desc">Run multiple orderings simultaneously and aggregate results to eliminate ordering sensitivity entirely, a brute-force solution to the problem Example Ordering solves with strategy.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -799,7 +799,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

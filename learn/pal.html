@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Code Reasoning Technique</span>
                 </div>
                 <h1 class="page-title fade-in">PAL (Program-Aided Language Models)</h1>
-                <p class="page-subtitle fade-in">Language models are brilliant at understanding problems but unreliable at arithmetic. PAL separates these concerns &mdash; the model translates reasoning into Python code, then hands execution to an interpreter that never makes a calculation error.</p>
+                <p class="page-subtitle fade-in">Language models are brilliant at understanding problems but unreliable at arithmetic. PAL separates these concerns, the model translates reasoning into Python code, then hands execution to an interpreter that never makes a calculation error.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> PAL (Program-Aided Language Models) was published in 2023 by Gao et al. The core idea is elegantly simple: instead of having the language model both reason about a problem <em>and</em> compute the answer, PAL has the model generate Python code that encodes the reasoning process, then executes that code via an external Python interpreter to obtain the final answer. This division of labor avoids the well-documented arithmetic and logical errors that plague pure language-based reasoning.</p>
-                        <p><strong>Modern LLM Status:</strong> PAL was a breakthrough showing that LLMs could use code as a reasoning medium rather than natural language. In 2026, this insight is fundamental &mdash; virtually all AI coding assistants and agent frameworks use code execution as a reasoning tool. The original PAL concept of &ldquo;think in code, execute for accuracy&rdquo; is now standard practice. Modern systems like Claude, GPT-4, and Gemini natively support code execution environments, making PAL&rsquo;s approach seamlessly integrated rather than requiring explicit prompting.</p>
+                        <p><strong>Modern LLM Status:</strong> PAL was a breakthrough showing that LLMs could use code as a reasoning medium rather than natural language. In 2026, this insight is fundamental, virtually all AI coding assistants and agent frameworks use code execution as a reasoning tool. The original PAL concept of &ldquo;think in code, execute for accuracy&rdquo; is now standard practice. Modern systems like Claude, ChatGPT, and Gemini natively support code execution environments, making PAL&rsquo;s approach seamlessly integrated rather than requiring explicit prompting.</p>
                     </div>
                 </div>
             </div>
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Think in Code, Execute for Accuracy</h2>
                         <p class="split-section__text">Language models excel at understanding natural language problems and decomposing them into logical steps. But when those steps involve arithmetic, date calculations, or multi-variable tracking, the model&rsquo;s &ldquo;mental math&rdquo; frequently fails. Even a model that perfectly understands the structure of a word problem can stumble on <code>47 &times; 23</code> or lose track of running totals across a dozen transactions.</p>
-                        <p class="split-section__text"><strong>PAL decouples understanding from computation.</strong> The model reads the problem and translates its reasoning into Python code &mdash; variable assignments, loops, conditionals, function calls. This code <em>is</em> the reasoning chain, expressed in a language where every step is unambiguous and executable. The code then runs in a real Python interpreter, which handles all arithmetic with perfect precision.</p>
-                        <p class="split-section__text">Think of it as hiring a brilliant analyst who cannot do arithmetic to work alongside a calculator. The analyst reads the problem, decides what calculations are needed, writes them down as instructions &mdash; and the calculator executes them flawlessly. Together, they are far more reliable than either alone.</p>
+                        <p class="split-section__text"><strong>PAL decouples understanding from computation.</strong> The model reads the problem and translates its reasoning into Python code, variable assignments, loops, conditionals, function calls. This code <em>is</em> the reasoning chain, expressed in a language where every step is unambiguous and executable. The code then runs in a real Python interpreter, which handles all arithmetic with perfect precision.</p>
+                        <p class="split-section__text">Think of it as hiring a brilliant analyst who cannot do arithmetic to work alongside a calculator. The analyst reads the problem, decides what calculations are needed, writes them down as instructions, and the calculator executes them flawlessly. Together, they are far more reliable than either alone.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Code Beats Natural Language for Computation</span>
-                                <p>When a model reasons in natural language, it can say &ldquo;47 times 23 is 1,081&rdquo; and no one catches the error until the final answer is wrong (it is actually 1,081 &mdash; but try 47 &times; 38 and watch errors compound). In code, <code>47 * 23</code> is executed by the interpreter and returns <code>1081</code> every time. PAL&rsquo;s insight is that <strong>the model should reason about what to compute, not perform the computation itself</strong>. This separation eliminates an entire category of LLM errors.</p>
+                                <p>When a model reasons in natural language, it can say &ldquo;47 times 23 is 1,081&rdquo; and no one catches the error until the final answer is wrong (it is actually 1,081, but try 47 &times; 38 and watch errors compound). In code, <code>47 * 23</code> is executed by the interpreter and returns <code>1081</code> every time. PAL&rsquo;s insight is that <strong>the model should reason about what to compute, not perform the computation itself</strong>. This separation eliminates an entire category of LLM errors.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Read and Understand the Problem</h3>
-                            <p class="element-timeline__text">The language model reads the natural language problem and identifies the key quantities, relationships, and constraints. This is the step where the model&rsquo;s natural language understanding shines &mdash; parsing ambiguous phrasing, identifying relevant information, and filtering out distractors.</p>
+                            <p class="element-timeline__text">The language model reads the natural language problem and identifies the key quantities, relationships, and constraints. This is the step where the model&rsquo;s natural language understanding shines, parsing ambiguous phrasing, identifying relevant information, and filtering out distractors.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;A farmer has 3 fields. The first field produces 120 bushels of wheat, the second produces 85, and the third produces 1.5 times as much as the first two combined. How many total bushels does the farmer harvest?&rdquo;</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Execute Code in Python Interpreter</h3>
-                            <p class="element-timeline__text">The generated code is sent to an external Python interpreter for execution. The interpreter handles all arithmetic, data manipulation, and logic with machine precision. No rounding errors, no arithmetic mistakes, no lost variables &mdash; the computation is exact.</p>
+                            <p class="element-timeline__text">The generated code is sent to an external Python interpreter for execution. The interpreter handles all arithmetic, data manipulation, and logic with machine precision. No rounding errors, no arithmetic mistakes, no lost variables, the computation is exact.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Interpreter runs: <code>field_3 = 1.5 * (120 + 85) = 1.5 * 205 = 307.5</code>; <code>total = 120 + 85 + 307.5 = 512.5</code>. Output: <code>512.5</code>.</p>
@@ -287,10 +287,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Return the Verified Answer</h3>
-                            <p class="element-timeline__text">The interpreter&rsquo;s output becomes the final answer. Because the code itself serves as an interpretable reasoning chain, anyone can review it to verify that the logic is correct &mdash; checking both the model&rsquo;s understanding and the computation. Always review the generated code to confirm it correctly represents the problem before relying on the output.</p>
+                            <p class="element-timeline__text">The interpreter&rsquo;s output becomes the final answer. Because the code itself serves as an interpretable reasoning chain, anyone can review it to verify that the logic is correct, checking both the model&rsquo;s understanding and the computation. Always review the generated code to confirm it correctly represents the problem before relying on the output.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Final answer: &ldquo;The farmer harvests 512.5 total bushels of wheat.&rdquo; The code serves as a verifiable proof &mdash; each variable maps to a quantity in the problem, and the interpreter guarantees the math is correct.</p>
+                                <p>Final answer: &ldquo;The farmer harvests 512.5 total bushels of wheat.&rdquo; The code serves as a verifiable proof, each variable maps to a quantity in the problem, and the interpreter guarantees the math is correct.</p>
                             </div>
                         </div>
                     </div>
@@ -447,7 +447,7 @@
                                     <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;days_worked += 1</code><br>
                                     <code>print(f&quot;Completion: {current}&quot;)</code><br><br>
                                     <strong>Interpreter Output:</strong> Completion: 2025-05-23<br><br>
-                                    <strong>Final answer:</strong> The project completes on May 23, 2025 (accounting for weekends, 126 calendar days for 90 work days). <em>This excludes holidays &mdash; verify against your actual work calendar.</em></p>
+                                    <strong>Final answer:</strong> The project completes on May 23, 2025 (accounting for weekends, 126 calendar days for 90 work days). <em>This excludes holidays, verify against your actual work calendar.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -477,7 +477,7 @@
                                     <code>final_balance = balance_after_deposit * (1 + monthly_rate) ** months_phase_2</code><br>
                                     <code>print(f&quot;Final balance: ${final_balance:.2f}&quot;)</code><br><br>
                                     <strong>Interpreter Output:</strong> Final balance: $8,370.42<br><br>
-                                    <strong>Final answer:</strong> After 5 years, the final balance is $8,370.42. The code shows exactly how each phase of the investment compounds. <em>This is a mathematical model &mdash; consult a financial professional for actual investment decisions.</em></p>
+                                    <strong>Final answer:</strong> After 5 years, the final balance is $8,370.42. The code shows exactly how each phase of the investment compounds. <em>This is a mathematical model, consult a financial professional for actual investment decisions.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -514,7 +514,7 @@
                                 </svg>
                                 <div>
                                     <strong>Date and Time Calculations</strong>
-                                    <p>Problems involving calendar arithmetic, time zone conversions, or scheduling &mdash; areas where LLMs are notoriously unreliable without code support.</p>
+                                    <p>Problems involving calendar arithmetic, time zone conversions, or scheduling, areas where LLMs are notoriously unreliable without code support.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -524,7 +524,7 @@
                                 </svg>
                                 <div>
                                     <strong>Financial Modeling</strong>
-                                    <p>Compound interest, amortization schedules, portfolio calculations &mdash; any financial reasoning where precision matters and errors have real-world consequences.</p>
+                                    <p>Compound interest, amortization schedules, portfolio calculations, any financial reasoning where precision matters and errors have real-world consequences.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -549,7 +549,7 @@
                                 </svg>
                                 <div>
                                     <strong>Purely Semantic Tasks</strong>
-                                    <p>Writing, summarizing, or answering questions that involve no computation &mdash; the code layer adds unnecessary complexity without benefit.</p>
+                                    <p>Writing, summarizing, or answering questions that involve no computation, the code layer adds unnecessary complexity without benefit.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -559,7 +559,7 @@
                                 </svg>
                                 <div>
                                     <strong>Tasks Requiring World Knowledge in Computation</strong>
-                                    <p>When the reasoning involves semantic judgments that cannot be expressed as code &mdash; consider Chain of Code (CoC) which extends PAL with the LMulator for these hybrid scenarios.</p>
+                                    <p>When the reasoning involves semantic judgments that cannot be expressed as code, consider Chain of Code (CoC) which extends PAL with the LMulator for these hybrid scenarios.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -569,7 +569,7 @@
                                 </svg>
                                 <div>
                                     <strong>No Code Execution Environment</strong>
-                                    <p>When you cannot run Python code &mdash; PAL&rsquo;s entire advantage comes from the interpreter. Without it, use Chain-of-Thought with explicit step-by-step reasoning instead.</p>
+                                    <p>When you cannot run Python code, PAL&rsquo;s entire advantage comes from the interpreter. Without it, use Chain-of-Thought with explicit step-by-step reasoning instead.</p>
                                 </div>
                             </div>
                         </div>
@@ -594,7 +594,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Educational Math Problems</h3>
-                        <p class="use-case-showcase__desc">Solve multi-step math problems with a visible, verifiable code chain that shows students exactly how each step connects to the next &mdash; perfect for teaching problem-solving structure.</p>
+                        <p class="use-case-showcase__desc">Solve multi-step math problems with a visible, verifiable code chain that shows students exactly how each step connects to the next, perfect for teaching problem-solving structure.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -617,7 +617,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Scientific Calculations</h3>
-                        <p class="use-case-showcase__desc">Unit conversions, statistical analyses, and formula evaluations where the model understands the science but the math must be precise &mdash; no rounding errors allowed.</p>
+                        <p class="use-case-showcase__desc">Unit conversions, statistical analyses, and formula evaluations where the model understands the science but the math must be precise, no rounding errors allowed.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -687,7 +687,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">PAL&rsquo;s Legacy in Modern AI</div>
-                    <p>PAL&rsquo;s insight &mdash; that language models should generate code rather than compute answers directly &mdash; is now so fundamental that it is built into the architecture of modern AI systems. When Claude runs Python code, when GPT-4 uses the Code Interpreter, or when Gemini executes calculations, they are all following the principle PAL established: <strong>let language models do what they do best (understand and translate), and let code interpreters do what they do best (compute precisely)</strong>.</p>
+                    <p>PAL&rsquo;s insight, that language models should generate code rather than compute answers directly, is now so fundamental that it is built into the architecture of modern AI systems. When Claude runs Python code, when ChatGPT uses the Code Interpreter, or when Gemini executes calculations, they are all following the principle PAL established: <strong>let language models do what they do best (understand and translate), and let code interpreters do what they do best (compute precisely)</strong>.</p>
                 </div>
             </div>
         </section>
@@ -711,7 +711,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Sibling</span>
                         <span class="evolution-callout__title">Program of Thoughts</span>
-                        <span class="evolution-callout__desc">A closely related technique that also generates code as reasoning steps &mdash; PAL and PoT were developed in parallel with similar core insights about code-based reasoning.</span>
+                        <span class="evolution-callout__desc">A closely related technique that also generates code as reasoning steps, PAL and PoT were developed in parallel with similar core insights about code-based reasoning.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -729,7 +729,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Chain of Code (CoC)</span>
-                        <span class="evolution-callout__desc">Extends PAL by adding the LMulator &mdash; when code encounters semantic operations that cannot be executed, the language model simulates the result.</span>
+                        <span class="evolution-callout__desc">Extends PAL by adding the LMulator, when code encounters semantic operations that cannot be executed, the language model simulates the result.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -750,7 +750,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Faithful Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Combines natural language reasoning with symbolic verification to ensure faithfulness &mdash; shares PAL&rsquo;s goal of reliable reasoning through computational grounding.</span>
+                        <span class="evolution-callout__desc">Combines natural language reasoning with symbolic verification to ensure faithfulness, shares PAL&rsquo;s goal of reliable reasoning through computational grounding.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -827,7 +827,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

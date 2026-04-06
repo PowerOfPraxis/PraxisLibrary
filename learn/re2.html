@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Comprehension Enhancement</span>
                 </div>
                 <h1 class="page-title fade-in">RE2 (Re-Reading)</h1>
-                <p class="page-subtitle fade-in">The simplest technique that shouldn&rsquo;t work &mdash; but does. Include the question twice in your prompt and watch accuracy climb. RE2 forces the model to process your question on a second pass, catching nuances, constraints, and details that a single reading misses.</p>
+                <p class="page-subtitle fade-in">The simplest technique that shouldn&rsquo;t work, but does. Include the question twice in your prompt and watch accuracy climb. RE2 forces the model to process your question on a second pass, catching nuances, constraints, and details that a single reading misses.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> RE2 (Re-Reading) was published in 2023 by Xu et al. The researchers discovered that a deceptively simple input modification &mdash; repeating the question with a &ldquo;Read the question again:&rdquo; prefix &mdash; produced consistent accuracy improvements across multiple reasoning benchmarks. Unlike most prompting techniques that modify the output side (how the model responds), RE2 operates entirely on the input side, changing how the model processes and attends to the question itself.</p>
-                        <p><strong>Modern LLM Status:</strong> RE2 remains a <strong>still active technique</strong> in prompt engineering, particularly valuable for complex multi-constraint questions where models frequently miss buried details. The technique is especially effective with questions containing multiple conditions, subtle negations, or layered requirements. Its zero-cost simplicity &mdash; requiring no special formatting, no examples, and no additional instructions &mdash; makes it one of the most accessible comprehension-enhancing methods available.</p>
+                        <p><strong>Introduced:</strong> RE2 (Re-Reading) was published in 2023 by Xu et al. The researchers discovered that a deceptively simple input modification, repeating the question with a &ldquo;Read the question again:&rdquo; prefix, produced consistent accuracy improvements across multiple reasoning benchmarks. Unlike most prompting techniques that modify the output side (how the model responds), RE2 operates entirely on the input side, changing how the model processes and attends to the question itself.</p>
+                        <p><strong>Modern LLM Status:</strong> RE2 remains a <strong>still active technique</strong> in prompt engineering, particularly valuable for complex multi-constraint questions where models frequently miss buried details. The technique is especially effective with questions containing multiple conditions, subtle negations, or layered requirements. Its zero-cost simplicity, requiring no special formatting, no examples, and no additional instructions, makes it one of the most accessible comprehension-enhancing methods available.</p>
                     </div>
                 </div>
             </div>
@@ -215,8 +215,8 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Read It Again, Understand It Better</h2>
-                        <p class="split-section__text">When humans encounter a complex passage &mdash; a legal clause, a multi-step math problem, or an intricate set of instructions &mdash; the natural instinct is to read it again. The second reading isn&rsquo;t redundant. It builds on the comprehension scaffold from the first pass, allowing deeper processing of relationships, constraints, and implications that were only partially absorbed initially.</p>
-                        <p class="split-section__text"><strong>Language models benefit from the same pattern.</strong> When a question appears twice in the input, the model&rsquo;s attention mechanism processes it with different contextual weights on the second encounter. The first reading establishes the general topic and structure; the second reading &mdash; now informed by that initial understanding &mdash; catches the specific details, edge conditions, and nuances that determine whether the answer is correct or merely plausible.</p>
+                        <p class="split-section__text">When humans encounter a complex passage, a legal clause, a multi-step math problem, or an intricate set of instructions, the natural instinct is to read it again. The second reading isn&rsquo;t redundant. It builds on the comprehension scaffold from the first pass, allowing deeper processing of relationships, constraints, and implications that were only partially absorbed initially.</p>
+                        <p class="split-section__text"><strong>Language models benefit from the same pattern.</strong> When a question appears twice in the input, the model&rsquo;s attention mechanism processes it with different contextual weights on the second encounter. The first reading establishes the general topic and structure; the second reading, now informed by that initial understanding, catches the specific details, edge conditions, and nuances that determine whether the answer is correct or merely plausible.</p>
                         <p class="split-section__text">Think of it like proofreading: you almost never catch every error on the first read. The second pass, armed with the gist from the first, focuses on what matters most. RE2 gives the model that same second chance at comprehension.</p>
                     </div>
                     <div class="split-section__visual">
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Present the Original Question</h3>
-                            <p class="element-timeline__text">Start with the question exactly as you would normally ask it. This serves as the model&rsquo;s first encounter with the problem &mdash; establishing the topic, scope, and general structure. No special formatting is needed; just write the question naturally with all its constraints and details intact.</p>
+                            <p class="element-timeline__text">Start with the question exactly as you would normally ask it. This serves as the model&rsquo;s first encounter with the problem, establishing the topic, scope, and general structure. No special formatting is needed; just write the question naturally with all its constraints and details intact.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;A store sells apples in bags of 6 and oranges in bags of 8. If Maria wants to buy exactly 30 fruits with at least 2 bags of each type, and she wants more oranges than apples, how many bags of each should she buy?&rdquo;</p>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Add the Re-Reading Directive</h3>
-                            <p class="element-timeline__text">After the original question, insert the phrase &ldquo;Read the question again:&rdquo; followed by a complete repetition of the question. This triggers a second processing pass where the model&rsquo;s attention mechanism re-engages with every constraint, number, and condition &mdash; this time with the benefit of the initial comprehension context.</p>
+                            <p class="element-timeline__text">After the original question, insert the phrase &ldquo;Read the question again:&rdquo; followed by a complete repetition of the question. This triggers a second processing pass where the model&rsquo;s attention mechanism re-engages with every constraint, number, and condition, this time with the benefit of the initial comprehension context.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Read the question again: A store sells apples in bags of 6 and oranges in bags of 8. If Maria wants to buy exactly 30 fruits with at least 2 bags of each type, and she wants more oranges than apples, how many bags of each should she buy?&rdquo;</p>
@@ -273,10 +273,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Request the Answer</h3>
-                            <p class="element-timeline__text">The model now generates its response with a more thorough understanding of the question. Having processed all constraints twice, it is significantly less likely to overlook a condition, misinterpret a negation, or produce an answer that satisfies most &mdash; but not all &mdash; of the requirements. The result is measurably higher accuracy, especially on multi-constraint problems.</p>
+                            <p class="element-timeline__text">The model now generates its response with a more thorough understanding of the question. Having processed all constraints twice, it is significantly less likely to overlook a condition, misinterpret a negation, or produce an answer that satisfies most, but not all, of the requirements. The result is measurably higher accuracy, especially on multi-constraint problems.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Result</span>
-                                <p>The model explicitly lists all four constraints (exactly 30 fruits, at least 2 bags each, bags of 6 and 8, more oranges than apples) and systematically tests combinations against every condition before committing to an answer &mdash; rather than latching onto the first combination that totals 30.</p>
+                                <p>The model explicitly lists all four constraints (exactly 30 fruits, at least 2 bags each, bags of 6 and 8, more oranges than apples) and systematically tests combinations against every condition before committing to an answer, rather than latching onto the first combination that totals 30.</p>
                             </div>
                         </div>
                     </div>
@@ -309,7 +309,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Response</span>
-                                <p>Let me solve this. If we use 8 teams of 5 (40 people) and 10 teams of 8 (80 people), that&rsquo;s 120 people total. So 8 small teams and 10 large teams.<br><br>[Misses the constraint that small teams must exceed large teams &mdash; 8 is less than 10]</p>
+                                <p>Let me solve this. If we use 8 teams of 5 (40 people) and 10 teams of 8 (80 people), that&rsquo;s 120 people total. So 8 small teams and 10 large teams.<br><br>[Misses the constraint that small teams must exceed large teams, 8 is less than 10]</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -395,7 +395,7 @@
                                     <span class="technique-demo__tag">With RE2</span>
                                     <p>&ldquo;A baker makes cookies in batches of 12 and brownies in batches of 9. She needs at least 100 items for a bake sale, but no more than 120. She must make at least 3 batches of cookies and at least 2 batches of brownies, and she wants more cookies than brownies. How many batches of each should she make?</p>
                                     <p>Read the question again: A baker makes cookies in batches of 12 and brownies in batches of 9. She needs at least 100 items for a bake sale, but no more than 120. She must make at least 3 batches of cookies and at least 2 batches of brownies, and she wants more cookies than brownies. How many batches of each should she make?&rdquo;</p>
-                                    <p><br><strong>Result:</strong> The model systematically enumerates constraints &mdash; batch sizes, range (100&ndash;120), minimums per type, and the comparison requirement &mdash; then tests combinations. Without RE2, models frequently satisfy the total range but overlook the &ldquo;more cookies than brownies&rdquo; condition.</p>
+                                    <p><br><strong>Result:</strong> The model systematically enumerates constraints, batch sizes, range (100&ndash;120), minimums per type, and the comparison requirement, then tests combinations. Without RE2, models frequently satisfy the total range but overlook the &ldquo;more cookies than brownies&rdquo; condition.</p>
                                 </div>
                             </div>
                         </div>
@@ -430,12 +430,12 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Standard Prompt</span>
-                                    <p>&ldquo;Five friends &mdash; Alex, Blake, Casey, Drew, and Ellis &mdash; sit in a row of five chairs. Alex cannot sit next to Blake. Casey must sit in one of the two end chairs. Drew must sit somewhere to the left of Ellis but not immediately next to Ellis. How many valid seating arrangements exist?&rdquo;</p>
+                                    <p>&ldquo;Five friends, Alex, Blake, Casey, Drew, and Ellis, sit in a row of five chairs. Alex cannot sit next to Blake. Casey must sit in one of the two end chairs. Drew must sit somewhere to the left of Ellis but not immediately next to Ellis. How many valid seating arrangements exist?&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">With RE2</span>
                                     <p>Add &ldquo;Read the question again:&rdquo; followed by the complete question repeated verbatim.</p>
-                                    <p><br><strong>Result:</strong> The hidden complexity here is the &ldquo;to the left of Ellis but NOT immediately next to Ellis&rdquo; constraint &mdash; requiring at least one chair between Drew and Ellis. On a single read, models often process &ldquo;to the left of&rdquo; but skip the &ldquo;not immediately next to&rdquo; qualifier. With RE2, the model reliably catches both parts of the compound constraint, correctly reducing the solution space and producing the accurate count.</p>
+                                    <p><br><strong>Result:</strong> The hidden complexity here is the &ldquo;to the left of Ellis but NOT immediately next to Ellis&rdquo; constraint, requiring at least one chair between Drew and Ellis. On a single read, models often process &ldquo;to the left of&rdquo; but skip the &ldquo;not immediately next to&rdquo; qualifier. With RE2, the model reliably catches both parts of the compound constraint, correctly reducing the solution space and producing the accurate count.</p>
                                 </div>
                             </div>
                         </div>
@@ -462,7 +462,7 @@
                                 </svg>
                                 <div>
                                     <strong>Complex Multi-Constraint Questions</strong>
-                                    <p>Math problems, logic puzzles, and scenarios with three or more simultaneous constraints &mdash; exactly where single-read comprehension breaks down most often.</p>
+                                    <p>Math problems, logic puzzles, and scenarios with three or more simultaneous constraints, exactly where single-read comprehension breaks down most often.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -482,7 +482,7 @@
                                 </svg>
                                 <div>
                                     <strong>Precise Instruction Following</strong>
-                                    <p>Tasks requiring exact adherence to formatting rules, numerical limits, or specific output structures &mdash; the second pass reinforces every requirement.</p>
+                                    <p>Tasks requiring exact adherence to formatting rules, numerical limits, or specific output structures, the second pass reinforces every requirement.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -507,7 +507,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple, Direct Questions</strong>
-                                    <p>&ldquo;What is the capital of France?&rdquo; has no hidden constraints or subtle details &mdash; repeating it wastes tokens without improving accuracy.</p>
+                                    <p>&ldquo;What is the capital of France?&rdquo; has no hidden constraints or subtle details, repeating it wastes tokens without improving accuracy.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -527,7 +527,7 @@
                                 </svg>
                                 <div>
                                     <strong>Already-Clear Prompts</strong>
-                                    <p>If your prompt is short, well-structured, and contains a single clear constraint, the model already processes it thoroughly on the first read &mdash; repetition adds no value.</p>
+                                    <p>If your prompt is short, well-structured, and contains a single clear constraint, the model already processes it thoroughly on the first read, repetition adds no value.</p>
                                 </div>
                             </div>
                         </div>
@@ -598,7 +598,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Compliance Checking</h3>
-                        <p class="use-case-showcase__desc">Regulatory questions with layered conditions, exemptions, and thresholds are prime candidates for RE2 &mdash; missing a single qualifier can mean the difference between compliant and non-compliant.</p>
+                        <p class="use-case-showcase__desc">Regulatory questions with layered conditions, exemptions, and thresholds are prime candidates for RE2, missing a single qualifier can mean the difference between compliant and non-compliant.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -648,7 +648,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Simplicity Advantage</div>
-                    <p>RE2 is the lightest-weight technique in the comprehension family. While RaR asks the model to rephrase (adding output overhead), S2A requires context filtering, and Self-Ask demands decomposition &mdash; RE2 achieves its gains through pure repetition with zero additional instructions. This makes it the ideal first-line technique: try RE2 first, and escalate to more complex methods only if accuracy remains insufficient.</p>
+                    <p>RE2 is the lightest-weight technique in the comprehension family. While RaR asks the model to rephrase (adding output overhead), S2A requires context filtering, and Self-Ask demands decomposition, RE2 achieves its gains through pure repetition with zero additional instructions. This makes it the ideal first-line technique: try RE2 first, and escalate to more complex methods only if accuracy remains insufficient.</p>
                 </div>
             </div>
         </section>
@@ -670,7 +670,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">RaR (Rephrase and Respond)</span>
-                        <span class="evolution-callout__desc">Takes RE2&rsquo;s insight further by having the model rephrase the question in its own words before answering &mdash; combining re-reading with active comprehension verification.</span>
+                        <span class="evolution-callout__desc">Takes RE2&rsquo;s insight further by having the model rephrase the question in its own words before answering, combining re-reading with active comprehension verification.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -689,7 +689,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Alternative</span>
                         <span class="evolution-callout__title">Self-Ask</span>
-                        <span class="evolution-callout__desc">Instead of re-reading the same question, Self-Ask decomposes it into sub-questions &mdash; a more active approach to ensuring all aspects of a complex question are addressed.</span>
+                        <span class="evolution-callout__desc">Instead of re-reading the same question, Self-Ask decomposes it into sub-questions, a more active approach to ensuring all aspects of a complex question are addressed.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -787,7 +787,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

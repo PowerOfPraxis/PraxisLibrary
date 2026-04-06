@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Structured Reasoning</span>
                 </div>
                 <h1 class="page-title fade-in">Tab-CoT (Tabular Chain-of-Thought)</h1>
-                <p class="page-subtitle fade-in">Put reasoning in rows and columns. Tab-CoT forces AI to organize its thinking into structured tables — making every step explicit, auditable, and machine-parseable.</p>
+                <p class="page-subtitle fade-in">Put reasoning in rows and columns. Tab-CoT forces AI to organize its thinking into structured tables, making every step explicit, auditable, and machine-parseable.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Tab-CoT (Tabular Chain-of-Thought) was published in 2023 by Jin and Lu. It formalized the practice of formatting chain-of-thought reasoning steps as structured table rows, with explicit columns for step number, operation performed, input values, output results, and reasoning notes. This tabular format makes each reasoning step individually auditable, forces the model to produce explicit intermediate results at every stage, and creates machine-parseable reasoning chains that downstream systems can validate programmatically.</p>
-                        <p><strong>Modern LLM Status:</strong> Tabular reasoning formats are <strong>widely supported</strong> by modern LLMs. Markdown tables are a natural output format for models like Claude and GPT-4, making Tab-CoT's core principle immediately practical without special prompting infrastructure. The approach of organizing reasoning into structured tabular format is widely adopted in production prompting for audit trails, debugging, and downstream processing. Tab-CoT remains practical for any scenario requiring step-by-step accountability, parseable output, or systematic error detection in multi-step reasoning chains.</p>
+                        <p><strong>Modern LLM Status:</strong> Tabular reasoning formats are <strong>widely supported</strong> by modern LLMs. Markdown tables are a natural output format for models like Claude and ChatGPT, making Tab-CoT's core principle immediately practical without special prompting infrastructure. The approach of organizing reasoning into structured tabular format is widely adopted in production prompting for audit trails, debugging, and downstream processing. Tab-CoT remains practical for any scenario requiring step-by-step accountability, parseable output, or systematic error detection in multi-step reasoning chains.</p>
                     </div>
                 </div>
             </div>
@@ -223,7 +223,7 @@
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Tables Beat Paragraphs</span>
-                                <p>Free-form reasoning hides errors in walls of text. A paragraph might say "so that gives us 45, and then with tax..." — but did you catch that the multiplication was wrong? Tables force explicit intermediate values at every step. If step 3 has the wrong output, you know exactly where reasoning broke. No re-reading paragraphs. No mental math to check. Just look at the row.</p>
+                                <p>Free-form reasoning hides errors in walls of text. A paragraph might say "so that gives us 45, and then with tax...", but did you catch that the multiplication was wrong? Tables force explicit intermediate values at every step. If step 3 has the wrong output, you know exactly where reasoning broke. No re-reading paragraphs. No mental math to check. Just look at the row.</p>
                             </div>
                         </div>
                     </div>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Instruct Table Format</h3>
-                            <p class="element-timeline__text">Tell the model to solve the new problem using the same tabular format. Specify that each row must contain one atomic operation — no combining multiple calculations in a single row. This constraint is what makes each step individually verifiable and keeps the reasoning chain honest.</p>
+                            <p class="element-timeline__text">Tell the model to solve the new problem using the same tabular format. Specify that each row must contain one atomic operation, no combining multiple calculations in a single row. This constraint is what makes each step individually verifiable and keeps the reasoning chain honest.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>"Solve this problem using a table with columns: Step | Operation | Calculation | Result. One operation per row."</p>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Verify Row by Row</h3>
-                            <p class="element-timeline__text">Check each table row independently. Verify that each row's calculation is correct and that each row builds logically on previous rows. The tabular format makes this verification mechanical rather than interpretive — each cell either matches the expected result or it does not.</p>
+                            <p class="element-timeline__text">Check each table row independently. Verify that each row's calculation is correct and that each row builds logically on previous rows. The tabular format makes this verification mechanical rather than interpretive, each cell either matches the expected result or it does not.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Row 1: 3 x $15 = $45. Row 2: $45 x 0.10 = $4.50. Row 3: $45 + $4.50 = $49.50. All rows verified.</p>
@@ -366,7 +366,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Every calculation isolated — errors caught at the exact row they occur</span>
+                            <span>Every calculation isolated, errors caught at the exact row they occur</span>
                         </div>
                     </div>
                 </div>
@@ -462,7 +462,7 @@
                                     2 - Development | 45% | $54,000 | $48,000<br>
                                     3 - Testing | 25% | $30,000 | $18,000<br>
                                     4 - Deployment | 15% | $18,000 | $0<br><br>
-                                    <strong>Verification:</strong> Percentages sum to 100% (15 + 45 + 25 + 15). Amounts sum to $120,000 ($18k + $54k + $30k + $18k). Running remainder reaches exactly $0. All allocations verified — no rounding errors, no missing funds.</p>
+                                    <strong>Verification:</strong> Percentages sum to 100% (15 + 45 + 25 + 15). Amounts sum to $120,000 ($18k + $54k + $30k + $18k). Running remainder reaches exactly $0. All allocations verified, no rounding errors, no missing funds.</p>
                                 </div>
                             </div>
                         </div>
@@ -509,7 +509,7 @@
                                 </svg>
                                 <div>
                                     <strong>Programmatic Processing</strong>
-                                    <p>When downstream systems need to parse and validate each reasoning step — tables are far easier to parse than free-form prose.</p>
+                                    <p>When downstream systems need to parse and validate each reasoning step, tables are far easier to parse than free-form prose.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -675,7 +675,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Format Match</div>
-                    <p>Use Tab-CoT when you need auditable intermediate values. Use Structured CoT for broader template enforcement. Use Faithful CoT when you need computational verification. Each adds a different kind of structure to the reasoning process — Tab-CoT specializes in making every step visible and parseable through tabular organization.</p>
+                    <p>Use Tab-CoT when you need auditable intermediate values. Use Structured CoT for broader template enforcement. Use Faithful CoT when you need computational verification. Each adds a different kind of structure to the reasoning process, Tab-CoT specializes in making every step visible and parseable through tabular organization.</p>
                 </div>
             </div>
         </section>
@@ -698,7 +698,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Structured CoT</span>
-                        <span class="evolution-callout__desc">Broader template enforcement for reasoning — Tab-CoT is a specific structural variant using tables.</span>
+                        <span class="evolution-callout__desc">Broader template enforcement for reasoning, Tab-CoT is a specific structural variant using tables.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -717,7 +717,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Free-form step-by-step reasoning — Tab-CoT adds tabular organization on top.</span>
+                        <span class="evolution-callout__desc">Free-form step-by-step reasoning, Tab-CoT adds tabular organization on top.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -736,7 +736,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Faithful CoT</span>
-                        <span class="evolution-callout__desc">Grounds reasoning in executable code — combine with Tab-CoT for both structural clarity and computational verification.</span>
+                        <span class="evolution-callout__desc">Grounds reasoning in executable code, combine with Tab-CoT for both structural clarity and computational verification.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -813,7 +813,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

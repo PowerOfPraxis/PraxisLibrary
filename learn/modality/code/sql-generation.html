@@ -212,8 +212,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2020&ndash;2024</span>
-                        <p><strong>Introduced:</strong> Text-to-SQL research has been an active area of natural language processing since the late 2010s, but the field accelerated dramatically between 2020 and 2024. The Spider benchmark, introduced in 2018 by Yale researchers, established the first large-scale, cross-database evaluation standard for text-to-SQL systems, testing a model&rsquo;s ability to generalize across unfamiliar database schemas. By 2023, the BIRD benchmark raised the bar further by incorporating real-world database values, external knowledge requirements, and execution-based evaluation &mdash; reflecting the messiness of production databases far more accurately than earlier academic datasets. The arrival of large language models fundamentally changed the approach: instead of training specialized semantic parsers, practitioners could now prompt general-purpose models like GPT-4, Claude, and Gemini with schema definitions and natural language questions to produce SQL directly. DIN-SQL, DAIL-SQL, and other prompt-based methods achieved state-of-the-art results on Spider by decomposing complex queries into sub-problems and providing schema context strategically.</p>
-                        <p><strong>Modern LLM Status:</strong> SQL generation is one of the <strong>strongest practical capabilities of modern language models</strong>, with frontier models achieving over 85% execution accuracy on complex cross-database benchmarks when given well-structured prompts. The key insight from research is that model performance depends far more on how the schema is presented and how the question is decomposed than on model size alone. Models still struggle with ambiguous column names, implicit join paths, database-specific functions, and queries requiring multi-step reasoning over unfamiliar schemas. The techniques covered here &mdash; providing complete schema context, specifying the SQL dialect, decomposing complex questions, and validating against expected output &mdash; are essential because even the most capable models produce incorrect or inefficient SQL when prompted without adequate schema and constraint information.</p>
+                        <p><strong>Introduced:</strong> Text-to-SQL research has been an active area of natural language processing since the late 2010s, but the field accelerated dramatically between 2020 and 2024. The Spider benchmark, introduced in 2018 by Yale researchers, established the first large-scale, cross-database evaluation standard for text-to-SQL systems, testing a model&rsquo;s ability to generalize across unfamiliar database schemas. By 2023, the BIRD benchmark raised the bar further by incorporating real-world database values, external knowledge requirements, and execution-based evaluation, reflecting the messiness of production databases far more accurately than earlier academic datasets. The arrival of large language models fundamentally changed the approach: instead of training specialized semantic parsers, practitioners could now prompt general-purpose models like ChatGPT, Claude, and Gemini with schema definitions and natural language questions to produce SQL directly. DIN-SQL, DAIL-SQL, and other prompt-based methods achieved state-of-the-art results on Spider by decomposing complex queries into sub-problems and providing schema context strategically.</p>
+                        <p><strong>Modern LLM Status:</strong> SQL generation is one of the <strong>strongest practical capabilities of modern language models</strong>, with frontier models achieving over 85% execution accuracy on complex cross-database benchmarks when given well-structured prompts. The key insight from research is that model performance depends far more on how the schema is presented and how the question is decomposed than on model size alone. Models still struggle with ambiguous column names, implicit join paths, database-specific functions, and queries requiring multi-step reasoning over unfamiliar schemas. The techniques covered here, providing complete schema context, specifying the SQL dialect, decomposing complex questions, and validating against expected output, are essential because even the most capable models produce incorrect or inefficient SQL when prompted without adequate schema and constraint information.</p>
                     </div>
                 </div>
             </div>
@@ -227,15 +227,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Schema Is the Prompt&rsquo;s Foundation</h2>
-                        <p class="split-section__text">SQL generation prompting combines a natural language question with a database schema definition to enable AI models to produce syntactically correct, semantically accurate SQL queries. Unlike general code generation where the model draws on broad programming knowledge, SQL generation demands precise alignment between three elements &mdash; the <strong>database schema</strong> that defines what data exists and how tables relate, the <strong>natural language question</strong> that expresses what the user wants to know, and the <strong>constraints and dialect requirements</strong> that govern how the query must be structured for a specific database engine.</p>
+                        <p class="split-section__text">SQL generation prompting combines a natural language question with a database schema definition to enable AI models to produce syntactically correct, semantically accurate SQL queries. Unlike general code generation where the model draws on broad programming knowledge, SQL generation demands precise alignment between three elements, the <strong>database schema</strong> that defines what data exists and how tables relate, the <strong>natural language question</strong> that expresses what the user wants to know, and the <strong>constraints and dialect requirements</strong> that govern how the query must be structured for a specific database engine.</p>
                         <p class="split-section__text"><strong>The core insight is that effective SQL generation requires providing the DATABASE SCHEMA, the NATURAL LANGUAGE QUESTION, and any CONSTRAINTS or dialect requirements.</strong> A prompt that simply asks &ldquo;write a SQL query for sales data&rdquo; without schema context forces the model to hallucinate table names, column types, and join relationships. But when you provide the actual CREATE TABLE statements, specify which database engine the query will run on, and clarify any ambiguous terms in the question, the model can produce queries that execute correctly on the first attempt.</p>
-                        <p class="split-section__text">Think of it like asking a new database analyst to write a report query. Without access to the database documentation, they will guess at table structures and write queries that fail. Hand them the entity-relationship diagram, explain the naming conventions, clarify which &ldquo;date&rdquo; field you mean, and tell them whether to optimize for readability or performance &mdash; and they produce production-ready SQL. The same principle applies to language models: the quality of the generated SQL is directly proportional to the quality of the schema context in the prompt.</p>
+                        <p class="split-section__text">Think of it like asking a new database analyst to write a report query. Without access to the database documentation, they will guess at table structures and write queries that fail. Hand them the entity-relationship diagram, explain the naming conventions, clarify which &ldquo;date&rdquo; field you mean, and tell them whether to optimize for readability or performance, and they produce production-ready SQL. The same principle applies to language models: the quality of the generated SQL is directly proportional to the quality of the schema context in the prompt.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Schema Context Transforms SQL Accuracy</span>
-                                <p>When a model receives a natural language question without schema context, it must invent table names, guess column types, and assume relationships &mdash; producing queries that look plausible but fail on execution. Structured SQL prompts eliminate this guesswork by providing the <strong>complete data context</strong> the model needs: table definitions with column names and types, primary and foreign key relationships, sample data values for disambiguation, the target SQL dialect (PostgreSQL, MySQL, SQL Server, SQLite), any business rules or naming conventions, and whether the output should prioritize readability, performance, or both. The difference between a hallucinated query that references nonexistent tables and a production-ready query that handles edge cases, uses appropriate indexes, and follows the organization&rsquo;s SQL style comes down entirely to the schema and constraint information in the prompt.</p>
+                                <p>When a model receives a natural language question without schema context, it must invent table names, guess column types, and assume relationships, producing queries that look plausible but fail on execution. Structured SQL prompts eliminate this guesswork by providing the <strong>complete data context</strong> the model needs: table definitions with column names and types, primary and foreign key relationships, sample data values for disambiguation, the target SQL dialect (PostgreSQL, MySQL, SQL Server, SQLite), any business rules or naming conventions, and whether the output should prioritize readability, performance, or both. The difference between a hallucinated query that references nonexistent tables and a production-ready query that handles edge cases, uses appropriate indexes, and follows the organization&rsquo;s SQL style comes down entirely to the schema and constraint information in the prompt.</p>
                             </div>
                         </div>
                     </div>
@@ -271,7 +271,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">State the Question in Natural Language</h3>
-                            <p class="element-timeline__text">Express the data retrieval or manipulation need in clear, unambiguous natural language. Avoid vague terms that could map to multiple columns &mdash; instead of &ldquo;show me the date,&rdquo; specify &ldquo;show the order placement date.&rdquo; If the question involves aggregation, make the grouping explicit. If it involves filtering, specify the exact conditions. The more precisely the natural language question maps to specific columns and operations, the more accurate the generated SQL will be. Complex analytical questions benefit from being broken into sub-questions that can be addressed with subqueries or CTEs.</p>
+                            <p class="element-timeline__text">Express the data retrieval or manipulation need in clear, unambiguous natural language. Avoid vague terms that could map to multiple columns, instead of &ldquo;show me the date,&rdquo; specify &ldquo;show the order placement date.&rdquo; If the question involves aggregation, make the grouping explicit. If it involves filtering, specify the exact conditions. The more precisely the natural language question maps to specific columns and operations, the more accurate the generated SQL will be. Complex analytical questions benefit from being broken into sub-questions that can be addressed with subqueries or CTEs.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;For each customer loyalty tier, show the total revenue from orders placed in 2024, the average order value, and the number of distinct customers. Only include tiers with more than 100 orders. Sort by total revenue descending.&rdquo;</p>
@@ -299,7 +299,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Validate and Optimize</h3>
-                            <p class="element-timeline__text">Review the generated SQL for correctness and request refinements. Ask the model to explain its join logic, verify that all WHERE clauses correctly filter the intended data, check that GROUP BY includes all non-aggregated columns, and confirm that the query handles NULL values appropriately. For complex queries, ask the model to walk through the execution plan conceptually, identifying potential bottlenecks. If the query produces unexpected results, provide sample data and expected output so the model can debug and correct the logic. Iterative refinement is normal &mdash; even expert SQL developers rarely write complex analytical queries correctly on the first attempt.</p>
+                            <p class="element-timeline__text">Review the generated SQL for correctness and request refinements. Ask the model to explain its join logic, verify that all WHERE clauses correctly filter the intended data, check that GROUP BY includes all non-aggregated columns, and confirm that the query handles NULL values appropriately. For complex queries, ask the model to walk through the execution plan conceptually, identifying potential bottlenecks. If the query produces unexpected results, provide sample data and expected output so the model can debug and correct the logic. Iterative refinement is normal, even expert SQL developers rarely write complex analytical queries correctly on the first attempt.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Verify that the LEFT JOIN between orders and order_items correctly handles orders with no line items. Explain why you chose COALESCE for the revenue calculation. Would this query benefit from a covering index on orders(cust_tier, ord_dt)?&rdquo;</p>
@@ -439,7 +439,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>This prompt combines schema provision with a sophisticated analytical requirement &mdash; month-over-month percentage change using window functions. By specifying SQL Server as the dialect, the model will use FORMAT or CAST for decimal formatting and SQL Server-specific date functions like DATEADD and DATEDIFF rather than PostgreSQL equivalents. The CTE requirement ensures the query is readable and maintainable. The active user threshold adds a non-trivial filtering step that requires counting distinct users per region before joining. This level of specificity transforms what would be a vague &ldquo;show me spending trends&rdquo; into a precisely defined analytical query that a data team could deploy directly into a reporting dashboard.</p>
+                                    <p>This prompt combines schema provision with a sophisticated analytical requirement, month-over-month percentage change using window functions. By specifying SQL Server as the dialect, the model will use FORMAT or CAST for decimal formatting and SQL Server-specific date functions like DATEADD and DATEDIFF rather than PostgreSQL equivalents. The CTE requirement ensures the query is readable and maintainable. The active user threshold adds a non-trivial filtering step that requires counting distinct users per region before joining. This level of specificity transforms what would be a vague &ldquo;show me spending trends&rdquo; into a precisely defined analytical query that a data team could deploy directly into a reporting dashboard.</p>
                                 </div>
                             </div>
                         </div>
@@ -505,7 +505,7 @@
                                 </svg>
                                 <div>
                                     <strong>Cross-Dialect Translation</strong>
-                                    <p>Converting queries between database engines &mdash; translating MySQL-specific syntax to PostgreSQL, adapting Oracle PL/SQL to SQL Server T-SQL, or migrating SQLite queries to a production-grade system.</p>
+                                    <p>Converting queries between database engines, translating MySQL-specific syntax to PostgreSQL, adapting Oracle PL/SQL to SQL Server T-SQL, or migrating SQLite queries to a production-grade system.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -624,7 +624,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Report Generation</h3>
-                        <p class="use-case-showcase__desc">Building the SQL backbone for recurring reports &mdash; monthly financial summaries, customer retention analyses, inventory turnover calculations, and compliance audits &mdash; with properly structured aggregations and formatting.</p>
+                        <p class="use-case-showcase__desc">Building the SQL backbone for recurring reports, monthly financial summaries, customer retention analyses, inventory turnover calculations, and compliance audits, with properly structured aggregations and formatting.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -636,7 +636,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Schema Exploration</h3>
-                        <p class="use-case-showcase__desc">Generating queries to understand unfamiliar databases &mdash; discovering table relationships, identifying data patterns, profiling column distributions, and mapping out foreign key chains across large schemas with hundreds of tables.</p>
+                        <p class="use-case-showcase__desc">Generating queries to understand unfamiliar databases, discovering table relationships, identifying data patterns, profiling column distributions, and mapping out foreign key chains across large schemas with hundreds of tables.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -684,7 +684,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine Schema Context with Decomposition for Complex Queries</div>
-                    <p>SQL generation works best when you pair schema context with prompting techniques from other frameworks. For multi-step analytical queries, apply chain-of-thought reasoning to break the question into sub-queries that build on each other. Use few-shot learning by providing example question-SQL pairs from your specific database to teach the model your naming conventions and preferred query patterns. Apply self-verification by asking the model to mentally execute the query against sample data and confirm the output matches expectations. For particularly complex joins or business logic, use least-to-most decomposition &mdash; start with the simplest query that retrieves the base data, then incrementally add joins, filters, aggregations, and window functions until the full analytical query is assembled correctly.</p>
+                    <p>SQL generation works best when you pair schema context with prompting techniques from other frameworks. For multi-step analytical queries, apply chain-of-thought reasoning to break the question into sub-queries that build on each other. Use few-shot learning by providing example question-SQL pairs from your specific database to teach the model your naming conventions and preferred query patterns. Apply self-verification by asking the model to mentally execute the query against sample data and confirm the output matches expectations. For particularly complex joins or business logic, use least-to-most decomposition, start with the simplest query that retrieves the base data, then incrementally add joins, filters, aggregations, and window functions until the full analytical query is assembled correctly.</p>
                 </div>
             </div>
         </section>
@@ -705,7 +705,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Code Prompting</span>
-                        <span class="evolution-callout__desc">The foundational framework for all code generation tasks &mdash; covering strategies for specifying programming language, defining function signatures, providing context, and guiding AI models to produce correct, maintainable code across any language including SQL.</span>
+                        <span class="evolution-callout__desc">The foundational framework for all code generation tasks, covering strategies for specifying programming language, defining function signatures, providing context, and guiding AI models to produce correct, maintainable code across any language including SQL.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -726,7 +726,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Structured Output</span>
-                        <span class="evolution-callout__desc">Techniques for constraining AI output to specific formats like JSON, XML, or CSV &mdash; directly complementary to SQL generation when you need query results formatted for downstream processing, API responses, or data pipeline integration.</span>
+                        <span class="evolution-callout__desc">Techniques for constraining AI output to specific formats like JSON, XML, or CSV, directly complementary to SQL generation when you need query results formatted for downstream processing, API responses, or data pipeline integration.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -747,7 +747,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Program of Thought</span>
-                        <span class="evolution-callout__desc">Extends code generation into reasoning &mdash; using executable code (including SQL) as an intermediate reasoning step to solve complex problems, where the model generates and conceptually runs queries to derive answers that pure text reasoning would struggle with.</span>
+                        <span class="evolution-callout__desc">Extends code generation into reasoning, using executable code (including SQL) as an intermediate reasoning step to solve complex problems, where the model generates and conceptually runs queries to derive answers that pure text reasoning would struggle with.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -824,7 +824,7 @@
 
             <div class="footer-bottom">
                 <p>AI for Everyone</p>
-                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
             </div>
 
             <div class="footer-policies">

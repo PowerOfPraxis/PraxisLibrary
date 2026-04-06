@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Planning Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Reasoning via Planning (RAP)</h1>
-                <p class="page-subtitle fade-in">What if an LLM could think like a chess engine &mdash; exploring multiple reasoning paths, simulating outcomes, and strategically choosing the best route to an answer? RAP treats every reasoning problem as a planning problem, using Monte Carlo Tree Search to guide the model through a structured exploration of possibilities rather than committing to the first chain of thought that comes to mind.</p>
+                <p class="page-subtitle fade-in">What if an LLM could think like a chess engine, exploring multiple reasoning paths, simulating outcomes, and strategically choosing the best route to an answer? RAP treats every reasoning problem as a planning problem, using Monte Carlo Tree Search to guide the model through a structured exploration of possibilities rather than committing to the first chain of thought that comes to mind.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> Reasoning via Planning (RAP) was published in 2023 by Hao et al. The technique repurposes the LLM in a dual role: as a <strong>world model</strong> that predicts the consequences of reasoning steps (states), and as a <strong>reasoning agent</strong> that proposes next actions. Combined with Monte Carlo Tree Search (MCTS) &mdash; the same algorithm family behind AlphaGo &mdash; RAP enables strategic exploration of the reasoning space. The model doesn&rsquo;t just follow one chain of thought; it explores multiple paths, backtracks from dead ends, and selects the most promising reasoning trajectory. RAP outperformed standard Chain-of-Thought on math, logic, and commonsense reasoning tasks.</p>
-                        <p><strong>Modern LLM Status:</strong> Reasoning via Planning (RAP) was ahead of its time, combining planning algorithms with LLM reasoning. In 2026, the MCTS-based approach has been adopted by agent frameworks like LATS (Language Agent Tree Search). The core insight &mdash; that <strong>reasoning can be treated as a planning problem with search</strong> &mdash; is now foundational to agentic AI systems. While the computational overhead of full MCTS remains significant, the principle of deliberate, search-guided reasoning has influenced how modern models handle complex multi-step problems internally.</p>
+                        <p><strong>Introduced:</strong> Reasoning via Planning (RAP) was published in 2023 by Hao et al. The technique repurposes the LLM in a dual role: as a <strong>world model</strong> that predicts the consequences of reasoning steps (states), and as a <strong>reasoning agent</strong> that proposes next actions. Combined with Monte Carlo Tree Search (MCTS), the same algorithm family behind AlphaGo, RAP enables strategic exploration of the reasoning space. The model doesn&rsquo;t just follow one chain of thought; it explores multiple paths, backtracks from dead ends, and selects the most promising reasoning trajectory. RAP outperformed standard Chain-of-Thought on math, logic, and commonsense reasoning tasks.</p>
+                        <p><strong>Modern LLM Status:</strong> Reasoning via Planning (RAP) was ahead of its time, combining planning algorithms with LLM reasoning. In 2026, the MCTS-based approach has been adopted by agent frameworks like LATS (Language Agent Tree Search). The core insight, that <strong>reasoning can be treated as a planning problem with search</strong>, is now foundational to agentic AI systems. While the computational overhead of full MCTS remains significant, the principle of deliberate, search-guided reasoning has influenced how modern models handle complex multi-step problems internally.</p>
                     </div>
                 </div>
             </div>
@@ -217,13 +217,13 @@
                         <h2 class="split-section__title">Reasoning as Strategic Search</h2>
                         <p class="split-section__text">Standard Chain-of-Thought prompting produces a single reasoning path: the model starts at the beginning, thinks step by step, and arrives at an answer. But what if that first path leads to a dead end? What if the model makes an error in step two that corrupts everything downstream? Standard CoT has no mechanism to backtrack, explore alternatives, or compare different reasoning strategies.</p>
                         <p class="split-section__text"><strong>RAP reframes reasoning as a search problem.</strong> Each reasoning step is a &ldquo;move&rdquo; in a game tree. The LLM acts as the world model (predicting what state results from each move) and as the agent (choosing which move to make). MCTS then orchestrates the search: it explores multiple branches, evaluates their promise through simulated rollouts, and concentrates computational effort on the most promising paths.</p>
-                        <p class="split-section__text">Think of it like a chess grandmaster who doesn&rsquo;t just play the first good-looking move. They mentally explore several candidate moves, simulate the opponent&rsquo;s responses, evaluate resulting positions, and then choose the move with the best expected outcome &mdash; except here, the &ldquo;opponent&rdquo; is the complexity of the problem itself.</p>
+                        <p class="split-section__text">Think of it like a chess grandmaster who doesn&rsquo;t just play the first good-looking move. They mentally explore several candidate moves, simulate the opponent&rsquo;s responses, evaluate resulting positions, and then choose the move with the best expected outcome, except here, the &ldquo;opponent&rdquo; is the complexity of the problem itself.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">The LLM&rsquo;s Dual Role</span>
-                                <p>RAP&rsquo;s innovation is using the same LLM for two distinct functions simultaneously. As the <strong>world model</strong>, it predicts: &ldquo;If I take this reasoning step, what will the resulting state look like?&rdquo; As the <strong>agent</strong>, it decides: &ldquo;Given the current state, what reasoning step should I try next?&rdquo; This self-play dynamic, guided by MCTS, allows the model to <strong>deliberate</strong> rather than merely generate &mdash; trading speed for substantially better accuracy on hard problems.</p>
+                                <p>RAP&rsquo;s innovation is using the same LLM for two distinct functions simultaneously. As the <strong>world model</strong>, it predicts: &ldquo;If I take this reasoning step, what will the resulting state look like?&rdquo; As the <strong>agent</strong>, it decides: &ldquo;Given the current state, what reasoning step should I try next?&rdquo; This self-play dynamic, guided by MCTS, allows the model to <strong>deliberate</strong> rather than merely generate, trading speed for substantially better accuracy on hard problems.</p>
                             </div>
                         </div>
                     </div>
@@ -260,7 +260,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate Candidate Actions (Agent Role)</h3>
-                            <p class="element-timeline__text">At each state, the LLM proposes multiple possible next reasoning steps. Unlike Chain-of-Thought which commits to one path, RAP generates several candidate actions &mdash; different ways to advance the reasoning. The model considers what moves are available given the current state&rsquo;s constraints.</p>
+                            <p class="element-timeline__text">At each state, the LLM proposes multiple possible next reasoning steps. Unlike Chain-of-Thought which commits to one path, RAP generates several candidate actions, different ways to advance the reasoning. The model considers what moves are available given the current state&rsquo;s constraints.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Candidate actions from initial state:</strong><br>
@@ -278,7 +278,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Simulate and Evaluate via MCTS (World Model Role)</h3>
-                            <p class="element-timeline__text">For each candidate action, the LLM predicts the resulting state (world model role). MCTS then simulates rollouts from each resulting state &mdash; continuing the reasoning to see where each path leads. States that lead toward the goal get higher value scores; dead ends get penalized. The search tree is built iteratively, with each simulation updating the value estimates.</p>
+                            <p class="element-timeline__text">For each candidate action, the LLM predicts the resulting state (world model role). MCTS then simulates rollouts from each resulting state, continuing the reasoning to see where each path leads. States that lead toward the goal get higher value scores; dead ends get penalized. The search tree is built iteratively, with each simulation updating the value estimates.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Simulation results:</strong><br>
@@ -296,7 +296,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Select the Optimal Reasoning Path</h3>
-                            <p class="element-timeline__text">After sufficient exploration, MCTS selects the action with the highest value at each step, tracing a complete path from initial state to goal. The result is a reasoning chain that has been tested against alternatives &mdash; dead ends were explored and rejected, and the chosen path survived competitive evaluation against other candidates.</p>
+                            <p class="element-timeline__text">After sufficient exploration, MCTS selects the action with the highest value at each step, tracing a complete path from initial state to goal. The result is a reasoning chain that has been tested against alternatives, dead ends were explored and rejected, and the chosen path survived competitive evaluation against other candidates.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Optimal path found:</strong> Take goat across &rarr; Return alone &rarr; Take wolf across &rarr; Bring goat back &rarr; Take cabbage across &rarr; Return alone &rarr; Take goat across. All items arrive safely. This solution was found by eliminating dead-end branches through search, not by hoping the first reasoning attempt was correct. <em>Always verify AI-generated solutions against the problem constraints.</em></p>
@@ -360,7 +360,7 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Search-Guided Reasoning</span>
-                                <p>MCTS explores three branches simultaneously: wolf-first (dead end detected in 1 step), cabbage-first (dead end detected in 1 step), goat-first (promising &mdash; expand further). The search concentrates on the goat-first branch, exploring sub-branches for the second move, pruning failures, until a complete valid path emerges.</p>
+                                <p>MCTS explores three branches simultaneously: wolf-first (dead end detected in 1 step), cabbage-first (dead end detected in 1 step), goat-first (promising, expand further). The search concentrates on the goat-first branch, exploring sub-branches for the second move, pruning failures, until a complete valid path emerges.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Result</span>
@@ -420,7 +420,7 @@
                                     <strong>Branch 2:</strong> Try 2 notebooks ($8) + remaining $18 in pens (9 pens). Check: 9 &gt; 2? Yes. Valid solution: (2, 9).<br><br>
                                     <strong>Branch 3:</strong> Try 3 notebooks ($12) + remaining $14 in pens (7 pens). Check: 7 &gt; 3? Yes. Valid solution: (3, 7).<br><br>
                                     <strong>Branch 4:</strong> Try 4 notebooks ($16) + remaining $10 in pens (5 pens). Check: 5 &gt; 4? Yes. Valid solution: (4, 5).<br><br>
-                                    <strong>Branch 5:</strong> Try 5 notebooks ($20) + remaining $6 in pens (3 pens). Check: 3 &gt; 5? No. Invalid &mdash; prune.<br><br>
+                                    <strong>Branch 5:</strong> Try 5 notebooks ($20) + remaining $6 in pens (3 pens). Check: 3 &gt; 5? No. Invalid, prune.<br><br>
                                     <strong>RAP result:</strong> Four valid solutions exist. Unlike CoT which might stop at the first one found, RAP&rsquo;s search reveals the complete solution space. If the problem requires a unique answer, the ambiguity itself is valuable information. <em>Always verify mathematical solutions by substituting back into the original constraints.</em></p>
                                 </div>
                             </div>
@@ -440,9 +440,9 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">RAP Search Process</span>
-                                    <p><strong>Branch A &mdash; Stairs approach:</strong> Wrap piano in blankets &rarr; Tilt onto dolly &rarr; Navigate down stairwell &rarr; <strong>State evaluation:</strong> High risk (tight turns, weight on stairs), possible damage. Score: 0.4<br><br>
-                                    <strong>Branch B &mdash; Window/crane approach:</strong> Remove window frame &rarr; Rig crane/hoist to lower piano &rarr; <strong>State evaluation:</strong> Requires equipment not listed (crane). Infeasible with given resources. Score: 0.1<br><br>
-                                    <strong>Branch C &mdash; Disassemble approach:</strong> Check if piano has removable legs/lid &rarr; <strong>State evaluation:</strong> Grand piano legs are removable, significantly reducing dimensions. Score: 0.8<br><br>
+                                    <p><strong>Branch A, Stairs approach:</strong> Wrap piano in blankets &rarr; Tilt onto dolly &rarr; Navigate down stairwell &rarr; <strong>State evaluation:</strong> High risk (tight turns, weight on stairs), possible damage. Score: 0.4<br><br>
+                                    <strong>Branch B, Window/crane approach:</strong> Remove window frame &rarr; Rig crane/hoist to lower piano &rarr; <strong>State evaluation:</strong> Requires equipment not listed (crane). Infeasible with given resources. Score: 0.1<br><br>
+                                    <strong>Branch C, Disassemble approach:</strong> Check if piano has removable legs/lid &rarr; <strong>State evaluation:</strong> Grand piano legs are removable, significantly reducing dimensions. Score: 0.8<br><br>
                                     <strong>Expanding Branch C (highest score):</strong> Remove legs and wrap them separately &rarr; Wrap piano body in blankets &rarr; Two movers carry body down stairs (lighter, more compact) &rarr; Load onto dolly at ground level &rarr; Roll to truck &rarr; Drive across street &rarr; Reverse process at destination.<br><br>
                                     <strong>RAP result:</strong> Branch C selected as optimal. The search identified that partial disassembly (removable legs) transforms the problem from extremely difficult to manageable with the given resources. <em>For actual piano moving, always consult professional movers who specialize in piano transport.</em></p>
                                 </div>
@@ -459,7 +459,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Problem</span>
-                                    <p>&ldquo;Three friends &mdash; Alice, Bob, and Carol &mdash; each have a different pet (cat, dog, fish) and a different favorite color (red, blue, green). Alice doesn&rsquo;t like red. The person with the cat likes blue. Bob doesn&rsquo;t have a fish. Carol likes green. Who has which pet and which color?&rdquo;</p>
+                                    <p>&ldquo;Three friends, Alice, Bob, and Carol, each have a different pet (cat, dog, fish) and a different favorite color (red, blue, green). Alice doesn&rsquo;t like red. The person with the cat likes blue. Bob doesn&rsquo;t have a fish. Carol likes green. Who has which pet and which color?&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">RAP Search Process</span>
@@ -470,7 +470,7 @@
                                     Clue 2: Cat owner = blue = Alice. Therefore Alice has the cat.<br>
                                     Clue 3: Bob &ne; fish. Remaining pets: {dog, fish} for {Bob, Carol}. Bob = dog, Carol = fish.<br><br>
                                     <strong>Verification rollout:</strong> Alice (cat, blue), Bob (dog, red), Carol (fish, green). Check all constraints: Alice not red (pass), cat owner is blue/Alice (pass), Bob no fish (pass), Carol green (pass). All constraints satisfied.<br><br>
-                                    <strong>RAP result:</strong> The search confirmed a unique solution with no backtracking needed &mdash; constraint propagation from the color assignments resolved everything. In harder puzzles with ambiguous early choices, MCTS would explore multiple assignment branches before finding the valid one. <em>Always verify logical deductions by checking all original constraints against the final answer.</em></p>
+                                    <strong>RAP result:</strong> The search confirmed a unique solution with no backtracking needed, constraint propagation from the color assignments resolved everything. In harder puzzles with ambiguous early choices, MCTS would explore multiple assignment branches before finding the valid one. <em>Always verify logical deductions by checking all original constraints against the final answer.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -507,7 +507,7 @@
                                 </svg>
                                 <div>
                                     <strong>Mathematical Reasoning</strong>
-                                    <p>Multi-step math problems where different solution strategies exist &mdash; RAP can explore algebraic, geometric, and numerical approaches in parallel.</p>
+                                    <p>Multi-step math problems where different solution strategies exist, RAP can explore algebraic, geometric, and numerical approaches in parallel.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -517,7 +517,7 @@
                                 </svg>
                                 <div>
                                     <strong>Strategic Decision-Making</strong>
-                                    <p>Problems where the best immediate action depends on looking several steps ahead &mdash; like game playing, resource allocation, or negotiation strategy.</p>
+                                    <p>Problems where the best immediate action depends on looking several steps ahead, like game playing, resource allocation, or negotiation strategy.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -527,7 +527,7 @@
                                 </svg>
                                 <div>
                                     <strong>Agentic AI Workflows</strong>
-                                    <p>Building AI agents that need to plan sequences of actions in environments with uncertain outcomes &mdash; RAP provides the deliberation framework.</p>
+                                    <p>Building AI agents that need to plan sequences of actions in environments with uncertain outcomes, RAP provides the deliberation framework.</p>
                                 </div>
                             </div>
                         </div>
@@ -542,7 +542,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple, Linear Tasks</strong>
-                                    <p>Tasks that follow a straightforward sequence with no branching &mdash; summarization, translation, or single-step Q&amp;A don&rsquo;t benefit from search overhead.</p>
+                                    <p>Tasks that follow a straightforward sequence with no branching, summarization, translation, or single-step Q&amp;A don&rsquo;t benefit from search overhead.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -552,7 +552,7 @@
                                 </svg>
                                 <div>
                                     <strong>Latency-Sensitive Applications</strong>
-                                    <p>MCTS requires many LLM calls per problem (one per simulation rollout) &mdash; this is too slow for real-time interactions and significantly multiplies compute costs.</p>
+                                    <p>MCTS requires many LLM calls per problem (one per simulation rollout), this is too slow for real-time interactions and significantly multiplies compute costs.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -562,7 +562,7 @@
                                 </svg>
                                 <div>
                                     <strong>Open-Ended Creative Tasks</strong>
-                                    <p>When there is no clear &ldquo;correct&rdquo; solution to search for &mdash; creative writing, brainstorming, and opinion tasks lack the evaluation function MCTS needs to guide the search.</p>
+                                    <p>When there is no clear &ldquo;correct&rdquo; solution to search for, creative writing, brainstorming, and opinion tasks lack the evaluation function MCTS needs to guide the search.</p>
                                 </div>
                             </div>
                         </div>
@@ -600,7 +600,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Code Generation and Debugging</h3>
-                        <p class="use-case-showcase__desc">Treat program synthesis as planning &mdash; explore different algorithmic approaches, test intermediate states against expected outputs, and backtrack from bugs.</p>
+                        <p class="use-case-showcase__desc">Treat program synthesis as planning, explore different algorithmic approaches, test intermediate states against expected outputs, and backtrack from bugs.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -630,7 +630,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Red Team Analysis</h3>
-                        <p class="use-case-showcase__desc">Systematically explore attack vectors by treating adversarial reasoning as a search problem &mdash; what can go wrong, in what sequence, with what probability.</p>
+                        <p class="use-case-showcase__desc">Systematically explore attack vectors by treating adversarial reasoning as a search problem, what can go wrong, in what sequence, with what probability.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -704,7 +704,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Tree of Thought</span>
-                        <span class="evolution-callout__desc">The branching reasoning framework that introduced search over thought paths &mdash; RAP enhances this with MCTS for more strategic exploration and the world model concept.</span>
+                        <span class="evolution-callout__desc">The branching reasoning framework that introduced search over thought paths, RAP enhances this with MCTS for more strategic exploration and the world model concept.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -820,7 +820,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

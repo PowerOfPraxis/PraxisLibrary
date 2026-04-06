@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Self-Correction Framework</span>
                 </div>
                 <h1 class="page-title fade-in">Reflexion</h1>
-                <p class="page-subtitle fade-in">AI that learns from its mistakes. Reflexion stores verbal reflections on failures in memory, so the next attempt avoids the same pitfalls — without retraining the model.</p>
+                <p class="page-subtitle fade-in">AI that learns from its mistakes. Reflexion stores verbal reflections on failures in memory, so the next attempt avoids the same pitfalls, without retraining the model.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,7 +200,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Framework Context: 2023</span>
-                        <p><strong>Introduced:</strong> Reflexion was published in 2023 by Shinn et al. It introduced verbal reinforcement learning — where an AI agent stores natural-language reflections on failures in a memory buffer, then uses those reflections to improve subsequent attempts without any model retraining.</p>
+                        <p><strong>Introduced:</strong> Reflexion was published in 2023 by Shinn et al. It introduced verbal reinforcement learning, where an AI agent stores natural-language reflections on failures in a memory buffer, then uses those reflections to improve subsequent attempts without any model retraining.</p>
                         <p><strong>Modern LLM Status:</strong> Reflexion has <strong>deeply influenced modern AI agent architecture</strong>. The reflect-and-retry pattern with persistent memory is now a foundational design principle in production agent frameworks (LangChain, AutoGPT, Claude's agentic workflows). While not a built-in LLM feature, the concept is essential knowledge for anyone building multi-step AI agents in 2025-2026.</p>
                     </div>
                 </div>
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Fail Once, Learn Forever</h2>
                         <p class="split-section__text">When a person fails at something, they don't just retry the exact same way. They think about what went wrong, form a lesson, and approach the problem differently next time. That learning persists.</p>
-                        <p class="split-section__text"><strong>Reflexion gives AI the same ability.</strong> When a task fails, instead of blindly retrying, the agent writes a verbal reflection — an explicit analysis of what went wrong and what to do differently. This reflection is stored in memory and injected into the next attempt's context.</p>
+                        <p class="split-section__text"><strong>Reflexion gives AI the same ability.</strong> When a task fails, instead of blindly retrying, the agent writes a verbal reflection, an explicit analysis of what went wrong and what to do differently. This reflection is stored in memory and injected into the next attempt's context.</p>
                         <p class="split-section__text">The result: performance improves across attempts without changing the model's weights. It's in-context learning from failure.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Not Just Retry?</span>
-                                <p>Simple retries suffer from the same blind spots — the model makes similar mistakes each time. Reflexion explicitly identifies the failure mode ("I forgot to handle edge cases") and addresses it in the next attempt. It's the difference between guessing randomly and learning systematically.</p>
+                                <p>Simple retries suffer from the same blind spots, the model makes similar mistakes each time. Reflexion explicitly identifies the failure mode ("I forgot to handle edge cases") and addresses it in the next attempt. It's the difference between guessing randomly and learning systematically.</p>
                             </div>
                         </div>
                     </div>
@@ -317,7 +317,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate Reflection</h3>
-                            <p class="element-timeline__text">On failure, the Self-Reflection component analyzes what went wrong. It produces a natural language explanation — not just "it failed" but specifically why and how to fix it.</p>
+                            <p class="element-timeline__text">On failure, the Self-Reflection component analyzes what went wrong. It produces a natural language explanation, not just "it failed" but specifically why and how to fix it.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Reflection</span>
                                 <p>"My implementation didn't handle edge cases: empty strings should return an empty string, and when no common characters exist, the result should also be empty. I need to add base case checks at the start of the function."</p>
@@ -334,7 +334,7 @@
                             <p class="element-timeline__text">The reflection is added to a persistent memory store. All future attempts on this task (or similar tasks) will receive these reflections as part of their input context.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Memory Entry</span>
-                                <p>Stored: "Always handle edge cases first — empty inputs, null values, and degenerate cases where the expected result is trivial."</p>
+                                <p>Stored: "Always handle edge cases first, empty inputs, null values, and degenerate cases where the expected result is trivial."</p>
                             </div>
                         </div>
                     </div>
@@ -460,15 +460,15 @@
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Attempt 1 — Failed</span>
+                                    <span class="technique-demo__tag">Attempt 1, Failed</span>
                                     <p><strong>Task:</strong> Write a function to check if a string is a palindrome.<br><br>
                                     <strong>Code:</strong> Simply reverses the string and compares.<br><br>
                                     <strong>Tests fail on:</strong> "A man, a plan, a canal: Panama" (spaces, punctuation, mixed case)</p>
                                 </div>
                                 <div class="technique-demo__response">
-                                    <span class="technique-demo__tag">Reflection + Attempt 2 — Passed</span>
+                                    <span class="technique-demo__tag">Reflection + Attempt 2, Passed</span>
                                     <p><strong>Reflection:</strong> "My solution failed because I didn't normalize the input. For palindrome checks, I need to: 1) Convert to lowercase, 2) Remove non-alphanumeric characters, 3) Then compare. String processing tasks almost always need input normalization."<br><br>
-                                    <strong>Attempt 2:</strong> Adds normalization step — converts to lowercase, strips non-alphanumeric characters, then compares. All tests pass.</p>
+                                    <strong>Attempt 2:</strong> Adds normalization step, converts to lowercase, strips non-alphanumeric characters, then compares. All tests pass.</p>
                                 </div>
                             </div>
                         </div>
@@ -482,12 +482,12 @@
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Attempt 1 — Wrong Answer</span>
+                                    <span class="technique-demo__tag">Attempt 1, Wrong Answer</span>
                                     <p><strong>Question:</strong> "A store sells apples for $2 each. With a 'buy 3, get 1 free' deal, how much do 10 apples cost?"<br><br>
                                     <strong>Answer:</strong> "$20" (simply multiplied 10 × $2, ignoring the deal)</p>
                                 </div>
                                 <div class="technique-demo__response">
-                                    <span class="technique-demo__tag">Reflection + Attempt 2 — Correct</span>
+                                    <span class="technique-demo__tag">Reflection + Attempt 2, Correct</span>
                                     <p><strong>Reflection:</strong> "I ignored the discount deal entirely. With 'buy 3 get 1 free', every 4 apples only costs 3 × $2 = $6. For 10 apples: 2 full groups of 4 (cost: $12) + 2 remaining apples (cost: $4) = $16. I need to always check for special pricing before doing simple multiplication."<br><br>
                                     <strong>Attempt 2:</strong> Correctly calculates $16 by applying the deal to groups of 4.</p>
                                 </div>
@@ -503,14 +503,14 @@
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Attempt 1 — Incomplete</span>
+                                    <span class="technique-demo__tag">Attempt 1, Incomplete</span>
                                     <p><strong>Task:</strong> "Compare the environmental impact of electric vs gas vehicles."<br><br>
                                     <strong>Response:</strong> Only discusses tailpipe emissions, concluding EVs have zero environmental impact.</p>
                                 </div>
                                 <div class="technique-demo__response">
-                                    <span class="technique-demo__tag">Reflection + Attempt 2 — Comprehensive</span>
+                                    <span class="technique-demo__tag">Reflection + Attempt 2, Comprehensive</span>
                                     <p><strong>Reflection:</strong> "My analysis was one-dimensional. I only considered tailpipe emissions. A thorough comparison needs to include: battery manufacturing emissions, electricity source (coal vs renewable), battery disposal/recycling, and total lifecycle analysis. Comparative analyses should always consider the full lifecycle, not just the most visible factor."<br><br>
-                                    <strong>Attempt 2:</strong> Provides full lifecycle comparison covering manufacturing, operation, electricity source, battery disposal, and total lifecycle CO2 — a much more nuanced and accurate analysis.</p>
+                                    <strong>Attempt 2:</strong> Provides full lifecycle comparison covering manufacturing, operation, electricity source, battery disposal, and total lifecycle CO2, a much more nuanced and accurate analysis.</p>
                                 </div>
                             </div>
                         </div>
@@ -627,7 +627,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Automated Coding</h3>
-                        <p class="use-case-showcase__desc">Generate code, run tests, reflect on failures, and iterate until all tests pass — the ideal Reflexion use case.</p>
+                        <p class="use-case-showcase__desc">Generate code, run tests, reflect on failures, and iterate until all tests pass, the ideal Reflexion use case.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -722,7 +722,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Key Difference</div>
-                    <p>Self-Refine improves a single output within one session. CRITIC and CoVe verify factual accuracy. Reflexion is unique because it creates persistent memory — lessons learned from failure carry forward to future attempts, making the agent progressively smarter without retraining.</p>
+                    <p>Self-Refine improves a single output within one session. CRITIC and CoVe verify factual accuracy. Reflexion is unique because it creates persistent memory, lessons learned from failure carry forward to future attempts, making the agent progressively smarter without retraining.</p>
                 </div>
             </div>
         </section>
@@ -744,7 +744,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Self-Correction</span>
                         <span class="evolution-callout__title">Self-Refine</span>
-                        <span class="evolution-callout__desc">Iterative improvement within a single session — feedback and refinement without persistent memory.</span>
+                        <span class="evolution-callout__desc">Iterative improvement within a single session, feedback and refinement without persistent memory.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -763,7 +763,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Tool-Based</span>
                         <span class="evolution-callout__title">CRITIC</span>
-                        <span class="evolution-callout__desc">Verify outputs using external tools for ground-truth checking — complementary to Reflexion's memory approach.</span>
+                        <span class="evolution-callout__desc">Verify outputs using external tools for ground-truth checking, complementary to Reflexion's memory approach.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -782,7 +782,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Verification</span>
                         <span class="evolution-callout__title">Chain-of-Verification</span>
-                        <span class="evolution-callout__desc">Systematic fact-checking through independent verification questions — best for factual accuracy in single outputs.</span>
+                        <span class="evolution-callout__desc">Systematic fact-checking through independent verification questions, best for factual accuracy in single outputs.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -859,7 +859,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

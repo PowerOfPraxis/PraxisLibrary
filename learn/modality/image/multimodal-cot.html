@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">Image Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">Multimodal Chain of Thought</h1>
-                <p class="page-subtitle fade-in">Combine visual and textual reasoning in explicit step-by-step chains &mdash; ensuring AI models ground their answers in what they actually see, not just what they assume from text alone.</p>
+                <p class="page-subtitle fade-in">Combine visual and textual reasoning in explicit step-by-step chains, ensuring AI models ground their answers in what they actually see, not just what they assume from text alone.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -213,7 +213,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Multimodal Chain-of-Thought was introduced by Zhang et al. in 2023. The framework extends Chain-of-Thought prompting to multimodal inputs by generating rationales that incorporate both text and image information before producing a final answer. It operates as a two-stage framework: first, rationale generation from multimodal input that explicitly references visual elements; second, answer inference that uses the generated rationale alongside the original image and text to derive a grounded conclusion.</p>
-                        <p><strong>Modern LLM Status:</strong> The principle of multimodal reasoning has been <strong>absorbed into how frontier multimodal models process visual reasoning tasks</strong>. GPT-4V, Gemini, and Claude all incorporate visual understanding into their reasoning pipelines. However, explicit Multimodal CoT formatting remains valuable for complex visual-textual reasoning chains where you need the model to systematically describe what it observes in an image, connect those observations to domain knowledge, and produce answers that are visibly grounded in visual evidence rather than text-only inference.</p>
+                        <p><strong>Modern LLM Status:</strong> The principle of multimodal reasoning has been <strong>absorbed into how frontier multimodal models process visual reasoning tasks</strong>. ChatGPT, Gemini, and Claude all incorporate visual understanding into their reasoning pipelines. However, explicit Multimodal CoT formatting remains valuable for complex visual-textual reasoning chains where you need the model to systematically describe what it observes in an image, connect those observations to domain knowledge, and produce answers that are visibly grounded in visual evidence rather than text-only inference.</p>
                     </div>
                 </div>
             </div>
@@ -228,14 +228,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Reasoning Across Modalities</h2>
                         <p class="split-section__text">Standard Chain-of-Thought works with text alone. When a model encounters a question paired with an image, it may generate a reasoning chain that relies entirely on textual knowledge while ignoring the visual evidence in front of it. This leads to answers that sound plausible but contradict what the image actually shows.</p>
-                        <p class="split-section__text"><strong>Multimodal CoT solves this with a two-stage approach.</strong> First, the model generates a rationale that explicitly references visual elements &mdash; describing what the diagram shows, what the chart indicates, or what spatial relationships exist in the image. Then, in the second stage, the model uses that visual rationale plus the original image to derive its final answer. By forcing the reasoning chain to pass through visual description before reaching a conclusion, the framework prevents the model from taking shortcuts through text-only inference.</p>
-                        <p class="split-section__text">The key insight is that multimodal reasoning is not simply &ldquo;looking at an image and answering a question.&rdquo; It requires the model to articulate what it sees, connect visual observations to relevant knowledge, and chain those connections into a coherent argument &mdash; just as a human expert would narrate their analysis of a complex diagram.</p>
+                        <p class="split-section__text"><strong>Multimodal CoT solves this with a two-stage approach.</strong> First, the model generates a rationale that explicitly references visual elements, describing what the diagram shows, what the chart indicates, or what spatial relationships exist in the image. Then, in the second stage, the model uses that visual rationale plus the original image to derive its final answer. By forcing the reasoning chain to pass through visual description before reaching a conclusion, the framework prevents the model from taking shortcuts through text-only inference.</p>
+                        <p class="split-section__text">The key insight is that multimodal reasoning is not simply &ldquo;looking at an image and answering a question.&rdquo; It requires the model to articulate what it sees, connect visual observations to relevant knowledge, and chain those connections into a coherent argument, just as a human expert would narrate their analysis of a complex diagram.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Two Stages Matter</span>
-                                <p>When models answer visual questions in a single pass, text-based priors often dominate &mdash; the model &ldquo;knows&rdquo; typical answers and may ignore visual evidence that contradicts expectations. The two-stage approach forces visual grounding first: the rationale must describe what is in the image before any reasoning begins. This explicit visual articulation creates a textual anchor that the second stage cannot bypass, ensuring the final answer reflects what was actually observed rather than what was merely expected.</p>
+                                <p>When models answer visual questions in a single pass, text-based priors often dominate, the model &ldquo;knows&rdquo; typical answers and may ignore visual evidence that contradicts expectations. The two-stage approach forces visual grounding first: the rationale must describe what is in the image before any reasoning begins. This explicit visual articulation creates a textual anchor that the second stage cannot bypass, ensuring the final answer reflects what was actually observed rather than what was merely expected.</p>
                             </div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Present Multimodal Input</h3>
-                            <p class="element-timeline__text">Provide both the image and the text question together as a unified input. The prompt should clearly establish that the model needs to consider both the visual content and the textual question. Frame the task so the model understands it must look at the image to answer correctly &mdash; not rely on background knowledge alone.</p>
+                            <p class="element-timeline__text">Provide both the image and the text question together as a unified input. The prompt should clearly establish that the model needs to consider both the visual content and the textual question. Frame the task so the model understands it must look at the image to answer correctly, not rely on background knowledge alone.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Look at the physics diagram below showing forces acting on a block on an inclined plane. Using the information visible in the diagram, determine the net force on the block.&rdquo;</p>
@@ -271,7 +271,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate Visual Rationale</h3>
-                            <p class="element-timeline__text">The model describes the relevant visual features it observes in the image and begins building a reasoning chain. This stage focuses on articulating what the image contains &mdash; labels, values, spatial relationships, visual patterns &mdash; translating visual information into explicit textual descriptions that can anchor subsequent reasoning steps.</p>
+                            <p class="element-timeline__text">The model describes the relevant visual features it observes in the image and begins building a reasoning chain. This stage focuses on articulating what the image contains, labels, values, spatial relationships, visual patterns, translating visual information into explicit textual descriptions that can anchor subsequent reasoning steps.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;The diagram shows a block on a 30-degree incline. I can see three labeled force arrows: gravity (mg = 50N) pointing straight down, a normal force (N) perpendicular to the surface, and a friction force (f = 10N) pointing up the incline.&rdquo;</p>
@@ -285,7 +285,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Integrate Text and Vision</h3>
-                            <p class="element-timeline__text">The rationale connects the visual observations from stage two to relevant textual knowledge. This is where the model applies domain expertise to the visual evidence &mdash; using physics formulas with the values read from the diagram, interpreting chart trends through statistical knowledge, or connecting map features to geographic concepts.</p>
+                            <p class="element-timeline__text">The rationale connects the visual observations from stage two to relevant textual knowledge. This is where the model applies domain expertise to the visual evidence, using physics formulas with the values read from the diagram, interpreting chart trends through statistical knowledge, or connecting map features to geographic concepts.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;The gravitational component along the incline is mg sin(30) = 50 &times; 0.5 = 25N pointing down the slope. The friction force opposing motion is 10N up the slope. Therefore the net force along the incline is 25N &minus; 10N = 15N down the slope.&rdquo;</p>
@@ -299,7 +299,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Derive Final Answer</h3>
-                            <p class="element-timeline__text">The answer is grounded in the explicit multimodal reasoning chain. Because every step is visible &mdash; from visual observation through domain knowledge application to final conclusion &mdash; the answer is auditable. If incorrect, you can trace exactly where the visual reading or reasoning went wrong.</p>
+                            <p class="element-timeline__text">The answer is grounded in the explicit multimodal reasoning chain. Because every step is visible, from visual observation through domain knowledge application to final conclusion, the answer is auditable. If incorrect, you can trace exactly where the visual reading or reasoning went wrong.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;The net force on the block is 15N directed down the inclined plane. This means the block will accelerate down the slope, as the gravitational component exceeds the friction force shown in the diagram.&rdquo;</p>
@@ -343,7 +343,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Wrong answer &mdash; skipped visual analysis, confused process directions</span>
+                            <span>Wrong answer, skipped visual analysis, confused process directions</span>
                         </div>
                     </div>
 
@@ -363,7 +363,7 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Visual Rationale</span>
-                                <p><strong>Observation:</strong> The diagram shows arrows indicating different water cycle processes. I can see an upward arrow from the ocean surface labeled &ldquo;Evaporation,&rdquo; a horizontal arrow at cloud level labeled &ldquo;Condensation,&rdquo; and a downward arrow from clouds to land labeled &ldquo;Precipitation.&rdquo;<br><br><strong>Reasoning:</strong> The question asks which process moves water from ocean to atmosphere. Looking at the arrow directions in the diagram, &ldquo;Evaporation&rdquo; is the upward arrow originating at the ocean surface and pointing toward the atmosphere. &ldquo;Precipitation&rdquo; moves in the opposite direction &mdash; downward from atmosphere to surface.</p>
+                                <p><strong>Observation:</strong> The diagram shows arrows indicating different water cycle processes. I can see an upward arrow from the ocean surface labeled &ldquo;Evaporation,&rdquo; a horizontal arrow at cloud level labeled &ldquo;Condensation,&rdquo; and a downward arrow from clouds to land labeled &ldquo;Precipitation.&rdquo;<br><br><strong>Reasoning:</strong> The question asks which process moves water from ocean to atmosphere. Looking at the arrow directions in the diagram, &ldquo;Evaporation&rdquo; is the upward arrow originating at the ocean surface and pointing toward the atmosphere. &ldquo;Precipitation&rdquo; moves in the opposite direction, downward from atmosphere to surface.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Final Answer</span>
@@ -445,8 +445,8 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Multimodal CoT Response</span>
-                                    <p><strong>Visual observation:</strong> Site A is located on tightly packed contour lines upstream on a steep hillside. Site B sits on a flat area adjacent to the river with widely spaced contour lines and road access visible. Site C is in a low-lying area downstream where the contour lines indicate a flood plain &mdash; the river bends around this area and the elevation markings are below the flood line.<br><br>
-                                    <strong>Spatial reasoning:</strong> Site A is impractical due to the steep terrain visible from the dense contour lines &mdash; construction costs would be prohibitive and access would be difficult. Site C is in a flood plain as indicated by its low elevation relative to the river bend, creating serious risk of flood damage. Site B has flat terrain, sits above the flood plain, has visible road infrastructure, and maintains proximity to the river for water intake.<br><br>
+                                    <p><strong>Visual observation:</strong> Site A is located on tightly packed contour lines upstream on a steep hillside. Site B sits on a flat area adjacent to the river with widely spaced contour lines and road access visible. Site C is in a low-lying area downstream where the contour lines indicate a flood plain, the river bends around this area and the elevation markings are below the flood line.<br><br>
+                                    <strong>Spatial reasoning:</strong> Site A is impractical due to the steep terrain visible from the dense contour lines, construction costs would be prohibitive and access would be difficult. Site C is in a flood plain as indicated by its low elevation relative to the river bend, creating serious risk of flood damage. Site B has flat terrain, sits above the flood plain, has visible road infrastructure, and maintains proximity to the river for water intake.<br><br>
                                     <strong>Answer:</strong> Site B is the most suitable location. It offers flat buildable terrain, elevation above flood risk, direct river access for water intake, and existing road infrastructure for construction and operations.</p>
                                 </div>
                             </div>
@@ -504,7 +504,7 @@
                                 </svg>
                                 <div>
                                     <strong>Educational Content with Figures</strong>
-                                    <p>Textbook problems that pair questions with illustrations, figures, or diagrams &mdash; where students and educators need the AI to demonstrate how visual evidence supports each reasoning step.</p>
+                                    <p>Textbook problems that pair questions with illustrations, figures, or diagrams, where students and educators need the AI to demonstrate how visual evidence supports each reasoning step.</p>
                                 </div>
                             </div>
                         </div>
@@ -519,7 +519,7 @@
                                 </svg>
                                 <div>
                                     <strong>Images Contain Only Text</strong>
-                                    <p>If the image is a screenshot of text, a scanned document, or a text-heavy slide, use OCR-focused approaches instead &mdash; no visual reasoning chain is needed when the task is simply reading.</p>
+                                    <p>If the image is a screenshot of text, a scanned document, or a text-heavy slide, use OCR-focused approaches instead, no visual reasoning chain is needed when the task is simply reading.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -539,7 +539,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Image Description Suffices</strong>
-                                    <p>When the task is straightforward captioning or object identification &mdash; &ldquo;What animal is in this photo?&rdquo; &mdash; a full reasoning chain adds overhead without improving accuracy.</p>
+                                    <p>When the task is straightforward captioning or object identification, &ldquo;What animal is in this photo?&rdquo;, a full reasoning chain adds overhead without improving accuracy.</p>
                                 </div>
                             </div>
                         </div>
@@ -575,7 +575,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Financial Chart Analysis</h3>
-                        <p class="use-case-showcase__desc">Extract data from complex financial charts &mdash; candlestick patterns, multi-indicator overlays, and comparative dashboards &mdash; and reason through trends, correlations, and anomalies step by step.</p>
+                        <p class="use-case-showcase__desc">Extract data from complex financial charts, candlestick patterns, multi-indicator overlays, and comparative dashboards, and reason through trends, correlations, and anomalies step by step.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -619,7 +619,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Visual Data Science</h3>
-                        <p class="use-case-showcase__desc">Interpret data visualizations &mdash; heatmaps, network graphs, dimensionality reduction plots &mdash; by describing visual patterns first and then applying statistical or analytical reasoning to those observations.</p>
+                        <p class="use-case-showcase__desc">Interpret data visualizations, heatmaps, network graphs, dimensionality reduction plots, by describing visual patterns first and then applying statistical or analytical reasoning to those observations.</p>
                     </div>
                 </div>
             </div>
@@ -657,7 +657,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Bridging Text and Vision</div>
-                    <p>Multimodal CoT occupies a critical position in the evolution of AI reasoning. Before this framework, Chain-of-Thought was limited to text-only problems &mdash; if an image was involved, the model either described it superficially or ignored visual details in favor of text-based assumptions. By formalizing the two-stage approach of visual rationale generation followed by grounded answer inference, Multimodal CoT established the pattern that modern vision-language models now build upon. The framework&rsquo;s core principle &mdash; that models must articulate what they see before reasoning about it &mdash; remains essential for getting reliable results from any multimodal AI system.</p>
+                    <p>Multimodal CoT occupies a critical position in the evolution of AI reasoning. Before this framework, Chain-of-Thought was limited to text-only problems, if an image was involved, the model either described it superficially or ignored visual details in favor of text-based assumptions. By formalizing the two-stage approach of visual rationale generation followed by grounded answer inference, Multimodal CoT established the pattern that modern vision-language models now build upon. The framework&rsquo;s core principle, that models must articulate what they see before reasoning about it, remains essential for getting reliable results from any multimodal AI system.</p>
                 </div>
             </div>
         </section>
@@ -678,7 +678,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">The original text-only step-by-step reasoning technique that Multimodal CoT extends to visual-textual domains &mdash; understanding CoT is essential for applying its multimodal variant effectively.</span>
+                        <span class="evolution-callout__desc">The original text-only step-by-step reasoning technique that Multimodal CoT extends to visual-textual domains, understanding CoT is essential for applying its multimodal variant effectively.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -699,7 +699,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Visual CoT</span>
-                        <span class="evolution-callout__desc">Takes multimodal reasoning further by anchoring each reasoning step to specific regions within the image &mdash; moving from whole-image observation to spatially grounded visual chains.</span>
+                        <span class="evolution-callout__desc">Takes multimodal reasoning further by anchoring each reasoning step to specific regions within the image, moving from whole-image observation to spatially grounded visual chains.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -719,7 +719,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Image Prompting Basics</span>
-                        <span class="evolution-callout__desc">The foundational techniques for working with images in AI prompts &mdash; understanding image prompting fundamentals makes Multimodal CoT&rsquo;s structured approach more effective.</span>
+                        <span class="evolution-callout__desc">The foundational techniques for working with images in AI prompts, understanding image prompting fundamentals makes Multimodal CoT&rsquo;s structured approach more effective.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -795,7 +795,7 @@
 
             <div class="footer-bottom">
                 <p>AI for Everyone</p>
-                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
             </div>
 
             <div class="footer-policies">

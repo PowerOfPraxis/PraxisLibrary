@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">In-Context Learning Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Self-Generated ICL</h1>
-                <p class="page-subtitle fade-in">What if the model could write its own few-shot examples? Self-Generated In-Context Learning has the model produce demonstration examples before tackling the actual task &mdash; bootstrapping its own context to deliver more consistent, well-calibrated outputs without any manually curated data.</p>
+                <p class="page-subtitle fade-in">What if the model could write its own few-shot examples? Self-Generated In-Context Learning has the model produce demonstration examples before tackling the actual task, bootstrapping its own context to deliver more consistent, well-calibrated outputs without any manually curated data.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,7 +200,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> Self-Generated ICL was proposed in 2022 by Kim et al. as a method to overcome one of the most persistent bottlenecks in few-shot prompting: the need for high-quality, manually curated demonstration examples. The key observation was that large language models already possess sufficient knowledge to generate their own task demonstrations &mdash; and that these self-created examples can serve as effective in-context learning signals when prepended to the actual query.</p>
+                        <p><strong>Introduced:</strong> Self-Generated ICL was proposed in 2022 by Kim et al. as a method to overcome one of the most persistent bottlenecks in few-shot prompting: the need for high-quality, manually curated demonstration examples. The key observation was that large language models already possess sufficient knowledge to generate their own task demonstrations, and that these self-created examples can serve as effective in-context learning signals when prepended to the actual query.</p>
                         <p><strong>Modern LLM Status:</strong> Self-Generated ICL is an <strong>active and practical technique</strong>. The approach has the model generate its own few-shot examples before tackling the actual task, eliminating the need for manually curated demonstrations. With modern LLMs being strong generators, self-generated examples are often surprisingly high quality and well-suited to the task at hand. The technique is particularly valuable when labeled data is scarce or unavailable, when working in specialized domains where example creation requires expertise, or when you want the model to calibrate its own understanding of the task before answering. Recent work has shown that self-generated examples can match or exceed the performance of human-written examples for many NLP tasks.</p>
                     </div>
                 </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Let the Model Teach Itself by Example</h2>
-                        <p class="split-section__text">Few-shot prompting works remarkably well &mdash; but it has an uncomfortable dependency: someone has to write the examples. Crafting high-quality demonstrations takes time, domain expertise, and careful formatting. For specialized tasks like medical coding, legal extraction, or niche classification, creating even three good examples can require a subject-matter expert and hours of iteration.</p>
+                        <p class="split-section__text">Few-shot prompting works remarkably well, but it has an uncomfortable dependency: someone has to write the examples. Crafting high-quality demonstrations takes time, domain expertise, and careful formatting. For specialized tasks like medical coding, legal extraction, or niche classification, creating even three good examples can require a subject-matter expert and hours of iteration.</p>
                         <p class="split-section__text"><strong>Self-Generated ICL removes that bottleneck entirely.</strong> Instead of asking a human to write demonstrations, you ask the model itself: &ldquo;Generate three examples of this task being performed correctly.&rdquo; The model draws on its training data to produce plausible input-output pairs, and those self-created examples then serve as the few-shot context for the real query. The model becomes both the teacher and the student.</p>
-                        <p class="split-section__text">Think of it like a musician warming up before a performance. Rather than jumping straight into the concert piece, the musician plays scales and short passages in the same key and tempo &mdash; calibrating their hands, ears, and focus. Self-Generated ICL gives the model the same warm-up: it rehearses the task pattern before the real performance begins.</p>
+                        <p class="split-section__text">Think of it like a musician warming up before a performance. Rather than jumping straight into the concert piece, the musician plays scales and short passages in the same key and tempo, calibrating their hands, ears, and focus. Self-Generated ICL gives the model the same warm-up: it rehearses the task pattern before the real performance begins.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Self-Generated Examples Work</span>
-                                <p>Large language models have internalized millions of task patterns from their training data. When you ask a model to generate examples of a task, it draws on that vast implicit knowledge to produce demonstrations that are naturally well-formatted, contextually appropriate, and stylistically consistent. These self-generated examples often capture subtle task requirements &mdash; like output length, tone, and structure &mdash; that are difficult to specify in instructions alone. The model essentially <strong>externalizes its own understanding</strong> of the task, then uses that externalized knowledge as a reference point.</p>
+                                <p>Large language models have internalized millions of task patterns from their training data. When you ask a model to generate examples of a task, it draws on that vast implicit knowledge to produce demonstrations that are naturally well-formatted, contextually appropriate, and stylistically consistent. These self-generated examples often capture subtle task requirements, like output length, tone, and structure, that are difficult to specify in instructions alone. The model essentially <strong>externalizes its own understanding</strong> of the task, then uses that externalized knowledge as a reference point.</p>
                             </div>
                         </div>
                     </div>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Solve the Target Task</h3>
-                            <p class="element-timeline__text">Present the actual query after the self-generated demonstrations. The model now has context from its own examples to guide its response on the real input. The self-created demonstrations prime the model&rsquo;s output format, reasoning patterns, and task-specific conventions &mdash; producing a response that is more consistent and better calibrated than a zero-shot attempt.</p>
+                            <p class="element-timeline__text">Present the actual query after the self-generated demonstrations. The model now has context from its own examples to guide its response on the real input. The self-created demonstrations prime the model&rsquo;s output format, reasoning patterns, and task-specific conventions, producing a response that is more consistent and better calibrated than a zero-shot attempt.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>The real customer email is appended after the three self-generated examples. The model extracts the JSON fields using the same format and granularity it established in its own demonstrations, producing a consistent and well-structured output.</p>
@@ -475,7 +475,7 @@
                                 </svg>
                                 <div>
                                     <strong>Scarce or Expensive Labeled Data</strong>
-                                    <p>When creating task examples requires significant time, cost, or domain expertise &mdash; the model can bootstrap its own demonstrations in seconds.</p>
+                                    <p>When creating task examples requires significant time, cost, or domain expertise, the model can bootstrap its own demonstrations in seconds.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -495,7 +495,7 @@
                                 </svg>
                                 <div>
                                     <strong>Rapid Prototyping</strong>
-                                    <p>When you need a working few-shot solution quickly without the overhead of curating a demonstration set &mdash; ideal for proof-of-concept testing.</p>
+                                    <p>When you need a working few-shot solution quickly without the overhead of curating a demonstration set, ideal for proof-of-concept testing.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -505,7 +505,7 @@
                                 </svg>
                                 <div>
                                     <strong>Format Calibration</strong>
-                                    <p>When the primary goal is ensuring the model understands the expected output structure &mdash; self-generated examples anchor format consistency across responses.</p>
+                                    <p>When the primary goal is ensuring the model understands the expected output structure, self-generated examples anchor format consistency across responses.</p>
                                 </div>
                             </div>
                         </div>
@@ -520,7 +520,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Quality Examples Already Exist</strong>
-                                    <p>When you already have well-curated, human-verified demonstrations &mdash; these are generally more reliable than self-generated ones and should be preferred.</p>
+                                    <p>When you already have well-curated, human-verified demonstrations, these are generally more reliable than self-generated ones and should be preferred.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -540,7 +540,7 @@
                                 </svg>
                                 <div>
                                     <strong>Error Cascading Risk</strong>
-                                    <p>Tasks where an incorrect self-generated example could bias the model&rsquo;s final answer &mdash; if a wrong pattern is established in the examples, it may propagate into the real output.</p>
+                                    <p>Tasks where an incorrect self-generated example could bias the model&rsquo;s final answer, if a wrong pattern is established in the examples, it may propagate into the real output.</p>
                                 </div>
                             </div>
                         </div>
@@ -577,7 +577,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Documentation Generation</h3>
-                        <p class="use-case-showcase__desc">Generate example documentation patterns first, then apply that consistent style to new code, APIs, or processes &mdash; ensuring uniformity without a style guide.</p>
+                        <p class="use-case-showcase__desc">Generate example documentation patterns first, then apply that consistent style to new code, APIs, or processes, ensuring uniformity without a style guide.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -684,7 +684,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Few-Shot Learning</span>
-                        <span class="evolution-callout__desc">Self-Generated ICL automates the example creation step that Few-Shot Learning requires manually &mdash; same principle, different source of demonstrations.</span>
+                        <span class="evolution-callout__desc">Self-Generated ICL automates the example creation step that Few-Shot Learning requires manually, same principle, different source of demonstrations.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -702,7 +702,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Parallel</span>
                         <span class="evolution-callout__title">Auto-CoT</span>
-                        <span class="evolution-callout__desc">Both techniques have the model generate its own demonstrations &mdash; Auto-CoT for reasoning chains, Self-Generated ICL for general task examples across any domain.</span>
+                        <span class="evolution-callout__desc">Both techniques have the model generate its own demonstrations, Auto-CoT for reasoning chains, Self-Generated ICL for general task examples across any domain.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -723,7 +723,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Example Selection</span>
-                        <span class="evolution-callout__desc">When self-generated examples are numerous, Example Selection strategies can filter for the best subset &mdash; combining automated generation with intelligent curation.</span>
+                        <span class="evolution-callout__desc">When self-generated examples are numerous, Example Selection strategies can filter for the best subset, combining automated generation with intelligent curation.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -800,7 +800,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

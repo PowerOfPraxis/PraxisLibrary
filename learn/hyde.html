@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Retrieval Technique</span>
                 </div>
                 <h1 class="page-title fade-in">HyDE (Hypothetical Document Embeddings)</h1>
-                <p class="page-subtitle fade-in">Queries and documents speak different languages. HyDE bridges the gap by generating a hypothetical answer first, embedding it, and using that embedding to find real documents &mdash; dramatically improving retrieval accuracy without any fine-tuning or labeled data.</p>
+                <p class="page-subtitle fade-in">Queries and documents speak different languages. HyDE bridges the gap by generating a hypothetical answer first, embedding it, and using that embedding to find real documents, dramatically improving retrieval accuracy without any fine-tuning or labeled data.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
                         <p><strong>Introduced:</strong> HyDE (Hypothetical Document Embeddings) was published in 2022 by Gao et al. The technique addresses a fundamental problem in information retrieval: queries and documents are written in very different styles. A user asks &ldquo;How do I fix a memory leak in Python?&rdquo; but the relevant document discusses &ldquo;garbage collection strategies, reference counting, and the gc module.&rdquo; Embedding the query directly often misses the best documents. HyDE solves this by using an LLM to generate a hypothetical document that would answer the query, then embedding that hypothetical document instead of the raw query. The embedding of a document-style text naturally aligns better with actual document embeddings in vector space.</p>
-                        <p><strong>Modern LLM Status:</strong> HyDE has become a foundational technique in modern RAG pipelines. The insight &mdash; that generating a hypothetical answer creates better embeddings for retrieval than the raw query &mdash; is now widely adopted in production search and retrieval systems in 2026. Many enterprise RAG implementations use HyDE or HyDE-inspired query expansion as a standard preprocessing step. The technique pairs naturally with modern embedding models and vector databases, and has been extended into multi-hypothesis variants that generate several hypothetical documents for broader retrieval coverage.</p>
+                        <p><strong>Modern LLM Status:</strong> HyDE has become a foundational technique in modern RAG pipelines. The insight, that generating a hypothetical answer creates better embeddings for retrieval than the raw query, is now widely adopted in production search and retrieval systems in 2026. Many enterprise RAG implementations use HyDE or HyDE-inspired query expansion as a standard preprocessing step. The technique pairs naturally with modern embedding models and vector databases, and has been extended into multi-hypothesis variants that generate several hypothetical documents for broader retrieval coverage.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Answer the Question to Find the Answer</h2>
-                        <p class="split-section__text">Traditional search embeds the query and looks for similar document embeddings. But queries are short, informal, and question-shaped. Documents are long, detailed, and statement-shaped. This mismatch &mdash; called the query-document gap &mdash; means the best document for a query might sit far away in embedding space, even though its content is exactly what the user needs.</p>
-                        <p class="split-section__text"><strong>HyDE flips the retrieval strategy.</strong> Instead of searching with the query, ask an LLM to generate a hypothetical document that would answer the query. This hypothetical document is written in the same style, length, and vocabulary as real documents in your corpus. When you embed it, the resulting vector naturally sits close to the real documents that answer the query &mdash; because like attracts like in embedding space.</p>
-                        <p class="split-section__text">Think of it like asking someone to describe what the perfect search result would look like, then using that description to find the actual result. The hypothetical answer doesn&rsquo;t need to be factually correct &mdash; it just needs to be <strong>stylistically similar</strong> to the right document so the embedding captures the right semantic neighborhood.</p>
+                        <p class="split-section__text">Traditional search embeds the query and looks for similar document embeddings. But queries are short, informal, and question-shaped. Documents are long, detailed, and statement-shaped. This mismatch, called the query-document gap, means the best document for a query might sit far away in embedding space, even though its content is exactly what the user needs.</p>
+                        <p class="split-section__text"><strong>HyDE flips the retrieval strategy.</strong> Instead of searching with the query, ask an LLM to generate a hypothetical document that would answer the query. This hypothetical document is written in the same style, length, and vocabulary as real documents in your corpus. When you embed it, the resulting vector naturally sits close to the real documents that answer the query, because like attracts like in embedding space.</p>
+                        <p class="split-section__text">Think of it like asking someone to describe what the perfect search result would look like, then using that description to find the actual result. The hypothetical answer doesn&rsquo;t need to be factually correct, it just needs to be <strong>stylistically similar</strong> to the right document so the embedding captures the right semantic neighborhood.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Hypothetical Documents Beat Raw Queries</span>
-                                <p>Embedding models map text into vector space based on semantic meaning and document structure. A short query like &ldquo;memory leak fix&rdquo; produces a sparse, ambiguous embedding. But a hypothetical paragraph discussing &ldquo;identifying memory leaks in Python using tracemalloc, resolving circular references, and configuring the garbage collector&rdquo; produces a rich, specific embedding that occupies the same semantic region as real technical documentation. The embedding doesn&rsquo;t care whether the hypothetical document is factually accurate &mdash; it cares about <strong>semantic proximity</strong> to real answers.</p>
+                                <p>Embedding models map text into vector space based on semantic meaning and document structure. A short query like &ldquo;memory leak fix&rdquo; produces a sparse, ambiguous embedding. But a hypothetical paragraph discussing &ldquo;identifying memory leaks in Python using tracemalloc, resolving circular references, and configuring the garbage collector&rdquo; produces a rich, specific embedding that occupies the same semantic region as real technical documentation. The embedding doesn&rsquo;t care whether the hypothetical document is factually accurate, it cares about <strong>semantic proximity</strong> to real answers.</p>
                             </div>
                         </div>
                     </div>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate a Hypothetical Document</h3>
-                            <p class="element-timeline__text">Prompt an LLM to generate a document that would answer the query. The generated text should resemble the style and depth of documents in your corpus &mdash; a technical article, a documentation page, an academic paper paragraph, depending on what you are searching over. Factual accuracy is secondary to stylistic alignment.</p>
+                            <p class="element-timeline__text">Prompt an LLM to generate a document that would answer the query. The generated text should resemble the style and depth of documents in your corpus, a technical article, a documentation page, an academic paper paragraph, depending on what you are searching over. Factual accuracy is secondary to stylistic alignment.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Hypothetical document:</strong> &ldquo;REST API Security Best Practices: Securing a production REST API requires a layered approach. Implement OAuth 2.0 or JWT-based authentication for all endpoints. Use HTTPS exclusively and enforce TLS 1.2+. Apply rate limiting to prevent abuse and DDoS attacks. Validate and sanitize all input parameters to prevent injection attacks. Implement CORS policies to restrict cross-origin access. Use API keys for service-to-service communication and rotate them regularly. Enable audit logging for all API calls and monitor for anomalous patterns...&rdquo;</p>
@@ -287,10 +287,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Retrieve Real Documents via Similarity Search</h3>
-                            <p class="element-timeline__text">Use the hypothetical document&rsquo;s embedding to perform similarity search against your document corpus. The retrieved documents are real, verified content &mdash; the hypothetical document served only as a search probe. Always present the retrieved real documents to users, not the hypothetical generation.</p>
+                            <p class="element-timeline__text">Use the hypothetical document&rsquo;s embedding to perform similarity search against your document corpus. The retrieved documents are real, verified content, the hypothetical document served only as a search probe. Always present the retrieved real documents to users, not the hypothetical generation.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The search returns actual documentation about REST API security from your knowledge base &mdash; OWASP API Security Top 10 guidelines, your organization&rsquo;s internal security standards, and production deployment checklists. These real documents are then used to generate a verified, grounded answer.</p>
+                                <p>The search returns actual documentation about REST API security from your knowledge base, OWASP API Security Top 10 guidelines, your organization&rsquo;s internal security standards, and production deployment checklists. These real documents are then used to generate a verified, grounded answer.</p>
                             </div>
                         </div>
                     </div>
@@ -492,7 +492,7 @@
                                 </svg>
                                 <div>
                                     <strong>Conversational Search</strong>
-                                    <p>When users ask questions in natural, casual language but documents are written in formal, technical prose &mdash; HyDE bridges the style gap.</p>
+                                    <p>When users ask questions in natural, casual language but documents are written in formal, technical prose, HyDE bridges the style gap.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -502,7 +502,7 @@
                                 </svg>
                                 <div>
                                     <strong>Cross-Lingual Retrieval</strong>
-                                    <p>When queries arrive in one language but documents exist in another &mdash; generating a hypothetical document in the target language can improve multilingual retrieval.</p>
+                                    <p>When queries arrive in one language but documents exist in another, generating a hypothetical document in the target language can improve multilingual retrieval.</p>
                                 </div>
                             </div>
                         </div>
@@ -517,7 +517,7 @@
                                 </svg>
                                 <div>
                                     <strong>Keyword-Based Search</strong>
-                                    <p>When users search with exact terms, product codes, or identifiers &mdash; dense embedding retrieval isn&rsquo;t needed and HyDE adds unnecessary latency.</p>
+                                    <p>When users search with exact terms, product codes, or identifiers, dense embedding retrieval isn&rsquo;t needed and HyDE adds unnecessary latency.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -657,9 +657,9 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">HyDE + RAG = Better Together</div>
-                    <p>HyDE is not a replacement for RAG &mdash; it is an enhancement to the retrieval step within a RAG pipeline. Use HyDE to improve what documents get retrieved, then use standard RAG practices (contextual grounding, citation tracking, answer verification) to generate the final response. The hypothetical document is a retrieval tool, not an answer. Always present users with information grounded in the real retrieved documents, not the hypothetical generation.</p>
+                    <p>HyDE is not a replacement for RAG, it is an enhancement to the retrieval step within a RAG pipeline. Use HyDE to improve what documents get retrieved, then use standard RAG practices (contextual grounding, citation tracking, answer verification) to generate the final response. The hypothetical document is a retrieval tool, not an answer. Always present users with information grounded in the real retrieved documents, not the hypothetical generation.</p>
                     <p>For production systems, consider generating <strong>multiple hypothetical documents</strong> per query (3&ndash;5 variations) and averaging their embeddings. This multi-hypothesis approach captures a broader semantic neighborhood and reduces the risk of a single biased generation skewing retrieval results.</p>
-                    <p><strong>Critical reminder:</strong> The hypothetical document may contain factual errors &mdash; that is expected and acceptable. Its purpose is semantic alignment, not factual accuracy. Never surface the hypothetical document to end users. Always ground final answers in the real retrieved documents.</p>
+                    <p><strong>Critical reminder:</strong> The hypothetical document may contain factual errors, that is expected and acceptable. Its purpose is semantic alignment, not factual accuracy. Never surface the hypothetical document to end users. Always ground final answers in the real retrieved documents.</p>
                 </div>
             </div>
         </section>
@@ -722,7 +722,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">KNN Prompting</span>
-                        <span class="evolution-callout__desc">Uses nearest-neighbor retrieval to find the most relevant examples for in-context learning &mdash; another technique that bridges generation and retrieval in embedding space.</span>
+                        <span class="evolution-callout__desc">Uses nearest-neighbor retrieval to find the most relevant examples for in-context learning, another technique that bridges generation and retrieval in embedding space.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -799,7 +799,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

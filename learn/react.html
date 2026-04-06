@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Agentic Framework</span>
                 </div>
                 <h1 class="page-title fade-in">ReAct Framework</h1>
-                <p class="page-subtitle fade-in">Reasoning and Acting, interleaved. ReAct taught language models to think before they act, observe the result, and think again &mdash; creating the iterative loop that became the blueprint for every modern AI agent.</p>
+                <p class="page-subtitle fade-in">Reasoning and Acting, interleaved. ReAct taught language models to think before they act, observe the result, and think again, creating the iterative loop that became the blueprint for every modern AI agent.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Framework Context: 2022</span>
-                        <p><strong>Introduced:</strong> ReAct was published in 2022 by Yao et al. at Princeton and Google Brain. The paper demonstrated that large language models could dramatically improve on knowledge-intensive tasks by interleaving reasoning traces (Thought) with concrete actions (Action) and their results (Observation) in an iterative loop. Rather than generating a single reasoning chain or executing a single tool call, ReAct models alternate between thinking and doing &mdash; using each observation to refine the next thought. The approach outperformed both pure chain-of-thought reasoning and pure action-only baselines on question-answering and decision-making benchmarks.</p>
-                        <p><strong>Modern LLM Status:</strong> ReAct&rsquo;s core insight &mdash; that models should reason about when and how to use tools &mdash; has been <strong>deeply absorbed into modern LLM agent architectures</strong>. Techniques like LangChain, AutoGPT, and OpenAI&rsquo;s function calling all build directly on the Thought-Action-Observation loop that ReAct introduced. Claude, GPT-4, and Gemini now perform this pattern natively when using tools. However, ReAct&rsquo;s explicit format remains valuable when you need <strong>fully transparent, auditable agent behavior</strong> where each reasoning step and tool invocation is visible, debuggable, and controllable. It is widely regarded as one of the most influential prompting frameworks ever published.</p>
+                        <p><strong>Introduced:</strong> ReAct was published in 2022 by Yao et al. at Princeton and Google Brain. The paper demonstrated that large language models could dramatically improve on knowledge-intensive tasks by interleaving reasoning traces (Thought) with concrete actions (Action) and their results (Observation) in an iterative loop. Rather than generating a single reasoning chain or executing a single tool call, ReAct models alternate between thinking and doing, using each observation to refine the next thought. The approach outperformed both pure chain-of-thought reasoning and pure action-only baselines on question-answering and decision-making benchmarks.</p>
+                        <p><strong>Modern LLM Status:</strong> ReAct&rsquo;s core insight, that models should reason about when and how to use tools, has been <strong>deeply absorbed into modern LLM agent architectures</strong>. Techniques like LangChain, AutoGPT, and OpenAI&rsquo;s function calling all build directly on the Thought-Action-Observation loop that ReAct introduced. Claude, ChatGPT, and Gemini now perform this pattern natively when using tools. However, ReAct&rsquo;s explicit format remains valuable when you need <strong>fully transparent, auditable agent behavior</strong> where each reasoning step and tool invocation is visible, debuggable, and controllable. It is widely regarded as one of the most influential prompting frameworks ever published.</p>
                     </div>
                 </div>
             </div>
@@ -216,7 +216,7 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Think, Then Do, Then Learn</h2>
                         <p class="split-section__text">Before ReAct, language models had two modes: they could reason about a problem (chain-of-thought) or they could take actions (tool use). But reasoning without acting produces plausible-sounding hallucinations, and acting without reasoning produces blind tool-calling that lacks strategic direction. Neither mode alone is sufficient for complex, real-world tasks.</p>
-                        <p class="split-section__text"><strong>ReAct fuses both capabilities into a single loop.</strong> The model first generates a Thought &mdash; analyzing the current situation, identifying what it knows and what it needs to find out. Then it takes an Action &mdash; searching for information, performing a calculation, or invoking an external tool. The result comes back as an Observation, which feeds into the next Thought. This cycle continues until the model has enough information to produce a final answer or complete the task.</p>
+                        <p class="split-section__text"><strong>ReAct fuses both capabilities into a single loop.</strong> The model first generates a Thought, analyzing the current situation, identifying what it knows and what it needs to find out. Then it takes an Action, searching for information, performing a calculation, or invoking an external tool. The result comes back as an Observation, which feeds into the next Thought. This cycle continues until the model has enough information to produce a final answer or complete the task.</p>
                         <p class="split-section__text">Think of it as the scientific method compressed into a prompt: hypothesize, experiment, observe, refine. Each loop iteration grounds the model&rsquo;s reasoning in real-world evidence rather than pure speculation.</p>
                     </div>
                     <div class="split-section__visual">
@@ -244,7 +244,7 @@
                             <span class="element-timeline__number">1</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Thought &mdash; Reason About the Situation</h3>
+                            <h3 class="element-timeline__title">Thought, Reason About the Situation</h3>
                             <p class="element-timeline__text">The model analyzes the current state of the problem. What does it already know? What is still missing? What should the next step be? The Thought phase makes the model&rsquo;s internal reasoning explicit and visible, allowing you to verify its logic before any action is taken.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
@@ -258,8 +258,8 @@
                             <span class="element-timeline__number">2</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Action &mdash; Execute a Concrete Step</h3>
-                            <p class="element-timeline__text">Based on the reasoning from the Thought phase, the model takes a specific, targeted action. This could be searching a knowledge base, calling an API, performing a calculation, looking up a database, or any other tool invocation. The action is always grounded in the preceding thought &mdash; never random or speculative.</p>
+                            <h3 class="element-timeline__title">Action, Execute a Concrete Step</h3>
+                            <p class="element-timeline__text">Based on the reasoning from the Thought phase, the model takes a specific, targeted action. This could be searching a knowledge base, calling an API, performing a calculation, looking up a database, or any other tool invocation. The action is always grounded in the preceding thought, never random or speculative.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Action:</strong> Search[&ldquo;Eiffel Tower construction history designer&rdquo;]</p>
@@ -272,8 +272,8 @@
                             <span class="element-timeline__number">3</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Observation &mdash; Process the Result</h3>
-                            <p class="element-timeline__text">The result of the action is returned to the model as an Observation. This is external evidence &mdash; real data from the environment rather than the model&rsquo;s own generation. The observation grounds the next reasoning step in fact, reducing hallucination and keeping the model anchored to reality.</p>
+                            <h3 class="element-timeline__title">Observation, Process the Result</h3>
+                            <p class="element-timeline__text">The result of the action is returned to the model as an Observation. This is external evidence, real data from the environment rather than the model&rsquo;s own generation. The observation grounds the next reasoning step in fact, reducing hallucination and keeping the model anchored to reality.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Observation:</strong> The Eiffel Tower was constructed from 1887 to 1889 and designed by Gustave Eiffel&rsquo;s engineering company for the 1889 World&rsquo;s Fair in Paris.</p>
@@ -286,7 +286,7 @@
                             <span class="element-timeline__number">4</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Repeat &mdash; Iterate Until Resolved</h3>
+                            <h3 class="element-timeline__title">Repeat, Iterate Until Resolved</h3>
                             <p class="element-timeline__text">The observation feeds into a new Thought, which may trigger another Action, producing another Observation. The loop continues until the model has gathered enough evidence to produce a confident final answer. Each iteration builds on the previous, creating a compounding chain of grounded reasoning that converges toward the solution.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
@@ -422,7 +422,7 @@
                                     <strong>Action 2:</strong> Search[&ldquo;First for Women magazine founding date&rdquo;]<br>
                                     <strong>Observation 2:</strong> First for Women is a woman&rsquo;s magazine published by Bauer Media Group, launched in 1989.<br><br>
                                     <strong>Thought 3:</strong> Arthur&rsquo;s Magazine (1844) was started well before First for Women (1989). I can now answer the question.<br><br>
-                                    <strong>Final Answer:</strong> Arthur&rsquo;s Magazine was started first. It was founded in 1844, while First for Women was not launched until 1989 &mdash; a gap of 145 years.</p>
+                                    <strong>Final Answer:</strong> Arthur&rsquo;s Magazine was started first. It was founded in 1844, while First for Women was not launched until 1989, a gap of 145 years.</p>
                                 </div>
                             </div>
                         </div>
@@ -503,7 +503,7 @@
                                 </svg>
                                 <div>
                                     <strong>Tool-Augmented Tasks</strong>
-                                    <p>Any task where the model needs to search, calculate, query databases, or call APIs &mdash; ReAct provides the reasoning framework that decides when and how to use each tool.</p>
+                                    <p>Any task where the model needs to search, calculate, query databases, or call APIs, ReAct provides the reasoning framework that decides when and how to use each tool.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -513,7 +513,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Step Problem Solving</strong>
-                                    <p>Problems that cannot be solved in a single step &mdash; debugging, research, investigation &mdash; where each observation shapes the next action.</p>
+                                    <p>Problems that cannot be solved in a single step, debugging, research, investigation, where each observation shapes the next action.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -523,7 +523,7 @@
                                 </svg>
                                 <div>
                                     <strong>Transparent Agent Behavior</strong>
-                                    <p>When you need to audit, debug, or explain an AI agent&rsquo;s decision-making process &mdash; ReAct makes every step visible and verifiable.</p>
+                                    <p>When you need to audit, debug, or explain an AI agent&rsquo;s decision-making process, ReAct makes every step visible and verifiable.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -533,7 +533,7 @@
                                 </svg>
                                 <div>
                                     <strong>Knowledge-Intensive Questions</strong>
-                                    <p>Questions that require looking up and cross-referencing multiple facts &mdash; ReAct grounds each claim in retrieved evidence rather than memorized data.</p>
+                                    <p>Questions that require looking up and cross-referencing multiple facts, ReAct grounds each claim in retrieved evidence rather than memorized data.</p>
                                 </div>
                             </div>
                         </div>
@@ -548,7 +548,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Direct Tasks</strong>
-                                    <p>Writing an email, summarizing a document, or answering a factual question from memory &mdash; the Thought-Action-Observation loop adds unnecessary overhead.</p>
+                                    <p>Writing an email, summarizing a document, or answering a factual question from memory, the Thought-Action-Observation loop adds unnecessary overhead.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -558,7 +558,7 @@
                                 </svg>
                                 <div>
                                     <strong>No External Tools Available</strong>
-                                    <p>Without tools to call, the Action step becomes simulated reasoning rather than real interaction &mdash; plain chain-of-thought may be more efficient in this case.</p>
+                                    <p>Without tools to call, the Action step becomes simulated reasoning rather than real interaction, plain chain-of-thought may be more efficient in this case.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -615,7 +615,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Autonomous Agent Systems</h3>
-                        <p class="use-case-showcase__desc">Power AI agents that navigate websites, manage files, operate software, or interact with APIs &mdash; each action guided by reasoning about the observed state.</p>
+                        <p class="use-case-showcase__desc">Power AI agents that navigate websites, manage files, operate software, or interact with APIs, each action guided by reasoning about the observed state.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -635,7 +635,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Data Analysis Workflows</h3>
-                        <p class="use-case-showcase__desc">Explore datasets iteratively &mdash; formulate hypotheses, run queries, observe results, refine analyses &mdash; building insights through a grounded, step-by-step investigative process.</p>
+                        <p class="use-case-showcase__desc">Explore datasets iteratively, formulate hypotheses, run queries, observe results, refine analyses, building insights through a grounded, step-by-step investigative process.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -647,7 +647,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Planning and Strategy</h3>
-                        <p class="use-case-showcase__desc">Evaluate options by gathering information about constraints, market conditions, and trade-offs &mdash; each research step informing the strategic reasoning that follows.</p>
+                        <p class="use-case-showcase__desc">Evaluate options by gathering information about constraints, market conditions, and trade-offs, each research step informing the strategic reasoning that follows.</p>
                     </div>
                 </div>
             </div>
@@ -685,7 +685,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Foundation of Modern AI Agents</div>
-                    <p>Every major AI agent framework &mdash; LangChain, AutoGPT, CrewAI, Microsoft AutoGen &mdash; implements some version of the ReAct loop at its core. When you see an AI assistant &ldquo;thinking&rdquo; before calling a tool, then interpreting the result, you are watching ReAct in action. Understanding this pattern gives you insight into how virtually all modern agentic AI systems operate under the hood.</p>
+                    <p>Every major AI agent framework, LangChain, AutoGPT, CrewAI, Microsoft AutoGen, implements some version of the ReAct loop at its core. When you see an AI assistant &ldquo;thinking&rdquo; before calling a tool, then interpreting the result, you are watching ReAct in action. Understanding this pattern gives you insight into how virtually all modern agentic AI systems operate under the hood.</p>
                 </div>
             </div>
         </section>
@@ -825,7 +825,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

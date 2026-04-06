@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Summarization Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Chain of Density (CoD)</h1>
-                <p class="page-subtitle fade-in">A single-pass summary captures the gist but misses the details. Chain of Density fixes this through iterative refinement &mdash; each pass packs more entities and key information into the same word count, producing summaries that are progressively denser, more informative, and consistently preferred by human evaluators.</p>
+                <p class="page-subtitle fade-in">A single-pass summary captures the gist but misses the details. Chain of Density fixes this through iterative refinement, each pass packs more entities and key information into the same word count, producing summaries that are progressively denser, more informative, and consistently preferred by human evaluators.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> Chain of Density was published in 2023 by Adams et al. from Salesforce Research and MIT. The technique addresses a persistent problem in AI-generated summaries: they tend to be either too verbose (lots of filler, few facts) or too compressed (missing crucial context). CoD introduces a structured iterative process where the model generates an initial summary, then refines it across multiple rounds &mdash; each time adding 1&ndash;3 new salient entities while keeping the word count constant. The result is a summary that becomes progressively more information-dense with each iteration.</p>
-                        <p><strong>Modern LLM Status:</strong> Chain of Density remains one of the most practical summarization techniques in 2026. The iterative densification approach produces consistently better summaries than single-pass methods. It is widely used in content management systems, news aggregation platforms, and automated report generation where information density matters. Many enterprise summarization tools have adopted CoD&rsquo;s iterative approach as a default pattern, and the technique generalizes well across Claude, GPT-4, and Gemini models.</p>
+                        <p><strong>Introduced:</strong> Chain of Density was published in 2023 by Adams et al. from Salesforce Research and MIT. The technique addresses a persistent problem in AI-generated summaries: they tend to be either too verbose (lots of filler, few facts) or too compressed (missing crucial context). CoD introduces a structured iterative process where the model generates an initial summary, then refines it across multiple rounds, each time adding 1&ndash;3 new salient entities while keeping the word count constant. The result is a summary that becomes progressively more information-dense with each iteration.</p>
+                        <p><strong>Modern LLM Status:</strong> Chain of Density remains one of the most practical summarization techniques in 2026. The iterative densification approach produces consistently better summaries than single-pass methods. It is widely used in content management systems, news aggregation platforms, and automated report generation where information density matters. Many enterprise summarization tools have adopted CoD&rsquo;s iterative approach as a default pattern, and the technique generalizes well across Claude, ChatGPT, and Gemini models.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Density Is the Missing Dimension</h2>
-                        <p class="split-section__text">Most summarization techniques focus on two dimensions: what to include and how long the summary should be. But there is a third dimension that matters just as much: <strong>information density</strong> &mdash; how much meaning is packed into each sentence. A 100-word summary with three key facts is fundamentally less useful than a 100-word summary with twelve key facts, even though they are the same length.</p>
-                        <p class="split-section__text"><strong>Chain of Density treats density as a tunable parameter.</strong> Instead of asking for one summary and hoping for the best, CoD generates a sequence of summaries at increasing density levels. The first summary is deliberately loose and readable. Each subsequent version replaces generic phrasing with specific entities, swaps vague descriptions for precise facts, and fuses redundant sentences &mdash; all while maintaining the same word count. The model effectively learns to compress more signal into the same space.</p>
-                        <p class="split-section__text">Think of it like packing a suitcase: the first attempt leaves gaps and wasted space. With each repack, you rearrange and compress items more efficiently until every cubic inch serves a purpose &mdash; without making the suitcase any bigger.</p>
+                        <p class="split-section__text">Most summarization techniques focus on two dimensions: what to include and how long the summary should be. But there is a third dimension that matters just as much: <strong>information density</strong>, how much meaning is packed into each sentence. A 100-word summary with three key facts is fundamentally less useful than a 100-word summary with twelve key facts, even though they are the same length.</p>
+                        <p class="split-section__text"><strong>Chain of Density treats density as a tunable parameter.</strong> Instead of asking for one summary and hoping for the best, CoD generates a sequence of summaries at increasing density levels. The first summary is deliberately loose and readable. Each subsequent version replaces generic phrasing with specific entities, swaps vague descriptions for precise facts, and fuses redundant sentences, all while maintaining the same word count. The model effectively learns to compress more signal into the same space.</p>
+                        <p class="split-section__text">Think of it like packing a suitcase: the first attempt leaves gaps and wasted space. With each repack, you rearrange and compress items more efficiently until every cubic inch serves a purpose, without making the suitcase any bigger.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Iterative Beats Single-Pass</span>
-                                <p>Single-pass summarization forces the model to make all inclusion decisions simultaneously &mdash; it must decide what matters before it has seen its own output. CoD breaks this into stages: first capture the broad narrative, then progressively inject the specific entities and facts that a reader would need. This iterative approach mirrors how human editors refine summaries: rough draft first, then tighten, then tighten again. Research shows human evaluators consistently prefer CoD summaries (typically around iteration 3&ndash;4) over single-pass alternatives for <strong>informativeness without sacrificing readability</strong>.</p>
+                                <p>Single-pass summarization forces the model to make all inclusion decisions simultaneously, it must decide what matters before it has seen its own output. CoD breaks this into stages: first capture the broad narrative, then progressively inject the specific entities and facts that a reader would need. This iterative approach mirrors how human editors refine summaries: rough draft first, then tighten, then tighten again. Research shows human evaluators consistently prefer CoD summaries (typically around iteration 3&ndash;4) over single-pass alternatives for <strong>informativeness without sacrificing readability</strong>.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate the Initial Summary</h3>
-                            <p class="element-timeline__text">Start with the source text and produce a first-pass summary at a fixed word count (typically 80&ndash;100 words). This initial summary is deliberately entity-sparse &mdash; it captures the broad narrative and main topic but uses general language rather than specific facts. Think of it as the &ldquo;skeleton&rdquo; summary that establishes the structure subsequent iterations will densify.</p>
+                            <p class="element-timeline__text">Start with the source text and produce a first-pass summary at a fixed word count (typically 80&ndash;100 words). This initial summary is deliberately entity-sparse, it captures the broad narrative and main topic but uses general language rather than specific facts. Think of it as the &ldquo;skeleton&rdquo; summary that establishes the structure subsequent iterations will densify.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Source:</strong> A 2,000-word article about a new renewable energy initiative.<br><strong>Summary 1:</strong> &ldquo;A major energy company has launched a new renewable energy project. The initiative involves building facilities in several locations and aims to reduce carbon emissions. Industry experts say this represents a significant step forward for clean energy adoption.&rdquo; (Entity count: ~3)</p>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Identify Missing Entities</h3>
-                            <p class="element-timeline__text">The model reviews the source text against its current summary and identifies 1&ndash;3 salient entities (names, dates, figures, locations, organizations) that are present in the source but missing from the summary. These must be genuinely informative &mdash; not trivial details, but facts that would meaningfully enhance a reader&rsquo;s understanding of the topic.</p>
+                            <p class="element-timeline__text">The model reviews the source text against its current summary and identifies 1&ndash;3 salient entities (names, dates, figures, locations, organizations) that are present in the source but missing from the summary. These must be genuinely informative, not trivial details, but facts that would meaningfully enhance a reader&rsquo;s understanding of the topic.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Missing entities identified:</strong> (1) Company name: &ldquo;Meridian Power Corp.&rdquo; (2) Investment amount: &ldquo;$4.2 billion&rdquo; (3) Target capacity: &ldquo;12 gigawatts by 2030&rdquo;</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Rewrite with Increased Density</h3>
-                            <p class="element-timeline__text">Incorporate the missing entities into the summary while maintaining the same word count. This requires the model to perform fusion (combining sentences), compression (replacing verbose phrases with concise ones), and substitution (swapping generic references for specific names and figures). The key constraint is that the summary must not grow longer &mdash; density increases, length stays constant.</p>
+                            <p class="element-timeline__text">Incorporate the missing entities into the summary while maintaining the same word count. This requires the model to perform fusion (combining sentences), compression (replacing verbose phrases with concise ones), and substitution (swapping generic references for specific names and figures). The key constraint is that the summary must not grow longer, density increases, length stays constant.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Summary 2:</strong> &ldquo;Meridian Power Corp. has launched a $4.2 billion renewable energy initiative targeting 12 gigawatts of capacity by 2030. The project involves solar and wind installations across Texas, Nevada, and Arizona. Analysts describe it as the largest private clean energy commitment in U.S. history.&rdquo; (Entity count: ~8, same word count)</p>
@@ -287,10 +287,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Iterate 3&ndash;5 Times</h3>
-                            <p class="element-timeline__text">Repeat the identify-and-rewrite cycle 3&ndash;5 times. Each iteration adds more entities and compresses further. Research shows that summaries typically reach optimal density around iteration 3&ndash;4 &mdash; dense enough to be highly informative, but not so compressed that readability suffers. Beyond iteration 5, summaries often become telegraphic and hard to parse, a point of diminishing returns.</p>
+                            <p class="element-timeline__text">Repeat the identify-and-rewrite cycle 3&ndash;5 times. Each iteration adds more entities and compresses further. Research shows that summaries typically reach optimal density around iteration 3&ndash;4, dense enough to be highly informative, but not so compressed that readability suffers. Beyond iteration 5, summaries often become telegraphic and hard to parse, a point of diminishing returns.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p><strong>Summary 4 (final):</strong> &ldquo;Meridian Power Corp.&rsquo;s $4.2B initiative &mdash; 12GW solar/wind capacity across TX, NV, AZ by 2030 &mdash; marks the largest private U.S. clean energy commitment. CEO Maria Chen projects 15,000 construction jobs, 3,200 permanent positions, and a 40% reduction in Meridian&rsquo;s carbon footprint. The DOE has approved $800M in tax credits for the project.&rdquo; (Entity count: ~15, same word count)</p>
+                                <p><strong>Summary 4 (final):</strong> &ldquo;Meridian Power Corp.&rsquo;s $4.2B initiative, 12GW solar/wind capacity across TX, NV, AZ by 2030, marks the largest private U.S. clean energy commitment. CEO Maria Chen projects 15,000 construction jobs, 3,200 permanent positions, and a 40% reduction in Meridian&rsquo;s carbon footprint. The DOE has approved $800M in tax credits for the project.&rdquo; (Entity count: ~15, same word count)</p>
                             </div>
                         </div>
                     </div>
@@ -424,7 +424,7 @@
                                     <p><strong>Iteration 1 (entity-sparse):</strong> &ldquo;The company reported strong quarterly results, with revenue exceeding expectations. Several new products were launched, and the company provided positive guidance for the next quarter. Hiring continued across multiple departments.&rdquo;<br><br>
                                     <strong>Iteration 3 (mid-density):</strong> &ldquo;Q3 revenue of $48.2B (+14% YoY) beat consensus by $1.8B, driven by cloud services (+31%) and AI infrastructure (+67%). Three new products launched: an enterprise AI assistant, a custom chip for inference workloads, and an upgraded developer platform. Headcount grew 8% to 142,000.&rdquo;<br><br>
                                     <strong>Iteration 5 (maximum density):</strong> &ldquo;Q3: $48.2B revenue (+14% YoY, $1.8B beat), cloud $21.4B (+31%), AI infra $8.7B (+67%). Launched: Enterprise AI Copilot (200K waitlist), Tensor-4 inference chip (3x perf/watt vs. prior gen), DevPlatform 3.0. Headcount 142K (+8%), 60% AI-focused roles. Q4 guide: $50&ndash;52B, 23% margin expansion. Buyback: $15B authorized.&rdquo;<br><br>
-                                    <em>Note: Always verify financial figures in AI-generated summaries against the original source documents. CoD produces denser summaries, but density does not guarantee accuracy &mdash; cross-reference all numbers before using in decisions or reports.</em></p>
+                                    <em>Note: Always verify financial figures in AI-generated summaries against the original source documents. CoD produces denser summaries, but density does not guarantee accuracy, cross-reference all numbers before using in decisions or reports.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -468,7 +468,7 @@
                                     <p><strong>Iteration 1 (entity-sparse):</strong> &ldquo;Several countries have signed a new trade agreement that is expected to boost economic growth. The deal covers various sectors and includes provisions for reducing tariffs. Leaders expressed optimism about the agreement&rsquo;s potential impact.&rdquo;<br><br>
                                     <strong>Iteration 3 (mid-density):</strong> &ldquo;The Pacific Rim Digital Trade Accord, signed by 15 nations including Japan, Australia, and South Korea, eliminates tariffs on digital services and sets cross-border data flow standards. Economists project $340B in new trade volume by 2028. The U.S. and China are notably absent from the agreement.&rdquo;<br><br>
                                     <strong>Iteration 5 (maximum density):</strong> &ldquo;Pacific Rim Digital Trade Accord: 15 nations (Japan, Australia, South Korea, Singapore + 11 ASEAN partners), zero tariffs on digital services, unified data-flow/privacy standards. Projected $340B new trade by 2028, 2.1M tech jobs. U.S./China absent; EU observer status. Ratification: 12/15 needed, expected Q2 2026. Key dispute: India&rsquo;s data localization carve-out for financial services.&rdquo;<br><br>
-                                    <em>Note: AI-generated news summaries should always be verified against the original source. Entity-dense summaries pack many claims into compact space &mdash; if even one entity is wrong, the entire summary may mislead. Always fact-check before sharing or publishing.</em></p>
+                                    <em>Note: AI-generated news summaries should always be verified against the original source. Entity-dense summaries pack many claims into compact space, if even one entity is wrong, the entire summary may mislead. Always fact-check before sharing or publishing.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -495,7 +495,7 @@
                                 </svg>
                                 <div>
                                     <strong>Executive Briefings</strong>
-                                    <p>When decision-makers need maximum information in minimum reading time &mdash; CoD packs every sentence with actionable facts, figures, and names.</p>
+                                    <p>When decision-makers need maximum information in minimum reading time, CoD packs every sentence with actionable facts, figures, and names.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -515,7 +515,7 @@
                                 </svg>
                                 <div>
                                     <strong>Document Processing Pipelines</strong>
-                                    <p>Automated systems that process hundreds of documents and need consistent, entity-rich summaries &mdash; CoD produces reliably dense output across diverse input types.</p>
+                                    <p>Automated systems that process hundreds of documents and need consistent, entity-rich summaries, CoD produces reliably dense output across diverse input types.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -525,7 +525,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Audience Output</strong>
-                                    <p>When the same source needs summaries at different density levels &mdash; CoD naturally produces a spectrum from casual overview to expert-dense briefing in a single pipeline.</p>
+                                    <p>When the same source needs summaries at different density levels, CoD naturally produces a spectrum from casual overview to expert-dense briefing in a single pipeline.</p>
                                 </div>
                             </div>
                         </div>
@@ -540,7 +540,7 @@
                                 </svg>
                                 <div>
                                     <strong>Short Source Texts</strong>
-                                    <p>Texts under 500 words rarely benefit from iterative densification &mdash; there are not enough entities to justify multiple refinement passes.</p>
+                                    <p>Texts under 500 words rarely benefit from iterative densification, there are not enough entities to justify multiple refinement passes.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -550,7 +550,7 @@
                                 </svg>
                                 <div>
                                     <strong>Narrative or Emotional Content</strong>
-                                    <p>Stories, opinion pieces, or persuasive writing where tone and flow matter more than entity density &mdash; CoD optimizes for information, not emotional impact.</p>
+                                    <p>Stories, opinion pieces, or persuasive writing where tone and flow matter more than entity density, CoD optimizes for information, not emotional impact.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -560,7 +560,7 @@
                                 </svg>
                                 <div>
                                     <strong>Real-Time or Latency-Sensitive Contexts</strong>
-                                    <p>When summaries are needed instantly &mdash; CoD requires multiple sequential LLM calls (one per iteration), making it slower than single-pass approaches.</p>
+                                    <p>When summaries are needed instantly, CoD requires multiple sequential LLM calls (one per iteration), making it slower than single-pass approaches.</p>
                                 </div>
                             </div>
                         </div>
@@ -820,7 +820,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

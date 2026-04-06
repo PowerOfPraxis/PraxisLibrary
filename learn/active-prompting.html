@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Active Learning Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Active Prompting</h1>
-                <p class="page-subtitle fade-in">Not all questions are equally hard for a model. Active Prompting identifies the questions where the model is most uncertain &mdash; where its answers disagree across multiple samples &mdash; and focuses human annotation effort on crafting chain-of-thought reasoning for exactly those cases. The result: better few-shot examples with less human work.</p>
+                <p class="page-subtitle fade-in">Not all questions are equally hard for a model. Active Prompting identifies the questions where the model is most uncertain, where its answers disagree across multiple samples, and focuses human annotation effort on crafting chain-of-thought reasoning for exactly those cases. The result: better few-shot examples with less human work.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Active Prompting was published in 2023 by Diao et al. The technique applies active learning principles to chain-of-thought prompting. Rather than randomly selecting questions for human-annotated CoT demonstrations, Active Prompting queries the model multiple times on each question, measures the disagreement across answers (uncertainty), and selects the most uncertain questions for annotation. Humans then write detailed chain-of-thought reasoning for only those high-uncertainty cases, producing a focused, high-impact set of few-shot exemplars.</p>
-                        <p><strong>Modern LLM Status:</strong> The core insight &mdash; that annotation effort should target where the model struggles most &mdash; remains a <strong>sound principle for optimizing few-shot CoT examples</strong>. However, modern LLMs like Claude, GPT-4, and Gemini have significantly improved at zero-shot reasoning, reducing the need for carefully curated few-shot demonstrations in many scenarios. Active Prompting is most relevant today when you are building a <strong>production pipeline that relies on few-shot CoT</strong> and want to maximize the return on human annotation investment. For everyday prompting tasks, simpler approaches often suffice.</p>
+                        <p><strong>Modern LLM Status:</strong> The core insight, that annotation effort should target where the model struggles most, remains a <strong>sound principle for optimizing few-shot CoT examples</strong>. However, modern LLMs like Claude, ChatGPT, and Gemini have significantly improved at zero-shot reasoning, reducing the need for carefully curated few-shot demonstrations in many scenarios. Active Prompting is most relevant today when you are building a <strong>production pipeline that relies on few-shot CoT</strong> and want to maximize the return on human annotation investment. For everyday prompting tasks, simpler approaches often suffice.</p>
                     </div>
                 </div>
             </div>
@@ -215,9 +215,9 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Let the Model Tell You Where It Needs Help</h2>
-                        <p class="split-section__text">Traditional chain-of-thought prompting uses a fixed set of hand-picked examples as few-shot demonstrations. The problem? Those examples are chosen by humans guessing which questions are &ldquo;representative&rdquo; &mdash; not by measuring where the model actually struggles. A question that seems difficult to a human may be trivially easy for the model, while a seemingly simple question might consistently trip it up.</p>
-                        <p class="split-section__text"><strong>Active Prompting flips the selection process.</strong> Instead of guessing which examples to annotate, you ask the model itself. By generating multiple answers to each question (using temperature sampling) and measuring how much those answers disagree, you get a direct signal of model uncertainty. High disagreement means the model is unsure &mdash; and that is exactly where a well-crafted chain-of-thought demonstration will have the greatest impact.</p>
-                        <p class="split-section__text">Think of it like a teacher who, instead of preparing lesson plans based on what they assume students find hard, first gives a diagnostic quiz. The questions students answer inconsistently reveal the real knowledge gaps &mdash; and that is where the teacher focuses their instruction.</p>
+                        <p class="split-section__text">Traditional chain-of-thought prompting uses a fixed set of hand-picked examples as few-shot demonstrations. The problem? Those examples are chosen by humans guessing which questions are &ldquo;representative&rdquo;, not by measuring where the model actually struggles. A question that seems difficult to a human may be trivially easy for the model, while a seemingly simple question might consistently trip it up.</p>
+                        <p class="split-section__text"><strong>Active Prompting flips the selection process.</strong> Instead of guessing which examples to annotate, you ask the model itself. By generating multiple answers to each question (using temperature sampling) and measuring how much those answers disagree, you get a direct signal of model uncertainty. High disagreement means the model is unsure, and that is exactly where a well-crafted chain-of-thought demonstration will have the greatest impact.</p>
+                        <p class="split-section__text">Think of it like a teacher who, instead of preparing lesson plans based on what they assume students find hard, first gives a diagnostic quiz. The questions students answer inconsistently reveal the real knowledge gaps, and that is where the teacher focuses their instruction.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
@@ -248,7 +248,7 @@
                             <p class="element-timeline__text">For each question in your dataset, query the model multiple times using non-zero temperature settings to introduce variation. Each query produces a different reasoning path and potentially a different final answer. Typically, five to ten samples per question provide a reliable signal without excessive cost.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Question: &ldquo;A store had 47 apples. It sold 19 on Monday and received a shipment of 32 on Tuesday. How many apples does it have?&rdquo; &mdash; Generate 8 independent responses at temperature 0.7, yielding answers like: 60, 60, 60, 56, 60, 60, 60, 60.</p>
+                                <p>Question: &ldquo;A store had 47 apples. It sold 19 on Monday and received a shipment of 32 on Tuesday. How many apples does it have?&rdquo;, Generate 8 independent responses at temperature 0.7, yielding answers like: 60, 60, 60, 56, 60, 60, 60, 60.</p>
                             </div>
                         </div>
                     </div>
@@ -262,7 +262,7 @@
                             <p class="element-timeline__text">Calculate how much the model&rsquo;s answers disagree across samples. The original paper uses metrics like disagreement ratio (fraction of answers that differ from the majority) or entropy across answer distributions. Questions where the model produces consistent answers have low uncertainty; questions that split the model reveal genuine difficulty.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The apple question above shows 7/8 agreement (low uncertainty &mdash; the model mostly gets it right). But a question about probability where the model splits 4-4 between two answers has high uncertainty &mdash; this is a prime candidate for annotation.</p>
+                                <p>The apple question above shows 7/8 agreement (low uncertainty, the model mostly gets it right). But a question about probability where the model splits 4-4 between two answers has high uncertainty, this is a prime candidate for annotation.</p>
                             </div>
                         </div>
                     </div>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Select and Annotate High-Uncertainty Questions</h3>
-                            <p class="element-timeline__text">Rank all questions by their uncertainty score and select the top-k most uncertain ones. Human annotators then write detailed chain-of-thought reasoning for these specific questions &mdash; step-by-step explanations that show exactly how to arrive at the correct answer. This is the only step that requires human labor, and it is concentrated where it matters most.</p>
+                            <p class="element-timeline__text">Rank all questions by their uncertainty score and select the top-k most uncertain ones. Human annotators then write detailed chain-of-thought reasoning for these specific questions, step-by-step explanations that show exactly how to arrive at the correct answer. This is the only step that requires human labor, and it is concentrated where it matters most.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>From a pool of 200 math questions, the top 8 most uncertain are selected. An annotator writes: &ldquo;Step 1: Identify the total number of combinations. Step 2: Calculate favorable outcomes. Step 3: Divide to get the probability&hellip;&rdquo; for each one.</p>
@@ -290,7 +290,7 @@
                             <p class="element-timeline__text">The annotated chain-of-thought examples become your few-shot demonstrations. When the model encounters new questions, these carefully targeted examples guide its reasoning through the exact patterns it previously struggled with. Because the demonstrations address the model&rsquo;s actual weak points, they produce stronger performance gains than randomly selected examples of equal quantity.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The 8 annotated CoT examples are prepended as few-shot demonstrations. On the same test set, the model&rsquo;s accuracy jumps from 78% (with random CoT examples) to 86% (with uncertainty-selected CoT examples) &mdash; same annotation budget, better results.</p>
+                                <p>The 8 annotated CoT examples are prepended as few-shot demonstrations. On the same test set, the model&rsquo;s accuracy jumps from 78% (with random CoT examples) to 86% (with uncertainty-selected CoT examples), same annotation budget, better results.</p>
                             </div>
                         </div>
                     </div>
@@ -405,7 +405,7 @@
                                     <span class="technique-demo__tag">Uncertainty Sampling</span>
                                     <p><strong>Question:</strong> &ldquo;A farmer has 3 fields. The first yields 240 bushels per acre across 5 acres. The second yields 180 bushels per acre across 8 acres. The third yields 310 bushels per acre across 3 acres. What is the weighted average yield per acre?&rdquo;</p>
                                     <p><strong>8 sampled answers:</strong> 222.5, 230.6, 222.5, 245.0, 222.5, 230.6, 222.5, 230.6</p>
-                                    <p><strong>Disagreement:</strong> High &mdash; three distinct answers appear, indicating the model inconsistently handles weighted averaging versus simple averaging.</p>
+                                    <p><strong>Disagreement:</strong> High, three distinct answers appear, indicating the model inconsistently handles weighted averaging versus simple averaging.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Annotated CoT Demonstration</span>
@@ -433,7 +433,7 @@
                                     <span class="technique-demo__tag">Uncertainty Sampling</span>
                                     <p><strong>Question:</strong> &ldquo;All managers attend the Monday meeting. Some engineers are managers. Does it follow that some engineers attend the Monday meeting?&rdquo;</p>
                                     <p><strong>8 sampled answers:</strong> Yes, Yes, No, Yes, No, Yes, Yes, No</p>
-                                    <p><strong>Disagreement:</strong> High &mdash; the model splits 5/3 between &ldquo;Yes&rdquo; and &ldquo;No,&rdquo; revealing confusion about syllogistic reasoning with quantifiers.</p>
+                                    <p><strong>Disagreement:</strong> High, the model splits 5/3 between &ldquo;Yes&rdquo; and &ldquo;No,&rdquo; revealing confusion about syllogistic reasoning with quantifiers.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Annotated CoT Demonstration</span>
@@ -446,7 +446,7 @@
                                     Since X is a manager, and all managers attend the Monday meeting, X attends the Monday meeting.<br><br>
                                     <strong>Step 4:</strong> Draw the conclusion.<br>
                                     Since X is an engineer who attends the Monday meeting, it follows that some engineers attend the Monday meeting.<br><br>
-                                    <strong>Answer:</strong> Yes. This is a valid syllogism &mdash; the intersection of &ldquo;some engineers are managers&rdquo; with &ldquo;all managers attend&rdquo; guarantees that those engineer-managers attend.</p>
+                                    <strong>Answer:</strong> Yes. This is a valid syllogism, the intersection of &ldquo;some engineers are managers&rdquo; with &ldquo;all managers attend&rdquo; guarantees that those engineer-managers attend.</p>
                                 </div>
                             </div>
                         </div>
@@ -463,7 +463,7 @@
                                     <span class="technique-demo__tag">Uncertainty Sampling</span>
                                     <p><strong>Question:</strong> &ldquo;Sarah put a frozen pizza in the oven and set a timer for 15 minutes. She then went to water her garden. When she came back inside, the kitchen was filled with smoke. What most likely happened?&rdquo;</p>
                                     <p><strong>8 sampled answers:</strong> The pizza burned (3), She forgot to turn on the oven and something else caught fire (2), The timer was wrong and she was outside too long (2), The oven malfunctioned (1)</p>
-                                    <p><strong>Disagreement:</strong> High &mdash; four distinct explanations with no clear majority, indicating the model cannot consistently prioritize the most likely causal chain.</p>
+                                    <p><strong>Disagreement:</strong> High, four distinct explanations with no clear majority, indicating the model cannot consistently prioritize the most likely causal chain.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Annotated CoT Demonstration</span>
@@ -475,7 +475,7 @@
                                     Watering a garden could easily take longer than 15 minutes, especially if Sarah did not hear the timer while outside. If she exceeded the cooking time significantly, the pizza would burn.<br><br>
                                     <strong>Step 4:</strong> Assess alternative explanations.<br>
                                     Oven malfunction is possible but less likely than the simplest explanation. Something else catching fire has no supporting evidence in the scenario.<br><br>
-                                    <strong>Answer:</strong> The most likely explanation is that Sarah spent longer watering her garden than she realized, missed the timer, and the pizza burned in the oven. The simplest causal chain &mdash; food left in a hot oven too long produces smoke &mdash; is the most probable.</p>
+                                    <strong>Answer:</strong> The most likely explanation is that Sarah spent longer watering her garden than she realized, missed the timer, and the pizza burned in the oven. The simplest causal chain, food left in a hot oven too long produces smoke, is the most probable.</p>
                                 </div>
                             </div>
                         </div>
@@ -532,7 +532,7 @@
                                 </svg>
                                 <div>
                                     <strong>Model Weakness Diagnostics</strong>
-                                    <p>Even if you do not use the full annotation pipeline, the uncertainty sampling step alone reveals which question types your model struggles with &mdash; valuable intelligence for prompt design.</p>
+                                    <p>Even if you do not use the full annotation pipeline, the uncertainty sampling step alone reveals which question types your model struggles with, valuable intelligence for prompt design.</p>
                                 </div>
                             </div>
                         </div>
@@ -567,7 +567,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative or Subjective Tasks</strong>
-                                    <p>Active Prompting relies on measuring answer disagreement as a proxy for uncertainty. For tasks with no single correct answer &mdash; like creative writing, brainstorming, or opinion generation &mdash; disagreement is expected, not a signal of weakness.</p>
+                                    <p>Active Prompting relies on measuring answer disagreement as a proxy for uncertainty. For tasks with no single correct answer, like creative writing, brainstorming, or opinion generation, disagreement is expected, not a signal of weakness.</p>
                                 </div>
                             </div>
                         </div>
@@ -603,7 +603,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Financial Calculation Pipelines</h3>
-                        <p class="use-case-showcase__desc">Surface the types of financial calculations where the model disagrees with itself &mdash; compound interest edge cases, tax bracket transitions, amortization schedules &mdash; and build targeted few-shot examples for each.</p>
+                        <p class="use-case-showcase__desc">Surface the types of financial calculations where the model disagrees with itself, compound interest edge cases, tax bracket transitions, amortization schedules, and build targeted few-shot examples for each.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -710,7 +710,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">The step-by-step reasoning technique that Active Prompting optimizes &mdash; by selecting which CoT demonstrations to annotate based on model uncertainty.</span>
+                        <span class="evolution-callout__desc">The step-by-step reasoning technique that Active Prompting optimizes, by selecting which CoT demonstrations to annotate based on model uncertainty.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -728,7 +728,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Example Selection</span>
-                        <span class="evolution-callout__desc">Broader strategies for choosing which examples to include in few-shot prompts &mdash; Active Prompting provides one specific, uncertainty-based method for this selection problem.</span>
+                        <span class="evolution-callout__desc">Broader strategies for choosing which examples to include in few-shot prompts, Active Prompting provides one specific, uncertainty-based method for this selection problem.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -749,7 +749,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Consistency</span>
-                        <span class="evolution-callout__desc">Uses the same multi-sample approach but for answer selection at inference time &mdash; while Active Prompting uses it for example selection during preparation.</span>
+                        <span class="evolution-callout__desc">Uses the same multi-sample approach but for answer selection at inference time, while Active Prompting uses it for example selection during preparation.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -827,7 +827,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">
