@@ -6887,7 +6887,7 @@ document.addEventListener('DOMContentLoaded', () => {
         /** Prefetch the next level's JSON in the background */
         function preloadNextLevel(currentLvl) {
             if (currentLvl < 8) {
-                loadQuizLevel(currentLvl + 1).catch(function() {});
+                loadQuizLevel(currentLvl + 1).catch(function(e) { if (window.console) console.debug('Quiz prefetch L' + (currentLvl + 1) + ':', e.message); });
             }
         }
 
@@ -12713,7 +12713,8 @@ document.addEventListener('DOMContentLoaded', function() {
     /** @type {string[]} Category color palette */
     var AUDIT_CAT_COLORS = [
         '#DC3545', '#f59e0b', '#3b82f6', '#10b981', '#8b5cf6',
-        '#ec4899', '#06b6d4', '#f97316', '#6366f1', '#14b8a6', '#e11d48'
+        '#ec4899', '#06b6d4', '#f97316', '#6366f1', '#14b8a6', '#e11d48',
+        '#0ea5e9', '#a855f7'
     ];
 
     /**
