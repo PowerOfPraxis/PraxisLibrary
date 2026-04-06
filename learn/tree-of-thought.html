@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Reasoning Framework</span>
                 </div>
                 <h1 class="page-title fade-in">Tree of Thought</h1>
-                <p class="page-subtitle fade-in">When a single reasoning chain is not enough, branch out. Tree of Thought explores multiple paths simultaneously, evaluates each branch&rsquo;s promise, and backtracks from dead ends &mdash; turning the model into a deliberate problem-solver rather than a one-shot guesser.</p>
+                <p class="page-subtitle fade-in">When a single reasoning chain is not enough, branch out. Tree of Thought explores multiple paths simultaneously, evaluates each branch&rsquo;s promise, and backtracks from dead ends, turning the model into a deliberate problem-solver rather than a one-shot guesser.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Framework Context: 2023</span>
-                        <p><strong>Introduced:</strong> Tree of Thought (ToT) was published in 2023 by Yao et al. The technique generalizes Chain-of-Thought prompting by structuring reasoning as a tree rather than a single chain. At each step, the model generates multiple candidate &ldquo;thoughts&rdquo; (partial solutions), evaluates how promising each branch is, and uses search algorithms &mdash; breadth-first search (BFS) or depth-first search (DFS) &mdash; to navigate the tree. Crucially, ToT can backtrack from unpromising paths, something linear prompting cannot do. The original paper demonstrated dramatic improvements on tasks like the Game of 24, creative writing, and crossword puzzles.</p>
-                        <p><strong>Modern LLM Status:</strong> The core insight of ToT &mdash; exploring and evaluating multiple reasoning paths before committing &mdash; has influenced how modern LLMs approach complex tasks internally. Claude, GPT-4, and Gemini show improved deliberative reasoning compared to earlier models. However, <strong>explicit ToT prompting remains highly valuable</strong> for tasks that genuinely require search and exploration: mathematical puzzles, strategic planning, constraint satisfaction, and creative ideation where the first path is rarely the best path. The technique is especially powerful when paired with structured evaluation criteria that let the model systematically assess each branch&rsquo;s viability.</p>
+                        <p><strong>Introduced:</strong> Tree of Thought (ToT) was published in 2023 by Yao et al. The technique generalizes Chain-of-Thought prompting by structuring reasoning as a tree rather than a single chain. At each step, the model generates multiple candidate &ldquo;thoughts&rdquo; (partial solutions), evaluates how promising each branch is, and uses search algorithms, breadth-first search (BFS) or depth-first search (DFS), to navigate the tree. Crucially, ToT can backtrack from unpromising paths, something linear prompting cannot do. The original paper demonstrated dramatic improvements on tasks like the Game of 24, creative writing, and crossword puzzles.</p>
+                        <p><strong>Modern LLM Status:</strong> The core insight of ToT, exploring and evaluating multiple reasoning paths before committing, has influenced how modern LLMs approach complex tasks internally. Claude, ChatGPT, and Gemini show improved deliberative reasoning compared to earlier models. However, <strong>explicit ToT prompting remains highly valuable</strong> for tasks that genuinely require search and exploration: mathematical puzzles, strategic planning, constraint satisfaction, and creative ideation where the first path is rarely the best path. The technique is especially powerful when paired with structured evaluation criteria that let the model systematically assess each branch&rsquo;s viability.</p>
                     </div>
                 </div>
             </div>
@@ -215,7 +215,7 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Reasoning as Search, Not Narration</h2>
-                        <p class="split-section__text">Standard prompting treats reasoning like writing a paragraph &mdash; one sentence follows the next in a single forward direction. If the model takes a wrong turn at step two, everything that follows inherits that error. There is no mechanism to reconsider, compare alternatives, or recover from mistakes. Chain-of-Thought improved things by making the reasoning explicit, but it is still a single chain with no branches.</p>
+                        <p class="split-section__text">Standard prompting treats reasoning like writing a paragraph, one sentence follows the next in a single forward direction. If the model takes a wrong turn at step two, everything that follows inherits that error. There is no mechanism to reconsider, compare alternatives, or recover from mistakes. Chain-of-Thought improved things by making the reasoning explicit, but it is still a single chain with no branches.</p>
                         <p class="split-section__text"><strong>Tree of Thought reframes reasoning as a search problem.</strong> Instead of generating one linear sequence, the model builds a tree where each node is a partial solution and each edge represents a reasoning step. At every node, the model generates multiple candidate next-steps, evaluates which branches look most promising, and decides where to explore next. When a branch leads nowhere, the model backtracks to a previous node and tries a different direction.</p>
                         <p class="split-section__text">Think of it like a chess player who considers several possible moves, mentally plays out each one a few turns ahead, discards the ones that lead to bad positions, and then commits to the most promising line of play.</p>
                     </div>
@@ -223,7 +223,7 @@
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Trees Beat Chains for Hard Problems</span>
-                                <p>Many real-world problems have a branching solution space &mdash; multiple valid approaches, dead ends that look promising at first, and solutions that only emerge after trying and discarding alternatives. A single chain commits to one path and hopes it works. A tree explores the landscape systematically, concentrating effort on the most promising regions and abandoning paths that evaluation reveals as unlikely to succeed. This is the same principle behind how search algorithms, game-playing AI, and human experts solve difficult problems.</p>
+                                <p>Many real-world problems have a branching solution space, multiple valid approaches, dead ends that look promising at first, and solutions that only emerge after trying and discarding alternatives. A single chain commits to one path and hopes it works. A tree explores the landscape systematically, concentrating effort on the most promising regions and abandoning paths that evaluation reveals as unlikely to succeed. This is the same principle behind how search algorithms, game-playing AI, and human experts solve difficult problems.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Decompose into Thought Steps</h3>
-                            <p class="element-timeline__text">Break the problem into intermediate reasoning steps, where each step represents a coherent &ldquo;thought&rdquo; &mdash; a partial solution that moves toward the goal. The granularity depends on the problem: for the Game of 24, each thought might be a single arithmetic operation; for creative writing, each thought might be a paragraph plan.</p>
+                            <p class="element-timeline__text">Break the problem into intermediate reasoning steps, where each step represents a coherent &ldquo;thought&rdquo;, a partial solution that moves toward the goal. The granularity depends on the problem: for the Game of 24, each thought might be a single arithmetic operation; for creative writing, each thought might be a paragraph plan.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Make 24 from the numbers 4, 5, 6, 10.&rdquo; Each thought is one arithmetic operation combining two numbers, progressively reducing the set until one number remains.</p>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate Candidate Branches</h3>
-                            <p class="element-timeline__text">At each node in the tree, produce multiple candidate thoughts &mdash; different possible next steps from the current state. This is the branching step that distinguishes ToT from linear reasoning. The model proposes several alternatives rather than committing to a single continuation, creating a tree of possibilities to explore.</p>
+                            <p class="element-timeline__text">At each node in the tree, produce multiple candidate thoughts, different possible next steps from the current state. This is the branching step that distinguishes ToT from linear reasoning. The model proposes several alternatives rather than committing to a single continuation, creating a tree of possibilities to explore.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>From [4, 5, 6, 10], generate branches: &ldquo;10 - 4 = 6, leaving [5, 6, 6]&rdquo; / &ldquo;5 + 6 = 11, leaving [4, 10, 11]&rdquo; / &ldquo;10 - 6 = 4, leaving [4, 4, 5]&rdquo; / &ldquo;4 &times; 5 = 20, leaving [6, 10, 20].&rdquo;</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Evaluate and Prune</h3>
-                            <p class="element-timeline__text">Assess each candidate branch for its likelihood of leading to a correct solution. The model (or a separate evaluator) rates each state &mdash; &ldquo;sure,&rdquo; &ldquo;maybe,&rdquo; or &ldquo;impossible&rdquo; &mdash; and prunes branches that cannot succeed. This evaluation step prevents wasted exploration and focuses computational effort on the most promising regions of the search space.</p>
+                            <p class="element-timeline__text">Assess each candidate branch for its likelihood of leading to a correct solution. The model (or a separate evaluator) rates each state, &ldquo;sure,&rdquo; &ldquo;maybe,&rdquo; or &ldquo;impossible&rdquo;, and prunes branches that cannot succeed. This evaluation step prevents wasted exploration and focuses computational effort on the most promising regions of the search space.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Evaluate: [5, 6, 6] &rarr; &ldquo;sure&rdquo; (5 &times; 6 - 6 = 24). [4, 10, 11] &rarr; &ldquo;maybe&rdquo; (could work but not obvious). [4, 4, 5] &rarr; &ldquo;impossible&rdquo; (no combination reaches 24). Prune the impossible branch.</p>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Search and Backtrack</h3>
-                            <p class="element-timeline__text">Use a search algorithm to navigate the tree. Breadth-first search (BFS) explores all branches at one depth before going deeper &mdash; good when evaluation is reliable. Depth-first search (DFS) follows one promising path deep, then backtracks if it fails &mdash; good when solutions are deep in the tree. The ability to backtrack and try alternative branches is the key advantage over linear reasoning.</p>
+                            <p class="element-timeline__text">Use a search algorithm to navigate the tree. Breadth-first search (BFS) explores all branches at one depth before going deeper, good when evaluation is reliable. Depth-first search (DFS) follows one promising path deep, then backtracks if it fails, good when solutions are deep in the tree. The ability to backtrack and try alternative branches is the key advantage over linear reasoning.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>BFS explores the &ldquo;sure&rdquo; branch first: [5, 6, 6] &rarr; 5 &times; 6 = 30 &rarr; 30 - 6 = <strong>24</strong>. Solution found. If this had failed, the algorithm would backtrack and try the &ldquo;maybe&rdquo; branch next.</p>
@@ -407,19 +407,19 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Tree of Thought Exploration</span>
-                                    <p><strong>Step 1 &mdash; Generate branches:</strong><br>
+                                    <p><strong>Step 1, Generate branches:</strong><br>
                                     Branch A: 5 + 5 = 10, remaining [1, 5, 10]<br>
                                     Branch B: 5 - 1 = 4, remaining [5, 5, 4]<br>
                                     Branch C: 5 &times; 5 = 25, remaining [1, 5, 25]<br><br>
-                                    <strong>Step 2 &mdash; Evaluate:</strong><br>
-                                    Branch A: &ldquo;maybe&rdquo; &mdash; 10 and 5 and 1 could combine<br>
-                                    Branch B: &ldquo;sure&rdquo; &mdash; 4 &times; 5 = 20, plus 5 is 25, not quite, but 5 + 5 &times; 4 could work<br>
-                                    Branch C: &ldquo;maybe&rdquo; &mdash; 25 - 1 = 24, but that leaves unused 5<br><br>
-                                    <strong>Step 3 &mdash; Pursue Branch B deeper:</strong><br>
+                                    <strong>Step 2, Evaluate:</strong><br>
+                                    Branch A: &ldquo;maybe&rdquo;, 10 and 5 and 1 could combine<br>
+                                    Branch B: &ldquo;sure&rdquo;, 4 &times; 5 = 20, plus 5 is 25, not quite, but 5 + 5 &times; 4 could work<br>
+                                    Branch C: &ldquo;maybe&rdquo;, 25 - 1 = 24, but that leaves unused 5<br><br>
+                                    <strong>Step 3, Pursue Branch B deeper:</strong><br>
                                     (5 - 1) &times; 5 = 20, then 20 + 5 = 25. Dead end. Backtrack.<br>
                                     Try: 5 &times; (5 - 1/5). That gives 5 &times; 4.8 = 24. Uses fractions. Backtrack.<br>
                                     Try: 5 &times; 5 - 1 &times; 5 = 25 - 5 = 20. Dead end. Backtrack to Branch C.<br><br>
-                                    <strong>Step 4 &mdash; Pursue Branch C:</strong><br>
+                                    <strong>Step 4, Pursue Branch C:</strong><br>
                                     5 &times; (5 - 1/5) = 5 &times; 24/5 = 24. <strong>Solution found: 5 &times; (5 - 1/5) = 24.</strong></p>
                                 </div>
                             </div>
@@ -439,14 +439,14 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Tree of Thought Exploration</span>
-                                    <p><strong>Plan Generation &mdash; Three paragraph-plan candidates:</strong><br>
+                                    <p><strong>Plan Generation, Three paragraph-plan candidates:</strong><br>
                                     Plan A: Sunrise over a city &rarr; commuter walking &rarr; arriving at an old building &rarr; unlocking the door<br>
                                     Plan B: Sunrise at a beach &rarr; finding a message in a bottle &rarr; following a map &rarr; unlocking a treasure chest<br>
                                     Plan C: Sunrise through prison bars &rarr; release paperwork &rarr; walking through gates &rarr; unlocking own apartment<br><br>
                                     <strong>Evaluation:</strong><br>
-                                    Plan A: &ldquo;maybe&rdquo; &mdash; coherent but generic, low emotional arc<br>
-                                    Plan B: &ldquo;maybe&rdquo; &mdash; adventurous but might feel forced in four paragraphs<br>
-                                    Plan C: &ldquo;sure&rdquo; &mdash; strong emotional arc, natural progression, powerful ending<br><br>
+                                    Plan A: &ldquo;maybe&rdquo;, coherent but generic, low emotional arc<br>
+                                    Plan B: &ldquo;maybe&rdquo;, adventurous but might feel forced in four paragraphs<br>
+                                    Plan C: &ldquo;sure&rdquo;, strong emotional arc, natural progression, powerful ending<br><br>
                                     <strong>Pursue Plan C:</strong> Write each paragraph following the emotional journey from confinement to freedom, where the final key-turn carries symbolic weight as both a literal and metaphorical unlocking of a new chapter.</p>
                                 </div>
                             </div>
@@ -466,15 +466,15 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Tree of Thought Exploration</span>
-                                    <p><strong>Branch &mdash; Generate across candidates:</strong><br>
+                                    <p><strong>Branch, Generate across candidates:</strong><br>
                                     A1: GRAPE / A2: MELON / A3: PEACH / A4: LEMON / A5: MANGO<br><br>
                                     <strong>Evaluate each against down constraint:</strong><br>
-                                    A1 (GRAPE): Starting letters G-R-A-P-E &mdash; no common 5-letter instrument starts this way. &ldquo;Impossible.&rdquo;<br>
-                                    A2 (MELON): M-E-L-O-N &mdash; no instrument match. &ldquo;Impossible.&rdquo;<br>
-                                    A3 (PEACH): P-E-A-C-H &mdash; no instrument match. &ldquo;Impossible.&rdquo;<br>
-                                    A4 (LEMON): L-E-M-O-N &mdash; no instrument match. &ldquo;Impossible.&rdquo;<br>
-                                    A5 (MANGO): M-A-N-G-O &mdash; no instrument match. &ldquo;Impossible.&rdquo;<br><br>
-                                    <strong>Backtrack &mdash; Redefine approach:</strong> Instead of fixing across first, try fixing the first letter to match both constraints. &ldquo;F&rdquo; starts FLUTE (instrument) and the across word could contain F. This constraint-propagation approach &mdash; considering both directions simultaneously &mdash; narrows the search space far more efficiently.</p>
+                                    A1 (GRAPE): Starting letters G-R-A-P-E, no common 5-letter instrument starts this way. &ldquo;Impossible.&rdquo;<br>
+                                    A2 (MELON): M-E-L-O-N, no instrument match. &ldquo;Impossible.&rdquo;<br>
+                                    A3 (PEACH): P-E-A-C-H, no instrument match. &ldquo;Impossible.&rdquo;<br>
+                                    A4 (LEMON): L-E-M-O-N, no instrument match. &ldquo;Impossible.&rdquo;<br>
+                                    A5 (MANGO): M-A-N-G-O, no instrument match. &ldquo;Impossible.&rdquo;<br><br>
+                                    <strong>Backtrack, Redefine approach:</strong> Instead of fixing across first, try fixing the first letter to match both constraints. &ldquo;F&rdquo; starts FLUTE (instrument) and the across word could contain F. This constraint-propagation approach, considering both directions simultaneously, narrows the search space far more efficiently.</p>
                                 </div>
                             </div>
                         </div>
@@ -521,7 +521,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative Ideation with Constraints</strong>
-                                    <p>Writing tasks with specific structural requirements &mdash; coherent stories, poems with rhyme schemes, or narratives that must connect specific start and end points.</p>
+                                    <p>Writing tasks with specific structural requirements, coherent stories, poems with rhyme schemes, or narratives that must connect specific start and end points.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -546,7 +546,7 @@
                                 </svg>
                                 <div>
                                     <strong>Straightforward Questions</strong>
-                                    <p>When the answer follows a single clear path &mdash; factual lookups, simple summaries, or well-defined transformations where exploration adds no value.</p>
+                                    <p>When the answer follows a single clear path, factual lookups, simple summaries, or well-defined transformations where exploration adds no value.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -556,7 +556,7 @@
                                 </svg>
                                 <div>
                                     <strong>Token-Budget Constraints</strong>
-                                    <p>ToT is inherently expensive &mdash; generating and evaluating multiple branches at each step consumes far more tokens than a single chain. Skip it when cost or latency matters more than solution quality.</p>
+                                    <p>ToT is inherently expensive, generating and evaluating multiple branches at each step consumes far more tokens than a single chain. Skip it when cost or latency matters more than solution quality.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -727,7 +727,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Graph of Thought</span>
-                        <span class="evolution-callout__desc">Extends ToT further by allowing reasoning paths to merge and form arbitrary graph structures &mdash; not just trees &mdash; enabling more complex reasoning topologies.</span>
+                        <span class="evolution-callout__desc">Extends ToT further by allowing reasoning paths to merge and form arbitrary graph structures, not just trees, enabling more complex reasoning topologies.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -748,7 +748,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Plan-and-Solve</span>
-                        <span class="evolution-callout__desc">Uses upfront planning to decompose problems into steps before solving &mdash; a complementary approach that can structure the initial decomposition that ToT then explores.</span>
+                        <span class="evolution-callout__desc">Uses upfront planning to decompose problems into steps before solving, a complementary approach that can structure the initial decomposition that ToT then explores.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -825,7 +825,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

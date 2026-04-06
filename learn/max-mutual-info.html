@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Max Mutual Information: Select few-shot examples that maximize the information connection between demonstrations and the desired output — choosing examples by predictive power, not surface similarity.">
+    <meta name="description" content="Max Mutual Information: Select few-shot examples that maximize the information connection between demonstrations and the desired output, choosing examples by predictive power, not surface similarity.">
     <!-- SEO Meta -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Praxis Library">
@@ -13,7 +13,7 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="Max Mutual Information - Praxis">
-    <meta property="og:description" content="Max Mutual Information: Select few-shot examples that maximize the information connection between demonstrations and the desired output — choosing examples by predictive power, not surface similarity.">
+    <meta property="og:description" content="Max Mutual Information: Select few-shot examples that maximize the information connection between demonstrations and the desired output, choosing examples by predictive power, not surface similarity.">
     <meta property="og:url" content="https://praxislibrary.com/learn/max-mutual-info.html">
     <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
     <meta property="og:site_name" content="Praxis Library">
@@ -21,7 +21,7 @@
     <!-- Social Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Max Mutual Information - Praxis">
-    <meta name="twitter:description" content="Max Mutual Information: Select few-shot examples that maximize the information connection between demonstrations and the desired output — choosing examples by predictive power, not surface similarity.">
+    <meta name="twitter:description" content="Max Mutual Information: Select few-shot examples that maximize the information connection between demonstrations and the desired output, choosing examples by predictive power, not surface similarity.">
     <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
     <script type="application/ld+json">
 {
@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Example Selection</span>
                 </div>
                 <h1 class="page-title fade-in">Max Mutual Information</h1>
-                <p class="page-subtitle fade-in">Not all few-shot examples are created equal. Max Mutual Information selects demonstrations that maximize the information connection between your examples and the desired output &mdash; choosing examples by their predictive power, not just surface similarity to the input.</p>
+                <p class="page-subtitle fade-in">Not all few-shot examples are created equal. Max Mutual Information selects demonstrations that maximize the information connection between your examples and the desired output, choosing examples by their predictive power, not just surface similarity to the input.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> Max Mutual Information (MMI) for prompt selection was formalized in 2022, building on information-theoretic principles applied to in-context learning. The technique addresses a critical problem: few-shot examples chosen by surface similarity (nearest-neighbor in embedding space) often underperform examples chosen by their ability to make the correct output predictable. MMI flips the selection criterion &mdash; instead of asking &ldquo;which examples look like this input?&rdquo;, it asks &ldquo;which examples make the model most likely to produce the correct output?&rdquo;</p>
-                        <p><strong>Modern LLM Status:</strong> Example selection remains a <strong>high-impact lever for few-shot performance</strong>. Even with modern models like Claude and GPT-4, the choice of demonstrations significantly affects output quality. The MMI principle has been absorbed into automated prompt optimization tools and example selection pipelines. For practitioners, the key insight remains actionable: <strong>test multiple example sets and measure which ones produce the best outputs</strong>, rather than assuming the most similar-looking examples are the most helpful.</p>
+                        <p><strong>Introduced:</strong> Max Mutual Information (MMI) for prompt selection was formalized in 2022, building on information-theoretic principles applied to in-context learning. The technique addresses a critical problem: few-shot examples chosen by surface similarity (nearest-neighbor in embedding space) often underperform examples chosen by their ability to make the correct output predictable. MMI flips the selection criterion, instead of asking &ldquo;which examples look like this input?&rdquo;, it asks &ldquo;which examples make the model most likely to produce the correct output?&rdquo;</p>
+                        <p><strong>Modern LLM Status:</strong> Example selection remains a <strong>high-impact lever for few-shot performance</strong>. Even with modern models like Claude and ChatGPT, the choice of demonstrations significantly affects output quality. The MMI principle has been absorbed into automated prompt optimization tools and example selection pipelines. For practitioners, the key insight remains actionable: <strong>test multiple example sets and measure which ones produce the best outputs</strong>, rather than assuming the most similar-looking examples are the most helpful.</p>
                     </div>
                 </div>
             </div>
@@ -217,7 +217,7 @@
                         <h2 class="split-section__title">The Best Examples Predict the Answer, Not Just Match the Question</h2>
                         <p class="split-section__text">When building few-shot prompts, most people instinctively pick examples that look similar to the current input. Classifying a movie review? Choose other movie reviews. Answering a science question? Pick other science questions. This seems logical, but it often leads to suboptimal results because surface similarity doesn&rsquo;t guarantee that the examples actually help the model produce the right answer.</p>
                         <p class="split-section__text"><strong>Max Mutual Information reframes example selection as an optimization problem.</strong> Instead of selecting examples by input similarity, MMI selects examples that maximize the mutual information between the demonstration set and the correct output. In practical terms: given a candidate set of examples, choose the combination that makes the model assign the highest probability to the correct answer. The examples that best &ldquo;inform&rdquo; the output are the ones to use.</p>
-                        <p class="split-section__text">Think of it like choosing study materials for an exam. You could study topics that look like what you expect on the test (similarity-based), or you could study the materials that, based on past experience, most improve your test scores (information-based). MMI takes the second approach &mdash; measuring actual predictive impact rather than assumed relevance.</p>
+                        <p class="split-section__text">Think of it like choosing study materials for an exam. You could study topics that look like what you expect on the test (similarity-based), or you could study the materials that, based on past experience, most improve your test scores (information-based). MMI takes the second approach, measuring actual predictive impact rather than assumed relevance.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Select the Top-K Informative Examples</h3>
-                            <p class="element-timeline__text">Rank all candidates by their information score and select the top-k examples that jointly maximize mutual information. This step considers not just individual example quality but also diversity &mdash; two nearly identical high-scoring examples may provide less total information than two different high-scoring examples that cover distinct patterns.</p>
+                            <p class="element-timeline__text">Rank all candidates by their information score and select the top-k examples that jointly maximize mutual information. This step considers not just individual example quality but also diversity, two nearly identical high-scoring examples may provide less total information than two different high-scoring examples that cover distinct patterns.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>From the 50-example pool, MMI selects 3 demonstrations: a sarcastic negative review, a mixed-sentiment review correctly labeled neutral, and a short positive review. Together, these three examples maximize the model&rsquo;s ability to classify the target review correctly.</p>
@@ -331,7 +331,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>All examples were not-spam newsletters &mdash; model learned the wrong pattern from homogeneous demonstrations</span>
+                            <span>All examples were not-spam newsletters, model learned the wrong pattern from homogeneous demonstrations</span>
                         </div>
                     </div>
 
@@ -363,7 +363,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>MMI selected examples that distinguish spam patterns &mdash; model learned the decision boundary, not just one category</span>
+                            <span>MMI selected examples that distinguish spam patterns, model learned the decision boundary, not just one category</span>
                         </div>
                     </div>
                 </div>
@@ -445,7 +445,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Result</span>
-                                    <p>The target bug has BOTH a performance component (8-second load) AND a UI/UX component (blank screen). MMI-selected examples help the model recognize this dual nature. The model correctly identifies the primary issue as &ldquo;performance&rdquo; but notes the blank screen is a separate UI/UX concern &mdash; a nuanced classification that similarity-based selection would miss by only showing pure performance bugs.</p>
+                                    <p>The target bug has BOTH a performance component (8-second load) AND a UI/UX component (blank screen). MMI-selected examples help the model recognize this dual nature. The model correctly identifies the primary issue as &ldquo;performance&rdquo; but notes the blank screen is a separate UI/UX concern, a nuanced classification that similarity-based selection would miss by only showing pure performance bugs.</p>
                                 </div>
                             </div>
                         </div>
@@ -472,7 +472,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Stakes Classification</strong>
-                                    <p>When classification accuracy directly impacts business decisions &mdash; medical triage, fraud detection, content moderation &mdash; where a 5% accuracy gain from better examples is worth the selection effort.</p>
+                                    <p>When classification accuracy directly impacts business decisions, medical triage, fraud detection, content moderation, where a 5% accuracy gain from better examples is worth the selection effort.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -482,7 +482,7 @@
                                 </svg>
                                 <div>
                                     <strong>Ambiguous Categories</strong>
-                                    <p>Tasks with overlapping or confusable classes &mdash; where the decision boundary between categories is subtle and examples near that boundary are most informative.</p>
+                                    <p>Tasks with overlapping or confusable classes, where the decision boundary between categories is subtle and examples near that boundary are most informative.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -492,7 +492,7 @@
                                 </svg>
                                 <div>
                                     <strong>Large Example Pools</strong>
-                                    <p>When you have many candidate examples to choose from &mdash; the larger the pool, the more opportunity to find truly informative demonstrations rather than settling for merely adequate ones.</p>
+                                    <p>When you have many candidate examples to choose from, the larger the pool, the more opportunity to find truly informative demonstrations rather than settling for merely adequate ones.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -502,7 +502,7 @@
                                 </svg>
                                 <div>
                                     <strong>Production Pipelines</strong>
-                                    <p>Automated systems processing thousands of inputs daily &mdash; the upfront cost of example optimization is amortized across many inference calls.</p>
+                                    <p>Automated systems processing thousands of inputs daily, the upfront cost of example optimization is amortized across many inference calls.</p>
                                 </div>
                             </div>
                         </div>
@@ -527,7 +527,7 @@
                                 </svg>
                                 <div>
                                     <strong>Open-Ended Generation</strong>
-                                    <p>For creative writing, brainstorming, or tasks without a single correct answer, mutual information is hard to define and optimize &mdash; there&rsquo;s no clear &ldquo;correct output&rdquo; to maximize probability for.</p>
+                                    <p>For creative writing, brainstorming, or tasks without a single correct answer, mutual information is hard to define and optimize, there&rsquo;s no clear &ldquo;correct output&rdquo; to maximize probability for.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -571,7 +571,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Medical Triage</h3>
-                        <p class="use-case-showcase__desc">Choose case examples that distinguish between conditions with similar presentations &mdash; maximizing the model&rsquo;s ability to differentiate diagnoses that share overlapping symptoms.</p>
+                        <p class="use-case-showcase__desc">Choose case examples that distinguish between conditions with similar presentations, maximizing the model&rsquo;s ability to differentiate diagnoses that share overlapping symptoms.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -581,7 +581,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Intent Classification</h3>
-                        <p class="use-case-showcase__desc">For chatbots and virtual assistants, select examples that disambiguate easily confused intents &mdash; &ldquo;cancel my order&rdquo; vs. &ldquo;change my order&rdquo; vs. &ldquo;track my order.&rdquo;</p>
+                        <p class="use-case-showcase__desc">For chatbots and virtual assistants, select examples that disambiguate easily confused intents, &ldquo;cancel my order&rdquo; vs. &ldquo;change my order&rdquo; vs. &ldquo;track my order.&rdquo;</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -594,7 +594,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Document Routing</h3>
-                        <p class="use-case-showcase__desc">Route documents to the correct department by selecting examples that distinguish between overlapping categories &mdash; legal vs. compliance, engineering vs. product, sales vs. marketing.</p>
+                        <p class="use-case-showcase__desc">Route documents to the correct department by selecting examples that distinguish between overlapping categories, legal vs. compliance, engineering vs. product, sales vs. marketing.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -605,7 +605,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Content Moderation</h3>
-                        <p class="use-case-showcase__desc">Select examples that teach the nuanced boundary between acceptable and policy-violating content &mdash; where context, intent, and tone determine the classification.</p>
+                        <p class="use-case-showcase__desc">Select examples that teach the nuanced boundary between acceptable and policy-violating content, where context, intent, and tone determine the classification.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -679,7 +679,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Parent Topic</span>
                         <span class="evolution-callout__title">Example Selection</span>
-                        <span class="evolution-callout__desc">The broader field of choosing effective demonstrations &mdash; MMI is one specific, information-theoretic approach within this space.</span>
+                        <span class="evolution-callout__desc">The broader field of choosing effective demonstrations, MMI is one specific, information-theoretic approach within this space.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -697,7 +697,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Few-Shot Learning</span>
-                        <span class="evolution-callout__desc">The prompting paradigm that MMI enhances &mdash; few-shot learning provides the demonstrations, and MMI optimizes which demonstrations to use.</span>
+                        <span class="evolution-callout__desc">The prompting paradigm that MMI enhances, few-shot learning provides the demonstrations, and MMI optimizes which demonstrations to use.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -718,7 +718,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Consistency</span>
-                        <span class="evolution-callout__desc">Combine MMI-selected examples with self-consistency voting &mdash; optimized demonstrations plus ensemble sampling for maximum accuracy.</span>
+                        <span class="evolution-callout__desc">Combine MMI-selected examples with self-consistency voting, optimized demonstrations plus ensemble sampling for maximum accuracy.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -795,7 +795,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

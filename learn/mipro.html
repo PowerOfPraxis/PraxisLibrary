@@ -142,7 +142,7 @@
                     <span class="hero-badge__text">Optimization Framework</span>
                 </div>
                 <h1 class="page-title fade-in">MIPRO</h1>
-                <p class="page-subtitle fade-in">Hand-written instructions plateau. MIPRO (Multi-prompt Instruction Proposal Optimizer) automatically generates, evaluates, and searches for the optimal combination of instructions and demonstrations across every stage of a multi-step LLM program &mdash; delivering +11% gains over manual optimization through Bayesian search.</p>
+                <p class="page-subtitle fade-in">Hand-written instructions plateau. MIPRO (Multi-prompt Instruction Proposal Optimizer) automatically generates, evaluates, and searches for the optimal combination of instructions and demonstrations across every stage of a multi-step LLM program, delivering +11% gains over manual optimization through Bayesian search.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -153,8 +153,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Framework Context: 2024&ndash;2025</span>
-                        <p><strong>Introduced:</strong> MIPRO was developed by Krista Opsahl-Ong, Michael Ryan, and collaborators at Stanford, published in June 2024 as &ldquo;Optimizing Instructions and Demonstrations for Multi-Stage Language Model Programs.&rdquo; It addressed a critical gap: while DSPy could optimize few-shot examples (via BootstrapFewShot), it lacked a systematic way to optimize the instruction text itself &mdash; the natural language directions that tell each module what to do. MIPRO solved this by using the LLM itself to propose candidate instructions grounded in actual execution traces, then searching for the best combination using Bayesian optimization.</p>
-                        <p><strong>Modern LLM Status:</strong> MIPROv2 is now <strong>the default advanced optimizer in DSPy</strong> and the most effective approach for optimizing multi-stage LLM programs. It has been adopted by organizations building production RAG pipelines, classification systems, and complex reasoning chains. The key innovation &mdash; using program traces to ground instruction proposals &mdash; has influenced how the broader community thinks about prompt optimization. Instead of asking &ldquo;what is the best prompt?&rdquo;, MIPRO asks &ldquo;what instructions, grounded in how this program actually runs, will maximize this metric?&rdquo;</p>
+                        <p><strong>Introduced:</strong> MIPRO was developed by Krista Opsahl-Ong, Michael Ryan, and collaborators at Stanford, published in June 2024 as &ldquo;Optimizing Instructions and Demonstrations for Multi-Stage Language Model Programs.&rdquo; It addressed a critical gap: while DSPy could optimize few-shot examples (via BootstrapFewShot), it lacked a systematic way to optimize the instruction text itself, the natural language directions that tell each module what to do. MIPRO solved this by using the LLM itself to propose candidate instructions grounded in actual execution traces, then searching for the best combination using Bayesian optimization.</p>
+                        <p><strong>Modern LLM Status:</strong> MIPROv2 is now <strong>the default advanced optimizer in DSPy</strong> and the most effective approach for optimizing multi-stage LLM programs. It has been adopted by organizations building production RAG pipelines, classification systems, and complex reasoning chains. The key innovation, using program traces to ground instruction proposals, has influenced how the broader community thinks about prompt optimization. Instead of asking &ldquo;what is the best prompt?&rdquo;, MIPRO asks &ldquo;what instructions, grounded in how this program actually runs, will maximize this metric?&rdquo;</p>
                     </div>
                 </div>
             </div>
@@ -168,15 +168,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Instructions Should Be Data-Driven</h2>
-                        <p class="split-section__text">When humans write prompt instructions, we guess what the model needs to hear. We write &ldquo;Be concise&rdquo; or &ldquo;Think step by step&rdquo; based on intuition, then test and tweak. This approach works for simple tasks, but in multi-stage programs &mdash; where each module has its own prompt &mdash; the search space becomes enormous. There are thousands of possible instruction combinations, and the optimal instructions for one stage depend on what the other stages do.</p>
-                        <p class="split-section__text"><strong>MIPRO flips this by generating instructions from evidence.</strong> It runs your program on training data, collects traces of what actually happens at each stage (inputs, outputs, successes, failures), and uses those traces to propose grounded instructions. Instead of guessing &ldquo;summarize the key points,&rdquo; MIPRO might discover that &ldquo;extract the specific numerical claims and their sources&rdquo; works better for your particular pipeline &mdash; an instruction a human might never have tried.</p>
+                        <p class="split-section__text">When humans write prompt instructions, we guess what the model needs to hear. We write &ldquo;Be concise&rdquo; or &ldquo;Think step by step&rdquo; based on intuition, then test and tweak. This approach works for simple tasks, but in multi-stage programs, where each module has its own prompt, the search space becomes enormous. There are thousands of possible instruction combinations, and the optimal instructions for one stage depend on what the other stages do.</p>
+                        <p class="split-section__text"><strong>MIPRO flips this by generating instructions from evidence.</strong> It runs your program on training data, collects traces of what actually happens at each stage (inputs, outputs, successes, failures), and uses those traces to propose grounded instructions. Instead of guessing &ldquo;summarize the key points,&rdquo; MIPRO might discover that &ldquo;extract the specific numerical claims and their sources&rdquo; works better for your particular pipeline, an instruction a human might never have tried.</p>
                         <p class="split-section__text">Think of the difference between a coach who watches game tape and one who gives generic advice. The tape-watching coach sees your team&rsquo;s specific strengths and weaknesses, and designs plays around them. MIPRO watches your program&rsquo;s actual execution traces and designs instructions around what it observes.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Three-Stage Pipeline: Bootstrap, Propose, Search</span>
-                                <p>MIPRO operates in three phases. First, it <strong>bootstraps</strong> by running your program on training examples and collecting execution traces &mdash; the actual inputs and outputs at every module. Second, it <strong>proposes</strong> candidate instructions by showing the LLM your code structure, data patterns, and execution traces, and asking it to draft instructions that would improve performance. Third, it <strong>searches</strong> using Bayesian optimization to find the optimal combination of instructions and demonstrations across all modules simultaneously.</p>
+                                <p>MIPRO operates in three phases. First, it <strong>bootstraps</strong> by running your program on training examples and collecting execution traces, the actual inputs and outputs at every module. Second, it <strong>proposes</strong> candidate instructions by showing the LLM your code structure, data patterns, and execution traces, and asking it to draft instructions that would improve performance. Third, it <strong>searches</strong> using Bayesian optimization to find the optimal combination of instructions and demonstrations across all modules simultaneously.</p>
                             </div>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Bootstrap Execution Traces</h3>
-                            <p class="element-timeline__text">Run the unoptimized program across your training set. At each module, record the input, the prompt sent to the LLM, the output, and whether the final pipeline result was correct. These traces capture the program&rsquo;s real behavior &mdash; including failure modes and edge cases.</p>
+                            <p class="element-timeline__text">Run the unoptimized program across your training set. At each module, record the input, the prompt sent to the LLM, the output, and whether the final pipeline result was correct. These traces capture the program&rsquo;s real behavior, including failure modes and edge cases.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>A RAG pipeline is run on 200 questions. The bootstrap captures traces like: Module 1 received &ldquo;What is the GDP of France?&rdquo; and generated search query &ldquo;France GDP 2024&rdquo;. Module 2 received 5 passages and generated an answer. The final answer was correct in 142/200 cases.</p>
@@ -212,10 +212,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Filter by Success Metric</h3>
-                            <p class="element-timeline__text">Keep only the traces from successful executions &mdash; those where the pipeline produced the correct output. These traces represent the program working at its best, and they form the evidence base for instruction proposals.</p>
+                            <p class="element-timeline__text">Keep only the traces from successful executions, those where the pipeline produced the correct output. These traces represent the program working at its best, and they form the evidence base for instruction proposals.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Of 200 traces, 142 scored correct. These are kept as &ldquo;gold traces.&rdquo; The 58 failures are analyzed separately to understand common failure patterns &mdash; like the retriever returning irrelevant passages for ambiguous queries.</p>
+                                <p>Of 200 traces, 142 scored correct. These are kept as &ldquo;gold traces.&rdquo; The 58 failures are analyzed separately to understand common failure patterns, like the retriever returning irrelevant passages for ambiguous queries.</p>
                             </div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                             <p class="element-timeline__text">The search identifies the best-performing combination of instructions and demonstrations across all modules. This compiled configuration is saved and deployed. When the program needs re-optimization (new data, model change, or performance drift), the process is repeated automatically.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The winning configuration: Retriever uses instruction variant #7 with 3 bootstrapped demonstrations; Generator uses instruction variant #3 with 5 demonstrations. This combination scores 89% on the held-out test set, up from 71% with the original hand-written instructions &mdash; an 18-point improvement.</p>
+                                <p>The winning configuration: Retriever uses instruction variant #7 with 3 bootstrapped demonstrations; Generator uses instruction variant #3 with 5 demonstrations. This combination scores 89% on the held-out test set, up from 71% with the original hand-written instructions, an 18-point improvement.</p>
                             </div>
                         </div>
                     </div>
@@ -290,7 +290,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Problems</span>
-                                <p>Instructions are generic &mdash; they don&rsquo;t address this pipeline&rsquo;s specific failure modes. No way to know if the retriever needs different instructions than the generator. Manual tuning plateaus at 71% accuracy with no systematic way to improve further.</p>
+                                <p>Instructions are generic, they don&rsquo;t address this pipeline&rsquo;s specific failure modes. No way to know if the retriever needs different instructions than the generator. Manual tuning plateaus at 71% accuracy with no systematic way to improve further.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -318,11 +318,11 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Approach</span>
-                                <p>Bootstrap 200 traces. MIPRO discovers that retrieval failures are caused by ambiguous queries and proposes query-diversification instructions. For the generator, it proposes instructions emphasizing numerical precision &mdash; a pattern it found in the gold traces.</p>
+                                <p>Bootstrap 200 traces. MIPRO discovers that retrieval failures are caused by ambiguous queries and proposes query-diversification instructions. For the generator, it proposes instructions emphasizing numerical precision, a pattern it found in the gold traces.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Result</span>
-                                <p>Per-module optimized instructions address specific failure modes. Bayesian search finds the best combination across all modules simultaneously. Final accuracy: 89% &mdash; an 18-point gain. Every instruction is traceable to observed execution patterns.</p>
+                                <p>Per-module optimized instructions address specific failure modes. Bayesian search finds the best combination across all modules simultaneously. Final accuracy: 89%, an 18-point gain. Every instruction is traceable to observed execution patterns.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -380,7 +380,7 @@
                                     <p><strong>Bootstrap phase:</strong> Ran pipeline on 300 training examples. 204 correct, 96 incorrect. Analysis of failures: 41 had poor retrieval (wrong docs), 33 had correct docs but wrong answer, 22 had correct answer but wrong citations.<br><br>
                                     <strong>Instruction discovery (Query Generator):</strong> MIPRO proposed: &ldquo;Generate 3 search queries: one using the user&rsquo;s exact terminology, one using official documentation terms, and one that captures the underlying intent. This ensures retrieval works even when users use colloquial terms.&rdquo; This instruction was grounded in traces showing that user terminology often didn&rsquo;t match documentation vocabulary.<br><br>
                                     <strong>Instruction discovery (Answer Generator):</strong> MIPRO proposed: &ldquo;When citing documentation, include the section name and paragraph number. If the answer synthesizes information from multiple sections, list all sections and explain how they connect.&rdquo; Grounded in traces where citation failures involved answers pulling from multiple sources without attribution.<br><br>
-                                    <strong>Final result:</strong> Optimized pipeline scores 84% on held-out test &mdash; a 16-point improvement. Query retrieval failures dropped from 41 to 12. <em>Always verify AI-generated citations against source documentation.</em></p>
+                                    <strong>Final result:</strong> Optimized pipeline scores 84% on held-out test, a 16-point improvement. Query retrieval failures dropped from 41 to 12. <em>Always verify AI-generated citations against source documentation.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -405,7 +405,7 @@
                                     <p><strong>Key discovery from traces:</strong> The bootstrap revealed that the Hop Planner consistently generated good first sub-questions but failed on later hops because it didn&rsquo;t account for information already gathered. Sub-question 3 would often repeat what sub-question 1 already answered.<br><br>
                                     <strong>MIPRO&rsquo;s proposed instruction for Hop Planner:</strong> &ldquo;Before generating the next sub-question, review what has already been established by previous intermediate answers. Each new sub-question should build on prior findings and move closer to the final answer. Never ask for information that was already answered.&rdquo;<br><br>
                                     <strong>MIPRO&rsquo;s proposed instruction for Synthesizer:</strong> &ldquo;Combine the intermediate answers by tracing the logical chain from first hop to last. State the final answer, then show the reasoning path: [hop 1 finding] leads to [hop 2 finding] which establishes [final answer].&rdquo;<br><br>
-                                    <strong>Final result:</strong> 67% exact match &mdash; a 15-point improvement. Redundant sub-questions dropped from 34% to 8%. <em>Multi-hop reasoning should always be reviewed step-by-step for logical coherence.</em></p>
+                                    <strong>Final result:</strong> 67% exact match, a 15-point improvement. Redundant sub-questions dropped from 34% to 8%. <em>Multi-hop reasoning should always be reviewed step-by-step for logical coherence.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -430,7 +430,7 @@
                                     <p><strong>Trace analysis insight:</strong> MIPRO discovered that the Content Analyzer consistently missed distinguishing between &ldquo;Business&rdquo; and &ldquo;Technology&rdquo; articles when companies were involved. 80% of misclassifications were in these two categories.<br><br>
                                     <strong>MIPRO&rsquo;s proposed instruction for Content Analyzer:</strong> &ldquo;Identify whether the primary subject is a business event (earnings, merger, market movement, executive change) or a technology development (product launch, research breakthrough, engineering achievement). When a technology company is involved, focus on whether the article discusses the business aspects or the technology itself.&rdquo;<br><br>
                                     <strong>Bootstrapped demonstrations:</strong> MIPRO selected 4 demonstrations specifically targeting the Business/Technology confusion boundary, drawn from the gold traces where the pipeline correctly handled ambiguous cases.<br><br>
-                                    <strong>Final result:</strong> 88% weighted F1 with optimized instructions and selected demonstrations &mdash; a 12-point gain. Business/Technology confusion dropped from 80% of errors to 22%. <em>Classification systems should be regularly audited for category boundary accuracy.</em></p>
+                                    <strong>Final result:</strong> 88% weighted F1 with optimized instructions and selected demonstrations, a 12-point gain. Business/Technology confusion dropped from 80% of errors to 22%. <em>Classification systems should be regularly audited for category boundary accuracy.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -461,7 +461,7 @@
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                                 <div>
                                     <strong>When Manual Tuning Has Plateaued</strong>
-                                    <p>When you&rsquo;ve tried many prompt variations and can&rsquo;t improve further &mdash; MIPRO&rsquo;s data-grounded search explores instructions you wouldn&rsquo;t think to write.</p>
+                                    <p>When you&rsquo;ve tried many prompt variations and can&rsquo;t improve further, MIPRO&rsquo;s data-grounded search explores instructions you wouldn&rsquo;t think to write.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -475,7 +475,7 @@
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                                 <div>
                                     <strong>Diagnosing Pipeline Failures</strong>
-                                    <p>When you need to understand why your LLM program fails &mdash; MIPRO&rsquo;s trace analysis reveals specific failure modes and which module is responsible.</p>
+                                    <p>When you need to understand why your LLM program fails, MIPRO&rsquo;s trace analysis reveals specific failure modes and which module is responsible.</p>
                                 </div>
                             </div>
                         </div>
@@ -487,21 +487,21 @@
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
                                 <div>
                                     <strong>Single-Prompt Tasks</strong>
-                                    <p>When your application is a single LLM call &mdash; MIPRO&rsquo;s power comes from optimizing across multiple modules simultaneously.</p>
+                                    <p>When your application is a single LLM call, MIPRO&rsquo;s power comes from optimizing across multiple modules simultaneously.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
                                 <div>
                                     <strong>Very Limited Training Data</strong>
-                                    <p>When you have fewer than 50 labeled examples &mdash; MIPRO needs enough data to bootstrap meaningful traces and evaluate candidates.</p>
+                                    <p>When you have fewer than 50 labeled examples, MIPRO needs enough data to bootstrap meaningful traces and evaluate candidates.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
                                 <div>
                                     <strong>Rapid Prototyping Phase</strong>
-                                    <p>When your program&rsquo;s structure is still changing frequently &mdash; optimize after the architecture stabilizes, not during early experimentation.</p>
+                                    <p>When your program&rsquo;s structure is still changing frequently, optimize after the architecture stabilizes, not during early experimentation.</p>
                                 </div>
                             </div>
                         </div>
@@ -596,7 +596,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Beyond Human Intuition</div>
-                    <p>MIPRO consistently discovers instructions that humans wouldn&rsquo;t write &mdash; not because they&rsquo;re unnatural, but because they address failure modes that are invisible without trace analysis. When a human writes &ldquo;be accurate,&rdquo; MIPRO writes &ldquo;distinguish between business events and technology developments when companies are involved&rdquo; &mdash; because the traces showed that&rsquo;s where accuracy actually breaks down. This is the power of grounding instruction proposals in execution evidence rather than human intuition.</p>
+                    <p>MIPRO consistently discovers instructions that humans wouldn&rsquo;t write, not because they&rsquo;re unnatural, but because they address failure modes that are invisible without trace analysis. When a human writes &ldquo;be accurate,&rdquo; MIPRO writes &ldquo;distinguish between business events and technology developments when companies are involved&rdquo;, because the traces showed that&rsquo;s where accuracy actually breaks down. This is the power of grounding instruction proposals in execution evidence rather than human intuition.</p>
                 </div>
             </div>
         </section>
@@ -615,7 +615,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">DSPy</span>
-                        <span class="evolution-callout__desc">MIPRO is DSPy&rsquo;s most powerful optimizer &mdash; it operates within DSPy&rsquo;s programming model of signatures, modules, and compiled pipelines.</span>
+                        <span class="evolution-callout__desc">MIPRO is DSPy&rsquo;s most powerful optimizer, it operates within DSPy&rsquo;s programming model of signatures, modules, and compiled pipelines.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -629,7 +629,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Agentic Prompting</span>
-                        <span class="evolution-callout__desc">MIPRO can optimize instructions for each module within agentic systems &mdash; planning prompts, tool selection prompts, and reflection prompts all benefit.</span>
+                        <span class="evolution-callout__desc">MIPRO can optimize instructions for each module within agentic systems, planning prompts, tool selection prompts, and reflection prompts all benefit.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -643,7 +643,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Precursor</span>
                         <span class="evolution-callout__title">Active Prompting</span>
-                        <span class="evolution-callout__desc">Active Prompting selects the most informative examples for annotation &mdash; a precursor to MIPRO&rsquo;s trace-based approach of using execution data to guide optimization.</span>
+                        <span class="evolution-callout__desc">Active Prompting selects the most informative examples for annotation, a precursor to MIPRO&rsquo;s trace-based approach of using execution data to guide optimization.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -714,7 +714,7 @@
         </div>
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
         <div class="footer-policies">
             <a href="../pages/responsible-ai.html">Responsible AI</a>

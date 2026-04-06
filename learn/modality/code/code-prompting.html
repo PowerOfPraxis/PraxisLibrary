@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">Code Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">Code Prompting</h1>
-                <p class="page-subtitle fade-in">The discipline of translating programming intent into precise AI instructions &mdash; specifying language, constraints, edge cases, and expected behavior so that generated code is production-ready rather than a rough draft that needs rewriting.</p>
+                <p class="page-subtitle fade-in">The discipline of translating programming intent into precise AI instructions, specifying language, constraints, edge cases, and expected behavior so that generated code is production-ready rather than a rough draft that needs rewriting.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -212,8 +212,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2021&ndash;2024</span>
-                        <p><strong>Background:</strong> Code generation prompting emerged as a distinct discipline with OpenAI&rsquo;s Codex (2021) and GitHub Copilot. While early large language models could produce code from natural language descriptions, research at institutions including Stanford, MIT, and Carnegie Mellon demonstrated that specific prompting strategies &mdash; specifying language, constraints, edge cases, and expected output formats &mdash; dramatically improved code quality and reduced bugs. The HumanEval and MBPP benchmarks established standard evaluation frameworks, and by 2023 the field had matured into a recognized engineering practice with its own best practices and failure modes.</p>
-                        <p><strong>Modern LLM Status:</strong> By 2025&ndash;2026, code-capable models like GPT-4, Claude, and Gemini achieve near-human performance on many coding benchmarks. However, <strong>effective prompting remains the critical differentiator between useful code and code that needs extensive reworking</strong>. Research consistently shows that specifying context, requirements, and constraints produces measurably better code than vague instructions, even with the most capable models. The gap between a good code prompt and a vague one is the difference between a production-ready function and a generic snippet that handles none of your actual requirements.</p>
+                        <p><strong>Background:</strong> Code generation prompting emerged as a distinct discipline with OpenAI&rsquo;s Codex (2021) and GitHub Copilot. While early large language models could produce code from natural language descriptions, research at institutions including Stanford, MIT, and Carnegie Mellon demonstrated that specific prompting strategies, specifying language, constraints, edge cases, and expected output formats, dramatically improved code quality and reduced bugs. The HumanEval and MBPP benchmarks established standard evaluation frameworks, and by 2023 the field had matured into a recognized engineering practice with its own best practices and failure modes.</p>
+                        <p><strong>Modern LLM Status:</strong> By 2025&ndash;2026, code-capable models like ChatGPT, Claude, and Gemini achieve near-human performance on many coding benchmarks. However, <strong>effective prompting remains the critical differentiator between useful code and code that needs extensive reworking</strong>. Research consistently shows that specifying context, requirements, and constraints produces measurably better code than vague instructions, even with the most capable models. The gap between a good code prompt and a vague one is the difference between a production-ready function and a generic snippet that handles none of your actual requirements.</p>
                     </div>
                 </div>
             </div>
@@ -227,9 +227,9 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Every Ambiguity in Your Prompt Becomes an Assumption in Your Code</h2>
-                        <p class="split-section__text">Code prompting is fundamentally different from general text prompting because programming demands a level of precision where a single character can change behavior entirely. A misplaced bracket, an off-by-one loop bound, or an unhandled null value can crash an application or silently corrupt data. When you prompt an AI to generate code, every detail you leave unspecified becomes a decision the model makes on its own &mdash; and those implicit decisions are where bugs hide.</p>
+                        <p class="split-section__text">Code prompting is fundamentally different from general text prompting because programming demands a level of precision where a single character can change behavior entirely. A misplaced bracket, an off-by-one loop bound, or an unhandled null value can crash an application or silently corrupt data. When you prompt an AI to generate code, every detail you leave unspecified becomes a decision the model makes on its own, and those implicit decisions are where bugs hide.</p>
                         <p class="split-section__text"><strong>The core discipline of code prompting is eliminating ambiguity before generation begins.</strong> This means specifying four dimensions for every code request: (1) the exact task and its boundaries, (2) the technical environment and constraints, (3) the requirements including edge cases and error handling, and (4) concrete input/output examples that demonstrate expected behavior. When all four dimensions are covered, the model operates within a well-defined solution space rather than guessing at your intent.</p>
-                        <p class="split-section__text">Think of it like the difference between telling an architect &ldquo;build me a house&rdquo; versus providing blueprints with room dimensions, materials, electrical plans, and plumbing specifications. The architect can build something from either instruction &mdash; but only the second will match what you actually need.</p>
+                        <p class="split-section__text">Think of it like the difference between telling an architect &ldquo;build me a house&rdquo; versus providing blueprints with room dimensions, materials, electrical plans, and plumbing specifications. The architect can build something from either instruction, but only the second will match what you actually need.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
@@ -257,7 +257,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Define the Task Precisely</h3>
-                            <p class="element-timeline__text">Start with an unambiguous description of what the code should do. State the function name, what inputs it accepts, what output it produces, and the transformation between them. The more specific your task definition, the less the model needs to guess &mdash; and guessing is where most code generation failures originate.</p>
+                            <p class="element-timeline__text">Start with an unambiguous description of what the code should do. State the function name, what inputs it accepts, what output it produces, and the transformation between them. The more specific your task definition, the less the model needs to guess, and guessing is where most code generation failures originate.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Write a function called <code>calculate_shipping_cost</code> that takes an order weight in kilograms (float), a destination country code (string, ISO 3166-1 alpha-2), and a boolean for expedited shipping. Return the total shipping cost as a float rounded to two decimal places.&rdquo;</p>
@@ -271,7 +271,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Specify the Technical Context</h3>
-                            <p class="element-timeline__text">Provide the programming language and version, the framework or library ecosystem, and any environmental constraints. Without this context, the model defaults to its most common training patterns &mdash; which may be a different language version, an outdated API, or an incompatible framework. Include dependencies, import conventions, and any project-specific patterns the code must follow.</p>
+                            <p class="element-timeline__text">Provide the programming language and version, the framework or library ecosystem, and any environmental constraints. Without this context, the model defaults to its most common training patterns, which may be a different language version, an outdated API, or an incompatible framework. Include dependencies, import conventions, and any project-specific patterns the code must follow.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Use Python 3.11 with type hints. This function is part of a FastAPI application using Pydantic models. Import the <code>ShippingRate</code> model from <code>app.models.shipping</code>. Follow our project convention of raising <code>HTTPException</code> for validation errors.&rdquo;</p>
@@ -285,7 +285,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">List Requirements and Edge Cases</h3>
-                            <p class="element-timeline__text">Explicitly enumerate every requirement the model should satisfy, including error handling behavior, edge cases, performance constraints, and coding standards. Models do not anticipate edge cases you do not mention &mdash; if you want null handling, boundary checking, or timeout logic, you must ask for it. The requirements list is your contract with the model: anything not specified is left to its discretion.</p>
+                            <p class="element-timeline__text">Explicitly enumerate every requirement the model should satisfy, including error handling behavior, edge cases, performance constraints, and coding standards. Models do not anticipate edge cases you do not mention, if you want null handling, boundary checking, or timeout logic, you must ask for it. The requirements list is your contract with the model: anything not specified is left to its discretion.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Requirements: (1) Validate that weight is positive and under 70kg. (2) Raise ValueError for unsupported country codes. (3) Apply 2.5x multiplier for expedited shipping. (4) Return 0.0 for orders qualifying for free shipping (over 50kg to domestic destinations). (5) Include a docstring with parameter descriptions and return type.&rdquo;</p>
@@ -299,7 +299,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Provide Input/Output Examples</h3>
-                            <p class="element-timeline__text">Concrete examples of expected behavior eliminate remaining ambiguity. Show the model what correct output looks like for normal cases, boundary cases, and error cases. Examples serve as implicit test cases &mdash; the model will try to produce code that satisfies them, and you can verify that the generated code actually does. This is the single most effective technique for reducing code generation errors.</p>
+                            <p class="element-timeline__text">Concrete examples of expected behavior eliminate remaining ambiguity. Show the model what correct output looks like for normal cases, boundary cases, and error cases. Examples serve as implicit test cases, the model will try to produce code that satisfies them, and you can verify that the generated code actually does. This is the single most effective technique for reducing code generation errors.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Expected behavior: <code>calculate_shipping_cost(5.0, &rsquo;US&rsquo;, False)</code> returns <code>12.50</code>. <code>calculate_shipping_cost(5.0, &rsquo;US&rsquo;, True)</code> returns <code>31.25</code>. <code>calculate_shipping_cost(-1.0, &rsquo;US&rsquo;, False)</code> raises <code>ValueError</code>. <code>calculate_shipping_cost(55.0, &rsquo;US&rsquo;, False)</code> returns <code>0.0</code> (free shipping).&rdquo;</p>
@@ -335,7 +335,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Result</span>
-                                <p>Ambiguous language, unknown data types, no edge case handling, no type hints, no documentation. The model must guess every detail &mdash; programming language, sort direction, element types, stability requirements, what happens with empty input &mdash; producing generic code that likely will not fit your actual requirements.</p>
+                                <p>Ambiguous language, unknown data types, no edge case handling, no type hints, no documentation. The model must guess every detail, programming language, sort direction, element types, stability requirements, what happens with empty input, producing generic code that likely will not fit your actual requirements.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -343,7 +343,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Underspecified &mdash; the model fills gaps with assumptions</span>
+                            <span>Underspecified, the model fills gaps with assumptions</span>
                         </div>
                     </div>
 
@@ -375,7 +375,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Fully specified &mdash; constraints eliminate guesswork</span>
+                            <span>Fully specified, constraints eliminate guesswork</span>
                         </div>
                     </div>
                 </div>
@@ -484,7 +484,7 @@
                                 </svg>
                                 <div>
                                     <strong>Code Generation from Specifications</strong>
-                                    <p>Translating detailed requirements into working functions, classes, and modules. The more constraints you provide &mdash; types, boundaries, error conditions &mdash; the closer the output matches production-ready code.</p>
+                                    <p>Translating detailed requirements into working functions, classes, and modules. The more constraints you provide, types, boundaries, error conditions, the closer the output matches production-ready code.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -702,7 +702,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Extension</span>
                         <span class="evolution-callout__title">Self-Debugging</span>
-                        <span class="evolution-callout__desc">When generated code has bugs, Self-Debugging feeds error messages and test failures back to the model for iterative repair &mdash; closing the loop between generation and correction.</span>
+                        <span class="evolution-callout__desc">When generated code has bugs, Self-Debugging feeds error messages and test failures back to the model for iterative repair, closing the loop between generation and correction.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -721,7 +721,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Specialization</span>
                         <span class="evolution-callout__title">Structured Output</span>
-                        <span class="evolution-callout__desc">Focuses specifically on generating reliable JSON, XML, YAML, and other machine-readable data formats &mdash; the data-format specialization of code prompting techniques.</span>
+                        <span class="evolution-callout__desc">Focuses specifically on generating reliable JSON, XML, YAML, and other machine-readable data formats, the data-format specialization of code prompting techniques.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -740,7 +740,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Program of Thought</span>
-                        <span class="evolution-callout__desc">Uses code generation as a reasoning strategy &mdash; the model writes and conceptually executes code to solve problems, bridging code prompting with chain-of-thought reasoning.</span>
+                        <span class="evolution-callout__desc">Uses code generation as a reasoning strategy, the model writes and conceptually executes code to solve problems, bridging code prompting with chain-of-thought reasoning.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -817,7 +817,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

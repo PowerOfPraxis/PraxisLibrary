@@ -202,7 +202,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p>Decomposed Prompting was introduced by Tushar Khot et al. at Carnegie Mellon and the Allen Institute for AI. The paper demonstrated that complex tasks benefit from decomposition into sub-tasks, each handled by a purpose-built sub-procedure&mdash;whether that&rsquo;s an LLM prompt, a retrieval function, or a code executor. This insight became a foundational pattern in modern agentic AI systems like LangChain, AutoGen, and CrewAI.</p>
+                        <p>Decomposed Prompting was introduced by Tushar Khot et al. at Carnegie Mellon and the Allen Institute for AI. The paper demonstrated that complex tasks benefit from decomposition into sub-tasks, each handled by a purpose-built sub-procedure, whether that&rsquo;s an LLM prompt, a retrieval function, or a code executor. This insight became a foundational pattern in modern agentic AI systems like LangChain, AutoGen, and CrewAI.</p>
                     </div>
                 </div>
             </div>
@@ -217,7 +217,7 @@
                         <span class="section-eyebrow">The Concept</span>
                         <h2 class="section-title">Not All Sub-Problems Are Created Equal</h2>
                         <div class="split-section__badge">The Core Insight</div>
-                        <p class="section-intro">Think of a hospital emergency room. A patient arrives with multiple symptoms&mdash;the triage nurse doesn&rsquo;t try to treat everything herself. She routes the broken arm to orthopedics, the allergic reaction to immunology, and the paperwork to administration. Each specialist uses different tools and expertise.</p>
+                        <p class="section-intro">Think of a hospital emergency room. A patient arrives with multiple symptoms, the triage nurse doesn&rsquo;t try to treat everything herself. She routes the broken arm to orthopedics, the allergic reaction to immunology, and the paperwork to administration. Each specialist uses different tools and expertise.</p>
                         <p>Decomposed Prompting works the same way. Instead of forcing a single LLM prompt to handle an entire complex task, DecomP breaks it into sub-tasks and assigns each one to the most appropriate handler. Some sub-tasks need factual retrieval, others need mathematical calculation, others need multi-step reasoning, and others need code execution.</p>
                     </div>
                     <div class="split-section__media">
@@ -225,7 +225,7 @@
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Beyond Simple Decomposition</span>
                                 <p><strong>Least-to-Most</strong> decomposes a problem and solves sub-tasks sequentially, always using the same LLM approach for every step.</p>
-                                <p><strong>DecomP</strong> goes further: each sub-task is routed to a <em>specialized handler</em>&mdash;one might use retrieval, another might use code execution, another might use a different prompt template entirely.</p>
+                                <p><strong>DecomP</strong> goes further: each sub-task is routed to a <em>specialized handler</em>, one might use retrieval, another might use code execution, another might use a different prompt template entirely.</p>
                             </div>
                         </div>
                     </div>
@@ -250,7 +250,7 @@
                             </svg>
                         </div>
                         <h3 class="pillar-card__title">Specialization</h3>
-                        <p class="pillar-card__text">Each sub-prompt handles one specific task using the most appropriate tool or strategy. A retrieval handler fetches facts, a calculator crunches numbers, and a reasoning prompt draws conclusions &mdash; each operating in its zone of strength.</p>
+                        <p class="pillar-card__text">Each sub-prompt handles one specific task using the most appropriate tool or strategy. A retrieval handler fetches facts, a calculator crunches numbers, and a reasoning prompt draws conclusions, each operating in its zone of strength.</p>
                     </div>
                     <div class="pillar-card fade-in-up">
                         <div class="pillar-card__icon">
@@ -262,7 +262,7 @@
                             </svg>
                         </div>
                         <h3 class="pillar-card__title">Modularity</h3>
-                        <p class="pillar-card__text">Sub-procedures are self-contained components that can be mixed, matched, and reused across different tasks. Swap out a retrieval handler for a code executor without changing the rest of the pipeline &mdash; each module has a clean interface.</p>
+                        <p class="pillar-card__text">Sub-procedures are self-contained components that can be mixed, matched, and reused across different tasks. Swap out a retrieval handler for a code executor without changing the rest of the pipeline, each module has a clean interface.</p>
                     </div>
                     <div class="pillar-card fade-in-up">
                         <div class="pillar-card__icon">
@@ -294,7 +294,7 @@
                         <div class="element-timeline__number">1</div>
                         <div class="element-timeline__content">
                             <h3>Analyze the Task</h3>
-                            <p>Examine the question to identify its composite nature. This question requires biographical facts, geographic knowledge, historical economic data, and temporal reasoning&mdash;no single prompt can handle all of these reliably.</p>
+                            <p>Examine the question to identify its composite nature. This question requires biographical facts, geographic knowledge, historical economic data, and temporal reasoning, no single prompt can handle all of these reliably.</p>
                         </div>
                     </div>
                     <div class="element-timeline__item">
@@ -315,7 +315,7 @@
                         <div class="element-timeline__number">4</div>
                         <div class="element-timeline__content">
                             <h3>Execute Sub-Procedures</h3>
-                            <p>Run each handler: (a) Alexander Graham Bell. (b) Edinburgh, Scotland&mdash;part of the United Kingdom. (c) Died in 1922. (d) UK GDP in 1922 was approximately &pound;5.5 billion (nominal).</p>
+                            <p>Run each handler: (a) Alexander Graham Bell. (b) Edinburgh, Scotland, part of the United Kingdom. (c) Died in 1922. (d) UK GDP in 1922 was approximately &pound;5.5 billion (nominal).</p>
                         </div>
                     </div>
                     <div class="element-timeline__item">
@@ -474,7 +474,7 @@
                                     <span class="technique-demo__tag">DecomP Execution</span>
                                     <p><strong>Sub-task 1 (Log Analysis):</strong> Parse error logs &rarr; Errors correlate with high-traffic windows, stack traces point to connection pool exhaustion</p>
                                     <p><strong>Sub-task 2 (Code Review):</strong> Examine connection management code &rarr; Pool max set to 10, no timeout configured</p>
-                                    <p><strong>Sub-task 3 (Reasoning):</strong> Correlate findings&mdash;pool too small, leaked connections not reclaimed &rarr; Root cause: pool exhaustion under load</p>
+                                    <p><strong>Sub-task 3 (Reasoning):</strong> Correlate findings, pool too small, leaked connections not reclaimed &rarr; Root cause: pool exhaustion under load</p>
                                     <p><strong>Sub-task 4 (Retrieval):</strong> Look up best practices for pool configuration &rarr; Recommended pool size formula, timeout settings</p>
                                     <p><strong>Integration:</strong> &ldquo;Root cause: connection pool exhaustion. Increase pool to 50, add 30s idle timeout, implement health checks, add monitoring.&rdquo;</p>
                                 </div>
@@ -498,18 +498,18 @@
                     <div class="split-section__content">
                         <h3>Perfect For</h3>
                         <ul class="feature-list feature-list--positive">
-                            <li><strong>Multi-Tool Workflows</strong> &mdash; Tasks requiring different capabilities: retrieval, calculation, code execution, and reasoning working together.</li>
-                            <li><strong>Multi-Hop Reasoning</strong> &mdash; Questions where the answer to one sub-question feeds into the next, and each hop may need a different solving strategy.</li>
-                            <li><strong>Agent Architecture Design</strong> &mdash; Building AI systems where specialized modules handle different responsibilities, following the DecomP pattern at a systems level.</li>
-                            <li><strong>Accuracy-Critical Tasks</strong> &mdash; Scenarios where you cannot afford hallucinated facts&mdash;decomposition lets you verify each sub-answer independently.</li>
+                            <li><strong>Multi-Tool Workflows</strong>, Tasks requiring different capabilities: retrieval, calculation, code execution, and reasoning working together.</li>
+                            <li><strong>Multi-Hop Reasoning</strong>, Questions where the answer to one sub-question feeds into the next, and each hop may need a different solving strategy.</li>
+                            <li><strong>Agent Architecture Design</strong>, Building AI systems where specialized modules handle different responsibilities, following the DecomP pattern at a systems level.</li>
+                            <li><strong>Accuracy-Critical Tasks</strong>, Scenarios where you cannot afford hallucinated facts, decomposition lets you verify each sub-answer independently.</li>
                         </ul>
                     </div>
                     <div class="split-section__media">
                         <h3>Skip It When</h3>
                         <ul class="feature-list feature-list--neutral">
-                            <li><strong>Simple, Single-Step Tasks</strong> &mdash; If the question can be answered directly without decomposition, DecomP adds unnecessary overhead.</li>
-                            <li><strong>Latency-Sensitive Applications</strong> &mdash; Each sub-procedure adds a round-trip. If speed matters more than accuracy, a single well-crafted prompt may be preferable.</li>
-                            <li><strong>No Specialized Tools Available</strong> &mdash; DecomP&rsquo;s power comes from routing to different handlers. If every sub-task would use the same generic LLM call, Least-to-Most may be simpler.</li>
+                            <li><strong>Simple, Single-Step Tasks</strong>, If the question can be answered directly without decomposition, DecomP adds unnecessary overhead.</li>
+                            <li><strong>Latency-Sensitive Applications</strong>, Each sub-procedure adds a round-trip. If speed matters more than accuracy, a single well-crafted prompt may be preferable.</li>
+                            <li><strong>No Specialized Tools Available</strong>, DecomP&rsquo;s power comes from routing to different handlers. If every sub-task would use the same generic LLM call, Least-to-Most may be simpler.</li>
                         </ul>
                     </div>
                 </div>
@@ -533,7 +533,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Research Automation</h3>
-                        <p class="use-case-showcase__text">Decompose literature reviews into search, filtering, extraction, and synthesis sub-tasks. Each phase uses the right tool&mdash;search APIs for discovery, NLP for extraction, LLMs for synthesis.</p>
+                        <p class="use-case-showcase__text">Decompose literature reviews into search, filtering, extraction, and synthesis sub-tasks. Each phase uses the right tool, search APIs for discovery, NLP for extraction, LLMs for synthesis.</p>
                     </div>
                     <div class="use-case-showcase__item">
                         <div class="use-case-showcase__icon">
@@ -542,7 +542,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Software Engineering</h3>
-                        <p class="use-case-showcase__text">Break feature requests into requirements analysis, architecture design, code generation, testing, and review&mdash;each handled by a specialized agent or tool.</p>
+                        <p class="use-case-showcase__text">Break feature requests into requirements analysis, architecture design, code generation, testing, and review, each handled by a specialized agent or tool.</p>
                     </div>
                     <div class="use-case-showcase__item">
                         <div class="use-case-showcase__icon">
@@ -560,7 +560,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Medical Diagnostics</h3>
-                        <p class="use-case-showcase__text">Decompose diagnostic reasoning into symptom extraction, differential diagnosis generation, evidence retrieval from medical literature, and treatment recommendation&mdash;each with appropriate safeguards.</p>
+                        <p class="use-case-showcase__text">Decompose diagnostic reasoning into symptom extraction, differential diagnosis generation, evidence retrieval from medical literature, and treatment recommendation, each with appropriate safeguards.</p>
                     </div>
                     <div class="use-case-showcase__item">
                         <div class="use-case-showcase__icon">
@@ -569,7 +569,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Legal Due Diligence</h3>
-                        <p class="use-case-showcase__text">Split contract review into clause extraction, risk identification, precedent search, and compliance checking&mdash;with document retrieval handling the knowledge-intensive parts.</p>
+                        <p class="use-case-showcase__text">Split contract review into clause extraction, risk identification, precedent search, and compliance checking, with document retrieval handling the knowledge-intensive parts.</p>
                     </div>
                     <div class="use-case-showcase__item">
                         <div class="use-case-showcase__icon">
@@ -578,7 +578,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Customer Support Agents</h3>
-                        <p class="use-case-showcase__text">Decompose support tickets into intent classification, account lookup, knowledge base search, and response generation&mdash;each sub-task optimized for speed and accuracy.</p>
+                        <p class="use-case-showcase__text">Decompose support tickets into intent classification, account lookup, knowledge base search, and response generation, each sub-task optimized for speed and accuracy.</p>
                     </div>
                 </div>
             </div>
@@ -619,7 +619,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Agentic Connection</div>
-                    <p>DecomP's core idea — breaking tasks into sub-procedures with specialized handlers — is exactly the architecture used by modern AI agent frameworks. When LangChain chains together tools, when AutoGen coordinates specialist agents, or when CrewAI assigns roles to team members, they are implementing the DecomP pattern at scale.</p>
+                    <p>DecomP's core idea, breaking tasks into sub-procedures with specialized handlers, is exactly the architecture used by modern AI agent frameworks. When LangChain chains together tools, when AutoGen coordinates specialist agents, or when CrewAI assigns roles to team members, they are implementing the DecomP pattern at scale.</p>
                 </div>
             </div>
         </section>
@@ -643,7 +643,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Predecessor</span>
                         <span class="evolution-callout__title">Least-to-Most</span>
-                        <span class="evolution-callout__desc">Sequential sub-problem solving with a single LLM handler — DecomP extends this by routing to specialized tools.</span>
+                        <span class="evolution-callout__desc">Sequential sub-problem solving with a single LLM handler, DecomP extends this by routing to specialized tools.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -663,7 +663,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Sibling</span>
                         <span class="evolution-callout__title">Self-Ask</span>
-                        <span class="evolution-callout__desc">Generates and answers follow-up sub-questions — shares DecomP's multi-hop spirit but focuses on question generation.</span>
+                        <span class="evolution-callout__desc">Generates and answers follow-up sub-questions, shares DecomP's multi-hop spirit but focuses on question generation.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -682,7 +682,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Program of Thought</span>
-                        <span class="evolution-callout__desc">Takes DecomP's code execution sub-procedure and makes it the primary reasoning medium — generates executable programs as steps.</span>
+                        <span class="evolution-callout__desc">Takes DecomP's code execution sub-procedure and makes it the primary reasoning medium, generates executable programs as steps.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -760,7 +760,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

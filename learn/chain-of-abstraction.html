@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Reasoning &amp; CoT Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Chain of Abstraction (CoA)</h1>
-                <p class="page-subtitle fade-in">What if reasoning could be separated from fact-finding? Chain of Abstraction reasons with abstract placeholders &mdash; [POPULATION_OF_FRANCE] instead of the actual number &mdash; then fills in concrete values using knowledge tools. This produces cleaner reasoning chains and enables parallel tool execution.</p>
+                <p class="page-subtitle fade-in">What if reasoning could be separated from fact-finding? Chain of Abstraction reasons with abstract placeholders, [POPULATION_OF_FRANCE] instead of the actual number, then fills in concrete values using knowledge tools. This produces cleaner reasoning chains and enables parallel tool execution.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2024</span>
-                        <p><strong>Introduced:</strong> Chain of Abstraction was introduced in 2024 by Gao et al. It addresses a key limitation of reasoning techniques that interleave thinking with knowledge retrieval: the retrieval step disrupts the reasoning flow and forces sequential execution. CoA separates these concerns completely. The model first produces an abstract reasoning chain using placeholders for any facts it needs to look up. Then a separate step fills in all placeholders using domain-specific tools &mdash; APIs, databases, calculators &mdash; potentially in parallel. This produces cleaner reasoning and faster execution.</p>
-                        <p><strong>Modern LLM Status:</strong> CoA is highly relevant to modern agentic AI systems where models use external tools. Traditional approaches (like ReAct) interleave reasoning and tool use, creating sequential bottlenecks. CoA&rsquo;s abstraction-first approach enables batch tool calling &mdash; retrieving all needed facts simultaneously. This pattern is being adopted in production systems where latency matters, particularly in multi-tool workflows where the reasoning structure can be determined before any tools are called.</p>
+                        <p><strong>Introduced:</strong> Chain of Abstraction was introduced in 2024 by Gao et al. It addresses a key limitation of reasoning techniques that interleave thinking with knowledge retrieval: the retrieval step disrupts the reasoning flow and forces sequential execution. CoA separates these concerns completely. The model first produces an abstract reasoning chain using placeholders for any facts it needs to look up. Then a separate step fills in all placeholders using domain-specific tools, APIs, databases, calculators, potentially in parallel. This produces cleaner reasoning and faster execution.</p>
+                        <p><strong>Modern LLM Status:</strong> CoA is highly relevant to modern agentic AI systems where models use external tools. Traditional approaches (like ReAct) interleave reasoning and tool use, creating sequential bottlenecks. CoA&rsquo;s abstraction-first approach enables batch tool calling, retrieving all needed facts simultaneously. This pattern is being adopted in production systems where latency matters, particularly in multi-tool workflows where the reasoning structure can be determined before any tools are called.</p>
                     </div>
                 </div>
             </div>
@@ -215,7 +215,7 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Separate Reasoning from Retrieval</h2>
-                        <p class="split-section__text">When reasoning interleaves with fact retrieval, two problems emerge. First, the retrieval disrupts the reasoning flow &mdash; the model loses its logical thread while waiting for data. Second, each retrieval must happen sequentially because you don&rsquo;t know what you need to look up until you&rsquo;ve reasoned that far.</p>
+                        <p class="split-section__text">When reasoning interleaves with fact retrieval, two problems emerge. First, the retrieval disrupts the reasoning flow, the model loses its logical thread while waiting for data. Second, each retrieval must happen sequentially because you don&rsquo;t know what you need to look up until you&rsquo;ve reasoned that far.</p>
                         <p class="split-section__text"><strong>Chain of Abstraction solves both problems by splitting reasoning into two phases.</strong> Phase 1: reason entirely with placeholders, producing a complete abstract reasoning chain. Phase 2: fill in all placeholders by calling the appropriate tools, potentially in parallel since all information needs are known upfront.</p>
                         <p class="split-section__text">This separation of concerns means the model&rsquo;s logical reasoning is never interrupted by data fetching, and all external lookups can happen simultaneously rather than one at a time.</p>
                     </div>
@@ -245,10 +245,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Analyze the Problem</h3>
-                            <p class="element-timeline__text">Identify the reasoning structure and what facts or values will be needed. Don&rsquo;t look up any facts yet &mdash; just note where they&rsquo;ll be needed in the reasoning chain.</p>
+                            <p class="element-timeline__text">Identify the reasoning structure and what facts or values will be needed. Don&rsquo;t look up any facts yet, just note where they&rsquo;ll be needed in the reasoning chain.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Compare France&rsquo;s GDP to Germany&rsquo;s GDP and determine if the difference is significant.&rdquo; &mdash; Two values needed: GDP of France and GDP of Germany.</p>
+                                <p>&ldquo;Compare France&rsquo;s GDP to Germany&rsquo;s GDP and determine if the difference is significant.&rdquo;, Two values needed: GDP of France and GDP of Germany.</p>
                             </div>
                         </div>
                     </div>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Parallel Concretization</h3>
-                            <p class="element-timeline__text">Call all tools simultaneously to fill in the placeholders. Since the reasoning is already complete, there are no sequential dependencies between lookups &mdash; every retrieval can happen at the same time.</p>
+                            <p class="element-timeline__text">Call all tools simultaneously to fill in the placeholders. Since the reasoning is already complete, there are no sequential dependencies between lookups, every retrieval can happen at the same time.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Parallel calls return: [GDP_FRANCE] = $3.0T, [GDP_GERMANY] = $4.4T. Both values arrive at once rather than waiting for one before requesting the next.</p>
@@ -301,10 +301,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Synthesize Final Answer</h3>
-                            <p class="element-timeline__text">Replace all placeholders with their concrete values and produce the final answer. Verify that the concrete values don&rsquo;t change the reasoning logic &mdash; if assumptions are violated, flag them.</p>
+                            <p class="element-timeline__text">Replace all placeholders with their concrete values and produce the final answer. Verify that the concrete values don&rsquo;t change the reasoning logic, if assumptions are violated, flag them.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;$3.0T / $4.4T = 0.68. Since 0.68 &lt; 0.75, France&rsquo;s GDP is significantly smaller than Germany&rsquo;s.&rdquo; &mdash; The abstract logic holds with concrete values.</p>
+                                <p>&ldquo;$3.0T / $4.4T = 0.68. Since 0.68 &lt; 0.75, France&rsquo;s GDP is significantly smaller than Germany&rsquo;s.&rdquo;, The abstract logic holds with concrete values.</p>
                             </div>
                         </div>
                     </div>
@@ -345,7 +345,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Sequential &mdash; each lookup blocks the next reasoning step</span>
+                            <span>Sequential, each lookup blocks the next reasoning step</span>
                         </div>
                     </div>
 
@@ -517,7 +517,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Tool Workflows</strong>
-                                    <p>Workflows requiring several external lookups &mdash; APIs, databases, calculators &mdash; where all information needs can be identified before any retrieval begins.</p>
+                                    <p>Workflows requiring several external lookups, APIs, databases, calculators, where all information needs can be identified before any retrieval begins.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -537,7 +537,7 @@
                                 </svg>
                                 <div>
                                     <strong>Complex Reasoning with Retrieval</strong>
-                                    <p>Tasks where interleaving retrieval disrupts the logical flow &mdash; CoA keeps reasoning coherent by deferring all lookups to a separate phase.</p>
+                                    <p>Tasks where interleaving retrieval disrupts the logical flow, CoA keeps reasoning coherent by deferring all lookups to a separate phase.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -562,7 +562,7 @@
                                 </svg>
                                 <div>
                                     <strong>Internal Knowledge Suffices</strong>
-                                    <p>When the model has all needed knowledge internally and no external tool calls are required &mdash; abstraction adds overhead without benefit.</p>
+                                    <p>When the model has all needed knowledge internally and no external tool calls are required, abstraction adds overhead without benefit.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -572,7 +572,7 @@
                                 </svg>
                                 <div>
                                     <strong>Sequential Dependencies</strong>
-                                    <p>When the reasoning depends on intermediate lookup results &mdash; each step needs the previous answer before knowing what to look up next.</p>
+                                    <p>When the reasoning depends on intermediate lookup results, each step needs the previous answer before knowing what to look up next.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -582,7 +582,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Single-Lookup Questions</strong>
-                                    <p>Questions requiring only one external lookup or no tool use at all &mdash; the abstraction layer adds unnecessary complexity.</p>
+                                    <p>Questions requiring only one external lookup or no tool use at all, the abstraction layer adds unnecessary complexity.</p>
                                 </div>
                             </div>
                         </div>
@@ -608,7 +608,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Multi-API Orchestration</h3>
-                        <p class="use-case-showcase__desc">Plan the complete API call strategy abstractly, then execute all calls in parallel &mdash; reducing total latency from sum-of-all to max-of-all.</p>
+                        <p class="use-case-showcase__desc">Plan the complete API call strategy abstractly, then execute all calls in parallel, reducing total latency from sum-of-all to max-of-all.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -843,7 +843,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

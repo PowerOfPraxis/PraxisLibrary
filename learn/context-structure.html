@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Context Optimization</span>
                 </div>
                 <h1 class="page-title fade-in">Context Structure</h1>
-                <p class="page-subtitle fade-in">The same information arranged differently can produce dramatically different results. Context Structure is the discipline of organizing, ordering, and delimiting the information you feed to a language model &mdash; turning a raw pile of facts into a coherent briefing the model can actually use.</p>
+                <p class="page-subtitle fade-in">The same information arranged differently can produce dramatically different results. Context Structure is the discipline of organizing, ordering, and delimiting the information you feed to a language model, turning a raw pile of facts into a coherent briefing the model can actually use.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> Research into how context organization affects LLM performance gained momentum in 2023, driven by work from multiple research groups including Liu et al.&rsquo;s influential &ldquo;Lost in the Middle&rdquo; paper. As context windows expanded from 4K to 100K+ tokens, it became clear that simply dumping more information into a prompt was not enough &mdash; the <strong>structure and ordering</strong> of that information mattered as much as its content. Researchers demonstrated that models disproportionately attend to information at the beginning and end of their context, often neglecting material buried in the middle.</p>
-                        <p><strong>Modern LLM Status:</strong> While newer models like Claude, GPT-4, and Gemini have improved their ability to attend to information across long contexts, the fundamental principles of Context Structure remain <strong>highly relevant in practice</strong>. Well-organized prompts with clear delimiters, logical ordering, and explicit section headers consistently outperform unstructured information dumps &mdash; especially as prompts grow longer or incorporate multiple sources. Context Structure is not a single paper&rsquo;s technique but a convergent set of best practices drawn from retrieval-augmented generation (RAG), prompt engineering research, and production LLM system design.</p>
+                        <p><strong>Introduced:</strong> Research into how context organization affects LLM performance gained momentum in 2023, driven by work from multiple research groups including Liu et al.&rsquo;s influential &ldquo;Lost in the Middle&rdquo; paper. As context windows expanded from 4K to 100K+ tokens, it became clear that simply dumping more information into a prompt was not enough, the <strong>structure and ordering</strong> of that information mattered as much as its content. Researchers demonstrated that models disproportionately attend to information at the beginning and end of their context, often neglecting material buried in the middle.</p>
+                        <p><strong>Modern LLM Status:</strong> While newer models like Claude, ChatGPT, and Gemini have improved their ability to attend to information across long contexts, the fundamental principles of Context Structure remain <strong>highly relevant in practice</strong>. Well-organized prompts with clear delimiters, logical ordering, and explicit section headers consistently outperform unstructured information dumps, especially as prompts grow longer or incorporate multiple sources. Context Structure is not a single paper&rsquo;s technique but a convergent set of best practices drawn from retrieval-augmented generation (RAG), prompt engineering research, and production LLM system design.</p>
                     </div>
                 </div>
             </div>
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Organization Is a Force Multiplier</h2>
                         <p class="split-section__text">Language models process context sequentially, building an internal representation token by token. When information arrives as an unstructured wall of text, the model must do double duty: first figuring out <strong>what</strong> each piece of information is, then figuring out <strong>how</strong> it relates to the question at hand. Structure eliminates that first step by making the organization explicit.</p>
-                        <p class="split-section__text"><strong>Context Structure treats your prompt like a well-organized briefing document.</strong> Instead of a stream-of-consciousness dump, you provide clear sections, labeled boundaries, and a logical flow that mirrors how you want the model to reason. Delimiters like headers, XML tags, or markdown separators tell the model where one piece of context ends and another begins &mdash; preventing cross-contamination between unrelated information sources.</p>
+                        <p class="split-section__text"><strong>Context Structure treats your prompt like a well-organized briefing document.</strong> Instead of a stream-of-consciousness dump, you provide clear sections, labeled boundaries, and a logical flow that mirrors how you want the model to reason. Delimiters like headers, XML tags, or markdown separators tell the model where one piece of context ends and another begins, preventing cross-contamination between unrelated information sources.</p>
                         <p class="split-section__text">Think of it like the difference between handing someone a stack of unsorted papers and handing them a tabbed binder with a table of contents. The information is identical, but the structured version lets the reader find and connect what they need far more efficiently.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">The &ldquo;Lost in the Middle&rdquo; Problem</span>
-                                <p>Research has shown that LLMs pay the most attention to information at the <strong>beginning</strong> and <strong>end</strong> of their context window, with recall dropping significantly for material in the middle. This U-shaped attention curve means that burying critical information in the center of a long prompt can cause the model to overlook it entirely. Context Structure techniques &mdash; like placing key facts at the start, using explicit section headers, and summarizing critical points &mdash; directly combat this phenomenon.</p>
+                                <p>Research has shown that LLMs pay the most attention to information at the <strong>beginning</strong> and <strong>end</strong> of their context window, with recall dropping significantly for material in the middle. This U-shaped attention curve means that burying critical information in the center of a long prompt can cause the model to overlook it entirely. Context Structure techniques, like placing key facts at the start, using explicit section headers, and summarizing critical points, directly combat this phenomenon.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Audit Your Information Sources</h3>
-                            <p class="element-timeline__text">Before writing the prompt, inventory all the information the model will need. Identify distinct sources &mdash; documents, data tables, conversation history, instructions, examples &mdash; and note where they overlap or conflict. This audit prevents you from accidentally burying critical context inside irrelevant material.</p>
+                            <p class="element-timeline__text">Before writing the prompt, inventory all the information the model will need. Identify distinct sources, documents, data tables, conversation history, instructions, examples, and note where they overlap or conflict. This audit prevents you from accidentally burying critical context inside irrelevant material.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>For a contract analysis task, you identify three sources: the contract text itself, the client&rsquo;s specific questions, and relevant legal precedent summaries. Each serves a different role and should be clearly separated.</p>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Establish a Logical Ordering</h3>
-                            <p class="element-timeline__text">Arrange your context with the most important information first. Place your task instructions and key constraints at the beginning of the prompt, followed by the primary source material, then any supplementary context. If the model needs to reference specific facts to answer a question, position those facts <strong>before</strong> the question &mdash; not after it.</p>
+                            <p class="element-timeline__text">Arrange your context with the most important information first. Place your task instructions and key constraints at the beginning of the prompt, followed by the primary source material, then any supplementary context. If the model needs to reference specific facts to answer a question, position those facts <strong>before</strong> the question, not after it.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Structure: (1) Role and task description, (2) Primary document, (3) Supporting context, (4) Specific questions to answer. The model encounters the instructions first, then the evidence, then knows what to do with it.</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Apply Delimiters and Section Headers</h3>
-                            <p class="element-timeline__text">Use explicit markers to separate different types of content. XML tags, markdown headers, triple dashes, or labeled sections all work &mdash; the key is consistency. Delimiters prevent the model from confusing instructions with examples, or treating one document&rsquo;s claims as another&rsquo;s. They create a visual and semantic boundary the model can parse reliably.</p>
+                            <p class="element-timeline__text">Use explicit markers to separate different types of content. XML tags, markdown headers, triple dashes, or labeled sections all work, the key is consistency. Delimiters prevent the model from confusing instructions with examples, or treating one document&rsquo;s claims as another&rsquo;s. They create a visual and semantic boundary the model can parse reliably.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Wrap each source in XML tags: &lt;contract&gt;...&lt;/contract&gt;, &lt;client-questions&gt;...&lt;/client-questions&gt;, &lt;precedent&gt;...&lt;/precedent&gt;. The model can now reference each source by name without ambiguity.</p>
@@ -456,7 +456,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Structure Works</span>
-                                    <p>Numbered, typed, and dated source tags let the model attribute claims accurately. The instruction to &ldquo;flag contradictions&rdquo; leverages the clear separation &mdash; the model can compare source-1&rsquo;s productivity claim against source-2&rsquo;s findings without confusion. Without this structure, the model might blend survey data with academic findings and present them as a single consensus, obscuring important nuances.</p>
+                                    <p>Numbered, typed, and dated source tags let the model attribute claims accurately. The instruction to &ldquo;flag contradictions&rdquo; leverages the clear separation, the model can compare source-1&rsquo;s productivity claim against source-2&rsquo;s findings without confusion. Without this structure, the model might blend survey data with academic findings and present them as a single consensus, obscuring important nuances.</p>
                                 </div>
                             </div>
                         </div>
@@ -516,7 +516,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Document Analysis</strong>
-                                    <p>When your prompt includes information from multiple sources that must be kept distinct &mdash; contracts, reports, emails, or data tables that the model needs to reference without cross-contamination.</p>
+                                    <p>When your prompt includes information from multiple sources that must be kept distinct, contracts, reports, emails, or data tables that the model needs to reference without cross-contamination.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -546,7 +546,7 @@
                                 </svg>
                                 <div>
                                     <strong>Safety-Critical Applications</strong>
-                                    <p>When certain instructions must take absolute precedence &mdash; safety guardrails, compliance rules, or output constraints &mdash; hierarchical structure makes the priority ordering explicit.</p>
+                                    <p>When certain instructions must take absolute precedence, safety guardrails, compliance rules, or output constraints, hierarchical structure makes the priority ordering explicit.</p>
                                 </div>
                             </div>
                         </div>
@@ -700,7 +700,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Foundation for Everything Else</div>
-                    <p>Context Structure is not a standalone technique &mdash; it is the foundation that makes every other prompting method more effective. Chain-of-Thought works better when the input facts are clearly organized. Few-Shot Learning is more reliable when examples are delimited from instructions. RAG systems depend entirely on consistent context structure to present retrieved documents without confusion. Mastering context organization pays dividends across every prompting technique you use.</p>
+                    <p>Context Structure is not a standalone technique, it is the foundation that makes every other prompting method more effective. Chain-of-Thought works better when the input facts are clearly organized. Few-Shot Learning is more reliable when examples are delimited from instructions. RAG systems depend entirely on consistent context structure to present retrieved documents without confusion. Mastering context organization pays dividends across every prompting technique you use.</p>
                 </div>
             </div>
         </section>
@@ -724,7 +724,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">CRISP Framework</span>
-                        <span class="evolution-callout__desc">A structured acronym for organizing prompts into Context, Role, Instructions, Specifics, and Parameters &mdash; built-in context structure in a memorable format.</span>
+                        <span class="evolution-callout__desc">A structured acronym for organizing prompts into Context, Role, Instructions, Specifics, and Parameters, built-in context structure in a memorable format.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -763,7 +763,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Ask Prompting</span>
-                        <span class="evolution-callout__desc">While Context Structure organizes input information, Self-Ask structures the model&rsquo;s reasoning process &mdash; making each inference step explicit and auditable.</span>
+                        <span class="evolution-callout__desc">While Context Structure organizes input information, Self-Ask structures the model&rsquo;s reasoning process, making each inference step explicit and auditable.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -840,7 +840,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

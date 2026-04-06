@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Self-Correction Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Progressive-Hint Prompting (PHP)</h1>
-                <p class="page-subtitle fade-in">When a student gets a math problem wrong, a good teacher doesn&rsquo;t just say &ldquo;try again&rdquo; &mdash; they give a hint based on the attempt. Progressive-Hint Prompting applies this teaching strategy: the model&rsquo;s previous answer becomes a hint for its next attempt, progressively guiding it toward the correct solution through iterative refinement.</p>
+                <p class="page-subtitle fade-in">When a student gets a math problem wrong, a good teacher doesn&rsquo;t just say &ldquo;try again&rdquo;, they give a hint based on the attempt. Progressive-Hint Prompting applies this teaching strategy: the model&rsquo;s previous answer becomes a hint for its next attempt, progressively guiding it toward the correct solution through iterative refinement.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Progressive-Hint Prompting (PHP) was introduced in 2023 by Zheng et al., addressing the observation that models often &ldquo;almost&rdquo; get the right answer on their first attempt. Rather than starting from scratch, PHP feeds the model&rsquo;s previous answer back as a hint: &ldquo;Your previous attempt yielded X. Use this as a hint to try again.&rdquo; This leverages the partial correctness of initial attempts, progressively refining toward the right answer through iterative rounds.</p>
-                        <p><strong>Modern LLM Status:</strong> PHP&rsquo;s iterative refinement pattern has become a <strong>staple in production AI systems</strong>. Modern reasoning workflows often use multiple rounds of generation and refinement. PHP&rsquo;s specific contribution &mdash; using the model&rsquo;s own output as a guiding hint &mdash; is particularly effective for mathematical reasoning, where initial attempts often identify the right approach but make calculation errors. The technique complements self-consistency by providing a refinement path rather than just voting among independent attempts.</p>
+                        <p><strong>Modern LLM Status:</strong> PHP&rsquo;s iterative refinement pattern has become a <strong>staple in production AI systems</strong>. Modern reasoning workflows often use multiple rounds of generation and refinement. PHP&rsquo;s specific contribution, using the model&rsquo;s own output as a guiding hint, is particularly effective for mathematical reasoning, where initial attempts often identify the right approach but make calculation errors. The technique complements self-consistency by providing a refinement path rather than just voting among independent attempts.</p>
                     </div>
                 </div>
             </div>
@@ -215,9 +215,9 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Wrong Answers Contain Useful Information</h2>
-                        <p class="split-section__text">Most self-correction techniques ask the model to start fresh or identify errors. PHP takes a different approach: it uses the previous answer as a positive signal &mdash; a hint that contains useful information even when incorrect. The model is told &ldquo;The answer might be X&rdquo; and asked to solve the problem with that hint in mind. If X is correct, the model confirms it. If X is partially wrong, the hint still narrows the search space.</p>
-                        <p class="split-section__text"><strong>Through successive rounds, the hints converge toward the correct answer.</strong> Each iteration builds on the previous one rather than discarding it. The model doesn&rsquo;t need to identify what was wrong &mdash; it just needs to solve the problem again with a useful starting point.</p>
-                        <p class="split-section__text">Think of it like a game of &ldquo;warmer/colder&rdquo; &mdash; each attempt gets the model closer, and the previous answer serves as an anchor that prevents it from wandering in completely wrong directions.</p>
+                        <p class="split-section__text">Most self-correction techniques ask the model to start fresh or identify errors. PHP takes a different approach: it uses the previous answer as a positive signal, a hint that contains useful information even when incorrect. The model is told &ldquo;The answer might be X&rdquo; and asked to solve the problem with that hint in mind. If X is correct, the model confirms it. If X is partially wrong, the hint still narrows the search space.</p>
+                        <p class="split-section__text"><strong>Through successive rounds, the hints converge toward the correct answer.</strong> Each iteration builds on the previous one rather than discarding it. The model doesn&rsquo;t need to identify what was wrong, it just needs to solve the problem again with a useful starting point.</p>
+                        <p class="split-section__text">Think of it like a game of &ldquo;warmer/colder&rdquo;, each attempt gets the model closer, and the previous answer serves as an anchor that prevents it from wandering in completely wrong directions.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Initial Attempt</h3>
-                            <p class="element-timeline__text">The model solves the problem with standard Chain-of-Thought prompting, producing an initial answer A&#8321;. This first attempt uses no hints &mdash; it&rsquo;s the model&rsquo;s best cold-start answer, which may be correct, partially correct, or wrong.</p>
+                            <p class="element-timeline__text">The model solves the problem with standard Chain-of-Thought prompting, producing an initial answer A&#8321;. This first attempt uses no hints, it&rsquo;s the model&rsquo;s best cold-start answer, which may be correct, partially correct, or wrong.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;A store sells apples at $1.50 each and oranges at $2.00 each. Maria buys 3 apples and some oranges for $10.50. How many oranges did she buy?&rdquo; Model&rsquo;s first attempt: &ldquo;3 &times; $1.50 = $4.50. $10.50 - $4.50 = $6.00. $6.00 &divide; $2.00 = 3 oranges.&rdquo; A&#8321; = 3.</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Refined Attempt</h3>
-                            <p class="element-timeline__text">The model re-solves the problem with the hint in mind, producing answer A&#8322;. If the hint is correct, the model typically confirms it through independent verification. If the hint is wrong, the model may arrive at a different answer &mdash; potentially closer to the correct one because the hint narrowed its reasoning space.</p>
+                            <p class="element-timeline__text">The model re-solves the problem with the hint in mind, producing answer A&#8322;. If the hint is correct, the model typically confirms it through independent verification. If the hint is wrong, the model may arrive at a different answer, potentially closer to the correct one because the hint narrowed its reasoning space.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Let me verify: 3 apples &times; $1.50 = $4.50. If oranges = 3, then 3 &times; $2.00 = $6.00. Total = $4.50 + $6.00 = $10.50. This matches the total given.&rdquo; A&#8322; = 3.</p>
@@ -287,10 +287,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Convergence Check</h3>
-                            <p class="element-timeline__text">Compare A&#8322; with A&#8321;. If they match, the answer has converged &mdash; the model independently confirmed its previous answer. If they differ, A&#8322; becomes the new hint and the process repeats. Convergence typically occurs within 2-3 rounds, and stable agreement strongly correlates with correctness.</p>
+                            <p class="element-timeline__text">Compare A&#8322; with A&#8321;. If they match, the answer has converged, the model independently confirmed its previous answer. If they differ, A&#8322; becomes the new hint and the process repeats. Convergence typically occurs within 2-3 rounds, and stable agreement strongly correlates with correctness.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>A&#8321; = 3, A&#8322; = 3. The answers match &mdash; convergence achieved. If A&#8322; had been 4, we would repeat with hint &ldquo;The answer might be 4&rdquo; and solve again to produce A&#8323;.</p>
+                                <p>A&#8321; = 3, A&#8322; = 3. The answers match, convergence achieved. If A&#8322; had been 4, we would repeat with hint &ldquo;The answer might be 4&rdquo; and solve again to produce A&#8323;.</p>
                             </div>
                         </div>
                     </div>
@@ -345,7 +345,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Same method repeated &mdash; independent attempts don&rsquo;t explore alternative approaches</span>
+                            <span>Same method repeated, independent attempts don&rsquo;t explore alternative approaches</span>
                         </div>
                     </div>
 
@@ -377,7 +377,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Hint prompts deeper verification &mdash; model checks via multiple methods rather than repeating one</span>
+                            <span>Hint prompts deeper verification, model checks via multiple methods rather than repeating one</span>
                         </div>
                     </div>
                 </div>
@@ -461,13 +461,13 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Problem</span>
-                                    <p>&ldquo;Five friends &mdash; Alex, Beth, Carlos, Diana, and Ethan &mdash; each like a different color: red, blue, green, yellow, purple. Alex doesn&rsquo;t like red or blue. Beth likes yellow. Carlos doesn&rsquo;t like green. Diana likes either red or purple. Ethan doesn&rsquo;t like purple. What color does each person like?&rdquo;</p>
+                                    <p>&ldquo;Five friends, Alex, Beth, Carlos, Diana, and Ethan, each like a different color: red, blue, green, yellow, purple. Alex doesn&rsquo;t like red or blue. Beth likes yellow. Carlos doesn&rsquo;t like green. Diana likes either red or purple. Ethan doesn&rsquo;t like purple. What color does each person like?&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Progressive-Hint Refinement</span>
                                     <p><strong>Attempt 1:</strong> Beth = yellow (given). Alex not red/blue, so green/purple. Diana = red or purple. If Diana = red, then Alex = green or purple. Carlos not green, so Carlos = blue or purple. Ethan not purple. Let&rsquo;s try: Diana = red, Alex = purple, Carlos = blue, Ethan = green. A&#8321; = Alex:purple, Beth:yellow, Carlos:blue, Diana:red, Ethan:green.<br><br>
                                     <strong>Hint:</strong> &ldquo;The answer might be Alex:purple, Beth:yellow, Carlos:blue, Diana:red, Ethan:green.&rdquo;<br><br>
-                                    <strong>Attempt 2:</strong> Verifying each constraint: Alex not red (purple &mdash; ok) not blue (purple &mdash; ok). Beth = yellow (matches). Carlos not green (blue &mdash; ok). Diana = red or purple (red &mdash; ok). Ethan not purple (green &mdash; ok). All five colors used exactly once. All constraints satisfied. A&#8322; = same assignment.<br><br>
+                                    <strong>Attempt 2:</strong> Verifying each constraint: Alex not red (purple, ok) not blue (purple, ok). Beth = yellow (matches). Carlos not green (blue, ok). Diana = red or purple (red, ok). Ethan not purple (green, ok). All five colors used exactly once. All constraints satisfied. A&#8322; = same assignment.<br><br>
                                     <strong>Converged:</strong> Alex:purple, Beth:yellow, Carlos:blue, Diana:red, Ethan:green.</p>
                                 </div>
                             </div>
@@ -495,7 +495,7 @@
                                 </svg>
                                 <div>
                                     <strong>Mathematical Reasoning with Calculation Errors</strong>
-                                    <p>When the model identifies the right formula or approach but makes arithmetic mistakes &mdash; the hint preserves the method while the re-attempt corrects the computation.</p>
+                                    <p>When the model identifies the right formula or approach but makes arithmetic mistakes, the hint preserves the method while the re-attempt corrects the computation.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -505,7 +505,7 @@
                                 </svg>
                                 <div>
                                     <strong>Problems Where Initial Attempts Are &ldquo;Close&rdquo;</strong>
-                                    <p>When the first answer is in the right ballpark but not quite right &mdash; the hint anchors the model near the correct answer rather than letting it wander.</p>
+                                    <p>When the first answer is in the right ballpark but not quite right, the hint anchors the model near the correct answer rather than letting it wander.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -515,7 +515,7 @@
                                 </svg>
                                 <div>
                                     <strong>Iterative Refinement Workflows</strong>
-                                    <p>When your pipeline already supports multiple generation rounds &mdash; PHP provides a principled way to use each round&rsquo;s output to improve the next.</p>
+                                    <p>When your pipeline already supports multiple generation rounds, PHP provides a principled way to use each round&rsquo;s output to improve the next.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -525,7 +525,7 @@
                                 </svg>
                                 <div>
                                     <strong>Tasks Where Convergence Indicates Correctness</strong>
-                                    <p>When stable agreement across iterations is a reliable signal &mdash; if the model keeps arriving at the same answer from different angles, it&rsquo;s likely correct.</p>
+                                    <p>When stable agreement across iterations is a reliable signal, if the model keeps arriving at the same answer from different angles, it&rsquo;s likely correct.</p>
                                 </div>
                             </div>
                         </div>
@@ -540,7 +540,7 @@
                                 </svg>
                                 <div>
                                     <strong>Problems with No Partial Correctness Signal</strong>
-                                    <p>When wrong answers are completely off-base rather than &ldquo;close&rdquo; &mdash; a wildly wrong hint can mislead rather than guide the next attempt.</p>
+                                    <p>When wrong answers are completely off-base rather than &ldquo;close&rdquo;, a wildly wrong hint can mislead rather than guide the next attempt.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -560,7 +560,7 @@
                                 </svg>
                                 <div>
                                     <strong>Single-Shot Applications</strong>
-                                    <p>When latency or cost constraints prevent multiple rounds of generation &mdash; PHP requires at least 2 iterations to provide any benefit over standard prompting.</p>
+                                    <p>When latency or cost constraints prevent multiple rounds of generation, PHP requires at least 2 iterations to provide any benefit over standard prompting.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -713,7 +713,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Self-Consistency</span>
-                        <span class="evolution-callout__desc">Generates multiple independent attempts and votes on the most common answer &mdash; where PHP uses sequential refinement, Self-Consistency uses parallel sampling.</span>
+                        <span class="evolution-callout__desc">Generates multiple independent attempts and votes on the most common answer, where PHP uses sequential refinement, Self-Consistency uses parallel sampling.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -731,7 +731,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Self-Refine</span>
-                        <span class="evolution-callout__desc">Uses explicit self-critique to identify and fix errors &mdash; where PHP uses implicit hints, Self-Refine uses structured feedback for targeted corrections.</span>
+                        <span class="evolution-callout__desc">Uses explicit self-critique to identify and fix errors, where PHP uses implicit hints, Self-Refine uses structured feedback for targeted corrections.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -752,7 +752,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Correction</span>
-                        <span class="evolution-callout__desc">Broader category of techniques where the model corrects its own output &mdash; PHP is one specific implementation using previous answers as progressive hints.</span>
+                        <span class="evolution-callout__desc">Broader category of techniques where the model corrects its own output, PHP is one specific implementation using previous answers as progressive hints.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -829,7 +829,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

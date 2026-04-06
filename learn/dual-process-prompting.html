@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Reasoning &amp; CoT Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Dual Process Prompting</h1>
-                <p class="page-subtitle fade-in">Psychologist Daniel Kahneman showed that humans think in two modes: fast intuition (System 1) and slow deliberation (System 2). Dual Process Prompting brings this cognitive science insight to AI &mdash; routing simple questions through quick responses and complex ones through careful, step-by-step reasoning.</p>
+                <p class="page-subtitle fade-in">Psychologist Daniel Kahneman showed that humans think in two modes: fast intuition (System 1) and slow deliberation (System 2). Dual Process Prompting brings this cognitive science insight to AI, routing simple questions through quick responses and complex ones through careful, step-by-step reasoning.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2024</span>
                         <p><strong>Introduced:</strong> Dual Process Prompting was introduced in 2024, inspired by Kahneman and Tversky&rsquo;s dual-process theory of cognition. The technique addresses efficiency waste in reasoning: applying full Chain-of-Thought to &ldquo;What&rsquo;s 2+2?&rdquo; wastes tokens, while answering &ldquo;Prove Fermat&rsquo;s Last Theorem&rdquo; intuitively produces errors. Dual Process Prompting introduces a metacognitive gate: the model first assesses task complexity, then routes to either fast (System 1) or deliberate (System 2) processing. This achieves CoT-level accuracy on hard problems while saving tokens on easy ones.</p>
-                        <p><strong>Modern LLM Status:</strong> Dual Process Prompting is increasingly relevant as LLMs handle diverse workloads mixing trivial and complex queries. Modern frontier models already exhibit dual-process-like behavior internally, but explicit prompting for it ensures consistent routing. The technique is particularly valuable in production systems where cost optimization matters &mdash; applying expensive reasoning only when needed, while maintaining quality on hard problems.</p>
+                        <p><strong>Modern LLM Status:</strong> Dual Process Prompting is increasingly relevant as LLMs handle diverse workloads mixing trivial and complex queries. Modern frontier models already exhibit dual-process-like behavior internally, but explicit prompting for it ensures consistent routing. The technique is particularly valuable in production systems where cost optimization matters, applying expensive reasoning only when needed, while maintaining quality on hard problems.</p>
                     </div>
                 </div>
             </div>
@@ -214,16 +214,16 @@
                 <div class="split-section split-section--center fade-in-up">
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
-                        <h2 class="split-section__title">Think Fast and Slow &mdash; On Purpose</h2>
-                        <p class="split-section__text">Every prompting session includes a mix of easy and hard questions. Standard approaches apply the same reasoning depth to all queries &mdash; either fast (and error-prone on hard problems) or deliberate (and wasteful on easy ones). Dual Process Prompting introduces a complexity assessment step: before answering, the model evaluates whether the question requires System 1 (quick pattern matching) or System 2 (careful step-by-step reasoning).</p>
+                        <h2 class="split-section__title">Think Fast and Slow, On Purpose</h2>
+                        <p class="split-section__text">Every prompting session includes a mix of easy and hard questions. Standard approaches apply the same reasoning depth to all queries, either fast (and error-prone on hard problems) or deliberate (and wasteful on easy ones). Dual Process Prompting introduces a complexity assessment step: before answering, the model evaluates whether the question requires System 1 (quick pattern matching) or System 2 (careful step-by-step reasoning).</p>
                         <p class="split-section__text"><strong>Simple factual recalls, basic arithmetic, and common-sense questions get fast responses.</strong> Complex reasoning, multi-step problems, and ambiguous questions trigger full deliberative processing. The result is an adaptive system that applies the right amount of cognitive effort to each task.</p>
-                        <p class="split-section__text">Think of it like a seasoned doctor who can instantly recognize a common cold but shifts into careful diagnostic mode when symptoms are unusual &mdash; matching effort to complexity rather than treating every patient the same way.</p>
+                        <p class="split-section__text">Think of it like a seasoned doctor who can instantly recognize a common cold but shifts into careful diagnostic mode when symptoms are unusual, matching effort to complexity rather than treating every patient the same way.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why One Size Doesn&rsquo;t Fit All Reasoning</span>
-                                <p>Applying Chain-of-Thought to every question is like driving 20mph everywhere &mdash; safe but inefficient. Dual Process Prompting is like having both city and highway gears. The key insight is that the model can reliably assess its own confidence before answering. When confidence is high (System 1), elaborate reasoning just adds latency. When confidence is low (System 2), the extra reasoning is essential for accuracy.</p>
+                                <p>Applying Chain-of-Thought to every question is like driving 20mph everywhere, safe but inefficient. Dual Process Prompting is like having both city and highway gears. The key insight is that the model can reliably assess its own confidence before answering. When confidence is high (System 1), elaborate reasoning just adds latency. When confidence is low (System 2), the extra reasoning is essential for accuracy.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Receive the Query</h3>
-                            <p class="element-timeline__text">The model receives a question or task without any predetermined processing depth. No assumptions are made about complexity &mdash; every query enters the same intake pipeline.</p>
+                            <p class="element-timeline__text">The model receives a question or task without any predetermined processing depth. No assumptions are made about complexity, every query enters the same intake pipeline.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;What is the capital of France?&rdquo; and &ldquo;Explain why P vs NP is considered the most important open problem in computer science&rdquo; both enter the same way.</p>
@@ -276,7 +276,7 @@
                             <p class="element-timeline__text">Based on the assessment: System 1 (high confidence, simple task) produces a direct answer. System 2 (low confidence, complex task) triggers full step-by-step reasoning with intermediate verification.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>System 1 route: &ldquo;Paris.&rdquo; System 2 route: &ldquo;Let me break this down &mdash; first, what does P vs NP actually ask? Then, why does the answer matter for cryptography, optimization, and mathematics?&rdquo;</p>
+                                <p>System 1 route: &ldquo;Paris.&rdquo; System 2 route: &ldquo;Let me break this down, first, what does P vs NP actually ask? Then, why does the answer matter for cryptography, optimization, and mathematics?&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -290,7 +290,7 @@
                             <p class="element-timeline__text">System 1: Produce a concise, direct answer with no unnecessary elaboration. System 2: Apply chain-of-thought reasoning with intermediate steps, verification, and careful analysis before reaching a conclusion.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>System 1 execution saves tokens and latency. System 2 execution invests tokens in accuracy &mdash; showing work, checking assumptions, and considering edge cases.</p>
+                                <p>System 1 execution saves tokens and latency. System 2 execution invests tokens in accuracy, showing work, checking assumptions, and considering edge cases.</p>
                             </div>
                         </div>
                     </div>
@@ -304,7 +304,7 @@
                             <p class="element-timeline__text">The response includes an implicit or explicit confidence signal, allowing downstream systems to request System 2 re-processing if needed. This creates a feedback loop for continuous calibration.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>A System 1 answer flagged with low confidence can be automatically escalated to System 2 for deeper analysis &mdash; a self-correcting mechanism.</p>
+                                <p>A System 1 answer flagged with low confidence can be automatically escalated to System 2 for deeper analysis, a self-correcting mechanism.</p>
                             </div>
                         </div>
                     </div>
@@ -337,7 +337,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Response</span>
-                                <p>Applies same CoT depth to both &mdash; wastes tokens on Q1 with unnecessary reasoning steps, while the same depth is appropriate for Q2. No efficiency differentiation between trivial and complex queries.</p>
+                                <p>Applies same CoT depth to both, wastes tokens on Q1 with unnecessary reasoning steps, while the same depth is appropriate for Q2. No efficiency differentiation between trivial and complex queries.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -345,7 +345,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Inefficient &mdash; same reasoning depth regardless of difficulty</span>
+                            <span>Inefficient, same reasoning depth regardless of difficulty</span>
                         </div>
                     </div>
 
@@ -377,7 +377,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Right amount of reasoning for each question &mdash; efficient and accurate</span>
+                            <span>Right amount of reasoning for each question, efficient and accurate</span>
                         </div>
                     </div>
                 </div>
@@ -421,15 +421,15 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Dual Process Routing</span>
-                                    <p><strong>System 1 &mdash; Common FAQ:</strong><br>
+                                    <p><strong>System 1, Common FAQ:</strong><br>
                                     Customer: &ldquo;What are your store hours?&rdquo;<br>
                                     Assessment: Single fact lookup, high confidence.<br>
                                     Response: &ldquo;We&rsquo;re open Monday&ndash;Friday 9am&ndash;6pm and Saturday 10am&ndash;4pm.&rdquo;<br><br>
-                                    <strong>System 2 &mdash; Billing Dispute:</strong><br>
+                                    <strong>System 2, Billing Dispute:</strong><br>
                                     Customer: &ldquo;I was charged twice for my subscription, but I also used a promo code that should have given me 50% off the first month.&rdquo;<br>
                                     Assessment: Multiple policy lookups, transaction verification, potential edge cases.<br>
                                     Step 1: Check subscription billing records for duplicate charges.<br>
-                                    Step 2: Verify promo code terms &mdash; does it apply before or after tax?<br>
+                                    Step 2: Verify promo code terms, does it apply before or after tax?<br>
                                     Step 3: Calculate correct charge with promo applied.<br>
                                     Step 4: Determine refund amount for both the duplicate and the missing discount.<br>
                                     Response: Detailed resolution with full calculation breakdown.</p>
@@ -451,11 +451,11 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Dual Process Routing</span>
-                                    <p><strong>System 1 &mdash; Style Issue:</strong><br>
+                                    <p><strong>System 1, Style Issue:</strong><br>
                                     Finding: Missing semicolon on line 42.<br>
                                     Assessment: Obvious syntax issue, pattern match, zero ambiguity.<br>
                                     Response: &ldquo;Add missing semicolon on line 42.&rdquo;<br><br>
-                                    <strong>System 2 &mdash; Logic Bug:</strong><br>
+                                    <strong>System 2, Logic Bug:</strong><br>
                                     Finding: Race condition in concurrent database writes.<br>
                                     Assessment: Requires trace analysis across multiple functions, timing dependencies, edge case evaluation.<br>
                                     Step 1: Trace the execution path from API handler to database layer.<br>
@@ -477,18 +477,18 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Scenario</span>
-                                    <p>A clinical decision support system assists healthcare providers by triaging symptom queries &mdash; some are routine, others require careful differential diagnosis.</p>
+                                    <p>A clinical decision support system assists healthcare providers by triaging symptom queries, some are routine, others require careful differential diagnosis.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Dual Process Routing</span>
-                                    <p><strong>System 1 &mdash; Common Symptom Match:</strong><br>
+                                    <p><strong>System 1, Common Symptom Match:</strong><br>
                                     Query: &ldquo;Patient presents with runny nose, mild cough, low-grade fever for 2 days.&rdquo;<br>
                                     Assessment: Classic viral upper respiratory infection pattern, high confidence.<br>
                                     Response: &ldquo;Consistent with common cold/viral URI. Recommend symptomatic treatment and follow-up if symptoms worsen or persist beyond 10 days.&rdquo;<br><br>
-                                    <strong>System 2 &mdash; Unusual Symptom Combination:</strong><br>
+                                    <strong>System 2, Unusual Symptom Combination:</strong><br>
                                     Query: &ldquo;Patient presents with joint pain, butterfly-shaped facial rash, fatigue, and intermittent fever.&rdquo;<br>
                                     Assessment: Multiple system involvement, atypical pattern, requires differential diagnosis.<br>
-                                    Step 1: Map symptoms to potential conditions &mdash; butterfly rash suggests lupus, but could also indicate rosacea or dermatomyositis.<br>
+                                    Step 1: Map symptoms to potential conditions, butterfly rash suggests lupus, but could also indicate rosacea or dermatomyositis.<br>
                                     Step 2: Cross-reference joint pain + rash + fever against autoimmune conditions.<br>
                                     Step 3: Consider age, sex, and family history risk factors.<br>
                                     Step 4: Recommend specific diagnostic tests (ANA, anti-dsDNA, complement levels).<br>
@@ -519,7 +519,7 @@
                                 </svg>
                                 <div>
                                     <strong>Mixed-Complexity Workloads</strong>
-                                    <p>Production systems that handle a wide range of query difficulties &mdash; from trivial lookups to complex multi-step reasoning problems.</p>
+                                    <p>Production systems that handle a wide range of query difficulties, from trivial lookups to complex multi-step reasoning problems.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -529,7 +529,7 @@
                                 </svg>
                                 <div>
                                     <strong>Cost-Sensitive Production Systems</strong>
-                                    <p>Environments where token usage directly impacts costs &mdash; Dual Process avoids wasting expensive reasoning on simple queries.</p>
+                                    <p>Environments where token usage directly impacts costs, Dual Process avoids wasting expensive reasoning on simple queries.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -539,7 +539,7 @@
                                 </svg>
                                 <div>
                                     <strong>Real-Time Applications</strong>
-                                    <p>Systems where latency varies by task &mdash; quick answers for simple queries keep the user experience fast, while complex queries get the time they need.</p>
+                                    <p>Systems where latency varies by task, quick answers for simple queries keep the user experience fast, while complex queries get the time they need.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -549,7 +549,7 @@
                                 </svg>
                                 <div>
                                     <strong>Trivial-to-Complex Mixtures</strong>
-                                    <p>Scenarios where some queries are trivial and others are complex &mdash; the adaptive routing ensures neither type is mishandled.</p>
+                                    <p>Scenarios where some queries are trivial and others are complex, the adaptive routing ensures neither type is mishandled.</p>
                                 </div>
                             </div>
                         </div>
@@ -564,7 +564,7 @@
                                 </svg>
                                 <div>
                                     <strong>Uniformly Complex Queries</strong>
-                                    <p>When all queries are uniformly complex &mdash; the routing overhead provides no benefit if everything needs System 2 processing anyway.</p>
+                                    <p>When all queries are uniformly complex, the routing overhead provides no benefit if everything needs System 2 processing anyway.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -574,7 +574,7 @@
                                 </svg>
                                 <div>
                                     <strong>Assessment Overhead Exceeds Savings</strong>
-                                    <p>When the overhead of complexity assessment exceeds the token savings &mdash; very short interactions may not benefit from the routing step.</p>
+                                    <p>When the overhead of complexity assessment exceeds the token savings, very short interactions may not benefit from the routing step.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -584,7 +584,7 @@
                                 </svg>
                                 <div>
                                     <strong>Safety-Critical Domains</strong>
-                                    <p>When everything needs maximum reasoning depth &mdash; safety-critical domains where the cost of a System 1 error is unacceptable should default to full deliberation.</p>
+                                    <p>When everything needs maximum reasoning depth, safety-critical domains where the cost of a System 1 error is unacceptable should default to full deliberation.</p>
                                 </div>
                             </div>
                         </div>
@@ -618,7 +618,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">API Gateway Routing</h3>
-                        <p class="use-case-showcase__desc">Classify incoming API requests by complexity and route them to appropriate model tiers &mdash; lightweight models for simple queries, frontier models for complex reasoning tasks.</p>
+                        <p class="use-case-showcase__desc">Classify incoming API requests by complexity and route them to appropriate model tiers, lightweight models for simple queries, frontier models for complex reasoning tasks.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -841,7 +841,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

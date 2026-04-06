@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Prompt Optimization Technique</span>
                 </div>
                 <h1 class="page-title fade-in">APE (Automatic Prompt Engineer)</h1>
-                <p class="page-subtitle fade-in">Why write prompts yourself when the model can write better ones? APE uses LLMs to propose candidate instructions, evaluates each on a target task, and selects the best-performing prompt through iterative search &mdash; discovering that machines often engineer more effective prompts than humans.</p>
+                <p class="page-subtitle fade-in">Why write prompts yourself when the model can write better ones? APE uses LLMs to propose candidate instructions, evaluates each on a target task, and selects the best-performing prompt through iterative search, discovering that machines often engineer more effective prompts than humans.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> APE was published in 2022 by Zhou et al. The paper demonstrated a striking finding: LLMs could generate prompt instructions that outperformed carefully human-crafted ones. Most famously, APE discovered that &ldquo;Let&rsquo;s work this out in a step by step way to be sure we have the right answer&rdquo; significantly outperformed the original &ldquo;Let&rsquo;s think step by step&rdquo; zero-shot chain-of-thought prompt. The technique framed prompt engineering as a program synthesis problem &mdash; search through the space of possible instructions to find the one that maximizes task performance.</p>
-                        <p><strong>Modern LLM Status:</strong> APE was a landmark paper showing that LLMs could engineer better prompts than humans. The principle has been absorbed into production tools like <strong>DSPy and OPRO</strong> in 2026. The standalone technique is less common now, but the insight &mdash; automated prompt search &mdash; is <strong>foundational to modern prompt optimization pipelines</strong>. Understanding APE helps practitioners grasp why tools like DSPy work and when automated optimization outperforms manual prompt engineering.</p>
+                        <p><strong>Introduced:</strong> APE was published in 2022 by Zhou et al. The paper demonstrated a striking finding: LLMs could generate prompt instructions that outperformed carefully human-crafted ones. Most famously, APE discovered that &ldquo;Let&rsquo;s work this out in a step by step way to be sure we have the right answer&rdquo; significantly outperformed the original &ldquo;Let&rsquo;s think step by step&rdquo; zero-shot chain-of-thought prompt. The technique framed prompt engineering as a program synthesis problem, search through the space of possible instructions to find the one that maximizes task performance.</p>
+                        <p><strong>Modern LLM Status:</strong> APE was a landmark paper showing that LLMs could engineer better prompts than humans. The principle has been absorbed into production tools like <strong>DSPy and OPRO</strong> in 2026. The standalone technique is less common now, but the insight, automated prompt search, is <strong>foundational to modern prompt optimization pipelines</strong>. Understanding APE helps practitioners grasp why tools like DSPy work and when automated optimization outperforms manual prompt engineering.</p>
                     </div>
                 </div>
             </div>
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Prompt Engineering as Search</h2>
                         <p class="split-section__text">Manual prompt engineering is a form of trial and error. You write an instruction, test it, notice failures, revise it, and repeat. This process is slow, biased by your assumptions about what makes a good prompt, and limited by your creativity in imagining alternative phrasings. APE automates this entire loop by treating it as what it fundamentally is: a search problem.</p>
-                        <p class="split-section__text"><strong>APE uses LLMs to explore the instruction space systematically.</strong> Given a task description or examples, it generates many candidate instructions &mdash; not just one human-written attempt. Each candidate is evaluated on a held-out set of examples, scored by accuracy, and the top performers are selected. Optional iterative refinement generates variations of the best candidates for further evaluation, progressively narrowing toward the optimal instruction.</p>
-                        <p class="split-section__text">Think of it like A/B testing at scale for prompts. Instead of testing your one idea against a control, you generate dozens of candidates and let data decide which performs best &mdash; often discovering phrasings you would never have thought to try.</p>
+                        <p class="split-section__text"><strong>APE uses LLMs to explore the instruction space systematically.</strong> Given a task description or examples, it generates many candidate instructions, not just one human-written attempt. Each candidate is evaluated on a held-out set of examples, scored by accuracy, and the top performers are selected. Optional iterative refinement generates variations of the best candidates for further evaluation, progressively narrowing toward the optimal instruction.</p>
+                        <p class="split-section__text">Think of it like A/B testing at scale for prompts. Instead of testing your one idea against a control, you generate dozens of candidates and let data decide which performs best, often discovering phrasings you would never have thought to try.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">The &ldquo;Step by Step&rdquo; Discovery</span>
-                                <p>APE&rsquo;s most celebrated finding was that the model-generated instruction &ldquo;Let&rsquo;s work this out in a step by step way to be sure we have the right answer&rdquo; outperformed the famous human-written &ldquo;Let&rsquo;s think step by step&rdquo; by a significant margin on reasoning benchmarks. The difference? The APE version adds a <strong>quality motivation</strong> (&ldquo;to be sure we have the right answer&rdquo;) that subtly encourages the model to be more careful. No human prompt engineer had thought to add that clause &mdash; the machine found it through search.</p>
+                                <p>APE&rsquo;s most celebrated finding was that the model-generated instruction &ldquo;Let&rsquo;s work this out in a step by step way to be sure we have the right answer&rdquo; outperformed the famous human-written &ldquo;Let&rsquo;s think step by step&rdquo; by a significant margin on reasoning benchmarks. The difference? The APE version adds a <strong>quality motivation</strong> (&ldquo;to be sure we have the right answer&rdquo;) that subtly encourages the model to be more careful. No human prompt engineer had thought to add that clause, the machine found it through search.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Define the Target Task</h3>
-                            <p class="element-timeline__text">Start with the task you want to optimize a prompt for. Provide either a natural language task description, a set of input-output examples demonstrating the desired behavior, or both. You also need a held-out evaluation set &mdash; examples with known correct answers that will be used to score candidate instructions. The quality of your evaluation set determines the quality of the optimization.</p>
+                            <p class="element-timeline__text">Start with the task you want to optimize a prompt for. Provide either a natural language task description, a set of input-output examples demonstrating the desired behavior, or both. You also need a held-out evaluation set, examples with known correct answers that will be used to score candidate instructions. The quality of your evaluation set determines the quality of the optimization.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Task: Sentiment classification. Training examples: 20 labeled reviews. Evaluation set: 50 labeled reviews held out for scoring. Metric: classification accuracy.</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Evaluate and Score Each Candidate</h3>
-                            <p class="element-timeline__text">Run each candidate instruction through the target model on the evaluation set. Score each instruction by how accurately it produces correct outputs. This step is the heart of APE &mdash; it provides objective, data-driven ranking of instructions rather than relying on human intuition about what sounds like a good prompt. The evaluation is automated and can test hundreds of candidates efficiently.</p>
+                            <p class="element-timeline__text">Run each candidate instruction through the target model on the evaluation set. Score each instruction by how accurately it produces correct outputs. This step is the heart of APE, it provides objective, data-driven ranking of instructions rather than relying on human intuition about what sounds like a good prompt. The evaluation is automated and can test hundreds of candidates efficiently.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Candidate 1: 78% accuracy on eval set<br>Candidate 2: 85% accuracy on eval set<br>Candidate 3: 82% accuracy on eval set<br>Candidate 17: 91% accuracy on eval set (unexpected winner)</p>
@@ -290,7 +290,7 @@
                             <p class="element-timeline__text">Select the top-performing instruction(s). Optionally, generate variations of the best candidates by paraphrasing, extending, or combining them, then evaluate again. This iterative refinement can squeeze additional performance from the search process. The final output is a rigorously tested, data-validated instruction that you can deploy with confidence. Always verify the winning instruction on a final holdout set to guard against overfitting to the evaluation data.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Best instruction after 2 rounds: &ldquo;Read the customer review carefully. Determine whether the overall sentiment expressed is positive or negative. Consider the balance of positive and negative statements, but weight the concluding sentiment most heavily. Respond with only &lsquo;positive&rsquo; or &lsquo;negative.&rsquo;&rdquo; &mdash; 93% accuracy, up from 78% for the naive baseline.</p>
+                                <p>Best instruction after 2 rounds: &ldquo;Read the customer review carefully. Determine whether the overall sentiment expressed is positive or negative. Consider the balance of positive and negative statements, but weight the concluding sentiment most heavily. Respond with only &lsquo;positive&rsquo; or &lsquo;negative.&rsquo;&rdquo;, 93% accuracy, up from 78% for the naive baseline.</p>
                             </div>
                         </div>
                     </div>
@@ -404,15 +404,15 @@
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">APE Setup</span>
                                     <p><strong>Task:</strong> Classify support tickets by priority (P1-Critical, P2-High, P3-Medium, P4-Low).<br><br>
-                                    <strong>Human baseline prompt:</strong> &ldquo;Classify this support ticket by priority level.&rdquo; &mdash; 71% accuracy.<br><br>
+                                    <strong>Human baseline prompt:</strong> &ldquo;Classify this support ticket by priority level.&rdquo;, 71% accuracy.<br><br>
                                     <strong>APE generates 25 candidates.</strong> Top 3 after evaluation:<br>
-                                    - &ldquo;Read the support ticket and assign a priority. P1 for outages or data loss, P2 for degraded service, P3 for feature issues, P4 for questions.&rdquo; &mdash; 86%<br>
-                                    - &ldquo;Determine urgency: is this an emergency (P1), serious problem (P2), minor issue (P3), or informational (P4)?&rdquo; &mdash; 83%<br>
-                                    - &ldquo;Classify priority by business impact: P1=revenue impact, P2=productivity impact, P3=inconvenience, P4=no immediate impact.&rdquo; &mdash; 89%</p>
+                                    - &ldquo;Read the support ticket and assign a priority. P1 for outages or data loss, P2 for degraded service, P3 for feature issues, P4 for questions.&rdquo;, 86%<br>
+                                    - &ldquo;Determine urgency: is this an emergency (P1), serious problem (P2), minor issue (P3), or informational (P4)?&rdquo;, 83%<br>
+                                    - &ldquo;Classify priority by business impact: P1=revenue impact, P2=productivity impact, P3=inconvenience, P4=no immediate impact.&rdquo;, 89%</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>The winning instruction (89%) includes specific criteria for each priority level framed in terms of business impact &mdash; a framing no human had tried. APE discovered that explicit category definitions dramatically improve classification accuracy. Note: Always validate the APE-discovered prompt on a separate holdout set before deploying to production, as optimization against the evaluation set can overfit to its specific distribution.</p>
+                                    <p>The winning instruction (89%) includes specific criteria for each priority level framed in terms of business impact, a framing no human had tried. APE discovered that explicit category definitions dramatically improve classification accuracy. Note: Always validate the APE-discovered prompt on a separate holdout set before deploying to production, as optimization against the evaluation set can overfit to its specific distribution.</p>
                                 </div>
                             </div>
                         </div>
@@ -428,15 +428,15 @@
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">APE Setup</span>
                                     <p><strong>Task:</strong> Mathematical word problems requiring multi-step reasoning.<br><br>
-                                    <strong>Human baseline:</strong> &ldquo;Let&rsquo;s think step by step.&rdquo; &mdash; 73% accuracy on GSM8K-style problems.<br><br>
+                                    <strong>Human baseline:</strong> &ldquo;Let&rsquo;s think step by step.&rdquo;, 73% accuracy on GSM8K-style problems.<br><br>
                                     <strong>APE generates 30 candidates</strong> by paraphrasing and extending the baseline. Selected findings:<br>
-                                    - &ldquo;Let&rsquo;s work this out in a step by step way to be sure we have the right answer.&rdquo; &mdash; 82%<br>
-                                    - &ldquo;Break this problem into smaller parts. Solve each part carefully, then combine the results.&rdquo; &mdash; 79%<br>
-                                    - &ldquo;First, identify what is being asked. Then list the known quantities. Work through the math one step at a time, checking each step.&rdquo; &mdash; 84%</p>
+                                    - &ldquo;Let&rsquo;s work this out in a step by step way to be sure we have the right answer.&rdquo;, 82%<br>
+                                    - &ldquo;Break this problem into smaller parts. Solve each part carefully, then combine the results.&rdquo;, 79%<br>
+                                    - &ldquo;First, identify what is being asked. Then list the known quantities. Work through the math one step at a time, checking each step.&rdquo;, 84%</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>APE discovered that adding explicit quality motivations (&ldquo;to be sure we have the right answer&rdquo;) and procedural structure (&ldquo;identify, list, work, check&rdquo;) significantly improves reasoning accuracy. The 84% candidate adds a self-checking mechanism that the human baseline lacked entirely. This demonstrates APE&rsquo;s power: it explores phrasings and structural variations that manual iteration rarely discovers. Always verify results with your own test cases &mdash; benchmark numbers may not transfer directly to your specific use case.</p>
+                                    <p>APE discovered that adding explicit quality motivations (&ldquo;to be sure we have the right answer&rdquo;) and procedural structure (&ldquo;identify, list, work, check&rdquo;) significantly improves reasoning accuracy. The 84% candidate adds a self-checking mechanism that the human baseline lacked entirely. This demonstrates APE&rsquo;s power: it explores phrasings and structural variations that manual iteration rarely discovers. Always verify results with your own test cases, benchmark numbers may not transfer directly to your specific use case.</p>
                                 </div>
                             </div>
                         </div>
@@ -452,15 +452,15 @@
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">APE Setup</span>
                                     <p><strong>Task:</strong> Summarize technical documents into executive-friendly briefs (evaluated by human preference and factual accuracy).<br><br>
-                                    <strong>Human baseline:</strong> &ldquo;Summarize this document for a non-technical executive audience in 3-4 sentences.&rdquo; &mdash; 65% preference rate vs. human-written summaries.<br><br>
+                                    <strong>Human baseline:</strong> &ldquo;Summarize this document for a non-technical executive audience in 3-4 sentences.&rdquo;, 65% preference rate vs. human-written summaries.<br><br>
                                     <strong>APE generates 20 candidates.</strong> Top performers:<br>
-                                    - &ldquo;Write an executive summary: start with the business impact, then the key finding, then the recommended action. No jargon. 3 sentences maximum.&rdquo; &mdash; 78%<br>
-                                    - &ldquo;A busy CEO has 30 seconds to read this. What do they need to know? Focus on decisions they need to make, not technical details.&rdquo; &mdash; 81%<br>
-                                    - &ldquo;Translate this technical document into plain language for leadership. Lead with &lsquo;so what&rsquo; &mdash; why should they care? Then the essential facts. Then what happens next. Three sentences.&rdquo; &mdash; 83%</p>
+                                    - &ldquo;Write an executive summary: start with the business impact, then the key finding, then the recommended action. No jargon. 3 sentences maximum.&rdquo;, 78%<br>
+                                    - &ldquo;A busy CEO has 30 seconds to read this. What do they need to know? Focus on decisions they need to make, not technical details.&rdquo;, 81%<br>
+                                    - &ldquo;Translate this technical document into plain language for leadership. Lead with &lsquo;so what&rsquo;, why should they care? Then the essential facts. Then what happens next. Three sentences.&rdquo;, 83%</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>APE discovered that persona-anchoring (&ldquo;busy CEO&rdquo;) and structure-prescribing (&ldquo;lead with so what&rdquo;) dramatically outperform the generic &ldquo;summarize for non-technical audience&rdquo; instruction. The winning prompt frames the task around the reader&rsquo;s decision-making needs rather than the document&rsquo;s content structure &mdash; a subtle but impactful shift in framing. Important: Human evaluation of summary quality is inherently subjective; always have multiple reviewers validate AI-generated summaries against source documents for factual accuracy.</p>
+                                    <p>APE discovered that persona-anchoring (&ldquo;busy CEO&rdquo;) and structure-prescribing (&ldquo;lead with so what&rdquo;) dramatically outperform the generic &ldquo;summarize for non-technical audience&rdquo; instruction. The winning prompt frames the task around the reader&rsquo;s decision-making needs rather than the document&rsquo;s content structure, a subtle but impactful shift in framing. Important: Human evaluation of summary quality is inherently subjective; always have multiple reviewers validate AI-generated summaries against source documents for factual accuracy.</p>
                                 </div>
                             </div>
                         </div>
@@ -517,7 +517,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Model Deployment</strong>
-                                    <p>When the same task runs on different models &mdash; APE can discover model-specific optimal instructions rather than using a one-size-fits-all prompt.</p>
+                                    <p>When the same task runs on different models, APE can discover model-specific optimal instructions rather than using a one-size-fits-all prompt.</p>
                                 </div>
                             </div>
                         </div>
@@ -532,7 +532,7 @@
                                 </svg>
                                 <div>
                                     <strong>One-Off Tasks</strong>
-                                    <p>When you are writing a prompt for a single use &mdash; the overhead of generating and evaluating dozens of candidates is not justified for a prompt you will use once.</p>
+                                    <p>When you are writing a prompt for a single use, the overhead of generating and evaluating dozens of candidates is not justified for a prompt you will use once.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -542,7 +542,7 @@
                                 </svg>
                                 <div>
                                     <strong>No Evaluation Data</strong>
-                                    <p>Without labeled examples to score candidates against, APE cannot objectively compare instructions &mdash; you need ground truth to drive the search.</p>
+                                    <p>Without labeled examples to score candidates against, APE cannot objectively compare instructions, you need ground truth to drive the search.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -552,7 +552,7 @@
                                 </svg>
                                 <div>
                                     <strong>Budget-Constrained Scenarios</strong>
-                                    <p>APE requires many LLM calls (generation + evaluation per candidate) &mdash; for cost-sensitive applications, manual prompt engineering may be more efficient.</p>
+                                    <p>APE requires many LLM calls (generation + evaluation per candidate), for cost-sensitive applications, manual prompt engineering may be more efficient.</p>
                                 </div>
                             </div>
                         </div>
@@ -577,7 +577,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Content Moderation</h3>
-                        <p class="use-case-showcase__desc">Optimize classification prompts for detecting policy violations across millions of posts &mdash; even small accuracy improvements at scale prevent thousands of misclassifications daily.</p>
+                        <p class="use-case-showcase__desc">Optimize classification prompts for detecting policy violations across millions of posts, even small accuracy improvements at scale prevent thousands of misclassifications daily.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -590,7 +590,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Document Processing</h3>
-                        <p class="use-case-showcase__desc">Optimize extraction prompts for processing contracts, invoices, or medical records at scale &mdash; where precision on field extraction directly impacts downstream workflows.</p>
+                        <p class="use-case-showcase__desc">Optimize extraction prompts for processing contracts, invoices, or medical records at scale, where precision on field extraction directly impacts downstream workflows.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -600,7 +600,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Medical Triage Prompts</h3>
-                        <p class="use-case-showcase__desc">Optimize symptom assessment prompts where classification accuracy has direct patient safety implications &mdash; APE&rsquo;s systematic evaluation prevents reliance on untested human intuition.</p>
+                        <p class="use-case-showcase__desc">Optimize symptom assessment prompts where classification accuracy has direct patient safety implications, APE&rsquo;s systematic evaluation prevents reliance on untested human intuition.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -620,7 +620,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Security Alert Classification</h3>
-                        <p class="use-case-showcase__desc">Optimize prompts for classifying security alerts by severity &mdash; where false negatives on critical threats have severe consequences and prompt accuracy is paramount.</p>
+                        <p class="use-case-showcase__desc">Optimize prompts for classifying security alerts by severity, where false negatives on critical threats have severe consequences and prompt accuracy is paramount.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -670,7 +670,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">APE as a Stepping Stone to DSPy</div>
-                    <p>If you find APE valuable, consider graduating to DSPy &mdash; a framework that industrializes APE&rsquo;s principles. DSPy treats prompts as <strong>programs with optimizable parameters</strong>, automatically compiling natural language signatures into optimized prompts through the same generate-evaluate-select loop that APE pioneered, but with more sophisticated search strategies and multi-stage pipeline support.</p>
+                    <p>If you find APE valuable, consider graduating to DSPy, a framework that industrializes APE&rsquo;s principles. DSPy treats prompts as <strong>programs with optimizable parameters</strong>, automatically compiling natural language signatures into optimized prompts through the same generate-evaluate-select loop that APE pioneered, but with more sophisticated search strategies and multi-stage pipeline support.</p>
                 </div>
             </div>
         </section>
@@ -694,7 +694,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Instruction Induction</span>
-                        <span class="evolution-callout__desc">The precursor technique that infers a single instruction from examples &mdash; APE extends this by generating multiple candidates and selecting the best through evaluation.</span>
+                        <span class="evolution-callout__desc">The precursor technique that infers a single instruction from examples, APE extends this by generating multiple candidates and selecting the best through evaluation.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -712,7 +712,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">DSPy</span>
-                        <span class="evolution-callout__desc">The production-grade framework that industrializes APE&rsquo;s principles &mdash; treating prompts as compilable programs with automatically optimized parameters.</span>
+                        <span class="evolution-callout__desc">The production-grade framework that industrializes APE&rsquo;s principles, treating prompts as compilable programs with automatically optimized parameters.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -733,7 +733,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Prompt Mining</span>
-                        <span class="evolution-callout__desc">Discovers effective prompt templates by mining patterns in training data &mdash; a complementary approach that searches corpus statistics rather than generating candidates.</span>
+                        <span class="evolution-callout__desc">Discovers effective prompt templates by mining patterns in training data, a complementary approach that searches corpus statistics rather than generating candidates.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -810,7 +810,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

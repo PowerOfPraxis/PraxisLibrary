@@ -142,7 +142,7 @@
                     <span class="hero-badge__text">Agentic Framework</span>
                 </div>
                 <h1 class="page-title fade-in">AgentFlow &amp; Flow-GRPO</h1>
-                <p class="page-subtitle fade-in">Agents fail because they can&rsquo;t learn from their own mistakes mid-task. AgentFlow solves this by training the planner directly inside the multi-turn reasoning loop using Flow-GRPO &mdash; a technique that converts sparse, end-of-trajectory rewards into turn-level learning signals. The result: a 7B-parameter agent that outperforms GPT-4o on complex tasks.</p>
+                <p class="page-subtitle fade-in">Agents fail because they can&rsquo;t learn from their own mistakes mid-task. AgentFlow solves this by training the planner directly inside the multi-turn reasoning loop using Flow-GRPO, a technique that converts sparse, end-of-trajectory rewards into turn-level learning signals. The result: a 7B-parameter agent that outperforms GPT-4o on complex tasks.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -153,8 +153,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Framework Context: 2025&ndash;2026</span>
-                        <p><strong>Introduced:</strong> AgentFlow was developed by Pan Lu and collaborators at Stanford, with the paper &ldquo;In-the-Flow Agentic System Optimization&rdquo; published in October 2025. It addressed the fundamental credit assignment problem in multi-turn agentic systems: when an agent takes 15 steps to complete a task and receives a single reward at the end, how does each individual step learn whether it contributed to success or failure? Previous approaches trained agents offline and froze them at inference time. AgentFlow introduced &ldquo;in-the-flow&rdquo; optimization &mdash; training the planner within the actual reasoning loop.</p>
-                        <p><strong>Modern LLM Status:</strong> AgentFlow was accepted at <strong>ICLR 2026</strong> and represents <strong>the cutting edge of agentic system training</strong>. Its Flow-GRPO algorithm achieved average accuracy gains of 14.9% on search tasks, 14.0% on agentic benchmarks, 14.5% on mathematical reasoning, and 4.1% on scientific tasks &mdash; with a 7B-parameter backbone outperforming larger proprietary models. The technique has been featured as HuggingFace Daily Paper #2 and accepted to the NeurIPS 2025 Efficient Reasoning Workshop. AgentFlow points toward a future where agents improve in real time during deployment, not just during offline training.</p>
+                        <p><strong>Introduced:</strong> AgentFlow was developed by Pan Lu and collaborators at Stanford, with the paper &ldquo;In-the-Flow Agentic System Optimization&rdquo; published in October 2025. It addressed the fundamental credit assignment problem in multi-turn agentic systems: when an agent takes 15 steps to complete a task and receives a single reward at the end, how does each individual step learn whether it contributed to success or failure? Previous approaches trained agents offline and froze them at inference time. AgentFlow introduced &ldquo;in-the-flow&rdquo; optimization, training the planner within the actual reasoning loop.</p>
+                        <p><strong>Modern LLM Status:</strong> AgentFlow was accepted at <strong>ICLR 2026</strong> and represents <strong>the cutting edge of agentic system training</strong>. Its Flow-GRPO algorithm achieved average accuracy gains of 14.9% on search tasks, 14.0% on agentic benchmarks, 14.5% on mathematical reasoning, and 4.1% on scientific tasks, with a 7B-parameter backbone outperforming larger proprietary models. The technique has been featured as HuggingFace Daily Paper #2 and accepted to the NeurIPS 2025 Efficient Reasoning Workshop. AgentFlow points toward a future where agents improve in real time during deployment, not just during offline training.</p>
                     </div>
                 </div>
             </div>
@@ -168,15 +168,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Train the Planner While It Plans</h2>
-                        <p class="split-section__text">Current agentic systems have a fundamental disconnect: the planner is trained offline on static datasets, then frozen at deployment. It cannot learn from its own successes and failures during actual task execution. When a research agent takes a wrong turn on step 3 of a 10-step task, the planner has no way to learn that step 3 was the mistake &mdash; it only knows the final outcome was wrong.</p>
-                        <p class="split-section__text"><strong>AgentFlow bridges this gap by optimizing the planner inside the reasoning loop itself.</strong> It coordinates four specialized modules &mdash; a planner, an executor, a verifier, and a generator &mdash; through evolving shared memory. The planner proposes actions, the executor carries them out, the verifier checks results, and the generator produces outputs. Crucially, Flow-GRPO trains the planner by broadcasting the final trajectory reward to every turn, using group-normalized advantages to determine which planning decisions were good and which were bad.</p>
+                        <p class="split-section__text">Current agentic systems have a fundamental disconnect: the planner is trained offline on static datasets, then frozen at deployment. It cannot learn from its own successes and failures during actual task execution. When a research agent takes a wrong turn on step 3 of a 10-step task, the planner has no way to learn that step 3 was the mistake, it only knows the final outcome was wrong.</p>
+                        <p class="split-section__text"><strong>AgentFlow bridges this gap by optimizing the planner inside the reasoning loop itself.</strong> It coordinates four specialized modules, a planner, an executor, a verifier, and a generator, through evolving shared memory. The planner proposes actions, the executor carries them out, the verifier checks results, and the generator produces outputs. Crucially, Flow-GRPO trains the planner by broadcasting the final trajectory reward to every turn, using group-normalized advantages to determine which planning decisions were good and which were bad.</p>
                         <p class="split-section__text">Think of it like a chess player who can review each move of a lost game and understand exactly which move was the turning point. Instead of just knowing &ldquo;I lost,&rdquo; the player understands &ldquo;move 7 was the critical error because it ignored the center.&rdquo; Flow-GRPO gives this per-move feedback to the planner at every turn of the agent&rsquo;s execution.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Four Modules, One Evolving Memory</span>
-                                <p>AgentFlow&rsquo;s architecture separates concerns into four modules that communicate through shared memory. The <strong>Planner</strong> decides what to do next based on the goal and current state. The <strong>Executor</strong> carries out the planned action using available tools. The <strong>Verifier</strong> checks whether the action succeeded and updates the shared memory with observations. The <strong>Generator</strong> produces the final output when the task is complete. This separation allows each module to be independently optimized &mdash; and Flow-GRPO specifically targets the planner, the most critical module for overall task success.</p>
+                                <p>AgentFlow&rsquo;s architecture separates concerns into four modules that communicate through shared memory. The <strong>Planner</strong> decides what to do next based on the goal and current state. The <strong>Executor</strong> carries out the planned action using available tools. The <strong>Verifier</strong> checks whether the action succeeded and updates the shared memory with observations. The <strong>Generator</strong> produces the final output when the task is complete. This separation allows each module to be independently optimized, and Flow-GRPO specifically targets the planner, the most critical module for overall task success.</p>
                             </div>
                         </div>
                     </div>
@@ -314,7 +314,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Result</span>
-                                <p>14.9% accuracy gain on search tasks, 14.0% on agentic benchmarks. A 7B model outperforms GPT-4o on complex multi-step tasks. The planner learns task-specific strategies &mdash; like always verifying claims and adapting search queries based on initial results.</p>
+                                <p>14.9% accuracy gain on search tasks, 14.0% on agentic benchmarks. A 7B model outperforms GPT-4o on complex multi-step tasks. The planner learns task-specific strategies, like always verifying claims and adapting search queries based on initial results.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -366,12 +366,12 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Optimized Agent Execution</span>
-                                    <p><strong>Turn 1 &mdash; Planner (learned strategy: broad then specific):</strong> &ldquo;Start with a broad survey search to identify candidate advances, then deep-dive on each.&rdquo; Executor searches &ldquo;solid-state battery breakthroughs 2023 2024 2025.&rdquo;<br><br>
-                                    <strong>Turn 2 &mdash; Verifier:</strong> Found 6 candidate advances across 4 sources. Three appear in multiple sources: sulfide electrolyte scaling, dry electrode processing, and silicon anode integration. Memory updated with candidates.<br><br>
-                                    <strong>Turn 3 &mdash; Planner (learned strategy: verify before committing):</strong> &ldquo;Before selecting the top 3, verify each candidate with a dedicated search.&rdquo; Executor searches each candidate individually.<br><br>
-                                    <strong>Turn 4 &mdash; Verifier:</strong> Silicon anode integration appears overhyped &mdash; one source calls it &ldquo;promising but unproven.&rdquo; Flags for re-evaluation. Finds a fourth candidate: solid-state manufacturing cost reduction at Toyota.<br><br>
-                                    <strong>Turn 5 &mdash; Planner (learned strategy: resolve ambiguity with authoritative sources):</strong> Searches specifically for peer-reviewed or company-announced results for each candidate. Confirms 3 advances with company attributions.<br><br>
-                                    <strong>Turn 6 &mdash; Generator:</strong> Produces a structured answer with three advances, leading companies, and evidence trail. Each claim links to the verification step that confirmed it.<br><br>
+                                    <p><strong>Turn 1, Planner (learned strategy: broad then specific):</strong> &ldquo;Start with a broad survey search to identify candidate advances, then deep-dive on each.&rdquo; Executor searches &ldquo;solid-state battery breakthroughs 2023 2024 2025.&rdquo;<br><br>
+                                    <strong>Turn 2, Verifier:</strong> Found 6 candidate advances across 4 sources. Three appear in multiple sources: sulfide electrolyte scaling, dry electrode processing, and silicon anode integration. Memory updated with candidates.<br><br>
+                                    <strong>Turn 3, Planner (learned strategy: verify before committing):</strong> &ldquo;Before selecting the top 3, verify each candidate with a dedicated search.&rdquo; Executor searches each candidate individually.<br><br>
+                                    <strong>Turn 4, Verifier:</strong> Silicon anode integration appears overhyped, one source calls it &ldquo;promising but unproven.&rdquo; Flags for re-evaluation. Finds a fourth candidate: solid-state manufacturing cost reduction at Toyota.<br><br>
+                                    <strong>Turn 5, Planner (learned strategy: resolve ambiguity with authoritative sources):</strong> Searches specifically for peer-reviewed or company-announced results for each candidate. Confirms 3 advances with company attributions.<br><br>
+                                    <strong>Turn 6, Generator:</strong> Produces a structured answer with three advances, leading companies, and evidence trail. Each claim links to the verification step that confirmed it.<br><br>
                                     <em>The Planner&rsquo;s three learned strategies (broad-then-specific, verify-before-commit, resolve-with-authority) emerged from Flow-GRPO training, not from explicit programming. Always verify AI research summaries against primary sources.</em></p>
                                 </div>
                             </div>
@@ -393,12 +393,12 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Optimized Agent Execution</span>
-                                    <p><strong>Turn 1 &mdash; Planner (learned: scaffold first):</strong> &ldquo;Create the middleware skeleton with a basic fixed-window counter before adding complexity.&rdquo; Writes basic middleware.<br><br>
-                                    <strong>Turn 2 &mdash; Planner (learned: test early):</strong> Writes 3 tests for the basic counter: normal request, at limit, over limit. Runs tests. All pass.<br><br>
-                                    <strong>Turn 3 &mdash; Planner:</strong> &ldquo;Upgrade to sliding window algorithm.&rdquo; Rewrites the counting logic. Runs existing tests &mdash; 2 pass, 1 fails (edge case at window boundary).<br><br>
-                                    <strong>Turn 4 &mdash; Verifier:</strong> Identifies the boundary bug: requests at exactly the window transition are double-counted. Planner adjusts the timestamp comparison from &lt;= to &lt;.<br><br>
-                                    <strong>Turn 5 &mdash; Planner:</strong> &ldquo;Add Redis backend.&rdquo; Replaces in-memory store with Redis. Adds 2 more tests for Redis persistence. Runs all 5 tests &mdash; all pass.<br><br>
-                                    <strong>Turn 6 &mdash; Planner (learned: add edge cases last):</strong> Adds tests for: Redis connection failure (graceful degradation), concurrent requests (race condition), per-user isolation. Finds race condition bug, fixes with Redis MULTI/EXEC.<br><br>
+                                    <p><strong>Turn 1, Planner (learned: scaffold first):</strong> &ldquo;Create the middleware skeleton with a basic fixed-window counter before adding complexity.&rdquo; Writes basic middleware.<br><br>
+                                    <strong>Turn 2, Planner (learned: test early):</strong> Writes 3 tests for the basic counter: normal request, at limit, over limit. Runs tests. All pass.<br><br>
+                                    <strong>Turn 3, Planner:</strong> &ldquo;Upgrade to sliding window algorithm.&rdquo; Rewrites the counting logic. Runs existing tests, 2 pass, 1 fails (edge case at window boundary).<br><br>
+                                    <strong>Turn 4, Verifier:</strong> Identifies the boundary bug: requests at exactly the window transition are double-counted. Planner adjusts the timestamp comparison from &lt;= to &lt;.<br><br>
+                                    <strong>Turn 5, Planner:</strong> &ldquo;Add Redis backend.&rdquo; Replaces in-memory store with Redis. Adds 2 more tests for Redis persistence. Runs all 5 tests, all pass.<br><br>
+                                    <strong>Turn 6, Planner (learned: add edge cases last):</strong> Adds tests for: Redis connection failure (graceful degradation), concurrent requests (race condition), per-user isolation. Finds race condition bug, fixes with Redis MULTI/EXEC.<br><br>
                                     <strong>Final:</strong> 8 tests passing, complete middleware with sliding window, Redis backing, and graceful degradation. The &ldquo;incremental build-test&rdquo; pattern caught 2 bugs early that a &ldquo;build-everything-first&rdquo; approach would have made much harder to diagnose. <em>AI-generated code should always be reviewed for security vulnerabilities before deployment.</em></p>
                                 </div>
                             </div>
@@ -420,13 +420,13 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Optimized Agent Execution</span>
-                                    <p><strong>Turn 1 &mdash; Planner (learned: compute then validate):</strong> &ldquo;Calculate molecular properties first to establish a quantitative baseline.&rdquo; Executor computes: molecular weight = 324 Da, hydrogen bond donors = 2, hydrogen bond acceptors = 4, polar surface area = 65 &Aring;&sup2;.<br><br>
-                                    <strong>Turn 2 &mdash; Planner:</strong> &ldquo;Predict logP for lipophilicity assessment.&rdquo; Executor: predicted logP = 2.8. Memory updated: &ldquo;All Lipinski properties within BBB-favorable range.&rdquo;<br><br>
-                                    <strong>Turn 3 &mdash; Planner (learned: compare to known compounds):</strong> &ldquo;Find structurally similar compounds with known BBB permeability.&rdquo; Executor finds 3 analogs: 2 are BBB-permeable, 1 is not.<br><br>
-                                    <strong>Turn 4 &mdash; Verifier:</strong> The non-permeable analog has a similar molecular weight but higher polar surface area (89 &Aring;&sup2;). Notes this as a distinguishing feature favorable for the query compound.<br><br>
-                                    <strong>Turn 5 &mdash; Planner (learned: search for contradicting evidence):</strong> &ldquo;Search literature for any known efflux transporter interactions with this scaffold.&rdquo; Finds one paper reporting P-glycoprotein efflux for a related scaffold &mdash; a potential concern.<br><br>
-                                    <strong>Turn 6 &mdash; Generator:</strong> Produces a structured assessment: &ldquo;Likely BBB-permeable based on physicochemical properties (MW 324, logP 2.8, PSA 65) and structural analogy to 2 known permeable compounds. Caveat: related scaffolds show P-gp efflux interaction that could reduce effective permeability. Recommend experimental PAMPA-BBB assay to confirm.&rdquo;<br><br>
-                                    <em>The learned &ldquo;search for contradicting evidence&rdquo; pattern was the key differentiator &mdash; untrained agents consistently missed the efflux concern. AI predictions in drug discovery must always be validated experimentally.</em></p>
+                                    <p><strong>Turn 1, Planner (learned: compute then validate):</strong> &ldquo;Calculate molecular properties first to establish a quantitative baseline.&rdquo; Executor computes: molecular weight = 324 Da, hydrogen bond donors = 2, hydrogen bond acceptors = 4, polar surface area = 65 &Aring;&sup2;.<br><br>
+                                    <strong>Turn 2, Planner:</strong> &ldquo;Predict logP for lipophilicity assessment.&rdquo; Executor: predicted logP = 2.8. Memory updated: &ldquo;All Lipinski properties within BBB-favorable range.&rdquo;<br><br>
+                                    <strong>Turn 3, Planner (learned: compare to known compounds):</strong> &ldquo;Find structurally similar compounds with known BBB permeability.&rdquo; Executor finds 3 analogs: 2 are BBB-permeable, 1 is not.<br><br>
+                                    <strong>Turn 4, Verifier:</strong> The non-permeable analog has a similar molecular weight but higher polar surface area (89 &Aring;&sup2;). Notes this as a distinguishing feature favorable for the query compound.<br><br>
+                                    <strong>Turn 5, Planner (learned: search for contradicting evidence):</strong> &ldquo;Search literature for any known efflux transporter interactions with this scaffold.&rdquo; Finds one paper reporting P-glycoprotein efflux for a related scaffold, a potential concern.<br><br>
+                                    <strong>Turn 6, Generator:</strong> Produces a structured assessment: &ldquo;Likely BBB-permeable based on physicochemical properties (MW 324, logP 2.8, PSA 65) and structural analogy to 2 known permeable compounds. Caveat: related scaffolds show P-gp efflux interaction that could reduce effective permeability. Recommend experimental PAMPA-BBB assay to confirm.&rdquo;<br><br>
+                                    <em>The learned &ldquo;search for contradicting evidence&rdquo; pattern was the key differentiator, untrained agents consistently missed the efflux concern. AI predictions in drug discovery must always be validated experimentally.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -464,7 +464,7 @@
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                                 <div>
                                     <strong>Multi-Tool Agent Systems</strong>
-                                    <p>When agents must coordinate web search, code execution, calculation, and verification tools &mdash; and learn which tool to use when.</p>
+                                    <p>When agents must coordinate web search, code execution, calculation, and verification tools, and learn which tool to use when.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -483,21 +483,21 @@
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
                                 <div>
                                     <strong>Single-Turn Tasks</strong>
-                                    <p>When the task requires one LLM call with no planning or tool use &mdash; AgentFlow&rsquo;s multi-module architecture adds unnecessary complexity.</p>
+                                    <p>When the task requires one LLM call with no planning or tool use, AgentFlow&rsquo;s multi-module architecture adds unnecessary complexity.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
                                 <div>
                                     <strong>No Training Data Available</strong>
-                                    <p>When you cannot generate training trajectories with ground-truth outcomes &mdash; Flow-GRPO needs trajectory rewards to optimize the planner.</p>
+                                    <p>When you cannot generate training trajectories with ground-truth outcomes, Flow-GRPO needs trajectory rewards to optimize the planner.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
                                 <div>
                                     <strong>Simple Tool Use Patterns</strong>
-                                    <p>When the agent always follows the same tool sequence (search &rarr; read &rarr; answer) &mdash; optimization provides little benefit when planning is trivial.</p>
+                                    <p>When the agent always follows the same tool sequence (search &rarr; read &rarr; answer), optimization provides little benefit when planning is trivial.</p>
                                 </div>
                             </div>
                         </div>
@@ -547,7 +547,7 @@
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                         </div>
                         <h3 class="use-case-showcase__title">IT Operations</h3>
-                        <p class="use-case-showcase__desc">Agents that learn diagnostic strategies from incident resolution outcomes &mdash; which logs to check first, which fixes to try, when to escalate.</p>
+                        <p class="use-case-showcase__desc">Agents that learn diagnostic strategies from incident resolution outcomes, which logs to check first, which fixes to try, when to escalate.</p>
                     </div>
                     <div class="use-case-showcase__item">
                         <div class="use-case-showcase__icon">
@@ -592,7 +592,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Future of Agent Training</div>
-                    <p>AgentFlow represents a paradigm shift from &ldquo;train offline, deploy frozen&rdquo; to &ldquo;train in the flow of execution.&rdquo; Just as humans improve their problem-solving strategies by reflecting on past successes and failures, AgentFlow agents learn which planning patterns lead to success and which lead to failure. This closes the loop between agent deployment and agent improvement &mdash; pointing toward a future where agents continuously get better at the specific tasks they encounter in production.</p>
+                    <p>AgentFlow represents a paradigm shift from &ldquo;train offline, deploy frozen&rdquo; to &ldquo;train in the flow of execution.&rdquo; Just as humans improve their problem-solving strategies by reflecting on past successes and failures, AgentFlow agents learn which planning patterns lead to success and which lead to failure. This closes the loop between agent deployment and agent improvement, pointing toward a future where agents continuously get better at the specific tasks they encounter in production.</p>
                 </div>
             </div>
         </section>
@@ -611,7 +611,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Agentic Prompting</span>
-                        <span class="evolution-callout__desc">AgentFlow builds on the agentic paradigm &mdash; goal-directed multi-step execution with tools &mdash; and adds the ability to optimize the planning module through execution experience.</span>
+                        <span class="evolution-callout__desc">AgentFlow builds on the agentic paradigm, goal-directed multi-step execution with tools, and adds the ability to optimize the planning module through execution experience.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -625,7 +625,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Precursor</span>
                         <span class="evolution-callout__title">Reflexion</span>
-                        <span class="evolution-callout__desc">Reflexion introduced self-reflection for agents &mdash; reviewing past attempts to improve future ones. AgentFlow takes this further by training the planner&rsquo;s weights, not just its context.</span>
+                        <span class="evolution-callout__desc">Reflexion introduced self-reflection for agents, reviewing past attempts to improve future ones. AgentFlow takes this further by training the planner&rsquo;s weights, not just its context.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -639,7 +639,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complementary Optimization</span>
                         <span class="evolution-callout__title">DSPy</span>
-                        <span class="evolution-callout__desc">Where DSPy optimizes prompts and demonstrations, AgentFlow optimizes the planner&rsquo;s decision-making weights &mdash; a complementary approach that targets different levels of the agent stack.</span>
+                        <span class="evolution-callout__desc">Where DSPy optimizes prompts and demonstrations, AgentFlow optimizes the planner&rsquo;s decision-making weights, a complementary approach that targets different levels of the agent stack.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -710,7 +710,7 @@
         </div>
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
         <div class="footer-policies">
             <a href="../pages/responsible-ai.html">Responsible AI</a>

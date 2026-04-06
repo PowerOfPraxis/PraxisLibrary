@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Decomposition</span>
                 </div>
                 <h1 class="page-title fade-in">Plan-and-Solve Prompting</h1>
-                <p class="page-subtitle fade-in">Most reasoning errors happen because models rush into execution without thinking ahead. Plan-and-Solve forces a two-phase approach &mdash; first devise a clear strategy, then carry it out step by step &mdash; turning impulsive solving into methodical problem resolution.</p>
+                <p class="page-subtitle fade-in">Most reasoning errors happen because models rush into execution without thinking ahead. Plan-and-Solve forces a two-phase approach, first devise a clear strategy, then carry it out step by step, turning impulsive solving into methodical problem resolution.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> Plan-and-Solve was published in 2023 by Wang et al. The technique was designed to address a key weakness in Zero-Shot Chain-of-Thought prompting: while &ldquo;Let&rsquo;s think step by step&rdquo; encourages sequential reasoning, it provides no guidance on <em>how</em> to structure those steps. Plan-and-Solve replaces that open-ended trigger with a two-phase instruction &mdash; &ldquo;Let&rsquo;s first understand the problem and devise a plan to solve it. Then, let&rsquo;s carry out the plan and solve the problem step by step.&rdquo; The enhanced PS+ variant adds explicit instructions to extract relevant variables, calculate intermediate results, and verify calculations.</p>
-                        <p><strong>Modern LLM Status:</strong> The explicit planning paradigm introduced by Plan-and-Solve has been <strong>substantially internalized by frontier models</strong>. Claude, GPT-4, and Gemini naturally engage in planning behavior when facing complex problems. However, the technique remains valuable when working with <strong>smaller models, high-stakes calculations, or problems where you need guaranteed separation between planning and execution phases</strong>. The PS+ variant&rsquo;s emphasis on variable extraction and verification is particularly relevant for mathematical and analytical tasks where precision matters.</p>
+                        <p><strong>Introduced:</strong> Plan-and-Solve was published in 2023 by Wang et al. The technique was designed to address a key weakness in Zero-Shot Chain-of-Thought prompting: while &ldquo;Let&rsquo;s think step by step&rdquo; encourages sequential reasoning, it provides no guidance on <em>how</em> to structure those steps. Plan-and-Solve replaces that open-ended trigger with a two-phase instruction, &ldquo;Let&rsquo;s first understand the problem and devise a plan to solve it. Then, let&rsquo;s carry out the plan and solve the problem step by step.&rdquo; The enhanced PS+ variant adds explicit instructions to extract relevant variables, calculate intermediate results, and verify calculations.</p>
+                        <p><strong>Modern LLM Status:</strong> The explicit planning paradigm introduced by Plan-and-Solve has been <strong>substantially internalized by frontier models</strong>. Claude, ChatGPT, and Gemini naturally engage in planning behavior when facing complex problems. However, the technique remains valuable when working with <strong>smaller models, high-stakes calculations, or problems where you need guaranteed separation between planning and execution phases</strong>. The PS+ variant&rsquo;s emphasis on variable extraction and verification is particularly relevant for mathematical and analytical tasks where precision matters.</p>
                     </div>
                 </div>
             </div>
@@ -215,9 +215,9 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Plan First, Solve Second</h2>
-                        <p class="split-section__text">When you ask a model to &ldquo;think step by step,&rdquo; it starts solving immediately &mdash; picking an approach on the fly and hoping it leads somewhere useful. This works for simple problems, but for multi-step reasoning, the model often commits to a flawed strategy early and then compounds errors through every subsequent step. The result: confident-sounding answers built on shaky foundations.</p>
-                        <p class="split-section__text"><strong>Plan-and-Solve separates thinking from doing.</strong> Phase one asks the model to understand the problem fully &mdash; what information is given, what needs to be found, and what approach makes sense. Phase two then executes that plan methodically. By forcing a pause between strategy and action, the technique catches structural errors before they cascade through the solution.</p>
-                        <p class="split-section__text">Think of it like an architect who draws blueprints before construction begins. You would never build a house by laying bricks in whatever direction feels right &mdash; you plan the structure first, then execute the plan. Plan-and-Solve applies this same discipline to reasoning.</p>
+                        <p class="split-section__text">When you ask a model to &ldquo;think step by step,&rdquo; it starts solving immediately, picking an approach on the fly and hoping it leads somewhere useful. This works for simple problems, but for multi-step reasoning, the model often commits to a flawed strategy early and then compounds errors through every subsequent step. The result: confident-sounding answers built on shaky foundations.</p>
+                        <p class="split-section__text"><strong>Plan-and-Solve separates thinking from doing.</strong> Phase one asks the model to understand the problem fully, what information is given, what needs to be found, and what approach makes sense. Phase two then executes that plan methodically. By forcing a pause between strategy and action, the technique catches structural errors before they cascade through the solution.</p>
+                        <p class="split-section__text">Think of it like an architect who draws blueprints before construction begins. You would never build a house by laying bricks in whatever direction feels right, you plan the structure first, then execute the plan. Plan-and-Solve applies this same discipline to reasoning.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Devise the Plan</h3>
-                            <p class="element-timeline__text">Before any computation, the model lays out a step-by-step strategy. This is the signature contribution of Plan-and-Solve &mdash; an explicit roadmap that identifies which calculations to perform and in what order. The PS+ variant adds instructions to extract relevant variables and their values at this stage.</p>
+                            <p class="element-timeline__text">Before any computation, the model lays out a step-by-step strategy. This is the signature contribution of Plan-and-Solve, an explicit roadmap that identifies which calculations to perform and in what order. The PS+ variant adds instructions to extract relevant variables and their values at this stage.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Plan:</strong> (1) Identify notebook price and quantity. (2) Calculate number of pens from the &ldquo;twice as many&rdquo; relationship. (3) Compute total cost of notebooks. (4) Compute total cost of pens. (5) Sum both costs. (6) Subtract from $50 to find change.</p>
@@ -460,7 +460,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Problem</span>
-                                    <p>&ldquo;A team has 4 developers, 2 designers, and 1 project manager. They need to build a feature with a backend API, a frontend UI, and user testing &mdash; each task depending on the previous. If each developer can do 1 unit of work per day, each designer 1 unit per day, and tasks require 8, 6, and 3 units respectively, what is the minimum calendar time to complete all three tasks?&rdquo;</p>
+                                    <p>&ldquo;A team has 4 developers, 2 designers, and 1 project manager. They need to build a feature with a backend API, a frontend UI, and user testing, each task depending on the previous. If each developer can do 1 unit of work per day, each designer 1 unit per day, and tasks require 8, 6, and 3 units respectively, what is the minimum calendar time to complete all three tasks?&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Plan-and-Solve Response</span>
@@ -498,7 +498,7 @@
                                 </svg>
                                 <div>
                                     <strong>Math Word Problems</strong>
-                                    <p>Multi-step calculations where variables need careful extraction and tracking &mdash; the original use case where Plan-and-Solve showed its biggest gains.</p>
+                                    <p>Multi-step calculations where variables need careful extraction and tracking, the original use case where Plan-and-Solve showed its biggest gains.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -508,7 +508,7 @@
                                 </svg>
                                 <div>
                                     <strong>Sequential Dependency Tasks</strong>
-                                    <p>Problems where later steps depend on earlier results &mdash; the plan ensures the correct execution order and prevents skipped dependencies.</p>
+                                    <p>Problems where later steps depend on earlier results, the plan ensures the correct execution order and prevents skipped dependencies.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -518,7 +518,7 @@
                                 </svg>
                                 <div>
                                     <strong>Zero-Shot Scenarios</strong>
-                                    <p>When you cannot provide examples but still need structured reasoning &mdash; Plan-and-Solve delivers decomposition without requiring few-shot demonstrations.</p>
+                                    <p>When you cannot provide examples but still need structured reasoning, Plan-and-Solve delivers decomposition without requiring few-shot demonstrations.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -543,7 +543,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple, Single-Step Tasks</strong>
-                                    <p>Questions that require a single lookup or straightforward answer &mdash; planning adds unnecessary overhead when the problem needs no decomposition.</p>
+                                    <p>Questions that require a single lookup or straightforward answer, planning adds unnecessary overhead when the problem needs no decomposition.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -563,7 +563,7 @@
                                 </svg>
                                 <div>
                                     <strong>Latency-Sensitive Applications</strong>
-                                    <p>When response speed is critical &mdash; the planning phase adds tokens and processing time that may not be justified for time-sensitive use cases.</p>
+                                    <p>When response speed is critical, the planning phase adds tokens and processing time that may not be justified for time-sensitive use cases.</p>
                                 </div>
                             </div>
                         </div>
@@ -610,7 +610,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Diagnostic Reasoning</h3>
-                        <p class="use-case-showcase__desc">Systematic troubleshooting of technical issues where a plan prevents jumping to conclusions &mdash; first gather symptoms, then hypothesize, then test each hypothesis methodically.</p>
+                        <p class="use-case-showcase__desc">Systematic troubleshooting of technical issues where a plan prevents jumping to conclusions, first gather symptoms, then hypothesize, then test each hypothesis methodically.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -708,7 +708,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complementary Approach</span>
                         <span class="evolution-callout__title">Least-to-Most</span>
-                        <span class="evolution-callout__desc">Where Plan-and-Solve creates a plan then executes it, Least-to-Most progressively solves from the simplest sub-problem upward &mdash; a bottom-up alternative to top-down planning.</span>
+                        <span class="evolution-callout__desc">Where Plan-and-Solve creates a plan then executes it, Least-to-Most progressively solves from the simplest sub-problem upward, a bottom-up alternative to top-down planning.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -726,7 +726,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Decomposed Prompting</span>
-                        <span class="evolution-callout__desc">Takes the planning idea further by routing each sub-task to specialized handlers &mdash; a modular extension where different sub-problems get different solvers.</span>
+                        <span class="evolution-callout__desc">Takes the planning idea further by routing each sub-task to specialized handlers, a modular extension where different sub-problems get different solvers.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -746,7 +746,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Zero-Shot CoT</span>
-                        <span class="evolution-callout__desc">The technique Plan-and-Solve directly improves upon &mdash; replacing the generic &ldquo;think step by step&rdquo; trigger with structured planning and execution phases.</span>
+                        <span class="evolution-callout__desc">The technique Plan-and-Solve directly improves upon, replacing the generic &ldquo;think step by step&rdquo; trigger with structured planning and execution phases.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -823,7 +823,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

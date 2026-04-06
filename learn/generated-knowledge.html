@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Knowledge Enhancement Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Generated Knowledge Prompting</h1>
-                <p class="page-subtitle fade-in">Before asking the model to answer, ask it to teach itself first. Generated Knowledge Prompting uses a two-step process &mdash; generate relevant knowledge, then reason with it &mdash; turning the model&rsquo;s own latent understanding into explicit context that improves accuracy by 14&ndash;20%.</p>
+                <p class="page-subtitle fade-in">Before asking the model to answer, ask it to teach itself first. Generated Knowledge Prompting uses a two-step process, generate relevant knowledge, then reason with it, turning the model&rsquo;s own latent understanding into explicit context that improves accuracy by 14&ndash;20%.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
                         <p><strong>Introduced:</strong> Generated Knowledge Prompting was published in 2022 by Liu et al. The technique takes a two-step approach: first, prompt the model to generate relevant factual knowledge about the topic; then, include that generated knowledge in a second prompt alongside the actual question. The original paper demonstrated improvements of 14&ndash;20% on commonsense reasoning benchmarks (NumerSense, CSQA2) by having the model &ldquo;prime itself&rdquo; with its own knowledge before answering. The key insight was that LLMs contain vast knowledge but don&rsquo;t always surface the right facts when answering directly.</p>
-                        <p><strong>Modern LLM Status:</strong> Generated Knowledge Prompting was a precursor to Retrieval-Augmented Generation (RAG). While RAG now retrieves real documents from external knowledge bases, the core insight &mdash; priming context before answering &mdash; remains powerful. In 2026, the technique is most useful when external retrieval isn&rsquo;t available but the model&rsquo;s own knowledge can be surfaced and organized before reasoning. Modern models with extended thinking capabilities (like Claude&rsquo;s) partially internalize this pattern, but explicit knowledge generation still helps for specialized or nuanced topics where the model benefits from &ldquo;warming up&rdquo; its relevant knowledge before committing to an answer.</p>
+                        <p><strong>Modern LLM Status:</strong> Generated Knowledge Prompting was a precursor to Retrieval-Augmented Generation (RAG). While RAG now retrieves real documents from external knowledge bases, the core insight, priming context before answering, remains powerful. In 2026, the technique is most useful when external retrieval isn&rsquo;t available but the model&rsquo;s own knowledge can be surfaced and organized before reasoning. Modern models with extended thinking capabilities (like Claude&rsquo;s) partially internalize this pattern, but explicit knowledge generation still helps for specialized or nuanced topics where the model benefits from &ldquo;warming up&rdquo; its relevant knowledge before committing to an answer.</p>
                     </div>
                 </div>
             </div>
@@ -215,7 +215,7 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Let the Model Study Before the Exam</h2>
-                        <p class="split-section__text">When you ask a question directly, the model attempts to retrieve the right facts and reason with them simultaneously. This combined cognitive load often leads to shallow or inaccurate answers &mdash; the model grabs whatever knowledge surfaces first rather than the most relevant knowledge.</p>
+                        <p class="split-section__text">When you ask a question directly, the model attempts to retrieve the right facts and reason with them simultaneously. This combined cognitive load often leads to shallow or inaccurate answers, the model grabs whatever knowledge surfaces first rather than the most relevant knowledge.</p>
                         <p class="split-section__text"><strong>Generated Knowledge separates retrieval from reasoning.</strong> Step one: ask the model to generate everything it knows about the topic. Step two: feed that generated knowledge back as context for the actual question. By splitting the process, you give the model a chance to surface relevant facts deliberately, then reason over them with full context in view.</p>
                         <p class="split-section__text">Think of it like asking a student to write down everything they know about photosynthesis on a notepad before answering an exam question about it. The act of writing primes the right knowledge, and having it visible during the answer prevents gaps and errors.</p>
                     </div>
@@ -223,7 +223,7 @@
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Self-Priming Works</span>
-                                <p>LLMs contain far more knowledge than they surface in any single response. When answering directly, the model&rsquo;s attention mechanism selects a subset of relevant information &mdash; but this selection is noisy and can miss crucial facts. By explicitly asking the model to <strong>generate knowledge first</strong>, you force a broader retrieval pass. The generated knowledge then sits in the context window during the actual answer, ensuring the model has access to its own best information. This is especially powerful for commonsense reasoning, where the relevant facts feel &ldquo;obvious&rdquo; but are easy to overlook.</p>
+                                <p>LLMs contain far more knowledge than they surface in any single response. When answering directly, the model&rsquo;s attention mechanism selects a subset of relevant information, but this selection is noisy and can miss crucial facts. By explicitly asking the model to <strong>generate knowledge first</strong>, you force a broader retrieval pass. The generated knowledge then sits in the context window during the actual answer, ensuring the model has access to its own best information. This is especially powerful for commonsense reasoning, where the relevant facts feel &ldquo;obvious&rdquo; but are easy to overlook.</p>
                             </div>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                             <p class="element-timeline__text">Start with the question you need answered. Identify the key topic, domain, or concept area that the model will need knowledge about. This helps you craft an effective knowledge generation prompt.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Question: &ldquo;Is it possible for a penguin to fly higher than a typical commercial airplane?&rdquo; &mdash; Domain: penguin biology, avian flight capabilities, airplane altitude.</p>
+                                <p>Question: &ldquo;Is it possible for a penguin to fly higher than a typical commercial airplane?&rdquo;, Domain: penguin biology, avian flight capabilities, airplane altitude.</p>
                             </div>
                         </div>
                     </div>
@@ -262,7 +262,7 @@
                             <p class="element-timeline__text">Prompt the model to generate factual knowledge about the topic without yet asking the question. The goal is to surface relevant facts, context, and background information that will be useful for answering. Generate multiple knowledge statements for broader coverage.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Generate 5 facts about penguins and their physical abilities, including their relationship to flight.&rdquo; &mdash; The model produces: Penguins are flightless birds. Their wings evolved into flippers for swimming. Emperor penguins can dive to 1,800 feet. No penguin species can fly. Commercial airplanes cruise at 35,000&ndash;42,000 feet.</p>
+                                <p>&ldquo;Generate 5 facts about penguins and their physical abilities, including their relationship to flight.&rdquo;, The model produces: Penguins are flightless birds. Their wings evolved into flippers for swimming. Emperor penguins can dive to 1,800 feet. No penguin species can fly. Commercial airplanes cruise at 35,000&ndash;42,000 feet.</p>
                             </div>
                         </div>
                     </div>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Verify the Answer Against the Knowledge</h3>
-                            <p class="element-timeline__text">Review the model&rsquo;s answer to ensure it correctly uses the generated knowledge and doesn&rsquo;t contradict it. Check for logical consistency between the knowledge statements and the conclusion. Remember that the generated knowledge itself may contain errors &mdash; always verify important claims against trusted sources.</p>
+                            <p class="element-timeline__text">Review the model&rsquo;s answer to ensure it correctly uses the generated knowledge and doesn&rsquo;t contradict it. Check for logical consistency between the knowledge statements and the conclusion. Remember that the generated knowledge itself may contain errors, always verify important claims against trusted sources.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;No, penguins cannot fly at all. They are flightless birds whose wings evolved into flippers. Since they cannot achieve any altitude through flight, they cannot fly higher than a commercial airplane (or anything else). Note: The generated knowledge was consistent, but the user should verify these biological claims against a reliable reference.&rdquo;</p>
@@ -355,7 +355,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Step 2: Knowledge-Informed Answer</span>
-                                <p>True. In golf, each stroke counts as a point, and the objective is to complete the course in as few strokes as possible. The player with the lowest total score wins, making golf one of the few major sports where a lower score is better. Terms like &ldquo;birdie&rdquo; (one under par) and &ldquo;eagle&rdquo; (two under par) reflect this &mdash; scoring below the expected number is the goal.</p>
+                                <p>True. In golf, each stroke counts as a point, and the objective is to complete the course in as few strokes as possible. The player with the lowest total score wins, making golf one of the few major sports where a lower score is better. Terms like &ldquo;birdie&rdquo; (one under par) and &ldquo;eagle&rdquo; (two under par) reflect this, scoring below the expected number is the goal.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -426,7 +426,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Step 2: Knowledge-Informed Question</span>
-                                    <p><strong>Question:</strong> &ldquo;Was the Silk Road more important for trade or cultural exchange? Use the knowledge above to support your reasoning. Acknowledge areas of historical debate.&rdquo;<br><br><strong>Answer:</strong> The two functions were inseparable, but the cultural impact arguably outlasted the commercial one. While trade in silk, spices, and metals drove the economic incentive to maintain the routes, the cultural exchanges they enabled &mdash; the spread of Buddhism from India to China, Islam across Central Asia, and scientific knowledge in both directions &mdash; reshaped civilizations permanently. Even when trade routes shifted to maritime paths in the 15th century, the religious and intellectual transformations they had catalyzed continued for centuries. <em>Note: This is a matter of historical interpretation. Historians debate the relative weight of commercial vs. cultural significance. Verify specific claims against academic sources.</em></p>
+                                    <p><strong>Question:</strong> &ldquo;Was the Silk Road more important for trade or cultural exchange? Use the knowledge above to support your reasoning. Acknowledge areas of historical debate.&rdquo;<br><br><strong>Answer:</strong> The two functions were inseparable, but the cultural impact arguably outlasted the commercial one. While trade in silk, spices, and metals drove the economic incentive to maintain the routes, the cultural exchanges they enabled, the spread of Buddhism from India to China, Islam across Central Asia, and scientific knowledge in both directions, reshaped civilizations permanently. Even when trade routes shifted to maritime paths in the 15th century, the religious and intellectual transformations they had catalyzed continued for centuries. <em>Note: This is a matter of historical interpretation. Historians debate the relative weight of commercial vs. cultural significance. Verify specific claims against academic sources.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -472,7 +472,7 @@
                                 </svg>
                                 <div>
                                     <strong>Commonsense Reasoning</strong>
-                                    <p>Questions that seem simple but require connecting multiple pieces of everyday knowledge &mdash; the original strength of this technique.</p>
+                                    <p>Questions that seem simple but require connecting multiple pieces of everyday knowledge, the original strength of this technique.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -482,7 +482,7 @@
                                 </svg>
                                 <div>
                                     <strong>Offline Reasoning (No Retrieval Available)</strong>
-                                    <p>When you can&rsquo;t use RAG or external search, Generated Knowledge lets the model be its own knowledge base &mdash; surfacing facts from its training data explicitly.</p>
+                                    <p>When you can&rsquo;t use RAG or external search, Generated Knowledge lets the model be its own knowledge base, surfacing facts from its training data explicitly.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -492,7 +492,7 @@
                                 </svg>
                                 <div>
                                     <strong>Cross-Domain Questions</strong>
-                                    <p>Questions that span multiple knowledge domains &mdash; generating knowledge from each domain first ensures no relevant area is overlooked.</p>
+                                    <p>Questions that span multiple knowledge domains, generating knowledge from each domain first ensures no relevant area is overlooked.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -502,7 +502,7 @@
                                 </svg>
                                 <div>
                                     <strong>Nuanced True/False Questions</strong>
-                                    <p>Questions where the answer depends on understanding subtle distinctions &mdash; knowledge priming prevents the model from rushing to a surface-level answer.</p>
+                                    <p>Questions where the answer depends on understanding subtle distinctions, knowledge priming prevents the model from rushing to a surface-level answer.</p>
                                 </div>
                             </div>
                         </div>
@@ -537,7 +537,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Direct Lookups</strong>
-                                    <p>Questions with straightforward factual answers don&rsquo;t benefit from the two-step overhead &mdash; &ldquo;What year was the Eiffel Tower built?&rdquo; is better answered directly.</p>
+                                    <p>Questions with straightforward factual answers don&rsquo;t benefit from the two-step overhead, &ldquo;What year was the Eiffel Tower built?&rdquo; is better answered directly.</p>
                                 </div>
                             </div>
                         </div>
@@ -586,7 +586,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Medical Decision Support</h3>
-                        <p class="use-case-showcase__desc">Generate relevant clinical knowledge about symptoms, conditions, and treatment protocols before analyzing a case &mdash; ensuring no relevant differential diagnosis is overlooked. Always have clinicians verify AI-assisted medical reasoning.</p>
+                        <p class="use-case-showcase__desc">Generate relevant clinical knowledge about symptoms, conditions, and treatment protocols before analyzing a case, ensuring no relevant differential diagnosis is overlooked. Always have clinicians verify AI-assisted medical reasoning.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -618,7 +618,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Strategic Planning</h3>
-                        <p class="use-case-showcase__desc">Before generating recommendations, have the model surface relevant market conditions, competitor landscapes, and historical precedents &mdash; ensuring strategic advice is grounded in comprehensive context.
+                        <p class="use-case-showcase__desc">Before generating recommendations, have the model surface relevant market conditions, competitor landscapes, and historical precedents, ensuring strategic advice is grounded in comprehensive context.
                         Cross-reference all generated market data with verified sources.</p>
                     </div>
                 </div>
@@ -657,7 +657,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The RAG Connection</div>
-                    <p>Generated Knowledge Prompting is often called a &ldquo;precursor to RAG.&rdquo; Both techniques share the same core insight: providing explicit context before answering improves accuracy. The difference is the source. Generated Knowledge uses the model&rsquo;s own training data; RAG retrieves real documents. When you have access to a knowledge base, RAG is almost always better. But when you don&rsquo;t &mdash; or when the model&rsquo;s training data is sufficient &mdash; Generated Knowledge is a powerful, zero-infrastructure alternative.</p>
+                    <p>Generated Knowledge Prompting is often called a &ldquo;precursor to RAG.&rdquo; Both techniques share the same core insight: providing explicit context before answering improves accuracy. The difference is the source. Generated Knowledge uses the model&rsquo;s own training data; RAG retrieves real documents. When you have access to a knowledge base, RAG is almost always better. But when you don&rsquo;t, or when the model&rsquo;s training data is sufficient, Generated Knowledge is a powerful, zero-infrastructure alternative.</p>
                     <p>A practical hybrid approach: use Generated Knowledge as a <strong>first pass</strong>, then verify or augment the generated facts with retrieval when possible. This two-layer strategy gives you the breadth of the model&rsquo;s training data plus the grounding of real documents.</p>
                     <p><strong>Important:</strong> Generated knowledge is only as reliable as the model&rsquo;s training data. Always treat it as a starting point, not a definitive source. Cross-reference critical facts against trusted, verified sources before acting on them.</p>
                 </div>
@@ -683,7 +683,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">RAG (Retrieval-Augmented Generation)</span>
-                        <span class="evolution-callout__desc">Replaces model-generated knowledge with retrieved real documents &mdash; the production-grade successor to Generated Knowledge&rsquo;s self-priming approach.</span>
+                        <span class="evolution-callout__desc">Replaces model-generated knowledge with retrieved real documents, the production-grade successor to Generated Knowledge&rsquo;s self-priming approach.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -722,7 +722,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Scratchpad Prompting</span>
-                        <span class="evolution-callout__desc">Uses a working memory space for intermediate computations &mdash; similar to Generated Knowledge&rsquo;s approach of making implicit knowledge explicit before answering.</span>
+                        <span class="evolution-callout__desc">Uses a working memory space for intermediate computations, similar to Generated Knowledge&rsquo;s approach of making implicit knowledge explicit before answering.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -799,7 +799,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

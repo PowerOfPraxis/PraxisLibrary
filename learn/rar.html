@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Zero-Shot Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Rephrase and Respond (RaR)</h1>
-                <p class="page-subtitle fade-in">Force comprehension before generation. RaR makes the model restate your question in its own words &mdash; surfacing ambiguities, resolving vague references, and ensuring it truly understands what you&rsquo;re asking before it answers.</p>
+                <p class="page-subtitle fade-in">Force comprehension before generation. RaR makes the model restate your question in its own words, surfacing ambiguities, resolving vague references, and ensuring it truly understands what you&rsquo;re asking before it answers.</p>
             </div>
         </section>
         <!-- /HERO -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> RaR (Rephrase and Respond) was published in 2023 by Deng et al. The research identified a fundamental gap between human question intent and model interpretation &mdash; showing that LLMs often latch onto surface-level patterns in questions rather than deeply processing what is actually being asked. By instructing the model to rephrase the question first, the authors demonstrated consistent improvements in comprehension accuracy across multiple benchmarks, particularly on questions containing ambiguity, implicit assumptions, or domain-crossing terminology.</p>
-                        <p><strong>Modern LLM Status:</strong> RaR remains a <strong>still active and practical technique</strong> in prompt engineering. While frontier models like Claude and GPT-4 have improved at question comprehension, they still misinterpret ambiguous or poorly-worded queries. RaR is especially valuable for user-facing AI systems where question quality varies, for cross-domain queries where terms have multiple meanings, and as a lightweight quality gate that integrates naturally into any prompting workflow without requiring examples or complex scaffolding.</p>
+                        <p><strong>Introduced:</strong> RaR (Rephrase and Respond) was published in 2023 by Deng et al. The research identified a fundamental gap between human question intent and model interpretation, showing that LLMs often latch onto surface-level patterns in questions rather than deeply processing what is actually being asked. By instructing the model to rephrase the question first, the authors demonstrated consistent improvements in comprehension accuracy across multiple benchmarks, particularly on questions containing ambiguity, implicit assumptions, or domain-crossing terminology.</p>
+                        <p><strong>Modern LLM Status:</strong> RaR remains a <strong>still active and practical technique</strong> in prompt engineering. While frontier models like Claude and ChatGPT have improved at question comprehension, they still misinterpret ambiguous or poorly-worded queries. RaR is especially valuable for user-facing AI systems where question quality varies, for cross-domain queries where terms have multiple meanings, and as a lightweight quality gate that integrates naturally into any prompting workflow without requiring examples or complex scaffolding.</p>
                     </div>
                 </div>
             </div>
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Understand Before You Answer</h2>
                         <p class="split-section__text">When someone asks you a question, the fastest way to confirm you understood is to say it back in your own words. RaR applies this same principle to AI. By instructing the model to rephrase the question before answering, you force it to parse the full meaning rather than pattern-match on keywords.</p>
-                        <p class="split-section__text"><strong>Two variants exist.</strong> In <strong>one-step RaR</strong>, the model rephrases and answers in a single turn &mdash; efficient and self-correcting. In <strong>two-step RaR</strong>, you ask for the rephrase first, verify it&rsquo;s correct, then request the answer &mdash; giving you an explicit checkpoint before the model commits to a response direction.</p>
+                        <p class="split-section__text"><strong>Two variants exist.</strong> In <strong>one-step RaR</strong>, the model rephrases and answers in a single turn, efficient and self-correcting. In <strong>two-step RaR</strong>, you ask for the rephrase first, verify it&rsquo;s correct, then request the answer, giving you an explicit checkpoint before the model commits to a response direction.</p>
                         <p class="split-section__text">The technique is deceptively simple, but its power lies in what happens internally. Rephrasing forces the model to build a genuine semantic representation of the question rather than relying on shallow pattern matching. This is especially critical when questions contain pronouns with ambiguous referents, domain-specific jargon, or implicit constraints that the user assumed were obvious.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Rephrasing Works</span>
-                                <p><strong>Forces Deep Parsing:</strong> The model must process every clause of the question to reconstruct it, not just scan for trigger words.<br><br><strong>Surfaces Assumptions:</strong> Implicit constraints become explicit when the model restates them in its own framing.<br><br><strong>Reveals Ambiguity:</strong> When a term has multiple meanings, the rephrase shows which interpretation the model chose &mdash; before it commits to an answer.<br><br><strong>Aligns Interpretation:</strong> The user sees exactly how the model understood the question and can course-correct before receiving a potentially misguided response.</p>
+                                <p><strong>Forces Deep Parsing:</strong> The model must process every clause of the question to reconstruct it, not just scan for trigger words.<br><br><strong>Surfaces Assumptions:</strong> Implicit constraints become explicit when the model restates them in its own framing.<br><br><strong>Reveals Ambiguity:</strong> When a term has multiple meanings, the rephrase shows which interpretation the model chose, before it commits to an answer.<br><br><strong>Aligns Interpretation:</strong> The user sees exactly how the model understood the question and can course-correct before receiving a potentially misguided response.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Present the Original Question</h3>
-                            <p class="element-timeline__text">Start with your question exactly as you would normally ask it. This can be a user query, a technical question, a business problem &mdash; any question where you want to ensure the model truly understands what&rsquo;s being asked before generating a response. No special formatting is required for the question itself.</p>
+                            <p class="element-timeline__text">Start with your question exactly as you would normally ask it. This can be a user query, a technical question, a business problem, any question where you want to ensure the model truly understands what&rsquo;s being asked before generating a response. No special formatting is required for the question itself.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;How do I improve my model&rsquo;s performance?&rdquo;</p>
@@ -273,10 +273,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Model Answers from Its Rephrased Understanding</h3>
-                            <p class="element-timeline__text">The model first generates a rephrase &mdash; which itself becomes context for the answer. Because the model is now answering its own clearly-stated version of the question, the response is more focused, more relevant, and less likely to drift toward a misinterpretation. If the rephrase reveals a misunderstanding, you can correct it before the model generates a full answer.</p>
+                            <p class="element-timeline__text">The model first generates a rephrase, which itself becomes context for the answer. Because the model is now answering its own clearly-stated version of the question, the response is more focused, more relevant, and less likely to drift toward a misinterpretation. If the rephrase reveals a misunderstanding, you can correct it before the model generates a full answer.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Result</span>
-                                <p>The model rephrases: &ldquo;You&rsquo;re asking how to optimize the inference speed of a deployed machine learning model.&rdquo; Then answers specifically about latency reduction, quantization, and serving infrastructure &mdash; not generic ML advice.</p>
+                                <p>The model rephrases: &ldquo;You&rsquo;re asking how to optimize the inference speed of a deployed machine learning model.&rdquo; Then answers specifically about latency reduction, quantization, and serving infrastructure, not generic ML advice.</p>
                             </div>
                         </div>
                     </div>
@@ -385,7 +385,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Result</span>
-                                    <p>The rephrase immediately reveals that &ldquo;state&rdquo; and &ldquo;application&rdquo; are ambiguous. The user can either confirm the assumption or redirect &mdash; either way, the answer is now grounded in a specific interpretation rather than a vague overview of all possibilities.</p>
+                                    <p>The rephrase immediately reveals that &ldquo;state&rdquo; and &ldquo;application&rdquo; are ambiguous. The user can either confirm the assumption or redirect, either way, the answer is now grounded in a specific interpretation rather than a vague overview of all possibilities.</p>
                                 </div>
                             </div>
                         </div>
@@ -426,7 +426,7 @@
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">Step 1 &mdash; Rephrase Only</span>
+                                    <span class="technique-demo__tag">Step 1, Rephrase Only</span>
                                     <p>&ldquo;We need to update our data retention policy to comply with the new regulations. Can you help?&rdquo;<br><br>&ldquo;Don&rsquo;t answer yet. First, rephrase what you think I&rsquo;m asking, including what &lsquo;new regulations&rsquo; might refer to and what &lsquo;help&rsquo; means in this context.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
@@ -434,8 +434,8 @@
                                     <p>&ldquo;You&rsquo;re asking for help updating your organization&rsquo;s data retention policy. &lsquo;New regulations&rsquo; could refer to GDPR updates, the EU AI Act, state-level privacy laws (CCPA/CPRA), or industry-specific regulations like HIPAA. By &lsquo;help&rsquo; you might mean: drafting policy language, identifying what needs to change, creating a compliance checklist, or reviewing existing policy against requirements.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
-                                    <span class="technique-demo__tag">Step 2 &mdash; Corrected Answer</span>
-                                    <p>The user responds: &ldquo;Good catch &mdash; I meant CCPA/CPRA specifically, and I need a compliance checklist. Go ahead.&rdquo; The model now produces a targeted CCPA/CPRA data retention compliance checklist instead of a generic policy overview covering five different regulatory frameworks.</p>
+                                    <span class="technique-demo__tag">Step 2, Corrected Answer</span>
+                                    <p>The user responds: &ldquo;Good catch, I meant CCPA/CPRA specifically, and I need a compliance checklist. Go ahead.&rdquo; The model now produces a targeted CCPA/CPRA data retention compliance checklist instead of a generic policy overview covering five different regulatory frameworks.</p>
                                 </div>
                             </div>
                         </div>
@@ -462,7 +462,7 @@
                                 </svg>
                                 <div>
                                     <strong>Ambiguous or Vague Questions</strong>
-                                    <p>When terms have multiple meanings or the question could be interpreted in several ways &mdash; RaR forces the model to commit to one interpretation visibly.</p>
+                                    <p>When terms have multiple meanings or the question could be interpreted in several ways, RaR forces the model to commit to one interpretation visibly.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -472,7 +472,7 @@
                                 </svg>
                                 <div>
                                     <strong>Cross-Domain Queries</strong>
-                                    <p>Questions that span multiple fields where terminology overlaps &mdash; &ldquo;model,&rdquo; &ldquo;performance,&rdquo; &ldquo;pipeline,&rdquo; and &ldquo;deployment&rdquo; all mean different things in different contexts.</p>
+                                    <p>Questions that span multiple fields where terminology overlaps, &ldquo;model,&rdquo; &ldquo;performance,&rdquo; &ldquo;pipeline,&rdquo; and &ldquo;deployment&rdquo; all mean different things in different contexts.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -482,7 +482,7 @@
                                 </svg>
                                 <div>
                                     <strong>User-Facing AI Systems</strong>
-                                    <p>Chatbots, support systems, and assistants where input quality varies wildly &mdash; RaR acts as a built-in clarification step that improves response relevance.</p>
+                                    <p>Chatbots, support systems, and assistants where input quality varies wildly, RaR acts as a built-in clarification step that improves response relevance.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -492,7 +492,7 @@
                                 </svg>
                                 <div>
                                     <strong>Questions with Implicit Assumptions</strong>
-                                    <p>When the questioner assumes context that the model doesn&rsquo;t have &mdash; rephrasing surfaces these hidden assumptions before they lead to wrong answers.</p>
+                                    <p>When the questioner assumes context that the model doesn&rsquo;t have, rephrasing surfaces these hidden assumptions before they lead to wrong answers.</p>
                                 </div>
                             </div>
                         </div>
@@ -517,7 +517,7 @@
                                 </svg>
                                 <div>
                                     <strong>Structured Data Queries</strong>
-                                    <p>When the input is already a well-defined schema, SQL query, or API call &mdash; the format itself eliminates ambiguity, making rephrasing redundant.</p>
+                                    <p>When the input is already a well-defined schema, SQL query, or API call, the format itself eliminates ambiguity, making rephrasing redundant.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -646,7 +646,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Lightweight and Composable</div>
-                    <p>RaR adds almost no complexity to your prompts &mdash; just a single instruction line. This makes it easy to combine with other techniques. Pair it with Chain-of-Thought (&ldquo;Rephrase my question, then think step by step&rdquo;) or Role Prompting (&ldquo;As a senior architect, rephrase this question and answer it&rdquo;) for compounding quality improvements without significant overhead.</p>
+                    <p>RaR adds almost no complexity to your prompts, just a single instruction line. This makes it easy to combine with other techniques. Pair it with Chain-of-Thought (&ldquo;Rephrase my question, then think step by step&rdquo;) or Role Prompting (&ldquo;As a senior architect, rephrase this question and answer it&rdquo;) for compounding quality improvements without significant overhead.</p>
                 </div>
             </div>
         </section>
@@ -669,7 +669,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Self-Ask</span>
-                        <span class="evolution-callout__desc">Where RaR rephrases the question, Self-Ask decomposes it into sub-questions &mdash; a deeper form of question analysis that builds understanding through decomposition.</span>
+                        <span class="evolution-callout__desc">Where RaR rephrases the question, Self-Ask decomposes it into sub-questions, a deeper form of question analysis that builds understanding through decomposition.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -688,7 +688,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Step-Back Prompting</span>
-                        <span class="evolution-callout__desc">While RaR rephrases at the same level, Step-Back abstracts to a higher-level question first &mdash; understanding the broader concept before tackling the specific case.</span>
+                        <span class="evolution-callout__desc">While RaR rephrases at the same level, Step-Back abstracts to a higher-level question first, understanding the broader concept before tackling the specific case.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -709,7 +709,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Flipped Interaction</span>
-                        <span class="evolution-callout__desc">Instead of rephrasing your question, the AI asks you clarifying questions &mdash; a more interactive approach to the same comprehension challenge that RaR solves in a single turn.</span>
+                        <span class="evolution-callout__desc">Instead of rephrasing your question, the AI asks you clarifying questions, a more interactive approach to the same comprehension challenge that RaR solves in a single turn.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -787,7 +787,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Agent Planning Technique</span>
                 </div>
                 <h1 class="page-title fade-in">LATS (Language Agent Tree Search)</h1>
-                <p class="page-subtitle fade-in">Most AI agents reason in a straight line &mdash; one thought, one action, one outcome. LATS breaks that limitation by giving agents a tree of possibilities, using Monte Carlo Tree Search to explore, evaluate, and backtrack through multiple reasoning paths before committing to the best one.</p>
+                <p class="page-subtitle fade-in">Most AI agents reason in a straight line, one thought, one action, one outcome. LATS breaks that limitation by giving agents a tree of possibilities, using Monte Carlo Tree Search to explore, evaluate, and backtrack through multiple reasoning paths before committing to the best one.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,7 +200,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> LATS (Language Agent Tree Search) was introduced in 2023 by Zhou et al. The technique addresses a fundamental limitation of sequential agent frameworks: once an agent takes a wrong action, it has no mechanism to recover. LATS solves this by unifying three capabilities &mdash; reasoning (Chain-of-Thought), acting (ReAct), and planning (Monte Carlo Tree Search) &mdash; into a single agent framework. By treating the environment&rsquo;s feedback as value signals for tree search, LATS achieved state-of-the-art 92.7% pass@1 on HumanEval with GPT-4, dramatically outperforming sequential approaches.</p>
+                        <p><strong>Introduced:</strong> LATS (Language Agent Tree Search) was introduced in 2023 by Zhou et al. The technique addresses a fundamental limitation of sequential agent frameworks: once an agent takes a wrong action, it has no mechanism to recover. LATS solves this by unifying three capabilities, reasoning (Chain-of-Thought), acting (ReAct), and planning (Monte Carlo Tree Search), into a single agent framework. By treating the environment&rsquo;s feedback as value signals for tree search, LATS achieved state-of-the-art 92.7% pass@1 on HumanEval with GPT-4, dramatically outperforming sequential approaches.</p>
                         <p><strong>Modern LLM Status:</strong> LATS is one of the most impactful agent frameworks from 2023. In 2026, its combination of tree search with LLM agents is widely used in production coding assistants, automated testing pipelines, and complex problem-solving systems. The framework demonstrated that structured search dramatically outperforms simple sequential reasoning for agentic tasks. Many modern agent orchestration platforms (LangChain, AutoGen, CrewAI) have incorporated LATS-inspired search-and-backtrack patterns into their core architectures.</p>
                     </div>
                 </div>
@@ -215,7 +215,7 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Search Before You Commit</h2>
-                        <p class="split-section__text">Traditional AI agents follow a single path: think, act, observe, repeat. If the agent takes a wrong turn three steps in, it has no way to undo that decision &mdash; it just keeps going, compounding the error. This is like navigating a maze by only ever moving forward, never allowed to retrace your steps.</p>
+                        <p class="split-section__text">Traditional AI agents follow a single path: think, act, observe, repeat. If the agent takes a wrong turn three steps in, it has no way to undo that decision, it just keeps going, compounding the error. This is like navigating a maze by only ever moving forward, never allowed to retrace your steps.</p>
                         <p class="split-section__text"><strong>LATS gives the agent a bird&rsquo;s-eye view of the maze.</strong> Instead of committing to one path, the agent explores multiple branches simultaneously. At each decision point, it generates several possible actions, evaluates which branches look most promising using environment feedback as value signals, and can backtrack to try alternative paths when one branch fails. The result is an agent that systematically searches the space of possible solutions rather than gambling on a single trajectory.</p>
                         <p class="split-section__text">Think of it like a chess engine: instead of making the first reasonable move it sees, it explores thousands of possible game states before choosing the move with the highest expected value. LATS brings this same strategic depth to language agents.</p>
                     </div>
@@ -244,8 +244,8 @@
                             <span class="element-timeline__number">1</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Selection &mdash; Choose the Most Promising Node</h3>
-                            <p class="element-timeline__text">Starting from the root (the initial problem state), LATS traverses the existing search tree to find the most promising node to expand. It uses Upper Confidence Bound (UCB) scoring &mdash; the same algorithm used in AlphaGo &mdash; to balance exploring new branches versus exploiting branches that have already shown promise. This ensures the agent does not get stuck repeatedly trying the same approach.</p>
+                            <h3 class="element-timeline__title">Selection, Choose the Most Promising Node</h3>
+                            <p class="element-timeline__text">Starting from the root (the initial problem state), LATS traverses the existing search tree to find the most promising node to expand. It uses Upper Confidence Bound (UCB) scoring, the same algorithm used in AlphaGo, to balance exploring new branches versus exploiting branches that have already shown promise. This ensures the agent does not get stuck repeatedly trying the same approach.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Given a coding task, the agent has already tried two approaches: a recursive solution (score: 0.6) and an iterative solution (score: 0.3). UCB scoring selects the recursive branch for further exploration because it has the higher value, but also reserves exploration budget for untried approaches.</p>
@@ -258,8 +258,8 @@
                             <span class="element-timeline__number">2</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Expansion &mdash; Generate Multiple Candidate Actions</h3>
-                            <p class="element-timeline__text">At the selected node, the LLM generates multiple candidate actions (typically 3&ndash;5) rather than just one. Each candidate represents a different reasoning path or action the agent could take. This is where LATS leverages the LLM&rsquo;s ability to produce diverse outputs &mdash; by sampling at higher temperatures or using different prompting strategies to ensure genuine variety in the proposed actions.</p>
+                            <h3 class="element-timeline__title">Expansion, Generate Multiple Candidate Actions</h3>
+                            <p class="element-timeline__text">At the selected node, the LLM generates multiple candidate actions (typically 3&ndash;5) rather than just one. Each candidate represents a different reasoning path or action the agent could take. This is where LATS leverages the LLM&rsquo;s ability to produce diverse outputs, by sampling at higher temperatures or using different prompting strategies to ensure genuine variety in the proposed actions.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Expanding the recursive branch, the LLM generates three candidates: (a) implement with memoization, (b) implement with tail recursion, (c) convert to dynamic programming. Each becomes a new child node in the search tree.</p>
@@ -272,7 +272,7 @@
                             <span class="element-timeline__number">3</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Evaluation &mdash; Score Actions Using Environment Feedback</h3>
+                            <h3 class="element-timeline__title">Evaluation, Score Actions Using Environment Feedback</h3>
                             <p class="element-timeline__text">Each candidate action is executed in the environment, and the resulting feedback (test results, error messages, partial outputs) is used to assign a value score. This is the key innovation of LATS: instead of relying on the LLM to self-evaluate (which is unreliable), it uses <strong>real environment signals</strong> as the ground truth. The LLM then reflects on this feedback to generate an improved value estimate for each node.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
@@ -286,11 +286,11 @@
                             <span class="element-timeline__number">4</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Backpropagation &mdash; Update the Tree and Iterate</h3>
-                            <p class="element-timeline__text">The value scores from evaluation are propagated back up the tree, updating ancestor nodes so future selection decisions reflect what the agent has learned. If the best leaf node solves the problem, the search terminates successfully. If not, the cycle repeats: select, expand, evaluate, backpropagate &mdash; each iteration making the agent smarter about which branches to explore and which to abandon.</p>
+                            <h3 class="element-timeline__title">Backpropagation, Update the Tree and Iterate</h3>
+                            <p class="element-timeline__text">The value scores from evaluation are propagated back up the tree, updating ancestor nodes so future selection decisions reflect what the agent has learned. If the best leaf node solves the problem, the search terminates successfully. If not, the cycle repeats: select, expand, evaluate, backpropagate, each iteration making the agent smarter about which branches to explore and which to abandon.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The dynamic programming path scored 1.0, so the search terminates with a verified solution. If no path had fully succeeded, the agent would backtrack to the highest-value unexplored branch and try new approaches &mdash; potentially combining insights from failed branches into a hybrid solution.</p>
+                                <p>The dynamic programming path scored 1.0, so the search terminates with a verified solution. If no path had fully succeeded, the agent would backtrack to the highest-value unexplored branch and try new approaches, potentially combining insights from failed branches into a hybrid solution.</p>
                             </div>
                         </div>
                     </div>
@@ -351,11 +351,11 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Tree Search Trace</span>
-                                <p><strong>Expand:</strong> Generate 3 approaches &mdash; brute-force, expand-around-center, Manacher&rsquo;s algorithm.<br><strong>Evaluate:</strong> Brute-force TLE (0.2), expand-around-center passes 9/10 (0.9), Manacher&rsquo;s has a bug (0.4).<br><strong>Select:</strong> Expand the expand-around-center branch.<br><strong>Expand:</strong> Fix edge case handling for even-length palindromes.<br><strong>Evaluate:</strong> All 10 tests pass (1.0). Solution found.</p>
+                                <p><strong>Expand:</strong> Generate 3 approaches, brute-force, expand-around-center, Manacher&rsquo;s algorithm.<br><strong>Evaluate:</strong> Brute-force TLE (0.2), expand-around-center passes 9/10 (0.9), Manacher&rsquo;s has a bug (0.4).<br><strong>Select:</strong> Expand the expand-around-center branch.<br><strong>Expand:</strong> Fix edge case handling for even-length palindromes.<br><strong>Evaluate:</strong> All 10 tests pass (1.0). Solution found.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Final Result</span>
-                                <p>Agent explored three fundamentally different approaches in parallel, identified the most promising one via real test feedback, and refined it to a verified solution &mdash; all within a structured search framework.</p>
+                                <p>Agent explored three fundamentally different approaches in parallel, identified the most promising one via real test feedback, and refined it to a verified solution, all within a structured search framework.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -407,12 +407,12 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">LATS Search Trace</span>
-                                    <p><strong>Iteration 1 &mdash; Expand:</strong> Generate 3 candidate solutions:<br>
+                                    <p><strong>Iteration 1, Expand:</strong> Generate 3 candidate solutions:<br>
                                     (a) Nested loops checking rows, columns, and boxes separately<br>
                                     (b) Hash set approach checking all constraints in one pass<br>
                                     (c) Bit manipulation approach using bitmasks<br><br>
-                                    <strong>Iteration 1 &mdash; Evaluate:</strong><br>
-                                    (a) Passes 18/20 tests &mdash; fails on boards with duplicate in 3x3 box (value: 0.7)<br>
+                                    <strong>Iteration 1, Evaluate:</strong><br>
+                                    (a) Passes 18/20 tests, fails on boards with duplicate in 3x3 box (value: 0.7)<br>
                                     (b) Passes 20/20 tests (value: 1.0)<br>
                                     (c) Has syntax error in bit shift (value: 0.1)<br><br>
                                     <strong>Result:</strong> Branch (b) solves the problem on first expansion. Search terminates with verified solution.<br><br>
@@ -435,18 +435,18 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">LATS Search Trace</span>
-                                    <p><strong>Iteration 1 &mdash; Expand:</strong> Generate candidate navigation paths:<br>
+                                    <p><strong>Iteration 1, Expand:</strong> Generate candidate navigation paths:<br>
                                     (a) Click &ldquo;Help&rdquo; &rarr; search &ldquo;return policy&rdquo;<br>
                                     (b) Click &ldquo;Customer Service&rdquo; &rarr; &ldquo;Returns &amp; Refunds&rdquo;<br>
                                     (c) Scroll to footer &rarr; &ldquo;Policies&rdquo; link<br><br>
-                                    <strong>Iteration 1 &mdash; Evaluate:</strong><br>
+                                    <strong>Iteration 1, Evaluate:</strong><br>
                                     (a) Search returns general FAQ, not electronics-specific (value: 0.4)<br>
                                     (b) Reaches returns page but it covers all categories (value: 0.6)<br>
                                     (c) Footer link leads to a 404 page (value: 0.0)<br><br>
-                                    <strong>Iteration 2 &mdash; Expand branch (b):</strong><br>
+                                    <strong>Iteration 2, Expand branch (b):</strong><br>
                                     (b1) Filter by &ldquo;Electronics&rdquo; category on returns page<br>
                                     (b2) Search within page for &ldquo;electronics&rdquo;<br><br>
-                                    <strong>Iteration 2 &mdash; Evaluate:</strong><br>
+                                    <strong>Iteration 2, Evaluate:</strong><br>
                                     (b1) Successfully shows electronics-specific return policy (value: 1.0)<br><br>
                                     <strong>Result:</strong> Agent navigated to the correct policy page through systematic exploration, backtracking from dead ends automatically.<br><br>
                                     <em>Note: Always verify that information retrieved by AI agents matches the current published policy. Websites update their policies regularly, and cached or outdated information can lead to incorrect conclusions.</em></p>
@@ -468,11 +468,11 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">LATS Search Trace</span>
-                                    <p><strong>Iteration 1 &mdash; Expand:</strong> Generate 3 reasoning approaches:<br>
+                                    <p><strong>Iteration 1, Expand:</strong> Generate 3 reasoning approaches:<br>
                                     (a) Set up system of equations: c + w = 30, 2c + 4w = 86<br>
                                     (b) Assume all chickens: 30 heads = 60 legs, surplus = 26, each cow adds 2 legs &rarr; 13 cows<br>
                                     (c) Trial and error starting from midpoint: 15 chickens + 15 cows = 90 legs (too many)<br><br>
-                                    <strong>Iteration 1 &mdash; Evaluate:</strong><br>
+                                    <strong>Iteration 1, Evaluate:</strong><br>
                                     (a) Solves to w = 13, c = 17. Verify: 17(2) + 13(4) = 34 + 52 = 86. Correct (value: 1.0)<br>
                                     (b) 13 cows, 17 chickens. Same answer. Correct (value: 1.0)<br>
                                     (c) Needs more iterations to converge (value: 0.5)<br><br>
@@ -504,7 +504,7 @@
                                 </svg>
                                 <div>
                                     <strong>Automated Code Generation</strong>
-                                    <p>Where test cases provide clear pass/fail signals &mdash; LATS can explore multiple algorithms and verify each against real execution results.</p>
+                                    <p>Where test cases provide clear pass/fail signals, LATS can explore multiple algorithms and verify each against real execution results.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -514,7 +514,7 @@
                                 </svg>
                                 <div>
                                     <strong>Complex Decision-Making</strong>
-                                    <p>Tasks with multiple valid strategies where the best approach is not obvious upfront &mdash; LATS systematically evaluates alternatives before committing.</p>
+                                    <p>Tasks with multiple valid strategies where the best approach is not obvious upfront, LATS systematically evaluates alternatives before committing.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -524,7 +524,7 @@
                                 </svg>
                                 <div>
                                     <strong>Web and API Navigation</strong>
-                                    <p>Agents that interact with external systems where wrong actions have real consequences &mdash; LATS can explore paths and backtrack from dead ends.</p>
+                                    <p>Agents that interact with external systems where wrong actions have real consequences, LATS can explore paths and backtrack from dead ends.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -534,7 +534,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Stakes Problem Solving</strong>
-                                    <p>Scenarios where getting the answer right matters more than getting it fast &mdash; LATS trades compute for accuracy through systematic exploration.</p>
+                                    <p>Scenarios where getting the answer right matters more than getting it fast, LATS trades compute for accuracy through systematic exploration.</p>
                                 </div>
                             </div>
                         </div>
@@ -549,7 +549,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Single-Step Tasks</strong>
-                                    <p>Tasks that have one obvious correct approach &mdash; tree search adds unnecessary overhead when the first action is almost certainly right.</p>
+                                    <p>Tasks that have one obvious correct approach, tree search adds unnecessary overhead when the first action is almost certainly right.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -559,7 +559,7 @@
                                 </svg>
                                 <div>
                                     <strong>Latency-Sensitive Applications</strong>
-                                    <p>Real-time chat or interactive scenarios where users expect instant responses &mdash; LATS requires multiple LLM calls per iteration, multiplied by tree depth.</p>
+                                    <p>Real-time chat or interactive scenarios where users expect instant responses, LATS requires multiple LLM calls per iteration, multiplied by tree depth.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -569,7 +569,7 @@
                                 </svg>
                                 <div>
                                     <strong>No Environment Feedback Available</strong>
-                                    <p>Tasks where there is no way to evaluate intermediate results &mdash; LATS depends on environment signals to guide its search. Without them, it cannot distinguish good branches from bad ones.</p>
+                                    <p>Tasks where there is no way to evaluate intermediate results, LATS depends on environment signals to guide its search. Without them, it cannot distinguish good branches from bad ones.</p>
                                 </div>
                             </div>
                         </div>
@@ -667,7 +667,7 @@
                     <div class="era-marker">
                         <span class="era-marker__year">ReAct</span>
                         <span class="era-marker__title">Sequential Agent</span>
-                        <span class="era-marker__desc">Think, act, observe &mdash; one path only</span>
+                        <span class="era-marker__desc">Think, act, observe, one path only</span>
                     </div>
                     <div class="era-marker">
                         <span class="era-marker__year">Tree of Thought</span>
@@ -688,7 +688,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The MCTS Connection</div>
-                    <p>LATS borrows Monte Carlo Tree Search (MCTS) from game AI &mdash; the same algorithm behind AlphaGo&rsquo;s superhuman Go play. In games, MCTS explores possible moves and uses simulated outcomes to evaluate them. LATS applies this same principle to language agents: instead of simulated games, it uses real environment feedback (test results, API responses, page content) as the value signal. This grounds the search in reality rather than the LLM&rsquo;s self-assessment, which is the key insight that makes LATS so effective.</p>
+                    <p>LATS borrows Monte Carlo Tree Search (MCTS) from game AI, the same algorithm behind AlphaGo&rsquo;s superhuman Go play. In games, MCTS explores possible moves and uses simulated outcomes to evaluate them. LATS applies this same principle to language agents: instead of simulated games, it uses real environment feedback (test results, API responses, page content) as the value signal. This grounds the search in reality rather than the LLM&rsquo;s self-assessment, which is the key insight that makes LATS so effective.</p>
                 </div>
             </div>
         </section>
@@ -828,7 +828,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

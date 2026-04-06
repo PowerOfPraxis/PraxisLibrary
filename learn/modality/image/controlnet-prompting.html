@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">Image Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">ControlNet Prompting</h1>
-                <p class="page-subtitle fade-in">Use structural conditioning inputs &mdash; edge maps, depth maps, pose skeletons, and segmentation masks &mdash; to precisely control AI image generation beyond what text prompts alone can achieve.</p>
+                <p class="page-subtitle fade-in">Use structural conditioning inputs, edge maps, depth maps, pose skeletons, and segmentation masks, to precisely control AI image generation beyond what text prompts alone can achieve.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -212,8 +212,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> ControlNet was introduced by Zhang et al. in February 2023. It adds spatial conditioning to diffusion models by accepting control images &mdash; edge maps, depth maps, pose skeletons, segmentation maps &mdash; alongside text prompts. This solved a fundamental limitation of text-only prompts: describing exact spatial layout, pose, or composition in words alone is extremely difficult. A phrase like &ldquo;a person with their left arm raised at a 45-degree angle&rdquo; gives the model only vague geometric guidance, whereas a pose skeleton communicates exact joint positions unambiguously.</p>
-                        <p><strong>Modern Status:</strong> ControlNet is now <strong>integrated into most Stable Diffusion workflows</strong> and the concept of structural conditioning has influenced commercial models including Adobe Firefly and Midjourney. The architecture has become a standard component in professional image generation pipelines, with community-developed models supporting dozens of conditioning types. ControlNet&rsquo;s influence extends beyond its original implementation &mdash; the principle that visual structure should be communicated through visual inputs rather than text descriptions is now a foundational concept in AI image generation.</p>
+                        <p><strong>Introduced:</strong> ControlNet was introduced by Zhang et al. in February 2023. It adds spatial conditioning to diffusion models by accepting control images, edge maps, depth maps, pose skeletons, segmentation maps, alongside text prompts. This solved a fundamental limitation of text-only prompts: describing exact spatial layout, pose, or composition in words alone is extremely difficult. A phrase like &ldquo;a person with their left arm raised at a 45-degree angle&rdquo; gives the model only vague geometric guidance, whereas a pose skeleton communicates exact joint positions unambiguously.</p>
+                        <p><strong>Modern Status:</strong> ControlNet is now <strong>integrated into most Stable Diffusion workflows</strong> and the concept of structural conditioning has influenced commercial models including Adobe Firefly and Midjourney. The architecture has become a standard component in professional image generation pipelines, with community-developed models supporting dozens of conditioning types. ControlNet&rsquo;s influence extends beyond its original implementation, the principle that visual structure should be communicated through visual inputs rather than text descriptions is now a foundational concept in AI image generation.</p>
                     </div>
                 </div>
             </div>
@@ -227,7 +227,7 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Structural Control Beyond Words</h2>
-                        <p class="split-section__text">Text prompts describe <strong>what</strong> to generate; ControlNet inputs describe <strong>where</strong> and <strong>how</strong> to arrange it. The core insight is that some visual properties &mdash; exact pose, edge structure, depth relationships, spatial composition &mdash; are nearly impossible to specify in text but trivial to communicate through a reference image or structural map.</p>
+                        <p class="split-section__text">Text prompts describe <strong>what</strong> to generate; ControlNet inputs describe <strong>where</strong> and <strong>how</strong> to arrange it. The core insight is that some visual properties, exact pose, edge structure, depth relationships, spatial composition, are nearly impossible to specify in text but trivial to communicate through a reference image or structural map.</p>
                         <p class="split-section__text">Consider trying to describe the exact layout of a city skyline in words: which buildings are taller, how they overlap, where the horizon sits, how the foreground relates to the background. A depth map communicates all of this spatial information in a single image. ControlNet bridges this gap by accepting a conditioning image that constrains the spatial structure while the text prompt controls style, content, and atmosphere.</p>
                         <p class="split-section__text">Think of it like an architect&rsquo;s blueprint: the structural drawing defines where walls, doors, and windows go, while a separate specification describes materials, colors, and finishes. ControlNet separates spatial structure from aesthetic content in the same way.</p>
                     </div>
@@ -235,7 +235,7 @@
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Visual Conditioning Beats Text Alone</span>
-                                <p>Text prompts are inherently one-dimensional &mdash; a sequence of words describing a two-dimensional (or three-dimensional) scene. No matter how precise your language, words cannot encode exact pixel-level spatial relationships. ControlNet adds a second input channel that speaks the language of visual structure directly: edges define boundaries, depth maps encode distance, pose skeletons fix human positioning, and segmentation maps assign regions to semantic categories. Together with text, this gives the generator <strong>both</strong> the &ldquo;what&rdquo; and the &ldquo;where.&rdquo;</p>
+                                <p>Text prompts are inherently one-dimensional, a sequence of words describing a two-dimensional (or three-dimensional) scene. No matter how precise your language, words cannot encode exact pixel-level spatial relationships. ControlNet adds a second input channel that speaks the language of visual structure directly: edges define boundaries, depth maps encode distance, pose skeletons fix human positioning, and segmentation maps assign regions to semantic categories. Together with text, this gives the generator <strong>both</strong> the &ldquo;what&rdquo; and the &ldquo;where.&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -271,7 +271,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Prepare Control Image</h3>
-                            <p class="element-timeline__text">Generate or provide the structural reference image that will guide the generation process. This can be extracted from an existing photograph using preprocessing tools (such as running a Canny edge detector on a photo), drawn by hand as a rough sketch, or created from 3D software. The control image does not need to be photorealistic &mdash; it only needs to encode the structural information relevant to your chosen control type.</p>
+                            <p class="element-timeline__text">Generate or provide the structural reference image that will guide the generation process. This can be extracted from an existing photograph using preprocessing tools (such as running a Canny edge detector on a photo), drawn by hand as a rough sketch, or created from 3D software. The control image does not need to be photorealistic, it only needs to encode the structural information relevant to your chosen control type.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Take a photograph of a building, run Canny edge detection to extract the structural outline, and use that edge map as the conditioning input for generating the same building in different architectural styles.</p>
@@ -288,7 +288,7 @@
                             <p class="element-timeline__text">Compose the text prompt to describe the desired content, style, and quality attributes. Since the spatial structure is already handled by the control image, the text prompt can focus entirely on aesthetic and content concerns: materials, lighting, color palette, artistic style, mood, and level of detail. This separation of concerns typically produces better results than trying to describe everything in text.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;A modernist glass and steel skyscraper, golden hour lighting, photorealistic, 8k, architectural photography, dramatic sky&rdquo; &mdash; the text handles style while the edge map handles structure.</p>
+                                <p>&ldquo;A modernist glass and steel skyscraper, golden hour lighting, photorealistic, 8k, architectural photography, dramatic sky&rdquo;, the text handles style while the edge map handles structure.</p>
                             </div>
                         </div>
                     </div>
@@ -399,7 +399,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Control Input</span>
-                                    <p>A Canny edge map extracted from a building outline &mdash; capturing the precise contours of rooflines, windows, doors, and structural elements without any texture or color information. The edge map preserves the exact proportions and spatial relationships of the architectural form.</p>
+                                    <p>A Canny edge map extracted from a building outline, capturing the precise contours of rooflines, windows, doors, and structural elements without any texture or color information. The edge map preserves the exact proportions and spatial relationships of the architectural form.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Text Prompt</span>
@@ -407,7 +407,7 @@
                                 </div>
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Result</span>
-                                    <p>The generated image preserves the exact building shape, window placement, and proportions from the edge map while applying the warm brick material, surrounding landscape, and golden-hour lighting described in the text. The same edge map can be reused with different text prompts to visualize the building in various material finishes, seasons, or lighting conditions &mdash; all maintaining identical structural geometry.</p>
+                                    <p>The generated image preserves the exact building shape, window placement, and proportions from the edge map while applying the warm brick material, surrounding landscape, and golden-hour lighting described in the text. The same edge map can be reused with different text prompts to visualize the building in various material finishes, seasons, or lighting conditions, all maintaining identical structural geometry.</p>
                                 </div>
                             </div>
                         </div>
@@ -480,7 +480,7 @@
                                 </svg>
                                 <div>
                                     <strong>Precise Spatial Control</strong>
-                                    <p>When the exact position, shape, or layout of elements in the generated image must match a specific reference &mdash; not just &ldquo;approximately right&rdquo; but structurally accurate.</p>
+                                    <p>When the exact position, shape, or layout of elements in the generated image must match a specific reference, not just &ldquo;approximately right&rdquo; but structurally accurate.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -490,7 +490,7 @@
                                 </svg>
                                 <div>
                                     <strong>Character Pose Consistency</strong>
-                                    <p>Maintaining identical body positioning across multiple generations &mdash; essential for animation keyframes, storyboards, and character design sheets.</p>
+                                    <p>Maintaining identical body positioning across multiple generations, essential for animation keyframes, storyboards, and character design sheets.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -525,7 +525,7 @@
                                 </svg>
                                 <div>
                                     <strong>Free-Form Creative Exploration</strong>
-                                    <p>When the goal is to let the model surprise you with unexpected compositions &mdash; ControlNet constrains the output, which is counterproductive for open-ended exploration.</p>
+                                    <p>When the goal is to let the model surprise you with unexpected compositions, ControlNet constrains the output, which is counterproductive for open-ended exploration.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -535,7 +535,7 @@
                                 </svg>
                                 <div>
                                     <strong>No Reference Structure Exists</strong>
-                                    <p>If you do not have a reference image, sketch, or 3D model to derive a control input from, there is nothing to condition on &mdash; text-only prompting is the appropriate approach.</p>
+                                    <p>If you do not have a reference image, sketch, or 3D model to derive a control input from, there is nothing to condition on, text-only prompting is the appropriate approach.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -597,7 +597,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Interior Design Visualization</h3>
-                        <p class="use-case-showcase__desc">Use depth maps or segmentation maps from existing room photographs to generate design variations. The spatial layout &mdash; wall positions, ceiling height, window locations &mdash; stays fixed while furniture, materials, and color schemes change through text prompts.</p>
+                        <p class="use-case-showcase__desc">Use depth maps or segmentation maps from existing room photographs to generate design variations. The spatial layout, wall positions, ceiling height, window locations, stays fixed while furniture, materials, and color schemes change through text prompts.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -713,7 +713,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Inpainting Prompting</span>
-                        <span class="evolution-callout__desc">While ControlNet conditions the entire image on structural inputs, inpainting selectively regenerates masked regions &mdash; a complementary approach for targeted edits within existing images.</span>
+                        <span class="evolution-callout__desc">While ControlNet conditions the entire image on structural inputs, inpainting selectively regenerates masked regions, a complementary approach for targeted edits within existing images.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -811,7 +811,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

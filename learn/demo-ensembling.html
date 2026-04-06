@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Ensemble Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Demonstration Ensembling</h1>
-                <p class="page-subtitle fade-in">Any single set of few-shot examples carries its own biases &mdash; the phrasing, the order, the edge cases it happens to cover. Demonstration Ensembling neutralizes that fragility by running the same query across multiple different example sets and combining the results, producing predictions that are more robust, more consistent, and less dependent on the luck of which demonstrations you happened to pick.</p>
+                <p class="page-subtitle fade-in">Any single set of few-shot examples carries its own biases, the phrasing, the order, the edge cases it happens to cover. Demonstration Ensembling neutralizes that fragility by running the same query across multiple different example sets and combining the results, producing predictions that are more robust, more consistent, and less dependent on the luck of which demonstrations you happened to pick.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,7 +200,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> Demonstration Ensembling emerged from research in 2022 showing that LLM outputs can be surprisingly sensitive to which few-shot examples appear in the prompt. Two different sets of demonstrations &mdash; both perfectly valid &mdash; can produce different answers to the same question. This technique addresses that instability head-on: instead of betting on a single example set, you create multiple distinct sets from your available pool, run each one independently, and aggregate the results through majority voting or averaging. The ensemble approach borrows a proven principle from classical machine learning, where combining multiple weak learners consistently outperforms any single model.</p>
+                        <p><strong>Introduced:</strong> Demonstration Ensembling emerged from research in 2022 showing that LLM outputs can be surprisingly sensitive to which few-shot examples appear in the prompt. Two different sets of demonstrations, both perfectly valid, can produce different answers to the same question. This technique addresses that instability head-on: instead of betting on a single example set, you create multiple distinct sets from your available pool, run each one independently, and aggregate the results through majority voting or averaging. The ensemble approach borrows a proven principle from classical machine learning, where combining multiple weak learners consistently outperforms any single model.</p>
                         <p><strong>Modern LLM Status:</strong> The principle of ensembling across different contexts remains a <strong>powerful reliability strategy</strong>, now commonly applied in evaluation pipelines and production systems where consistency matters more than speed. Modern implementations often combine demonstration ensembling with self-consistency sampling, temperature variation, or retrieval-augmented example selection. In high-stakes domains like medical triage, content moderation, and financial classification, ensembling across example sets is a standard practice for reducing variance and catching edge cases that any single prompt configuration might miss.</p>
                     </div>
                 </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Why Varying Examples Reduces Bias</h2>
-                        <p class="split-section__text">Every set of few-shot examples encodes implicit assumptions. If your three examples all happen to be short responses, the model learns &ldquo;keep it brief.&rdquo; If they all handle straightforward cases, the model may stumble on ambiguity. A single demonstration set is like asking one expert for their opinion &mdash; useful, but inherently limited by that expert&rsquo;s perspective and experience.</p>
-                        <p class="split-section__text"><strong>Demonstration Ensembling treats examples like a jury rather than a single judge.</strong> By assembling multiple distinct sets of demonstrations &mdash; each drawing from different parts of your example pool &mdash; you expose the model to a broader range of patterns, edge cases, and response styles. When you aggregate the outputs, the biases of any individual set wash out. What survives the vote is the signal that persists across all contexts.</p>
+                        <p class="split-section__text">Every set of few-shot examples encodes implicit assumptions. If your three examples all happen to be short responses, the model learns &ldquo;keep it brief.&rdquo; If they all handle straightforward cases, the model may stumble on ambiguity. A single demonstration set is like asking one expert for their opinion, useful, but inherently limited by that expert&rsquo;s perspective and experience.</p>
+                        <p class="split-section__text"><strong>Demonstration Ensembling treats examples like a jury rather than a single judge.</strong> By assembling multiple distinct sets of demonstrations, each drawing from different parts of your example pool, you expose the model to a broader range of patterns, edge cases, and response styles. When you aggregate the outputs, the biases of any individual set wash out. What survives the vote is the signal that persists across all contexts.</p>
                         <p class="split-section__text">Think of it like surveying a landscape from multiple vantage points. Each viewpoint reveals features that others miss, and the composite picture is richer and more accurate than any single perspective could provide.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">The Demonstration Sensitivity Problem</span>
-                                <p>Research has shown that simply reordering the same few-shot examples can swing classification accuracy by 10&ndash;30 percentage points. Swapping one example for another from the same category can flip the model&rsquo;s answer entirely. This isn&rsquo;t a flaw in the model &mdash; it&rsquo;s a consequence of how in-context learning works. Demonstration Ensembling doesn&rsquo;t try to find the &ldquo;perfect&rdquo; example set (which may not exist). Instead, it <strong>embraces the variance</strong> and uses aggregation to extract the stable, reliable signal underneath.</p>
+                                <p>Research has shown that simply reordering the same few-shot examples can swing classification accuracy by 10&ndash;30 percentage points. Swapping one example for another from the same category can flip the model&rsquo;s answer entirely. This isn&rsquo;t a flaw in the model, it&rsquo;s a consequence of how in-context learning works. Demonstration Ensembling doesn&rsquo;t try to find the &ldquo;perfect&rdquo; example set (which may not exist). Instead, it <strong>embraces the variance</strong> and uses aggregation to extract the stable, reliable signal underneath.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Create N Distinct Example Sets</h3>
-                            <p class="element-timeline__text">Start with a pool of available few-shot examples and sample N different subsets from it. Each set should contain a representative mix of cases but draw from different examples. The goal is diversity &mdash; each set should expose the model to a slightly different slice of your problem space, varying in difficulty, phrasing, and edge case coverage.</p>
+                            <p class="element-timeline__text">Start with a pool of available few-shot examples and sample N different subsets from it. Each set should contain a representative mix of cases but draw from different examples. The goal is diversity, each set should expose the model to a slightly different slice of your problem space, varying in difficulty, phrasing, and edge case coverage.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>From a pool of 20 labeled sentiment examples, create 5 sets of 3 examples each. Set A might include a sarcastic review, a straightforward positive, and a mixed sentiment. Set B draws a formal complaint, an enthusiastic endorsement, and a neutral description.</p>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Run the Same Query with Each Set Independently</h3>
-                            <p class="element-timeline__text">Submit your target query to the model N times, each time paired with a different example set. The query itself stays identical &mdash; only the demonstrations change. Each prompt independently primes the model with its unique context, producing a response shaped by that particular set of examples. These runs can execute in parallel for efficiency.</p>
+                            <p class="element-timeline__text">Submit your target query to the model N times, each time paired with a different example set. The query itself stays identical, only the demonstrations change. Each prompt independently primes the model with its unique context, producing a response shaped by that particular set of examples. These runs can execute in parallel for efficiency.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>The query &ldquo;Classify this review: &lsquo;The battery life is decent but the screen cracks too easily&rsquo;&rdquo; is sent 5 times, each preceded by a different set of 3 labeled examples. Each prompt independently produces a sentiment classification.</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Collect All N Responses</h3>
-                            <p class="element-timeline__text">Gather the outputs from all N runs. For classification tasks, this yields N predicted labels. For generation tasks, you collect N distinct text outputs. For numerical predictions, you have N values. Each response reflects the model&rsquo;s interpretation as influenced by its particular demonstration context &mdash; some may agree, others may diverge on edge cases.</p>
+                            <p class="element-timeline__text">Gather the outputs from all N runs. For classification tasks, this yields N predicted labels. For generation tasks, you collect N distinct text outputs. For numerical predictions, you have N values. Each response reflects the model&rsquo;s interpretation as influenced by its particular demonstration context, some may agree, others may diverge on edge cases.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>The 5 runs return: Mixed (Set A), Negative (Set B), Mixed (Set C), Mixed (Set D), Negative (Set E). Three out of five agree on &ldquo;Mixed&rdquo; while two say &ldquo;Negative.&rdquo;</p>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Aggregate Results via Majority Vote, Averaging, or Consensus</h3>
-                            <p class="element-timeline__text">Combine the N responses into a single final answer. For classification, use majority voting &mdash; the label that appears most frequently wins. For numerical tasks, take the mean or median. For generation tasks, you can select the response most similar to the others, use an LLM to synthesize a consensus answer, or rank outputs by agreement. The aggregation step is where individual biases cancel out and the robust signal emerges.</p>
+                            <p class="element-timeline__text">Combine the N responses into a single final answer. For classification, use majority voting, the label that appears most frequently wins. For numerical tasks, take the mean or median. For generation tasks, you can select the response most similar to the others, use an LLM to synthesize a consensus answer, or rank outputs by agreement. The aggregation step is where individual biases cancel out and the robust signal emerges.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Majority vote: 3 out of 5 responses say &ldquo;Mixed,&rdquo; so the final classification is <strong>&ldquo;Mixed Sentiment&rdquo;</strong> with 60% agreement confidence. The two &ldquo;Negative&rdquo; votes flag this as a borderline case worth human review.</p>
@@ -331,7 +331,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Fragile &mdash; biased by whichever examples were chosen</span>
+                            <span>Fragile, biased by whichever examples were chosen</span>
                         </div>
                     </div>
 
@@ -363,7 +363,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Robust &mdash; no single example set can dominate the outcome</span>
+                            <span>Robust, no single example set can dominate the outcome</span>
                         </div>
                     </div>
                 </div>
@@ -442,7 +442,7 @@
                                     Output emphasizes battery life, call clarity, microphone quality, and comfort for 8-hour wear.<br><br>
                                     <strong>Set C</strong> (examples: balanced product descriptions mixing emotion and specs):<br>
                                     Output blends comfort claims with concrete specifications and realistic use scenarios.<br><br>
-                                    <strong>Consensus Synthesis:</strong> An aggregation pass identifies common themes across all three outputs &mdash; noise cancellation for focus, all-day comfort, and clear call quality. The final description combines the practical specifics from Set B with the engaging framing from Set A and the balanced structure from Set C, producing a description more complete and well-rounded than any single output.</p>
+                                    <strong>Consensus Synthesis:</strong> An aggregation pass identifies common themes across all three outputs, noise cancellation for focus, all-day comfort, and clear call quality. The final description combines the practical specifics from Set B with the engaging framing from Set A and the balanced structure from Set C, producing a description more complete and well-rounded than any single output.</p>
                                 </div>
                             </div>
                         </div>
@@ -469,7 +469,7 @@
                                     Vendor: Acme Ccrp, Invoice: 2024-0847, Date: March 15, 2024, Total: $12,450.00<br><br>
                                     <strong>Set D</strong> (examples: invoices with OCR correction patterns):<br>
                                     Vendor: Acme Corp, Invoice: 2024-0847, Date: 03/15/2024, Total: $12,450.00<br><br>
-                                    <strong>Consensus:</strong> All four agree on invoice number and total. Three of four correct &ldquo;Ccrp&rdquo; to &ldquo;Corp&rdquo; &mdash; majority vote applies the correction. Date format is standardized to the most common output. The ensemble catches the OCR error that Set C missed.</p>
+                                    <strong>Consensus:</strong> All four agree on invoice number and total. Three of four correct &ldquo;Ccrp&rdquo; to &ldquo;Corp&rdquo;, majority vote applies the correction. Date format is standardized to the most common output. The ensemble catches the OCR error that Set C missed.</p>
                                 </div>
                             </div>
                         </div>
@@ -496,7 +496,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Stakes Classification</strong>
-                                    <p>Medical triage, content moderation, fraud detection &mdash; any domain where a single misclassification carries significant consequences and reliability trumps speed.</p>
+                                    <p>Medical triage, content moderation, fraud detection, any domain where a single misclassification carries significant consequences and reliability trumps speed.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -541,7 +541,7 @@
                                 </svg>
                                 <div>
                                     <strong>Latency-Sensitive Applications</strong>
-                                    <p>Each ensemble member adds an API call. If your use case requires sub-second responses &mdash; like autocomplete or real-time chat &mdash; the overhead of N parallel calls may be prohibitive.</p>
+                                    <p>Each ensemble member adds an API call. If your use case requires sub-second responses, like autocomplete or real-time chat, the overhead of N parallel calls may be prohibitive.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -620,7 +620,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Sentiment Analysis</h3>
-                        <p class="use-case-showcase__desc">Ensemble across example sets that emphasize different sentiment signals &mdash; sarcasm, understatement, cultural context &mdash; to produce more nuanced and consistent sentiment scores.</p>
+                        <p class="use-case-showcase__desc">Ensemble across example sets that emphasize different sentiment signals, sarcasm, understatement, cultural context, to produce more nuanced and consistent sentiment scores.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -679,7 +679,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine for Maximum Reliability</div>
-                    <p>Demonstration Ensembling and Self-Consistency target different sources of variance. Ensembling varies the <strong>context</strong> (which examples the model sees), while Self-Consistency varies the <strong>reasoning path</strong> (how the model thinks through the same context). Combining both &mdash; running multiple reasoning samples across multiple example sets &mdash; creates a two-dimensional ensemble that reduces variance from both sources simultaneously. In production systems handling critical decisions, this layered approach can push reliability close to human-level consistency.</p>
+                    <p>Demonstration Ensembling and Self-Consistency target different sources of variance. Ensembling varies the <strong>context</strong> (which examples the model sees), while Self-Consistency varies the <strong>reasoning path</strong> (how the model thinks through the same context). Combining both, running multiple reasoning samples across multiple example sets, creates a two-dimensional ensemble that reduces variance from both sources simultaneously. In production systems handling critical decisions, this layered approach can push reliability close to human-level consistency.</p>
                 </div>
             </div>
         </section>
@@ -703,7 +703,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Consistency</span>
-                        <span class="evolution-callout__desc">Samples multiple reasoning paths from the same prompt and takes a majority vote &mdash; ensembling over reasoning rather than over demonstrations.</span>
+                        <span class="evolution-callout__desc">Samples multiple reasoning paths from the same prompt and takes a majority vote, ensembling over reasoning rather than over demonstrations.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -721,7 +721,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">DiVeRSe</span>
-                        <span class="evolution-callout__desc">Extends ensembling to diversify across prompts, reasoning paths, and verification steps &mdash; a comprehensive pipeline that builds on demonstration variation.</span>
+                        <span class="evolution-callout__desc">Extends ensembling to diversify across prompts, reasoning paths, and verification steps, a comprehensive pipeline that builds on demonstration variation.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -742,7 +742,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Few-Shot Learning</span>
-                        <span class="evolution-callout__desc">The foundational technique of providing examples in the prompt &mdash; Demonstration Ensembling extends this by systematically varying which examples are shown.</span>
+                        <span class="evolution-callout__desc">The foundational technique of providing examples in the prompt, Demonstration Ensembling extends this by systematically varying which examples are shown.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -820,7 +820,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

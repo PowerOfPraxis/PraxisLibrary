@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Step-Back Prompting: Abstract to high-level principles before answering specific questions — grounding responses in foundational knowledge for better reasoning.">
+    <meta name="description" content="Step-Back Prompting: Abstract to high-level principles before answering specific questions, grounding responses in foundational knowledge for better reasoning.">
     <!-- SEO Meta -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Praxis Library">
@@ -13,7 +13,7 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="Step-Back Prompting - Praxis">
-    <meta property="og:description" content="Step-Back Prompting: Abstract to high-level principles before answering specific questions — grounding responses in foundational knowledge for better reasoning.">
+    <meta property="og:description" content="Step-Back Prompting: Abstract to high-level principles before answering specific questions, grounding responses in foundational knowledge for better reasoning.">
     <meta property="og:url" content="https://praxislibrary.com/learn/step-back.html">
     <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
     <meta property="og:site_name" content="Praxis Library">
@@ -21,7 +21,7 @@
     <!-- Social Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Step-Back Prompting - Praxis">
-    <meta name="twitter:description" content="Step-Back Prompting: Abstract to high-level principles before answering specific questions — grounding responses in foundational knowledge for better reasoning.">
+    <meta name="twitter:description" content="Step-Back Prompting: Abstract to high-level principles before answering specific questions, grounding responses in foundational knowledge for better reasoning.">
     <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
     <script type="application/ld+json">
 {
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> Step-Back Prompting was published in 2023 by Zheng et al. at Google DeepMind. The technique addresses a fundamental challenge in LLM reasoning: when faced with complex, detail-heavy questions, models often get lost in specifics and miss the underlying principles that would lead to correct answers. Step-Back Prompting solves this by adding an explicit abstraction step — the model first generates a higher-level question about the relevant principles, answers that abstract question, and then uses those principles to tackle the original specific question.</p>
-                        <p><strong>Modern LLM Status:</strong> Step-Back Prompting remains a <strong>partially integrated</strong> technique. While modern LLMs like Claude, GPT-4, and Gemini have improved their ability to reason from principles, they still benefit significantly from explicit step-back instructions on complex knowledge-intensive tasks. The technique is especially valuable for <strong>STEM reasoning</strong>, <strong>legal analysis</strong>, and <strong>multi-step knowledge tasks</strong> where grounding in fundamentals prevents the model from generating plausible but incorrect answers. Unlike techniques that are now fully internalized, Step-Back Prompting consistently improves accuracy when applied manually.</p>
+                        <p><strong>Introduced:</strong> Step-Back Prompting was published in 2023 by Zheng et al. at Google DeepMind. The technique addresses a fundamental challenge in LLM reasoning: when faced with complex, detail-heavy questions, models often get lost in specifics and miss the underlying principles that would lead to correct answers. Step-Back Prompting solves this by adding an explicit abstraction step, the model first generates a higher-level question about the relevant principles, answers that abstract question, and then uses those principles to tackle the original specific question.</p>
+                        <p><strong>Modern LLM Status:</strong> Step-Back Prompting remains a <strong>partially integrated</strong> technique. While modern LLMs like Claude, ChatGPT, and Gemini have improved their ability to reason from principles, they still benefit significantly from explicit step-back instructions on complex knowledge-intensive tasks. The technique is especially valuable for <strong>STEM reasoning</strong>, <strong>legal analysis</strong>, and <strong>multi-step knowledge tasks</strong> where grounding in fundamentals prevents the model from generating plausible but incorrect answers. Unlike techniques that are now fully internalized, Step-Back Prompting consistently improves accuracy when applied manually.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Principles Before Particulars</h2>
-                        <p class="split-section__text">When someone asks "What happens to the pressure of an ideal gas if you double the temperature and halve the volume?", the instinct is to jump straight to numbers. But experts do something different — they first recall the ideal gas law (PV = nRT), understand the relationships between variables, and then apply that framework to the specific scenario. Step-Back Prompting teaches LLMs to follow this same expert reasoning pattern.</p>
+                        <p class="split-section__text">When someone asks "What happens to the pressure of an ideal gas if you double the temperature and halve the volume?", the instinct is to jump straight to numbers. But experts do something different, they first recall the ideal gas law (PV = nRT), understand the relationships between variables, and then apply that framework to the specific scenario. Step-Back Prompting teaches LLMs to follow this same expert reasoning pattern.</p>
                         <p class="split-section__text"><strong>The abstraction step is the key innovation.</strong> Rather than letting the model reason directly about a complex specific question, you first ask it to identify the relevant high-level concepts, principles, or theories. This creates a conceptual scaffold that prevents the model from making errors that stem from reasoning about details without understanding the bigger picture. The model essentially builds a foundation before constructing the answer.</p>
-                        <p class="split-section__text">Think of it like an architect who, before designing a specific room layout, first establishes the structural principles — load-bearing requirements, building codes, material properties. The specific design decisions flow naturally from these foundational constraints, and the result is far more reliable than designing room by room without structural awareness.</p>
+                        <p class="split-section__text">Think of it like an architect who, before designing a specific room layout, first establishes the structural principles, load-bearing requirements, building codes, material properties. The specific design decisions flow naturally from these foundational constraints, and the result is far more reliable than designing room by room without structural awareness.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Abstraction Prevents Errors</span>
-                                <p>Complex questions often contain surface-level details that mislead models into pattern-matching rather than reasoning. By stepping back to principles first, the model establishes a <strong>correct reasoning framework</strong> before engaging with the specifics. This is why Step-Back Prompting showed dramatic improvements on physics, chemistry, and legal reasoning tasks — domains where getting the underlying principles wrong cascades into completely wrong answers, no matter how fluent the response sounds.</p>
+                                <p>Complex questions often contain surface-level details that mislead models into pattern-matching rather than reasoning. By stepping back to principles first, the model establishes a <strong>correct reasoning framework</strong> before engaging with the specifics. This is why Step-Back Prompting showed dramatic improvements on physics, chemistry, and legal reasoning tasks, domains where getting the underlying principles wrong cascades into completely wrong answers, no matter how fluent the response sounds.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Receive the Specific Question</h3>
-                            <p class="element-timeline__text">Start with the original, detail-heavy question that the user wants answered. This is typically a question that requires domain knowledge and reasoning about specific scenarios, numbers, or edge cases — the kind of question where jumping straight to an answer often produces errors.</p>
+                            <p class="element-timeline__text">Start with the original, detail-heavy question that the user wants answered. This is typically a question that requires domain knowledge and reasoning about specific scenarios, numbers, or edge cases, the kind of question where jumping straight to an answer often produces errors.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>"Can an employer legally terminate an employee for posting negative comments about the company on social media during non-work hours?"</p>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Answer the Abstract Question</h3>
-                            <p class="element-timeline__text">Have the model thoroughly answer the step-back question, laying out the relevant principles, frameworks, and domain knowledge. This creates a comprehensive conceptual foundation — a knowledge scaffold that the final answer can be built upon. The model is essentially studying the textbook before taking the exam.</p>
+                            <p class="element-timeline__text">Have the model thoroughly answer the step-back question, laying out the relevant principles, frameworks, and domain knowledge. This creates a comprehensive conceptual foundation, a knowledge scaffold that the final answer can be built upon. The model is essentially studying the textbook before taking the exam.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>"At-will employment allows termination for any lawful reason. However, exceptions include: protected concerted activity under the NLRA, state laws protecting lawful off-duty conduct, wrongful termination in violation of public policy, and social media policies that may be overbroad..."</p>
@@ -323,7 +323,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Typical Response</span>
-                                <p>"Yes, in most cases an employer can fire an employee for negative social media posts about the company, as most states are at-will employment states." — Overly simplistic, misses critical exceptions and nuance.</p>
+                                <p>"Yes, in most cases an employer can fire an employee for negative social media posts about the company, as most states are at-will employment states.", Overly simplistic, misses critical exceptions and nuance.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -355,7 +355,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Grounded Response</span>
-                                <p>"The answer depends on jurisdiction and content. While at-will employment permits broad termination, the NLRA protects concerted activity about working conditions. State laws may protect lawful off-duty conduct. The employer's social media policy must be lawfully narrow." — Comprehensive and accurate.</p>
+                                <p>"The answer depends on jurisdiction and content. While at-will employment permits broad termination, the NLRA protects concerted activity about working conditions. State laws may protect lawful off-duty conduct. The employer's social media policy must be lawfully narrow.", Comprehensive and accurate.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -430,7 +430,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Step-Back Reasoning</span>
-                                    <p><strong>Principles established:</strong> California is an at-will state but with significant exceptions. The NLRA Section 7 protects "concerted activity" — employees discussing wages, hours, or working conditions with coworkers. California Labor Code Section 1102.5 provides whistleblower protection. California also has strong public policy exceptions to at-will employment. Social media posts visible to coworkers may constitute concerted activity.<br><br>
+                                    <p><strong>Principles established:</strong> California is an at-will state but with significant exceptions. The NLRA Section 7 protects "concerted activity", employees discussing wages, hours, or working conditions with coworkers. California Labor Code Section 1102.5 provides whistleblower protection. California also has strong public policy exceptions to at-will employment. Social media posts visible to coworkers may constitute concerted activity.<br><br>
                                     <strong>Applied to specifics:</strong> This termination is likely unlawful. The post concerns overtime policy (a working condition), which is core protected activity under the NLRA. If the post was visible to coworkers, it constitutes concerted activity regardless of the platform. California's additional protections further strengthen the employee's position. The employer could face NLRB charges and state wrongful termination claims.<br><br>
                                     <strong>Why Step-Back helped:</strong> Without establishing the legal framework first, a model might default to the oversimplified "at-will means they can fire for any reason" answer, missing the critical NLRA and California-specific protections.</p>
                                 </div>
@@ -511,7 +511,7 @@
                                 </svg>
                                 <div>
                                     <strong>Breaking Tunnel Vision</strong>
-                                    <p>When you suspect the model (or you) are fixated on details and missing the bigger picture — Step-Back forces a broader perspective before diving in.</p>
+                                    <p>When you suspect the model (or you) are fixated on details and missing the bigger picture, Step-Back forces a broader perspective before diving in.</p>
                                 </div>
                             </div>
                         </div>
@@ -526,7 +526,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Factual Questions</strong>
-                                    <p>For straightforward lookups like "What is the capital of France?" — abstracting to principles adds unnecessary complexity without improving accuracy.</p>
+                                    <p>For straightforward lookups like "What is the capital of France?", abstracting to principles adds unnecessary complexity without improving accuracy.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -536,7 +536,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative and Open-Ended Tasks</strong>
-                                    <p>For brainstorming, creative writing, or ideation where there are no "correct principles" to establish — the abstraction step can constrain rather than help.</p>
+                                    <p>For brainstorming, creative writing, or ideation where there are no "correct principles" to establish, the abstraction step can constrain rather than help.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -546,7 +546,7 @@
                                 </svg>
                                 <div>
                                     <strong>Speed-Critical Interactions</strong>
-                                    <p>When latency matters more than depth — the two-stage process adds response time that may not be justified for quick conversational exchanges.</p>
+                                    <p>When latency matters more than depth, the two-stage process adds response time that may not be justified for quick conversational exchanges.</p>
                                 </div>
                             </div>
                         </div>
@@ -659,7 +659,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Chain These</div>
-                    <p>Use Step-Back Prompting to establish foundational principles, then apply Chain-of-Thought to reason through the specific problem step by step. This combines the accuracy of principle-grounded reasoning with the transparency of explicit reasoning chains — you get the right framework and a clear path through it.</p>
+                    <p>Use Step-Back Prompting to establish foundational principles, then apply Chain-of-Thought to reason through the specific problem step by step. This combines the accuracy of principle-grounded reasoning with the transparency of explicit reasoning chains, you get the right framework and a clear path through it.</p>
                 </div>
             </div>
         </section>
@@ -683,7 +683,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Step-by-step reasoning that pairs naturally with Step-Back — use Step-Back for the principles, then CoT for the detailed reasoning path.</span>
+                        <span class="evolution-callout__desc">Step-by-step reasoning that pairs naturally with Step-Back, use Step-Back for the principles, then CoT for the detailed reasoning path.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -704,7 +704,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related Approach</span>
                         <span class="evolution-callout__title">Analogical Reasoning</span>
-                        <span class="evolution-callout__desc">While Step-Back abstracts to principles, Analogical Reasoning connects to similar solved problems — both ground answers in broader knowledge.</span>
+                        <span class="evolution-callout__desc">While Step-Back abstracts to principles, Analogical Reasoning connects to similar solved problems, both ground answers in broader knowledge.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -724,7 +724,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Alternative</span>
                         <span class="evolution-callout__title">Self-Ask</span>
-                        <span class="evolution-callout__desc">Generates and answers sub-questions to build toward the final answer — a different decomposition strategy that complements Step-Back's abstraction approach.</span>
+                        <span class="evolution-callout__desc">Generates and answers sub-questions to build toward the final answer, a different decomposition strategy that complements Step-Back's abstraction approach.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -801,7 +801,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

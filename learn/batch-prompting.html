@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Efficiency Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Batch Prompting</h1>
-                <p class="page-subtitle fade-in">Why send ten separate prompts when one can do the work of all ten? Batch Prompting groups multiple task instances into a single prompt &mdash; reducing API costs, cutting latency, and maintaining comparable accuracy by processing everything in one efficient pass.</p>
+                <p class="page-subtitle fade-in">Why send ten separate prompts when one can do the work of all ten? Batch Prompting groups multiple task instances into a single prompt, reducing API costs, cutting latency, and maintaining comparable accuracy by processing everything in one efficient pass.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -215,7 +215,7 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">One Prompt, Many Answers</h2>
-                        <p class="split-section__text">Every API call to a language model carries overhead: network latency, prompt parsing, system prompt processing, and per-request costs. When you have dozens or hundreds of similar tasks &mdash; classifying emails, translating sentences, extracting data from records &mdash; sending each one individually is like mailing letters one at a time when you could put them all in one envelope.</p>
+                        <p class="split-section__text">Every API call to a language model carries overhead: network latency, prompt parsing, system prompt processing, and per-request costs. When you have dozens or hundreds of similar tasks, classifying emails, translating sentences, extracting data from records, sending each one individually is like mailing letters one at a time when you could put them all in one envelope.</p>
                         <p class="split-section__text"><strong>Batch Prompting eliminates this redundancy.</strong> You provide a single set of instructions followed by all your inputs, numbered or labeled, and ask the model to process each one. The instructions are parsed once, the model maintains consistent interpretation across all items, and you get all results back in a single response. The cost savings scale linearly with batch size.</p>
                         <p class="split-section__text">Think of it like a teacher grading papers. Reading the rubric once and grading 30 essays in sequence is far more efficient than re-reading the rubric before each individual essay.</p>
                     </div>
@@ -223,7 +223,7 @@
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Batching Maintains Accuracy</span>
-                                <p>A common concern is that processing multiple items at once might reduce quality. In practice, the opposite often happens: the model benefits from seeing related examples together, which creates implicit few-shot context. Processing &ldquo;classify these 10 emails&rdquo; gives the model a richer understanding of the classification space than processing each email in isolation. The key constraint is context window size &mdash; you must ensure all items plus the instructions fit within the model&rsquo;s token limit.</p>
+                                <p>A common concern is that processing multiple items at once might reduce quality. In practice, the opposite often happens: the model benefits from seeing related examples together, which creates implicit few-shot context. Processing &ldquo;classify these 10 emails&rdquo; gives the model a richer understanding of the classification space than processing each email in isolation. The key constraint is context window size, you must ensure all items plus the instructions fit within the model&rsquo;s token limit.</p>
                             </div>
                         </div>
                     </div>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Group and Number Your Inputs</h3>
-                            <p class="element-timeline__text">Collect all task instances and present them with clear numbering or labeling. Consistent formatting helps the model track which response corresponds to which input. For best results, keep items within a batch at similar complexity levels &mdash; mixing trivial and complex items can cause the model to rush through some or over-analyze others.</p>
+                            <p class="element-timeline__text">Collect all task instances and present them with clear numbering or labeling. Consistent formatting helps the model track which response corresponds to which input. For best results, keep items within a batch at similar complexity levels, mixing trivial and complex items can cause the model to rush through some or over-analyze others.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>1.</strong> &ldquo;I was charged twice for my last order&rdquo;<br><strong>2.</strong> &ldquo;The app crashes when I try to upload photos&rdquo;<br><strong>3.</strong> &ldquo;How do I change my password?&rdquo;<br><strong>4.</strong> &ldquo;My package hasn&rsquo;t arrived in 2 weeks&rdquo;<br><strong>5.</strong> &ldquo;Do you have a student discount?&rdquo;</p>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Parse and Distribute Results</h3>
-                            <p class="element-timeline__text">Extract individual results from the batched response and map them back to original inputs. Well-defined output formats (numbered lists, JSON, CSV) make parsing straightforward. Always include validation to catch cases where the model might skip an item or merge two responses &mdash; batch processing rarely fails completely, but individual items can occasionally be mishandled.</p>
+                            <p class="element-timeline__text">Extract individual results from the batched response and map them back to original inputs. Well-defined output formats (numbered lists, JSON, CSV) make parsing straightforward. Always include validation to catch cases where the model might skip an item or merge two responses, batch processing rarely fails completely, but individual items can occasionally be mishandled.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Parse the numbered results into a dictionary: {1: &ldquo;Billing&rdquo;, 2: &ldquo;Technical&rdquo;, 3: &ldquo;Account&rdquo;, 4: &ldquo;Shipping&rdquo;, 5: &ldquo;General&rdquo;}. Verify count matches input count. Route each ticket to the appropriate support queue.</p>
@@ -413,12 +413,12 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Batched Response</span>
-                                    <p><strong>1.</strong> Positive &mdash; Satisfied with speed and functionality<br>
-                                    <strong>2.</strong> Negative &mdash; Product durability failure<br>
-                                    <strong>3.</strong> Mixed &mdash; Feature praise tempered by battery complaint<br>
-                                    <strong>4.</strong> Positive &mdash; Service recovery appreciated<br>
-                                    <strong>5.</strong> Negative &mdash; Poor perceived value versus alternatives<br>
-                                    <strong>6.</strong> Positive &mdash; Long-term reliability confirmed</p>
+                                    <p><strong>1.</strong> Positive, Satisfied with speed and functionality<br>
+                                    <strong>2.</strong> Negative, Product durability failure<br>
+                                    <strong>3.</strong> Mixed, Feature praise tempered by battery complaint<br>
+                                    <strong>4.</strong> Positive, Service recovery appreciated<br>
+                                    <strong>5.</strong> Negative, Poor perceived value versus alternatives<br>
+                                    <strong>6.</strong> Positive, Long-term reliability confirmed</p>
                                 </div>
                             </div>
                         </div>
@@ -505,7 +505,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Volume Classification</strong>
-                                    <p>Classifying hundreds of support tickets, categorizing products, or labeling data points &mdash; batch the items and get all labels in one call.</p>
+                                    <p>Classifying hundreds of support tickets, categorizing products, or labeling data points, batch the items and get all labels in one call.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -515,7 +515,7 @@
                                 </svg>
                                 <div>
                                     <strong>Data Extraction Pipelines</strong>
-                                    <p>Pulling structured information from unstructured text at scale &mdash; names, dates, amounts, categories from documents, emails, or records.</p>
+                                    <p>Pulling structured information from unstructured text at scale, names, dates, amounts, categories from documents, emails, or records.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -525,7 +525,7 @@
                                 </svg>
                                 <div>
                                     <strong>Bulk Content Generation</strong>
-                                    <p>Generating product descriptions, meta tags, social media posts, or email subject lines &mdash; define the template once, generate for all items in a batch.</p>
+                                    <p>Generating product descriptions, meta tags, social media posts, or email subject lines, define the template once, generate for all items in a batch.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -535,7 +535,7 @@
                                 </svg>
                                 <div>
                                     <strong>Cost-Sensitive Production Systems</strong>
-                                    <p>Any scenario where LLM API costs are a significant line item &mdash; batching can reduce costs by 60-80% depending on batch size and task complexity.</p>
+                                    <p>Any scenario where LLM API costs are a significant line item, batching can reduce costs by 60-80% depending on batch size and task complexity.</p>
                                 </div>
                             </div>
                         </div>
@@ -550,7 +550,7 @@
                                 </svg>
                                 <div>
                                     <strong>Tasks Requiring Deep Individual Attention</strong>
-                                    <p>Complex analysis, long-form writing, or tasks where each item needs its own tailored approach &mdash; batching these risks shallow treatment of each item.</p>
+                                    <p>Complex analysis, long-form writing, or tasks where each item needs its own tailored approach, batching these risks shallow treatment of each item.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -560,7 +560,7 @@
                                 </svg>
                                 <div>
                                     <strong>Context Window Limitations</strong>
-                                    <p>When total input size (instructions + all items) exceeds the model&rsquo;s context window &mdash; split into smaller batches rather than forcing everything into one call.</p>
+                                    <p>When total input size (instructions + all items) exceeds the model&rsquo;s context window, split into smaller batches rather than forcing everything into one call.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -570,7 +570,7 @@
                                 </svg>
                                 <div>
                                     <strong>Real-Time Interactive Systems</strong>
-                                    <p>When each user query needs an immediate response &mdash; batching introduces wait time while accumulating items. Better for async processing pipelines than live chat.</p>
+                                    <p>When each user query needs an immediate response, batching introduces wait time while accumulating items. Better for async processing pipelines than live chat.</p>
                                 </div>
                             </div>
                         </div>
@@ -618,7 +618,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Content Moderation</h3>
-                        <p class="use-case-showcase__desc">Screen user-generated content for policy violations at volume. Batch flagged items for review, classify severity levels, and generate moderation notes &mdash; all in a single prompt call.</p>
+                        <p class="use-case-showcase__desc">Screen user-generated content for policy violations at volume. Batch flagged items for review, classify severity levels, and generate moderation notes, all in a single prompt call.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -638,7 +638,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Security Log Analysis</h3>
-                        <p class="use-case-showcase__desc">Classify batches of security alerts, extract indicators of compromise from log entries, and triage incidents by severity &mdash; processing hundreds of entries in a single prompt.</p>
+                        <p class="use-case-showcase__desc">Classify batches of security alerts, extract indicators of compromise from log entries, and triage incidents by severity, processing hundreds of entries in a single prompt.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -712,7 +712,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Dense Prompting</span>
-                        <span class="evolution-callout__desc">Maximizes information density per token &mdash; combine with Batch Prompting to pack more items into each batch while staying within context limits.</span>
+                        <span class="evolution-callout__desc">Maximizes information density per token, combine with Batch Prompting to pack more items into each batch while staying within context limits.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -730,7 +730,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Chain of Density</span>
-                        <span class="evolution-callout__desc">Iteratively compresses content into denser summaries &mdash; useful for pre-processing inputs before batching to fit more items per batch call.</span>
+                        <span class="evolution-callout__desc">Iteratively compresses content into denser summaries, useful for pre-processing inputs before batching to fit more items per batch call.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -807,7 +807,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

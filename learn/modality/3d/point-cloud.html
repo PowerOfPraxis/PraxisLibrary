@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">3D Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">Point Cloud Prompting</h1>
-                <p class="page-subtitle fade-in">Techniques for guiding AI models to process, interpret, and reason about 3D point cloud data from LiDAR scans, depth sensors, and photogrammetry &mdash; transforming raw spatial measurements into structured understanding of objects, environments, and geometric relationships.</p>
+                <p class="page-subtitle fade-in">Techniques for guiding AI models to process, interpret, and reason about 3D point cloud data from LiDAR scans, depth sensors, and photogrammetry, transforming raw spatial measurements into structured understanding of objects, environments, and geometric relationships.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -212,8 +212,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2017&ndash;2024</span>
-                        <p><strong>Introduced:</strong> Point cloud processing in deep learning began with PointNet (2017, Stanford), which introduced direct processing of unordered point sets without converting them to voxel grids or meshes first. PointNet++ extended this with hierarchical feature learning for capturing local geometric structures at multiple scales. Point cloud understanding became increasingly important as LiDAR sensors proliferated in autonomous vehicles (Waymo, Cruise), drones for surveying, and consumer mobile devices &mdash; Apple&rsquo;s iPhone 12 Pro introduced LiDAR scanning in 2020, bringing 3D capture to millions of users. The integration of point cloud representations with large language models during 2023&ndash;2024 enabled text-guided 3D analysis where users can describe what spatial features to extract from point cloud data rather than manually configuring segmentation parameters, opening the door to natural-language-driven spatial reasoning over complex 3D scenes.</p>
-                        <p><strong>Modern LLM Status:</strong> Specialized 3D foundation models and multimodal systems can interpret point cloud data when properly prompted, though most frontier LLMs work with point clouds <strong>indirectly</strong> through 2D projections, rendered depth maps, or textual descriptions of 3D scan results. Models like Point-E, PointLLM, and 3D-LLM demonstrate growing capability in understanding spatial data from natural language instructions. The core techniques covered here &mdash; specifying what geometric features to identify, defining spatial scope and resolution, structuring output around objects rather than raw coordinates &mdash; are essential because models without explicit spatial guidance tend to produce flat enumerations of point statistics rather than meaningful geometric analysis. These principles form the foundation for advanced 3D techniques including mesh reconstruction, digital twin creation, and scene-level spatial reasoning.</p>
+                        <p><strong>Introduced:</strong> Point cloud processing in deep learning began with PointNet (2017, Stanford), which introduced direct processing of unordered point sets without converting them to voxel grids or meshes first. PointNet++ extended this with hierarchical feature learning for capturing local geometric structures at multiple scales. Point cloud understanding became increasingly important as LiDAR sensors proliferated in autonomous vehicles (Waymo, Cruise), drones for surveying, and consumer mobile devices, Apple&rsquo;s iPhone 12 Pro introduced LiDAR scanning in 2020, bringing 3D capture to millions of users. The integration of point cloud representations with large language models during 2023&ndash;2024 enabled text-guided 3D analysis where users can describe what spatial features to extract from point cloud data rather than manually configuring segmentation parameters, opening the door to natural-language-driven spatial reasoning over complex 3D scenes.</p>
+                        <p><strong>Modern LLM Status:</strong> Specialized 3D foundation models and multimodal systems can interpret point cloud data when properly prompted, though most frontier LLMs work with point clouds <strong>indirectly</strong> through 2D projections, rendered depth maps, or textual descriptions of 3D scan results. Models like Point-E, PointLLM, and 3D-LLM demonstrate growing capability in understanding spatial data from natural language instructions. The core techniques covered here, specifying what geometric features to identify, defining spatial scope and resolution, structuring output around objects rather than raw coordinates, are essential because models without explicit spatial guidance tend to produce flat enumerations of point statistics rather than meaningful geometric analysis. These principles form the foundation for advanced 3D techniques including mesh reconstruction, digital twin creation, and scene-level spatial reasoning.</p>
                     </div>
                 </div>
             </div>
@@ -227,15 +227,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Bridge Raw Coordinates and Spatial Understanding</h2>
-                        <p class="split-section__text">Point cloud prompting bridges the gap between raw spatial measurements &mdash; millions of 3D coordinates captured by sensors &mdash; and human-interpretable spatial understanding. A point cloud is fundamentally a collection of points in three-dimensional space, each defined by an x, y, z coordinate and optionally enriched with color (RGB), intensity, return number, or classification values. These unstructured collections of points represent the surfaces and shapes of real-world objects and environments as measured by LiDAR scanners, depth cameras, photogrammetry pipelines, or structured-light sensors.</p>
-                        <p class="split-section__text"><strong>The core insight is that effective point cloud prompting requires explicitly specifying WHAT geometric features to identify, WHAT spatial relationships matter, WHAT level of detail is needed, and HOW to handle the inherent noise and density variations in real-world scans.</strong> A bare request to &ldquo;analyze this point cloud&rdquo; produces a generic statistical summary &mdash; point count, bounding box dimensions, and perhaps a density estimate. But when you specify the analytical lens &mdash; object segmentation, surface classification, structural deformation detection, volumetric measurement &mdash; the model shifts from passive data description to active spatial reasoning and geometric interpretation.</p>
+                        <p class="split-section__text">Point cloud prompting bridges the gap between raw spatial measurements, millions of 3D coordinates captured by sensors, and human-interpretable spatial understanding. A point cloud is fundamentally a collection of points in three-dimensional space, each defined by an x, y, z coordinate and optionally enriched with color (RGB), intensity, return number, or classification values. These unstructured collections of points represent the surfaces and shapes of real-world objects and environments as measured by LiDAR scanners, depth cameras, photogrammetry pipelines, or structured-light sensors.</p>
+                        <p class="split-section__text"><strong>The core insight is that effective point cloud prompting requires explicitly specifying WHAT geometric features to identify, WHAT spatial relationships matter, WHAT level of detail is needed, and HOW to handle the inherent noise and density variations in real-world scans.</strong> A bare request to &ldquo;analyze this point cloud&rdquo; produces a generic statistical summary, point count, bounding box dimensions, and perhaps a density estimate. But when you specify the analytical lens, object segmentation, surface classification, structural deformation detection, volumetric measurement, the model shifts from passive data description to active spatial reasoning and geometric interpretation.</p>
                         <p class="split-section__text">Think of it like handing the same LiDAR scan of a city block to a civil engineer, an urban planner, and a utility inspector. The civil engineer measures structural clearances, identifies load-bearing surfaces, and flags deformation patterns. The urban planner analyzes building setbacks, vegetation coverage ratios, and pedestrian path widths. The utility inspector traces power line sag, identifies encroaching vegetation, and measures pole lean angles. Point cloud prompting is how you tell the model which kind of spatial analyst to become.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Spatial Specificity Transforms Point Cloud Analysis</span>
-                                <p>When a model receives point cloud data without clear instructions, it defaults to reporting basic statistics &mdash; producing a dry summary of point counts, coordinate ranges, and average density with no geometric interpretation. Structured point cloud prompts redirect this behavior by defining the <strong>spatial analytical framework</strong> the model should apply: what coordinate system to reference, which geometric primitives to fit, how to segment objects from ground surfaces, what level of noise filtering is appropriate, and whether to prioritize surface classification, volumetric estimation, structural assessment, or change detection. The difference between a generic &ldquo;this point cloud contains 2.4 million points spanning a 50-meter area&rdquo; and a structured analysis identifying individual buildings, measuring facade heights, classifying vegetation types, and flagging structural anomalies comes down entirely to the quality of the accompanying prompt.</p>
+                                <p>When a model receives point cloud data without clear instructions, it defaults to reporting basic statistics, producing a dry summary of point counts, coordinate ranges, and average density with no geometric interpretation. Structured point cloud prompts redirect this behavior by defining the <strong>spatial analytical framework</strong> the model should apply: what coordinate system to reference, which geometric primitives to fit, how to segment objects from ground surfaces, what level of noise filtering is appropriate, and whether to prioritize surface classification, volumetric estimation, structural assessment, or change detection. The difference between a generic &ldquo;this point cloud contains 2.4 million points spanning a 50-meter area&rdquo; and a structured analysis identifying individual buildings, measuring facade heights, classifying vegetation types, and flagging structural anomalies comes down entirely to the quality of the accompanying prompt.</p>
                             </div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Prepare Point Cloud Data</h3>
-                            <p class="element-timeline__text">Provide the point cloud input with essential context about how it was captured. This includes the sensor type (terrestrial LiDAR, aerial LiDAR, depth camera, photogrammetry), the coordinate reference system (local, UTM, geographic), point density, and any preprocessing already applied such as noise filtering or ground classification. The data format matters significantly &mdash; whether raw XYZ coordinates, LAS/LAZ files with classification attributes, or PLY files with color information. Providing capture metadata helps the model understand the scale, precision, and expected noise characteristics of the data.</p>
+                            <p class="element-timeline__text">Provide the point cloud input with essential context about how it was captured. This includes the sensor type (terrestrial LiDAR, aerial LiDAR, depth camera, photogrammetry), the coordinate reference system (local, UTM, geographic), point density, and any preprocessing already applied such as noise filtering or ground classification. The data format matters significantly, whether raw XYZ coordinates, LAS/LAZ files with classification attributes, or PLY files with color information. Providing capture metadata helps the model understand the scale, precision, and expected noise characteristics of the data.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Provide a terrestrial LiDAR scan of a building facade captured at 5mm point spacing, with RGB color values, in a local coordinate system where Z represents height above ground level.</p>
@@ -419,7 +419,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>The prompt specifies both the segmentation categories and the analytical measurements required for each category. By requesting plane-fitting with deviation thresholds, surface loss quantification, and settlement detection, the prompt transforms a passive scan description into a structural condition assessment. Without these constraints, the model would report basic geometry &mdash; wall height, width, and point count &mdash; without detecting the deterioration patterns and dimensional anomalies that make the analysis actionable for heritage conservation and structural engineering teams.</p>
+                                    <p>The prompt specifies both the segmentation categories and the analytical measurements required for each category. By requesting plane-fitting with deviation thresholds, surface loss quantification, and settlement detection, the prompt transforms a passive scan description into a structural condition assessment. Without these constraints, the model would report basic geometry, wall height, width, and point count, without detecting the deterioration patterns and dimensional anomalies that make the analysis actionable for heritage conservation and structural engineering teams.</p>
                                 </div>
                             </div>
                         </div>
@@ -438,7 +438,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>This prompt layers ground classification, terrain modeling, hydrological feature extraction, and slope analysis onto a single aerial dataset. By defining explicit vegetation height thresholds and slope cutoff values, the prompt establishes clear quantitative boundaries rather than relying on the model&rsquo;s subjective interpretation. The request for both absolute area and percentage values ensures the output serves multiple downstream uses &mdash; from flood risk assessment teams needing drainage channel locations to land use planners requiring vegetation coverage statistics, all derived from a single structured analysis pass.</p>
+                                    <p>This prompt layers ground classification, terrain modeling, hydrological feature extraction, and slope analysis onto a single aerial dataset. By defining explicit vegetation height thresholds and slope cutoff values, the prompt establishes clear quantitative boundaries rather than relying on the model&rsquo;s subjective interpretation. The request for both absolute area and percentage values ensures the output serves multiple downstream uses, from flood risk assessment teams needing drainage channel locations to land use planners requiring vegetation coverage statistics, all derived from a single structured analysis pass.</p>
                                 </div>
                             </div>
                         </div>
@@ -453,7 +453,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Prompt</span>
-                                    <p>&ldquo;Analyze this high-resolution point cloud scan of a cylindrical storage tank (nominal diameter 12 meters, height 15 meters). Fit a best-fit cylinder to the shell points and report the actual measured diameter and height. Calculate the roundness deviation at 1-meter height increments &mdash; for each ring section, report the maximum inward and outward deviation from the ideal cylinder in millimeters. Identify any dents or bulges where local deviation exceeds 25mm. Inspect the tank-to-foundation junction for signs of settlement by measuring the base ring elevation at 15-degree intervals around the circumference. Flag any section where adjacent measurement points differ by more than 5mm in elevation.&rdquo;</p>
+                                    <p>&ldquo;Analyze this high-resolution point cloud scan of a cylindrical storage tank (nominal diameter 12 meters, height 15 meters). Fit a best-fit cylinder to the shell points and report the actual measured diameter and height. Calculate the roundness deviation at 1-meter height increments, for each ring section, report the maximum inward and outward deviation from the ideal cylinder in millimeters. Identify any dents or bulges where local deviation exceeds 25mm. Inspect the tank-to-foundation junction for signs of settlement by measuring the base ring elevation at 15-degree intervals around the circumference. Flag any section where adjacent measurement points differ by more than 5mm in elevation.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
@@ -494,7 +494,7 @@
                                 </svg>
                                 <div>
                                     <strong>3D Reconstruction Quality Assessment</strong>
-                                    <p>Evaluating the completeness, accuracy, and density of 3D reconstructions from photogrammetry or depth sensor fusion &mdash; identifying coverage gaps, registration errors, and areas requiring additional scanning passes.</p>
+                                    <p>Evaluating the completeness, accuracy, and density of 3D reconstructions from photogrammetry or depth sensor fusion, identifying coverage gaps, registration errors, and areas requiring additional scanning passes.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -539,7 +539,7 @@
                                 </svg>
                                 <div>
                                     <strong>Real-Time Processing Is Required</strong>
-                                    <p>If you need live point cloud processing with millisecond latency &mdash; such as autonomous vehicle obstacle detection or robotic arm guidance &mdash; dedicated embedded perception systems outperform prompt-based approaches by orders of magnitude.</p>
+                                    <p>If you need live point cloud processing with millisecond latency, such as autonomous vehicle obstacle detection or robotic arm guidance, dedicated embedded perception systems outperform prompt-based approaches by orders of magnitude.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -549,7 +549,7 @@
                                 </svg>
                                 <div>
                                     <strong>Sub-Millimeter Precision Is Required</strong>
-                                    <p>When the application demands metrology-grade accuracy below 1mm &mdash; such as precision machining verification or optical component inspection &mdash; specialized coordinate measurement software with traceable calibration chains is necessary rather than AI-assisted analysis.</p>
+                                    <p>When the application demands metrology-grade accuracy below 1mm, such as precision machining verification or optical component inspection, specialized coordinate measurement software with traceable calibration chains is necessary rather than AI-assisted analysis.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -559,7 +559,7 @@
                                 </svg>
                                 <div>
                                     <strong>No 3D Data Is Available</strong>
-                                    <p>If you only have 2D photographs, floor plans, or textual descriptions of a space without any actual 3D measurement data, you cannot apply point cloud prompting &mdash; consider image-based 3D estimation or generative 3D modeling approaches instead.</p>
+                                    <p>If you only have 2D photographs, floor plans, or textual descriptions of a space without any actual 3D measurement data, you cannot apply point cloud prompting, consider image-based 3D estimation or generative 3D modeling approaches instead.</p>
                                 </div>
                             </div>
                         </div>
@@ -609,7 +609,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Archaeological Site Documentation</h3>
-                        <p class="use-case-showcase__desc">Creating detailed 3D records of excavation sites, artifact positions, and architectural remains through photogrammetric point clouds &mdash; preserving spatial context and enabling remote analysis of dig sites long after fieldwork concludes.</p>
+                        <p class="use-case-showcase__desc">Creating detailed 3D records of excavation sites, artifact positions, and architectural remains through photogrammetric point clouds, preserving spatial context and enabling remote analysis of dig sites long after fieldwork concludes.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -642,7 +642,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Quality Control Inspection</h3>
-                        <p class="use-case-showcase__desc">Scanning manufactured components and comparing the as-built point cloud against CAD design models to detect dimensional deviations, surface defects, and assembly misalignments &mdash; providing automated pass/fail assessments with precise deviation measurements.</p>
+                        <p class="use-case-showcase__desc">Scanning manufactured components and comparing the as-built point cloud against CAD design models to detect dimensional deviations, surface defects, and assembly misalignments, providing automated pass/fail assessments with precise deviation measurements.</p>
                     </div>
                 </div>
             </div>
@@ -701,7 +701,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">3D Prompting Basics</span>
-                        <span class="evolution-callout__desc">The foundational techniques for working with any 3D data in AI models &mdash; covering coordinate systems, spatial representations, scale conventions, and general strategies for describing three-dimensional information through text prompts.</span>
+                        <span class="evolution-callout__desc">The foundational techniques for working with any 3D data in AI models, covering coordinate systems, spatial representations, scale conventions, and general strategies for describing three-dimensional information through text prompts.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -722,7 +722,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Scene Understanding</span>
-                        <span class="evolution-callout__desc">Focuses on holistic interpretation of 3D environments &mdash; identifying rooms, spatial relationships between objects, navigable paths, functional zones, and semantic meaning within captured scenes rather than analyzing individual geometric elements.</span>
+                        <span class="evolution-callout__desc">Focuses on holistic interpretation of 3D environments, identifying rooms, spatial relationships between objects, navigable paths, functional zones, and semantic meaning within captured scenes rather than analyzing individual geometric elements.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -743,7 +743,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">3D Model Generation</span>
-                        <span class="evolution-callout__desc">Extends point cloud analysis into the generative domain &mdash; creating complete 3D models, meshes, and textured surfaces from text descriptions or partial scans, filling gaps in captured data and producing assets for visualization and simulation.</span>
+                        <span class="evolution-callout__desc">Extends point cloud analysis into the generative domain, creating complete 3D models, meshes, and textured surfaces from text descriptions or partial scans, filling gaps in captured data and producing assets for visualization and simulation.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -820,7 +820,7 @@
 
             <div class="footer-bottom">
                 <p>AI for Everyone</p>
-                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
             </div>
 
             <div class="footer-policies">

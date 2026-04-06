@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Reasoning &amp; CoT Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Maieutic Prompting</h1>
-                <p class="page-subtitle fade-in">Named after Socrates&rsquo; method of bringing knowledge to light through questioning, Maieutic Prompting builds a tree of recursive explanations &mdash; then uses logical consistency checks to determine which explanation branches are trustworthy and which contain contradictions.</p>
+                <p class="page-subtitle fade-in">Named after Socrates&rsquo; method of bringing knowledge to light through questioning, Maieutic Prompting builds a tree of recursive explanations, then uses logical consistency checks to determine which explanation branches are trustworthy and which contain contradictions.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
                         <p><strong>Introduced:</strong> Maieutic Prompting was published at EMNLP 2022 by Jung et al. The technique addresses a fundamental challenge: language models can generate confident but incorrect explanations. Maieutic Prompting handles this by generating multiple explanations in a tree structure, then using satisfiability-based reasoning to identify which explanations are logically consistent. By treating commonsense inference as a constraint satisfaction problem, it achieves up to 20% improvement over standard prompting on commonsense reasoning benchmarks.</p>
-                        <p><strong>Modern LLM Status:</strong> The core insight of Maieutic Prompting &mdash; that models should generate multiple explanations and verify their consistency &mdash; has influenced modern self-verification approaches. While frontier models (Claude, GPT-4) have significantly improved their commonsense reasoning, the principle of building explanation trees and checking for contradictions remains valuable for high-stakes reasoning where a single explanation may be unreliable. The technique is particularly relevant for domains where logical consistency between claims is critical.</p>
+                        <p><strong>Modern LLM Status:</strong> The core insight of Maieutic Prompting, that models should generate multiple explanations and verify their consistency, has influenced modern self-verification approaches. While frontier models (Claude, ChatGPT) have significantly improved their commonsense reasoning, the principle of building explanation trees and checking for contradictions remains valuable for high-stakes reasoning where a single explanation may be unreliable. The technique is particularly relevant for domains where logical consistency between claims is critical.</p>
                     </div>
                 </div>
             </div>
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Build Explanation Trees, Then Verify Them</h2>
                         <p class="split-section__text">Standard prompting asks a model for one explanation and trusts it. But models can hallucinate plausible-sounding but incorrect reasoning. Maieutic Prompting takes a fundamentally different approach inspired by the Socratic method: it generates a tree of explanations by recursively asking &ldquo;why?&rdquo; or &ldquo;explain further&rdquo; at each node.</p>
-                        <p class="split-section__text"><strong>Each explanation is then checked for logical consistency</strong> with its parent, siblings, and children in the tree. Contradictions reveal unreliable reasoning branches. The technique frames this as a satisfiability problem &mdash; finding the assignment of true/false to each explanation that maximizes overall logical consistency.</p>
-                        <p class="split-section__text">Think of it like a panel of experts who each explain a claim independently, then a moderator checks whether all the explanations are logically compatible. Where they contradict each other, something is wrong &mdash; and the contradictions point directly to the unreliable reasoning.</p>
+                        <p class="split-section__text"><strong>Each explanation is then checked for logical consistency</strong> with its parent, siblings, and children in the tree. Contradictions reveal unreliable reasoning branches. The technique frames this as a satisfiability problem, finding the assignment of true/false to each explanation that maximizes overall logical consistency.</p>
+                        <p class="split-section__text">Think of it like a panel of experts who each explain a claim independently, then a moderator checks whether all the explanations are logically compatible. Where they contradict each other, something is wrong, and the contradictions point directly to the unreliable reasoning.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Trees of Explanations Beat Single Answers</span>
-                                <p>A single explanation can be confidently wrong. By generating multiple explanations and checking them against each other for logical consistency, Maieutic Prompting creates a self-checking system. If Explanation A implies X, but Explanation B (which is also plausible) implies not-X, the contradiction flags unreliable reasoning. This is analogous to how peer review works &mdash; multiple independent analyses that must be logically consistent.</p>
+                                <p>A single explanation can be confidently wrong. By generating multiple explanations and checking them against each other for logical consistency, Maieutic Prompting creates a self-checking system. If Explanation A implies X, but Explanation B (which is also plausible) implies not-X, the contradiction flags unreliable reasoning. This is analogous to how peer review works, multiple independent analyses that must be logically consistent.</p>
                             </div>
                         </div>
                     </div>
@@ -290,7 +290,7 @@
                             <p class="element-timeline__text">Evaluate logical consistency between parent-child and sibling explanation pairs. Score each explanation based on how well it aligns with the rest of the tree. Contradictions between nodes lower consistency scores and flag unreliable branches.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Parent says &ldquo;not all birds fly&rdquo; and child says &ldquo;flight requires specific wing structure&rdquo; &mdash; these are consistent (score: high). A sibling claiming &ldquo;all winged creatures fly&rdquo; contradicts both (score: low).</p>
+                                <p>Parent says &ldquo;not all birds fly&rdquo; and child says &ldquo;flight requires specific wing structure&rdquo;, these are consistent (score: high). A sibling claiming &ldquo;all winged creatures fly&rdquo; contradicts both (score: low).</p>
                             </div>
                         </div>
                     </div>
@@ -304,7 +304,7 @@
                             <p class="element-timeline__text">Treat the tree as a logical constraint problem. Find the assignment of true/false labels to each node that maximizes overall consistency, and extract the final answer from the most consistent branch. The result is a verified conclusion backed by mutually supporting explanations.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The solver assigns &ldquo;true&rdquo; to the flightless-birds branch and &ldquo;false&rdquo; to the &ldquo;all birds fly&rdquo; counter &mdash; yielding a high-confidence answer: &ldquo;No, not all birds can fly.&rdquo;</p>
+                                <p>The solver assigns &ldquo;true&rdquo; to the flightless-birds branch and &ldquo;false&rdquo; to the &ldquo;all birds fly&rdquo; counter, yielding a high-confidence answer: &ldquo;No, not all birds can fly.&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -345,7 +345,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Correct, but based on a single reasoning path &mdash; no verification</span>
+                            <span>Correct, but based on a single reasoning path, no verification</span>
                         </div>
                     </div>
 
@@ -369,7 +369,7 @@
                                 <strong>Sub-explanation 1:</strong> &ldquo;Flight requires specific wing structure and low body-to-wing ratio.&rdquo;<br>
                                 <strong>Sub-explanation 2:</strong> &ldquo;Evolutionary pressures led some species to lose flight in favor of other adaptations.&rdquo;<br><br>
                                 <strong>Counter-explanation:</strong> &ldquo;All birds have wings, so all should fly.&rdquo;<br>
-                                <strong>Consistency check:</strong> Counter contradicts known flightless species &mdash; marked as inconsistent.</p>
+                                <strong>Consistency check:</strong> Counter contradicts known flightless species, marked as inconsistent.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Verified Answer</span>
@@ -446,17 +446,17 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Ethical Claim</span>
-                                    <p>&ldquo;Is it always wrong to lie?&rdquo; &mdash; Generating competing explanation trees for ethical positions and checking logical consistency.</p>
+                                    <p>&ldquo;Is it always wrong to lie?&rdquo;, Generating competing explanation trees for ethical positions and checking logical consistency.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Maieutic Explanation Tree</span>
-                                    <p><strong>Branch A (Always wrong):</strong> &ldquo;Lying violates the categorical imperative &mdash; if everyone lied, trust would collapse.&rdquo;<br>
+                                    <p><strong>Branch A (Always wrong):</strong> &ldquo;Lying violates the categorical imperative, if everyone lied, trust would collapse.&rdquo;<br>
                                     <strong>Sub-A1:</strong> &ldquo;Society depends on truthfulness as a foundational norm.&rdquo;<br>
                                     <strong>Sub-A2:</strong> &ldquo;Even well-intentioned lies erode trust over time.&rdquo;<br><br>
                                     <strong>Branch B (Not always wrong):</strong> &ldquo;Lying to protect someone from harm can be morally justified.&rdquo;<br>
                                     <strong>Sub-B1:</strong> &ldquo;Hiding refugees from persecutors is widely considered moral despite involving deception.&rdquo;<br>
                                     <strong>Sub-B2:</strong> &ldquo;Consequentialist ethics evaluates lies by their outcomes, not the act itself.&rdquo;<br><br>
-                                    <strong>Consistency Check:</strong> Branch A&rsquo;s absolutism (Sub-A2: &ldquo;even well-intentioned lies&rdquo;) contradicts the widely accepted moral intuition in Sub-B1. Branch B maintains internal consistency &mdash; outcomes-based evaluation accommodates both truth-telling as default and justified exceptions.<br><br>
+                                    <strong>Consistency Check:</strong> Branch A&rsquo;s absolutism (Sub-A2: &ldquo;even well-intentioned lies&rdquo;) contradicts the widely accepted moral intuition in Sub-B1. Branch B maintains internal consistency, outcomes-based evaluation accommodates both truth-telling as default and justified exceptions.<br><br>
                                     <strong>Verified Position:</strong> The explanation tree reveals that an absolute prohibition on lying creates logical inconsistencies with widely held moral intuitions. The more consistent position acknowledges lying as generally wrong while permitting justified exceptions based on outcomes and context.</p>
                                 </div>
                             </div>
@@ -472,7 +472,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Historical Claim</span>
-                                    <p>&ldquo;Did the printing press cause the Protestant Reformation?&rdquo; &mdash; Building explanation trees with cross-branch consistency analysis.</p>
+                                    <p>&ldquo;Did the printing press cause the Protestant Reformation?&rdquo;, Building explanation trees with cross-branch consistency analysis.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Maieutic Explanation Tree</span>
@@ -482,7 +482,7 @@
                                     <strong>Branch B (Not a direct cause):</strong> &ldquo;Religious grievances and corruption within the Church were the primary causes.&rdquo;<br>
                                     <strong>Sub-B1:</strong> &ldquo;Movements like the Hussites predated the printing press by decades.&rdquo;<br>
                                     <strong>Sub-B2:</strong> &ldquo;The printing press was a tool that amplified existing discontent, not the source of it.&rdquo;<br><br>
-                                    <strong>Consistency Check:</strong> Sub-A1 and Sub-B1 create a tension &mdash; if dissent existed before printing (Hussites), printing cannot be the sole cause. However, Sub-A2 and Sub-B2 are actually consistent: the press amplified and unified existing grievances. The contradiction resolves to a &ldquo;necessary but not sufficient&rdquo; relationship.<br><br>
+                                    <strong>Consistency Check:</strong> Sub-A1 and Sub-B1 create a tension, if dissent existed before printing (Hussites), printing cannot be the sole cause. However, Sub-A2 and Sub-B2 are actually consistent: the press amplified and unified existing grievances. The contradiction resolves to a &ldquo;necessary but not sufficient&rdquo; relationship.<br><br>
                                     <strong>Verified Answer:</strong> The printing press did not single-handedly cause the Reformation, but it was a critical enabling factor. The explanation tree reveals that religious grievances predated printing, but the press transformed localized dissent into a continent-wide movement. Both branches contribute to a nuanced, consistent answer.</p>
                                 </div>
                             </div>
@@ -510,7 +510,7 @@
                                 </svg>
                                 <div>
                                     <strong>Commonsense Reasoning with Uncertain Premises</strong>
-                                    <p>Claims where the &ldquo;obvious&rdquo; answer might be wrong &mdash; Maieutic&rsquo;s tree structure surfaces hidden contradictions in seemingly straightforward reasoning.</p>
+                                    <p>Claims where the &ldquo;obvious&rdquo; answer might be wrong, Maieutic&rsquo;s tree structure surfaces hidden contradictions in seemingly straightforward reasoning.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -520,7 +520,7 @@
                                 </svg>
                                 <div>
                                     <strong>Claims That Need Logical Verification</strong>
-                                    <p>When you need more than a single explanation &mdash; generating competing explanations and checking consistency provides much stronger evidence than trusting one answer.</p>
+                                    <p>When you need more than a single explanation, generating competing explanations and checking consistency provides much stronger evidence than trusting one answer.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -530,7 +530,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Stakes Decisions Requiring Multiple Perspectives</strong>
-                                    <p>Medical, legal, or policy decisions where a single line of reasoning is insufficient &mdash; the tree structure ensures all angles are explored and cross-checked.</p>
+                                    <p>Medical, legal, or policy decisions where a single line of reasoning is insufficient, the tree structure ensures all angles are explored and cross-checked.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -555,7 +555,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Factual Lookups</strong>
-                                    <p>Questions with clear, unambiguous answers &mdash; &ldquo;What is the capital of France?&rdquo; doesn&rsquo;t benefit from explanation trees.</p>
+                                    <p>Questions with clear, unambiguous answers, &ldquo;What is the capital of France?&rdquo; doesn&rsquo;t benefit from explanation trees.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -565,7 +565,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative Tasks Where Consistency Isn&rsquo;t the Goal</strong>
-                                    <p>Writing, brainstorming, or ideation &mdash; creative work thrives on exploration, not logical constraint satisfaction.</p>
+                                    <p>Writing, brainstorming, or ideation, creative work thrives on exploration, not logical constraint satisfaction.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -575,7 +575,7 @@
                                 </svg>
                                 <div>
                                     <strong>Time-Critical Applications</strong>
-                                    <p>Tree generation is slow &mdash; building multiple explanation branches, counter-arguments, and consistency checks requires significant token overhead and processing time.</p>
+                                    <p>Tree generation is slow, building multiple explanation branches, counter-arguments, and consistency checks requires significant token overhead and processing time.</p>
                                 </div>
                             </div>
                         </div>
@@ -833,7 +833,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">Image Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">Visual Chain of Thought</h1>
-                <p class="page-subtitle fade-in">Guide multimodal models to reason through images region by region in explicit visual steps &mdash; decomposing complex scenes into spatial observations that build toward a comprehensive, grounded analysis.</p>
+                <p class="page-subtitle fade-in">Guide multimodal models to reason through images region by region in explicit visual steps, decomposing complex scenes into spatial observations that build toward a comprehensive, grounded analysis.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -213,7 +213,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Visual Chain of Thought emerged from research on visual spatial reasoning in 2023, building on earlier work in multimodal chain-of-thought prompting. Unlike standard multimodal CoT, which generates text-only rationales about an image, Visual CoT explicitly focuses on spatial regions, bounding boxes, or visual features as reasoning steps. The model is guided to attend to specific parts of an image sequentially, building understanding incrementally rather than attempting to describe everything at once. This spatial decomposition prevents the model from fixating on the most salient feature while missing subtle but important details elsewhere in the scene.</p>
-                        <p><strong>Modern LLM Status:</strong> Frontier multimodal models &mdash; including GPT-4o, Claude, and Gemini &mdash; increasingly support region-based visual reasoning, making Visual CoT patterns significantly more practical than when first proposed. These models can follow instructions to examine specific quadrants, describe spatial relationships, and compare distinct areas of an image. Visual CoT remains a <strong>valuable technique for complex scene analysis</strong> where thoroughness matters more than speed. For simple image descriptions or single-object identification, direct prompting typically suffices, but for multi-element scenes, spatial reasoning tasks, and professional image analysis workflows, Visual CoT delivers measurably more complete and accurate results.</p>
+                        <p><strong>Modern LLM Status:</strong> Frontier multimodal models, including ChatGPT, Claude, and Gemini, increasingly support region-based visual reasoning, making Visual CoT patterns significantly more practical than when first proposed. These models can follow instructions to examine specific quadrants, describe spatial relationships, and compare distinct areas of an image. Visual CoT remains a <strong>valuable technique for complex scene analysis</strong> where thoroughness matters more than speed. For simple image descriptions or single-object identification, direct prompting typically suffices, but for multi-element scenes, spatial reasoning tasks, and professional image analysis workflows, Visual CoT delivers measurably more complete and accurate results.</p>
                     </div>
                 </div>
             </div>
@@ -228,14 +228,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Treat Images as Structured Space, Not Flat Input</h2>
                         <p class="split-section__text">When a model receives an image with a simple prompt like &ldquo;What&rsquo;s in this image?&rdquo; it tends to produce a general summary dominated by the most visually prominent feature. A bright red car in the foreground captures all the model&rsquo;s attention while the partially obscured street sign, the pedestrian in the background, and the weather conditions go unmentioned. The model sees the image as a single undifferentiated input and responds with the first thing that &ldquo;pops.&rdquo;</p>
-                        <p class="split-section__text"><strong>Visual CoT treats the image as a structured space.</strong> Instead of asking for a single holistic description, it guides the model through a deliberate scan: first look at region A, then analyze region B, then compare the two regions, then synthesize findings into a conclusion. This mirrors how expert analysts actually examine images &mdash; a radiologist scans systematically rather than glancing at the whole image, and a satellite imagery analyst works quadrant by quadrant rather than trying to absorb everything simultaneously.</p>
+                        <p class="split-section__text"><strong>Visual CoT treats the image as a structured space.</strong> Instead of asking for a single holistic description, it guides the model through a deliberate scan: first look at region A, then analyze region B, then compare the two regions, then synthesize findings into a conclusion. This mirrors how expert analysts actually examine images, a radiologist scans systematically rather than glancing at the whole image, and a satellite imagery analyst works quadrant by quadrant rather than trying to absorb everything simultaneously.</p>
                         <p class="split-section__text">The result is a more thorough, spatially grounded analysis. By forcing sequential attention to different parts of the image, Visual CoT ensures that no region is overlooked and that the relationships between regions are explicitly considered rather than left to implicit association.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Spatial Decomposition Works</span>
-                                <p>Human visual attention is naturally sequential &mdash; our eyes fixate on different regions and our brain integrates those observations into understanding. Visual CoT replicates this process for AI models by making the sequential scanning explicit in the prompt. Rather than relying on the model to internally attend to all relevant regions (which it may not do), the prompt structure <strong>guarantees</strong> that each specified region receives dedicated analysis. This turns implicit, unreliable attention into explicit, verifiable coverage.</p>
+                                <p>Human visual attention is naturally sequential, our eyes fixate on different regions and our brain integrates those observations into understanding. Visual CoT replicates this process for AI models by making the sequential scanning explicit in the prompt. Rather than relying on the model to internally attend to all relevant regions (which it may not do), the prompt structure <strong>guarantees</strong> that each specified region receives dedicated analysis. This turns implicit, unreliable attention into explicit, verifiable coverage.</p>
                             </div>
                         </div>
                     </div>
@@ -260,7 +260,7 @@
                             <p class="element-timeline__text">Divide the image into semantically meaningful areas. These can be spatial quadrants (top-left, top-right, bottom-left, bottom-right), depth layers (foreground, midground, background), functional zones (navigation area, content area, sidebar), or any other partition that matches the analysis task. The key is that the divisions should be meaningful for the question being asked, not arbitrary.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>For a cityscape photograph: &ldquo;Divide this image into three depth layers &mdash; foreground (street level), midground (building facades), and background (skyline and sky).&rdquo;</p>
+                                <p>For a cityscape photograph: &ldquo;Divide this image into three depth layers, foreground (street level), midground (building facades), and background (skyline and sky).&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -335,7 +335,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Result</span>
-                                <p>The model focuses on the most visually dominant feature &mdash; perhaps a large body of water or a dense urban area &mdash; and produces a brief, surface-level description. Smaller land use patterns, transition zones between urban and agricultural areas, infrastructure networks, and environmental features in less prominent regions are overlooked entirely.</p>
+                                <p>The model focuses on the most visually dominant feature, perhaps a large body of water or a dense urban area, and produces a brief, surface-level description. Smaller land use patterns, transition zones between urban and agricultural areas, infrastructure networks, and environmental features in less prominent regions are overlooked entirely.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -399,13 +399,13 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Visual CoT Prompt</span>
-                                    <p><strong>Step 1 &mdash; Region Identification:</strong> &ldquo;Divide this floor plan into functional zones: entrance and circulation areas, living spaces, private rooms, and utility areas.&rdquo;</p>
-                                    <p><strong>Step 2 &mdash; Sequential Analysis:</strong> &ldquo;For each zone, describe: room dimensions and proportions, door and window placements, traffic flow paths, and any structural elements like load-bearing walls.&rdquo;</p>
-                                    <p><strong>Step 3 &mdash; Cross-Region Reasoning:</strong> &ldquo;How do the circulation paths connect the zones? Are there any bottlenecks? Does the private zone have adequate separation from living spaces?&rdquo;</p>
+                                    <p><strong>Step 1, Region Identification:</strong> &ldquo;Divide this floor plan into functional zones: entrance and circulation areas, living spaces, private rooms, and utility areas.&rdquo;</p>
+                                    <p><strong>Step 2, Sequential Analysis:</strong> &ldquo;For each zone, describe: room dimensions and proportions, door and window placements, traffic flow paths, and any structural elements like load-bearing walls.&rdquo;</p>
+                                    <p><strong>Step 3, Cross-Region Reasoning:</strong> &ldquo;How do the circulation paths connect the zones? Are there any bottlenecks? Does the private zone have adequate separation from living spaces?&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Result</span>
-                                    <p>The model produces a comprehensive assessment that identifies the main entry flowing into a central hallway (circulation zone), an open-concept kitchen and living area to the west (living zone), three bedrooms clustered in the northeast (private zone), and laundry and mechanical rooms along the south wall (utility zone). Cross-region analysis reveals that the hallway creates a natural buffer between living and private zones, but notes that the utility area requires passing through the living space &mdash; a potential design concern for noise and traffic flow.</p>
+                                    <p>The model produces a comprehensive assessment that identifies the main entry flowing into a central hallway (circulation zone), an open-concept kitchen and living area to the west (living zone), three bedrooms clustered in the northeast (private zone), and laundry and mechanical rooms along the south wall (utility zone). Cross-region analysis reveals that the hallway creates a natural buffer between living and private zones, but notes that the utility area requires passing through the living space, a potential design concern for noise and traffic flow.</p>
                                 </div>
                             </div>
                         </div>
@@ -420,13 +420,13 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Visual CoT Prompt</span>
-                                    <p><strong>Step 1 &mdash; Depth Layers:</strong> &ldquo;Examine this wildlife photograph in three layers: background (habitat and sky), midground (vegetation and terrain), and foreground (primary subjects).&rdquo;</p>
-                                    <p><strong>Step 2 &mdash; Layer-by-Layer Analysis:</strong> &ldquo;Background: What biome does the habitat suggest? Midground: What plant species are visible, and what do they indicate about season and climate? Foreground: Describe the animal&rsquo;s physical features, posture, and behavior.&rdquo;</p>
-                                    <p><strong>Step 3 &mdash; Cross-Layer Synthesis:</strong> &ldquo;How do the habitat clues from the background and midground help narrow the species identification? Does the animal&rsquo;s behavior correlate with the environmental conditions?&rdquo;</p>
+                                    <p><strong>Step 1, Depth Layers:</strong> &ldquo;Examine this wildlife photograph in three layers: background (habitat and sky), midground (vegetation and terrain), and foreground (primary subjects).&rdquo;</p>
+                                    <p><strong>Step 2, Layer-by-Layer Analysis:</strong> &ldquo;Background: What biome does the habitat suggest? Midground: What plant species are visible, and what do they indicate about season and climate? Foreground: Describe the animal&rsquo;s physical features, posture, and behavior.&rdquo;</p>
+                                    <p><strong>Step 3, Cross-Layer Synthesis:</strong> &ldquo;How do the habitat clues from the background and midground help narrow the species identification? Does the animal&rsquo;s behavior correlate with the environmental conditions?&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Result</span>
-                                    <p>Background analysis reveals a temperate deciduous forest with autumn coloration, placing the scene in a northern hemisphere location during October or November. Midground vegetation shows mixed oak and maple understory with dried grasses, suggesting forest-edge habitat. The foreground subject displays a compact body, reddish-brown fur with white underside, and a bushy tail held low &mdash; consistent with a red fox. Cross-layer synthesis confirms the identification: red foxes frequently hunt along forest edges during autumn when small mammal activity peaks in preparation for winter, matching both the species characteristics and the observed posture of alert, ground-focused attention.</p>
+                                    <p>Background analysis reveals a temperate deciduous forest with autumn coloration, placing the scene in a northern hemisphere location during October or November. Midground vegetation shows mixed oak and maple understory with dried grasses, suggesting forest-edge habitat. The foreground subject displays a compact body, reddish-brown fur with white underside, and a bushy tail held low, consistent with a red fox. Cross-layer synthesis confirms the identification: red foxes frequently hunt along forest edges during autumn when small mammal activity peaks in preparation for winter, matching both the species characteristics and the observed posture of alert, ground-focused attention.</p>
                                 </div>
                             </div>
                         </div>
@@ -441,9 +441,9 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Visual CoT Prompt</span>
-                                    <p><strong>Step 1 &mdash; Instrument Groups:</strong> &ldquo;Identify the instrument clusters on this industrial control panel: pressure gauges, temperature indicators, flow meters, and status lights.&rdquo;</p>
-                                    <p><strong>Step 2 &mdash; Individual Readings:</strong> &ldquo;For each instrument group, read the current values, note whether each reading is within normal operating range, and flag any instruments showing warning or critical levels.&rdquo;</p>
-                                    <p><strong>Step 3 &mdash; Cross-Instrument Correlation:</strong> &ldquo;Do the readings across instrument groups tell a coherent story? For example, does a high pressure reading correlate with an expected temperature change? Are there contradictory readings that might indicate sensor failure?&rdquo;</p>
+                                    <p><strong>Step 1, Instrument Groups:</strong> &ldquo;Identify the instrument clusters on this industrial control panel: pressure gauges, temperature indicators, flow meters, and status lights.&rdquo;</p>
+                                    <p><strong>Step 2, Individual Readings:</strong> &ldquo;For each instrument group, read the current values, note whether each reading is within normal operating range, and flag any instruments showing warning or critical levels.&rdquo;</p>
+                                    <p><strong>Step 3, Cross-Instrument Correlation:</strong> &ldquo;Do the readings across instrument groups tell a coherent story? For example, does a high pressure reading correlate with an expected temperature change? Are there contradictory readings that might indicate sensor failure?&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Result</span>
@@ -484,7 +484,7 @@
                                 </svg>
                                 <div>
                                     <strong>Spatial Reasoning Tasks</strong>
-                                    <p>Questions about relative positions, distances, arrangements, or spatial relationships between objects require the model to explicitly map out where things are &mdash; exactly what Visual CoT forces.</p>
+                                    <p>Questions about relative positions, distances, arrangements, or spatial relationships between objects require the model to explicitly map out where things are, exactly what Visual CoT forces.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -585,7 +585,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Security Camera Review</h3>
-                        <p class="use-case-showcase__desc">Analyze surveillance footage frames by dividing the scene into zones &mdash; entry points, high-traffic areas, restricted zones, and peripheral areas &mdash; to ensure comprehensive coverage of all activity and detect anomalies that occur outside the primary focus area.</p>
+                        <p class="use-case-showcase__desc">Analyze surveillance footage frames by dividing the scene into zones, entry points, high-traffic areas, restricted zones, and peripheral areas, to ensure comprehensive coverage of all activity and detect anomalies that occur outside the primary focus area.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -683,7 +683,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Multimodal CoT</span>
-                        <span class="evolution-callout__desc">The broader framework for step-by-step reasoning about multimodal inputs &mdash; Visual CoT specializes this approach by making spatial region analysis the core reasoning structure.</span>
+                        <span class="evolution-callout__desc">The broader framework for step-by-step reasoning about multimodal inputs, Visual CoT specializes this approach by making spatial region analysis the core reasoning structure.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -703,7 +703,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Image Prompting</span>
-                        <span class="evolution-callout__desc">General strategies for prompting models with images &mdash; Visual CoT builds on these fundamentals by adding structured spatial decomposition to the prompting process.</span>
+                        <span class="evolution-callout__desc">General strategies for prompting models with images, Visual CoT builds on these fundamentals by adding structured spatial decomposition to the prompting process.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -721,7 +721,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Visual Question Answering</span>
-                        <span class="evolution-callout__desc">Question-driven image analysis that pairs naturally with Visual CoT &mdash; use VQA to define what to ask, and Visual CoT to structure how the model reasons through the visual evidence to answer.</span>
+                        <span class="evolution-callout__desc">Question-driven image analysis that pairs naturally with Visual CoT, use VQA to define what to ask, and Visual CoT to structure how the model reasons through the visual evidence to answer.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -799,7 +799,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">In-Context Learning Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Active Example Selection</h1>
-                <p class="page-subtitle fade-in">Not all demonstrations are created equal. Active Example Selection watches where the model stumbles, then retrieves the specific examples most likely to resolve that uncertainty &mdash; turning static few-shot prompting into a dynamic, query-aware feedback loop.</p>
+                <p class="page-subtitle fade-in">Not all demonstrations are created equal. Active Example Selection watches where the model stumbles, then retrieves the specific examples most likely to resolve that uncertainty, turning static few-shot prompting into a dynamic, query-aware feedback loop.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Let the Model&rsquo;s Weakness Guide Your Examples</h2>
                         <p class="split-section__text">Active Example Selection dynamically chooses which few-shot demonstrations to show the model based on where the model is currently struggling. Instead of using a fixed set of examples for all queries, it identifies the model&rsquo;s weak points and selects demonstrations that specifically address those weaknesses. The result is a prompt that is precisely calibrated to each individual query rather than generically assembled for all possible inputs.</p>
-                        <p class="split-section__text"><strong>This is analogous to a tutor who watches a student fail a particular type of problem and then provides a worked example of exactly that problem type</strong> &mdash; targeted instruction rather than generic review. A math tutor does not re-explain addition when the student is stuck on long division. Similarly, Active Example Selection does not waste context window space on demonstrations the model already handles well.</p>
+                        <p class="split-section__text"><strong>This is analogous to a tutor who watches a student fail a particular type of problem and then provides a worked example of exactly that problem type</strong>, targeted instruction rather than generic review. A math tutor does not re-explain addition when the student is stuck on long division. Similarly, Active Example Selection does not waste context window space on demonstrations the model already handles well.</p>
                         <p class="split-section__text">The approach transforms few-shot prompting from a static configuration step into a responsive, real-time process. Each query triggers a fresh assessment of what the model needs to see, and the demonstration set is assembled accordingly. This closes the gap between generic prompting and fully fine-tuned models by making the most of every token in the context window.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Dynamic Selection Outperforms Fixed Demonstrations</span>
-                                <p>Fixed example sets are a compromise &mdash; they try to cover the broadest range of scenarios but inevitably miss the specific nuances any given query demands. A set optimized for common cases will fail on edge cases, while a set loaded with edge cases wastes tokens on the routine majority. Active Example Selection eliminates this trade-off entirely by assembling a <strong>bespoke demonstration set for every single query</strong>, ensuring the context window always contains the most informative examples possible.</p>
+                                <p>Fixed example sets are a compromise, they try to cover the broadest range of scenarios but inevitably miss the specific nuances any given query demands. A set optimized for common cases will fail on edge cases, while a set loaded with edge cases wastes tokens on the routine majority. Active Example Selection eliminates this trade-off entirely by assembling a <strong>bespoke demonstration set for every single query</strong>, ensuring the context window always contains the most informative examples possible.</p>
                             </div>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                             <p class="element-timeline__text">Curate a large bank of labeled input-output pairs covering the full task distribution. This pool serves as the reservoir from which demonstrations are dynamically drawn. The richer and more diverse the pool, the more precisely the system can match examples to any given query&rsquo;s needs.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>A customer support classification system maintains 500 labeled tickets spanning billing inquiries, technical issues, cancellation requests, feature requests, and account recovery &mdash; each with its correct category label and reasoning.</p>
+                                <p>A customer support classification system maintains 500 labeled tickets spanning billing inquiries, technical issues, cancellation requests, feature requests, and account recovery, each with its correct category label and reasoning.</p>
                             </div>
                         </div>
                     </div>
@@ -262,7 +262,7 @@
                             <p class="element-timeline__text">For a given query, evaluate the model&rsquo;s confidence or uncertainty. This can be measured through output probability distributions, consistency across multiple generations, or entropy of the predicted label distribution. High uncertainty signals that the model needs targeted help to resolve this particular input.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The model receives &ldquo;I need to change the card on file, but if this doesn&rsquo;t fix the charge issue I want to close my account.&rdquo; It assigns 38% probability to &ldquo;billing inquiry&rdquo; and 35% to &ldquo;cancellation request&rdquo; &mdash; high entropy indicates genuine ambiguity.</p>
+                                <p>The model receives &ldquo;I need to change the card on file, but if this doesn&rsquo;t fix the charge issue I want to close my account.&rdquo; It assigns 38% probability to &ldquo;billing inquiry&rdquo; and 35% to &ldquo;cancellation request&rdquo;, high entropy indicates genuine ambiguity.</p>
                             </div>
                         </div>
                     </div>
@@ -276,7 +276,7 @@
                             <p class="element-timeline__text">Choose examples from the pool that are most relevant to the model&rsquo;s uncertainty region. Prioritize examples that are semantically similar to the query, represent the uncertain label classes, or cover the specific edge case the model is struggling with. The selection algorithm balances similarity, diversity, and informational value.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The system retrieves three examples from the pool: one where a payment method change was correctly labeled as &ldquo;billing inquiry,&rdquo; one where a conditional cancellation threat was labeled &ldquo;cancellation request,&rdquo; and one borderline case where both topics appeared but billing was primary &mdash; demonstrating the distinguishing signals.</p>
+                                <p>The system retrieves three examples from the pool: one where a payment method change was correctly labeled as &ldquo;billing inquiry,&rdquo; one where a conditional cancellation threat was labeled &ldquo;cancellation request,&rdquo; and one borderline case where both topics appeared but billing was primary, demonstrating the distinguishing signals.</p>
                             </div>
                         </div>
                     </div>
@@ -290,7 +290,7 @@
                             <p class="element-timeline__text">Present the dynamically selected examples as in-context demonstrations, then pose the query. The model now has demonstrations specifically chosen to address its weaknesses on this particular input. The result is a response informed by the most relevant possible context rather than generic, one-size-fits-all demonstrations.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>With the three targeted examples in context, the model now correctly classifies the ticket as &ldquo;billing inquiry&rdquo; with 82% confidence &mdash; the borderline example showed that when the primary action requested is a payment method change, the billing label takes precedence even when cancellation is mentioned conditionally.</p>
+                                <p>With the three targeted examples in context, the model now correctly classifies the ticket as &ldquo;billing inquiry&rdquo; with 82% confidence, the borderline example showed that when the primary action requested is a payment method change, the billing label takes precedence even when cancellation is mentioned conditionally.</p>
                             </div>
                         </div>
                     </div>
@@ -407,8 +407,8 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Active Selection Response</span>
-                                    <p><strong>Uncertainty detected:</strong> The model assigns 30% to &ldquo;billing dispute,&rdquo; 28% to &ldquo;cancellation request,&rdquo; and 25% to &ldquo;account inquiry&rdquo; &mdash; near-uniform distribution across three categories.<br><br>
-                                    <strong>Examples retrieved:</strong> The system pulls three demonstrations from the pool: (1) a ticket where a customer disputed an unexpected charge but explicitly wanted to keep the service &mdash; labeled &ldquo;billing dispute,&rdquo; (2) a ticket where a customer mentioned a past cancellation attempt and demanded the account be closed &mdash; labeled &ldquo;cancellation request,&rdquo; (3) a ticket where a customer asked about a renewal error but expressed frustration without a firm exit intent &mdash; labeled &ldquo;billing dispute.&rdquo;<br><br>
+                                    <p><strong>Uncertainty detected:</strong> The model assigns 30% to &ldquo;billing dispute,&rdquo; 28% to &ldquo;cancellation request,&rdquo; and 25% to &ldquo;account inquiry&rdquo;, near-uniform distribution across three categories.<br><br>
+                                    <strong>Examples retrieved:</strong> The system pulls three demonstrations from the pool: (1) a ticket where a customer disputed an unexpected charge but explicitly wanted to keep the service, labeled &ldquo;billing dispute,&rdquo; (2) a ticket where a customer mentioned a past cancellation attempt and demanded the account be closed, labeled &ldquo;cancellation request,&rdquo; (3) a ticket where a customer asked about a renewal error but expressed frustration without a firm exit intent, labeled &ldquo;billing dispute.&rdquo;<br><br>
                                     <strong>Result:</strong> With these targeted examples in context, the model correctly identifies the primary intent as &ldquo;billing dispute&rdquo; because the customer&rsquo;s core request is to reverse a charge and investigate, while the cancellation language is conditional (&ldquo;if this keeps happening&rdquo;) rather than definitive.</p>
                                 </div>
                             </div>
@@ -428,7 +428,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Active Selection Response</span>
-                                    <p><strong>Uncertainty detected:</strong> The model generates inconsistent outputs across three attempts &mdash; &ldquo;2024-07 to 2024-09,&rdquo; &ldquo;2023-10 to 2023-12,&rdquo; and &ldquo;2024-10 to 2024-12&rdquo; &mdash; revealing confusion between calendar quarters and fiscal year offsets.<br><br>
+                                    <p><strong>Uncertainty detected:</strong> The model generates inconsistent outputs across three attempts, &ldquo;2024-07 to 2024-09,&rdquo; &ldquo;2023-10 to 2023-12,&rdquo; and &ldquo;2024-10 to 2024-12&rdquo;, revealing confusion between calendar quarters and fiscal year offsets.<br><br>
                                     <strong>Examples retrieved:</strong> The system retrieves demonstrations showing: (1) a fiscal year date with explicit calendar mapping where the correct output used the parenthetical calendar dates, (2) a quarter notation with a fiscal year offset where &ldquo;Q3 FY2025&rdquo; mapped to January through March 2025, (3) a case where parenthetical clarification overrode the fiscal year label as the authoritative date range.<br><br>
                                     <strong>Result:</strong> The model correctly extracts &ldquo;2023-10-01 to 2023-12-31&rdquo; by following the pattern established in the retrieved examples: when explicit calendar dates appear in parentheses, those take precedence over fiscal year quarter calculations.</p>
                                 </div>
@@ -449,8 +449,8 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Active Selection Response</span>
-                                    <p><strong>Uncertainty detected:</strong> The model assigns 34% to &ldquo;refactor,&rdquo; 33% to &ldquo;bug fix,&rdquo; and 28% to &ldquo;feature enhancement&rdquo; &mdash; a three-way split with no clear winner.<br><br>
-                                    <strong>Examples retrieved:</strong> The system selects: (1) a PR that only renamed functions and reorganized code with no behavior change &mdash; labeled &ldquo;refactor,&rdquo; (2) a PR that renamed a function but also fixed an edge case crash in the same function &mdash; labeled &ldquo;bug fix&rdquo; because the behavioral fix was the primary motivation, (3) a PR that added input validation to an existing function without fixing any known bug &mdash; labeled &ldquo;feature enhancement.&rdquo;<br><br>
+                                    <p><strong>Uncertainty detected:</strong> The model assigns 34% to &ldquo;refactor,&rdquo; 33% to &ldquo;bug fix,&rdquo; and 28% to &ldquo;feature enhancement&rdquo;, a three-way split with no clear winner.<br><br>
+                                    <strong>Examples retrieved:</strong> The system selects: (1) a PR that only renamed functions and reorganized code with no behavior change, labeled &ldquo;refactor,&rdquo; (2) a PR that renamed a function but also fixed an edge case crash in the same function, labeled &ldquo;bug fix&rdquo; because the behavioral fix was the primary motivation, (3) a PR that added input validation to an existing function without fixing any known bug, labeled &ldquo;feature enhancement.&rdquo;<br><br>
                                     <strong>Result:</strong> The model correctly categorizes the PR as &ldquo;bug fix&rdquo; based on the pattern from the retrieved examples: when a rename and logic change accompany a fix for a known defect (the null-pointer exception), the bug fix label takes priority because the defect resolution is the motivating change.</p>
                                 </div>
                             </div>
@@ -478,7 +478,7 @@
                                 </svg>
                                 <div>
                                     <strong>Production Systems with Diverse Queries</strong>
-                                    <p>When the same system handles billing questions, technical issues, and account management &mdash; each query type benefits from fundamentally different demonstrations.</p>
+                                    <p>When the same system handles billing questions, technical issues, and account management, each query type benefits from fundamentally different demonstrations.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -488,7 +488,7 @@
                                 </svg>
                                 <div>
                                     <strong>Tasks with Many Edge Cases</strong>
-                                    <p>Domains where unusual inputs appear frequently &mdash; date formats, code patterns, legal language &mdash; and a fixed example set cannot anticipate every variant.</p>
+                                    <p>Domains where unusual inputs appear frequently, date formats, code patterns, legal language, and a fixed example set cannot anticipate every variant.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -498,7 +498,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Accuracy Requirements</strong>
-                                    <p>When generic examples leave performance gaps that matter &mdash; medical triage, financial classification, or content moderation where errors have real consequences.</p>
+                                    <p>When generic examples leave performance gaps that matter, medical triage, financial classification, or content moderation where errors have real consequences.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -508,7 +508,7 @@
                                 </svg>
                                 <div>
                                     <strong>Large Labeled Data Pools</strong>
-                                    <p>Systems with hundreds or thousands of labeled examples available for retrieval &mdash; the larger the pool, the more precisely the system can match demonstrations to each query.</p>
+                                    <p>Systems with hundreds or thousands of labeled examples available for retrieval, the larger the pool, the more precisely the system can match demonstrations to each query.</p>
                                 </div>
                             </div>
                         </div>
@@ -523,7 +523,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple, Uniform Tasks</strong>
-                                    <p>When the task is straightforward enough that the same fixed examples work consistently across all queries &mdash; sentiment analysis on product reviews, for instance.</p>
+                                    <p>When the task is straightforward enough that the same fixed examples work consistently across all queries, sentiment analysis on product reviews, for instance.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -533,7 +533,7 @@
                                 </svg>
                                 <div>
                                     <strong>No Retrieval Infrastructure</strong>
-                                    <p>When there is no infrastructure for real-time example retrieval and uncertainty estimation &mdash; the technique requires embedding search, confidence scoring, and dynamic prompt assembly.</p>
+                                    <p>When there is no infrastructure for real-time example retrieval and uncertainty estimation, the technique requires embedding search, confidence scoring, and dynamic prompt assembly.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -659,7 +659,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">The Uncertainty Feedback Loop</div>
-                    <p>Active Example Selection is most powerful when deployed as a continuous loop rather than a one-shot process. As the system handles more queries, it can log which examples most effectively resolved uncertainty for similar inputs. Over time, the selection algorithm becomes increasingly precise &mdash; learning not just which examples are semantically similar, but which examples actually <strong>change the model&rsquo;s behavior</strong> in the desired direction. This creates a self-improving pipeline where example selection quality compounds with usage.</p>
+                    <p>Active Example Selection is most powerful when deployed as a continuous loop rather than a one-shot process. As the system handles more queries, it can log which examples most effectively resolved uncertainty for similar inputs. Over time, the selection algorithm becomes increasingly precise, learning not just which examples are semantically similar, but which examples actually <strong>change the model&rsquo;s behavior</strong> in the desired direction. This creates a self-improving pipeline where example selection quality compounds with usage.</p>
                 </div>
             </div>
         </section>
@@ -683,7 +683,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Example Selection</span>
-                        <span class="evolution-callout__desc">Active Example Selection extends static selection by making it dynamic and query-aware &mdash; moving from pre-chosen demonstrations to real-time, uncertainty-driven retrieval.</span>
+                        <span class="evolution-callout__desc">Active Example Selection extends static selection by making it dynamic and query-aware, moving from pre-chosen demonstrations to real-time, uncertainty-driven retrieval.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -701,7 +701,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">KNN Prompting</span>
-                        <span class="evolution-callout__desc">Both retrieve examples based on query similarity, but Active Example Selection also factors in model uncertainty &mdash; not just semantic distance but whether the example will actually resolve the model&rsquo;s confusion.</span>
+                        <span class="evolution-callout__desc">Both retrieve examples based on query similarity, but Active Example Selection also factors in model uncertainty, not just semantic distance but whether the example will actually resolve the model&rsquo;s confusion.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -722,7 +722,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Vote-k</span>
-                        <span class="evolution-callout__desc">Vote-k uses model confidence to select examples for annotation, while Active Example Selection uses confidence to select examples for prompting &mdash; both leverage uncertainty but at different stages of the pipeline.</span>
+                        <span class="evolution-callout__desc">Vote-k uses model confidence to select examples for annotation, while Active Example Selection uses confidence to select examples for prompting, both leverage uncertainty but at different stages of the pipeline.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -799,7 +799,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

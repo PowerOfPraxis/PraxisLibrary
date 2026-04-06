@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Reasoning &amp; CoT Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Algorithm of Thoughts (AoT)</h1>
-                <p class="page-subtitle fade-in">What if you could give an AI the same systematic search strategies that power computer algorithms? Algorithm of Thoughts embeds patterns like depth-first and breadth-first search directly into prompts &mdash; exploring solution spaces methodically in a single pass rather than requiring dozens of separate API calls.</p>
+                <p class="page-subtitle fade-in">What if you could give an AI the same systematic search strategies that power computer algorithms? Algorithm of Thoughts embeds patterns like depth-first and breadth-first search directly into prompts, exploring solution spaces methodically in a single pass rather than requiring dozens of separate API calls.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2024</span>
                         <p><strong>Introduced:</strong> Algorithm of Thoughts was introduced in 2024, building on the insight that tree-based reasoning methods like Tree of Thoughts (ToT) require many separate LLM calls to explore different solution paths. AoT instead embeds the algorithmic search pattern directly into the prompt, guiding the model to explore depth-first or breadth-first within a single generation. This achieves comparable accuracy (78% vs 74% for ToT on benchmarks) with roughly 100x fewer API calls.</p>
-                        <p><strong>Modern LLM Status:</strong> AoT represents an important efficiency breakthrough. While Tree of Thoughts and Graph of Thoughts achieve high accuracy through multi-call exploration, AoT demonstrates that much of this exploration can happen within a single, well-structured prompt. Modern frontier models (Claude, GPT-4, Gemini) respond well to algorithmic framing, making AoT particularly valuable for cost-sensitive production deployments where reasoning quality matters but API budgets are limited.</p>
+                        <p><strong>Modern LLM Status:</strong> AoT represents an important efficiency breakthrough. While Tree of Thoughts and Graph of Thoughts achieve high accuracy through multi-call exploration, AoT demonstrates that much of this exploration can happen within a single, well-structured prompt. Modern frontier models (Claude, ChatGPT, Gemini) respond well to algorithmic framing, making AoT particularly valuable for cost-sensitive production deployments where reasoning quality matters but API budgets are limited.</p>
                     </div>
                 </div>
             </div>
@@ -215,9 +215,9 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Embed the Search Algorithm in the Prompt</h2>
-                        <p class="split-section__text">Traditional tree-based reasoning methods (ToT, GoT) explore multiple paths by making many separate API calls &mdash; one per node in the reasoning tree. This is effective but expensive. AoT takes a different approach: it describes the algorithmic search strategy within the prompt itself, telling the model &ldquo;explore this like a depth-first search&rdquo; or &ldquo;evaluate breadth-first before going deeper.&rdquo;</p>
-                        <p class="split-section__text"><strong>The model then internalizes the search pattern and executes it within a single generation,</strong> producing a structured exploration of the solution space without external orchestration. Instead of an external controller spawning dozens of API calls to traverse a reasoning tree, AoT puts the traversal logic inside the prompt &mdash; and the model walks the tree itself.</p>
-                        <p class="split-section__text">Think of it like giving a navigator a map and saying &ldquo;explore every path depth-first, backtrack when you hit a dead end, and report the best route you found&rdquo; &mdash; rather than sending out separate scouts for every fork in the road.</p>
+                        <p class="split-section__text">Traditional tree-based reasoning methods (ToT, GoT) explore multiple paths by making many separate API calls, one per node in the reasoning tree. This is effective but expensive. AoT takes a different approach: it describes the algorithmic search strategy within the prompt itself, telling the model &ldquo;explore this like a depth-first search&rdquo; or &ldquo;evaluate breadth-first before going deeper.&rdquo;</p>
+                        <p class="split-section__text"><strong>The model then internalizes the search pattern and executes it within a single generation,</strong> producing a structured exploration of the solution space without external orchestration. Instead of an external controller spawning dozens of API calls to traverse a reasoning tree, AoT puts the traversal logic inside the prompt, and the model walks the tree itself.</p>
+                        <p class="split-section__text">Think of it like giving a navigator a map and saying &ldquo;explore every path depth-first, backtrack when you hit a dead end, and report the best route you found&rdquo;, rather than sending out separate scouts for every fork in the road.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Define the Problem Space</h3>
-                            <p class="element-timeline__text">Frame the problem as a search space with multiple possible paths or solutions. Identify what a &ldquo;node&rdquo; represents &mdash; a partial solution, a decision point, or a reasoning step.</p>
+                            <p class="element-timeline__text">Frame the problem as a search space with multiple possible paths or solutions. Identify what a &ldquo;node&rdquo; represents, a partial solution, a decision point, or a reasoning step.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;We need to find the optimal seating arrangement for 8 people with constraints: couples cannot sit adjacent, department heads must be at opposite ends.&rdquo;</p>
@@ -355,7 +355,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Structured Exploration</span>
-                                <p><strong>Node 1:</strong> Place A in seat 1. Try B in seat 2 &mdash; couple adjacent, constraint violated. Backtrack.<br><strong>Node 2:</strong> Try C in seat 2. Valid. Continue &mdash; try D in seat 3. Not a couple with C. Valid.<br><strong>Node 3:</strong> Continue depth-first&hellip; E in seat 4 creates couple with D. Backtrack to seat 4, try F&hellip;<br><strong>Result:</strong> After systematic exploration, optimal arrangement found: A-C-F-B-H-D-G-E. All constraints satisfied, conversation compatibility maximized.</p>
+                                <p><strong>Node 1:</strong> Place A in seat 1. Try B in seat 2, couple adjacent, constraint violated. Backtrack.<br><strong>Node 2:</strong> Try C in seat 2. Valid. Continue, try D in seat 3. Not a couple with C. Valid.<br><strong>Node 3:</strong> Continue depth-first&hellip; E in seat 4 creates couple with D. Backtrack to seat 4, try F&hellip;<br><strong>Result:</strong> After systematic exploration, optimal arrangement found: A-C-F-B-H-D-G-E. All constraints satisfied, conversation compatibility maximized.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -434,19 +434,19 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">AoT with BFS</span>
                                     <p><strong>Search Strategy:</strong> Breadth-first. Evaluate all options at each requirement level before going deeper.<br><br>
-                                    <strong>Level 1 &mdash; Complex Relationships:</strong><br>
+                                    <strong>Level 1, Complex Relationships:</strong><br>
                                     &bull; Relational DB: Good with JOINs but complex at scale (score: 7/10)<br>
                                     &bull; Document Store: Poor for relationships (score: 3/10)<br>
                                     &bull; Graph DB: Excellent, purpose-built (score: 9/10)<br>
                                     &bull; Hybrid: Depends on combination (score: 7/10)<br><br>
-                                    <strong>Level 2 &mdash; Read Throughput:</strong><br>
+                                    <strong>Level 2, Read Throughput:</strong><br>
                                     &bull; Relational: Good with caching (8/10)<br>
                                     &bull; Document: Excellent for denormalized reads (9/10)<br>
                                     &bull; Graph: Moderate for bulk reads (6/10)<br>
                                     &bull; Hybrid (Graph + Document cache): Strong (8/10)<br><br>
                                     <strong>Pruning:</strong> Document Store eliminated (relationship score too low). Continuing with 3 candidates.<br><br>
-                                    <strong>Level 3 &mdash; Schema Flexibility:</strong> Graph DB and Hybrid both score 8/10. Relational scores 5/10.<br>
-                                    <strong>Level 4 &mdash; Team Expertise:</strong> Team knows relational (9/10), graph (4/10), hybrid (6/10).<br><br>
+                                    <strong>Level 3, Schema Flexibility:</strong> Graph DB and Hybrid both score 8/10. Relational scores 5/10.<br>
+                                    <strong>Level 4, Team Expertise:</strong> Team knows relational (9/10), graph (4/10), hybrid (6/10).<br><br>
                                     <strong>BFS Verdict:</strong> Hybrid (relational + graph for relationship queries) balances all requirements. <em>Validate this recommendation against your specific team and infrastructure constraints.</em></p>
                                 </div>
                             </div>
@@ -467,11 +467,11 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">AoT with DFS + Backtracking</span>
                                     <p><strong>Search Strategy:</strong> Depth-first with aggressive pruning on dealbreaker constraints.<br><br>
-                                    <strong>Path 1 &mdash; Direct Entry &rarr; Vietnam:</strong> Office setup costs $2M. Regulatory timeline: 8-12 months. Local hiring pool: strong in tech. Continue exploring&hellip; Revenue projection: break-even at 18 months. <strong>Viable path. Score: 72/100.</strong><br><br>
-                                    <strong>Path 2 &mdash; Direct Entry &rarr; Indonesia:</strong> Office setup $3M. Regulatory complexity: HIGH. Foreign ownership restrictions in our sector. <strong>Dealbreaker detected. Backtrack.</strong><br><br>
-                                    <strong>Path 3 &mdash; Partnership &rarr; Singapore hub:</strong> Lower cost ($500K), established legal framework. Partner due diligence needed. Revenue share reduces margins by 30%. <strong>Viable path. Score: 78/100.</strong><br><br>
-                                    <strong>Path 4 &mdash; Acquisition &rarr; Thailand:</strong> Target company valued at $8M. Exceeds budget ceiling of $5M. <strong>Backtrack.</strong><br><br>
-                                    <strong>Path 5 &mdash; Digital-first &rarr; Multi-country:</strong> Minimal fixed costs ($200K). Scalable. Regulatory risk: moderate (varies by country). <strong>Viable path. Score: 81/100.</strong><br><br>
+                                    <strong>Path 1, Direct Entry &rarr; Vietnam:</strong> Office setup costs $2M. Regulatory timeline: 8-12 months. Local hiring pool: strong in tech. Continue exploring&hellip; Revenue projection: break-even at 18 months. <strong>Viable path. Score: 72/100.</strong><br><br>
+                                    <strong>Path 2, Direct Entry &rarr; Indonesia:</strong> Office setup $3M. Regulatory complexity: HIGH. Foreign ownership restrictions in our sector. <strong>Dealbreaker detected. Backtrack.</strong><br><br>
+                                    <strong>Path 3, Partnership &rarr; Singapore hub:</strong> Lower cost ($500K), established legal framework. Partner due diligence needed. Revenue share reduces margins by 30%. <strong>Viable path. Score: 78/100.</strong><br><br>
+                                    <strong>Path 4, Acquisition &rarr; Thailand:</strong> Target company valued at $8M. Exceeds budget ceiling of $5M. <strong>Backtrack.</strong><br><br>
+                                    <strong>Path 5, Digital-first &rarr; Multi-country:</strong> Minimal fixed costs ($200K). Scalable. Regulatory risk: moderate (varies by country). <strong>Viable path. Score: 81/100.</strong><br><br>
                                     <strong>Best path:</strong> Digital-first multi-country entry with Singapore legal entity as base. Highest score, lowest risk, most scalable. <em>This analysis should be verified against current market data and reviewed by regional experts.</em></p>
                                 </div>
                             </div>
@@ -509,7 +509,7 @@
                                 </svg>
                                 <div>
                                     <strong>Resource-Constrained Deployments</strong>
-                                    <p>When API costs or latency budgets prevent multi-call approaches like Tree of Thoughts &mdash; AoT achieves similar depth in a single call.</p>
+                                    <p>When API costs or latency budgets prevent multi-call approaches like Tree of Thoughts, AoT achieves similar depth in a single call.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -519,7 +519,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Step Decision Trees</strong>
-                                    <p>Problems with branching decision points where each choice opens new sub-paths &mdash; strategic planning, diagnostic workflows, configuration optimization.</p>
+                                    <p>Problems with branching decision points where each choice opens new sub-paths, strategic planning, diagnostic workflows, configuration optimization.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -529,7 +529,7 @@
                                 </svg>
                                 <div>
                                     <strong>Problems with Many Valid but Differently-Ranked Solutions</strong>
-                                    <p>When you need not just any answer but the best answer &mdash; AoT&rsquo;s systematic exploration finds and compares multiple valid solutions.</p>
+                                    <p>When you need not just any answer but the best answer, AoT&rsquo;s systematic exploration finds and compares multiple valid solutions.</p>
                                 </div>
                             </div>
                         </div>
@@ -544,7 +544,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Single-Answer Questions</strong>
-                                    <p>Factual lookups or straightforward questions don&rsquo;t benefit from search-space exploration &mdash; they have one correct answer, not a solution space.</p>
+                                    <p>Factual lookups or straightforward questions don&rsquo;t benefit from search-space exploration, they have one correct answer, not a solution space.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -554,7 +554,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative or Open-Ended Tasks</strong>
-                                    <p>Writing, brainstorming, and artistic tasks benefit from free exploration rather than algorithmic constraint &mdash; DFS and BFS patterns would limit creative output.</p>
+                                    <p>Writing, brainstorming, and artistic tasks benefit from free exploration rather than algorithmic constraint, DFS and BFS patterns would limit creative output.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -614,7 +614,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Architecture Design</h3>
-                        <p class="use-case-showcase__desc">Use BFS to evaluate system architecture options at each decision level &mdash; database choice, API design, caching strategy &mdash; before committing to a full stack.</p>
+                        <p class="use-case-showcase__desc">Use BFS to evaluate system architecture options at each decision level, database choice, API design, caching strategy, before committing to a full stack.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -827,7 +827,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

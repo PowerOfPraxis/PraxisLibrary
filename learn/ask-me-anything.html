@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Prompt Reformulation Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Ask Me Anything Prompting</h1>
-                <p class="page-subtitle fade-in">What if you could ask the same question multiple ways and let the answers vote on the truth? AMA Prompting transforms any NLP task into open-ended question-answer format, collects diverse reformulations, and aggregates responses &mdash; enabling smaller models to punch far above their weight class.</p>
+                <p class="page-subtitle fade-in">What if you could ask the same question multiple ways and let the answers vote on the truth? AMA Prompting transforms any NLP task into open-ended question-answer format, collects diverse reformulations, and aggregates responses, enabling smaller models to punch far above their weight class.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Ask Me Anything (AMA) was published in 2023 by Arora et al. The technique addresses a fundamental limitation of prompt engineering: the way you phrase a question dramatically affects the quality of the answer. Instead of hoping one prompt formulation works well, AMA systematically converts arbitrary NLP tasks into open-ended QA format through multiple reformulations, collects predictions from each, and aggregates answers using weak supervision. The original research demonstrated that this approach enabled 6B-parameter models to match or exceed the performance of 175B-parameter models on certain benchmarks.</p>
-                        <p><strong>Modern LLM Status:</strong> Ask Me Anything&rsquo;s core insight &mdash; reformulating tasks into question-answer format and aggregating diverse responses &mdash; influenced modern ensemble and self-consistency approaches. While the specific weak supervision pipeline is less common with large models in 2026, the principle of reformulating inputs for better outputs remains a practical prompt engineering technique. The idea that asking the same question in multiple ways yields more reliable answers has been absorbed into best practices for critical decision-making with AI.</p>
+                        <p><strong>Modern LLM Status:</strong> Ask Me Anything&rsquo;s core insight, reformulating tasks into question-answer format and aggregating diverse responses, influenced modern ensemble and self-consistency approaches. While the specific weak supervision pipeline is less common with large models in 2026, the principle of reformulating inputs for better outputs remains a practical prompt engineering technique. The idea that asking the same question in multiple ways yields more reliable answers has been absorbed into best practices for critical decision-making with AI.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Ask It Many Ways, Let the Answers Agree</h2>
-                        <p class="split-section__text">A single prompt is a single lens &mdash; it captures one angle of a problem and may miss critical perspectives. AMA Prompting solves this by converting your task into multiple open-ended questions, each phrased differently. Instead of asking &ldquo;Is this sentence positive or negative?&rdquo; once and hoping for the best, AMA generates several reformulations: &ldquo;How does the author feel?&rdquo;, &ldquo;What is the emotional tone?&rdquo;, &ldquo;Would someone reading this feel encouraged or discouraged?&rdquo;</p>
-                        <p class="split-section__text"><strong>The power is in the aggregation.</strong> Each reformulation produces its own prediction. Some will be strong, some weak, some noisy. AMA uses weak supervision techniques to weight and combine these predictions &mdash; effectively letting the answers &ldquo;vote&rdquo; on the correct response. This statistical approach compensates for the fragility of any single prompt formulation.</p>
+                        <p class="split-section__text">A single prompt is a single lens, it captures one angle of a problem and may miss critical perspectives. AMA Prompting solves this by converting your task into multiple open-ended questions, each phrased differently. Instead of asking &ldquo;Is this sentence positive or negative?&rdquo; once and hoping for the best, AMA generates several reformulations: &ldquo;How does the author feel?&rdquo;, &ldquo;What is the emotional tone?&rdquo;, &ldquo;Would someone reading this feel encouraged or discouraged?&rdquo;</p>
+                        <p class="split-section__text"><strong>The power is in the aggregation.</strong> Each reformulation produces its own prediction. Some will be strong, some weak, some noisy. AMA uses weak supervision techniques to weight and combine these predictions, effectively letting the answers &ldquo;vote&rdquo; on the correct response. This statistical approach compensates for the fragility of any single prompt formulation.</p>
                         <p class="split-section__text">Think of it like polling multiple witnesses to an event rather than relying on one account. Each witness has a different vantage point, and by aggregating their testimonies, you get a far more reliable picture of what actually happened.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Reformulation Beats Repetition</span>
-                                <p>Simply asking the same question multiple times and taking the majority answer (as in self-consistency) can help, but it biases toward whichever framing you chose. AMA goes further: by fundamentally <strong>reformulating</strong> the question each time, it accesses different reasoning pathways in the model. A question framed as sentiment analysis may trigger different internal representations than the same task framed as emotional interpretation &mdash; and combining both yields answers that neither framing alone could reliably produce.</p>
+                                <p>Simply asking the same question multiple times and taking the majority answer (as in self-consistency) can help, but it biases toward whichever framing you chose. AMA goes further: by fundamentally <strong>reformulating</strong> the question each time, it accesses different reasoning pathways in the model. A question framed as sentiment analysis may trigger different internal representations than the same task framed as emotional interpretation, and combining both yields answers that neither framing alone could reliably produce.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Define the Original Task</h3>
-                            <p class="element-timeline__text">Start with any NLP task &mdash; classification, extraction, reasoning, or generation. The task may originally be in a format that is not well-suited for open-ended language models, such as a multiple-choice format or a structured label assignment.</p>
+                            <p class="element-timeline__text">Start with any NLP task, classification, extraction, reasoning, or generation. The task may originally be in a format that is not well-suited for open-ended language models, such as a multiple-choice format or a structured label assignment.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Task: Determine whether the following product review is positive, negative, or neutral. Review: &ldquo;The battery lasts forever, but the screen is dim and the software crashes constantly.&rdquo;</p>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate Multiple QA Reformulations</h3>
-                            <p class="element-timeline__text">Convert the task into several different open-ended question-answer pairs. Each reformulation frames the same underlying task from a different angle, using different vocabulary and structure. The goal is diversity &mdash; each reformulation should access a different reasoning pathway in the model.</p>
+                            <p class="element-timeline__text">Convert the task into several different open-ended question-answer pairs. Each reformulation frames the same underlying task from a different angle, using different vocabulary and structure. The goal is diversity, each reformulation should access a different reasoning pathway in the model.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Reformulation 1:</strong> &ldquo;Based on this review, would the customer recommend this product to a friend?&rdquo;<br><strong>Reformulation 2:</strong> &ldquo;What overall feeling does this review express about the product?&rdquo;<br><strong>Reformulation 3:</strong> &ldquo;If you read this review, would you buy the product?&rdquo;<br><strong>Reformulation 4:</strong> &ldquo;Does the reviewer seem satisfied or dissatisfied overall?&rdquo;</p>
@@ -276,7 +276,7 @@
                             <p class="element-timeline__text">Run each reformulated prompt through the language model independently and record the response. Some responses will be confident and clear, others may be ambiguous or noisy. This variance is expected and is precisely what the aggregation step leverages.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p><strong>Response 1:</strong> &ldquo;Probably not &mdash; the software issues would be a deal-breaker.&rdquo; (Negative signal)<br><strong>Response 2:</strong> &ldquo;Mixed &mdash; good battery but poor screen and software.&rdquo; (Mixed/Negative signal)<br><strong>Response 3:</strong> &ldquo;I would hesitate due to the crashes.&rdquo; (Negative signal)<br><strong>Response 4:</strong> &ldquo;Dissatisfied overall, despite the battery praise.&rdquo; (Negative signal)</p>
+                                <p><strong>Response 1:</strong> &ldquo;Probably not, the software issues would be a deal-breaker.&rdquo; (Negative signal)<br><strong>Response 2:</strong> &ldquo;Mixed, good battery but poor screen and software.&rdquo; (Mixed/Negative signal)<br><strong>Response 3:</strong> &ldquo;I would hesitate due to the crashes.&rdquo; (Negative signal)<br><strong>Response 4:</strong> &ldquo;Dissatisfied overall, despite the battery praise.&rdquo; (Negative signal)</p>
                             </div>
                         </div>
                     </div>
@@ -331,7 +331,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Incorrect &mdash; rigid label format confuses the model</span>
+                            <span>Incorrect, rigid label format confuses the model</span>
                         </div>
                     </div>
 
@@ -363,7 +363,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Correct &mdash; natural QA framing unlocks better reasoning</span>
+                            <span>Correct, natural QA framing unlocks better reasoning</span>
                         </div>
                     </div>
                 </div>
@@ -408,11 +408,11 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">AMA Reformulations &amp; Aggregation</span>
                                     <p><strong>Reformulation 1:</strong> &ldquo;What topic does a headline about the Federal Reserve and interest rates belong to?&rdquo;<br>
-                                    <strong>Answer:</strong> Economics/Politics &mdash; monetary policy is a government function.<br><br>
+                                    <strong>Answer:</strong> Economics/Politics, monetary policy is a government function.<br><br>
                                     <strong>Reformulation 2:</strong> &ldquo;If someone interested in government policy read this headline, would it be relevant to them?&rdquo;<br>
                                     <strong>Answer:</strong> Yes, the Federal Reserve&rsquo;s rate decisions are a core policy topic.<br><br>
                                     <strong>Reformulation 3:</strong> &ldquo;Is this headline about athletic competition, medical science, digital innovation, or governance?&rdquo;<br>
-                                    <strong>Answer:</strong> Governance &mdash; it concerns a federal institution&rsquo;s economic decisions.<br><br>
+                                    <strong>Answer:</strong> Governance, it concerns a federal institution&rsquo;s economic decisions.<br><br>
                                     <strong>Aggregated result:</strong> Politics. All three reformulations converge on the governance/policy category.</p>
                                     <p><em>Always verify AI classifications against the original source material before using them in any decision-making process.</em></p>
                                 </div>
@@ -434,7 +434,7 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">AMA Reformulations &amp; Aggregation</span>
                                     <p><strong>Reformulation 1:</strong> &ldquo;Can astronauts in orbit see the Great Wall of China without telescopes?&rdquo;<br>
-                                    <strong>Answer:</strong> No &mdash; multiple astronauts have confirmed it is not visible to the naked eye from orbit. The wall is narrow compared to its length.<br><br>
+                                    <strong>Answer:</strong> No, multiple astronauts have confirmed it is not visible to the naked eye from orbit. The wall is narrow compared to its length.<br><br>
                                     <strong>Reformulation 2:</strong> &ldquo;What human-made structures are visible from space, and is the Great Wall among them?&rdquo;<br>
                                     <strong>Answer:</strong> Cities and large infrastructure are visible, but the Great Wall is too narrow (about 15-30 feet wide) to be distinguished from orbit.<br><br>
                                     <strong>Reformulation 3:</strong> &ldquo;Why do people believe the Great Wall is visible from space, and is this belief accurate?&rdquo;<br>
@@ -460,7 +460,7 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">AMA Reformulations &amp; Aggregation</span>
                                     <p><strong>Reformulation 1:</strong> &ldquo;Is a contractor with a signed NDA considered an &lsquo;authorized party&rsquo; under this policy?&rdquo;<br>
-                                    <strong>Answer:</strong> Generally yes &mdash; an NDA is typically the mechanism that authorizes information sharing.<br><br>
+                                    <strong>Answer:</strong> Generally yes, an NDA is typically the mechanism that authorizes information sharing.<br><br>
                                     <strong>Reformulation 2:</strong> &ldquo;What does &lsquo;unauthorized&rsquo; mean in a corporate confidentiality context?&rdquo;<br>
                                     <strong>Answer:</strong> Unauthorized typically means individuals who have not been formally cleared through agreements like NDAs, security clearances, or role-based access.<br><br>
                                     <strong>Reformulation 3:</strong> &ldquo;Would sharing project details with an NDA-bound contractor violate a standard confidentiality policy?&rdquo;<br>
@@ -493,7 +493,7 @@
                                 </svg>
                                 <div>
                                     <strong>Classification Tasks</strong>
-                                    <p>Sentiment analysis, topic categorization, and intent detection &mdash; where rephrasing the classification question from different angles reveals the correct label more reliably.</p>
+                                    <p>Sentiment analysis, topic categorization, and intent detection, where rephrasing the classification question from different angles reveals the correct label more reliably.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -503,7 +503,7 @@
                                 </svg>
                                 <div>
                                     <strong>Smaller Model Optimization</strong>
-                                    <p>When working with resource-constrained models where you cannot simply scale up &mdash; AMA&rsquo;s reformulation-aggregation pipeline extracts more performance from less capable models.</p>
+                                    <p>When working with resource-constrained models where you cannot simply scale up, AMA&rsquo;s reformulation-aggregation pipeline extracts more performance from less capable models.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -513,7 +513,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Stakes Decisions</strong>
-                                    <p>Medical triage, legal analysis, or financial assessments where getting the answer wrong has significant consequences &mdash; multiple reformulations reduce single-point-of-failure risk.</p>
+                                    <p>Medical triage, legal analysis, or financial assessments where getting the answer wrong has significant consequences, multiple reformulations reduce single-point-of-failure risk.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -523,7 +523,7 @@
                                 </svg>
                                 <div>
                                     <strong>Ambiguous Inputs</strong>
-                                    <p>When the input text is ambiguous, poorly written, or context-dependent &mdash; different question framings probe different interpretations and the aggregation resolves ambiguity.</p>
+                                    <p>When the input text is ambiguous, poorly written, or context-dependent, different question framings probe different interpretations and the aggregation resolves ambiguity.</p>
                                 </div>
                             </div>
                         </div>
@@ -538,7 +538,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Direct Questions</strong>
-                                    <p>Questions with unambiguous, factual answers &mdash; &ldquo;What is 2 + 2?&rdquo; gains nothing from reformulation.</p>
+                                    <p>Questions with unambiguous, factual answers, &ldquo;What is 2 + 2?&rdquo; gains nothing from reformulation.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -548,7 +548,7 @@
                                 </svg>
                                 <div>
                                     <strong>Latency-Sensitive Applications</strong>
-                                    <p>When speed is critical &mdash; AMA requires multiple model calls per task, multiplying both latency and token cost.</p>
+                                    <p>When speed is critical, AMA requires multiple model calls per task, multiplying both latency and token cost.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -558,7 +558,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative Generation</strong>
-                                    <p>Writing, brainstorming, or artistic tasks where there is no &ldquo;correct answer&rdquo; to converge on &mdash; AMA is designed for tasks with deterministic outcomes.</p>
+                                    <p>Writing, brainstorming, or artistic tasks where there is no &ldquo;correct answer&rdquo; to converge on, AMA is designed for tasks with deterministic outcomes.</p>
                                 </div>
                             </div>
                         </div>
@@ -583,7 +583,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Content Moderation</h3>
-                        <p class="use-case-showcase__desc">Reformulate toxicity detection from multiple angles &mdash; intent-based, impact-based, and policy-based &mdash; to catch subtle violations that any single framing might miss.</p>
+                        <p class="use-case-showcase__desc">Reformulate toxicity detection from multiple angles, intent-based, impact-based, and policy-based, to catch subtle violations that any single framing might miss.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -596,7 +596,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Document Classification</h3>
-                        <p class="use-case-showcase__desc">Classify legal, medical, or technical documents by asking about their content from multiple perspectives &mdash; subject matter, audience, purpose, and regulatory domain.</p>
+                        <p class="use-case-showcase__desc">Classify legal, medical, or technical documents by asking about their content from multiple perspectives, subject matter, audience, purpose, and regulatory domain.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -606,7 +606,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Diagnostic Triage</h3>
-                        <p class="use-case-showcase__desc">Frame symptom assessment from multiple clinical angles &mdash; by system, severity, and differential diagnosis &mdash; aggregating to reduce the risk of overlooking critical indicators.</p>
+                        <p class="use-case-showcase__desc">Frame symptom assessment from multiple clinical angles, by system, severity, and differential diagnosis, aggregating to reduce the risk of overlooking critical indicators.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -616,7 +616,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Customer Intent Detection</h3>
-                        <p class="use-case-showcase__desc">Determine what a customer actually wants by reformulating their request as questions about urgency, subject, desired outcome, and emotional state &mdash; then aggregating for routing accuracy.</p>
+                        <p class="use-case-showcase__desc">Determine what a customer actually wants by reformulating their request as questions about urgency, subject, desired outcome, and emotional state, then aggregating for routing accuracy.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -676,7 +676,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine with Self-Consistency</div>
-                    <p>AMA and self-consistency address different sources of variance. Self-consistency samples multiple reasoning paths from the <strong>same</strong> prompt; AMA generates predictions from <strong>different</strong> prompts. Combining both &mdash; multiple samples from multiple reformulations &mdash; provides a double layer of robustness. This hybrid approach is particularly powerful for tasks where both prompt sensitivity and reasoning variance contribute to errors.</p>
+                    <p>AMA and self-consistency address different sources of variance. Self-consistency samples multiple reasoning paths from the <strong>same</strong> prompt; AMA generates predictions from <strong>different</strong> prompts. Combining both, multiple samples from multiple reformulations, provides a double layer of robustness. This hybrid approach is particularly powerful for tasks where both prompt sensitivity and reasoning variance contribute to errors.</p>
                 </div>
             </div>
         </section>
@@ -700,7 +700,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Prompt Paraphrasing</span>
-                        <span class="evolution-callout__desc">The underlying principle of rephrasing prompts for better responses &mdash; AMA systematizes this with structured aggregation.</span>
+                        <span class="evolution-callout__desc">The underlying principle of rephrasing prompts for better responses, AMA systematizes this with structured aggregation.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -718,7 +718,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Rephrase and Respond</span>
-                        <span class="evolution-callout__desc">Has the model rephrase the question in its own words before answering &mdash; a single-step reformulation compared to AMA&rsquo;s multi-reformulation pipeline.</span>
+                        <span class="evolution-callout__desc">Has the model rephrase the question in its own words before answering, a single-step reformulation compared to AMA&rsquo;s multi-reformulation pipeline.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -739,7 +739,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Ensemble Methods</span>
-                        <span class="evolution-callout__desc">While AMA reformulates the prompt, ensemble methods sample multiple reasoning paths or models &mdash; combining both provides maximum robustness.</span>
+                        <span class="evolution-callout__desc">While AMA reformulates the prompt, ensemble methods sample multiple reasoning paths or models, combining both provides maximum robustness.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -816,7 +816,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

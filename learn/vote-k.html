@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Active Learning Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Vote-K Prompting</h1>
-                <p class="page-subtitle fade-in">Not all unlabeled data is created equal. Vote-K lets the model itself vote on which examples from an unlabeled pool would be most valuable to annotate &mdash; concentrating expensive human effort on the demonstrations that will actually move the needle.</p>
+                <p class="page-subtitle fade-in">Not all unlabeled data is created equal. Vote-K lets the model itself vote on which examples from an unlabeled pool would be most valuable to annotate, concentrating expensive human effort on the demonstrations that will actually move the needle.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022, Su et al.</span>
                         <p><strong>Introduced:</strong> Vote-K was proposed by Su et al. in 2022 as an active learning strategy for in-context learning. The core idea is elegant: rather than randomly selecting which unlabeled examples to annotate for few-shot demonstrations, let the language model itself &ldquo;vote&rdquo; on which k candidates from an unlabeled pool would be most informative. The model evaluates each candidate&rsquo;s potential contribution to the demonstration set, effectively identifying examples that sit near decision boundaries or cover underrepresented patterns. This transforms demonstration pool construction from a guessing game into a guided, model-informed selection process.</p>
-                        <p><strong>Modern LLM Status:</strong> The concept of model-guided data selection remains highly relevant for building high-quality demonstration pools, especially in specialized domains where annotation is expensive. While modern LLMs like Claude, GPT-4, and Gemini have reduced the need for carefully curated few-shot examples in general tasks, Vote-K&rsquo;s principles shine in domain-specific applications &mdash; medical coding, legal classification, and technical support routing &mdash; where each annotated example costs real time and expert attention. The broader insight that <strong>strategic data curation outperforms brute-force data collection</strong> has become a foundational principle in applied AI.</p>
+                        <p><strong>Modern LLM Status:</strong> The concept of model-guided data selection remains highly relevant for building high-quality demonstration pools, especially in specialized domains where annotation is expensive. While modern LLMs like Claude, ChatGPT, and Gemini have reduced the need for carefully curated few-shot examples in general tasks, Vote-K&rsquo;s principles shine in domain-specific applications, medical coding, legal classification, and technical support routing, where each annotated example costs real time and expert attention. The broader insight that <strong>strategic data curation outperforms brute-force data collection</strong> has become a foundational principle in applied AI.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Model-Guided Selective Annotation</h2>
-                        <p class="split-section__text">When building a demonstration pool for few-shot prompting, the default approach is to annotate examples at random. But random selection wastes effort on easy, redundant cases that the model already handles well. The examples that matter most are the ones the model finds confusing, ambiguous, or novel &mdash; exactly the cases where a labeled demonstration would teach it something new.</p>
+                        <p class="split-section__text">When building a demonstration pool for few-shot prompting, the default approach is to annotate examples at random. But random selection wastes effort on easy, redundant cases that the model already handles well. The examples that matter most are the ones the model finds confusing, ambiguous, or novel, exactly the cases where a labeled demonstration would teach it something new.</p>
                         <p class="split-section__text"><strong>Vote-K flips annotation from passive to active.</strong> Instead of blindly labeling data, you present the model with unlabeled candidates and ask it to vote on which k examples it most wants to see annotated. The model identifies its own uncertainty: examples where it is least confident, where multiple valid classifications seem possible, or where the input pattern differs from anything in the current demonstration set. These high-value votes guide human annotators toward the data points that will deliver the greatest learning impact per label.</p>
-                        <p class="split-section__text">Think of it like a student who, instead of being assigned random homework problems, gets to point at the specific problems they find most confusing &mdash; then a teacher works through those targeted examples to maximize learning efficiency.</p>
+                        <p class="split-section__text">Think of it like a student who, instead of being assigned random homework problems, gets to point at the specific problems they find most confusing, then a teacher works through those targeted examples to maximize learning efficiency.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Targeted Annotation Beats Random Selection</span>
-                                <p>A randomly selected demonstration pool often contains many similar, easy examples that teach the model nothing new &mdash; while leaving difficult edge cases unrepresented. Vote-K concentrates annotation effort on the examples the model finds <strong>most uncertain or informative</strong>, building a demonstration set where every labeled example carries maximum instructional weight. The result: better performance from fewer annotations, which directly translates to lower cost and faster deployment.</p>
+                                <p>A randomly selected demonstration pool often contains many similar, easy examples that teach the model nothing new, while leaving difficult edge cases unrepresented. Vote-K concentrates annotation effort on the examples the model finds <strong>most uncertain or informative</strong>, building a demonstration set where every labeled example carries maximum instructional weight. The result: better performance from fewer annotations, which directly translates to lower cost and faster deployment.</p>
                             </div>
                         </div>
                     </div>
@@ -262,7 +262,7 @@
                             <p class="element-timeline__text">The model evaluates unlabeled candidates against the current demonstration set and votes on which k examples would be most valuable to annotate. It prioritizes examples where its prediction confidence is lowest, where it detects novel patterns not covered by existing demonstrations, or where the input lies near the boundary between multiple categories.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>The model reviews 500 unlabeled tickets and votes for 10 it finds most confusing &mdash; including a complaint that blends billing and technical issues, a request written in mixed language, and tickets from a product line not represented in the seed pool.</p>
+                                <p>The model reviews 500 unlabeled tickets and votes for 10 it finds most confusing, including a complaint that blends billing and technical issues, a request written in mixed language, and tickets from a product line not represented in the seed pool.</p>
                             </div>
                         </div>
                     </div>
@@ -287,10 +287,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Add to Demonstration Pool and Repeat</h3>
-                            <p class="element-timeline__text">The newly annotated examples join the demonstration pool, expanding the model&rsquo;s reference set. The process can repeat iteratively &mdash; each cycle the model votes on the next batch of most-valuable candidates, and each round of annotation targets a different frontier of the model&rsquo;s uncertainty. Performance improves with each iteration as the demonstration pool becomes increasingly comprehensive and strategically composed.</p>
+                            <p class="element-timeline__text">The newly annotated examples join the demonstration pool, expanding the model&rsquo;s reference set. The process can repeat iteratively, each cycle the model votes on the next batch of most-valuable candidates, and each round of annotation targets a different frontier of the model&rsquo;s uncertainty. Performance improves with each iteration as the demonstration pool becomes increasingly comprehensive and strategically composed.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>After three rounds of Vote-K selection, the demonstration pool grows from 20 to 50 examples &mdash; but those 50 strategically chosen examples outperform a randomly selected pool of 200 because they cover the exact edge cases and boundary conditions where the model needed guidance.</p>
+                                <p>After three rounds of Vote-K selection, the demonstration pool grows from 20 to 50 examples, but those 50 strategically chosen examples outperform a randomly selected pool of 200 because they cover the exact edge cases and boundary conditions where the model needed guidance.</p>
                             </div>
                         </div>
                     </div>
@@ -331,7 +331,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Wasteful &mdash; most annotations duplicate what the model already knows</span>
+                            <span>Wasteful, most annotations duplicate what the model already knows</span>
                         </div>
                     </div>
 
@@ -355,7 +355,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Outcome</span>
-                                <p>All 50 annotated examples target the model&rsquo;s actual weaknesses &mdash; ambiguous edge cases, underrepresented categories, and boundary-straddling inputs. Every annotation teaches the model something new, producing a demonstration pool that delivers superior performance with fewer labels.</p>
+                                <p>All 50 annotated examples target the model&rsquo;s actual weaknesses, ambiguous edge cases, underrepresented categories, and boundary-straddling inputs. Every annotation teaches the model something new, producing a demonstration pool that delivers superior performance with fewer labels.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -363,7 +363,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Efficient &mdash; every annotation maximizes learning impact per label</span>
+                            <span>Efficient, every annotation maximizes learning impact per label</span>
                         </div>
                     </div>
                 </div>
@@ -409,12 +409,12 @@
                                     <span class="technique-demo__tag">Vote-K Selection</span>
                                     <p><strong>Model votes for these high-value candidates:</strong><br><br>
                                     <strong>Voted #1:</strong> &ldquo;I was charged twice but also can&rsquo;t log in to check my invoice.&rdquo;<br>
-                                    <strong>Why voted:</strong> Straddles Billing and Account Access &mdash; the model is uncertain which category takes priority when both apply.<br><br>
+                                    <strong>Why voted:</strong> Straddles Billing and Account Access, the model is uncertain which category takes priority when both apply.<br><br>
                                     <strong>Voted #2:</strong> &ldquo;The export button doesn&rsquo;t work. Can you add CSV export?&rdquo;<br>
-                                    <strong>Why voted:</strong> Blends Technical (bug report) with Feature Request &mdash; the model needs guidance on how to classify mixed-intent tickets.<br><br>
+                                    <strong>Why voted:</strong> Blends Technical (bug report) with Feature Request, the model needs guidance on how to classify mixed-intent tickets.<br><br>
                                     <strong>Voted #3:</strong> &ldquo;Hola, necesito ayuda con mi cuenta pero no hablo ingl&eacute;s bien.&rdquo;<br>
-                                    <strong>Why voted:</strong> Non-English input not represented in seed pool &mdash; the model has no reference for how to handle language-mixed tickets.<br><br>
-                                    <strong>Result:</strong> After annotating 30 model-selected tickets, classification accuracy improved by 23% compared to annotating 30 random tickets &mdash; with the biggest gains on multi-category and edge-case tickets.</p>
+                                    <strong>Why voted:</strong> Non-English input not represented in seed pool, the model has no reference for how to handle language-mixed tickets.<br><br>
+                                    <strong>Result:</strong> After annotating 30 model-selected tickets, classification accuracy improved by 23% compared to annotating 30 random tickets, with the biggest gains on multi-category and edge-case tickets.</p>
                                 </div>
                             </div>
                         </div>
@@ -435,12 +435,12 @@
                                     <span class="technique-demo__tag">Vote-K Selection</span>
                                     <p><strong>Model votes for these high-value candidates:</strong><br><br>
                                     <strong>Voted #1:</strong> A clause that combines indemnification obligations with liability caps in a single paragraph.<br>
-                                    <strong>Why voted:</strong> Overlaps two categories &mdash; the model cannot determine whether to classify it as Limitation of Liability or Indemnification without a labeled example showing the precedent.<br><br>
+                                    <strong>Why voted:</strong> Overlaps two categories, the model cannot determine whether to classify it as Limitation of Liability or Indemnification without a labeled example showing the precedent.<br><br>
                                     <strong>Voted #2:</strong> A pandemic-specific termination clause referencing government shutdown orders.<br>
-                                    <strong>Why voted:</strong> Blends Force Majeure language with Termination provisions &mdash; a pattern absent from the standard-template seed pool.<br><br>
+                                    <strong>Why voted:</strong> Blends Force Majeure language with Termination provisions, a pattern absent from the standard-template seed pool.<br><br>
                                     <strong>Voted #3:</strong> An informal clause from a startup contract written in plain English rather than legal terminology.<br>
-                                    <strong>Why voted:</strong> The model&rsquo;s seed pool contains only formal legal language &mdash; it has no reference for recognizing clause types when expressed colloquially.<br><br>
-                                    <strong>Result:</strong> After two Vote-K rounds (40 total annotations), clause extraction F1 score reached 0.89 &mdash; a level that random annotation required 120 labeled examples to achieve.</p>
+                                    <strong>Why voted:</strong> The model&rsquo;s seed pool contains only formal legal language, it has no reference for recognizing clause types when expressed colloquially.<br><br>
+                                    <strong>Result:</strong> After two Vote-K rounds (40 total annotations), clause extraction F1 score reached 0.89, a level that random annotation required 120 labeled examples to achieve.</p>
                                 </div>
                             </div>
                         </div>
@@ -461,11 +461,11 @@
                                     <span class="technique-demo__tag">Vote-K Selection</span>
                                     <p><strong>Model votes for these high-value candidates:</strong><br><br>
                                     <strong>Voted #1:</strong> &ldquo;The product is amazing but the shipping was a nightmare and customer service was unhelpful. 3 stars.&rdquo;<br>
-                                    <strong>Why voted:</strong> Mixed sentiment across multiple aspects &mdash; the model cannot determine overall sentiment when individual aspects conflict.<br><br>
+                                    <strong>Why voted:</strong> Mixed sentiment across multiple aspects, the model cannot determine overall sentiment when individual aspects conflict.<br><br>
                                     <strong>Voted #2:</strong> &ldquo;Returned it. Twice. Third one worked fine I guess.&rdquo;<br>
-                                    <strong>Why voted:</strong> Terse, ambiguous language with implied negative experience but a partially positive resolution &mdash; the model finds the sentiment boundary unclear.<br><br>
+                                    <strong>Why voted:</strong> Terse, ambiguous language with implied negative experience but a partially positive resolution, the model finds the sentiment boundary unclear.<br><br>
                                     <strong>Voted #3:</strong> A review that uses heavy sarcasm: &ldquo;Oh sure, I love waiting three weeks for something that breaks on day one. Five stars for the entertainment value.&rdquo;<br>
-                                    <strong>Why voted:</strong> Sarcasm inverts surface-level positive language into negative sentiment &mdash; a pattern the seed pool does not address.<br><br>
+                                    <strong>Why voted:</strong> Sarcasm inverts surface-level positive language into negative sentiment, a pattern the seed pool does not address.<br><br>
                                     <strong>Result:</strong> Vote-K-guided annotation produced a demonstration pool where sentiment accuracy on edge cases improved by 31% over random selection, with sarcasm detection improving from near-chance to 78% accuracy.</p>
                                 </div>
                             </div>
@@ -493,7 +493,7 @@
                                 </svg>
                                 <div>
                                     <strong>Expensive Annotation Domains</strong>
-                                    <p>Medical, legal, financial, or scientific domains where each labeled example requires costly expert time &mdash; Vote-K ensures every annotation delivers maximum value.</p>
+                                    <p>Medical, legal, financial, or scientific domains where each labeled example requires costly expert time, Vote-K ensures every annotation delivers maximum value.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -503,7 +503,7 @@
                                 </svg>
                                 <div>
                                     <strong>Large Unlabeled Data Pools</strong>
-                                    <p>When you have thousands of unlabeled examples but can only afford to label a small fraction &mdash; Vote-K identifies the highest-impact subset to annotate.</p>
+                                    <p>When you have thousands of unlabeled examples but can only afford to label a small fraction, Vote-K identifies the highest-impact subset to annotate.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -513,7 +513,7 @@
                                 </svg>
                                 <div>
                                     <strong>Iterative Few-Shot Improvement</strong>
-                                    <p>When you want to systematically improve few-shot performance over multiple rounds &mdash; each Vote-K cycle targets a different frontier of model uncertainty.</p>
+                                    <p>When you want to systematically improve few-shot performance over multiple rounds, each Vote-K cycle targets a different frontier of model uncertainty.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -523,7 +523,7 @@
                                 </svg>
                                 <div>
                                     <strong>Edge Case Discovery</strong>
-                                    <p>When your task has many ambiguous or boundary-straddling examples that random sampling tends to miss &mdash; Vote-K surfaces exactly these hard cases.</p>
+                                    <p>When your task has many ambiguous or boundary-straddling examples that random sampling tends to miss, Vote-K surfaces exactly these hard cases.</p>
                                 </div>
                             </div>
                         </div>
@@ -538,7 +538,7 @@
                                 </svg>
                                 <div>
                                     <strong>Annotation Is Cheap</strong>
-                                    <p>If labeling examples is fast and inexpensive, the overhead of running Vote-K selection may not justify the efficiency gains &mdash; just label everything directly.</p>
+                                    <p>If labeling examples is fast and inexpensive, the overhead of running Vote-K selection may not justify the efficiency gains, just label everything directly.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -548,7 +548,7 @@
                                 </svg>
                                 <div>
                                     <strong>Small Unlabeled Pools</strong>
-                                    <p>If you only have a handful of unlabeled examples, the selection overhead is unnecessary &mdash; simply annotate them all and skip the voting step.</p>
+                                    <p>If you only have a handful of unlabeled examples, the selection overhead is unnecessary, simply annotate them all and skip the voting step.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -582,7 +582,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Medical Record Coding</h3>
-                        <p class="use-case-showcase__desc">Identify the most ambiguous clinical notes for expert coding &mdash; focusing annotation on cases where diagnosis codes overlap or symptom descriptions are atypical, rather than wasting physician time on clear-cut records.</p>
+                        <p class="use-case-showcase__desc">Identify the most ambiguous clinical notes for expert coding, focusing annotation on cases where diagnosis codes overlap or symptom descriptions are atypical, rather than wasting physician time on clear-cut records.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -595,7 +595,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Contract Classification</h3>
-                        <p class="use-case-showcase__desc">Surface contract clauses that defy standard templates for legal expert review &mdash; hybrid provisions, unusual language, and jurisdiction-specific variations that the model cannot confidently categorize.</p>
+                        <p class="use-case-showcase__desc">Surface contract clauses that defy standard templates for legal expert review, hybrid provisions, unusual language, and jurisdiction-specific variations that the model cannot confidently categorize.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -615,7 +615,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Content Moderation</h3>
-                        <p class="use-case-showcase__desc">Focus moderator annotation on content the model finds ambiguous &mdash; sarcasm, cultural context, and borderline cases &mdash; rather than clearly benign or clearly violating posts the model already handles reliably.</p>
+                        <p class="use-case-showcase__desc">Focus moderator annotation on content the model finds ambiguous, sarcasm, cultural context, and borderline cases, rather than clearly benign or clearly violating posts the model already handles reliably.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -627,7 +627,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Financial Transaction Tagging</h3>
-                        <p class="use-case-showcase__desc">Identify transactions the model struggles to categorize &mdash; unusual merchant names, cross-category purchases, and subscription patterns &mdash; then have accountants label those specific cases for maximum classification improvement.</p>
+                        <p class="use-case-showcase__desc">Identify transactions the model struggles to categorize, unusual merchant names, cross-category purchases, and subscription patterns, then have accountants label those specific cases for maximum classification improvement.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -676,7 +676,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine with Example Selection</div>
-                    <p>Vote-K and Example Selection are natural partners. Use Vote-K to build a high-quality, strategically annotated demonstration pool, then use Example Selection techniques (similarity-based, diversity-based, or task-specific retrieval) to pick the best demonstrations from that pool for each new input at inference time. This two-stage pipeline &mdash; Vote-K for pool construction, Example Selection for runtime retrieval &mdash; maximizes both annotation efficiency and per-query performance.</p>
+                    <p>Vote-K and Example Selection are natural partners. Use Vote-K to build a high-quality, strategically annotated demonstration pool, then use Example Selection techniques (similarity-based, diversity-based, or task-specific retrieval) to pick the best demonstrations from that pool for each new input at inference time. This two-stage pipeline, Vote-K for pool construction, Example Selection for runtime retrieval, maximizes both annotation efficiency and per-query performance.</p>
                 </div>
             </div>
         </section>
@@ -700,7 +700,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Few-Shot Learning</span>
-                        <span class="evolution-callout__desc">The demonstration-based prompting paradigm that Vote-K optimizes &mdash; Vote-K makes few-shot learning more efficient by ensuring every demonstration in the pool earns its place.</span>
+                        <span class="evolution-callout__desc">The demonstration-based prompting paradigm that Vote-K optimizes, Vote-K makes few-shot learning more efficient by ensuring every demonstration in the pool earns its place.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -718,7 +718,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Example Selection</span>
-                        <span class="evolution-callout__desc">While Vote-K decides which examples to annotate, Example Selection decides which annotated examples to use for each query &mdash; the natural second stage after Vote-K builds the pool.</span>
+                        <span class="evolution-callout__desc">While Vote-K decides which examples to annotate, Example Selection decides which annotated examples to use for each query, the natural second stage after Vote-K builds the pool.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -739,7 +739,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Self-Consistency</span>
-                        <span class="evolution-callout__desc">Uses voting across multiple reasoning paths to find the best answer &mdash; a parallel concept to Vote-K&rsquo;s voting mechanism, applied to output selection rather than data selection.</span>
+                        <span class="evolution-callout__desc">Uses voting across multiple reasoning paths to find the best answer, a parallel concept to Vote-K&rsquo;s voting mechanism, applied to output selection rather than data selection.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -817,7 +817,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

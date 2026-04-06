@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> Chain-of-Verification (CoVe) was published in 2023 by Dhuliawala et al. at Meta AI. The paper demonstrated that having a model generate independent verification questions — then answer them without seeing the original response — significantly reduces hallucinations compared to simple self-checking.</p>
-                        <p><strong>Modern LLM Status:</strong> CoVe remains an <strong>active and practical prompting technique</strong>. Modern LLMs have not natively adopted systematic verification chains — they still benefit substantially from explicit CoVe-style prompting. If you work with AI-generated factual content in 2025-2026, prompting for independent verification questions is one of the most effective hallucination reduction strategies available.</p>
+                        <p><strong>Introduced:</strong> Chain-of-Verification (CoVe) was published in 2023 by Dhuliawala et al. at Meta AI. The paper demonstrated that having a model generate independent verification questions, then answer them without seeing the original response, significantly reduces hallucinations compared to simple self-checking.</p>
+                        <p><strong>Modern LLM Status:</strong> CoVe remains an <strong>active and practical prompting technique</strong>. Modern LLMs have not natively adopted systematic verification chains, they still benefit substantially from explicit CoVe-style prompting. If you work with AI-generated factual content in 2025-2026, prompting for independent verification questions is one of the most effective hallucination reduction strategies available.</p>
                     </div>
                 </div>
             </div>
@@ -214,9 +214,9 @@
                 <div class="split-section split-section--center fade-in-up">
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
-                        <h2 class="split-section__title">Don't Trust — Verify Independently</h2>
-                        <p class="split-section__text">When AI generates a list of facts, some will be wrong. Asking "are you sure?" doesn't help — the model just re-reads its own output and confirms it. The same knowledge that produced the error will confirm it.</p>
-                        <p class="split-section__text"><strong>CoVe breaks this cycle.</strong> Instead of asking "is this right?", it generates specific verification questions and answers them in a fresh context — completely isolated from the original response. This isolation is what makes it work.</p>
+                        <h2 class="split-section__title">Don't Trust, Verify Independently</h2>
+                        <p class="split-section__text">When AI generates a list of facts, some will be wrong. Asking "are you sure?" doesn't help, the model just re-reads its own output and confirms it. The same knowledge that produced the error will confirm it.</p>
+                        <p class="split-section__text"><strong>CoVe breaks this cycle.</strong> Instead of asking "is this right?", it generates specific verification questions and answers them in a fresh context, completely isolated from the original response. This isolation is what makes it work.</p>
                         <p class="split-section__text">Think of it like a newspaper fact-checker who verifies each claim independently, without seeing the journalist's original notes or reasoning.</p>
                     </div>
                     <div class="split-section__visual">
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate Baseline Response</h3>
-                            <p class="element-timeline__text">The AI answers the question normally, producing its best attempt. This baseline may contain errors, hallucinations, or inaccuracies — that's expected. It's just the starting point.</p>
+                            <p class="element-timeline__text">The AI answers the question normally, producing its best attempt. This baseline may contain errors, hallucinations, or inaccuracies, that's expected. It's just the starting point.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>"Name some Mexican-American actors." → "Salma Hayek, Danny Trejo, Jessica Alba, Cameron Diaz, Eva Longoria"</p>
@@ -273,10 +273,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Execute Verifications Independently</h3>
-                            <p class="element-timeline__text">Each verification question is answered in isolation — without seeing the original response. This prevents the model from simply agreeing with itself. The independence is the key innovation.</p>
+                            <p class="element-timeline__text">Each verification question is answered in isolation, without seeing the original response. This prevents the model from simply agreeing with itself. The independence is the key innovation.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Independent Answers</span>
-                                <p>A1: Salma Hayek — Mexican-born, naturalized American. Yes. A2: Danny Trejo — American, Mexican heritage. Yes. A3: Jessica Alba — American, Mexican heritage. Yes. A4: Cameron Diaz — American, Cuban heritage, not Mexican. No. A5: Eva Longoria — American, Mexican heritage. Yes.</p>
+                                <p>A1: Salma Hayek, Mexican-born, naturalized American. Yes. A2: Danny Trejo, American, Mexican heritage. Yes. A3: Jessica Alba, American, Mexican heritage. Yes. A4: Cameron Diaz, American, Cuban heritage, not Mexican. No. A5: Eva Longoria, American, Mexican heritage. Yes.</p>
                             </div>
                         </div>
                     </div>
@@ -290,7 +290,7 @@
                             <p class="element-timeline__text">The AI compares its verification answers against the baseline. Claims that failed verification are removed or corrected. The final response only includes verified information.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Corrected Output</span>
-                                <p>"Salma Hayek, Danny Trejo, Jessica Alba, Eva Longoria" — Cameron Diaz removed (Cuban heritage, not Mexican).</p>
+                                <p>"Salma Hayek, Danny Trejo, Jessica Alba, Eva Longoria", Cameron Diaz removed (Cuban heritage, not Mexican).</p>
                             </div>
                         </div>
                     </div>
@@ -303,7 +303,7 @@
         <section class="section section-alt">
             <div class="container">
                 <h2 class="section-title fade-in-up">Execution Modes</h2>
-                <p class="section-subtitle fade-in-up">Three approaches to running verification — each trading speed for accuracy</p>
+                <p class="section-subtitle fade-in-up">Three approaches to running verification, each trading speed for accuracy</p>
 
                 <div class="pillar-grid pillar-grid--3 fade-in-up">
                     <div class="pillar-card pillar-card--featured">
@@ -335,14 +335,14 @@
                             </svg>
                         </div>
                         <h3 class="pillar-card__title">Factored</h3>
-                        <p class="pillar-card__text">Each verification question is answered in its own completely independent context. Maximum accuracy — no cross-contamination between verifications at all.</p>
+                        <p class="pillar-card__text">Each verification question is answered in its own completely independent context. Maximum accuracy, no cross-contamination between verifications at all.</p>
                         <span class="pillar-card__tag">Speed: Slow | Independence: Maximum</span>
                     </div>
                 </div>
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Which to Choose?</div>
-                    <p>For casual use, Joint mode works fine. For important content like reports or documentation, use 2-Step. For high-stakes outputs where accuracy is critical (medical, legal, financial), use Factored — the extra computation is worth the reliability.</p>
+                    <p>For casual use, Joint mode works fine. For important content like reports or documentation, use 2-Step. For high-stakes outputs where accuracy is critical (medical, legal, financial), use Factored, the extra computation is worth the reliability.</p>
                 </div>
             </div>
         </section>
@@ -380,7 +380,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Confirms its own myth — no independent check</span>
+                            <span>Confirms its own myth, no independent check</span>
                         </div>
                     </div>
 
@@ -532,7 +532,7 @@
                                 </svg>
                                 <div>
                                     <strong>List-Based Answers</strong>
-                                    <p>When AI generates lists of names, dates, places, or facts — each item can be individually verified.</p>
+                                    <p>When AI generates lists of names, dates, places, or facts, each item can be individually verified.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -562,7 +562,7 @@
                                 </svg>
                                 <div>
                                     <strong>Categorical Claims</strong>
-                                    <p>"Is X a member of category Y?" — the kind of question that maps perfectly to CoVe's verification structure.</p>
+                                    <p>"Is X a member of category Y?", the kind of question that maps perfectly to CoVe's verification structure.</p>
                                 </div>
                             </div>
                         </div>
@@ -587,7 +587,7 @@
                                 </svg>
                                 <div>
                                     <strong>Well-Known Simple Facts</strong>
-                                    <p>"What is the capital of France?" doesn't need a verification chain — the AI knows this reliably.</p>
+                                    <p>"What is the capital of France?" doesn't need a verification chain, the AI knows this reliably.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -646,7 +646,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">People & Biographies</h3>
-                        <p class="use-case-showcase__desc">Verify biographical details — birth dates, accomplishments, affiliations — that AI frequently halluccinates.</p>
+                        <p class="use-case-showcase__desc">Verify biographical details, birth dates, accomplishments, affiliations, that AI frequently halluccinates.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -759,7 +759,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Backward Verification</span>
                         <span class="evolution-callout__title">Self-Verification</span>
-                        <span class="evolution-callout__desc">Verify answers by working backwards — if the answer is correct, a related question should produce a consistent result.</span>
+                        <span class="evolution-callout__desc">Verify answers by working backwards, if the answer is correct, a related question should produce a consistent result.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -778,7 +778,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Self-Correction</span>
                         <span class="evolution-callout__title">Self-Refine</span>
-                        <span class="evolution-callout__desc">Iterative improvement through self-generated feedback — best for style, tone, and structural quality rather than factual accuracy.</span>
+                        <span class="evolution-callout__desc">Iterative improvement through self-generated feedback, best for style, tone, and structural quality rather than factual accuracy.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -855,7 +855,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

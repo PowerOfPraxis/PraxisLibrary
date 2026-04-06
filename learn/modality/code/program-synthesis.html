@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">Code Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">Program Synthesis</h1>
-                <p class="page-subtitle fade-in">Techniques for guiding AI models to generate complete, functional programs from high-level specifications, natural language descriptions, and input-output examples &mdash; bridging the gap between human intent and executable code.</p>
+                <p class="page-subtitle fade-in">Techniques for guiding AI models to generate complete, functional programs from high-level specifications, natural language descriptions, and input-output examples, bridging the gap between human intent and executable code.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -212,8 +212,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2021&ndash;2023</span>
-                        <p><strong>Introduced:</strong> Program synthesis as a field predates modern AI, with roots in formal methods and automated theorem proving from the 1960s. However, the neural program synthesis era began in earnest during 2021&ndash;2023. Microsoft Research&rsquo;s DeepCoder (2017) demonstrated that neural networks could learn to compose programs from domain-specific language primitives using input-output examples. DeepMind&rsquo;s AlphaCode (2022) pushed the boundaries by generating competitive programming solutions that ranked within the top 54% of human participants on Codeforces, synthesizing entire programs from natural language problem descriptions. OpenAI&rsquo;s Codex (2021) and its integration into GitHub Copilot made program synthesis practical for everyday development, translating docstrings and comments into working functions. By 2023, large language models like GPT-4 and Claude demonstrated the ability to synthesize multi-file programs, understand complex specifications, and generate code that satisfies intricate behavioral constraints.</p>
-                        <p><strong>Modern LLM Status:</strong> Program synthesis is <strong>a core capability of modern frontier models</strong> and has become the most commercially impactful application of large language models in software engineering. Current models can synthesize programs from natural language descriptions, infer functions from input-output examples, generate code that satisfies type signatures and interface contracts, and produce entire applications from architectural specifications. The key challenge has shifted from whether models can generate code to how effectively users can specify what they want &mdash; making prompt engineering for program synthesis a critical skill. The techniques covered here focus on structuring specifications, providing examples, constraining the search space, and iterating on generated programs to achieve correct, efficient, and maintainable results.</p>
+                        <p><strong>Introduced:</strong> Program synthesis as a field predates modern AI, with roots in formal methods and automated theorem proving from the 1960s. However, the neural program synthesis era began in earnest during 2021&ndash;2023. Microsoft Research&rsquo;s DeepCoder (2017) demonstrated that neural networks could learn to compose programs from domain-specific language primitives using input-output examples. DeepMind&rsquo;s AlphaCode (2022) pushed the boundaries by generating competitive programming solutions that ranked within the top 54% of human participants on Codeforces, synthesizing entire programs from natural language problem descriptions. OpenAI&rsquo;s Codex (2021) and its integration into GitHub Copilot made program synthesis practical for everyday development, translating docstrings and comments into working functions. By 2023, large language models like ChatGPT and Claude demonstrated the ability to synthesize multi-file programs, understand complex specifications, and generate code that satisfies intricate behavioral constraints.</p>
+                        <p><strong>Modern LLM Status:</strong> Program synthesis is <strong>a core capability of modern frontier models</strong> and has become the most commercially impactful application of large language models in software engineering. Current models can synthesize programs from natural language descriptions, infer functions from input-output examples, generate code that satisfies type signatures and interface contracts, and produce entire applications from architectural specifications. The key challenge has shifted from whether models can generate code to how effectively users can specify what they want, making prompt engineering for program synthesis a critical skill. The techniques covered here focus on structuring specifications, providing examples, constraining the search space, and iterating on generated programs to achieve correct, efficient, and maintainable results.</p>
                     </div>
                 </div>
             </div>
@@ -227,7 +227,7 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Specification-Driven Code Generation</h2>
-                        <p class="split-section__text">Program synthesis is the process of automatically generating programs that satisfy a given specification. In the context of AI-assisted development, this means crafting prompts that serve as specifications &mdash; describing what the program should do rather than how it should do it. The model acts as a synthesizer, searching through the space of possible programs to find one that matches your intent, constraints, and behavioral requirements.</p>
+                        <p class="split-section__text">Program synthesis is the process of automatically generating programs that satisfy a given specification. In the context of AI-assisted development, this means crafting prompts that serve as specifications, describing what the program should do rather than how it should do it. The model acts as a synthesizer, searching through the space of possible programs to find one that matches your intent, constraints, and behavioral requirements.</p>
                         <p class="split-section__text"><strong>The core insight is that the quality of synthesized programs depends almost entirely on the precision and completeness of the specification you provide.</strong> A vague request like &ldquo;write a sorting function&rdquo; leaves the model to guess the data type, sort order, stability requirements, performance constraints, and edge case handling. A structured synthesis prompt that specifies input types, expected output format, behavioral constraints, performance requirements, and example input-output pairs guides the model toward a precise, correct implementation that matches your actual needs.</p>
                         <p class="split-section__text">Think of it as the difference between telling an architect &ldquo;build me a house&rdquo; versus providing blueprints with room dimensions, material specifications, load-bearing requirements, and plumbing layouts. The architect can work from either instruction, but only the detailed specification produces the house you actually want. Program synthesis prompting is the discipline of writing those blueprints for code.</p>
                     </div>
@@ -235,7 +235,7 @@
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Specification Completeness Transforms Code Quality</span>
-                                <p>When a model receives a vague code request, it fills in unspecified details with reasonable but often incorrect assumptions &mdash; choosing default data types, ignoring edge cases, omitting error handling, and selecting algorithms that may not meet your performance requirements. Structured synthesis prompts eliminate this guesswork by defining the <strong>behavioral contract</strong> the program must fulfill: input types and valid ranges, output format and invariants, error conditions and their handling, performance bounds, and concrete examples of expected behavior. The difference between a function that works for the happy path and a robust implementation that handles all edge cases, validates inputs, provides meaningful error messages, and meets performance targets comes down to how thoroughly you specify the synthesis task.</p>
+                                <p>When a model receives a vague code request, it fills in unspecified details with reasonable but often incorrect assumptions, choosing default data types, ignoring edge cases, omitting error handling, and selecting algorithms that may not meet your performance requirements. Structured synthesis prompts eliminate this guesswork by defining the <strong>behavioral contract</strong> the program must fulfill: input types and valid ranges, output format and invariants, error conditions and their handling, performance bounds, and concrete examples of expected behavior. The difference between a function that works for the happy path and a robust implementation that handles all edge cases, validates inputs, provides meaningful error messages, and meets performance targets comes down to how thoroughly you specify the synthesis task.</p>
                             </div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Define the Specification</h3>
-                            <p class="element-timeline__text">Begin by articulating exactly what the program should accomplish. A strong specification includes the function&rsquo;s purpose stated in plain language, the input parameters with their types and valid ranges, the expected output format and data type, any invariants the program must maintain, and the broader context of how this code will be used. The specification serves as the contract between your intent and the model&rsquo;s output &mdash; ambiguity in the specification produces ambiguity in the code.</p>
+                            <p class="element-timeline__text">Begin by articulating exactly what the program should accomplish. A strong specification includes the function&rsquo;s purpose stated in plain language, the input parameters with their types and valid ranges, the expected output format and data type, any invariants the program must maintain, and the broader context of how this code will be used. The specification serves as the contract between your intent and the model&rsquo;s output, ambiguity in the specification produces ambiguity in the code.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Write a function called merge_intervals that takes a list of integer tuples representing intervals (start, end) where start is always less than or equal to end. The function should merge all overlapping intervals and return a new sorted list of non-overlapping intervals. An interval [1,3] and [2,6] should merge into [1,6]. Adjacent intervals like [1,2] and [2,3] should also merge into [1,3].&rdquo;</p>
@@ -285,7 +285,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Constrain the Search Space</h3>
-                            <p class="element-timeline__text">Narrow the set of valid programs by specifying constraints on the implementation. This includes the programming language and version, libraries or frameworks to use (or avoid), algorithmic complexity requirements, coding style and conventions, error handling strategy, and any architectural patterns the code must follow. Constraints prevent the model from generating code that is technically correct but impractical &mdash; such as an O(n!) solution when O(n log n) is required, or a solution that imports a heavy library when a lightweight approach is preferred.</p>
+                            <p class="element-timeline__text">Narrow the set of valid programs by specifying constraints on the implementation. This includes the programming language and version, libraries or frameworks to use (or avoid), algorithmic complexity requirements, coding style and conventions, error handling strategy, and any architectural patterns the code must follow. Constraints prevent the model from generating code that is technically correct but impractical, such as an O(n!) solution when O(n log n) is required, or a solution that imports a heavy library when a lightweight approach is preferred.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Implement this in Python 3.10+ using only the standard library. The algorithm must run in O(n log n) time complexity. Use type hints for all parameters and return values. Include a docstring with the function description and examples. Raise a TypeError if the input is not a list and a ValueError if any interval has start greater than end.&rdquo;</p>
@@ -299,7 +299,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Verify and Iterate</h3>
-                            <p class="element-timeline__text">Review the generated program against your specification and examples. Check whether the code handles all specified edge cases, meets performance requirements, follows the requested coding conventions, and produces correct output for your examples. If the output is close but not perfect, iterate with targeted feedback &mdash; pointing out specific failures, requesting optimizations, or asking the model to explain its design choices so you can identify where the specification was misunderstood and refine it accordingly.</p>
+                            <p class="element-timeline__text">Review the generated program against your specification and examples. Check whether the code handles all specified edge cases, meets performance requirements, follows the requested coding conventions, and produces correct output for your examples. If the output is close but not perfect, iterate with targeted feedback, pointing out specific failures, requesting optimizations, or asking the model to explain its design choices so you can identify where the specification was misunderstood and refine it accordingly.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;The function works correctly for the basic cases but fails when the input contains duplicate intervals like [(1,3),(1,3)]. It should return [(1,3)] for this input. Also, the current implementation does not raise a ValueError for invalid intervals as specified. Please fix both issues and add the missing input validation.&rdquo;</p>
@@ -419,7 +419,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>This prompt provides multiple input-output pairs that together unambiguously define the desired behavior &mdash; title-casing each string in the list. The examples cover the normal case, an already-capitalized input, an all-caps input, and the empty list edge case. The additional constraints about None handling, immutability, and type hints ensure the synthesized function is robust beyond what the examples alone specify. Without the examples, a prompt asking to &ldquo;capitalize strings in a list&rdquo; could reasonably produce uppercase conversion, first-letter capitalization, or title casing &mdash; the I/O pairs eliminate that ambiguity entirely.</p>
+                                    <p>This prompt provides multiple input-output pairs that together unambiguously define the desired behavior, title-casing each string in the list. The examples cover the normal case, an already-capitalized input, an all-caps input, and the empty list edge case. The additional constraints about None handling, immutability, and type hints ensure the synthesized function is robust beyond what the examples alone specify. Without the examples, a prompt asking to &ldquo;capitalize strings in a list&rdquo; could reasonably produce uppercase conversion, first-letter capitalization, or title casing, the I/O pairs eliminate that ambiguity entirely.</p>
                                 </div>
                             </div>
                         </div>
@@ -453,7 +453,7 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Prompt</span>
-                                    <p>&ldquo;Synthesize a function that implements the Levenshtein edit distance algorithm. Specification: the function takes two strings (source and target) and returns the minimum number of single-character edits (insertions, deletions, substitutions) required to transform source into target. Requirements: (a) Use dynamic programming with O(min(m,n)) space optimization rather than the naive O(m*n) matrix. (b) Accept an optional parameter max_distance (int) that enables early termination &mdash; if the distance exceeds max_distance during computation, return max_distance + 1 immediately. (c) Handle Unicode strings correctly. (d) Return 0 for identical strings, len(target) for empty source, and len(source) for empty target. Examples: edit_distance(&rsquo;kitten&rsquo;, &rsquo;sitting&rsquo;) returns 3. edit_distance(&rsquo;&rsquo;, &rsquo;hello&rsquo;) returns 5. edit_distance(&rsquo;abc&rsquo;, &rsquo;abc&rsquo;) returns 0. Implement in Python with type hints.&rdquo;</p>
+                                    <p>&ldquo;Synthesize a function that implements the Levenshtein edit distance algorithm. Specification: the function takes two strings (source and target) and returns the minimum number of single-character edits (insertions, deletions, substitutions) required to transform source into target. Requirements: (a) Use dynamic programming with O(min(m,n)) space optimization rather than the naive O(m*n) matrix. (b) Accept an optional parameter max_distance (int) that enables early termination, if the distance exceeds max_distance during computation, return max_distance + 1 immediately. (c) Handle Unicode strings correctly. (d) Return 0 for identical strings, len(target) for empty source, and len(source) for empty target. Examples: edit_distance(&rsquo;kitten&rsquo;, &rsquo;sitting&rsquo;) returns 3. edit_distance(&rsquo;&rsquo;, &rsquo;hello&rsquo;) returns 5. edit_distance(&rsquo;abc&rsquo;, &rsquo;abc&rsquo;) returns 0. Implement in Python with type hints.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
@@ -484,7 +484,7 @@
                                 </svg>
                                 <div>
                                     <strong>Well-Defined Functional Requirements</strong>
-                                    <p>When you can clearly articulate what a program should do &mdash; its inputs, outputs, constraints, and edge cases &mdash; program synthesis excels at translating that specification into working, tested code faster than manual implementation.</p>
+                                    <p>When you can clearly articulate what a program should do, its inputs, outputs, constraints, and edge cases, program synthesis excels at translating that specification into working, tested code faster than manual implementation.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -494,7 +494,7 @@
                                 </svg>
                                 <div>
                                     <strong>Repetitive Patterns with Variations</strong>
-                                    <p>Generating multiple similar functions, API endpoints, data models, or CRUD operations where the structure is consistent but the specifics change &mdash; program synthesis eliminates boilerplate while maintaining consistency.</p>
+                                    <p>Generating multiple similar functions, API endpoints, data models, or CRUD operations where the structure is consistent but the specifics change, program synthesis eliminates boilerplate while maintaining consistency.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -514,7 +514,7 @@
                                 </svg>
                                 <div>
                                     <strong>Rapid Prototyping and Exploration</strong>
-                                    <p>When you need working code quickly to validate an idea, test an approach, or build a proof of concept &mdash; program synthesis lets you iterate through design alternatives at the specification level rather than the implementation level.</p>
+                                    <p>When you need working code quickly to validate an idea, test an approach, or build a proof of concept, program synthesis lets you iterate through design alternatives at the specification level rather than the implementation level.</p>
                                 </div>
                             </div>
                         </div>
@@ -529,7 +529,7 @@
                                 </svg>
                                 <div>
                                     <strong>Ambiguous or Evolving Requirements</strong>
-                                    <p>When you cannot clearly state what the program should do because the requirements are still being discovered through user research, stakeholder discussions, or iterative design &mdash; synthesis needs a stable specification to work from.</p>
+                                    <p>When you cannot clearly state what the program should do because the requirements are still being discovered through user research, stakeholder discussions, or iterative design, synthesis needs a stable specification to work from.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -559,7 +559,7 @@
                                 </svg>
                                 <div>
                                     <strong>Performance-Critical Hot Paths</strong>
-                                    <p>When microsecond-level optimization matters and the code requires hand-tuned assembly, cache-line alignment, or hardware-specific optimizations &mdash; synthesized code handles algorithmic complexity well but rarely achieves hand-tuned performance.</p>
+                                    <p>When microsecond-level optimization matters and the code requires hand-tuned assembly, cache-line alignment, or hardware-specific optimizations, synthesized code handles algorithmic complexity well but rarely achieves hand-tuned performance.</p>
                                 </div>
                             </div>
                         </div>
@@ -584,7 +584,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Automated Code Generation</h3>
-                        <p class="use-case-showcase__desc">Generating complete functions, classes, and modules from natural language descriptions and type signatures &mdash; turning product requirements and API contracts into working implementations that satisfy specified behavioral constraints and coding standards.</p>
+                        <p class="use-case-showcase__desc">Generating complete functions, classes, and modules from natural language descriptions and type signatures, turning product requirements and API contracts into working implementations that satisfy specified behavioral constraints and coding standards.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -596,7 +596,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Data Pipeline Construction</h3>
-                        <p class="use-case-showcase__desc">Synthesizing ETL pipelines, data transformation scripts, and database migration code from schema definitions and transformation rules &mdash; converting data flow specifications into executable pipelines with validation, error handling, and logging built in.</p>
+                        <p class="use-case-showcase__desc">Synthesizing ETL pipelines, data transformation scripts, and database migration code from schema definitions and transformation rules, converting data flow specifications into executable pipelines with validation, error handling, and logging built in.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -607,7 +607,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Test-Driven Development</h3>
-                        <p class="use-case-showcase__desc">Providing test cases as the specification and synthesizing implementations that pass all tests &mdash; a natural fit for program synthesis where the test suite serves as a formal, executable specification of the desired program behavior.</p>
+                        <p class="use-case-showcase__desc">Providing test cases as the specification and synthesizing implementations that pass all tests, a natural fit for program synthesis where the test suite serves as a formal, executable specification of the desired program behavior.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -620,7 +620,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Legacy Code Migration</h3>
-                        <p class="use-case-showcase__desc">Translating programs from one language, framework, or paradigm to another by specifying the source behavior as the target specification &mdash; migrating COBOL to Java, jQuery to React, or monolithic services to microservice architectures.</p>
+                        <p class="use-case-showcase__desc">Translating programs from one language, framework, or paradigm to another by specifying the source behavior as the target specification, migrating COBOL to Java, jQuery to React, or monolithic services to microservice architectures.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -630,7 +630,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Rapid Prototyping</h3>
-                        <p class="use-case-showcase__desc">Quickly generating functional prototypes from product descriptions and user stories &mdash; allowing teams to validate concepts, test user flows, and demonstrate ideas with working code before committing to a full engineering effort.</p>
+                        <p class="use-case-showcase__desc">Quickly generating functional prototypes from product descriptions and user stories, allowing teams to validate concepts, test user flows, and demonstrate ideas with working code before committing to a full engineering effort.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -642,7 +642,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Domain-Specific Languages</h3>
-                        <p class="use-case-showcase__desc">Generating interpreters, compilers, and transpilers for domain-specific languages from grammar specifications and semantic rules &mdash; synthesizing the entire language toolchain from formal definitions of syntax and behavior.</p>
+                        <p class="use-case-showcase__desc">Generating interpreters, compilers, and transpilers for domain-specific languages from grammar specifications and semantic rules, synthesizing the entire language toolchain from formal definitions of syntax and behavior.</p>
                     </div>
                 </div>
             </div>
@@ -680,7 +680,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine Synthesis with Verification for Production Code</div>
-                    <p>Program synthesis is most powerful when paired with systematic verification. After synthesizing a program, use self-debugging techniques to have the model trace through its own code with your test cases, identifying logic errors before you run the program. Apply test generation to create comprehensive test suites that exercise edge cases the specification may not have explicitly covered. Use structured output prompting to ensure the synthesized code follows your project&rsquo;s conventions and integrates cleanly with existing modules. The synthesis-verification loop &mdash; specify, synthesize, test, refine &mdash; mirrors test-driven development but operates at the specification level rather than the implementation level, letting you iterate faster while maintaining code quality.</p>
+                    <p>Program synthesis is most powerful when paired with systematic verification. After synthesizing a program, use self-debugging techniques to have the model trace through its own code with your test cases, identifying logic errors before you run the program. Apply test generation to create comprehensive test suites that exercise edge cases the specification may not have explicitly covered. Use structured output prompting to ensure the synthesized code follows your project&rsquo;s conventions and integrates cleanly with existing modules. The synthesis-verification loop, specify, synthesize, test, refine, mirrors test-driven development but operates at the specification level rather than the implementation level, letting you iterate faster while maintaining code quality.</p>
                 </div>
             </div>
         </section>
@@ -701,7 +701,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Code Prompting</span>
-                        <span class="evolution-callout__desc">The foundational discipline for AI-assisted coding &mdash; covering strategies for effective code generation, explanation, transformation, and review that form the base layer upon which program synthesis techniques are built.</span>
+                        <span class="evolution-callout__desc">The foundational discipline for AI-assisted coding, covering strategies for effective code generation, explanation, transformation, and review that form the base layer upon which program synthesis techniques are built.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -722,7 +722,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Debugging</span>
-                        <span class="evolution-callout__desc">Enables AI models to identify and fix errors in their own generated code &mdash; a natural complement to program synthesis that closes the loop between generation and verification, producing more reliable programs through iterative self-correction.</span>
+                        <span class="evolution-callout__desc">Enables AI models to identify and fix errors in their own generated code, a natural complement to program synthesis that closes the loop between generation and verification, producing more reliable programs through iterative self-correction.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -743,7 +743,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Parallel</span>
                         <span class="evolution-callout__title">Structured Output</span>
-                        <span class="evolution-callout__desc">Focuses on constraining AI output to specific formats like JSON, XML, or typed schemas &mdash; a parallel technique that shares program synthesis&rsquo;s emphasis on specification-driven generation but applies it to data structures rather than executable programs.</span>
+                        <span class="evolution-callout__desc">Focuses on constraining AI output to specific formats like JSON, XML, or typed schemas, a parallel technique that shares program synthesis&rsquo;s emphasis on specification-driven generation but applies it to data structures rather than executable programs.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -820,7 +820,7 @@
 
             <div class="footer-bottom">
                 <p>AI for Everyone</p>
-                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
             </div>
 
             <div class="footer-policies">

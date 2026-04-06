@@ -212,8 +212,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2015 / 2023</span>
-                        <p><strong>Origins:</strong> Visual Question Answering as a formal research task dates to 2015, when Antol et al. introduced the VQA dataset&mdash;a large-scale benchmark pairing images with open-ended natural language questions. Early VQA systems relied on separate vision encoders and language decoders, stitched together through attention mechanisms. These pipelines achieved moderate accuracy but struggled with compositional reasoning, spatial relationships, and questions requiring real-world knowledge beyond what was visible in the image.</p>
-                        <p><strong>Modern LLM Status:</strong> The field was transformed in 2023 when large multimodal models&mdash;GPT-4V, Gemini, and Claude&rsquo;s vision capabilities&mdash;achieved near-human performance on standard VQA benchmarks by processing images natively alongside text. VQA is now a <strong>core capability</strong> of frontier multimodal models, but prompt design remains critical for getting precise, grounded answers rather than generic descriptions. The difference between a useful VQA response and a vague one almost always comes down to how the question is formulated. Specificity in the prompt directly determines specificity in the answer.</p>
+                        <p><strong>Origins:</strong> Visual Question Answering as a formal research task dates to 2015, when Antol et al. introduced the VQA dataset, a large-scale benchmark pairing images with open-ended natural language questions. Early VQA systems relied on separate vision encoders and language decoders, stitched together through attention mechanisms. These pipelines achieved moderate accuracy but struggled with compositional reasoning, spatial relationships, and questions requiring real-world knowledge beyond what was visible in the image.</p>
+                        <p><strong>Modern LLM Status:</strong> The field was transformed in 2023 when large multimodal models, ChatGPT, Gemini, and Claude&rsquo;s vision capabilities, achieved near-human performance on standard VQA benchmarks by processing images natively alongside text. VQA is now a <strong>core capability</strong> of frontier multimodal models, but prompt design remains critical for getting precise, grounded answers rather than generic descriptions. The difference between a useful VQA response and a vague one almost always comes down to how the question is formulated. Specificity in the prompt directly determines specificity in the answer.</p>
                     </div>
                 </div>
             </div>
@@ -228,14 +228,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Asking the Right Question in the Right Way</h2>
                         <p class="split-section__text">VQA is built on a deceptively simple principle: a vague question produces a vague answer. When you ask &ldquo;What do you see?&rdquo; a multimodal model returns a broad, unfocused description. When you ask &ldquo;How many red vehicles are in the parking lot, and what types are they?&rdquo; you get a structured, verifiable response. The core insight is that <strong>question specificity directly determines answer quality</strong>.</p>
-                        <p class="split-section__text">Effective VQA prompts specify three things: what visual element to focus on, what type of answer is expected&mdash;yes/no, multiple choice, open-ended, or numeric&mdash;and what level of detail is appropriate for the task. This precision transforms the model from a general-purpose describer into a targeted visual analyst.</p>
+                        <p class="split-section__text">Effective VQA prompts specify three things: what visual element to focus on, what type of answer is expected, yes/no, multiple choice, open-ended, or numeric, and what level of detail is appropriate for the task. This precision transforms the model from a general-purpose describer into a targeted visual analyst.</p>
                         <p class="split-section__text">The technique bridges the gap between pure image captioning, which describes everything without priorities, and structured visual reasoning, which requires multi-step logic about what is seen. VQA occupies the practical middle ground where most real-world image understanding tasks actually live.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Specificity Matters</span>
-                                <p>Multimodal models process images holistically&mdash;they see everything at once. Without a specific question to anchor attention, the model must decide on its own what matters. A well-crafted VQA prompt acts as a <strong>visual attention directive</strong>, telling the model exactly where to look and what kind of information to extract. This is why the same image can yield dramatically different quality responses depending solely on how the question is phrased.</p>
+                                <p>Multimodal models process images holistically, they see everything at once. Without a specific question to anchor attention, the model must decide on its own what matters. A well-crafted VQA prompt acts as a <strong>visual attention directive</strong>, telling the model exactly where to look and what kind of information to extract. This is why the same image can yield dramatically different quality responses depending solely on how the question is phrased.</p>
                             </div>
                         </div>
                     </div>
@@ -299,7 +299,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Validate the Response</h3>
-                            <p class="element-timeline__text">Check that the answer actually addresses what is visible in the image. Look for signs of hallucination&mdash;details that sound plausible but cannot be confirmed from the image alone. Cross-reference the model&rsquo;s stated visual evidence against what you can verify independently. If the response includes claims unsupported by visible content, re-prompt with tighter constraints.</p>
+                            <p class="element-timeline__text">Check that the answer actually addresses what is visible in the image. Look for signs of hallucination, details that sound plausible but cannot be confirmed from the image alone. Cross-reference the model&rsquo;s stated visual evidence against what you can verify independently. If the response includes claims unsupported by visible content, re-prompt with tighter constraints.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Verify: does the model reference specific buildings you can see, or does it appear to be estimating from general knowledge about the area?&rdquo;</p>
@@ -335,7 +335,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Response</span>
-                                <p>&ldquo;This image shows a parking lot with several cars, some trees in the background, and a building. The weather appears to be sunny.&rdquo; &mdash; Long, unfocused description without actionable detail.</p>
+                                <p>&ldquo;This image shows a parking lot with several cars, some trees in the background, and a building. The weather appears to be sunny.&rdquo;, Long, unfocused description without actionable detail.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -367,7 +367,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Response</span>
-                                <p>&ldquo;I can identify 3 red vehicles: 2 sedans (one in the second row near the center, one at the far left of the first row) and 1 SUV (parked near the building entrance on the right side).&rdquo; &mdash; Precise, structured, with spatial grounding.</p>
+                                <p>&ldquo;I can identify 3 red vehicles: 2 sedans (one in the second row near the center, one at the far left of the first row) and 1 SUV (parked near the building entrance on the right side).&rdquo;, Precise, structured, with spatial grounding.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -439,12 +439,12 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">VQA Prompt</span>
-                                    <p><strong>Question:</strong> &ldquo;Examine the building facade in this photograph. What material appears to be used for the exterior walls (brick, stone, concrete, wood, glass, or other)? What is the approximate condition&mdash;well-maintained, showing minor wear, or visibly deteriorated? Cite specific visual evidence for your assessment.&rdquo;</p>
+                                    <p><strong>Question:</strong> &ldquo;Examine the building facade in this photograph. What material appears to be used for the exterior walls (brick, stone, concrete, wood, glass, or other)? What is the approximate condition, well-maintained, showing minor wear, or visibly deteriorated? Cite specific visual evidence for your assessment.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Grounded Response</span>
                                     <p><strong>Answer:</strong> &ldquo;The exterior walls appear to be red brick, based on the visible mortar joints and uniform rectangular pattern across the facade. The condition is showing minor wear: I can see discoloration and staining below the second-floor window sills, likely from water runoff, and some mortar erosion is visible at the base near ground level. However, the brick itself is intact with no large cracks or missing sections, and the window frames appear recently painted.&rdquo;<br><br>
-                                    <strong>Why this works:</strong> The prompt provides a constrained set of material categories, asks for a condition assessment on a defined scale, and explicitly requires visual evidence. The model cannot give a generic answer&mdash;it must identify specific features like mortar joints, staining patterns, and surface condition to justify its classification.</p>
+                                    <strong>Why this works:</strong> The prompt provides a constrained set of material categories, asks for a condition assessment on a defined scale, and explicitly requires visual evidence. The model cannot give a generic answer, it must identify specific features like mortar joints, staining patterns, and surface condition to justify its classification.</p>
                                 </div>
                             </div>
                         </div>
@@ -471,7 +471,7 @@
                                 </svg>
                                 <div>
                                     <strong>Structured Visual Data Extraction</strong>
-                                    <p>When you need counts, categories, measurements, or classifications from images rather than open-ended descriptions&mdash;turning visual content into structured data.</p>
+                                    <p>When you need counts, categories, measurements, or classifications from images rather than open-ended descriptions, turning visual content into structured data.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -481,7 +481,7 @@
                                 </svg>
                                 <div>
                                     <strong>Image-Based Fact Checking</strong>
-                                    <p>Verifying specific claims about visual content&mdash;confirming whether objects, text, or conditions depicted in an image match stated assertions.</p>
+                                    <p>Verifying specific claims about visual content, confirming whether objects, text, or conditions depicted in an image match stated assertions.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -501,7 +501,7 @@
                                 </svg>
                                 <div>
                                     <strong>Visual Inventory Tasks</strong>
-                                    <p>Counting, cataloging, or auditing objects in images&mdash;from shelf stock levels to equipment inspections to asset documentation.</p>
+                                    <p>Counting, cataloging, or auditing objects in images, from shelf stock levels to equipment inspections to asset documentation.</p>
                                 </div>
                             </div>
                         </div>
@@ -516,7 +516,7 @@
                                 </svg>
                                 <div>
                                     <strong>Open-Ended Creative Interpretation</strong>
-                                    <p>When you want the model to freely interpret mood, artistic meaning, or emotional impact of an image&mdash;VQA&rsquo;s structured approach can constrain rather than enhance creative responses.</p>
+                                    <p>When you want the model to freely interpret mood, artistic meaning, or emotional impact of an image, VQA&rsquo;s structured approach can constrain rather than enhance creative responses.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -526,7 +526,7 @@
                                 </svg>
                                 <div>
                                     <strong>Low-Quality or Ambiguous Images</strong>
-                                    <p>When image resolution, lighting, or occlusion make reliable answers impossible&mdash;forcing specific answers from unclear images increases hallucination risk rather than reducing it.</p>
+                                    <p>When image resolution, lighting, or occlusion make reliable answers impossible, forcing specific answers from unclear images increases hallucination risk rather than reducing it.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -536,7 +536,7 @@
                                 </svg>
                                 <div>
                                     <strong>Domain Expertise Beyond Model Capability</strong>
-                                    <p>When the question requires specialized knowledge the model lacks&mdash;such as identifying rare species, diagnosing medical conditions, or reading specialized technical schematics without appropriate training.</p>
+                                    <p>When the question requires specialized knowledge the model lacks, such as identifying rare species, diagnosing medical conditions, or reading specialized technical schematics without appropriate training.</p>
                                 </div>
                             </div>
                         </div>
@@ -560,7 +560,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Retail Inventory Auditing</h3>
-                        <p class="use-case-showcase__desc">Analyze shelf photographs to count stock levels, identify out-of-stock positions, verify planogram compliance, and flag mislabeled products&mdash;turning store photos into structured inventory data.</p>
+                        <p class="use-case-showcase__desc">Analyze shelf photographs to count stock levels, identify out-of-stock positions, verify planogram compliance, and flag mislabeled products, turning store photos into structured inventory data.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -580,7 +580,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Medical Image Q&amp;A</h3>
-                        <p class="use-case-showcase__desc">Ask structured questions about medical images to support clinical workflows&mdash;identifying anatomical landmarks, measuring relative sizes, and flagging areas that warrant specialist review.</p>
+                        <p class="use-case-showcase__desc">Ask structured questions about medical images to support clinical workflows, identifying anatomical landmarks, measuring relative sizes, and flagging areas that warrant specialist review.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -590,7 +590,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Remote Sensing Analysis</h3>
-                        <p class="use-case-showcase__desc">Extract structured information from satellite and aerial imagery&mdash;counting structures, classifying land use types, measuring vegetation coverage, and tracking changes over time.</p>
+                        <p class="use-case-showcase__desc">Extract structured information from satellite and aerial imagery, counting structures, classifying land use types, measuring vegetation coverage, and tracking changes over time.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -600,7 +600,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Educational Visual Aids</h3>
-                        <p class="use-case-showcase__desc">Enable students to ask questions about diagrams, charts, historical photographs, and scientific illustrations&mdash;getting specific, curriculum-aligned explanations tied to what is actually depicted.</p>
+                        <p class="use-case-showcase__desc">Enable students to ask questions about diagrams, charts, historical photographs, and scientific illustrations, getting specific, curriculum-aligned explanations tied to what is actually depicted.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -610,7 +610,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Content Moderation</h3>
-                        <p class="use-case-showcase__desc">Ask targeted questions about uploaded images to determine policy compliance&mdash;checking for prohibited content, verifying identity document authenticity, and assessing age-appropriateness of visual material.</p>
+                        <p class="use-case-showcase__desc">Ask targeted questions about uploaded images to determine policy compliance, checking for prohibited content, verifying identity document authenticity, and assessing age-appropriateness of visual material.</p>
                     </div>
                 </div>
             </div>
@@ -648,7 +648,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine Techniques</div>
-                    <p>Use VQA as the foundation for more complex visual workflows. Start with targeted questions to extract key facts from an image, then apply Visual Chain-of-Thought to reason about relationships between those facts. This layered approach&mdash;grounded extraction first, structured reasoning second&mdash;produces the most reliable results for complex visual analysis tasks.</p>
+                    <p>Use VQA as the foundation for more complex visual workflows. Start with targeted questions to extract key facts from an image, then apply Visual Chain-of-Thought to reason about relationships between those facts. This layered approach, grounded extraction first, structured reasoning second, produces the most reliable results for complex visual analysis tasks.</p>
                 </div>
             </div>
         </section>
@@ -671,7 +671,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Image Prompting</span>
-                        <span class="evolution-callout__desc">The foundational techniques for working with images in multimodal models&mdash;VQA builds on these basics by adding targeted question formulation and answer format constraints.</span>
+                        <span class="evolution-callout__desc">The foundational techniques for working with images in multimodal models, VQA builds on these basics by adding targeted question formulation and answer format constraints.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -690,7 +690,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Visual Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Extends VQA by adding explicit multi-step reasoning about visual content&mdash;when a single question-answer pair is not enough and the model needs to reason through what it sees.</span>
+                        <span class="evolution-callout__desc">Extends VQA by adding explicit multi-step reasoning about visual content, when a single question-answer pair is not enough and the model needs to reason through what it sees.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -711,7 +711,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Multimodal Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Combines text and visual reasoning in explicit chains&mdash;a powerful complement to VQA when answers require integrating information from both the image and external textual context.</span>
+                        <span class="evolution-callout__desc">Combines text and visual reasoning in explicit chains, a powerful complement to VQA when answers require integrating information from both the image and external textual context.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -788,7 +788,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

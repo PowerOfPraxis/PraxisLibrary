@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">In-Context Learning</span>
                 </div>
                 <h1 class="page-title fade-in">Few-Shot Learning</h1>
-                <p class="page-subtitle fade-in">Instead of describing the task you want done, show it. Provide a handful of input-output examples directly in the prompt, and the model learns the pattern on the fly &mdash; no fine-tuning, no training data, no code required.</p>
+                <p class="page-subtitle fade-in">Instead of describing the task you want done, show it. Provide a handful of input-output examples directly in the prompt, and the model learns the pattern on the fly, no fine-tuning, no training data, no code required.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2020</span>
-                        <p><strong>Introduced:</strong> Few-Shot Learning was popularized by Brown et al. in the landmark 2020 GPT-3 paper &ldquo;Language Models are Few-Shot Learners.&rdquo; The paper demonstrated that sufficiently large language models could learn entirely new tasks from just a handful of examples placed in the prompt &mdash; without any gradient updates or fine-tuning. This was a paradigm shift: previously, adapting a model to a new task required collecting labeled datasets and retraining. GPT-3 showed that 2&ndash;5 demonstrations were often enough to match or exceed fine-tuned baselines on dozens of NLP benchmarks.</p>
-                        <p><strong>Modern LLM Status:</strong> Few-Shot Learning remains <strong>the single most widely used prompting technique</strong> across all LLM applications. Every major model &mdash; Claude, GPT-4, Gemini, Llama &mdash; excels at learning from in-context examples. While modern models are increasingly capable at zero-shot tasks (following instructions without examples), few-shot prompting consistently delivers more precise, format-compliant, and reliable outputs. It is the default strategy recommended by virtually every LLM provider&rsquo;s documentation, and the foundation upon which more advanced techniques like Example Selection and Chain-of-Thought are built.</p>
+                        <p><strong>Introduced:</strong> Few-Shot Learning was popularized by Brown et al. in the landmark 2020 GPT-3 paper &ldquo;Language Models are Few-Shot Learners.&rdquo; The paper demonstrated that sufficiently large language models could learn entirely new tasks from just a handful of examples placed in the prompt, without any gradient updates or fine-tuning. This was a paradigm shift: previously, adapting a model to a new task required collecting labeled datasets and retraining. GPT-3 showed that 2&ndash;5 demonstrations were often enough to match or exceed fine-tuned baselines on dozens of NLP benchmarks.</p>
+                        <p><strong>Modern LLM Status:</strong> Few-Shot Learning remains <strong>the single most widely used prompting technique</strong> across all LLM applications. Every major model, Claude, ChatGPT, Gemini, Llama, excels at learning from in-context examples. While modern models are increasingly capable at zero-shot tasks (following instructions without examples), few-shot prompting consistently delivers more precise, format-compliant, and reliable outputs. It is the default strategy recommended by virtually every LLM provider&rsquo;s documentation, and the foundation upon which more advanced techniques like Example Selection and Chain-of-Thought are built.</p>
                     </div>
                 </div>
             </div>
@@ -215,8 +215,8 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Show, Don&rsquo;t Tell</h2>
-                        <p class="split-section__text">Describing exactly what you want from a language model is surprisingly hard. You might specify the format, the tone, and the level of detail &mdash; and still get output that misses the mark. The problem is that natural language instructions are inherently ambiguous. &ldquo;Be concise&rdquo; means different things to different people, and to different models.</p>
-                        <p class="split-section__text"><strong>Few-Shot Learning sidesteps this ambiguity entirely.</strong> Instead of describing the desired output, you demonstrate it. You provide 2&ndash;5 concrete examples of input-output pairs, and the model reverse-engineers the pattern: the format, the reasoning style, the level of detail, the edge-case handling &mdash; all communicated implicitly through examples rather than explicit instructions.</p>
+                        <p class="split-section__text">Describing exactly what you want from a language model is surprisingly hard. You might specify the format, the tone, and the level of detail, and still get output that misses the mark. The problem is that natural language instructions are inherently ambiguous. &ldquo;Be concise&rdquo; means different things to different people, and to different models.</p>
+                        <p class="split-section__text"><strong>Few-Shot Learning sidesteps this ambiguity entirely.</strong> Instead of describing the desired output, you demonstrate it. You provide 2&ndash;5 concrete examples of input-output pairs, and the model reverse-engineers the pattern: the format, the reasoning style, the level of detail, the edge-case handling, all communicated implicitly through examples rather than explicit instructions.</p>
                         <p class="split-section__text">Think of it like training a new employee. You could hand them a 20-page style guide, or you could show them three finished pieces and say &ldquo;like this.&rdquo; The examples communicate thousands of implicit decisions that would be exhausting to spell out in words.</p>
                     </div>
                     <div class="split-section__visual">
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Craft Your Demonstrations</h3>
-                            <p class="element-timeline__text">Select 2&ndash;5 representative input-output pairs that illustrate the task you want the model to perform. Each example should show a clear mapping from input to desired output. Choose examples that cover the range of variations the model might encounter &mdash; different categories, edge cases, or difficulty levels.</p>
+                            <p class="element-timeline__text">Select 2&ndash;5 representative input-output pairs that illustrate the task you want the model to perform. Each example should show a clear mapping from input to desired output. Choose examples that cover the range of variations the model might encounter, different categories, edge cases, or difficulty levels.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>For a sentiment classification task, include one clearly positive review, one clearly negative review, and one nuanced or mixed review to show how you handle ambiguity.</p>
@@ -259,7 +259,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Structure the Prompt</h3>
-                            <p class="element-timeline__text">Place your examples in the prompt using a consistent format. Each example follows the same input-output structure, clearly labeled so the model can distinguish between the demonstration pairs and the actual query. Consistency is critical &mdash; the model uses the repeated pattern to understand what it should produce.</p>
+                            <p class="element-timeline__text">Place your examples in the prompt using a consistent format. Each example follows the same input-output structure, clearly labeled so the model can distinguish between the demonstration pairs and the actual query. Consistency is critical, the model uses the repeated pattern to understand what it should produce.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p><strong>Review:</strong> &ldquo;The battery life is incredible and the screen is gorgeous.&rdquo;<br><strong>Sentiment:</strong> Positive<br><br><strong>Review:</strong> &ldquo;Broke after two weeks. Complete waste of money.&rdquo;<br><strong>Sentiment:</strong> Negative<br><br><strong>Review:</strong> [your actual input here]<br><strong>Sentiment:</strong></p>
@@ -276,7 +276,7 @@
                             <p class="element-timeline__text">The model reads your examples, infers the underlying task and format, and applies the same pattern to your new input. It generates output that matches the style, format, and reasoning demonstrated in your examples. The more consistent and clear your examples, the more accurately the model reproduces the pattern.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Given the structured examples above, the model outputs a single-word sentiment label that matches the format of the demonstrations &mdash; no extra explanation, no hedging, just the classification you showed it how to produce.</p>
+                                <p>Given the structured examples above, the model outputs a single-word sentiment label that matches the format of the demonstrations, no extra explanation, no hedging, just the classification you showed it how to produce.</p>
                             </div>
                         </div>
                     </div>
@@ -317,7 +317,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Correct label but verbose &mdash; format unpredictable, hard to parse programmatically</span>
+                            <span>Correct label but verbose, format unpredictable, hard to parse programmatically</span>
                         </div>
                     </div>
 
@@ -349,7 +349,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Clean, consistent format &mdash; parseable output, matches demonstrated pattern exactly</span>
+                            <span>Clean, consistent format, parseable output, matches demonstrated pattern exactly</span>
                         </div>
                     </div>
                 </div>
@@ -412,7 +412,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Model Output</span>
-                                    <p>&ldquo;You may have been logged out unexpectedly. Please sign in again &mdash; we&rsquo;ve fixed the issue that was causing this.&rdquo;</p>
+                                    <p>&ldquo;You may have been logged out unexpectedly. Please sign in again, we&rsquo;ve fixed the issue that was causing this.&rdquo;</p>
                                 </div>
                             </div>
                         </div>
@@ -458,7 +458,7 @@
                                 </svg>
                                 <div>
                                     <strong>Format-Sensitive Tasks</strong>
-                                    <p>When output must follow a precise structure &mdash; JSON schemas, table formats, labeling conventions &mdash; examples communicate the exact format more reliably than descriptions.</p>
+                                    <p>When output must follow a precise structure, JSON schemas, table formats, labeling conventions, examples communicate the exact format more reliably than descriptions.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -468,7 +468,7 @@
                                 </svg>
                                 <div>
                                     <strong>Classification and Labeling</strong>
-                                    <p>Sentiment analysis, intent detection, content moderation &mdash; any task where you need the model to assign items to predefined categories consistently.</p>
+                                    <p>Sentiment analysis, intent detection, content moderation, any task where you need the model to assign items to predefined categories consistently.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -478,7 +478,7 @@
                                 </svg>
                                 <div>
                                     <strong>Style and Tone Matching</strong>
-                                    <p>When you need output in a specific voice &mdash; brand copy, academic writing, casual tone &mdash; showing examples conveys nuance that instructions miss.</p>
+                                    <p>When you need output in a specific voice, brand copy, academic writing, casual tone, showing examples conveys nuance that instructions miss.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -488,7 +488,7 @@
                                 </svg>
                                 <div>
                                     <strong>Data Transformation</strong>
-                                    <p>Converting between formats &mdash; technical jargon to plain language, raw data to structured output, one schema to another &mdash; where the mapping is best shown by example.</p>
+                                    <p>Converting between formats, technical jargon to plain language, raw data to structured output, one schema to another, where the mapping is best shown by example.</p>
                                 </div>
                             </div>
                         </div>
@@ -523,7 +523,7 @@
                                 </svg>
                                 <div>
                                     <strong>Highly Creative or Open-Ended Tasks</strong>
-                                    <p>Brainstorming, creative writing, or open-ended exploration can be overly constrained by examples &mdash; the model may mimic rather than innovate.</p>
+                                    <p>Brainstorming, creative writing, or open-ended exploration can be overly constrained by examples, the model may mimic rather than innovate.</p>
                                 </div>
                             </div>
                         </div>
@@ -572,7 +572,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Code Generation Patterns</h3>
-                        <p class="use-case-showcase__desc">Show the model a few examples of your codebase&rsquo;s conventions &mdash; naming patterns, error handling, documentation style &mdash; so generated code matches your project standards.</p>
+                        <p class="use-case-showcase__desc">Show the model a few examples of your codebase&rsquo;s conventions, naming patterns, error handling, documentation style, so generated code matches your project standards.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -596,7 +596,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Data Extraction</h3>
-                        <p class="use-case-showcase__desc">Extract structured fields from unstructured text &mdash; names, dates, amounts, addresses &mdash; by showing a few examples of source text mapped to extracted fields.</p>
+                        <p class="use-case-showcase__desc">Extract structured fields from unstructured text, names, dates, amounts, addresses, by showing a few examples of source text mapped to extracted fields.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -606,7 +606,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Content Moderation</h3>
-                        <p class="use-case-showcase__desc">Teach the model your specific moderation policies by showing examples of content that passes, gets flagged, or gets removed &mdash; calibrating the boundary through demonstrations.</p>
+                        <p class="use-case-showcase__desc">Teach the model your specific moderation policies by showing examples of content that passes, gets flagged, or gets removed, calibrating the boundary through demonstrations.</p>
                     </div>
                 </div>
             </div>
@@ -686,7 +686,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Baseline</span>
                         <span class="evolution-callout__title">Zero-Shot Prompting</span>
-                        <span class="evolution-callout__desc">The no-example baseline &mdash; understand when instructions alone suffice and when examples become essential.</span>
+                        <span class="evolution-callout__desc">The no-example baseline, understand when instructions alone suffice and when examples become essential.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -784,7 +784,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

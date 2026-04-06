@@ -191,7 +191,7 @@
                     <span class="hero-badge__text">Iterative Reasoning</span>
                 </div>
                 <h1 class="page-title fade-in">Cumulative Reasoning</h1>
-                <p class="page-subtitle fade-in">Complex problems need accumulated evidence. Cumulative Reasoning builds answers one verified proposition at a time &mdash; like a detective building a case until the conclusion becomes inevitable.</p>
+                <p class="page-subtitle fade-in">Complex problems need accumulated evidence. Cumulative Reasoning builds answers one verified proposition at a time, like a detective building a case until the conclusion becomes inevitable.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -202,7 +202,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> Cumulative Reasoning was published in 2023 by Zhang et al. It introduced a three-module architecture &mdash; Proposer, Verifier, and Reporter &mdash; that iteratively builds up context. Each cycle generates new propositions, verifies them against logical rules, adds valid ones to the working context, and checks whether enough information exists to derive the final answer. Rather than attempting to solve a problem in a single pass, the framework accumulates verified facts until the conclusion becomes provable.</p>
+                        <p><strong>Introduced:</strong> Cumulative Reasoning was published in 2023 by Zhang et al. It introduced a three-module architecture, Proposer, Verifier, and Reporter, that iteratively builds up context. Each cycle generates new propositions, verifies them against logical rules, adds valid ones to the working context, and checks whether enough information exists to derive the final answer. Rather than attempting to solve a problem in a single pass, the framework accumulates verified facts until the conclusion becomes provable.</p>
                         <p><strong>Modern LLM Status:</strong> The propose-verify-accumulate pattern is directly reflected in modern <strong>agentic AI systems</strong>. Multi-turn tool use, scratchpad reasoning, and iterative refinement all embody cumulative reasoning principles. Each tool call in an agentic workflow acts as a propose step, validation serves as verification, and the conversation context functions as the accumulator. Understanding this framework helps design effective agentic workflows where AI builds up context across multiple interaction turns rather than trying to solve everything at once.</p>
                     </div>
                 </div>
@@ -217,7 +217,7 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Build Your Case, One Fact at a Time</h2>
-                        <p class="split-section__text">Standard Chain-of-Thought reasoning tries to work through everything in a single pass. For simple problems, this works well. But for complex problems with many interacting facts, it is like trying to solve a jigsaw puzzle by placing all pieces simultaneously &mdash; you will inevitably miss connections and make errors.</p>
+                        <p class="split-section__text">Standard Chain-of-Thought reasoning tries to work through everything in a single pass. For simple problems, this works well. But for complex problems with many interacting facts, it is like trying to solve a jigsaw puzzle by placing all pieces simultaneously, you will inevitably miss connections and make errors.</p>
                         <p class="split-section__text"><strong>Cumulative Reasoning takes a fundamentally different approach.</strong> Instead of one long reasoning chain, it works iteratively: propose a new fact, verify it against what is already known, add it to the working context if valid, and repeat. Each cycle makes the knowledge base richer and more complete, until the answer becomes derivable from the accumulated facts.</p>
                         <p class="split-section__text">Think of it like building a legal case. A prosecutor does not present the entire argument in one breath. They introduce evidence piece by piece, verify each item, and build toward the conclusion methodically.</p>
                     </div>
@@ -248,7 +248,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Initialize Context</h3>
-                            <p class="element-timeline__text">Start with the problem statement and any given facts. This is the initial working context &mdash; sparse but accurate. Everything that follows will build on this foundation.</p>
+                            <p class="element-timeline__text">Start with the problem statement and any given facts. This is the initial working context, sparse but accurate. Everything that follows will build on this foundation.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Problem: "John is taller than Mary. Mary is taller than Sue. Sue is taller than Bob. Who is the shortest?" Initial context: {John > Mary, Mary > Sue, Sue > Bob}</p>
@@ -293,7 +293,7 @@
                             <p class="element-timeline__text">Add the verified proposition to the working context. Then check: is there now enough information to answer the original question? The Reporter module evaluates whether the accumulated facts are sufficient to derive a conclusion.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Context now: {John > Mary, Mary > Sue, Sue > Bob, John > Sue}. Can we determine the shortest? Not yet &mdash; need to verify Bob's relative position to all others.</p>
+                                <p>Context now: {John > Mary, Mary > Sue, Sue > Bob, John > Sue}. Can we determine the shortest? Not yet, need to verify Bob's relative position to all others.</p>
                             </div>
                         </div>
                     </div>
@@ -356,9 +356,9 @@
                         </div>
                         <div class="comparison-panel__content">
                             <p><strong>Initial Context:</strong> {Eve &gt; Alice, Alice &gt; Bob, Bob &gt; Charlie, Charlie &gt; Diana, Diana &gt; Frank}</p>
-                            <p><strong>Cycle 1 &mdash; Propose:</strong> "Eve is faster than Bob." <strong>Verify:</strong> Eve &gt; Alice &gt; Bob. Transitivity holds. Added.</p>
-                            <p><strong>Cycle 2 &mdash; Propose:</strong> "Alice is faster than Charlie." <strong>Verify:</strong> Alice &gt; Bob &gt; Charlie. Valid. Added.</p>
-                            <p><strong>Cycle 3 &mdash; Propose:</strong> "Bob is faster than Diana." <strong>Verify:</strong> Bob &gt; Charlie &gt; Diana. Valid. Added.</p>
+                            <p><strong>Cycle 1, Propose:</strong> "Eve is faster than Bob." <strong>Verify:</strong> Eve &gt; Alice &gt; Bob. Transitivity holds. Added.</p>
+                            <p><strong>Cycle 2, Propose:</strong> "Alice is faster than Charlie." <strong>Verify:</strong> Alice &gt; Bob &gt; Charlie. Valid. Added.</p>
+                            <p><strong>Cycle 3, Propose:</strong> "Bob is faster than Diana." <strong>Verify:</strong> Bob &gt; Charlie &gt; Diana. Valid. Added.</p>
                             <p><strong>Reporter Check:</strong> Frank has no one ranked below him. Every other person is faster than at least one other. Sufficient evidence accumulated.</p>
                             <p><strong>Final Answer:</strong> Frank is the slowest. Each intermediate conclusion was individually verified before the answer was derived, making the reasoning auditable and error-resistant.</p>
                         </div>
@@ -435,13 +435,13 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Cumulative Reasoning Cycles</span>
                                     <p><strong>Initial Context:</strong> {Eve > Alice, Alice > Bob, Bob > Charlie, Charlie > Diana, Diana > Frank}<br><br>
-                                    <strong>Cycle 1 &mdash; Propose:</strong> "Eve is faster than Bob" (from Eve > Alice and Alice > Bob).<br>
+                                    <strong>Cycle 1, Propose:</strong> "Eve is faster than Bob" (from Eve > Alice and Alice > Bob).<br>
                                     <strong>Verify:</strong> Transitivity holds. Eve > Alice > Bob. Valid. Added to context.<br><br>
-                                    <strong>Cycle 2 &mdash; Propose:</strong> "Alice is faster than Charlie" (from Alice > Bob and Bob > Charlie).<br>
+                                    <strong>Cycle 2, Propose:</strong> "Alice is faster than Charlie" (from Alice > Bob and Bob > Charlie).<br>
                                     <strong>Verify:</strong> Transitivity holds. Alice > Bob > Charlie. Valid. Added to context.<br><br>
-                                    <strong>Cycle 3 &mdash; Propose:</strong> "Bob is faster than Diana" (from Bob > Charlie and Charlie > Diana).<br>
+                                    <strong>Cycle 3, Propose:</strong> "Bob is faster than Diana" (from Bob > Charlie and Charlie > Diana).<br>
                                     <strong>Verify:</strong> Transitivity holds. Bob > Charlie > Diana. Valid. Added to context.<br><br>
-                                    <strong>Cycle 4 &mdash; Propose:</strong> "Charlie is faster than Frank" (from Charlie > Diana and Diana > Frank).<br>
+                                    <strong>Cycle 4, Propose:</strong> "Charlie is faster than Frank" (from Charlie > Diana and Diana > Frank).<br>
                                     <strong>Verify:</strong> Transitivity holds. Charlie > Diana > Frank. Valid. Added to context.<br><br>
                                     <strong>Reporter Check:</strong> Frank has no one ranked below him in the accumulated context. Every other person is faster than at least one other person. Sufficient evidence accumulated.<br><br>
                                     <strong>Final Answer:</strong> Frank is the slowest.</p>
@@ -464,12 +464,12 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Cumulative Reasoning Cycles</span>
                                     <p><strong>Initial Context:</strong> {Pat cannot work Morning, Quinn must be earlier than Riley, Riley is most experienced, Afternoon needs most experienced}<br><br>
-                                    <strong>Cycle 1 &mdash; Propose:</strong> "Riley is assigned to the Afternoon shift" (Afternoon needs the most experienced person, and Riley is the most experienced).<br>
+                                    <strong>Cycle 1, Propose:</strong> "Riley is assigned to the Afternoon shift" (Afternoon needs the most experienced person, and Riley is the most experienced).<br>
                                     <strong>Verify:</strong> Direct match between constraint and fact. Valid. Added to context.<br><br>
-                                    <strong>Cycle 2 &mdash; Propose:</strong> "Quinn must work the Morning shift" (Quinn must be earlier than Riley, Riley works Afternoon, so Quinn must work Morning &mdash; the only shift earlier than Afternoon).<br>
+                                    <strong>Cycle 2, Propose:</strong> "Quinn must work the Morning shift" (Quinn must be earlier than Riley, Riley works Afternoon, so Quinn must work Morning, the only shift earlier than Afternoon).<br>
                                     <strong>Verify:</strong> Morning is earlier than Afternoon. No constraint prevents Quinn from working Morning. Valid. Added to context.<br><br>
-                                    <strong>Cycle 3 &mdash; Propose:</strong> "Pat is assigned to the Night shift" (Morning is taken by Quinn, Afternoon by Riley, only Night remains).<br>
-                                    <strong>Verify:</strong> Pat cannot work Morning (satisfied &mdash; Pat works Night). All shifts assigned, all constraints met. Valid. Added to context.<br><br>
+                                    <strong>Cycle 3, Propose:</strong> "Pat is assigned to the Night shift" (Morning is taken by Quinn, Afternoon by Riley, only Night remains).<br>
+                                    <strong>Verify:</strong> Pat cannot work Morning (satisfied, Pat works Night). All shifts assigned, all constraints met. Valid. Added to context.<br><br>
                                     <strong>Reporter Check:</strong> All three employees assigned. All constraints verified. Sufficient evidence accumulated.<br><br>
                                     <strong>Final Answer:</strong> Quinn = Morning, Riley = Afternoon, Pat = Night.</p>
                                 </div>
@@ -491,13 +491,13 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Cumulative Reasoning Cycles</span>
                                     <p><strong>Initial Context:</strong> {500 errors at peak hours, normal DB query times, uneven load balancer distribution, new caching layer is memory-intensive, memory spikes correlate with errors}<br><br>
-                                    <strong>Cycle 1 &mdash; Propose:</strong> "The database is not the bottleneck" (query times are normal during error periods).<br>
+                                    <strong>Cycle 1, Propose:</strong> "The database is not the bottleneck" (query times are normal during error periods).<br>
                                     <strong>Verify:</strong> Normal query times during error windows rules out database as the cause. Valid. Added to context.<br><br>
-                                    <strong>Cycle 2 &mdash; Propose:</strong> "The new caching layer consumes excessive memory under peak load."<br>
+                                    <strong>Cycle 2, Propose:</strong> "The new caching layer consumes excessive memory under peak load."<br>
                                     <strong>Verify:</strong> Memory-intensive caching layer + memory spikes at error times + errors only at peak hours = consistent causal pattern. Valid. Added to context.<br><br>
-                                    <strong>Cycle 3 &mdash; Propose:</strong> "Uneven load distribution means some servers receive disproportionate traffic, exhausting memory faster than others."<br>
+                                    <strong>Cycle 3, Propose:</strong> "Uneven load distribution means some servers receive disproportionate traffic, exhausting memory faster than others."<br>
                                     <strong>Verify:</strong> Uneven distribution + memory-intensive cache = some servers hit memory limits before others. This explains the intermittent (not universal) nature of errors. Valid. Added to context.<br><br>
-                                    <strong>Cycle 4 &mdash; Propose:</strong> "The root cause is the combination of the memory-intensive caching layer and uneven load balancing, causing memory exhaustion on overloaded servers during peak traffic."<br>
+                                    <strong>Cycle 4, Propose:</strong> "The root cause is the combination of the memory-intensive caching layer and uneven load balancing, causing memory exhaustion on overloaded servers during peak traffic."<br>
                                     <strong>Verify:</strong> All accumulated evidence converges: new deployment timing, memory correlation, intermittent pattern from uneven load, peak-hour trigger. No contradictions. Valid.<br><br>
                                     <strong>Reporter Check:</strong> Full causal chain established from evidence. All facts accounted for. Sufficient evidence accumulated.<br><br>
                                     <strong>Final Answer:</strong> The new memory-intensive caching layer combined with uneven load balancer distribution causes certain servers to exhaust memory during peak traffic, resulting in intermittent 500 errors.</p>
@@ -592,7 +592,7 @@
                                 </svg>
                                 <div>
                                     <strong>Subjective Opinions</strong>
-                                    <p>When there are no verifiable propositions to accumulate &mdash; just preferences, creative choices, or matters of taste.</p>
+                                    <p>When there are no verifiable propositions to accumulate, just preferences, creative choices, or matters of taste.</p>
                                 </div>
                             </div>
                         </div>
@@ -716,7 +716,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Design Pattern</div>
-                    <p>Cumulative Reasoning maps naturally to agentic AI loops. Each tool call is a "propose" step, validation is "verify," and the conversation context is the accumulator. Use this mental model when designing multi-step AI agents &mdash; the propose-verify-accumulate cycle provides a principled structure for how agents should build knowledge across turns.</p>
+                    <p>Cumulative Reasoning maps naturally to agentic AI loops. Each tool call is a "propose" step, validation is "verify," and the conversation context is the accumulator. Use this mental model when designing multi-step AI agents, the propose-verify-accumulate cycle provides a principled structure for how agents should build knowledge across turns.</p>
                 </div>
             </div>
         </section>
@@ -739,7 +739,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Single-pass reasoning that makes thinking visible &mdash; Cumulative Reasoning extends this to multiple verified iterations.</span>
+                        <span class="evolution-callout__desc">Single-pass reasoning that makes thinking visible, Cumulative Reasoning extends this to multiple verified iterations.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -759,7 +759,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Least-to-Most</span>
-                        <span class="evolution-callout__desc">Decomposes problems into sub-problems &mdash; Cumulative Reasoning accumulates sub-conclusions into full answers.</span>
+                        <span class="evolution-callout__desc">Decomposes problems into sub-problems, Cumulative Reasoning accumulates sub-conclusions into full answers.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -780,7 +780,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Graph of Thought</span>
-                        <span class="evolution-callout__desc">Extends iterative reasoning to non-linear graph structures &mdash; the next step beyond sequential accumulation.</span>
+                        <span class="evolution-callout__desc">Extends iterative reasoning to non-linear graph structures, the next step beyond sequential accumulation.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -858,7 +858,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

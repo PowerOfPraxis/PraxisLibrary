@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Reasoning &amp; CoT Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Everything of Thoughts (XoT)</h1>
-                <p class="page-subtitle fade-in">Chain-of-Thought is flexible but inefficient. Tree of Thoughts is accurate but expensive. Graph of Thought is powerful but complex. Everything of Thoughts unifies all three by combining reinforcement learning with Monte Carlo Tree Search &mdash; achieving the performance, efficiency, and flexibility that no single approach delivers alone.</p>
+                <p class="page-subtitle fade-in">Chain-of-Thought is flexible but inefficient. Tree of Thoughts is accurate but expensive. Graph of Thought is powerful but complex. Everything of Thoughts unifies all three by combining reinforcement learning with Monte Carlo Tree Search, achieving the performance, efficiency, and flexibility that no single approach delivers alone.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2024</span>
-                        <p><strong>Introduced:</strong> Everything of Thoughts was introduced in 2024 by Microsoft Research, addressing what they call the &ldquo;Penrose triangle&rdquo; problem in LLM reasoning: Chain-of-Thought (flexible, efficient, but inaccurate on hard problems), Tree of Thoughts (accurate, flexible, but expensive), and Graph of Thought (accurate, efficient for specific problems, but inflexible). Each method excels at two of the three desirable properties &mdash; performance, efficiency, flexibility &mdash; but fails at the third. XoT uses reinforcement learning pretrained on diverse problems and Monte Carlo Tree Search (MCTS) at inference time to achieve all three simultaneously.</p>
-                        <p><strong>Modern LLM Status:</strong> XoT represents the current state-of-the-art in reasoning architecture research. While the full MCTS-based system requires significant infrastructure, the conceptual framework &mdash; combining learned reasoning policies with tree search for dynamic problem-solving &mdash; is influencing how production reasoning systems are designed. As AI infrastructure matures, XoT-style approaches that dynamically adapt their reasoning strategy are becoming more practical and valuable.</p>
+                        <p><strong>Introduced:</strong> Everything of Thoughts was introduced in 2024 by Microsoft Research, addressing what they call the &ldquo;Penrose triangle&rdquo; problem in LLM reasoning: Chain-of-Thought (flexible, efficient, but inaccurate on hard problems), Tree of Thoughts (accurate, flexible, but expensive), and Graph of Thought (accurate, efficient for specific problems, but inflexible). Each method excels at two of the three desirable properties, performance, efficiency, flexibility, but fails at the third. XoT uses reinforcement learning pretrained on diverse problems and Monte Carlo Tree Search (MCTS) at inference time to achieve all three simultaneously.</p>
+                        <p><strong>Modern LLM Status:</strong> XoT represents the current state-of-the-art in reasoning architecture research. While the full MCTS-based system requires significant infrastructure, the conceptual framework, combining learned reasoning policies with tree search for dynamic problem-solving, is influencing how production reasoning systems are designed. As AI infrastructure matures, XoT-style approaches that dynamically adapt their reasoning strategy are becoming more practical and valuable.</p>
                     </div>
                 </div>
             </div>
@@ -217,13 +217,13 @@
                         <h2 class="split-section__title">Break the Reasoning Trilemma</h2>
                         <p class="split-section__text">Previous reasoning methods force a trade-off. CoT is cheap (one pass) but may miss the best solution path. ToT explores many paths (accurate) but at high cost. GoT allows non-linear reasoning but requires custom graph definitions for each problem type.</p>
                         <p class="split-section__text"><strong>XoT eliminates these trade-offs by using a two-component system.</strong> First, a reinforcement-learning agent that has been pre-trained to recognize problem types and effective reasoning strategies. Second, Monte Carlo Tree Search that dynamically explores the most promising reasoning paths at inference time.</p>
-                        <p class="split-section__text">The RL component provides learned intuition about which paths to explore, while MCTS provides the structured search. Together, they find high-quality solutions efficiently by focusing search on the most promising directions &mdash; not wasting compute on dead ends, but not missing good solutions by only trying one path.</p>
+                        <p class="split-section__text">The RL component provides learned intuition about which paths to explore, while MCTS provides the structured search. Together, they find high-quality solutions efficiently by focusing search on the most promising directions, not wasting compute on dead ends, but not missing good solutions by only trying one path.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Combining RL and MCTS Breaks the Trilemma</span>
-                                <p>Think of it like a chess engine. A purely random search (brute force Tree of Thoughts) would explore every possible move &mdash; thorough but impossibly slow. A purely intuitive player (Chain-of-Thought) would make the first reasonable move that comes to mind &mdash; fast but often suboptimal. AlphaGo showed that combining learned intuition (RL policy network) with structured search (MCTS) produces superhuman play. XoT applies this same insight to LLM reasoning.</p>
+                                <p>Think of it like a chess engine. A purely random search (brute force Tree of Thoughts) would explore every possible move, thorough but impossibly slow. A purely intuitive player (Chain-of-Thought) would make the first reasonable move that comes to mind, fast but often suboptimal. AlphaGo showed that combining learned intuition (RL policy network) with structured search (MCTS) produces superhuman play. XoT applies this same insight to LLM reasoning.</p>
                             </div>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                             <p class="element-timeline__text">The RL-trained policy network analyzes the incoming problem and generates an initial assessment of problem type, expected difficulty, and likely effective reasoning strategies. This learned intuition guides the entire search process.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Prove that the sum of angles in any triangle equals 180 degrees.&rdquo; &mdash; Policy network recognizes this as a geometric proof, suggests parallel/auxiliary line approaches as highest-probability strategies.</p>
+                                <p>&ldquo;Prove that the sum of angles in any triangle equals 180 degrees.&rdquo;, Policy network recognizes this as a geometric proof, suggests parallel/auxiliary line approaches as highest-probability strategies.</p>
                             </div>
                         </div>
                     </div>
@@ -335,7 +335,7 @@
                                 <span class="comparison-panel__label">Three Approaches, Three Trade-offs</span>
                                 <p><strong>CoT:</strong> 1 LLM call. Fast and flexible. Misses the optimal solution on hard problems.<br><br>
                                 <strong>ToT:</strong> 100+ LLM calls. Explores exhaustively. Finds the solution but at enormous compute cost.<br><br>
-                                <strong>GoT:</strong> Custom graph definition. Efficient for that specific problem type. Rigid &mdash; requires redesign for each new problem class.</p>
+                                <strong>GoT:</strong> Custom graph definition. Efficient for that specific problem type. Rigid, requires redesign for each new problem class.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">The Trilemma</span>
@@ -430,7 +430,7 @@
                                     <strong>MCTS Exploration:</strong><br>
                                     Path A (Calculus): Express area as A = 4xy with constraint x&sup2;/25 + y&sup2;/9 = 1. Substitute y, differentiate, solve. &rarr; Completes successfully.<br>
                                     Path B (Parametric): Let x = 5cos&theta;, y = 3sin&theta;. Area = 4(5cos&theta;)(3sin&theta;) = 60sin2&theta;. Maximum when sin2&theta; = 1. &rarr; Completes more elegantly.<br>
-                                    Path C (AM-GM): Pruned after 1 step &mdash; policy recognizes it requires reformulation that adds complexity.<br><br>
+                                    Path C (AM-GM): Pruned after 1 step, policy recognizes it requires reformulation that adds complexity.<br><br>
                                     <strong>Solution (highest-value path):</strong> Using parametric form, A = 60sin2&theta;, maximized at &theta; = &pi;/4, giving A = 60. The maximum inscribed rectangle area is 60 square units. Found in 8 reasoning steps instead of exhaustive exploration.<br><br>
                                     <em>Note: Always verify AI-generated mathematical proofs by checking each step independently.</em></p>
                                 </div>
@@ -451,11 +451,11 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">XoT Reasoning Process</span>
-                                    <p><strong>Policy Network Analysis:</strong> Recognizes multi-criteria decision problem. Assigns exploration weights: enterprise tier (0.40 &mdash; lower risk, proven demand), acquisition (0.35 &mdash; highest potential ROI), new market (0.25 &mdash; highest risk).<br><br>
+                                    <p><strong>Policy Network Analysis:</strong> Recognizes multi-criteria decision problem. Assigns exploration weights: enterprise tier (0.40, lower risk, proven demand), acquisition (0.35, highest potential ROI), new market (0.25, highest risk).<br><br>
                                     <strong>MCTS Exploration:</strong><br>
-                                    Enterprise Tier: 3 levels deep &mdash; team can build with existing engineers, 18-month payback, 3-year ROI ~3.5x. Risk: moderate (enterprise sales cycle learning curve).<br>
-                                    Acquisition: 3 levels deep &mdash; identifies integration risk and due diligence cost. 3-year ROI ~4.2x if successful, but 30% failure rate on integration reduces expected value.<br>
-                                    New Market: 2 levels deep &mdash; pruned early. Requires hiring, localization, regulatory work. 3-year ROI ~2.1x with high variance. Policy recognizes team capacity constraint makes this unviable.<br><br>
+                                    Enterprise Tier: 3 levels deep, team can build with existing engineers, 18-month payback, 3-year ROI ~3.5x. Risk: moderate (enterprise sales cycle learning curve).<br>
+                                    Acquisition: 3 levels deep, identifies integration risk and due diligence cost. 3-year ROI ~4.2x if successful, but 30% failure rate on integration reduces expected value.<br>
+                                    New Market: 2 levels deep, pruned early. Requires hiring, localization, regulatory work. 3-year ROI ~2.1x with high variance. Policy recognizes team capacity constraint makes this unviable.<br><br>
                                     <strong>Backpropagation:</strong> Risk-adjusted expected value: Enterprise (3.5x &times; 0.85 = 2.98x) vs Acquisition (4.2x &times; 0.70 = 2.94x). Very close, but enterprise wins on lower variance.<br><br>
                                     <strong>Solution:</strong> Recommend enterprise tier expansion. Similar risk-adjusted return to acquisition but with lower variance and better alignment with existing team capabilities. Explored 3 strategies in 10 reasoning steps, pruning the weakest early.<br><br>
                                     <em>Note: Always verify AI-generated business analysis with domain experts and current market data before making investment decisions.</em></p>
@@ -477,11 +477,11 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">XoT Reasoning Process</span>
-                                    <p><strong>Policy Network Analysis:</strong> Recognizes classic string algorithm problem. Assigns weights: Manacher&rsquo;s algorithm (0.45 &mdash; optimal O(n)), expand-around-center (0.35 &mdash; simple O(n&sup2;)), dynamic programming (0.15 &mdash; O(n&sup2;) with more memory), brute force (0.05 &mdash; pruned immediately).<br><br>
+                                    <p><strong>Policy Network Analysis:</strong> Recognizes classic string algorithm problem. Assigns weights: Manacher&rsquo;s algorithm (0.45, optimal O(n)), expand-around-center (0.35, simple O(n&sup2;)), dynamic programming (0.15, O(n&sup2;) with more memory), brute force (0.05, pruned immediately).<br><br>
                                     <strong>MCTS Exploration:</strong><br>
-                                    Manacher&rsquo;s: 4 levels deep &mdash; correct O(n) solution but complex implementation with edge cases around odd/even length handling.<br>
-                                    Expand-around-center: 3 levels deep &mdash; clean implementation, O(n&sup2;) but with small constant factor. Handles odd/even naturally.<br>
-                                    Dynamic Programming: 2 levels deep &mdash; works but O(n&sup2;) space makes it strictly worse than expand-around-center for same time complexity.<br><br>
+                                    Manacher&rsquo;s: 4 levels deep, correct O(n) solution but complex implementation with edge cases around odd/even length handling.<br>
+                                    Expand-around-center: 3 levels deep, clean implementation, O(n&sup2;) but with small constant factor. Handles odd/even naturally.<br>
+                                    Dynamic Programming: 2 levels deep, works but O(n&sup2;) space makes it strictly worse than expand-around-center for same time complexity.<br><br>
                                     <strong>Evaluation:</strong> Manacher&rsquo;s scores highest on performance (0.95) but lower on implementation clarity (0.70). Expand-around-center scores well on both performance for typical inputs (0.85) and clarity (0.95). For production code where maintainability matters, expand-around-center wins the composite score.<br><br>
                                     <strong>Solution:</strong> Selected expand-around-center approach. Best balance of efficiency, correctness, and code clarity. Found optimal implementation in 9 reasoning steps by pruning DP early and weighing Manacher&rsquo;s complexity overhead against its theoretical advantage.<br><br>
                                     <em>Note: Always test AI-generated code thoroughly with edge cases before deploying to production.</em></p>
@@ -511,7 +511,7 @@
                                 </svg>
                                 <div>
                                     <strong>Accuracy-Efficiency Balance</strong>
-                                    <p>Problems where both accuracy and efficiency matter &mdash; you need the right answer but can&rsquo;t afford exhaustive search across every possible reasoning path.</p>
+                                    <p>Problems where both accuracy and efficiency matter, you need the right answer but can&rsquo;t afford exhaustive search across every possible reasoning path.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -521,7 +521,7 @@
                                 </svg>
                                 <div>
                                     <strong>Complex Multi-Path Reasoning</strong>
-                                    <p>Tasks that benefit from search but not exhaustive exploration &mdash; where some paths are clearly better than others and early pruning saves significant compute.</p>
+                                    <p>Tasks that benefit from search but not exhaustive exploration, where some paths are clearly better than others and early pruning saves significant compute.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -531,7 +531,7 @@
                                 </svg>
                                 <div>
                                     <strong>Moderate Compute Budgets</strong>
-                                    <p>Production systems that can afford more than a single LLM call but not hundreds &mdash; XoT&rsquo;s guided search finds the sweet spot between cost and quality.</p>
+                                    <p>Production systems that can afford more than a single LLM call but not hundreds, XoT&rsquo;s guided search finds the sweet spot between cost and quality.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -541,7 +541,7 @@
                                 </svg>
                                 <div>
                                     <strong>Recurring Problem Types</strong>
-                                    <p>Tasks where problem types recur and patterns can be learned &mdash; the RL component improves over time as it encounters more examples of each problem class.</p>
+                                    <p>Tasks where problem types recur and patterns can be learned, the RL component improves over time as it encounters more examples of each problem class.</p>
                                 </div>
                             </div>
                         </div>
@@ -556,7 +556,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Questions</strong>
-                                    <p>Questions not requiring search or multi-path exploration &mdash; a single CoT pass is sufficient and adding MCTS overhead provides no benefit.</p>
+                                    <p>Questions not requiring search or multi-path exploration, a single CoT pass is sufficient and adding MCTS overhead provides no benefit.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -566,7 +566,7 @@
                                 </svg>
                                 <div>
                                     <strong>No MCTS Infrastructure</strong>
-                                    <p>Scenarios without the infrastructure to run Monte Carlo Tree Search &mdash; XoT requires a reasoning orchestration layer beyond standard API calls.</p>
+                                    <p>Scenarios without the infrastructure to run Monte Carlo Tree Search, XoT requires a reasoning orchestration layer beyond standard API calls.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -576,7 +576,7 @@
                                 </svg>
                                 <div>
                                     <strong>Extreme Latency Constraints</strong>
-                                    <p>When single-call latency is the hard requirement &mdash; even guided search adds multiple reasoning rounds that exceed strict real-time budgets.</p>
+                                    <p>When single-call latency is the hard requirement, even guided search adds multiple reasoning rounds that exceed strict real-time budgets.</p>
                                 </div>
                             </div>
                         </div>
@@ -695,7 +695,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">XoT Principles Without Full Infrastructure</div>
-                    <p>You don&rsquo;t need full MCTS infrastructure to benefit from XoT&rsquo;s insights. The core principle &mdash; explore more where it&rsquo;s promising, prune where it&rsquo;s not &mdash; can be approximated by: (1) generating 3&ndash;5 initial approaches with CoT, (2) quickly evaluating which look most promising, (3) deeply exploring only the top 1&ndash;2 candidates. This &ldquo;guided search&rdquo; captures much of XoT&rsquo;s benefit with standard prompting tools.</p>
+                    <p>You don&rsquo;t need full MCTS infrastructure to benefit from XoT&rsquo;s insights. The core principle, explore more where it&rsquo;s promising, prune where it&rsquo;s not, can be approximated by: (1) generating 3&ndash;5 initial approaches with CoT, (2) quickly evaluating which look most promising, (3) deeply exploring only the top 1&ndash;2 candidates. This &ldquo;guided search&rdquo; captures much of XoT&rsquo;s benefit with standard prompting tools.</p>
                 </div>
             </div>
         </section>
@@ -835,7 +835,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

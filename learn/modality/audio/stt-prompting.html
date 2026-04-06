@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">Audio Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">Speech-to-Text Prompting</h1>
-                <p class="page-subtitle fade-in">Techniques for guiding AI transcription models with text prompts that control language detection, domain vocabulary, speaker attribution, and output formatting &mdash; transforming raw audio into structured, accurate, and context-aware transcriptions.</p>
+                <p class="page-subtitle fade-in">Techniques for guiding AI transcription models with text prompts that control language detection, domain vocabulary, speaker attribution, and output formatting, transforming raw audio into structured, accurate, and context-aware transcriptions.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -212,8 +212,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> Speech recognition has evolved from Hidden Markov Models (1970s&ndash;2000s) through deep learning approaches (2010s) to transformer-based systems like OpenAI Whisper (2022). Modern STT models accept text prompts that guide transcription behavior &mdash; specifying language, domain vocabulary, speaker labeling, and formatting. Earlier systems like CMU Sphinx and Google&rsquo;s DeepSpeech required extensive acoustic model training and offered no prompt-level control. The introduction of Whisper demonstrated that a single large-scale model trained on 680,000 hours of multilingual audio could match or exceed specialized systems, and critically, that a simple text prompt could steer its transcription behavior without retraining.</p>
-                        <p><strong>Modern LLM Status:</strong> STT prompting is now a <strong>core capability in production audio pipelines</strong> and continues to expand in sophistication. Whisper, AssemblyAI, Deepgram, and cloud provider APIs (Google Cloud Speech-to-Text, Azure Speech Services) all support prompt-guided transcription. The techniques covered here &mdash; vocabulary hints, speaker diarization directives, formatting instructions, and language specification &mdash; remain essential because even the best models produce inconsistent output without explicit guidance. Domain-specific terminology, proper nouns, and multi-speaker scenarios all benefit substantially from well-crafted transcription prompts. These foundations extend naturally into real-time captioning, meeting summarization, and multimodal audio-text workflows.</p>
+                        <p><strong>Introduced:</strong> Speech recognition has evolved from Hidden Markov Models (1970s&ndash;2000s) through deep learning approaches (2010s) to transformer-based systems like OpenAI Whisper (2022). Modern STT models accept text prompts that guide transcription behavior, specifying language, domain vocabulary, speaker labeling, and formatting. Earlier systems like CMU Sphinx and Google&rsquo;s DeepSpeech required extensive acoustic model training and offered no prompt-level control. The introduction of Whisper demonstrated that a single large-scale model trained on 680,000 hours of multilingual audio could match or exceed specialized systems, and critically, that a simple text prompt could steer its transcription behavior without retraining.</p>
+                        <p><strong>Modern LLM Status:</strong> STT prompting is now a <strong>core capability in production audio pipelines</strong> and continues to expand in sophistication. Whisper, AssemblyAI, Deepgram, and cloud provider APIs (Google Cloud Speech-to-Text, Azure Speech Services) all support prompt-guided transcription. The techniques covered here, vocabulary hints, speaker diarization directives, formatting instructions, and language specification, remain essential because even the best models produce inconsistent output without explicit guidance. Domain-specific terminology, proper nouns, and multi-speaker scenarios all benefit substantially from well-crafted transcription prompts. These foundations extend naturally into real-time captioning, meeting summarization, and multimodal audio-text workflows.</p>
                     </div>
                 </div>
             </div>
@@ -227,9 +227,9 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Control How Speech Becomes Text</h2>
-                        <p class="split-section__text">Speech-to-text prompting controls how spoken audio is converted into written text. Unlike traditional transcription systems that operate as black boxes, modern STT models accept text prompts that shape every aspect of the output &mdash; from vocabulary selection and punctuation style to speaker identification and timestamp granularity. The prompt acts as a configuration layer between raw audio and the final transcript.</p>
+                        <p class="split-section__text">Speech-to-text prompting controls how spoken audio is converted into written text. Unlike traditional transcription systems that operate as black boxes, modern STT models accept text prompts that shape every aspect of the output, from vocabulary selection and punctuation style to speaker identification and timestamp granularity. The prompt acts as a configuration layer between raw audio and the final transcript.</p>
                         <p class="split-section__text"><strong>The core insight is that a well-crafted prompt transforms raw transcription into structured, contextualized text with proper formatting, speaker attribution, and domain-specific vocabulary.</strong> Without prompting, a medical dictation might render &ldquo;epigastric&rdquo; as &ldquo;epic gastric&rdquo; and miss critical speaker transitions between physician and patient. With prompting, the same audio produces a properly formatted clinical note with correct terminology and labeled dialogue turns.</p>
-                        <p class="split-section__text">Think of it like briefing a court reporter before a trial versus dropping them into the courtroom cold. The briefed reporter knows the case names, the legal terminology that will arise, who the speakers are, and what format the transcript should take. The unbriefed reporter captures words but misses context. STT prompting is that briefing &mdash; it prepares the model to hear what matters and structure what it captures.</p>
+                        <p class="split-section__text">Think of it like briefing a court reporter before a trial versus dropping them into the courtroom cold. The briefed reporter knows the case names, the legal terminology that will arise, who the speakers are, and what format the transcript should take. The unbriefed reporter captures words but misses context. STT prompting is that briefing, it prepares the model to hear what matters and structure what it captures.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
@@ -257,7 +257,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Provide Audio Input</h3>
-                            <p class="element-timeline__text">Supply the audio file or stream that needs transcription. Audio quality directly impacts transcription accuracy &mdash; clean recordings with minimal background noise, consistent volume levels, and clear speech produce the best results. Supported formats typically include WAV, MP3, FLAC, M4A, and OGG. For longer recordings, consider whether the API supports chunked processing or requires the full file upfront, as this affects both latency and memory usage.</p>
+                            <p class="element-timeline__text">Supply the audio file or stream that needs transcription. Audio quality directly impacts transcription accuracy, clean recordings with minimal background noise, consistent volume levels, and clear speech produce the best results. Supported formats typically include WAV, MP3, FLAC, M4A, and OGG. For longer recordings, consider whether the API supports chunked processing or requires the full file upfront, as this affects both latency and memory usage.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Upload a 45-minute meeting recording in WAV format at 16kHz sample rate, ensuring all participants used dedicated microphones to minimize crosstalk and ambient noise.</p>
@@ -299,7 +299,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Post-Process Results</h3>
-                            <p class="element-timeline__text">Review and refine the transcription output. Even with optimal prompting, some corrections may be needed &mdash; particularly for overlapping speech, mumbled passages, or unusual proper nouns not included in the vocabulary hints. Use confidence scores (when available) to identify low-certainty segments that need human review. Chain the STT output into downstream tasks like summarization, action item extraction, or translation for maximum value from the transcription pipeline.</p>
+                            <p class="element-timeline__text">Review and refine the transcription output. Even with optimal prompting, some corrections may be needed, particularly for overlapping speech, mumbled passages, or unusual proper nouns not included in the vocabulary hints. Use confidence scores (when available) to identify low-certainty segments that need human review. Chain the STT output into downstream tasks like summarization, action item extraction, or translation for maximum value from the transcription pipeline.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Review segments with confidence below 0.85. Cross-reference medication names against the hospital formulary. Feed the verified transcript into the meeting summary generator with action items extraction enabled.&rdquo;</p>
@@ -438,7 +438,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>Legal depositions demand verbatim accuracy that differs fundamentally from other transcription contexts. The prompt specifies all participants and their roles (which enables correct attribution of overlapping exchanges), provides case-specific terminology and party names that would otherwise be garbled, and defines legal transcript formatting conventions. Critically, it requests verbatim transcription with pause markers rather than cleaned-up text &mdash; in legal contexts, hesitations and false starts can be material evidence. The section reference (4.2(b)) ensures alphanumeric designations are rendered correctly rather than interpreted as natural language.</p>
+                                    <p>Legal depositions demand verbatim accuracy that differs fundamentally from other transcription contexts. The prompt specifies all participants and their roles (which enables correct attribution of overlapping exchanges), provides case-specific terminology and party names that would otherwise be garbled, and defines legal transcript formatting conventions. Critically, it requests verbatim transcription with pause markers rather than cleaned-up text, in legal contexts, hesitations and false starts can be material evidence. The section reference (4.2(b)) ensures alphanumeric designations are rendered correctly rather than interpreted as natural language.</p>
                                 </div>
                             </div>
                         </div>
@@ -549,7 +549,7 @@
                                 </svg>
                                 <div>
                                     <strong>Extremely Noisy Environments</strong>
-                                    <p>When background noise overwhelms the speech signal &mdash; construction sites, concerts, or heavily degraded archival recordings &mdash; prompting cannot compensate for fundamentally unrecoverable audio quality.</p>
+                                    <p>When background noise overwhelms the speech signal, construction sites, concerts, or heavily degraded archival recordings, prompting cannot compensate for fundamentally unrecoverable audio quality.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -609,7 +609,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Podcast Production</h3>
-                        <p class="use-case-showcase__desc">Generating searchable transcripts, show notes, and chapter markers from podcast recordings &mdash; with host and guest labels, topic segmentation, and clean formatting suitable for publishing alongside audio episodes.</p>
+                        <p class="use-case-showcase__desc">Generating searchable transcripts, show notes, and chapter markers from podcast recordings, with host and guest labels, topic segmentation, and clean formatting suitable for publishing alongside audio episodes.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -621,7 +621,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Accessibility Captioning</h3>
-                        <p class="use-case-showcase__desc">Creating accurate closed captions and subtitles for video content, live events, and educational materials &mdash; ensuring deaf and hard-of-hearing audiences receive complete, correctly timed, and properly attributed text representations of spoken content.</p>
+                        <p class="use-case-showcase__desc">Creating accurate closed captions and subtitles for video content, live events, and educational materials, ensuring deaf and hard-of-hearing audiences receive complete, correctly timed, and properly attributed text representations of spoken content.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -683,7 +683,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Chain STT with Downstream Processing</div>
-                    <p>Speech-to-text prompting is most powerful when treated as the first stage of a multi-step pipeline. Feed your prompted transcription output into summarization frameworks to generate meeting minutes, chain it with translation models for multilingual workflows, or pipe it into structured extraction prompts to pull action items, decisions, and key quotes from lengthy recordings. The quality of every downstream step depends directly on the accuracy of the initial transcription &mdash; making STT prompting the critical foundation of any audio-to-insight workflow.</p>
+                    <p>Speech-to-text prompting is most powerful when treated as the first stage of a multi-step pipeline. Feed your prompted transcription output into summarization frameworks to generate meeting minutes, chain it with translation models for multilingual workflows, or pipe it into structured extraction prompts to pull action items, decisions, and key quotes from lengthy recordings. The quality of every downstream step depends directly on the accuracy of the initial transcription, making STT prompting the critical foundation of any audio-to-insight workflow.</p>
                 </div>
             </div>
         </section>
@@ -704,7 +704,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Audio Prompting Basics</span>
-                        <span class="evolution-callout__desc">The foundational framework for working with audio inputs in AI models &mdash; covering general principles of audio understanding, analysis, and prompt construction that underpin all specialized audio techniques including STT.</span>
+                        <span class="evolution-callout__desc">The foundational framework for working with audio inputs in AI models, covering general principles of audio understanding, analysis, and prompt construction that underpin all specialized audio techniques including STT.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -725,7 +725,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Inverse</span>
                         <span class="evolution-callout__title">Text-to-Speech Prompting</span>
-                        <span class="evolution-callout__desc">The mirror discipline &mdash; crafting prompts that control how text is converted into spoken audio, including voice selection, prosody, pacing, and emotional tone. Understanding both directions deepens command of the speech-text boundary.</span>
+                        <span class="evolution-callout__desc">The mirror discipline, crafting prompts that control how text is converted into spoken audio, including voice selection, prosody, pacing, and emotional tone. Understanding both directions deepens command of the speech-text boundary.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -746,7 +746,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Audio Classification</span>
-                        <span class="evolution-callout__desc">Focuses on categorizing and labeling audio content by type, emotion, speaker identity, or event &mdash; a natural preprocessing step that can inform STT prompts by identifying the audio domain and speaker characteristics before transcription begins.</span>
+                        <span class="evolution-callout__desc">Focuses on categorizing and labeling audio content by type, emotion, speaker identity, or event, a natural preprocessing step that can inform STT prompts by identifying the audio domain and speaker characteristics before transcription begins.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -823,7 +823,7 @@
 
             <div class="footer-bottom">
                 <p>AI for Everyone</p>
-                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
             </div>
 
             <div class="footer-policies">

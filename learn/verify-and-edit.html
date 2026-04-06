@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Self-Correction Technique</span>
                 </div>
                 <h1 class="page-title fade-in">Verify-and-Edit Prompting</h1>
-                <p class="page-subtitle fade-in">First drafts are rarely perfect &mdash; even for AI reasoning. Verify-and-Edit adds a structured quality check: after generating a chain-of-thought answer, the model systematically verifies each reasoning step, identifies errors or unsupported claims, and edits the chain to fix them before producing a corrected final answer.</p>
+                <p class="page-subtitle fade-in">First drafts are rarely perfect, even for AI reasoning. Verify-and-Edit adds a structured quality check: after generating a chain-of-thought answer, the model systematically verifies each reasoning step, identifies errors or unsupported claims, and edits the chain to fix them before producing a corrected final answer.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -201,7 +201,7 @@
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
                         <p><strong>Introduced:</strong> Verify-and-Edit was introduced in 2023 by Zhao et al., addressing a common problem with Chain-of-Thought: models generate plausible-sounding but sometimes incorrect reasoning chains, and the final answer inherits these errors. Verify-and-Edit adds a post-generation verification phase where external knowledge (retrieved passages, databases) is used to fact-check each step. Incorrect steps are edited, and the reasoning chain is re-executed with corrections, producing more reliable final answers.</p>
-                        <p><strong>Modern LLM Status:</strong> The verify-then-correct pattern has become a <strong>standard component in production AI systems</strong>. Modern models (Claude, GPT-4) are increasingly built with internal verification capabilities, but explicit Verify-and-Edit prompting remains valuable for high-stakes applications where every reasoning step must be defensible. The technique integrates naturally with RAG systems where retrieved passages provide the verification ground truth.</p>
+                        <p><strong>Modern LLM Status:</strong> The verify-then-correct pattern has become a <strong>standard component in production AI systems</strong>. Modern models (Claude, ChatGPT) are increasingly built with internal verification capabilities, but explicit Verify-and-Edit prompting remains valuable for high-stakes applications where every reasoning step must be defensible. The technique integrates naturally with RAG systems where retrieved passages provide the verification ground truth.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Generate First, Then Verify and Fix</h2>
-                        <p class="split-section__text">Chain-of-Thought generates reasoning in a forward pass &mdash; once a step is written, the model builds on it regardless of whether it&rsquo;s correct. Verify-and-Edit breaks this by adding a backward verification pass. After the initial chain is generated, each step is checked against external knowledge or internal consistency. Steps that contain errors are flagged and edited. The corrected chain then produces a more reliable final answer.</p>
-                        <p class="split-section__text"><strong>It&rsquo;s like writing a first draft, then proofreading and editing before submission.</strong> The generation phase prioritizes coverage and flow. The verification phase prioritizes accuracy. By separating these objectives, each can be optimized independently &mdash; generation for completeness, verification for correctness.</p>
+                        <p class="split-section__text">Chain-of-Thought generates reasoning in a forward pass, once a step is written, the model builds on it regardless of whether it&rsquo;s correct. Verify-and-Edit breaks this by adding a backward verification pass. After the initial chain is generated, each step is checked against external knowledge or internal consistency. Steps that contain errors are flagged and edited. The corrected chain then produces a more reliable final answer.</p>
+                        <p class="split-section__text"><strong>It&rsquo;s like writing a first draft, then proofreading and editing before submission.</strong> The generation phase prioritizes coverage and flow. The verification phase prioritizes accuracy. By separating these objectives, each can be optimized independently, generation for completeness, verification for correctness.</p>
                         <p class="split-section__text">Think of it as a two-pass compiler for reasoning: the first pass produces the chain, the second pass catches and fixes the bugs before the final output is compiled.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Post-Generation Verification Catches What Generation Misses</span>
-                                <p>During generation, models are optimizing for fluency and coherence &mdash; making each step sound reasonable given the previous one. This forward pressure can propagate errors. Verification operates independently, checking each step against ground truth rather than narrative flow. Different objectives catch different types of errors.</p>
+                                <p>During generation, models are optimizing for fluency and coherence, making each step sound reasonable given the previous one. This forward pressure can propagate errors. Verification operates independently, checking each step against ground truth rather than narrative flow. Different objectives catch different types of errors.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Generate Initial Chain-of-Thought</h3>
-                            <p class="element-timeline__text">Produce a complete chain-of-thought reasoning chain and initial answer using standard CoT prompting. This first pass prioritizes coverage and logical flow &mdash; getting a complete reasoning chain down before worrying about accuracy.</p>
+                            <p class="element-timeline__text">Produce a complete chain-of-thought reasoning chain and initial answer using standard CoT prompting. This first pass prioritizes coverage and logical flow, getting a complete reasoning chain down before worrying about accuracy.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;A patient presents with fatigue, weight gain, and cold intolerance. Step 1: These symptoms suggest thyroid dysfunction. Step 2: Weight gain and cold intolerance point to hypothyroidism. Step 3: The most common cause is Hashimoto&rsquo;s thyroiditis. Diagnosis: Hashimoto&rsquo;s thyroiditis.&rdquo;</p>
@@ -259,10 +259,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Step-by-Step Verification</h3>
-                            <p class="element-timeline__text">Check each reasoning step against external knowledge sources or internal consistency. This is the critical differentiator &mdash; rather than trusting the chain as-is, each step is independently evaluated for accuracy. Retrieved passages, databases, or domain knowledge serve as the verification ground truth.</p>
+                            <p class="element-timeline__text">Check each reasoning step against external knowledge sources or internal consistency. This is the critical differentiator, rather than trusting the chain as-is, each step is independently evaluated for accuracy. Retrieved passages, databases, or domain knowledge serve as the verification ground truth.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Verify Step 1: Do fatigue, weight gain, and cold intolerance suggest thyroid dysfunction? Clinical guidelines confirm these are classic hypothyroid symptoms. VERIFIED. Verify Step 2: Does this combination specifically point to hypothyroidism vs. hyperthyroidism? Yes &mdash; hyperthyroidism causes weight loss and heat intolerance. VERIFIED.&rdquo;</p>
+                                <p>&ldquo;Verify Step 1: Do fatigue, weight gain, and cold intolerance suggest thyroid dysfunction? Clinical guidelines confirm these are classic hypothyroid symptoms. VERIFIED. Verify Step 2: Does this combination specifically point to hypothyroidism vs. hyperthyroidism? Yes, hyperthyroidism causes weight loss and heat intolerance. VERIFIED.&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -276,7 +276,7 @@
                             <p class="element-timeline__text">Flag steps that contain factual errors, logical fallacies, or unsupported claims. The verification pass may reveal that a step relied on an incorrect assumption, cited a wrong fact, or made an unjustified logical leap. Each flagged step is documented with the specific error found.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Verify Step 3: Is Hashimoto&rsquo;s thyroiditis the most common cause of hypothyroidism? In iodine-sufficient countries, yes. But the prompt didn&rsquo;t specify location &mdash; worldwide, iodine deficiency is the leading cause. FLAG: Step 3 makes an unsupported geographic assumption.&rdquo;</p>
+                                <p>&ldquo;Verify Step 3: Is Hashimoto&rsquo;s thyroiditis the most common cause of hypothyroidism? In iodine-sufficient countries, yes. But the prompt didn&rsquo;t specify location, worldwide, iodine deficiency is the leading cause. FLAG: Step 3 makes an unsupported geographic assumption.&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -287,7 +287,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Edit and Correct</h3>
-                            <p class="element-timeline__text">Revise flagged steps with corrected information, then re-derive any downstream steps affected by the correction. This is where the &ldquo;edit&rdquo; in Verify-and-Edit happens &mdash; the chain is surgically repaired rather than regenerated from scratch, preserving the valid reasoning while fixing the errors.</p>
+                            <p class="element-timeline__text">Revise flagged steps with corrected information, then re-derive any downstream steps affected by the correction. This is where the &ldquo;edit&rdquo; in Verify-and-Edit happens, the chain is surgically repaired rather than regenerated from scratch, preserving the valid reasoning while fixing the errors.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Edit Step 3: The most common cause depends on geographic context. In iodine-sufficient regions, Hashimoto&rsquo;s thyroiditis is the leading cause. Globally, iodine deficiency remains the most common cause. Without location data, both should be considered.&rdquo;</p>
@@ -345,7 +345,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Error in Step 2 propagates &mdash; (50-45)/45 = 11.1%, but Q1 data is missing from the annual projection</span>
+                            <span>Error in Step 2 propagates, (50-45)/45 = 11.1%, but Q1 data is missing from the annual projection</span>
                         </div>
                     </div>
 
@@ -365,7 +365,7 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Verified Reasoning</span>
-                                <p><strong>Step 1:</strong> $50M Q3 revenue. VERIFIED against reported data.<br><strong>Step 2:</strong> Growth = (50-45)/45 = 11.1%. VERIFIED.<br><strong>Step 3:</strong> Q4 projection at 11.1% = $55.6M. VERIFIED math.<br><strong>Step 4:</strong> Annual projection requires Q1 data. FLAG: Q1 revenue not provided &mdash; cannot compute annual total from 3 quarters alone.<br><strong>Edit:</strong> Q2+Q3+projected Q4 = $150.6M for three quarters. Annual projection requires Q1 data or assumption.</p>
+                                <p><strong>Step 1:</strong> $50M Q3 revenue. VERIFIED against reported data.<br><strong>Step 2:</strong> Growth = (50-45)/45 = 11.1%. VERIFIED.<br><strong>Step 3:</strong> Q4 projection at 11.1% = $55.6M. VERIFIED math.<br><strong>Step 4:</strong> Annual projection requires Q1 data. FLAG: Q1 revenue not provided, cannot compute annual total from 3 quarters alone.<br><strong>Edit:</strong> Q2+Q3+projected Q4 = $150.6M for three quarters. Annual projection requires Q1 data or assumption.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Final Answer</span>
@@ -422,10 +422,10 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Verification and Edit</span>
                                     <p><strong>Verify Step 1:</strong> Chest pain radiating to left arm + dyspnea + diaphoresis = classic MI presentation. VERIFIED against clinical guidelines.<br><br>
-                                    <strong>Verify Step 2:</strong> Aspirin 325mg as first-line. Current guidelines (AHA/ACC) recommend 162-325mg chewed, not swallowed. PARTIAL &mdash; dose range correct but administration route matters.<br><br>
+                                    <strong>Verify Step 2:</strong> Aspirin 325mg as first-line. Current guidelines (AHA/ACC) recommend 162-325mg chewed, not swallowed. PARTIAL, dose range correct but administration route matters.<br><br>
                                     <strong>Verify Step 3:</strong> Nitroglycerin sublingual. VERIFIED, but must first rule out right ventricular infarction and check if patient has taken PDE5 inhibitors (sildenafil, etc.) within 24-48 hours. FLAG: Missing contraindication check.<br><br>
                                     <strong>Verify Step 4:</strong> Morphine IV for persistent pain. FLAG: Current evidence suggests morphine may increase mortality in NSTEMI. AHA downgraded this recommendation. Should note this caveat.<br><br>
-                                    <strong>Edited Final Answer:</strong> Acute MI suspected. Treatment: (1) Aspirin 162-325mg chewed immediately. (2) Nitroglycerin sublingual AFTER ruling out RV infarction and PDE5 inhibitor use. (3) Morphine IV only if pain persists and benefits outweigh risks &mdash; note current evidence questioning routine morphine use. Always verify treatment decisions with current clinical guidelines.</p>
+                                    <strong>Edited Final Answer:</strong> Acute MI suspected. Treatment: (1) Aspirin 162-325mg chewed immediately. (2) Nitroglycerin sublingual AFTER ruling out RV infarction and PDE5 inhibitor use. (3) Morphine IV only if pain persists and benefits outweigh risks, note current evidence questioning routine morphine use. Always verify treatment decisions with current clinical guidelines.</p>
                                 </div>
                             </div>
                         </div>
@@ -466,9 +466,9 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Verification and Edit</span>
-                                    <p><strong>Verify Step 1:</strong> &ldquo;Generally enforceable in the US&rdquo; &mdash; FLAG: This is an overgeneralization. Several states have banned or severely restricted non-competes. California, Minnesota, North Dakota, and Oklahoma prohibit most non-competes entirely. The FTC proposed a nationwide ban (though enforcement status varies).<br><br>
+                                    <p><strong>Verify Step 1:</strong> &ldquo;Generally enforceable in the US&rdquo;, FLAG: This is an overgeneralization. Several states have banned or severely restricted non-competes. California, Minnesota, North Dakota, and Oklahoma prohibit most non-competes entirely. The FTC proposed a nationwide ban (though enforcement status varies).<br><br>
                                     <strong>Verify Step 2:</strong> Reasonableness test (scope, duration, geography). VERIFIED as the standard test in states that do allow non-competes.<br><br>
-                                    <strong>Verify Step 3:</strong> &ldquo;Most states enforce them&rdquo; &mdash; PARTIAL. While many states allow non-competes, there is a growing trend of restriction. Several states limit them by income threshold or job type.<br><br>
+                                    <strong>Verify Step 3:</strong> &ldquo;Most states enforce them&rdquo;, PARTIAL. While many states allow non-competes, there is a growing trend of restriction. Several states limit them by income threshold or job type.<br><br>
                                     <strong>Edited Final Answer:</strong> The enforceability of non-compete agreements varies significantly by jurisdiction. Several states (California, Minnesota, North Dakota, Oklahoma) prohibit them outright. States that allow non-competes generally require they be reasonable in scope, duration, and geography, and protect legitimate business interests. Recent legislative trends favor restriction. Employers should consult jurisdiction-specific legal counsel before requiring non-competes. Always verify AI-generated legal analysis with qualified legal professionals.</p>
                                 </div>
                             </div>
@@ -496,7 +496,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Stakes Reasoning Requiring Accuracy</strong>
-                                    <p>Medical, legal, and financial analyses where an error in any reasoning step could lead to serious consequences &mdash; verification ensures every step is defensible.</p>
+                                    <p>Medical, legal, and financial analyses where an error in any reasoning step could lead to serious consequences, verification ensures every step is defensible.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -506,7 +506,7 @@
                                 </svg>
                                 <div>
                                     <strong>RAG Systems with Verification Sources</strong>
-                                    <p>When retrieved passages or databases provide ground truth for fact-checking each reasoning step &mdash; the verification phase has concrete evidence to check against.</p>
+                                    <p>When retrieved passages or databases provide ground truth for fact-checking each reasoning step, the verification phase has concrete evidence to check against.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -516,7 +516,7 @@
                                 </svg>
                                 <div>
                                     <strong>Multi-Step Calculations Prone to Error</strong>
-                                    <p>Complex arithmetic, financial modeling, or engineering calculations where errors propagate through downstream steps &mdash; verification catches them before they compound.</p>
+                                    <p>Complex arithmetic, financial modeling, or engineering calculations where errors propagate through downstream steps, verification catches them before they compound.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -541,7 +541,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative Tasks Where Correctness Isn&rsquo;t the Goal</strong>
-                                    <p>Writing fiction, brainstorming ideas, or generating creative content &mdash; there&rsquo;s nothing to &ldquo;verify&rdquo; against ground truth.</p>
+                                    <p>Writing fiction, brainstorming ideas, or generating creative content, there&rsquo;s nothing to &ldquo;verify&rdquo; against ground truth.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -551,7 +551,7 @@
                                 </svg>
                                 <div>
                                     <strong>Time-Critical Responses</strong>
-                                    <p>When speed matters more than thoroughness &mdash; the verification pass adds latency and token usage that may not be justified for low-stakes queries.</p>
+                                    <p>When speed matters more than thoroughness, the verification pass adds latency and token usage that may not be justified for low-stakes queries.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -561,7 +561,7 @@
                                 </svg>
                                 <div>
                                     <strong>When No Verification Source Is Available</strong>
-                                    <p>If there is no external knowledge base, database, or reliable source to check reasoning steps against, verification becomes the model checking itself &mdash; limiting its error-catching ability.</p>
+                                    <p>If there is no external knowledge base, database, or reliable source to check reasoning steps against, verification becomes the model checking itself, limiting its error-catching ability.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -714,7 +714,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Self-Refine</span>
-                        <span class="evolution-callout__desc">Iterative self-critique and revision &mdash; Self-Refine uses the model&rsquo;s own feedback, while Verify-and-Edit uses external knowledge for verification.</span>
+                        <span class="evolution-callout__desc">Iterative self-critique and revision, Self-Refine uses the model&rsquo;s own feedback, while Verify-and-Edit uses external knowledge for verification.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -732,7 +732,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Related</span>
                         <span class="evolution-callout__title">Chain-of-Verification</span>
-                        <span class="evolution-callout__desc">Generates verification questions from the output and answers them independently &mdash; a structured verification protocol that complements Verify-and-Edit&rsquo;s step-level checking.</span>
+                        <span class="evolution-callout__desc">Generates verification questions from the output and answers them independently, a structured verification protocol that complements Verify-and-Edit&rsquo;s step-level checking.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -753,7 +753,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">CRITIC</span>
-                        <span class="evolution-callout__desc">Uses external tools (search engines, calculators, code interpreters) for verification &mdash; extending Verify-and-Edit&rsquo;s concept with automated tool-based fact-checking.</span>
+                        <span class="evolution-callout__desc">Uses external tools (search engines, calculators, code interpreters) for verification, extending Verify-and-Edit&rsquo;s concept with automated tool-based fact-checking.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -830,7 +830,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

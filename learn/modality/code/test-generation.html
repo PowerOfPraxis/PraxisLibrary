@@ -212,8 +212,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022&ndash;2024</span>
-                        <p><strong>Introduced:</strong> Automated test generation has roots stretching back decades &mdash; property-based testing tools like QuickCheck (1999) and mutation testing frameworks explored machine-generated test cases long before large language models entered the picture. The modern era of AI-driven test generation began in earnest with OpenAI&rsquo;s Codex (2021) and GitHub Copilot (2022), which demonstrated that language models trained on vast code repositories could produce syntactically correct and contextually relevant test cases from natural language descriptions or existing source code. By 2023&ndash;2024, frontier models like GPT-4, Claude, and Gemini had advanced to the point where they could generate entire test suites with meaningful assertions, mock complex dependencies, identify boundary conditions, and reason about expected behavior from function signatures and docstrings alone.</p>
-                        <p><strong>Modern LLM Status:</strong> AI-driven test generation is <strong>one of the most practical and widely adopted code-generation use cases</strong> in production software development. Modern models excel at scaffolding unit tests from function implementations, generating integration test outlines from API specifications, and identifying edge cases that human developers frequently overlook. However, the quality of generated tests depends critically on prompt structure &mdash; without explicit guidance on testing strategy, coverage expectations, and the specific behaviors to validate, models default to shallow &ldquo;happy path&rdquo; tests that confirm obvious functionality while missing the boundary conditions, error states, and interaction effects where real bugs hide. The techniques covered here transform vague test requests into structured prompts that produce production-ready test suites.</p>
+                        <p><strong>Introduced:</strong> Automated test generation has roots stretching back decades, property-based testing tools like QuickCheck (1999) and mutation testing frameworks explored machine-generated test cases long before large language models entered the picture. The modern era of AI-driven test generation began in earnest with OpenAI&rsquo;s Codex (2021) and GitHub Copilot (2022), which demonstrated that language models trained on vast code repositories could produce syntactically correct and contextually relevant test cases from natural language descriptions or existing source code. By 2023&ndash;2024, frontier models like ChatGPT, Claude, and Gemini had advanced to the point where they could generate entire test suites with meaningful assertions, mock complex dependencies, identify boundary conditions, and reason about expected behavior from function signatures and docstrings alone.</p>
+                        <p><strong>Modern LLM Status:</strong> AI-driven test generation is <strong>one of the most practical and widely adopted code-generation use cases</strong> in production software development. Modern models excel at scaffolding unit tests from function implementations, generating integration test outlines from API specifications, and identifying edge cases that human developers frequently overlook. However, the quality of generated tests depends critically on prompt structure, without explicit guidance on testing strategy, coverage expectations, and the specific behaviors to validate, models default to shallow &ldquo;happy path&rdquo; tests that confirm obvious functionality while missing the boundary conditions, error states, and interaction effects where real bugs hide. The techniques covered here transform vague test requests into structured prompts that produce production-ready test suites.</p>
                     </div>
                 </div>
             </div>
@@ -227,15 +227,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Specify Code, Strategy, and Coverage</h2>
-                        <p class="split-section__text">Test generation prompting is the practice of guiding AI models to produce comprehensive, meaningful test suites by providing structured context about the code under test, the testing approach to follow, and the coverage expectations to meet. Unlike asking a model to simply &ldquo;write tests,&rdquo; effective test generation requires bridging three critical information channels &mdash; telling the model exactly what <strong>code to test</strong>, which <strong>testing strategy</strong> to apply, and what <strong>coverage expectations</strong> define success.</p>
+                        <p class="split-section__text">Test generation prompting is the practice of guiding AI models to produce comprehensive, meaningful test suites by providing structured context about the code under test, the testing approach to follow, and the coverage expectations to meet. Unlike asking a model to simply &ldquo;write tests,&rdquo; effective test generation requires bridging three critical information channels, telling the model exactly what <strong>code to test</strong>, which <strong>testing strategy</strong> to apply, and what <strong>coverage expectations</strong> define success.</p>
                         <p class="split-section__text"><strong>The core insight is that effective test generation requires explicitly specifying the CODE UNDER TEST, the TESTING STRATEGY, and the COVERAGE EXPECTATIONS.</strong> A bare request like &ldquo;write tests for this function&rdquo; produces a handful of trivial assertions that verify the most obvious behavior. But when you define the testing framework, specify which categories of inputs to exercise (valid, invalid, boundary, null, concurrent), declare the assertion style, and set explicit coverage targets, the model shifts from generating token tests to producing a rigorous validation suite that catches real defects.</p>
-                        <p class="split-section__text">Think of it like the difference between asking a new team member to &ldquo;add some tests&rdquo; versus handing them a testing plan that specifies the module boundaries, the critical paths to validate, the error conditions to simulate, the mocking strategy for external dependencies, and the minimum branch coverage threshold. The testing plan produces a dramatically more thorough and useful test suite &mdash; and the same principle applies when prompting an AI model.</p>
+                        <p class="split-section__text">Think of it like the difference between asking a new team member to &ldquo;add some tests&rdquo; versus handing them a testing plan that specifies the module boundaries, the critical paths to validate, the error conditions to simulate, the mocking strategy for external dependencies, and the minimum branch coverage threshold. The testing plan produces a dramatically more thorough and useful test suite, and the same principle applies when prompting an AI model.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Test Strategy Transforms Generated Output</span>
-                                <p>When a model receives code without a testing strategy, it defaults to the most superficial validation possible &mdash; calling the function with one or two obvious inputs and asserting the expected return value. Structured test generation prompts redirect this behavior by defining the <strong>testing methodology</strong> the model should apply: which testing framework and assertion library to use, whether to organize tests by behavior or by method, how to handle setup and teardown, which dependency injection or mocking patterns to follow, what categories of edge cases to cover (empty inputs, maximum values, type coercion, concurrent access, null references), and whether to include performance benchmarks or property-based tests. The difference between three shallow assertions and a comprehensive forty-test suite with boundary analysis, error handling verification, and mock-based integration coverage comes down entirely to the specificity of the testing prompt.</p>
+                                <p>When a model receives code without a testing strategy, it defaults to the most superficial validation possible, calling the function with one or two obvious inputs and asserting the expected return value. Structured test generation prompts redirect this behavior by defining the <strong>testing methodology</strong> the model should apply: which testing framework and assertion library to use, whether to organize tests by behavior or by method, how to handle setup and teardown, which dependency injection or mocking patterns to follow, what categories of edge cases to cover (empty inputs, maximum values, type coercion, concurrent access, null references), and whether to include performance benchmarks or property-based tests. The difference between three shallow assertions and a comprehensive forty-test suite with boundary analysis, error handling verification, and mock-based integration coverage comes down entirely to the specificity of the testing prompt.</p>
                             </div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Provide the Code Under Test</h3>
-                            <p class="element-timeline__text">Supply the model with the complete source code, function signatures, class definitions, or API specifications that need test coverage. Include type annotations, docstrings, and interface contracts whenever available &mdash; these give the model essential information about expected inputs, outputs, preconditions, and postconditions. The more context the model has about what the code is supposed to do, the more meaningful its generated assertions will be. For large modules, focus the prompt on specific functions or classes rather than dumping an entire codebase.</p>
+                            <p class="element-timeline__text">Supply the model with the complete source code, function signatures, class definitions, or API specifications that need test coverage. Include type annotations, docstrings, and interface contracts whenever available, these give the model essential information about expected inputs, outputs, preconditions, and postconditions. The more context the model has about what the code is supposed to do, the more meaningful its generated assertions will be. For large modules, focus the prompt on specific functions or classes rather than dumping an entire codebase.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Provide a complete function implementation including its type signature, parameter validation logic, return type, and any exceptions it may raise, along with a brief description of the business rule it implements.</p>
@@ -271,7 +271,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Define Testing Strategy</h3>
-                            <p class="element-timeline__text">Specify the testing framework, assertion style, test organization pattern, and overall testing philosophy. Tell the model whether you want unit tests that isolate individual functions, integration tests that verify component interactions, or end-to-end tests that validate complete workflows. Define the mocking strategy for external dependencies &mdash; should the model use dependency injection, mock libraries, or test doubles? Specify whether tests should follow Arrange-Act-Assert, Given-When-Then, or another structural pattern. This framing determines whether the output is a loose collection of assertions or a well-structured test suite.</p>
+                            <p class="element-timeline__text">Specify the testing framework, assertion style, test organization pattern, and overall testing philosophy. Tell the model whether you want unit tests that isolate individual functions, integration tests that verify component interactions, or end-to-end tests that validate complete workflows. Define the mocking strategy for external dependencies, should the model use dependency injection, mock libraries, or test doubles? Specify whether tests should follow Arrange-Act-Assert, Given-When-Then, or another structural pattern. This framing determines whether the output is a loose collection of assertions or a well-structured test suite.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Write unit tests using pytest with the Arrange-Act-Assert pattern. Mock all database calls using unittest.mock.patch. Group tests into classes by the method being tested. Use descriptive test names that state the scenario and expected outcome.&rdquo;</p>
@@ -299,7 +299,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Iterate on Edge Cases</h3>
-                            <p class="element-timeline__text">Review the generated test suite and use follow-up prompts to fill coverage gaps, add missing edge cases, or refine test logic. Ask the model to identify which branches of the code remain untested, suggest additional boundary conditions it did not initially consider, or generate property-based tests that explore the input space more exhaustively. Iterative refinement is particularly valuable for complex business logic where domain-specific edge cases are not obvious from the code alone &mdash; you can describe failure scenarios from production and ask the model to generate regression tests that would have caught them.</p>
+                            <p class="element-timeline__text">Review the generated test suite and use follow-up prompts to fill coverage gaps, add missing edge cases, or refine test logic. Ask the model to identify which branches of the code remain untested, suggest additional boundary conditions it did not initially consider, or generate property-based tests that explore the input space more exhaustively. Iterative refinement is particularly valuable for complex business logic where domain-specific edge cases are not obvious from the code alone, you can describe failure scenarios from production and ask the model to generate regression tests that would have caught them.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Review the test suite you generated. Identify any code branches in the original function that are not exercised by the current tests. For each uncovered branch, generate a test case with a descriptive name explaining what scenario triggers that branch.&rdquo;</p>
@@ -419,7 +419,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>This prompt succeeds because it maps each method to specific failure modes and edge conditions rather than leaving the model to guess what matters. By naming the exact scenarios &mdash; lockout after 5 failures, duplicate email handling, deactivation of inactive accounts &mdash; the prompt ensures the generated suite validates real business rules, not just interface contracts. The mocking instruction prevents the model from generating tests that depend on a real database, and the naming convention requirement produces self-documenting test output that serves as living documentation of expected behavior.</p>
+                                    <p>This prompt succeeds because it maps each method to specific failure modes and edge conditions rather than leaving the model to guess what matters. By naming the exact scenarios, lockout after 5 failures, duplicate email handling, deactivation of inactive accounts, the prompt ensures the generated suite validates real business rules, not just interface contracts. The mocking instruction prevents the model from generating tests that depend on a real database, and the naming convention requirement produces self-documenting test output that serves as living documentation of expected behavior.</p>
                                 </div>
                             </div>
                         </div>
@@ -438,7 +438,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>This prompt targets the integration boundaries where bugs actually live &mdash; the handoff points between services where state must remain consistent across distributed operations. By specifying the exact workflow sequence and naming failure scenarios at each transition point (payment failure after reservation, concurrent access, network timeout), the prompt forces the model to generate tests that verify compensating transactions, rollback behavior, and eventual consistency rather than simply confirming that each service works in isolation. The instruction to verify final state across all three services prevents shallow pass-through tests.</p>
+                                    <p>This prompt targets the integration boundaries where bugs actually live, the handoff points between services where state must remain consistent across distributed operations. By specifying the exact workflow sequence and naming failure scenarios at each transition point (payment failure after reservation, concurrent access, network timeout), the prompt forces the model to generate tests that verify compensating transactions, rollback behavior, and eventual consistency rather than simply confirming that each service works in isolation. The instruction to verify final state across all three services prevents shallow pass-through tests.</p>
                                 </div>
                             </div>
                         </div>
@@ -457,7 +457,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>This prompt uses a two-phase approach &mdash; first asking the model to enumerate edge case categories before generating tests for each one &mdash; which activates the model&rsquo;s reasoning about the complete input space before committing to specific test cases. The explicit category list prevents the model from fixating on one type of edge case while ignoring others. The property-based testing requirement with Hypothesis adds a generative testing layer that explores input combinations no human would enumerate manually, catching subtle invariant violations that specific example-based tests would miss.</p>
+                                    <p>This prompt uses a two-phase approach, first asking the model to enumerate edge case categories before generating tests for each one, which activates the model&rsquo;s reasoning about the complete input space before committing to specific test cases. The explicit category list prevents the model from fixating on one type of edge case while ignoring others. The property-based testing requirement with Hypothesis adds a generative testing layer that explores input combinations no human would enumerate manually, catching subtle invariant violations that specific example-based tests would miss.</p>
                                 </div>
                             </div>
                         </div>
@@ -484,7 +484,7 @@
                                 </svg>
                                 <div>
                                     <strong>Scaffolding Test Suites for Existing Code</strong>
-                                    <p>Generating comprehensive test coverage for legacy code or newly written modules that lack tests &mdash; rapidly producing unit test scaffolds that cover the primary execution paths, error handling, and boundary conditions.</p>
+                                    <p>Generating comprehensive test coverage for legacy code or newly written modules that lack tests, rapidly producing unit test scaffolds that cover the primary execution paths, error handling, and boundary conditions.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -494,7 +494,7 @@
                                 </svg>
                                 <div>
                                     <strong>Edge Case Discovery</strong>
-                                    <p>Identifying and testing boundary conditions, unusual input combinations, and failure modes that developers commonly overlook &mdash; especially for complex business logic involving dates, currencies, permissions, or state machines.</p>
+                                    <p>Identifying and testing boundary conditions, unusual input combinations, and failure modes that developers commonly overlook, especially for complex business logic involving dates, currencies, permissions, or state machines.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -504,7 +504,7 @@
                                 </svg>
                                 <div>
                                     <strong>Test-Driven Development Workflows</strong>
-                                    <p>Writing test cases before implementation by describing the desired behavior, expected inputs and outputs, and error conditions &mdash; letting the model produce the test harness that the implementation must satisfy.</p>
+                                    <p>Writing test cases before implementation by describing the desired behavior, expected inputs and outputs, and error conditions, letting the model produce the test harness that the implementation must satisfy.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -514,7 +514,7 @@
                                 </svg>
                                 <div>
                                     <strong>Regression Test Creation</strong>
-                                    <p>Generating targeted regression tests after bug fixes to ensure the specific failure scenario never recurs &mdash; including variations of the original bug that might trigger similar defects in related code paths.</p>
+                                    <p>Generating targeted regression tests after bug fixes to ensure the specific failure scenario never recurs, including variations of the original bug that might trigger similar defects in related code paths.</p>
                                 </div>
                             </div>
                         </div>
@@ -529,7 +529,7 @@
                                 </svg>
                                 <div>
                                     <strong>Highly Domain-Specific Validation</strong>
-                                    <p>When tests require deep domain knowledge that cannot be conveyed in a prompt &mdash; such as regulatory compliance rules, proprietary algorithm validation, or industry-specific safety standards that demand expert-written test specifications.</p>
+                                    <p>When tests require deep domain knowledge that cannot be conveyed in a prompt, such as regulatory compliance rules, proprietary algorithm validation, or industry-specific safety standards that demand expert-written test specifications.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -584,7 +584,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Unit Test Scaffolding</h3>
-                        <p class="use-case-showcase__desc">Rapidly generating unit test skeletons for functions, methods, and classes &mdash; covering typical inputs, return value assertions, exception handling, and state mutations with properly structured setup and teardown for each test case.</p>
+                        <p class="use-case-showcase__desc">Rapidly generating unit test skeletons for functions, methods, and classes, covering typical inputs, return value assertions, exception handling, and state mutations with properly structured setup and teardown for each test case.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -597,7 +597,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Regression Test Creation</h3>
-                        <p class="use-case-showcase__desc">Building targeted test cases from bug reports and production incidents &mdash; reproducing the exact failure scenario, adding variations that exercise the same code path, and ensuring the fix holds against similar edge conditions.</p>
+                        <p class="use-case-showcase__desc">Building targeted test cases from bug reports and production incidents, reproducing the exact failure scenario, adding variations that exercise the same code path, and ensuring the fix holds against similar edge conditions.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -610,7 +610,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">API Endpoint Testing</h3>
-                        <p class="use-case-showcase__desc">Generating test suites for REST and GraphQL API endpoints &mdash; covering request validation, authentication and authorization flows, response schema verification, status code correctness, pagination behavior, and rate limiting enforcement.</p>
+                        <p class="use-case-showcase__desc">Generating test suites for REST and GraphQL API endpoints, covering request validation, authentication and authorization flows, response schema verification, status code correctness, pagination behavior, and rate limiting enforcement.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -620,7 +620,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Data Validation Testing</h3>
-                        <p class="use-case-showcase__desc">Creating test cases for input validation logic &mdash; verifying that data sanitization, type checking, format validation, range constraints, and business rule enforcement all reject invalid inputs correctly while accepting all valid variations.</p>
+                        <p class="use-case-showcase__desc">Creating test cases for input validation logic, verifying that data sanitization, type checking, format validation, range constraints, and business rule enforcement all reject invalid inputs correctly while accepting all valid variations.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -631,7 +631,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Error Handling Verification</h3>
-                        <p class="use-case-showcase__desc">Systematically testing exception handling, error recovery, graceful degradation, and fallback behavior &mdash; ensuring that every anticipated failure mode produces the correct error message, status code, logging output, and cleanup action.</p>
+                        <p class="use-case-showcase__desc">Systematically testing exception handling, error recovery, graceful degradation, and fallback behavior, ensuring that every anticipated failure mode produces the correct error message, status code, logging output, and cleanup action.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -641,7 +641,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Performance Benchmark Tests</h3>
-                        <p class="use-case-showcase__desc">Generating test cases that measure execution time, memory usage, and throughput for critical code paths &mdash; establishing performance baselines and detecting regressions when function response times exceed acceptable thresholds under standard load.</p>
+                        <p class="use-case-showcase__desc">Generating test cases that measure execution time, memory usage, and throughput for critical code paths, establishing performance baselines and detecting regressions when function response times exceed acceptable thresholds under standard load.</p>
                     </div>
                 </div>
             </div>
@@ -700,7 +700,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Code Prompting</span>
-                        <span class="evolution-callout__desc">The foundational techniques for guiding AI models to generate, explain, and transform code &mdash; providing the core prompting patterns that test generation builds upon for writing syntactically correct, contextually appropriate test code.</span>
+                        <span class="evolution-callout__desc">The foundational techniques for guiding AI models to generate, explain, and transform code, providing the core prompting patterns that test generation builds upon for writing syntactically correct, contextually appropriate test code.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -721,7 +721,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Debugging</span>
-                        <span class="evolution-callout__desc">Enables AI models to identify and fix errors in their own generated code &mdash; a natural complement to test generation where failing tests become the feedback signal that drives the model&rsquo;s debugging and correction cycle.</span>
+                        <span class="evolution-callout__desc">Enables AI models to identify and fix errors in their own generated code, a natural complement to test generation where failing tests become the feedback signal that drives the model&rsquo;s debugging and correction cycle.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -742,7 +742,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Parallel</span>
                         <span class="evolution-callout__title">Structured Output</span>
-                        <span class="evolution-callout__desc">Techniques for constraining AI output to specific formats and schemas &mdash; directly applicable to test generation where consistent test structure, naming conventions, and assertion patterns determine whether generated tests integrate cleanly into existing test suites.</span>
+                        <span class="evolution-callout__desc">Techniques for constraining AI output to specific formats and schemas, directly applicable to test generation where consistent test structure, naming conventions, and assertion patterns determine whether generated tests integrate cleanly into existing test suites.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -819,7 +819,7 @@
 
             <div class="footer-bottom">
                 <p>AI for Everyone</p>
-                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
             </div>
 
             <div class="footer-policies">

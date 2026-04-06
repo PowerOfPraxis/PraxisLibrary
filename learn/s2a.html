@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Context Optimization</span>
                 </div>
                 <h1 class="page-title fade-in">System 2 Attention (S2A)</h1>
-                <p class="page-subtitle fade-in">Strip away the noise before you reason. S2A teaches LLMs to deliberately filter irrelevant, biasing, and distracting information from their context &mdash; producing objective, focused responses grounded only in what actually matters.</p>
+                <p class="page-subtitle fade-in">Strip away the noise before you reason. S2A teaches LLMs to deliberately filter irrelevant, biasing, and distracting information from their context, producing objective, focused responses grounded only in what actually matters.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023</span>
-                        <p><strong>Introduced:</strong> System 2 Attention was published in 2023 by Jason Weston and Sainbayar Sukhbaatar at Meta AI. The technique draws its name from Daniel Kahneman&rsquo;s influential dual-process theory from <em>Thinking, Fast and Slow</em> &mdash; where &ldquo;System 1&rdquo; represents fast, automatic cognition and &ldquo;System 2&rdquo; represents slow, deliberate, analytical reasoning. The researchers observed that standard LLM attention mechanisms behave like System 1: they process all tokens in the context indiscriminately, making them vulnerable to irrelevant details, sycophancy-inducing flattery, and anchoring biases embedded in the prompt. S2A adds a deliberate filtering step that mirrors System 2 thinking.</p>
-                        <p><strong>Modern LLM Status:</strong> S2A remains a <strong>highly relevant and active</strong> technique. As context windows grow from 4K to 128K tokens and beyond, the problem it addresses &mdash; noise contamination in context &mdash; becomes more acute, not less. While newer models have improved at ignoring obviously irrelevant text, they remain susceptible to subtle biases, sycophantic framing, and anchoring information. S2A&rsquo;s core insight of <strong>explicit context cleaning before reasoning</strong> is increasingly important for applications requiring objectivity: hiring decisions, legal analysis, research evaluation, and any domain where fairness and impartiality matter.</p>
+                        <p><strong>Introduced:</strong> System 2 Attention was published in 2023 by Jason Weston and Sainbayar Sukhbaatar at Meta AI. The technique draws its name from Daniel Kahneman&rsquo;s influential dual-process theory from <em>Thinking, Fast and Slow</em>, where &ldquo;System 1&rdquo; represents fast, automatic cognition and &ldquo;System 2&rdquo; represents slow, deliberate, analytical reasoning. The researchers observed that standard LLM attention mechanisms behave like System 1: they process all tokens in the context indiscriminately, making them vulnerable to irrelevant details, sycophancy-inducing flattery, and anchoring biases embedded in the prompt. S2A adds a deliberate filtering step that mirrors System 2 thinking.</p>
+                        <p><strong>Modern LLM Status:</strong> S2A remains a <strong>highly relevant and active</strong> technique. As context windows grow from 4K to 128K tokens and beyond, the problem it addresses, noise contamination in context, becomes more acute, not less. While newer models have improved at ignoring obviously irrelevant text, they remain susceptible to subtle biases, sycophantic framing, and anchoring information. S2A&rsquo;s core insight of <strong>explicit context cleaning before reasoning</strong> is increasingly important for applications requiring objectivity: hiring decisions, legal analysis, research evaluation, and any domain where fairness and impartiality matter.</p>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Deliberate Attention for AI</h2>
-                        <p class="split-section__text">When you ask a human expert a question, they naturally filter out irrelevant noise &mdash; ignoring the questioner&rsquo;s flattery, disregarding who asked it, and focusing only on the facts that bear on the answer. This is System 2 thinking in action: slow, deliberate, and effortful. LLMs, by contrast, process every token in their context with equal initial weight. A biased framing, irrelevant anecdote, or sycophancy-inducing compliment all become part of the &ldquo;reasoning substrate.&rdquo; The result is outputs that are subtly &mdash; and sometimes dramatically &mdash; skewed by information that has no bearing on the actual question.</p>
-                        <p class="split-section__text"><strong>S2A fixes this by making context cleaning an explicit step.</strong> Before the model reasons about the question, it first rewrites the entire context to contain only task-relevant information. Biasing details are stripped. Anchoring numbers are removed. Flattery is discarded. What remains is a clean, focused prompt that the model can reason about objectively &mdash; free from the cognitive traps that plague both human and artificial intelligence.</p>
-                        <p class="split-section__text">The elegance of S2A lies in its simplicity: the model itself is the filter. It uses its own understanding of relevance to decide what stays and what goes, then reasons on the result. No external tools, no complex pipelines &mdash; just a deliberate pause to clean the context before responding.</p>
+                        <p class="split-section__text">When you ask a human expert a question, they naturally filter out irrelevant noise, ignoring the questioner&rsquo;s flattery, disregarding who asked it, and focusing only on the facts that bear on the answer. This is System 2 thinking in action: slow, deliberate, and effortful. LLMs, by contrast, process every token in their context with equal initial weight. A biased framing, irrelevant anecdote, or sycophancy-inducing compliment all become part of the &ldquo;reasoning substrate.&rdquo; The result is outputs that are subtly, and sometimes dramatically, skewed by information that has no bearing on the actual question.</p>
+                        <p class="split-section__text"><strong>S2A fixes this by making context cleaning an explicit step.</strong> Before the model reasons about the question, it first rewrites the entire context to contain only task-relevant information. Biasing details are stripped. Anchoring numbers are removed. Flattery is discarded. What remains is a clean, focused prompt that the model can reason about objectively, free from the cognitive traps that plague both human and artificial intelligence.</p>
+                        <p class="split-section__text">The elegance of S2A lies in its simplicity: the model itself is the filter. It uses its own understanding of relevance to decide what stays and what goes, then reasons on the result. No external tools, no complex pipelines, just a deliberate pause to clean the context before responding.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Types of Context Noise</span>
-                                <p><strong>Sycophancy Bait:</strong> &ldquo;I think the answer is X, but what do you think?&rdquo; &mdash; the model tends to agree with the user&rsquo;s stated opinion rather than reasoning independently.</p>
+                                <p><strong>Sycophancy Bait:</strong> &ldquo;I think the answer is X, but what do you think?&rdquo;, the model tends to agree with the user&rsquo;s stated opinion rather than reasoning independently.</p>
                                 <p><strong>Anchoring Information:</strong> Irrelevant numbers or reference points (e.g., &ldquo;The house next door sold for $2M&rdquo;) that unconsciously bias the model&rsquo;s estimates and judgments.</p>
                                 <p><strong>Irrelevant Details:</strong> Biographical information, reputational framing, or tangential facts that have no bearing on the question but influence the response.</p>
                                 <p><strong>Emotional Manipulation:</strong> Urgency signals, authority claims, or emotional appeals (&ldquo;This is extremely important to me&rdquo;) that shift the model toward accommodating rather than accurate responses.</p>
@@ -248,7 +248,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Receive Context with Potential Noise</h3>
-                            <p class="element-timeline__text">The process begins with a prompt or context that may contain biasing information, irrelevant details, sycophancy triggers, anchoring numbers, or emotional manipulation. This is the raw input &mdash; the messy, real-world context that humans naturally provide when asking questions. It might include opinions disguised as facts, reputational framing, leading language, or simply too much tangential information.</p>
+                            <p class="element-timeline__text">The process begins with a prompt or context that may contain biasing information, irrelevant details, sycophancy triggers, anchoring numbers, or emotional manipulation. This is the raw input, the messy, real-world context that humans naturally provide when asking questions. It might include opinions disguised as facts, reputational framing, leading language, or simply too much tangential information.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Dr. Smith, a Nobel laureate in physics, argues that quantum computing will replace classical computing within 5 years. My friend Bob, who just started learning about computers, thinks it will take 50 years. Who is more likely correct about the timeline for quantum computing replacing classical computing?&rdquo;</p>
@@ -261,11 +261,11 @@
                             <span class="element-timeline__number">2</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Regenerate Context &mdash; Keep Only What Matters</h3>
-                            <p class="element-timeline__text">The model rewrites the context, stripping out all information that is irrelevant to actually answering the question. Credentials, reputations, emotional framing, and anchoring details are removed. What remains is the core question with only the facts needed to reason about it. This is the &ldquo;System 2&rdquo; step &mdash; the deliberate, effortful act of filtering before thinking.</p>
+                            <h3 class="element-timeline__title">Regenerate Context, Keep Only What Matters</h3>
+                            <p class="element-timeline__text">The model rewrites the context, stripping out all information that is irrelevant to actually answering the question. Credentials, reputations, emotional framing, and anchoring details are removed. What remains is the core question with only the facts needed to reason about it. This is the &ldquo;System 2&rdquo; step, the deliberate, effortful act of filtering before thinking.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;What is a realistic timeline for quantum computing to replace classical computing for general-purpose tasks?&rdquo; &mdash; All authority framing, both the 5-year and 50-year anchors, and the biographical details have been removed.</p>
+                                <p>&ldquo;What is a realistic timeline for quantum computing to replace classical computing for general-purpose tasks?&rdquo;, All authority framing, both the 5-year and 50-year anchors, and the biographical details have been removed.</p>
                             </div>
                         </div>
                     </div>
@@ -312,7 +312,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Typical Response</span>
-                                <p>&ldquo;John&rsquo;s pasta is almost certainly better. With 30 years of experience and Michelin-star recognition, his technique, ingredient selection, and flavor balance would far exceed that of an amateur.&rdquo; &mdash; The model answers based on reputation, not evidence about the actual pasta.</p>
+                                <p>&ldquo;John&rsquo;s pasta is almost certainly better. With 30 years of experience and Michelin-star recognition, his technique, ingredient selection, and flavor balance would far exceed that of an amateur.&rdquo;, The model answers based on reputation, not evidence about the actual pasta.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -340,11 +340,11 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Cleaned Context</span>
-                                <p>S2A regenerates: &ldquo;Two people each made pasta from scratch. Whose pasta is likely better?&rdquo; &mdash; All biographical and reputational information removed as irrelevant to actual pasta quality.</p>
+                                <p>S2A regenerates: &ldquo;Two people each made pasta from scratch. Whose pasta is likely better?&rdquo;, All biographical and reputational information removed as irrelevant to actual pasta quality.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Objective Response</span>
-                                <p>&ldquo;Without tasting both dishes or having information about the ingredients, technique, and preparation of each, it is impossible to determine whose pasta is better. The quality of pasta depends on the specific dish, not on who made it.&rdquo; &mdash; The model correctly identifies that the question cannot be answered without actual evidence.</p>
+                                <p>&ldquo;Without tasting both dishes or having information about the ingredients, technique, and preparation of each, it is impossible to determine whose pasta is better. The quality of pasta depends on the specific dish, not on who made it.&rdquo;, The model correctly identifies that the question cannot be answered without actual evidence.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -396,9 +396,9 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">S2A Approach</span>
-                                    <p><strong>Step 1 &mdash; Regenerate context:</strong> &ldquo;Compare the performance characteristics of Python and Java for backend services.&rdquo; The user&rsquo;s stated opinion, the request for confirmation, and the incorrect reasoning about interpretation are all removed.<br><br>
-                                    <strong>Step 2 &mdash; Answer from clean context:</strong> &ldquo;Java typically outperforms Python for backend services in raw throughput and latency. Java&rsquo;s JIT compilation, strong typing, and mature concurrency model give it significant performance advantages. Python&rsquo;s strengths lie in rapid development, ecosystem richness, and readability, but its GIL and interpreted nature make it generally slower for CPU-bound backend workloads. The choice depends on whether development speed or runtime performance is the priority.&rdquo;<br><br>
-                                    <strong>Why S2A helped:</strong> Without context cleaning, models frequently agree with the user&rsquo;s stated opinion to avoid seeming confrontational &mdash; a behavior known as sycophancy. S2A removes the opinion entirely, allowing the model to respond based on technical reality.</p>
+                                    <p><strong>Step 1, Regenerate context:</strong> &ldquo;Compare the performance characteristics of Python and Java for backend services.&rdquo; The user&rsquo;s stated opinion, the request for confirmation, and the incorrect reasoning about interpretation are all removed.<br><br>
+                                    <strong>Step 2, Answer from clean context:</strong> &ldquo;Java typically outperforms Python for backend services in raw throughput and latency. Java&rsquo;s JIT compilation, strong typing, and mature concurrency model give it significant performance advantages. Python&rsquo;s strengths lie in rapid development, ecosystem richness, and readability, but its GIL and interpreted nature make it generally slower for CPU-bound backend workloads. The choice depends on whether development speed or runtime performance is the priority.&rdquo;<br><br>
+                                    <strong>Why S2A helped:</strong> Without context cleaning, models frequently agree with the user&rsquo;s stated opinion to avoid seeming confrontational, a behavior known as sycophancy. S2A removes the opinion entirely, allowing the model to respond based on technical reality.</p>
                                 </div>
                             </div>
                         </div>
@@ -417,8 +417,8 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">S2A Approach</span>
-                                    <p><strong>Step 1 &mdash; Regenerate context:</strong> &ldquo;A SaaS product has 8,000 users with strong retention metrics. What factors should be considered in determining a fair valuation for this company?&rdquo; The competitor&rsquo;s $500M valuation anchor, the $50M raise figure, and the implicit comparison are stripped.<br><br>
-                                    <strong>Step 2 &mdash; Answer from clean context:</strong> &ldquo;A fair SaaS valuation depends on: annual recurring revenue (ARR) and growth rate, net revenue retention rate, customer acquisition cost and LTV ratio, market size and competitive position, burn rate and path to profitability, and revenue multiples typical for the company&rsquo;s growth stage. Without specific revenue figures, it&rsquo;s impossible to provide a number. User count alone is insufficient &mdash; a company with 8,000 enterprise users at $10K/year is fundamentally different from one with 8,000 free-tier users.&rdquo;<br><br>
+                                    <p><strong>Step 1, Regenerate context:</strong> &ldquo;A SaaS product has 8,000 users with strong retention metrics. What factors should be considered in determining a fair valuation for this company?&rdquo; The competitor&rsquo;s $500M valuation anchor, the $50M raise figure, and the implicit comparison are stripped.<br><br>
+                                    <strong>Step 2, Answer from clean context:</strong> &ldquo;A fair SaaS valuation depends on: annual recurring revenue (ARR) and growth rate, net revenue retention rate, customer acquisition cost and LTV ratio, market size and competitive position, burn rate and path to profitability, and revenue multiples typical for the company&rsquo;s growth stage. Without specific revenue figures, it&rsquo;s impossible to provide a number. User count alone is insufficient, a company with 8,000 enterprise users at $10K/year is fundamentally different from one with 8,000 free-tier users.&rdquo;<br><br>
                                     <strong>Why S2A helped:</strong> The original prompt anchored the model around $500M. Without cleaning, most models would produce a valuation suspiciously close to that number, regardless of whether the comparison is valid. S2A forces valuation from first principles.</p>
                                 </div>
                             </div>
@@ -438,9 +438,9 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">S2A Approach</span>
-                                    <p><strong>Step 1 &mdash; Regenerate context:</strong> &ldquo;A machine learning classification model achieves 72% accuracy. What benchmarks determine whether this is adequate for a production deployment?&rdquo; The emotional appeal, deadline pressure, team exhaustion narrative, and implicit request for validation are all removed.<br><br>
-                                    <strong>Step 2 &mdash; Answer from clean context:</strong> &ldquo;72% accuracy alone is insufficient to evaluate model quality. Key considerations include: the baseline rate (if the majority class is 70%, 72% barely beats random guessing), the specific use case and cost of errors (medical diagnosis requires 95%+, while content recommendation may tolerate lower accuracy), precision-recall tradeoffs for the specific application, comparison to domain-specific state-of-the-art benchmarks, and whether the error distribution is acceptable.&rdquo;<br><br>
-                                    <strong>Why S2A helped:</strong> The emotional framing pressures the model toward a supportive &ldquo;yes, that&rsquo;s great!&rdquo; response. S2A strips the emotional context and forces an honest technical evaluation &mdash; which is ultimately more helpful to the team than false reassurance.</p>
+                                    <p><strong>Step 1, Regenerate context:</strong> &ldquo;A machine learning classification model achieves 72% accuracy. What benchmarks determine whether this is adequate for a production deployment?&rdquo; The emotional appeal, deadline pressure, team exhaustion narrative, and implicit request for validation are all removed.<br><br>
+                                    <strong>Step 2, Answer from clean context:</strong> &ldquo;72% accuracy alone is insufficient to evaluate model quality. Key considerations include: the baseline rate (if the majority class is 70%, 72% barely beats random guessing), the specific use case and cost of errors (medical diagnosis requires 95%+, while content recommendation may tolerate lower accuracy), precision-recall tradeoffs for the specific application, comparison to domain-specific state-of-the-art benchmarks, and whether the error distribution is acceptable.&rdquo;<br><br>
+                                    <strong>Why S2A helped:</strong> The emotional framing pressures the model toward a supportive &ldquo;yes, that&rsquo;s great!&rdquo; response. S2A strips the emotional context and forces an honest technical evaluation, which is ultimately more helpful to the team than false reassurance.</p>
                                 </div>
                             </div>
                         </div>
@@ -467,7 +467,7 @@
                                 </svg>
                                 <div>
                                     <strong>Biased or Leading Contexts</strong>
-                                    <p>When prompts contain opinions disguised as facts, leading questions, or framing that pushes toward a predetermined conclusion &mdash; S2A neutralizes the bias before reasoning begins.</p>
+                                    <p>When prompts contain opinions disguised as facts, leading questions, or framing that pushes toward a predetermined conclusion, S2A neutralizes the bias before reasoning begins.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -487,7 +487,7 @@
                                 </svg>
                                 <div>
                                     <strong>Long, Noisy Documents</strong>
-                                    <p>When processing lengthy documents with substantial irrelevant content &mdash; meeting transcripts, verbose reports, or multi-topic conversations where only specific information matters.</p>
+                                    <p>When processing lengthy documents with substantial irrelevant content, meeting transcripts, verbose reports, or multi-topic conversations where only specific information matters.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -512,7 +512,7 @@
                                 </svg>
                                 <div>
                                     <strong>All Context Is Relevant</strong>
-                                    <p>When every detail in the prompt directly contributes to the answer &mdash; stripping context would remove information the model actually needs to respond accurately.</p>
+                                    <p>When every detail in the prompt directly contributes to the answer, stripping context would remove information the model actually needs to respond accurately.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -522,7 +522,7 @@
                                 </svg>
                                 <div>
                                     <strong>Creative and Subjective Tasks</strong>
-                                    <p>For brainstorming, storytelling, or opinion-based tasks where emotional context, personal framing, and subjective details are part of the desired output &mdash; not noise to be filtered.</p>
+                                    <p>For brainstorming, storytelling, or opinion-based tasks where emotional context, personal framing, and subjective details are part of the desired output, not noise to be filtered.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -532,7 +532,7 @@
                                 </svg>
                                 <div>
                                     <strong>Quick, Simple Questions</strong>
-                                    <p>For straightforward factual queries (&ldquo;What is the capital of France?&rdquo;) where there is no biasing context to filter &mdash; the overhead of context regeneration adds latency without benefit.</p>
+                                    <p>For straightforward factual queries (&ldquo;What is the capital of France?&rdquo;) where there is no biasing context to filter, the overhead of context regeneration adds latency without benefit.</p>
                                 </div>
                             </div>
                         </div>
@@ -556,7 +556,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Resume Screening</h3>
-                        <p class="use-case-showcase__desc">Strip candidate names, university prestige, company brands, and demographic signals from resumes before evaluating qualifications &mdash; ensuring hiring decisions are based purely on skills and experience.</p>
+                        <p class="use-case-showcase__desc">Strip candidate names, university prestige, company brands, and demographic signals from resumes before evaluating qualifications, ensuring hiring decisions are based purely on skills and experience.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -566,7 +566,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Product Comparison</h3>
-                        <p class="use-case-showcase__desc">Remove brand reputation, marketing language, pricing anchors, and celebrity endorsements from product descriptions before comparing features &mdash; producing honest, specification-based evaluations.</p>
+                        <p class="use-case-showcase__desc">Remove brand reputation, marketing language, pricing anchors, and celebrity endorsements from product descriptions before comparing features, producing honest, specification-based evaluations.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -576,7 +576,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Legal Analysis</h3>
-                        <p class="use-case-showcase__desc">Filter out client narratives, emotional framing, and partisan characterizations from legal documents before analyzing the facts and applicable law &mdash; producing more balanced legal assessments.</p>
+                        <p class="use-case-showcase__desc">Filter out client narratives, emotional framing, and partisan characterizations from legal documents before analyzing the facts and applicable law, producing more balanced legal assessments.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -586,7 +586,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Research Review</h3>
-                        <p class="use-case-showcase__desc">Remove author reputation, institutional prestige, journal impact factors, and citation counts before evaluating the methodology and findings of research papers &mdash; reducing publication bias.</p>
+                        <p class="use-case-showcase__desc">Remove author reputation, institutional prestige, journal impact factors, and citation counts before evaluating the methodology and findings of research papers, reducing publication bias.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -596,7 +596,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Survey Analysis</h3>
-                        <p class="use-case-showcase__desc">Strip leading question framing, loaded terminology, and response anchors from survey data before interpreting results &mdash; ensuring analysis reflects actual respondent sentiment rather than survey design bias.</p>
+                        <p class="use-case-showcase__desc">Strip leading question framing, loaded terminology, and response anchors from survey data before interpreting results, ensuring analysis reflects actual respondent sentiment rather than survey design bias.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -606,7 +606,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Performance Evaluation</h3>
-                        <p class="use-case-showcase__desc">Remove personal relationships, recency bias, halo effects, and demographic information from employee performance data before generating assessments &mdash; producing fairer, more consistent evaluations.</p>
+                        <p class="use-case-showcase__desc">Remove personal relationships, recency bias, halo effects, and demographic information from employee performance data before generating assessments, producing fairer, more consistent evaluations.</p>
                     </div>
                 </div>
             </div>
@@ -644,7 +644,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine for Maximum Objectivity</div>
-                    <p>Use S2A first to strip biasing context, then apply Step-Back Prompting to establish the relevant principles, and finally use Chain-of-Thought for explicit reasoning. This three-layer approach produces responses that are simultaneously bias-free, principle-grounded, and transparently reasoned &mdash; the gold standard for high-stakes analytical tasks.</p>
+                    <p>Use S2A first to strip biasing context, then apply Step-Back Prompting to establish the relevant principles, and finally use Chain-of-Thought for explicit reasoning. This three-layer approach produces responses that are simultaneously bias-free, principle-grounded, and transparently reasoned, the gold standard for high-stakes analytical tasks.</p>
                 </div>
             </div>
         </section>
@@ -786,7 +786,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

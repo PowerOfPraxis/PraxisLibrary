@@ -201,7 +201,7 @@
                     <span class="hero-badge__text">3D Techniques</span>
                 </div>
                 <h1 class="page-title fade-in">Scene Understanding</h1>
-                <p class="page-subtitle fade-in">Techniques for prompting AI models to analyze complete 3D scenes &mdash; comprehending spatial relationships between objects, interpreting environmental context, reasoning about room-scale layouts, and building holistic understanding of how physical spaces are organized and used.</p>
+                <p class="page-subtitle fade-in">Techniques for prompting AI models to analyze complete 3D scenes, comprehending spatial relationships between objects, interpreting environmental context, reasoning about room-scale layouts, and building holistic understanding of how physical spaces are organized and used.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -212,8 +212,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2023&ndash;2025</span>
-                        <p><strong>Introduced:</strong> Scene understanding evolved from 2D image segmentation into 3D spatial reasoning as models gained depth perception capabilities. Early work in semantic SLAM (Simultaneous Localization and Mapping) and 3D semantic segmentation &mdash; exemplified by datasets like ScanNet (2017) &mdash; provided the training data needed for models to learn about indoor environments. The convergence of large vision-language models with 3D representations during 2023&ndash;2025 enabled AI systems to reason about entire environments rather than isolated objects. Neural radiance fields (NeRFs) and 3D Gaussian splatting gave models new ways to represent scenes volumetrically, while foundation models like GPT-4V and Gemini demonstrated the ability to interpret spatial arrangements from photographs. Scene understanding as a prompting discipline emerged when practitioners realized that guiding models to analyze spatial relationships, functional zones, and object hierarchies produced dramatically richer results than simple object identification.</p>
-                        <p><strong>Modern LLM Status:</strong> Multimodal models can analyze room layouts from photographs, estimate object relationships, describe spatial arrangements, and reason about how spaces are organized for human activity. Models like GPT-4o and Gemini 1.5 Pro can identify furniture placement patterns, infer room functions from visual cues, and describe navigable paths through environments. However, <strong>full 3D scene reconstruction from single images remains challenging</strong>, and models often struggle with precise metric distance estimation, occluded object reasoning, and multi-room spatial continuity. The techniques covered here help practitioners extract maximum spatial understanding from current models while structuring prompts to mitigate known limitations in depth estimation.</p>
+                        <p><strong>Introduced:</strong> Scene understanding evolved from 2D image segmentation into 3D spatial reasoning as models gained depth perception capabilities. Early work in semantic SLAM (Simultaneous Localization and Mapping) and 3D semantic segmentation, exemplified by datasets like ScanNet (2017), provided the training data needed for models to learn about indoor environments. The convergence of large vision-language models with 3D representations during 2023&ndash;2025 enabled AI systems to reason about entire environments rather than isolated objects. Neural radiance fields (NeRFs) and 3D Gaussian splatting gave models new ways to represent scenes volumetrically, while foundation models like GPT-4V and Gemini demonstrated the ability to interpret spatial arrangements from photographs. Scene understanding as a prompting discipline emerged when practitioners realized that guiding models to analyze spatial relationships, functional zones, and object hierarchies produced dramatically richer results than simple object identification.</p>
+                        <p><strong>Modern LLM Status:</strong> Multimodal models can analyze room layouts from photographs, estimate object relationships, describe spatial arrangements, and reason about how spaces are organized for human activity. Models like ChatGPT and Gemini can identify furniture placement patterns, infer room functions from visual cues, and describe navigable paths through environments. However, <strong>full 3D scene reconstruction from single images remains challenging</strong>, and models often struggle with precise metric distance estimation, occluded object reasoning, and multi-room spatial continuity. The techniques covered here help practitioners extract maximum spatial understanding from current models while structuring prompts to mitigate known limitations in depth estimation.</p>
                     </div>
                 </div>
             </div>
@@ -227,15 +227,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">From Objects to Spatial Relationships</h2>
-                        <p class="split-section__text">Scene understanding goes beyond identifying individual objects to comprehending how those objects relate to each other within three-dimensional space. A model that can label &ldquo;chair&rdquo; and &ldquo;table&rdquo; in a photograph is performing object detection. A model that understands the chair is <strong>tucked under</strong> the table, <strong>facing</strong> the window, and <strong>positioned between</strong> two bookshelves is performing scene understanding &mdash; reasoning about containment, support, orientation, proximity, and the functional logic that connects objects into a coherent environment.</p>
+                        <p class="split-section__text">Scene understanding goes beyond identifying individual objects to comprehending how those objects relate to each other within three-dimensional space. A model that can label &ldquo;chair&rdquo; and &ldquo;table&rdquo; in a photograph is performing object detection. A model that understands the chair is <strong>tucked under</strong> the table, <strong>facing</strong> the window, and <strong>positioned between</strong> two bookshelves is performing scene understanding, reasoning about containment, support, orientation, proximity, and the functional logic that connects objects into a coherent environment.</p>
                         <p class="split-section__text"><strong>The core insight is that effective scene understanding requires the model to reason about six fundamental spatial relationships: containment (what is inside what), support (what rests on what), occlusion (what hides behind what), proximity (what is near or far), scale (relative sizes of objects), and functional affordance (a chair is for sitting, a table is a surface for placing things).</strong> Without explicit prompting for these relationship types, models default to listing visible objects without capturing the spatial narrative that makes a scene meaningful.</p>
-                        <p class="split-section__text">Think of it like the difference between an inventory list and an architect&rsquo;s floor plan. The inventory tells you a room contains a desk, a lamp, and a bookshelf. The floor plan reveals that the desk faces the window for natural light, the lamp sits on the desk&rsquo;s left corner for task lighting, and the bookshelf flanks the desk within arm&rsquo;s reach &mdash; a workspace designed for focused reading and writing. Scene understanding prompting teaches the model to produce the floor plan, not just the inventory.</p>
+                        <p class="split-section__text">Think of it like the difference between an inventory list and an architect&rsquo;s floor plan. The inventory tells you a room contains a desk, a lamp, and a bookshelf. The floor plan reveals that the desk faces the window for natural light, the lamp sits on the desk&rsquo;s left corner for task lighting, and the bookshelf flanks the desk within arm&rsquo;s reach, a workspace designed for focused reading and writing. Scene understanding prompting teaches the model to produce the floor plan, not just the inventory.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Spatial Relationship Prompting Transforms Scene Analysis</span>
-                                <p>When a model receives an image without spatial guidance, it defaults to flat object enumeration &mdash; producing a list of detected items with no sense of how they interact in three-dimensional space. Structured scene understanding prompts redirect this behavior by defining the <strong>spatial analytical framework</strong> the model should apply: which relationship types to prioritize (support, containment, adjacency), what level of spatial granularity to report (room-level zones versus individual object placement), whether to infer functional purpose from spatial arrangement, and how to structure the output as a navigable spatial description rather than a simple label list. The difference between &ldquo;this image shows a kitchen with appliances&rdquo; and a structured analysis describing cooking zones, traffic flow patterns, storage hierarchies, and ergonomic reach distances comes down entirely to the spatial specificity of the prompt.</p>
+                                <p>When a model receives an image without spatial guidance, it defaults to flat object enumeration, producing a list of detected items with no sense of how they interact in three-dimensional space. Structured scene understanding prompts redirect this behavior by defining the <strong>spatial analytical framework</strong> the model should apply: which relationship types to prioritize (support, containment, adjacency), what level of spatial granularity to report (room-level zones versus individual object placement), whether to infer functional purpose from spatial arrangement, and how to structure the output as a navigable spatial description rather than a simple label list. The difference between &ldquo;this image shows a kitchen with appliances&rdquo; and a structured analysis describing cooking zones, traffic flow patterns, storage hierarchies, and ergonomic reach distances comes down entirely to the spatial specificity of the prompt.</p>
                             </div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Provide Scene Input</h3>
-                            <p class="element-timeline__text">Supply the visual input representing the 3D scene you want analyzed. This can be a single photograph of a room, a panoramic image, multiple views of the same space taken from different angles, a depth map alongside an RGB image, or a point cloud visualization. The quality and completeness of the input directly affects spatial reasoning accuracy &mdash; multiple viewpoints allow the model to resolve occlusions and build a more complete mental model of the space, while single images require the model to infer depth and hidden structure from contextual cues like perspective lines, shadow directions, and known object sizes.</p>
+                            <p class="element-timeline__text">Supply the visual input representing the 3D scene you want analyzed. This can be a single photograph of a room, a panoramic image, multiple views of the same space taken from different angles, a depth map alongside an RGB image, or a point cloud visualization. The quality and completeness of the input directly affects spatial reasoning accuracy, multiple viewpoints allow the model to resolve occlusions and build a more complete mental model of the space, while single images require the model to infer depth and hidden structure from contextual cues like perspective lines, shadow directions, and known object sizes.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>Upload a wide-angle photograph of a living room taken from the doorway, ensuring the image captures the floor-to-ceiling extent of the space and includes visible reference objects (furniture, doorframes) that help establish scale.</p>
@@ -285,7 +285,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Specify Relationship Types</h3>
-                            <p class="element-timeline__text">Explicitly tell the model which spatial relationships to extract and report. Without this guidance, models tend to describe only the most obvious positional facts. By naming the relationship categories you care about &mdash; support structures (what rests on what), containment hierarchies (what is inside or on top of what), adjacency graphs (what is next to what), orientation (what faces what direction), and functional affordances (what each object enables in context) &mdash; you activate deeper spatial reasoning and produce analysis that captures the three-dimensional logic of the scene.</p>
+                            <p class="element-timeline__text">Explicitly tell the model which spatial relationships to extract and report. Without this guidance, models tend to describe only the most obvious positional facts. By naming the relationship categories you care about, support structures (what rests on what), containment hierarchies (what is inside or on top of what), adjacency graphs (what is next to what), orientation (what faces what direction), and functional affordances (what each object enables in context), you activate deeper spatial reasoning and produce analysis that captures the three-dimensional logic of the scene.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;For each major object in the scene, describe: (a) what supports it (floor, table, shelf, wall-mounted), (b) what it contains or holds, (c) its adjacent objects within approximately one meter, (d) its orientation relative to the room&rsquo;s primary axis, and (e) what functional activity it enables given its placement.&rdquo;</p>
@@ -299,7 +299,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Request Structured Spatial Output</h3>
-                            <p class="element-timeline__text">Define how the model should organize and present its spatial analysis. Unstructured scene descriptions become difficult to use for downstream tasks like design modification, accessibility auditing, or navigation planning. By specifying an output format &mdash; hierarchical zone breakdowns, spatial relationship tables, top-down layout descriptions, or object-centric spatial profiles &mdash; you ensure the analysis is both comprehensive and immediately actionable for your specific application.</p>
+                            <p class="element-timeline__text">Define how the model should organize and present its spatial analysis. Unstructured scene descriptions become difficult to use for downstream tasks like design modification, accessibility auditing, or navigation planning. By specifying an output format, hierarchical zone breakdowns, spatial relationship tables, top-down layout descriptions, or object-centric spatial profiles, you ensure the analysis is both comprehensive and immediately actionable for your specific application.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Present your analysis as: (1) A top-down verbal layout describing the room from north to south, (2) A spatial relationship table listing each object pair and their relationship type, (3) A functional zone map identifying activity areas and their boundaries, (4) A list of spatial issues such as blocked pathways, insufficient clearances, or poorly positioned elements.&rdquo;</p>
@@ -434,11 +434,11 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">Prompt</span>
-                                    <p>&ldquo;Examine this photograph of an urban park entrance. Analyze the scene at three spatial scales: (1) Macro &mdash; describe the overall layout including pathways, green spaces, built structures, and boundaries with surrounding streets or buildings. (2) Meso &mdash; identify functional sub-areas (seating clusters, play zones, planting beds, signage locations) and describe how they are spatially connected through paths and sightlines. (3) Micro &mdash; for any seating or gathering area visible, describe the arrangement of individual elements (benches, trash receptacles, lighting poles) and their spatial relationships to each other and to pedestrian flow. Note any wayfinding or accessibility considerations visible in the spatial design.&rdquo;</p>
+                                    <p>&ldquo;Examine this photograph of an urban park entrance. Analyze the scene at three spatial scales: (1) Macro, describe the overall layout including pathways, green spaces, built structures, and boundaries with surrounding streets or buildings. (2) Meso, identify functional sub-areas (seating clusters, play zones, planting beds, signage locations) and describe how they are spatially connected through paths and sightlines. (3) Micro, for any seating or gathering area visible, describe the arrangement of individual elements (benches, trash receptacles, lighting poles) and their spatial relationships to each other and to pedestrian flow. Note any wayfinding or accessibility considerations visible in the spatial design.&rdquo;</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>The three-scale approach (macro, meso, micro) mirrors how landscape architects and urban planners actually analyze outdoor spaces. By defining distinct spatial scales, the prompt prevents the model from fixating on a single zoom level and ensures comprehensive coverage from the overall site plan down to individual bench placement. The request for sightlines and connectivity adds a perceptual dimension &mdash; not just where things are, but what can be seen from where, which is critical for wayfinding and safety analysis. The accessibility callout at the end activates the model&rsquo;s knowledge of spatial design standards, producing observations about ramp gradients, path widths, and tactile guidance that a generic scene description would omit entirely.</p>
+                                    <p>The three-scale approach (macro, meso, micro) mirrors how landscape architects and urban planners actually analyze outdoor spaces. By defining distinct spatial scales, the prompt prevents the model from fixating on a single zoom level and ensures comprehensive coverage from the overall site plan down to individual bench placement. The request for sightlines and connectivity adds a perceptual dimension, not just where things are, but what can be seen from where, which is critical for wayfinding and safety analysis. The accessibility callout at the end activates the model&rsquo;s knowledge of spatial design standards, producing observations about ramp gradients, path widths, and tactile guidance that a generic scene description would omit entirely.</p>
                                 </div>
                             </div>
                         </div>
@@ -457,7 +457,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Why This Works</span>
-                                    <p>This prompt converts a photograph into a structured safety audit by combining spatial mapping with hazard proximity analysis. The key technique is asking the model to evaluate relationships between two specific categories of scene elements: hazard sources and personnel areas. This relational focus produces findings that generic scene description would miss &mdash; a safety barrier that is present but positioned too far from the hazard it should guard, an emergency exit that exists but is partially blocked by stored materials, or a pedestrian corridor that runs closer to heavy machinery than safety standards recommend. By requesting the output as a spatial risk assessment rather than a simple description, the prompt ensures the model synthesizes individual spatial observations into actionable safety findings.</p>
+                                    <p>This prompt converts a photograph into a structured safety audit by combining spatial mapping with hazard proximity analysis. The key technique is asking the model to evaluate relationships between two specific categories of scene elements: hazard sources and personnel areas. This relational focus produces findings that generic scene description would miss, a safety barrier that is present but positioned too far from the hazard it should guard, an emergency exit that exists but is partially blocked by stored materials, or a pedestrian corridor that runs closer to heavy machinery than safety standards recommend. By requesting the output as a spatial risk assessment rather than a simple description, the prompt ensures the model synthesizes individual spatial observations into actionable safety findings.</p>
                                 </div>
                             </div>
                         </div>
@@ -484,7 +484,7 @@
                                 </svg>
                                 <div>
                                     <strong>Spatial Layout Analysis</strong>
-                                    <p>Understanding how rooms, buildings, and environments are organized &mdash; mapping functional zones, identifying traffic flow patterns, measuring clearances, and evaluating whether spatial arrangements serve their intended purposes effectively.</p>
+                                    <p>Understanding how rooms, buildings, and environments are organized, mapping functional zones, identifying traffic flow patterns, measuring clearances, and evaluating whether spatial arrangements serve their intended purposes effectively.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -494,7 +494,7 @@
                                 </svg>
                                 <div>
                                     <strong>Interior Design Planning</strong>
-                                    <p>Evaluating furniture placement, spatial harmony, and functional flow within residential or commercial interiors &mdash; assessing whether layouts support the activities intended for each space and identifying opportunities for improvement.</p>
+                                    <p>Evaluating furniture placement, spatial harmony, and functional flow within residential or commercial interiors, assessing whether layouts support the activities intended for each space and identifying opportunities for improvement.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -504,7 +504,7 @@
                                 </svg>
                                 <div>
                                     <strong>Navigation and Wayfinding</strong>
-                                    <p>Analyzing environments from the perspective of someone moving through them &mdash; identifying navigable paths, potential obstacles, decision points, landmarks for orientation, and spatial cues that guide or confuse movement through a space.</p>
+                                    <p>Analyzing environments from the perspective of someone moving through them, identifying navigable paths, potential obstacles, decision points, landmarks for orientation, and spatial cues that guide or confuse movement through a space.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -529,7 +529,7 @@
                                 </svg>
                                 <div>
                                     <strong>Single Object Identification</strong>
-                                    <p>If you only need to identify or classify a single object without understanding its spatial context &mdash; such as recognizing a product, reading a label, or classifying an item &mdash; standard image prompting or object detection is more efficient.</p>
+                                    <p>If you only need to identify or classify a single object without understanding its spatial context, such as recognizing a product, reading a label, or classifying an item, standard image prompting or object detection is more efficient.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -584,7 +584,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Interior Design Analysis</h3>
-                        <p class="use-case-showcase__desc">Evaluating residential and commercial spaces to assess furniture placement, spatial balance, lighting distribution, and functional flow &mdash; providing clients with structured assessments of how their current layout serves daily activities and where rearrangement could improve livability.</p>
+                        <p class="use-case-showcase__desc">Evaluating residential and commercial spaces to assess furniture placement, spatial balance, lighting distribution, and functional flow, providing clients with structured assessments of how their current layout serves daily activities and where rearrangement could improve livability.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -596,7 +596,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Autonomous Navigation</h3>
-                        <p class="use-case-showcase__desc">Analyzing environments to identify navigable paths, obstacle locations, terrain types, and spatial constraints for mobile robots, delivery drones, or autonomous vehicles &mdash; building structured spatial maps that support path planning and collision avoidance in both indoor and outdoor settings.</p>
+                        <p class="use-case-showcase__desc">Analyzing environments to identify navigable paths, obstacle locations, terrain types, and spatial constraints for mobile robots, delivery drones, or autonomous vehicles, building structured spatial maps that support path planning and collision avoidance in both indoor and outdoor settings.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -608,7 +608,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Retail Space Optimization</h3>
-                        <p class="use-case-showcase__desc">Analyzing store layouts to evaluate product display positioning, customer traffic flow, sightline corridors from the entrance, checkout queue spacing, and department adjacency &mdash; helping retailers optimize spatial arrangements to improve the shopping experience and increase product visibility.</p>
+                        <p class="use-case-showcase__desc">Analyzing store layouts to evaluate product display positioning, customer traffic flow, sightline corridors from the entrance, checkout queue spacing, and department adjacency, helping retailers optimize spatial arrangements to improve the shopping experience and increase product visibility.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -620,7 +620,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Accessibility Assessment</h3>
-                        <p class="use-case-showcase__desc">Evaluating physical environments for accessibility compliance &mdash; analyzing doorway widths, ramp gradients, wheelchair turning radii, reach distances to controls and fixtures, tactile wayfinding elements, and clearance around furniture to identify barriers that prevent equitable access for people with mobility, visual, or cognitive differences.</p>
+                        <p class="use-case-showcase__desc">Evaluating physical environments for accessibility compliance, analyzing doorway widths, ramp gradients, wheelchair turning radii, reach distances to controls and fixtures, tactile wayfinding elements, and clearance around furniture to identify barriers that prevent equitable access for people with mobility, visual, or cognitive differences.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -641,7 +641,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Museum and Gallery Curation</h3>
-                        <p class="use-case-showcase__desc">Analyzing exhibition spaces to evaluate artwork placement, viewing distances, sightline sequencing, lighting angles relative to display surfaces, visitor flow patterns through galleries, and spatial relationships between thematically connected pieces &mdash; helping curators design exhibitions that guide visitors through a coherent visual narrative.</p>
+                        <p class="use-case-showcase__desc">Analyzing exhibition spaces to evaluate artwork placement, viewing distances, sightline sequencing, lighting angles relative to display surfaces, visitor flow patterns through galleries, and spatial relationships between thematically connected pieces, helping curators design exhibitions that guide visitors through a coherent visual narrative.</p>
                     </div>
                 </div>
             </div>
@@ -700,7 +700,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">3D Prompting Basics</span>
-                        <span class="evolution-callout__desc">The foundational techniques for prompting AI models to reason about three-dimensional space &mdash; covering depth estimation, spatial vocabulary, coordinate system specification, and the core principles that underpin all 3D analysis tasks including scene understanding.</span>
+                        <span class="evolution-callout__desc">The foundational techniques for prompting AI models to reason about three-dimensional space, covering depth estimation, spatial vocabulary, coordinate system specification, and the core principles that underpin all 3D analysis tasks including scene understanding.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -721,7 +721,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Pose Estimation</span>
-                        <span class="evolution-callout__desc">Focuses on understanding the position, orientation, and articulation of objects and human bodies within 3D space &mdash; a specialized form of scene understanding that maps skeletal structures, joint angles, and body positioning relative to the surrounding environment.</span>
+                        <span class="evolution-callout__desc">Focuses on understanding the position, orientation, and articulation of objects and human bodies within 3D space, a specialized form of scene understanding that maps skeletal structures, joint angles, and body positioning relative to the surrounding environment.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -742,7 +742,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Parallel</span>
                         <span class="evolution-callout__title">Point Cloud Prompting</span>
-                        <span class="evolution-callout__desc">Specializes in working with 3D point cloud data from LiDAR, depth sensors, and photogrammetry &mdash; providing precise geometric representations of scenes that complement the semantic and functional understanding derived from image-based scene analysis prompts.</span>
+                        <span class="evolution-callout__desc">Specializes in working with 3D point cloud data from LiDAR, depth sensors, and photogrammetry, providing precise geometric representations of scenes that complement the semantic and functional understanding derived from image-based scene analysis prompts.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -816,7 +816,7 @@
             </div>
             <div class="footer-bottom">
                 <p>AI for Everyone</p>
-                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
             </div>
 
             <div class="footer-policies">

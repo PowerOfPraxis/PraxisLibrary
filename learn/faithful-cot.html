@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Reasoning Quality</span>
                 </div>
                 <h1 class="page-title fade-in">Faithful Chain-of-Thought</h1>
-                <p class="page-subtitle fade-in">AI reasoning can look right but be wrong. Faithful CoT grounds every reasoning step in verifiable logic — using symbolic computation to ensure the chain actually determines the answer, not just decorates it.</p>
+                <p class="page-subtitle fade-in">AI reasoning can look right but be wrong. Faithful CoT grounds every reasoning step in verifiable logic, using symbolic computation to ensure the chain actually determines the answer, not just decorates it.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,8 +200,8 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> Faithful Chain-of-Thought was published in 2022 by Lyu et al. to address the problem of <strong>unfaithful reasoning</strong> in language models. The researchers observed that models frequently generate plausible-looking reasoning chains that don't actually determine the answer. Instead, the model arrives at the answer through internal shortcuts — pattern matching, memorization, or statistical correlation — and then produces reasoning as a post-hoc rationalization. The chain looks logical, but it's decoration rather than derivation.</p>
-                        <p><strong>Modern LLM Status:</strong> The two-stage approach of combining natural language reasoning with executable code is now a <strong>native capability</strong> of modern LLMs. Claude, GPT-4, and Gemini all support code execution that grounds reasoning in verifiable computation. When you ask these models to "show your work in Python," you're applying the Faithful CoT principle. Understanding this framework helps you design prompts that leverage code execution for mathematical and logical reliability rather than trusting narrative reasoning alone.</p>
+                        <p><strong>Introduced:</strong> Faithful Chain-of-Thought was published in 2022 by Lyu et al. to address the problem of <strong>unfaithful reasoning</strong> in language models. The researchers observed that models frequently generate plausible-looking reasoning chains that don't actually determine the answer. Instead, the model arrives at the answer through internal shortcuts, pattern matching, memorization, or statistical correlation, and then produces reasoning as a post-hoc rationalization. The chain looks logical, but it's decoration rather than derivation.</p>
+                        <p><strong>Modern LLM Status:</strong> The two-stage approach of combining natural language reasoning with executable code is now a <strong>native capability</strong> of modern LLMs. Claude, ChatGPT, and Gemini all support code execution that grounds reasoning in verifiable computation. When you ask these models to "show your work in Python," you're applying the Faithful CoT principle. Understanding this framework helps you design prompts that leverage code execution for mathematical and logical reliability rather than trusting narrative reasoning alone.</p>
                     </div>
                 </div>
             </div>
@@ -215,16 +215,16 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Problem</span>
                         <h2 class="split-section__title">When Reasoning Is Just Decoration</h2>
-                        <p class="split-section__text">Here is the uncomfortable truth about AI reasoning: a model can produce a perfectly structured chain of thought — numbered steps, clear logic, confident conclusion — and still be completely wrong. Not because the steps contain an obvious error, but because the steps never actually determined the answer in the first place.</p>
+                        <p class="split-section__text">Here is the uncomfortable truth about AI reasoning: a model can produce a perfectly structured chain of thought, numbered steps, clear logic, confident conclusion, and still be completely wrong. Not because the steps contain an obvious error, but because the steps never actually determined the answer in the first place.</p>
                         <p class="split-section__text">This happens because the model may have already "decided" the answer through pattern matching or memorization, then invented a plausible-looking chain to justify it. The reasoning is <strong>post-hoc rationalization</strong>, not genuine derivation. It looks like math, but it's storytelling.</p>
-                        <p class="split-section__text"><strong>Faithful CoT solves this by requiring two parallel tracks:</strong> natural language reasoning AND symbolic or code-based reasoning. The NL track explains the approach in human terms. The code track executes the actual computation. If the code produces a different answer than the NL chain suggests, the reasoning was unfaithful — the narrative didn't match the math.</p>
+                        <p class="split-section__text"><strong>Faithful CoT solves this by requiring two parallel tracks:</strong> natural language reasoning AND symbolic or code-based reasoning. The NL track explains the approach in human terms. The code track executes the actual computation. If the code produces a different answer than the NL chain suggests, the reasoning was unfaithful, the narrative didn't match the math.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">The Faithfulness Test</span>
                                 <p>Ask yourself: <strong>"If I changed one reasoning step, would the answer change?"</strong></p>
-                                <p>If the answer stays the same regardless of what the intermediate steps say, those steps aren't actually contributing to the conclusion — they're decoration. A truly faithful chain is one where every step mechanically contributes to the final result, like lines of code where changing any variable changes the output.</p>
+                                <p>If the answer stays the same regardless of what the intermediate steps say, those steps aren't actually contributing to the conclusion, they're decoration. A truly faithful chain is one where every step mechanically contributes to the final result, like lines of code where changing any variable changes the output.</p>
                                 <p>Faithful CoT enforces this by making the computation explicit and executable.</p>
                             </div>
                         </div>
@@ -278,7 +278,7 @@
                             <p class="element-timeline__text">Run the code or symbolic representation to get a provably correct answer. Compare this result against what the natural language reasoning predicted. Agreement between the two tracks confirms the reasoning is faithful.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Code output: $126.00. The NL reasoning also yields $126.00 through sequential discount application. Both tracks agree — the reasoning is faithful and the answer is verified.</p>
+                                <p>Code output: $126.00. The NL reasoning also yields $126.00 through sequential discount application. Both tracks agree, the reasoning is faithful and the answer is verified.</p>
                             </div>
                         </div>
                     </div>
@@ -292,7 +292,7 @@
                             <p class="element-timeline__text">If the natural language chain and the symbolic execution disagree, the reasoning is unfaithful. Identify where the NL chain diverged from the computation and revise it to match the verified result. The code is the source of truth.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>If the NL chain concluded "$130" but the code computed "$126," the NL reasoning contained an error — perhaps treating the discounts as additive (40% off = $120) or miscalculating the sequential application. The code reveals the truth: discounts compound, they don't simply add.</p>
+                                <p>If the NL chain concluded "$130" but the code computed "$126," the NL reasoning contained an error, perhaps treating the discounts as additive (40% off = $120) or miscalculating the sequential application. The code reveals the truth: discounts compound, they don't simply add.</p>
                             </div>
                         </div>
                     </div>
@@ -333,7 +333,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Reasoning looks right but gets wrong answer — discounts are sequential, not additive</span>
+                            <span>Reasoning looks right but gets wrong answer, discounts are sequential, not additive</span>
                         </div>
                     </div>
 
@@ -358,7 +358,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Verified Result</span>
-                                <p>Code execution: 200 * 0.70 = $140.00, then $140.00 * 0.90 = $126.00. NL chain matches code output. Both tracks agree on $126.00 — reasoning is faithful and computationally verified.</p>
+                                <p>Code execution: 200 * 0.70 = $140.00, then $140.00 * 0.90 = $126.00. NL chain matches code output. Both tracks agree on $126.00, reasoning is faithful and computationally verified.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -366,7 +366,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Code execution catches the error — sequential discounts verified computationally</span>
+                            <span>Code execution catches the error, sequential discounts verified computationally</span>
                         </div>
                     </div>
                 </div>
@@ -395,14 +395,14 @@
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Faithful CoT Process</span>
                                     <p><strong>NL Reasoning:</strong> "Calculate the distance for each leg, then divide total distance by total time to get average speed."<br><br>
-                                    <strong>Unfaithful Trap:</strong> A model might average the two speeds: (60 + 45) / 2 = 52.5 mph. This looks reasonable but is mathematically wrong — you can't average speeds without weighting by time.<br><br>
+                                    <strong>Unfaithful Trap:</strong> A model might average the two speeds: (60 + 45) / 2 = 52.5 mph. This looks reasonable but is mathematically wrong, you can't average speeds without weighting by time.<br><br>
                                     <strong>Code Verification:</strong><br>
                                     d1 = 60 * 2.5  # = 150 miles<br>
                                     d2 = 45 * 1.5  # 90 min = 1.5 hrs, = 67.5 miles<br>
                                     total_distance = 150 + 67.5  # = 217.5 miles<br>
                                     total_time = 2.5 + 1.5  # = 4.0 hours<br>
                                     avg_speed = 217.5 / 4.0  # = 54.375 mph<br><br>
-                                    <strong>Result:</strong> The code catches the unit conversion (90 min to 1.5 hours) and computes the correct weighted average of 54.375 mph — not the naive 52.5 mph.</p>
+                                    <strong>Result:</strong> The code catches the unit conversion (90 min to 1.5 hours) and computes the correct weighted average of 54.375 mph, not the naive 52.5 mph.</p>
                                 </div>
                             </div>
                         </div>
@@ -430,7 +430,7 @@
                                     &nbsp;&nbsp;if alice != 'cat' and bob != 'dog' and bob != 'fish':<br>
                                     &nbsp;&nbsp;&nbsp;&nbsp;print(f"Alice: {alice}, Bob: {bob}, Carol: {carol}")<br><br>
                                     <strong>Code Output:</strong> Two valid solutions found: Alice: dog, Bob: cat, Carol: fish AND Alice: fish, Bob: cat, Carol: dog.<br><br>
-                                    <strong>Faithfulness Check:</strong> The NL reasoning correctly determined Bob has the cat, but was incomplete — it didn't note there are TWO valid solutions without additional constraints. The code reveals the NL chain's overconfidence in a single answer.</p>
+                                    <strong>Faithfulness Check:</strong> The NL reasoning correctly determined Bob has the cat, but was incomplete, it didn't note there are TWO valid solutions without additional constraints. The code reveals the NL chain's overconfidence in a single answer.</p>
                                 </div>
                             </div>
                         </div>
@@ -449,7 +449,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Faithful CoT Process</span>
-                                    <p><strong>Unfaithful NL Reasoning:</strong> "The test is 99% accurate, so if I test positive, there's a 99% chance I have the disease." This is the classic base rate neglect — intuitive but completely wrong.<br><br>
+                                    <p><strong>Unfaithful NL Reasoning:</strong> "The test is 99% accurate, so if I test positive, there's a 99% chance I have the disease." This is the classic base rate neglect, intuitive but completely wrong.<br><br>
                                     <strong>Code Verification (Bayes' Theorem):</strong><br>
                                     prevalence = 1/1000  # 0.001<br>
                                     sensitivity = 0.99<br>
@@ -459,7 +459,7 @@
                                     # Bayes: P(disease|positive) = P(pos|disease) * P(disease) / P(positive)<br>
                                     p_disease_given_positive = (sensitivity * prevalence) / p_positive<br>
                                     # Result: approximately 0.0902 = 9.02%<br><br>
-                                    <strong>Result:</strong> The actual probability is only about 9%, not 99%. The code reveals that with a rare disease, even a highly accurate test produces mostly false positives. The NL reasoning committed base rate neglect — a common error that only computational grounding can reliably catch.</p>
+                                    <strong>Result:</strong> The actual probability is only about 9%, not 99%. The code reveals that with a rare disease, even a highly accurate test produces mostly false positives. The NL reasoning committed base rate neglect, a common error that only computational grounding can reliably catch.</p>
                                 </div>
                             </div>
                         </div>
@@ -486,7 +486,7 @@
                                 </svg>
                                 <div>
                                     <strong>Mathematical Reasoning</strong>
-                                    <p>When exact numerical answers matter and computation must be verifiable — financial calculations, engineering formulas, and quantitative analysis.</p>
+                                    <p>When exact numerical answers matter and computation must be verifiable, financial calculations, engineering formulas, and quantitative analysis.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -496,7 +496,7 @@
                                 </svg>
                                 <div>
                                     <strong>Logical Deduction</strong>
-                                    <p>When formal logic can verify whether conclusions follow from premises — constraint satisfaction, rule-based determinations, and syllogistic reasoning.</p>
+                                    <p>When formal logic can verify whether conclusions follow from premises, constraint satisfaction, rule-based determinations, and syllogistic reasoning.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -506,7 +506,7 @@
                                 </svg>
                                 <div>
                                     <strong>Data Analysis</strong>
-                                    <p>When statistical claims need computational grounding — probability calculations, hypothesis testing, and trend analysis.</p>
+                                    <p>When statistical claims need computational grounding, probability calculations, hypothesis testing, and trend analysis.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -516,7 +516,7 @@
                                 </svg>
                                 <div>
                                     <strong>High-Stakes Decisions</strong>
-                                    <p>When incorrect reasoning has real consequences and audit trails matter — medical dosing, legal compliance, and safety-critical systems.</p>
+                                    <p>When incorrect reasoning has real consequences and audit trails matter, medical dosing, legal compliance, and safety-critical systems.</p>
                                 </div>
                             </div>
                         </div>
@@ -531,7 +531,7 @@
                                 </svg>
                                 <div>
                                     <strong>Subjective Reasoning</strong>
-                                    <p>When there's no "correct" answer to compute — opinions, preferences, creative work, or aesthetic judgments can't be verified by code.</p>
+                                    <p>When there's no "correct" answer to compute, opinions, preferences, creative work, or aesthetic judgments can't be verified by code.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -541,7 +541,7 @@
                                 </svg>
                                 <div>
                                     <strong>Non-Computational Tasks</strong>
-                                    <p>When the reasoning can't meaningfully be translated to code or logic — summarization, emotional analysis, or narrative generation.</p>
+                                    <p>When the reasoning can't meaningfully be translated to code or logic, summarization, emotional analysis, or narrative generation.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -551,7 +551,7 @@
                                 </svg>
                                 <div>
                                     <strong>Simple Factual Questions</strong>
-                                    <p>When the answer is a direct lookup rather than a computed result — "What's the capital of France?" doesn't benefit from code execution.</p>
+                                    <p>When the answer is a direct lookup rather than a computed result, "What's the capital of France?" doesn't benefit from code execution.</p>
                                 </div>
                             </div>
                         </div>
@@ -587,7 +587,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Scientific Computing</h3>
-                        <p class="use-case-showcase__desc">Ground physics, chemistry, and engineering calculations in verifiable formulas — unit conversions, force calculations, and reaction stoichiometry.</p>
+                        <p class="use-case-showcase__desc">Ground physics, chemistry, and engineering calculations in verifiable formulas, unit conversions, force calculations, and reaction stoichiometry.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -600,7 +600,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Legal Compliance</h3>
-                        <p class="use-case-showcase__desc">Translate regulatory rules into formal logic to verify compliance determinations — tax bracket calculations, eligibility checks, and deadline computations.</p>
+                        <p class="use-case-showcase__desc">Translate regulatory rules into formal logic to verify compliance determinations, tax bracket calculations, eligibility checks, and deadline computations.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -610,7 +610,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Medical Dosage</h3>
-                        <p class="use-case-showcase__desc">Ensure drug dosage calculations are computationally verified, not just estimated — weight-based dosing, concentration dilutions, and drip rate formulas.</p>
+                        <p class="use-case-showcase__desc">Ensure drug dosage calculations are computationally verified, not just estimated, weight-based dosing, concentration dilutions, and drip rate formulas.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -620,7 +620,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Engineering Design</h3>
-                        <p class="use-case-showcase__desc">Verify structural, electrical, or thermal calculations with executable simulations — load bearing, circuit analysis, and heat transfer computations.</p>
+                        <p class="use-case-showcase__desc">Verify structural, electrical, or thermal calculations with executable simulations, load bearing, circuit analysis, and heat transfer computations.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -631,7 +631,7 @@
                             </svg>
                         </div>
                         <h3 class="use-case-showcase__title">Academic Assessment</h3>
-                        <p class="use-case-showcase__desc">Check that grading rubric applications are consistent and computationally faithful — weighted scoring, curve calculations, and statistical normalization.</p>
+                        <p class="use-case-showcase__desc">Check that grading rubric applications are consistent and computationally faithful, weighted scoring, curve calculations, and statistical normalization.</p>
                     </div>
                 </div>
             </div>
@@ -669,7 +669,7 @@
 
                 <div class="callout tip fade-in-up">
                     <div class="callout-title">Combine Them</div>
-                    <p>Use Faithful CoT for the initial reasoning to ensure computational accuracy, then CRITIC to verify any factual claims that can't be computed. Together they cover both computational correctness and factual accuracy — the code handles the math, and tool verification handles the facts.</p>
+                    <p>Use Faithful CoT for the initial reasoning to ensure computational accuracy, then CRITIC to verify any factual claims that can't be computed. Together they cover both computational correctness and factual accuracy, the code handles the math, and tool verification handles the facts.</p>
                 </div>
             </div>
         </section>
@@ -691,7 +691,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">The standard reasoning approach — Faithful CoT adds computational verification to catch when natural language reasoning goes astray.</span>
+                        <span class="evolution-callout__desc">The standard reasoning approach, Faithful CoT adds computational verification to catch when natural language reasoning goes astray.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -729,7 +729,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">CRITIC</span>
-                        <span class="evolution-callout__desc">Uses external tools to verify claims — pairs with Faithful CoT's computational verification for comprehensive checking of both math and facts.</span>
+                        <span class="evolution-callout__desc">Uses external tools to verify claims, pairs with Faithful CoT's computational verification for comprehensive checking of both math and facts.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -806,7 +806,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

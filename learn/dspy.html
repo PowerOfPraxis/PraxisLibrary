@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Optimization Framework</span>
                 </div>
                 <h1 class="page-title fade-in">DSPy</h1>
-                <p class="page-subtitle fade-in">Stop hand-crafting brittle prompt strings. DSPy lets you write modular Python programs with typed signatures, then automatically compiles them into optimized prompts and weights for any language model &mdash; turning prompt engineering from trial-and-error art into reproducible, testable software engineering.</p>
+                <p class="page-subtitle fade-in">Stop hand-crafting brittle prompt strings. DSPy lets you write modular Python programs with typed signatures, then automatically compiles them into optimized prompts and weights for any language model, turning prompt engineering from trial-and-error art into reproducible, testable software engineering.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,7 +200,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Framework Context: 2022&ndash;2025</span>
-                        <p><strong>Introduced:</strong> DSPy (Declarative Self-improving Python) emerged from Stanford NLP, led by Omar Khattab. The foundational work began with the DSP (Demonstrate-Search-Predict) paper in December 2022, which introduced the concept of composing retrieval and generation into modular programs. By October 2023, this evolved into DSPy &mdash; a full framework where developers write Python code using declarative &ldquo;signatures&rdquo; (typed input/output specifications), and a compiler automatically generates optimized prompts, selects few-shot examples, and even fine-tunes weights. The key insight: treat prompts as compiled artifacts, not hand-written strings.</p>
+                        <p><strong>Introduced:</strong> DSPy (Declarative Self-improving Python) emerged from Stanford NLP, led by Omar Khattab. The foundational work began with the DSP (Demonstrate-Search-Predict) paper in December 2022, which introduced the concept of composing retrieval and generation into modular programs. By October 2023, this evolved into DSPy, a full framework where developers write Python code using declarative &ldquo;signatures&rdquo; (typed input/output specifications), and a compiler automatically generates optimized prompts, selects few-shot examples, and even fine-tunes weights. The key insight: treat prompts as compiled artifacts, not hand-written strings.</p>
                         <p><strong>Modern LLM Status:</strong> DSPy has become <strong>a production-grade standard for building LLM pipelines</strong>. With over 28,000 GitHub stars, 160,000+ monthly pip downloads, and 500+ dependent projects, it has moved well beyond research. Major organizations use DSPy for production RAG systems, multi-hop reasoning pipelines, and complex NLP workflows. The framework&rsquo;s MIPROv2 optimizer, BootstrapFewShot compiler, and support for structured outputs make it the most mature tool for systematic prompt optimization. DSPy represents a fundamental shift: from crafting individual prompts to engineering entire LM programs.</p>
                     </div>
                 </div>
@@ -216,14 +216,14 @@
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">Programming, Not Prompting</h2>
                         <p class="split-section__text">Traditional prompt engineering works like this: you write a prompt string, test it, tweak the wording, test again, and repeat until it works. If you change the model, the temperature, or the task slightly, you often have to start over. The prompt is a fragile, opaque artifact that is difficult to version, test, or improve systematically.</p>
-                        <p class="split-section__text"><strong>DSPy replaces this with structured programming.</strong> Instead of writing &ldquo;You are an expert analyst. Given the following context: {context}, answer the question: {question}&rdquo;, you write a Python signature: <code>context, question &rarr; answer</code>. DSPy&rsquo;s compiler then figures out the best way to instruct the model &mdash; selecting demonstrations, generating instructions, and optimizing the prompt format &mdash; all automatically, guided by a metric you define.</p>
-                        <p class="split-section__text">Think of the difference between writing assembly code and writing Python. Assembly gives you total control but is brittle and hard to maintain. Python lets you express intent at a higher level, and the interpreter handles the low-level details. DSPy does the same for LLM interactions &mdash; you express what you want (the signature), and the compiler handles how to ask for it (the prompt).</p>
+                        <p class="split-section__text"><strong>DSPy replaces this with structured programming.</strong> Instead of writing &ldquo;You are an expert analyst. Given the following context: {context}, answer the question: {question}&rdquo;, you write a Python signature: <code>context, question &rarr; answer</code>. DSPy&rsquo;s compiler then figures out the best way to instruct the model, selecting demonstrations, generating instructions, and optimizing the prompt format, all automatically, guided by a metric you define.</p>
+                        <p class="split-section__text">Think of the difference between writing assembly code and writing Python. Assembly gives you total control but is brittle and hard to maintain. Python lets you express intent at a higher level, and the interpreter handles the low-level details. DSPy does the same for LLM interactions, you express what you want (the signature), and the compiler handles how to ask for it (the prompt).</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Signatures: The Building Blocks</span>
-                                <p>A DSPy signature defines the inputs and outputs of a language model call with typed fields. For example, <code>&ldquo;question &rarr; answer&rdquo;</code> tells the compiler this module takes a question and produces an answer. You can add field descriptions, constraints, and types. The compiler uses these declarations to automatically generate optimal prompts, select relevant few-shot examples from training data, and even fine-tune the model&rsquo;s weights &mdash; all without you ever writing a prompt string.</p>
+                                <p>A DSPy signature defines the inputs and outputs of a language model call with typed fields. For example, <code>&ldquo;question &rarr; answer&rdquo;</code> tells the compiler this module takes a question and produces an answer. You can add field descriptions, constraints, and types. The compiler uses these declarations to automatically generate optimal prompts, select relevant few-shot examples from training data, and even fine-tune the model&rsquo;s weights, all without you ever writing a prompt string.</p>
                             </div>
                         </div>
                     </div>
@@ -245,10 +245,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Define Signatures</h3>
-                            <p class="element-timeline__text">Declare what each language model call should do using typed input/output specifications. Signatures are the contracts between your code and the LLM &mdash; they specify the interface without dictating the implementation.</p>
+                            <p class="element-timeline__text">Declare what each language model call should do using typed input/output specifications. Signatures are the contracts between your code and the LLM, they specify the interface without dictating the implementation.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Signature: &ldquo;context: str, question: str &rarr; answer: str&rdquo; &mdash; This tells DSPy the module receives a context paragraph and a question, and should produce a string answer. The compiler will figure out the best prompt format, instructions, and examples.</p>
+                                <p>Signature: &ldquo;context: str, question: str &rarr; answer: str&rdquo;, This tells DSPy the module receives a context paragraph and a question, and should produce a string answer. The compiler will figure out the best prompt format, instructions, and examples.</p>
                             </div>
                         </div>
                     </div>
@@ -259,10 +259,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Build Modules</h3>
-                            <p class="element-timeline__text">Wrap signatures in DSPy modules like Predict, ChainOfThought, or ReAct. Each module adds a specific prompting strategy around your signature &mdash; CoT adds reasoning steps, ReAct adds tool use loops. Modules are composable: you can nest them like regular Python classes.</p>
+                            <p class="element-timeline__text">Wrap signatures in DSPy modules like Predict, ChainOfThought, or ReAct. Each module adds a specific prompting strategy around your signature, CoT adds reasoning steps, ReAct adds tool use loops. Modules are composable: you can nest them like regular Python classes.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Use ChainOfThought(&ldquo;context, question &rarr; answer&rdquo;) to automatically add step-by-step reasoning. Or use dspy.ReAct(&ldquo;question &rarr; answer&rdquo;, tools=[SearchTool]) to create a tool-using agent &mdash; all from a one-line module definition.</p>
+                                <p>Use ChainOfThought(&ldquo;context, question &rarr; answer&rdquo;) to automatically add step-by-step reasoning. Or use dspy.ReAct(&ldquo;question &rarr; answer&rdquo;, tools=[SearchTool]) to create a tool-using agent, all from a one-line module definition.</p>
                             </div>
                         </div>
                     </div>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Compose the Pipeline</h3>
-                            <p class="element-timeline__text">Connect multiple modules into a complete program. A multi-hop QA system might chain a retriever, a relevance filter, and a generator. Each module can use a different LLM, different prompting strategy, and different optimization target &mdash; but they compose naturally as Python code.</p>
+                            <p class="element-timeline__text">Connect multiple modules into a complete program. A multi-hop QA system might chain a retriever, a relevance filter, and a generator. Each module can use a different LLM, different prompting strategy, and different optimization target, but they compose naturally as Python code.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>A RAG pipeline: (1) Retrieve(question &rarr; passages) fetches documents, (2) Rerank(passages, question &rarr; top_passages) filters for relevance, (3) Generate(top_passages, question &rarr; answer) produces the final answer with citations. Three modules, one pipeline, all optimizable together.</p>
@@ -290,7 +290,7 @@
                             <p class="element-timeline__text">Choose an optimizer (BootstrapFewShot, MIPROv2, or others) and provide a training set with a metric function. The optimizer runs your pipeline on training examples, collects traces of successful executions, generates candidate instructions, and searches for the combination that maximizes your metric.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Compile with MIPROv2 using 200 training examples and an F1 metric. The optimizer bootstraps 50 demonstration traces, proposes 10 candidate instructions per module, and runs Bayesian search over 100 trials to find the optimal configuration &mdash; automatically producing prompts that score 23% higher than hand-written ones.</p>
+                                <p>Compile with MIPROv2 using 200 training examples and an F1 metric. The optimizer bootstraps 50 demonstration traces, proposes 10 candidate instructions per module, and runs Bayesian search over 100 trials to find the optimal configuration, automatically producing prompts that score 23% higher than hand-written ones.</p>
                             </div>
                         </div>
                     </div>
@@ -301,10 +301,10 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Execute and Iterate</h3>
-                            <p class="element-timeline__text">Run the compiled program on new inputs. The optimized prompts, selected demonstrations, and tuned parameters are all saved and versioned. When the task changes, the model updates, or performance degrades, re-compile with new data &mdash; no manual prompt rewriting needed.</p>
+                            <p class="element-timeline__text">Run the compiled program on new inputs. The optimized prompts, selected demonstrations, and tuned parameters are all saved and versioned. When the task changes, the model updates, or performance degrades, re-compile with new data, no manual prompt rewriting needed.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>After switching from GPT-4 to Claude, re-compile the same pipeline on the same training set. DSPy automatically adapts the prompt format, example selection, and instructions to the new model&rsquo;s strengths &mdash; maintaining performance without any manual prompt changes.</p>
+                                <p>After switching from ChatGPT to Claude, re-compile the same pipeline on the same training set. DSPy automatically adapts the prompt format, example selection, and instructions to the new model&rsquo;s strengths, maintaining performance without any manual prompt changes.</p>
                             </div>
                         </div>
                     </div>
@@ -337,7 +337,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Problems</span>
-                                <p>Prompt works for GPT-4 but fails on Claude. Adding few-shot examples helps but requires manual curation. Changing the task (e.g., adding citations) means rewriting the entire prompt. No systematic way to measure or improve quality. Breaks when deployed to a different domain.</p>
+                                <p>Prompt works for ChatGPT but fails on Claude. Adding few-shot examples helps but requires manual curation. Changing the task (e.g., adding citations) means rewriting the entire prompt. No systematic way to measure or improve quality. Breaks when deployed to a different domain.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -365,7 +365,7 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Approach</span>
-                                <p>Define signature: &ldquo;context, question &rarr; answer&rdquo;. Wrap in ChainOfThought module. Provide 200 labeled examples and an exact-match metric. Compile with MIPROv2. The compiler generates instructions, selects optimal demonstrations, and formats the prompt &mdash; all automatically.</p>
+                                <p>Define signature: &ldquo;context, question &rarr; answer&rdquo;. Wrap in ChainOfThought module. Provide 200 labeled examples and an exact-match metric. Compile with MIPROv2. The compiler generates instructions, selects optimal demonstrations, and formats the prompt, all automatically.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Result</span>
@@ -418,18 +418,18 @@
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">DSPy Program Definition</span>
                                     <p><strong>Task:</strong> Answer complex questions that require reasoning across multiple documents.<br><br>
-                                    <strong>Signature 1 (Retrieve):</strong> &ldquo;question &rarr; search_queries: list[str]&rdquo; &mdash; Generate multiple search queries from the original question.<br><br>
-                                    <strong>Signature 2 (Generate):</strong> &ldquo;context: list[str], question &rarr; reasoning, answer&rdquo; &mdash; Chain-of-thought module that reasons through retrieved passages to produce an answer.<br><br>
+                                    <strong>Signature 1 (Retrieve):</strong> &ldquo;question &rarr; search_queries: list[str]&rdquo;, Generate multiple search queries from the original question.<br><br>
+                                    <strong>Signature 2 (Generate):</strong> &ldquo;context: list[str], question &rarr; reasoning, answer&rdquo;, Chain-of-thought module that reasons through retrieved passages to produce an answer.<br><br>
                                     <strong>Metric:</strong> Combined score of answer correctness (exact match) and reasoning faithfulness (all claims grounded in retrieved context).<br><br>
                                     <strong>Optimizer:</strong> MIPROv2 with 300 training examples, 50 bootstrap trials.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Compiled Execution</span>
                                     <p><strong>Input:</strong> &ldquo;What river runs through the city where the company that created the first commercially successful smartphone was founded?&rdquo;<br><br>
-                                    <strong>Step 1 &mdash; Compiled query generator:</strong> The optimized first module generates three search queries: (1) &ldquo;first commercially successful smartphone company&rdquo;, (2) &ldquo;BlackBerry RIM founding city&rdquo;, (3) &ldquo;rivers in Waterloo Ontario.&rdquo; The compiler learned to decompose multi-hop questions into parallel retrieval paths rather than sequential ones.<br><br>
-                                    <strong>Step 2 &mdash; Retrieval:</strong> Three parallel searches return passages about Research In Motion (RIM), Waterloo Ontario, and the Grand River.<br><br>
-                                    <strong>Step 3 &mdash; Compiled reasoning:</strong> The optimized generator uses automatically-selected demonstrations of similar multi-hop reasoning. Its compiled instructions emphasize citing specific passages for each reasoning step: &ldquo;The first commercially successful smartphone was the BlackBerry, created by Research In Motion [Passage 1]. RIM was founded in Waterloo, Ontario [Passage 2]. The Grand River runs through Waterloo [Passage 3].&rdquo;<br><br>
-                                    <strong>Answer:</strong> &ldquo;The Grand River.&rdquo; Every claim is traceable to a retrieved passage &mdash; the faithfulness metric during compilation ensured grounded reasoning. <em>Always verify AI-generated answers against primary sources.</em></p>
+                                    <strong>Step 1, Compiled query generator:</strong> The optimized first module generates three search queries: (1) &ldquo;first commercially successful smartphone company&rdquo;, (2) &ldquo;BlackBerry RIM founding city&rdquo;, (3) &ldquo;rivers in Waterloo Ontario.&rdquo; The compiler learned to decompose multi-hop questions into parallel retrieval paths rather than sequential ones.<br><br>
+                                    <strong>Step 2, Retrieval:</strong> Three parallel searches return passages about Research In Motion (RIM), Waterloo Ontario, and the Grand River.<br><br>
+                                    <strong>Step 3, Compiled reasoning:</strong> The optimized generator uses automatically-selected demonstrations of similar multi-hop reasoning. Its compiled instructions emphasize citing specific passages for each reasoning step: &ldquo;The first commercially successful smartphone was the BlackBerry, created by Research In Motion [Passage 1]. RIM was founded in Waterloo, Ontario [Passage 2]. The Grand River runs through Waterloo [Passage 3].&rdquo;<br><br>
+                                    <strong>Answer:</strong> &ldquo;The Grand River.&rdquo; Every claim is traceable to a retrieved passage, the faithfulness metric during compilation ensured grounded reasoning. <em>Always verify AI-generated answers against primary sources.</em></p>
                                 </div>
                             </div>
                         </div>
@@ -445,14 +445,14 @@
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">DSPy Program Definition</span>
                                     <p><strong>Task:</strong> Classify customer support tickets into categories (billing, technical, feature request, complaint, general) with reasoning for each classification.<br><br>
-                                    <strong>Signature:</strong> &ldquo;ticket_text &rarr; reasoning, category, confidence&rdquo; &mdash; The model must explain its reasoning before classifying, and provide a confidence level.<br><br>
+                                    <strong>Signature:</strong> &ldquo;ticket_text &rarr; reasoning, category, confidence&rdquo;, The model must explain its reasoning before classifying, and provide a confidence level.<br><br>
                                     <strong>Module:</strong> ChainOfThought with typed output validation (category must be one of the five allowed values, confidence must be high/medium/low).<br><br>
                                     <strong>Optimizer:</strong> BootstrapFewShot with 500 labeled tickets and weighted F1 metric.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Compiled Execution</span>
                                     <p><strong>Input ticket:</strong> &ldquo;I&rsquo;ve been charged twice for my subscription this month. The second charge appeared on the 15th but I only have one account. I need this resolved before my next billing cycle.&rdquo;<br><br>
-                                    <strong>Compiled response:</strong> The optimizer bootstrapped 8 demonstration examples that the compiler selected for maximum diversity &mdash; covering edge cases like tickets that mention both billing and technical issues. The compiled instructions include specific guidance the optimizer discovered: &ldquo;Classify based on the primary action the customer needs, not just mentioned topics.&rdquo;<br><br>
+                                    <strong>Compiled response:</strong> The optimizer bootstrapped 8 demonstration examples that the compiler selected for maximum diversity, covering edge cases like tickets that mention both billing and technical issues. The compiled instructions include specific guidance the optimizer discovered: &ldquo;Classify based on the primary action the customer needs, not just mentioned topics.&rdquo;<br><br>
                                     <strong>Reasoning:</strong> &ldquo;The customer reports a duplicate charge and requests a billing correction before the next cycle. While the duplicate might have a technical cause, the customer&rsquo;s primary need is a billing resolution.&rdquo;<br><br>
                                     <strong>Category:</strong> billing<br>
                                     <strong>Confidence:</strong> high<br><br>
@@ -471,17 +471,17 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">DSPy Program Definition</span>
-                                    <p><strong>Task:</strong> Extract structured information from unstructured research abstracts &mdash; methods used, datasets, reported metrics, and key findings.<br><br>
-                                    <strong>Signature 1 (Extract):</strong> &ldquo;abstract &rarr; methods: list[str], datasets: list[str], metrics: dict, findings: list[str]&rdquo; &mdash; Typed extraction with structured outputs.<br><br>
-                                    <strong>Signature 2 (Validate):</strong> &ldquo;abstract, extraction &rarr; corrections: list[str], validated_extraction&rdquo; &mdash; Self-verification module that checks extracted data against the source text.<br><br>
+                                    <p><strong>Task:</strong> Extract structured information from unstructured research abstracts, methods used, datasets, reported metrics, and key findings.<br><br>
+                                    <strong>Signature 1 (Extract):</strong> &ldquo;abstract &rarr; methods: list[str], datasets: list[str], metrics: dict, findings: list[str]&rdquo;, Typed extraction with structured outputs.<br><br>
+                                    <strong>Signature 2 (Validate):</strong> &ldquo;abstract, extraction &rarr; corrections: list[str], validated_extraction&rdquo;, Self-verification module that checks extracted data against the source text.<br><br>
                                     <strong>Pipeline:</strong> Extract then Validate, composed as a two-stage program.<br><br>
                                     <strong>Optimizer:</strong> MIPROv2 with 150 expert-labeled abstracts and a custom field-level accuracy metric.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Compiled Execution</span>
                                     <p><strong>Input abstract:</strong> A machine learning paper about using transformer architectures for protein structure prediction, reporting RMSD improvements on CASP14.<br><br>
-                                    <strong>Stage 1 &mdash; Compiled extraction:</strong> The optimized extractor uses compiler-generated instructions that emphasize distinguishing between methods the authors propose vs. methods they compare against (a distinction the optimizer learned was critical for accuracy). Extracts: methods=[&ldquo;ProteinTransformer (proposed)&rdquo;, &ldquo;AlphaFold2 (baseline)&rdquo;], datasets=[&ldquo;CASP14&rdquo;, &ldquo;PDB-2024&rdquo;], metrics={&ldquo;RMSD&rdquo;: &ldquo;0.82&Aring; vs 1.1&Aring; baseline&rdquo;}, findings=[&ldquo;23% RMSD improvement over AlphaFold2 on novel folds&rdquo;].<br><br>
-                                    <strong>Stage 2 &mdash; Compiled validation:</strong> The verifier cross-references each extracted claim against the abstract text. Catches that &ldquo;PDB-2024&rdquo; was used for pre-training, not evaluation &mdash; moves it to a separate field. Final output is corrected and verified.<br><br>
+                                    <strong>Stage 1, Compiled extraction:</strong> The optimized extractor uses compiler-generated instructions that emphasize distinguishing between methods the authors propose vs. methods they compare against (a distinction the optimizer learned was critical for accuracy). Extracts: methods=[&ldquo;ProteinTransformer (proposed)&rdquo;, &ldquo;AlphaFold2 (baseline)&rdquo;], datasets=[&ldquo;CASP14&rdquo;, &ldquo;PDB-2024&rdquo;], metrics={&ldquo;RMSD&rdquo;: &ldquo;0.82&Aring; vs 1.1&Aring; baseline&rdquo;}, findings=[&ldquo;23% RMSD improvement over AlphaFold2 on novel folds&rdquo;].<br><br>
+                                    <strong>Stage 2, Compiled validation:</strong> The verifier cross-references each extracted claim against the abstract text. Catches that &ldquo;PDB-2024&rdquo; was used for pre-training, not evaluation, moves it to a separate field. Final output is corrected and verified.<br><br>
                                     Two-stage pipeline achieves 91% field-level accuracy vs. 72% with single-stage extraction. <em>Extracted data should always be verified against source documents before use in research or production.</em></p>
                                 </div>
                             </div>
@@ -496,7 +496,7 @@
         <section class="section section-alt">
             <div class="container">
                 <h2 class="section-title fade-in-up">Python Implementation</h2>
-                <p class="section-subtitle fade-in-up">A complete DSPy program for automated website auditing &mdash; from signature to compiled module</p>
+                <p class="section-subtitle fade-in-up">A complete DSPy program for automated website auditing, from signature to compiled module</p>
 
                 <div class="code-block fade-in-up">
                     <div class="code-block__header">
@@ -509,7 +509,7 @@
 lm = dspy.LM(<span class="hl-str">"openai/gpt-4o-mini"</span>)
 dspy.configure(lm=lm)
 
-<span class="hl-cmt"># Step 1: Define the Signature &mdash; the contract between code and LLM</span>
+<span class="hl-cmt"># Step 1: Define the Signature, the contract between code and LLM</span>
 <span class="hl-kw">class</span> <span class="hl-fn">WebsiteAuditSignature</span>(dspy.Signature):
     <span class="hl-str">"""Analyze HTML/CSS/JS code for accessibility (WCAG AA), security (CSP),
     and performance issues. Return findings by severity with remediation."""</span>
@@ -521,7 +521,7 @@ dspy.configure(lm=lm)
     critical_vulnerabilities = dspy.OutputField(desc=<span class="hl-str">"Issues that would fail production deployment"</span>)
     remediation_steps = dspy.OutputField(desc=<span class="hl-str">"Prioritized fixes with corrected code examples"</span>)
 
-<span class="hl-cmt"># Step 2: Build the Module &mdash; compose DSPy primitives into a program</span>
+<span class="hl-cmt"># Step 2: Build the Module, compose DSPy primitives into a program</span>
 <span class="hl-kw">class</span> <span class="hl-fn">ProfessionalAuditor</span>(dspy.Module):
     <span class="hl-kw">def</span> <span class="hl-fn">__init__</span>(self):
         <span class="hl-bi">super</span>().__init__()
@@ -538,7 +538,7 @@ dspy.configure(lm=lm)
     has_fixes = <span class="hl-str">"remediation"</span> <span class="hl-kw">in</span> prediction.remediation_steps.lower()
     <span class="hl-kw">return</span> recall * <span class="hl-num">0.7</span> + (<span class="hl-num">0.3</span> <span class="hl-kw">if</span> has_fixes <span class="hl-kw">else</span> <span class="hl-num">0</span>)
 
-<span class="hl-cmt"># Step 4: Compile &mdash; the optimizer finds the best prompt automatically</span>
+<span class="hl-cmt"># Step 4: Compile, the optimizer finds the best prompt automatically</span>
 optimizer = dspy.BootstrapFewShot(metric=audit_metric, max_bootstrapped_demos=<span class="hl-num">4</span>)
 compiled_auditor = optimizer.compile(ProfessionalAuditor(), trainset=training_data)
 
@@ -576,7 +576,7 @@ result = compiled_auditor(
                                 </svg>
                                 <div>
                                     <strong>Multi-Stage LLM Pipelines</strong>
-                                    <p>When your application chains multiple LLM calls &mdash; retrieval, reasoning, generation, validation &mdash; and each stage needs independently optimized prompts.</p>
+                                    <p>When your application chains multiple LLM calls, retrieval, reasoning, generation, validation, and each stage needs independently optimized prompts.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -596,7 +596,7 @@ result = compiled_auditor(
                                 </svg>
                                 <div>
                                     <strong>Model-Agnostic Applications</strong>
-                                    <p>When you need to switch between LLM providers (OpenAI, Anthropic, open-source) without rewriting prompts &mdash; DSPy re-compiles automatically for each model.</p>
+                                    <p>When you need to switch between LLM providers (OpenAI, Anthropic, open-source) without rewriting prompts, DSPy re-compiles automatically for each model.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -621,7 +621,7 @@ result = compiled_auditor(
                                 </svg>
                                 <div>
                                     <strong>Quick One-Off Prompts</strong>
-                                    <p>When you need a single prompt for a simple task &mdash; the overhead of setting up signatures, training data, and compilation is not justified.</p>
+                                    <p>When you need a single prompt for a simple task, the overhead of setting up signatures, training data, and compilation is not justified.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -631,7 +631,7 @@ result = compiled_auditor(
                                 </svg>
                                 <div>
                                     <strong>No Labeled Training Data</strong>
-                                    <p>When you have no examples of correct outputs to optimize against &mdash; DSPy&rsquo;s optimizers need a metric and at least a small training set to be effective.</p>
+                                    <p>When you have no examples of correct outputs to optimize against, DSPy&rsquo;s optimizers need a metric and at least a small training set to be effective.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -641,7 +641,7 @@ result = compiled_auditor(
                                 </svg>
                                 <div>
                                     <strong>No-Code Environments</strong>
-                                    <p>When you or your team cannot write Python code &mdash; DSPy is a Python library and requires programming ability to use effectively.</p>
+                                    <p>When you or your team cannot write Python code, DSPy is a Python library and requires programming ability to use effectively.</p>
                                 </div>
                             </div>
                         </div>
@@ -782,7 +782,7 @@ result = compiled_auditor(
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Extension</span>
                         <span class="evolution-callout__title">MIPRO</span>
-                        <span class="evolution-callout__desc">DSPy&rsquo;s most powerful optimizer &mdash; MIPRO proposes grounded instructions and searches for optimal prompt configurations using Bayesian optimization across multi-stage programs.</span>
+                        <span class="evolution-callout__desc">DSPy&rsquo;s most powerful optimizer, MIPRO proposes grounded instructions and searches for optimal prompt configurations using Bayesian optimization across multi-stage programs.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -803,7 +803,7 @@ result = compiled_auditor(
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Agentic Prompting</span>
-                        <span class="evolution-callout__desc">DSPy can optimize individual modules within agentic systems &mdash; ReAct agents, planning modules, and tool-use patterns all benefit from compiled optimization.</span>
+                        <span class="evolution-callout__desc">DSPy can optimize individual modules within agentic systems, ReAct agents, planning modules, and tool-use patterns all benefit from compiled optimization.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -824,7 +824,7 @@ result = compiled_auditor(
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Building Block</span>
                         <span class="evolution-callout__title">RAG</span>
-                        <span class="evolution-callout__desc">Retrieval-Augmented Generation is one of DSPy&rsquo;s most common use cases &mdash; the framework excels at optimizing multi-stage retrieval and generation pipelines.</span>
+                        <span class="evolution-callout__desc">Retrieval-Augmented Generation is one of DSPy&rsquo;s most common use cases, the framework excels at optimizing multi-stage retrieval and generation pipelines.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -901,7 +901,7 @@ result = compiled_auditor(
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">

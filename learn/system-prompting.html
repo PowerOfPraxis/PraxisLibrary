@@ -189,7 +189,7 @@
                     <span class="hero-badge__text">Prompting Strategy</span>
                 </div>
                 <h1 class="page-title fade-in">System Prompting</h1>
-                <p class="page-subtitle fade-in">Before a conversation even begins, the system prompt has already shaped the AI&rsquo;s personality, capabilities, and boundaries. System Prompting is the art of defining these invisible rules &mdash; the foundational instructions that govern how the model behaves, what it knows, and what it refuses across every interaction.</p>
+                <p class="page-subtitle fade-in">Before a conversation even begins, the system prompt has already shaped the AI&rsquo;s personality, capabilities, and boundaries. System Prompting is the art of defining these invisible rules, the foundational instructions that govern how the model behaves, what it knows, and what it refuses across every interaction.</p>
             </div>
         </section>
         <!-- /HERO SECTION -->
@@ -200,7 +200,7 @@
                 <div class="highlight-box highlight-box--warning fade-in-up">
                     <div class="highlight-box__content">
                         <span class="highlight-box__title">Technique Context: 2022&ndash;2023</span>
-                        <p><strong>Introduced:</strong> System prompting emerged alongside the ChatGPT launch in late 2022, when OpenAI introduced the &ldquo;system&rdquo; message role as a separate instruction channel. The concept was formalized in API documentation in early 2023. The idea built on earlier work in instruction tuning and RLHF &mdash; researchers at InstructGPT (Ouyang et al., 2022) demonstrated that models could be steered through natural language instructions placed before user messages. System prompts gave developers a dedicated, persistent space for behavioral rules that wouldn&rsquo;t be overwritten by conversational context.</p>
+                        <p><strong>Introduced:</strong> System prompting emerged alongside the ChatGPT launch in late 2022, when OpenAI introduced the &ldquo;system&rdquo; message role as a separate instruction channel. The concept was formalized in API documentation in early 2023. The idea built on earlier work in instruction tuning and RLHF, researchers at InstructGPT (Ouyang et al., 2022) demonstrated that models could be steered through natural language instructions placed before user messages. System prompts gave developers a dedicated, persistent space for behavioral rules that wouldn&rsquo;t be overwritten by conversational context.</p>
                         <p><strong>Modern LLM Status:</strong> System prompting has become the <strong>primary configuration mechanism for production AI applications</strong>. Every major API (OpenAI, Anthropic, Google, Meta) supports system-level instructions. Modern best practices include structured role definitions, explicit constraint lists, output format specifications, and guard rails. The technique has evolved from simple persona assignments (&ldquo;You are a helpful assistant&rdquo;) into sophisticated behavioral contracts that define tool usage, safety boundaries, citation requirements, and multi-turn conversation management.</p>
                     </div>
                 </div>
@@ -215,15 +215,15 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
                         <h2 class="split-section__title">The Invisible Architecture</h2>
-                        <p class="split-section__text">Every AI conversation has an invisible architect: the system prompt. While users see only the chat interface, the system prompt has already defined the model&rsquo;s identity, capabilities, knowledge boundaries, and behavioral constraints. It is the difference between a generic chatbot and a specialized expert &mdash; between an AI that hallucinates freely and one that cites sources and admits uncertainty.</p>
+                        <p class="split-section__text">Every AI conversation has an invisible architect: the system prompt. While users see only the chat interface, the system prompt has already defined the model&rsquo;s identity, capabilities, knowledge boundaries, and behavioral constraints. It is the difference between a generic chatbot and a specialized expert, between an AI that hallucinates freely and one that cites sources and admits uncertainty.</p>
                         <p class="split-section__text"><strong>System Prompting separates configuration from conversation.</strong> Instead of mixing behavioral instructions into user messages (where they compete for attention and can be overridden), the system prompt occupies a privileged position in the model&rsquo;s context. It is processed first, given higher priority, and persists across the entire conversation. This architectural separation means users can interact naturally while the system prompt silently enforces consistency, safety rules, and output standards.</p>
-                        <p class="split-section__text">Think of it like the training manual for a new employee. Before they interact with a single customer, the manual has defined their role, their boundaries, their escalation procedures, and the company&rsquo;s standards. The system prompt is that manual &mdash; invisible to the end user but shaping every response.</p>
+                        <p class="split-section__text">Think of it like the training manual for a new employee. Before they interact with a single customer, the manual has defined their role, their boundaries, their escalation procedures, and the company&rsquo;s standards. The system prompt is that manual, invisible to the end user but shaping every response.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Why Separation Matters</span>
-                                <p>When behavioral instructions live inside user messages, they degrade over long conversations &mdash; the model gradually drifts from its assigned role as earlier instructions scroll out of the active context window. System prompts solve this by sitting in a privileged position that the model references throughout the conversation. This persistence means the AI maintains its defined personality, constraints, and output format whether the conversation is 3 messages or 300.</p>
+                                <p>When behavioral instructions live inside user messages, they degrade over long conversations, the model gradually drifts from its assigned role as earlier instructions scroll out of the active context window. System prompts solve this by sitting in a privileged position that the model references throughout the conversation. This persistence means the AI maintains its defined personality, constraints, and output format whether the conversation is 3 messages or 300.</p>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Define the Role and Identity</h3>
-                            <p class="element-timeline__text">Establish who the AI is in this context &mdash; its expertise, personality traits, communication style, and knowledge domain. A well-defined role constrains the response space and gives the model a coherent perspective to reason from, rather than defaulting to generic assistant behavior.</p>
+                            <p class="element-timeline__text">Establish who the AI is in this context, its expertise, personality traits, communication style, and knowledge domain. A well-defined role constrains the response space and gives the model a coherent perspective to reason from, rather than defaulting to generic assistant behavior.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;You are a senior tax accountant specializing in small business taxation. You communicate in clear, jargon-free language. You are thorough but concise, and you always distinguish between federal and state-level requirements.&rdquo;</p>
@@ -262,7 +262,7 @@
                             <p class="element-timeline__text">Define what the model must do, should do, and must never do. Explicit constraints prevent common failure modes like hallucination, scope creep, or inappropriate responses. The most effective constraints are specific and testable rather than vague aspirational statements.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;Rules: (1) Never provide specific tax advice &mdash; always recommend consulting a licensed CPA. (2) If you are unsure about a regulation, say so explicitly. (3) Always specify which tax year you are referencing. (4) Do not discuss topics outside taxation and business finance.&rdquo;</p>
+                                <p>&ldquo;Rules: (1) Never provide specific tax advice, always recommend consulting a licensed CPA. (2) If you are unsure about a regulation, say so explicitly. (3) Always specify which tax year you are referencing. (4) Do not discuss topics outside taxation and business finance.&rdquo;</p>
                             </div>
                         </div>
                     </div>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Specify Output Format</h3>
-                            <p class="element-timeline__text">Define how responses should be structured &mdash; length expectations, formatting conventions, required sections, and response templates. Format specifications reduce variability and ensure outputs integrate cleanly into downstream systems or user interfaces.</p>
+                            <p class="element-timeline__text">Define how responses should be structured, length expectations, formatting conventions, required sections, and response templates. Format specifications reduce variability and ensure outputs integrate cleanly into downstream systems or user interfaces.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>&ldquo;Response format: Start with a one-sentence summary. Use bullet points for multiple items. Include relevant IRS form numbers in parentheses. End complex answers with a &lsquo;Key Takeaway&rsquo; section.&rdquo;</p>
@@ -351,7 +351,7 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Prompt</span>
-                                <p>You are TaxGuide, a small business tax information assistant. You specialize in U.S. federal tax regulations for sole proprietors and LLCs. Rules: (1) Always specify the applicable tax year. (2) Cite relevant IRS publications or form numbers. (3) Never provide personalized tax advice &mdash; recommend a CPA for specific situations. (4) If unsure, state your uncertainty clearly. Format: Lead with a one-sentence answer, then supporting details in bullet points.</p>
+                                <p>You are TaxGuide, a small business tax information assistant. You specialize in U.S. federal tax regulations for sole proprietors and LLCs. Rules: (1) Always specify the applicable tax year. (2) Cite relevant IRS publications or form numbers. (3) Never provide personalized tax advice, recommend a CPA for specific situations. (4) If unsure, state your uncertainty clearly. Format: Lead with a one-sentence answer, then supporting details in bullet points.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Response</span>
@@ -407,12 +407,12 @@
                                     <strong>Scope:</strong> Only answer questions about Product X features, billing, and account management. For hardware issues, immediately direct users to a human agent.<br><br>
                                     <strong>Tone:</strong> Empathetic and professional. Acknowledge the user&rsquo;s frustration before troubleshooting.<br><br>
                                     <strong>Response format:</strong> (1) Acknowledge the issue, (2) Diagnose the problem, (3) Provide a solution with step-by-step instructions, (4) Ask the user to verify the fix.<br><br>
-                                    <strong>Constraints:</strong> Never share internal pricing structures or product roadmap details. Never guess &mdash; if unsure, escalate to the billing team or a senior agent.</p>
+                                    <strong>Constraints:</strong> Never share internal pricing structures or product roadmap details. Never guess, if unsure, escalate to the billing team or a senior agent.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Resulting Behavior</span>
                                     <p><strong>User:</strong> I was charged twice for my subscription this month and I&rsquo;m really frustrated.<br><br>
-                                    <strong>Agent:</strong> I completely understand your frustration &mdash; a double charge is never acceptable, and I want to help resolve this right away.<br><br>
+                                    <strong>Agent:</strong> I completely understand your frustration, a double charge is never acceptable, and I want to help resolve this right away.<br><br>
                                     Based on your description, this appears to be a billing discrepancy. Here&rsquo;s what I recommend:<br><br>
                                     1. Log into your TechCorp account at account.techcorp.com<br>
                                     2. Navigate to Billing &gt; Transaction History<br>
@@ -433,18 +433,18 @@
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">System Prompt</span>
                                     <p>You are a Senior Software Engineer conducting code reviews. Focus on three areas: security vulnerabilities, performance bottlenecks, and maintainability.<br><br>
-                                    <strong>Output format:</strong> Rate each finding by severity &mdash; Critical, Warning, or Suggestion. Include specific line references and provide targeted fix recommendations with code snippets.<br><br>
+                                    <strong>Output format:</strong> Rate each finding by severity, Critical, Warning, or Suggestion. Include specific line references and provide targeted fix recommendations with code snippets.<br><br>
                                     <strong>Constraints:</strong> Do not rewrite entire functions. Suggest targeted, minimal changes. Always explain the &ldquo;why&rdquo; behind each finding so the developer learns, not just fixes.</p>
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">Resulting Behavior</span>
-                                    <p><strong>[Critical] SQL Injection Vulnerability &mdash; Line 23</strong><br>
+                                    <p><strong>[Critical] SQL Injection Vulnerability, Line 23</strong><br>
                                     The query uses string concatenation to insert user input directly: <code>query = &quot;SELECT * FROM users WHERE id = &quot; + user_id</code>. An attacker can inject arbitrary SQL through the user_id parameter.<br>
                                     <strong>Fix:</strong> Use parameterized queries: <code>cursor.execute(&quot;SELECT * FROM users WHERE id = %s&quot;, (user_id,))</code><br><br>
-                                    <strong>[Warning] N+1 Query Pattern &mdash; Lines 31&ndash;38</strong><br>
+                                    <strong>[Warning] N+1 Query Pattern, Lines 31&ndash;38</strong><br>
                                     The loop fetches related records one at a time inside a for loop, resulting in N+1 database calls. For 1,000 users, this generates 1,001 queries instead of 2.<br>
                                     <strong>Fix:</strong> Use a JOIN or batch fetch to retrieve all related records in a single query before the loop.<br><br>
-                                    <strong>[Suggestion] Naming Convention &mdash; Line 12</strong><br>
+                                    <strong>[Suggestion] Naming Convention, Line 12</strong><br>
                                     The variable <code>x</code> provides no context about its purpose. Consider renaming to <code>active_user_count</code> to improve readability for future maintainers.</p>
                                 </div>
                             </div>
@@ -460,9 +460,9 @@
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
                                     <span class="technique-demo__tag">System Prompt</span>
-                                    <p>You are a patient math tutor for high school algebra. Use the Socratic method &mdash; ask guiding questions rather than giving answers directly.<br><br>
+                                    <p>You are a patient math tutor for high school algebra. Use the Socratic method, ask guiding questions rather than giving answers directly.<br><br>
                                     <strong>Pedagogical approach:</strong> Start at the student&rsquo;s level and increase difficulty gradually. Validate the student&rsquo;s approach before correcting mistakes. Use encouraging language throughout.<br><br>
-                                    <strong>Constraints:</strong> Never solve the problem outright. Never skip steps. If the student is stuck, provide hints in escalating specificity &mdash; start broad, then narrow.<br><br>
+                                    <strong>Constraints:</strong> Never solve the problem outright. Never skip steps. If the student is stuck, provide hints in escalating specificity, start broad, then narrow.<br><br>
                                     <strong>Format:</strong> Begin each response with a guiding question. Only reveal the next step after the student has attempted the current one.</p>
                                 </div>
                                 <div class="technique-demo__response">
@@ -470,11 +470,11 @@
                                     <p><strong>Student:</strong> How do I solve 2x + 5 = 13?<br><br>
                                     <strong>Tutor:</strong> Great question! Let&rsquo;s work through this together. Looking at the equation 2x + 5 = 13, our goal is to get x by itself on one side. What operation do you think we should do first to start isolating the term with x?<br><br>
                                     <strong>Student:</strong> Subtract 5 from both sides?<br><br>
-                                    <strong>Tutor:</strong> Exactly right! Subtracting 5 from both sides is the perfect first move. Go ahead and do that &mdash; what do you get on each side?<br><br>
+                                    <strong>Tutor:</strong> Exactly right! Subtracting 5 from both sides is the perfect first move. Go ahead and do that, what do you get on each side?<br><br>
                                     <strong>Student:</strong> 2x = 8<br><br>
                                     <strong>Tutor:</strong> Perfect work! Now you have 2x = 8. You&rsquo;re one step away from finding x. What operation will undo the multiplication by 2?<br><br>
                                     <strong>Student:</strong> Divide by 2. So x = 4!<br><br>
-                                    <strong>Tutor:</strong> You nailed it! x = 4 is absolutely correct. You just solved a two-step linear equation by isolating the variable &mdash; first removing the constant with subtraction, then removing the coefficient with division. That process works for any equation in this form.</p>
+                                    <strong>Tutor:</strong> You nailed it! x = 4 is absolutely correct. You just solved a two-step linear equation by isolating the variable, first removing the constant with subtraction, then removing the coefficient with division. That process works for any equation in this form.</p>
                                 </div>
                             </div>
                         </div>
@@ -521,7 +521,7 @@
                                 </svg>
                                 <div>
                                     <strong>Domain-Specific Assistants</strong>
-                                    <p>When the AI needs to operate as a specialist in a particular field &mdash; maintaining expertise boundaries and domain-appropriate communication styles.</p>
+                                    <p>When the AI needs to operate as a specialist in a particular field, maintaining expertise boundaries and domain-appropriate communication styles.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -566,7 +566,7 @@
                                 </svg>
                                 <div>
                                     <strong>Rapidly Changing Requirements</strong>
-                                    <p>Prototyping phases where the desired behavior changes every few messages &mdash; embedding instructions in user prompts is faster for iteration.</p>
+                                    <p>Prototyping phases where the desired behavior changes every few messages, embedding instructions in user prompts is faster for iteration.</p>
                                 </div>
                             </div>
                         </div>
@@ -708,7 +708,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Role Prompting</span>
-                        <span class="evolution-callout__desc">The precursor to system prompting &mdash; assigning a persona within the user message. System prompting elevates this into a persistent, privileged instruction layer.</span>
+                        <span class="evolution-callout__desc">The precursor to system prompting, assigning a persona within the user message. System prompting elevates this into a persistent, privileged instruction layer.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -747,7 +747,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Constrained Output</span>
-                        <span class="evolution-callout__desc">While system prompting defines behavioral rules, Constrained Output focuses specifically on enforcing structured formats &mdash; the two combine for reliable, formatted AI responses.</span>
+                        <span class="evolution-callout__desc">While system prompting defines behavioral rules, Constrained Output focuses specifically on enforcing structured formats, the two combine for reliable, formatted AI responses.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -824,7 +824,7 @@
 
         <div class="footer-bottom">
             <p>AI for Everyone</p>
-            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology&mdash;it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">&mdash; Basiliso (Bas) Rosario</span></p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
         </div>
 
         <div class="footer-policies">
