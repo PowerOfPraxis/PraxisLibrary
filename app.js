@@ -10615,6 +10615,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (menuToggle) {
             menuToggle.insertAdjacentHTML('beforebegin', triggerHTML);
         }
+
+        // Add tour step to search trigger
+        const searchBtn = document.getElementById('search-trigger');
+        if (searchBtn) {
+            searchBtn.setAttribute('data-tour-step', '6');
+            searchBtn.setAttribute('data-tour-title', 'Search');
+            searchBtn.setAttribute('data-tour-desc', 'Find anything on Praxis instantly. Search across all 177 techniques, 5,324 glossary terms, and 9 tools. Use Ctrl+K (or Cmd+K on Mac) to open search from any page.');
+        }
     }
 
     /**
@@ -13856,5 +13864,324 @@ document.addEventListener('DOMContentLoaded', function() {
             + '&body=' + encodeURIComponent(body);
 
         window.location.href = href;
+    });
+})();
+
+// === GUIDED TOUR ENGINE ===
+/** Context-aware guided tour. Reads data-tour-step/title/desc attributes from the page. */
+(function() {
+    'use strict';
+
+    // ==========================================
+    // TOUR DISCOVERY (reads data-tour attributes)
+    // ==========================================
+
+    function discoverTourSteps() {
+        var els = document.querySelectorAll('[data-tour-step]');
+        var steps = [];
+        for (var i = 0; i < els.length; i++) {
+            steps.push({
+                element: els[i],
+                step: parseInt(els[i].getAttribute('data-tour-step'), 10),
+                title: els[i].getAttribute('data-tour-title') || '',
+                description: els[i].getAttribute('data-tour-desc') || ''
+            });
+        }
+        steps.sort(function(a, b) { return a.step - b.step; });
+        return steps;
+    }
+
+    // ==========================================
+    // DOM CREATION
+    // ==========================================
+
+    function createTourButton() {
+        var btn = document.createElement('button');
+        btn.className = 'tour-toggle';
+        btn.setAttribute('aria-label', 'Start guided tour');
+        btn.textContent = 'First Time? Click Here!';
+        document.body.appendChild(btn);
+        return btn;
+    }
+
+    function createOverlay() {
+        var overlay = document.createElement('div');
+        overlay.className = 'tour-overlay';
+        document.body.appendChild(overlay);
+        return overlay;
+    }
+
+    function createTooltip() {
+        var tip = document.createElement('div');
+        tip.className = 'tour-tooltip';
+        tip.setAttribute('role', 'region');
+        tip.setAttribute('aria-live', 'polite');
+        tip.setAttribute('aria-label', 'Guided tour');
+        tip.innerHTML =
+            '<div class="tour-tooltip__arrow tour-tooltip__arrow--top"></div>' +
+            '<button class="tour-tooltip__btn tour-tooltip__btn--exit" type="button" aria-label="Exit tour">&times;</button>' +
+            '<div class="tour-tooltip__header">' +
+                '<p class="tour-tooltip__title"></p>' +
+                '<span class="tour-tooltip__step-count"></span>' +
+            '</div>' +
+            '<p class="tour-tooltip__desc"></p>' +
+            '<div class="tour-tooltip__footer">' +
+                '<div class="tour-tooltip__progress"></div>' +
+                '<div class="tour-tooltip__controls">' +
+                    '<button class="tour-tooltip__btn tour-tooltip__btn--back" type="button">Back</button>' +
+                    '<button class="tour-tooltip__btn tour-tooltip__btn--next" type="button">Next</button>' +
+                '</div>' +
+            '</div>';
+        document.body.appendChild(tip);
+        return tip;
+    }
+
+    // ==========================================
+    // TOOLTIP POSITIONING
+    // ==========================================
+
+    function positionTooltip(targetEl) {
+        if (!targetEl || !tooltip) return;
+
+        var rect = targetEl.getBoundingClientRect();
+        var tipWidth = tooltip.offsetWidth;
+        var tipHeight = tooltip.offsetHeight;
+        var scrollY = window.scrollY || window.pageYOffset;
+        var viewW = window.innerWidth;
+        var viewH = window.innerHeight;
+        var gap = 16;
+
+        var visTop = Math.max(rect.top, 0);
+        var visBottom = Math.min(rect.bottom, viewH);
+
+        var arrow = tooltip.querySelector('.tour-tooltip__arrow');
+        arrow.className = 'tour-tooltip__arrow';
+
+        var top, left;
+        var placed = false;
+
+        // Try below the visible portion
+        if (visBottom + gap + tipHeight < viewH) {
+            top = visBottom + scrollY + gap;
+            left = rect.left + Math.min(rect.width, viewW) / 2 - tipWidth / 2;
+            arrow.classList.add('tour-tooltip__arrow--top');
+            placed = true;
+        }
+
+        // Try above the visible portion
+        if (!placed && visTop - gap - tipHeight > 0) {
+            top = visTop + scrollY - tipHeight - gap;
+            left = rect.left + Math.min(rect.width, viewW) / 2 - tipWidth / 2;
+            arrow.classList.add('tour-tooltip__arrow--bottom');
+            placed = true;
+        }
+
+        // Fallback: center of visible viewport
+        if (!placed) {
+            top = scrollY + viewH / 2 - tipHeight / 2;
+            left = viewW / 2 - tipWidth / 2;
+            arrow.style.display = 'none';
+        } else {
+            arrow.style.display = '';
+        }
+
+        // Clamp to viewport edges
+        if (left < 10) left = 10;
+        if (left + tipWidth > viewW - 10) left = viewW - tipWidth - 10;
+        if (top < scrollY + 10) top = scrollY + 10;
+        if (top + tipHeight > scrollY + viewH - 10) top = scrollY + viewH - tipHeight - 10;
+
+        tooltip.style.top = top + 'px';
+        tooltip.style.left = left + 'px';
+    }
+
+    // ==========================================
+    // TOUR ENGINE
+    // ==========================================
+
+    var currentStep = 0;
+    var currentTour = null;
+    var isActive = false;
+    var tourButton = null;
+    var tooltip = null;
+    var overlay = null;
+    var highlightedEl = null;
+
+    function clearHighlight() {
+        if (highlightedEl) {
+            highlightedEl.classList.remove('tour-highlight');
+            highlightedEl = null;
+        }
+    }
+
+    function applyHighlight(el) {
+        clearHighlight();
+        if (el) {
+            el.classList.add('tour-highlight');
+            highlightedEl = el;
+        }
+        return el;
+    }
+
+    function updateTooltip() {
+        if (!currentTour || !tooltip) return;
+        var step = currentTour[currentStep];
+        var titleEl = tooltip.querySelector('.tour-tooltip__title');
+        var descEl = tooltip.querySelector('.tour-tooltip__desc');
+        var countEl = tooltip.querySelector('.tour-tooltip__step-count');
+        var backBtn = tooltip.querySelector('.tour-tooltip__btn--back');
+        var nextBtn = tooltip.querySelector('.tour-tooltip__btn--next');
+        var progressEl = tooltip.querySelector('.tour-tooltip__progress');
+
+        titleEl.textContent = step.title;
+        descEl.textContent = step.description;
+        countEl.textContent = 'Step ' + (currentStep + 1) + ' of ' + currentTour.length;
+
+        backBtn.style.display = currentStep === 0 ? 'none' : '';
+        nextBtn.textContent = currentStep === currentTour.length - 1 ? 'Finish' : 'Next';
+
+        var dots = '';
+        for (var i = 0; i < currentTour.length; i++) {
+            var cls = 'tour-tooltip__dot';
+            if (i === currentStep) cls += ' is-active';
+            else if (i < currentStep) cls += ' is-complete';
+            dots += '<span class="' + cls + '"></span>';
+        }
+        progressEl.innerHTML = dots;
+
+        // Highlight and scroll to the tagged element
+        var targetEl = applyHighlight(step.element);
+        if (targetEl) {
+            var rect = targetEl.getBoundingClientRect();
+            var viewH = window.innerHeight;
+            var targetScrollY = (window.scrollY || window.pageYOffset) + rect.top - viewH * 0.25;
+            if (targetScrollY < 0) targetScrollY = 0;
+            window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+
+            // Wait for scroll to finish, then position tooltip
+            var scrollTimer = null;
+            var scrolled = false;
+            var positioned = false;
+            var onScrollEnd = function() {
+                scrolled = true;
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(function() {
+                    window.removeEventListener('scroll', onScrollEnd);
+                    if (!positioned) {
+                        positioned = true;
+                        positionTooltip(targetEl);
+                    }
+                }, 100);
+            };
+            window.addEventListener('scroll', onScrollEnd);
+            // Fallback: if no scroll happened after 150ms, element is already in view
+            setTimeout(function() {
+                if (!scrolled && !positioned) {
+                    window.removeEventListener('scroll', onScrollEnd);
+                    positioned = true;
+                    positionTooltip(targetEl);
+                }
+            }, 150);
+        }
+    }
+
+    function startTour() {
+        currentTour = discoverTourSteps();
+        if (currentTour.length === 0) return;
+        currentStep = 0;
+        isActive = true;
+        tourButton.classList.add('is-active');
+        tourButton.setAttribute('aria-label', 'Stop guided tour');
+        overlay.classList.add('is-visible');
+        tooltip.classList.add('is-visible');
+        updateTooltip();
+        setTimeout(function() {
+            tooltip.querySelector('.tour-tooltip__btn--next').focus();
+        }, 400);
+    }
+
+    function stopTour() {
+        isActive = false;
+        currentStep = 0;
+        currentTour = null;
+        clearHighlight();
+        tourButton.classList.remove('is-active');
+        tourButton.setAttribute('aria-label', 'Start guided tour');
+        overlay.classList.remove('is-visible');
+        tooltip.classList.remove('is-visible');
+        tourButton.focus();
+    }
+
+    function nextStep() {
+        if (!currentTour) return;
+        if (currentStep >= currentTour.length - 1) {
+            stopTour();
+            return;
+        }
+        currentStep++;
+        updateTooltip();
+    }
+
+    function prevStep() {
+        if (!currentTour || currentStep <= 0) return;
+        currentStep--;
+        updateTooltip();
+    }
+
+    // ==========================================
+    // INITIALIZATION
+    // ==========================================
+
+    // Only show tour button if page has tour steps
+    var hasSteps = document.querySelectorAll('[data-tour-step]').length > 0;
+    if (!hasSteps) return;
+
+    tourButton = createTourButton();
+    overlay = createOverlay();
+    tooltip = createTooltip();
+
+    tourButton.addEventListener('click', function() {
+        if (isActive) {
+            stopTour();
+        } else {
+            startTour();
+        }
+    });
+
+    // Hero CTA also starts the tour
+    var heroTourBtn = document.getElementById('start-tour-hero-btn');
+    if (heroTourBtn) {
+        heroTourBtn.addEventListener('click', function() {
+            if (!isActive) startTour();
+        });
+    }
+
+    tooltip.querySelector('.tour-tooltip__btn--next').addEventListener('click', nextStep);
+    tooltip.querySelector('.tour-tooltip__btn--back').addEventListener('click', prevStep);
+    tooltip.querySelector('.tour-tooltip__btn--exit').addEventListener('click', stopTour);
+    overlay.addEventListener('click', stopTour);
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isActive) {
+            stopTour();
+        }
+    });
+
+    window.addEventListener('resize', function() {
+        if (isActive && highlightedEl) {
+            positionTooltip(highlightedEl);
+        }
+    });
+
+    // Hide tour button when user scrolls away from top (unless tour is active)
+    var SCROLL_THRESHOLD = 100;
+    window.addEventListener('scroll', function() {
+        if (isActive) return;
+        var scrollY = window.scrollY || window.pageYOffset;
+        if (scrollY > SCROLL_THRESHOLD) {
+            tourButton.classList.add('is-hidden');
+        } else {
+            tourButton.classList.remove('is-hidden');
+        }
     });
 })();

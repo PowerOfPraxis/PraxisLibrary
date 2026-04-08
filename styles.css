@@ -1431,9 +1431,21 @@ body.menu-open .header .search-trigger {
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: var(--space-lg);
-    max-width: 620px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.hero-subtitle__line {
+    display: block;
+    white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+    .hero-subtitle__line {
+        display: inline;
+        white-space: normal;
+    }
 }
 
 /* Hero Action Buttons Container */
@@ -13121,6 +13133,302 @@ html[data-text-scale="3"] {
         -webkit-overflow-scrolling: touch;
     }
 }
+
+/* === GUIDED TOUR === */
+/* Floating Button ---- */
+.tour-toggle {
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    z-index: 9998;
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    background: #DC3545;
+    border: 2px solid #111;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    transition: all var(--transition-normal);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+}
+
+.page-home .tour-toggle {
+    display: none;
+}
+
+html:has(.page-home),
+.page-home {
+    overflow: hidden;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.page-home .hero-section {
+    min-height: 100vh;
+}
+
+.tour-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+.tour-toggle:focus {
+    outline: 3px solid rgba(220, 53, 69, 0.5);
+    outline-offset: 2px;
+}
+
+.tour-toggle.is-active {
+    background: #111;
+    border-color: #DC3545;
+}
+
+.tour-toggle.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+}
+
+/* Tour Tooltip ---- */
+.tour-tooltip {
+    position: absolute;
+    z-index: 10000;
+    background: #111;
+    color: #fff;
+    border: 2px solid #DC3545;
+    border-radius: 10px;
+    padding: 16px 20px;
+    max-width: 360px;
+    min-width: 280px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.tour-tooltip.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tour-tooltip__arrow {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #111;
+    border: 2px solid #DC3545;
+    transform: rotate(45deg);
+}
+
+.tour-tooltip__arrow--top {
+    top: -9px;
+    left: 24px;
+    border-bottom: none;
+    border-right: none;
+}
+
+.tour-tooltip__arrow--bottom {
+    bottom: -9px;
+    left: 24px;
+    border-top: none;
+    border-left: none;
+}
+
+.tour-tooltip__arrow--left {
+    left: -9px;
+    top: 20px;
+    border-bottom: none;
+    border-right: none;
+}
+
+.tour-tooltip__arrow--right {
+    right: -9px;
+    top: 20px;
+    border-top: none;
+    border-left: none;
+}
+
+.tour-tooltip__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.tour-tooltip__title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0;
+    color: #fff;
+}
+
+.tour-tooltip__step-count {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    white-space: nowrap;
+    color: #fff;
+    padding-top: 2px;
+}
+
+.tour-tooltip__desc {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    margin: 0 0 12px 0;
+    line-height: 1.5;
+    color: #fff;
+}
+
+.tour-tooltip__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tour-tooltip__progress {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tour-tooltip__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    transition: background 0.2s ease;
+}
+
+.tour-tooltip__dot.is-active {
+    background: #DC3545;
+}
+
+.tour-tooltip__dot.is-complete {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.tour-tooltip__controls {
+    display: flex;
+    gap: 6px;
+}
+
+.tour-tooltip__btn {
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+}
+
+.tour-tooltip__btn:hover {
+    opacity: 0.85;
+}
+
+.tour-tooltip__btn--back {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.tour-tooltip__btn--next {
+    background: #DC3545;
+    color: #fff;
+}
+
+.tour-tooltip__btn--exit {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 4px;
+    transition: color 0.2s ease;
+}
+
+.tour-tooltip__btn--exit:hover {
+    color: #fff;
+}
+
+/* Tour Overlay ---- */
+.tour-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.tour-overlay.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Tour Highlight ---- */
+.tour-highlight {
+    position: relative;
+    z-index: 10000;
+    outline: 3px solid #DC3545;
+    outline-offset: 4px;
+    border-radius: 8px;
+    animation: tour-pulse 2s ease-in-out infinite;
+}
+
+.adl-toggle.tour-highlight {
+    position: fixed;
+    border-radius: var(--radius-full);
+}
+
+@keyframes tour-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+    50% { box-shadow: 0 0 20px 4px rgba(220, 53, 69, 0.2); }
+}
+
+/* Reduced motion: static border, no pulse */
+@media (prefers-reduced-motion: reduce) {
+    .tour-highlight {
+        animation: none;
+        box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.3);
+    }
+
+    .tour-tooltip {
+        transition: none;
+    }
+
+    .tour-overlay {
+        transition: none;
+    }
+}
+
+/* Responsive ---- */
+@media (max-width: 768px) {
+    .tour-tooltip {
+        max-width: 300px;
+        min-width: 240px;
+        padding: 14px 16px;
+    }
+
+    .tour-tooltip__step-count {
+        display: none;
+    }
+
+    .tour-tooltip__desc {
+        font-size: 0.8rem;
+    }
+}
+/* /GUIDED TOUR */
 
 /* ==============================================
    DATA VISUALIZATION COMPONENTS
