@@ -13949,7 +13949,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var scrollY = window.scrollY || window.pageYOffset;
         var viewW = window.innerWidth;
         var viewH = window.innerHeight;
-        var gap = 16;
+        var gap = 24;
 
         var visTop = Math.max(rect.top, 0);
         var visBottom = Math.min(rect.bottom, viewH);
@@ -13993,6 +13993,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         tooltip.style.top = top + 'px';
         tooltip.style.left = left + 'px';
+
+        // Position arrow to point at target element center
+        var targetCenterX = rect.left + rect.width / 2;
+        var arrowLeft = targetCenterX - left;
+        // Clamp arrow within tooltip bounds (14px arrow width + padding)
+        arrowLeft = Math.max(16, Math.min(arrowLeft, tipWidth - 16));
+        arrow.style.left = arrowLeft + 'px';
     }
 
     // ==========================================
