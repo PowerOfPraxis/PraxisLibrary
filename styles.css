@@ -12908,6 +12908,19 @@ html[data-text-scale="3"] {
     --text-scale: 1.5;
 }
 
+/* Hero adapts to scaled text - allow scroll on homepage, wrap subtitle */
+html[data-text-scale="2"] .page-home,
+html[data-text-scale="3"] .page-home {
+    overflow: auto;
+    height: auto;
+}
+
+html[data-text-scale="2"] .hero-subtitle__line,
+html[data-text-scale="3"] .hero-subtitle__line {
+    display: inline;
+    white-space: normal;
+}
+
 /* Prevent ADL panel from scaling with document */
 .adl-panel,
 .adl-toggle {
@@ -13169,6 +13182,12 @@ html:has(.page-home),
     height: 100vh;
     margin: 0;
     padding: 0;
+}
+
+html[data-text-scale="2"]:has(.page-home),
+html[data-text-scale="3"]:has(.page-home) {
+    overflow: auto;
+    height: auto;
 }
 
 .page-home .hero-section {
