@@ -27116,6 +27116,841 @@ h3 + .nav-cards--compact {
     border-radius: 12px;
 }
 
+/* === PROVIDER SWITCHER === */
+/* Horizontal navigation bar for jumping between AI provider pages.
+   Sits between the page hero and Company Overview stats on each
+   provider page. Text-only pills with provider color accents, no logos,
+   because consistent and compact beats mixed-media on a nav element. */
+
+/* Sticky wrapper holding the accent bar + switcher as one pinned unit.
+   Pin position uses the global --ticker-offset (set by app.js on :root
+   when the ethics ticker slides in/out) plus the measured header height,
+   so the switcher pins flush against the bottom of the fixed header with
+   zero gap for content to scroll through behind it. */
+.sticky-nav-wrap {
+    position: sticky;
+    top: calc(var(--ticker-offset, 0px) + 72px);
+    z-index: 100;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.provider-switcher {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-light);
+    padding: 1rem 0;
+}
+
+.provider-switcher__intro {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin: 0 0 0.85rem 0;
+}
+
+.provider-switcher__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.provider-switcher__pill {
+    --ps-accent: #9ca3af;
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border: 1.5px solid var(--ps-accent);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    white-space: nowrap;
+}
+
+.provider-switcher__pill:hover {
+    background: color-mix(in srgb, var(--ps-accent) 14%, var(--bg-primary));
+    color: var(--text-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px color-mix(in srgb, var(--ps-accent) 22%, transparent);
+}
+
+.provider-switcher__pill:focus-visible {
+    outline: 2px solid var(--ps-accent);
+    outline-offset: 3px;
+}
+
+.provider-switcher__pill--active {
+    background: var(--ps-accent);
+    color: #ffffff;
+    border-color: var(--ps-accent);
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--ps-accent) 32%, transparent);
+    cursor: default;
+}
+
+.provider-switcher__pill--active:hover {
+    background: var(--ps-accent);
+    color: #ffffff;
+    transform: none;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--ps-accent) 32%, transparent);
+}
+
+/* Provider accent colors ---- */
+.provider-switcher__pill--anthropic { --ps-accent: #D97757; }
+.provider-switcher__pill--openai    { --ps-accent: #10A37F; }
+.provider-switcher__pill--google    { --ps-accent: #4285F4; }
+.provider-switcher__pill--meta      { --ps-accent: #0668E1; }
+.provider-switcher__pill--xai       { --ps-accent: #6366F1; }
+.provider-switcher__pill--deepseek  { --ps-accent: #4D6BFE; }
+.provider-switcher__pill--mistral   { --ps-accent: #FF7000; }
+.provider-switcher__pill--alibaba   { --ps-accent: #FF6A00; }
+.provider-switcher__pill--cohere    { --ps-accent: #39594D; }
+
+/* Responsive ---- */
+@media (max-width: 900px) {
+    .sticky-nav-wrap {
+        top: calc(var(--ticker-offset, 0px) + 64px);
+    }
+
+    .provider-switcher {
+        padding: 0.85rem 0;
+    }
+
+    .provider-switcher__intro {
+        margin-bottom: 0.6rem;
+    }
+
+    .provider-switcher__list {
+        gap: 0.5rem;
+    }
+
+    .provider-switcher__pill {
+        padding: 0.45rem 0.9rem;
+        font-size: 0.82rem;
+        min-height: 38px;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Horizontal scroll for small screens keeps the row on one line
+       and feels swipeable instead of cluttering a 3-row wrap. */
+    .provider-switcher__list {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 0.35rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .provider-switcher__pill {
+        flex-shrink: 0;
+    }
+}
+
+/* /PROVIDER SWITCHER */
+
+/* === PROVIDER BRAND HEADER === */
+/* Visual anchor block used at the top of the About section on provider
+   pages to break up dense text and give neurodivergent readers a stable
+   scanning landmark. Accent color is driven by --pb-accent, which is
+   set per-provider via .provider-brand--{provider} modifier classes. */
+
+.provider-brand {
+    --pb-accent: #D97757;
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    padding: 1.5rem 1.75rem;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--pb-accent) 7%, transparent) 0%, color-mix(in srgb, var(--pb-accent) 1%, transparent) 100%);
+    border: 1px solid color-mix(in srgb, var(--pb-accent) 20%, transparent);
+    border-left: 5px solid var(--pb-accent);
+    border-radius: var(--radius-lg);
+    margin-top: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.provider-brand__mark {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 96px;
+    padding: 20px;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--pb-accent) 10%, #000) 0%, #0a0a0f 60%, #000000 100%);
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--pb-accent) 25%, transparent);
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--pb-accent) 28%, transparent), 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* Light tile variant for providers whose logos use dark ink on transparent/white */
+.provider-brand__mark--light {
+    background: #ffffff;
+    border: 1px solid color-mix(in srgb, var(--pb-accent) 22%, transparent);
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--pb-accent) 18%, transparent), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Wordmark tile variant for providers with horizontal text logos */
+.provider-brand__mark--wordmark {
+    width: 224px;
+    height: 96px;
+    padding: 14px 22px;
+}
+
+/* Text-only variant when no logo file is available yet.
+   Omits the image tile entirely, text block occupies the full width
+   with slightly stronger typography to compensate for the missing anchor. */
+.provider-brand--text-only .provider-brand__text {
+    flex: 1;
+}
+
+.provider-brand--text-only .provider-brand__name {
+    font-size: 2.1rem;
+}
+
+.provider-brand--text-only .provider-brand__tagline {
+    font-size: 1.08rem;
+    max-width: 74ch;
+}
+
+.provider-brand__mark-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.provider-brand__text {
+    flex: 1;
+    min-width: 0;
+}
+
+.provider-brand__name {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.3rem;
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 0.45rem 0;
+    line-height: 1.1;
+}
+
+.provider-brand__tm {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    margin-top: 0.15rem;
+}
+
+.provider-brand__tagline {
+    font-size: 1.02rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    font-style: italic;
+    max-width: 62ch;
+}
+
+/* Subheaded About Content Blocks ---- */
+.about-blocks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 1.75rem;
+}
+
+.about-block {
+    padding: 1.4rem 1.6rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-left: 3px solid var(--pb-accent, #D97757);
+    border-radius: var(--radius-md);
+    transition: box-shadow var(--transition-normal);
+}
+
+.about-block:hover {
+    box-shadow: var(--shadow-sm);
+}
+
+.about-block__title {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.92rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--pb-accent, #D97757);
+    margin: 0 0 0.85rem 0;
+}
+
+.about-block__title::before {
+    content: '';
+    display: inline-block;
+    width: 22px;
+    height: 2px;
+    background: var(--pb-accent, #D97757);
+    border-radius: 2px;
+}
+
+.about-block__body {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.about-block__body + .about-block__body {
+    margin-top: 0.8rem;
+}
+
+.about-block__list {
+    margin: 0.6rem 0 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.about-block__list-item {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    font-size: 0.97rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+.about-block__list-item::before {
+    content: '';
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    margin-top: 0.55rem;
+    background: var(--pb-accent, #D97757);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--pb-accent, #D97757) 18%, transparent);
+}
+
+.about-block__list-item strong {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* Responsive ---- */
+@media (max-width: 700px) {
+    .provider-brand {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.25rem 1.35rem;
+    }
+
+    .provider-brand__mark {
+        width: 78px;
+        height: 78px;
+        padding: 15px;
+    }
+
+    .provider-brand__mark--wordmark {
+        width: 180px;
+        height: 76px;
+        padding: 12px 18px;
+    }
+
+    .provider-brand__name {
+        font-size: 1.45rem;
+    }
+
+    .about-block {
+        padding: 1.2rem 1.3rem;
+    }
+}
+
+/* Provider accent modifier classes ---- */
+.provider-brand--anthropic { --pb-accent: #D97757; }
+.provider-brand--openai    { --pb-accent: #10A37F; }
+.provider-brand--google    { --pb-accent: #4285F4; }
+.provider-brand--meta      { --pb-accent: #0668E1; }
+.provider-brand--xai       { --pb-accent: #6366F1; }
+.provider-brand--deepseek  { --pb-accent: #4D6BFE; }
+.provider-brand--mistral   { --pb-accent: #FF7000; }
+.provider-brand--alibaba   { --pb-accent: #FF6A00; }
+.provider-brand--cohere    { --pb-accent: #39594D; }
+
+/* Same accents propagated to .about-blocks since it is a sibling of
+   .provider-brand, not a descendant, so it cannot inherit --pb-accent
+   from the brand header. Setting the variable here cascades to each
+   .about-block and .about-block__list-item child. */
+.about-blocks--anthropic { --pb-accent: #D97757; }
+.about-blocks--openai    { --pb-accent: #10A37F; }
+.about-blocks--google    { --pb-accent: #4285F4; }
+.about-blocks--meta      { --pb-accent: #0668E1; }
+.about-blocks--xai       { --pb-accent: #6366F1; }
+.about-blocks--deepseek  { --pb-accent: #4D6BFE; }
+.about-blocks--mistral   { --pb-accent: #FF7000; }
+.about-blocks--alibaba   { --pb-accent: #FF6A00; }
+.about-blocks--cohere    { --pb-accent: #39594D; }
+
+/* /PROVIDER BRAND HEADER */
+
+/* === DEEP DIVE CARDS === */
+/* Per-model in-depth reference cards used on provider benchmark pages.
+   Uses a per-instance --dd-accent custom property so each provider page
+   can tint the component without redeclaring every rule. */
+
+.model-deep-dive {
+    --dd-accent: #D97757;
+    --dd-accent-soft: color-mix(in srgb, var(--dd-accent) 12%, transparent);
+    --dd-accent-line: color-mix(in srgb, var(--dd-accent) 25%, transparent);
+    --dd-accent-ring: color-mix(in srgb, var(--dd-accent) 22%, transparent);
+    --dd-accent-deep: color-mix(in srgb, var(--dd-accent) 80%, #000);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.model-deep-dive__intro {
+    max-width: 820px;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 0 0 0.5rem 0;
+}
+
+/* Main card container ---- */
+.deep-dive-card {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 2.25rem 2.5rem 2.5rem 2.5rem;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    scroll-margin-top: 100px;
+}
+
+.deep-dive-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--dd-accent), var(--dd-accent-line));
+}
+
+.deep-dive-card--flagship::before {
+    height: 6px;
+    background: linear-gradient(90deg, var(--dd-accent) 0%, #E89B7D 50%, var(--dd-accent) 100%);
+}
+
+.deep-dive-card--flagship {
+    box-shadow: var(--shadow-lg), 0 0 0 1px var(--dd-accent-line);
+}
+
+/* Card header ---- */
+.deep-dive-card__header {
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.deep-dive-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.deep-dive-card__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: var(--radius-full);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-light);
+}
+
+.deep-dive-card__badge--flagship {
+    background: var(--dd-accent-soft);
+    color: var(--dd-accent-deep);
+    border-color: var(--dd-accent-line);
+}
+
+.deep-dive-card__badge--balanced {
+    background: rgba(59, 130, 246, 0.1);
+    color: #1E5CB8;
+    border-color: rgba(59, 130, 246, 0.25);
+}
+
+.deep-dive-card__badge--fast {
+    background: rgba(16, 185, 129, 0.1);
+    color: #047857;
+    border-color: rgba(16, 185, 129, 0.25);
+}
+
+.deep-dive-card__badge--reasoning {
+    background: rgba(139, 92, 246, 0.12);
+    color: #6d28d9;
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+.deep-dive-card__badge--current {
+    background: rgba(5, 150, 105, 0.08);
+    color: #047857;
+    border-color: rgba(5, 150, 105, 0.2);
+}
+
+.deep-dive-card__title {
+    font-size: 1.95rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 0.4rem 0;
+    line-height: 1.2;
+}
+
+.deep-dive-card__release {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.95rem 0;
+}
+
+.deep-dive-card__tagline {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 72ch;
+}
+
+/* Internal section labels ---- */
+.deep-dive-card__section-label {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--dd-accent);
+    margin: 2rem 0 1rem 0;
+}
+
+.deep-dive-card__section-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--dd-accent);
+    border-radius: 2px;
+}
+
+.deep-dive-card__section-label:first-of-type {
+    margin-top: 0;
+}
+
+/* At-a-glance spec table (definition list) ---- */
+.deep-dive-card__spec-table {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 1.75rem;
+    margin: 0;
+    padding: 1.4rem 1.6rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+}
+
+.deep-dive-card__spec-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+}
+
+.deep-dive-card__spec-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.deep-dive-card__spec-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.45;
+}
+
+/* Feature grid ---- */
+.deep-dive-card__feature-grid {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 0.25rem 1.35rem;
+    background: var(--bg-primary);
+}
+
+.deep-dive-card__feature-row {
+    display: grid;
+    grid-template-columns: minmax(150px, 190px) auto 1fr;
+    gap: 0.85rem 1.25rem;
+    align-items: flex-start;
+    padding: 0.8rem 0;
+    border-bottom: 1px dashed var(--border-light);
+}
+
+.deep-dive-card__feature-row:last-child {
+    border-bottom: none;
+}
+
+.deep-dive-card__feature-label {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+.deep-dive-card__feature-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 58px;
+    padding: 0.22rem 0.6rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+}
+
+.deep-dive-card__feature-status--yes {
+    background: rgba(5, 150, 105, 0.1);
+    color: #047857;
+    border: 1px solid rgba(5, 150, 105, 0.3);
+}
+
+.deep-dive-card__feature-status--native {
+    background: var(--dd-accent-soft);
+    color: var(--dd-accent-deep);
+    border: 1px solid var(--dd-accent-line);
+}
+
+.deep-dive-card__feature-status--partial {
+    background: rgba(245, 158, 11, 0.1);
+    color: #B45309;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.deep-dive-card__feature-note {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Data handling panel ---- */
+.deep-dive-card__data-panel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 2.25rem;
+    padding: 1.6rem 1.85rem;
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--dd-accent);
+    border-radius: var(--radius-md);
+}
+
+.deep-dive-card__data-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.deep-dive-card__data-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dd-accent);
+    margin: 0;
+}
+
+.deep-dive-card__data-value {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Use cases grid ---- */
+.deep-dive-card__use-cases {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.1rem;
+}
+
+.deep-dive-card__use-case {
+    padding: 1.15rem 1.3rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-top: 3px solid var(--dd-accent);
+    border-radius: var(--radius-md);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.deep-dive-card__use-case:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.deep-dive-card__use-case-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.45rem 0;
+    line-height: 1.35;
+}
+
+.deep-dive-card__use-case-body {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* What it excels at - dark closing panel ---- */
+.deep-dive-card__excels {
+    padding: 1.75rem 2rem;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--dd-accent) 10%, #000) 0%, #0a0a0f 60%, #000000 100%);
+    border-radius: var(--radius-md);
+    color: #f3f4f6;
+    border: 1px solid var(--dd-accent-line);
+}
+
+.deep-dive-card__excels-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.deep-dive-card__excels-item {
+    display: flex;
+    gap: 0.95rem;
+    align-items: flex-start;
+    line-height: 1.7;
+}
+
+.deep-dive-card__excels-item::before {
+    content: '';
+    flex-shrink: 0;
+    width: 9px;
+    height: 9px;
+    margin-top: 0.55rem;
+    background: var(--dd-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--dd-accent-ring);
+}
+
+.deep-dive-card__excels-text {
+    font-size: 0.95rem;
+    color: #e5e7eb;
+    margin: 0;
+}
+
+.deep-dive-card__excels-text strong {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* Responsive ---- */
+@media (max-width: 900px) {
+    .deep-dive-card {
+        padding: 1.85rem 1.6rem 2rem 1.6rem;
+    }
+
+    .deep-dive-card__title {
+        font-size: 1.55rem;
+    }
+
+    .deep-dive-card__spec-table,
+    .deep-dive-card__data-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .deep-dive-card__feature-row {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+    }
+
+    .deep-dive-card__feature-status {
+        justify-self: start;
+    }
+}
+
+@media (max-width: 480px) {
+    .deep-dive-card {
+        padding: 1.5rem 1.15rem 1.75rem 1.15rem;
+    }
+
+    .deep-dive-card__use-cases {
+        grid-template-columns: 1fr;
+    }
+
+    .deep-dive-card__data-panel {
+        padding: 1.25rem 1.25rem;
+    }
+
+    .deep-dive-card__title {
+        font-size: 1.4rem;
+    }
+
+    .deep-dive-card__tagline {
+        font-size: 1rem;
+    }
+}
+
+/* Provider accent modifier classes ---- */
+.model-deep-dive--anthropic { --dd-accent: #D97757; }
+.model-deep-dive--openai    { --dd-accent: #10A37F; }
+.model-deep-dive--google    { --dd-accent: #4285F4; }
+.model-deep-dive--meta      { --dd-accent: #0668E1; }
+.model-deep-dive--xai       { --dd-accent: #6366F1; }
+.model-deep-dive--deepseek  { --dd-accent: #4D6BFE; }
+.model-deep-dive--mistral   { --dd-accent: #FF7000; }
+.model-deep-dive--alibaba   { --dd-accent: #FF6A00; }
+.model-deep-dive--cohere    { --dd-accent: #39594D; }
+
+/* /DEEP DIVE CARDS */
+
 /* /AI MODEL BENCHMARK SYSTEM */
 
 /* === AUDIT REPORT PORTAL === */
