@@ -14056,6 +14056,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         progressEl.innerHTML = dots;
 
+        // On mobile, open/close hamburger menu depending on whether target is inside nav
+        var mobileNav = document.getElementById('nav');
+        var mobileToggle = document.getElementById('menuToggle');
+        if (mobileNav && mobileToggle && step.element) {
+            var insideNav = mobileNav.contains(step.element);
+            if (insideNav && !mobileNav.classList.contains('active')) {
+                mobileToggle.classList.add('active');
+                mobileNav.classList.add('active');
+                document.body.classList.add('menu-open');
+            } else if (!insideNav && mobileNav.classList.contains('active')) {
+                mobileToggle.classList.remove('active');
+                mobileNav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        }
+
         // Highlight and scroll to the tagged element
         var targetEl = applyHighlight(step.element);
         if (targetEl) {
@@ -14112,6 +14128,14 @@ document.addEventListener('DOMContentLoaded', function() {
         currentStep = 0;
         currentTour = null;
         clearHighlight();
+        // Close mobile menu if it was opened by the tour
+        var mobileNav = document.getElementById('nav');
+        var mobileToggle = document.getElementById('menuToggle');
+        if (mobileNav && mobileToggle && mobileNav.classList.contains('active')) {
+            mobileToggle.classList.remove('active');
+            mobileNav.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        }
         tourButton.classList.remove('is-active');
         tourButton.setAttribute('aria-label', 'Start guided tour');
         overlay.classList.remove('is-visible');
@@ -14123,6 +14147,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!currentTour) return;
         if (currentStep >= currentTour.length - 1) {
             stopTour();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
         currentStep++;
