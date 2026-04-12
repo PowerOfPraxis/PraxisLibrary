@@ -14056,10 +14056,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         progressEl.innerHTML = dots;
 
-        // On mobile, open/close hamburger menu depending on whether target is inside nav
+        // On mobile only, open/close hamburger menu depending on whether target is inside nav.
+        // Gate on toggle visibility (offsetParent null === display:none) so desktop (>=1024px)
+        // never applies mobile-only classes that would recolor the nav or cause overflow.
         var mobileNav = document.getElementById('nav');
         var mobileToggle = document.getElementById('menuToggle');
-        if (mobileNav && mobileToggle && step.element) {
+        var toggleVisible = mobileToggle && mobileToggle.offsetParent !== null;
+        if (mobileNav && mobileToggle && toggleVisible && step.element) {
             var insideNav = mobileNav.contains(step.element);
             if (insideNav && !mobileNav.classList.contains('active')) {
                 mobileToggle.classList.add('active');
