@@ -10573,6 +10573,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </span>
                                 <span>Mission &amp; creator</span>
                             </a>
+                            <a href="${getSearchLinkPath('pages/audit-report.html')}" class="search-modal-help-item search-modal-quick-link">
+                                <span class="search-modal-help-badge">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg>
+                                    Audit Report
+                                </span>
+                                <span>13 pillars, 0 errors</span>
+                            </a>
                         </div>
                     </div>
                     <div class="search-modal-results" id="search-modal-results">
