@@ -138,13 +138,13 @@ html {
     scroll-margin-top: calc(100px + var(--ticker-offset, 0px));
 }
 
-/* Glossary page anchors - offset for header + sticky search + sticky A-Z nav */
+/* Glossary page anchors - offset for header + sticky search */
 [id^="letter-"] {
-    scroll-margin-top: calc(195px + var(--ticker-offset, 0px));
+    scroll-margin-top: calc(160px + var(--ticker-offset, 0px));
 }
 
 [id^="term-"] {
-    scroll-margin-top: calc(195px + var(--ticker-offset, 0px));
+    scroll-margin-top: calc(160px + var(--ticker-offset, 0px));
 }
 
 body {
@@ -11669,12 +11669,12 @@ body.menu-open {
 }
 
 /* Glossary Inline Search
-   Purpose: Glossary-only search bar above A-Z nav
+   Purpose: Glossary-only search bar
    Searches term names and definitions within glossary.json only
    -------------------------------------------- */
 .glossary-search-container {
     position: sticky;
-    top: calc(156px + var(--ticker-offset, 0px)); /* Below header + A-Z nav + ticker + 14px gap each */
+    top: calc(84px + var(--ticker-offset, 0px)); /* Below header + ticker */
     z-index: 500;
     margin-top: 14px;
     margin-bottom: var(--space-lg);
@@ -11851,49 +11851,6 @@ body.menu-open {
     100% { box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2), var(--shadow-md); }
 }
 
-/* Glossary Navigation - Sticky A-Z Menu
-   Purpose: Floating navigation that follows user while scrolling
-   Left-aligned for site consistency
-   -------------------------------------------- */
-.glossary-nav {
-    display: grid;
-    grid-template-columns: repeat(13, minmax(0, 1fr));
-    gap: 3px;
-    margin-top: 14px;
-    margin-bottom: var(--space-md);
-    /* Sticky positioning for floating navigation */
-    position: sticky;
-    top: calc(84px + var(--ticker-offset, 0px)); /* Below header + ticker + 14px rhythm gap */
-    z-index: 100;
-    background: var(--bg-secondary);
-    padding: var(--space-sm) 0;
-    /* Visual separator when stuck */
-    border-bottom: 1px solid transparent;
-}
-
-.glossary-nav a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 32px;
-    min-width: 0;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    color: var(--text-primary);
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: var(--transition-fast);
-}
-
-.glossary-nav a:hover,
-.glossary-nav a.active {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: white;
-}
-
 .glossary-section {
     margin-bottom: var(--space-2xl);
 }
@@ -11997,16 +11954,6 @@ body.menu-open {
 }
 
 @media (min-width: 768px) {
-    .glossary-nav {
-        grid-template-columns: repeat(26, minmax(0, 1fr));
-        gap: 4px;
-    }
-
-    .glossary-nav a {
-        height: 28px;
-        font-size: 0.75rem;
-    }
-
     .glossary-terms {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
