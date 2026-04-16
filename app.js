@@ -9130,20 +9130,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const glossaryTerms = document.querySelectorAll('.glossary-term');
 
         // Category mappings - maps filter buttons to term-tag values
-        // 12 categories aligned with glossary domain taxonomy
+        // Aligned with actual tag values present in glossary shard JSON files
         const categoryMappings = {
             'all': null, // Show all
-            'fundamentals': ['Fundamentals', 'Core Concept', 'Concept', 'Field', 'Foundational'],
-            'models': ['Model', 'Architecture', 'Neural Networks', 'Transformers', 'LLM', 'Model Type'],
-            'training': ['Training', 'Optimization', 'Process', 'Hyperparameter', 'Data', 'Learning Type'],
-            'algorithms': ['Algorithm', 'Mathematics', 'Loss Function', 'Activation'],
+            'fundamentals': ['Fundamentals', 'Core Concept', 'Concept', 'Field', 'Foundational', 'Machine Learning'],
+            'models': ['Models', 'Model', 'Architecture', 'Neural Networks', 'Transformers', 'LLM', 'Model Type', 'Generative AI'],
+            'training': ['Training', 'Optimization', 'Process', 'Hyperparameter', 'Data', 'Learning Type', 'Training Corpus', 'Reinforcement Learning'],
+            'algorithms': ['Algorithms', 'Algorithm', 'Mathematics', 'Loss Function', 'Activation', 'Statistics'],
             'datasets': ['Dataset', 'Benchmark', 'Evaluation', 'Metrics'],
             'hardware': ['Hardware', 'Infrastructure', 'GPU', 'TPU', 'Compute', 'Chip', 'Performance'],
             'prompting': ['Prompting', 'Technique', 'Reasoning', 'Pattern', 'Skill'],
-            'safety': ['Safety', 'Ethics', 'Alignment', 'Security', 'Risk', 'Trust', 'Fairness', 'Transparency', 'Policy', 'Regulation'],
+            'safety': ['Safety', 'Ethics', 'AI Ethics', 'Alignment', 'Security', 'Risk', 'Trust', 'Fairness', 'Transparency', 'Policy', 'Regulation', 'Governance'],
             'products': ['Product', 'Company', 'LLM Provider', 'OpenAI', 'Anthropic', 'Google', 'Meta', 'Microsoft', 'Platform', 'Provider', 'Tool'],
-            'history': ['Historical', 'Milestones', 'Pioneers', 'Research'],
-            'technical': ['Technical', 'API', 'NLP', 'NLP Task', 'ML Task', 'Application', 'Integration']
+            'history': ['History', 'Historical', 'Milestones', 'Pioneers', 'Research'],
+            'technical': ['Technical', 'API', 'NLP', 'NLP Task', 'ML Task', 'Application', 'Integration', 'Vision', 'Computer Vision', 'Image Processing']
         };
 
         let currentFilter = 'all';
@@ -9192,30 +9192,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Apply sorting
-            if (currentSort === 'desc') {
-                // Z-A: Reverse the order of visible sections
-                const container = glossarySections[0]?.parentElement;
-                if (container) {
-                    const sectionsArray = Array.from(glossarySections);
-                    sectionsArray.reverse().forEach(section => {
-                        container.appendChild(section);
-                    });
-                }
-            } else {
-                // A-Z: Restore original order
-                const container = glossarySections[0]?.parentElement;
-                if (container) {
-                    const sectionsArray = Array.from(glossarySections);
-                    sectionsArray.sort((a, b) => {
-                        const letterA = a.id.replace('letter-', '').toUpperCase();
-                        const letterB = b.id.replace('letter-', '').toUpperCase();
-                        return letterA.localeCompare(letterB);
-                    });
-                    sectionsArray.forEach(section => {
-                        container.appendChild(section);
-                    });
-                }
+            // Apply sorting - sort by letter ID for deterministic results regardless of current DOM order
+            const container = glossarySections[0]?.parentElement;
+            if (container) {
+                const sectionsArray = Array.from(glossarySections);
+                sectionsArray.sort((a, b) => {
+                    const letterA = a.id.replace('letter-', '').toLowerCase();
+                    const letterB = b.id.replace('letter-', '').toLowerCase();
+                    // '_other' sorts last in A-Z, first in Z-A
+                    const isOtherA = letterA.startsWith('_');
+                    const isOtherB = letterB.startsWith('_');
+                    if (isOtherA && !isOtherB) return currentSort === 'desc' ? -1 : 1;
+                    if (!isOtherA && isOtherB) return currentSort === 'desc' ? 1 : -1;
+                    const cmp = letterA.localeCompare(letterB);
+                    return currentSort === 'desc' ? -cmp : cmp;
+                });
+                sectionsArray.forEach(section => {
+                    container.appendChild(section);
+                });
             }
 
             // Update count
