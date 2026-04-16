@@ -10632,7 +10632,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (searchBtn) {
             searchBtn.setAttribute('data-tour-step', '6');
             searchBtn.setAttribute('data-tour-title', 'Search');
-            searchBtn.setAttribute('data-tour-desc', 'Find anything on Praxis instantly. Search across all 177 techniques, 5,324 glossary terms, and 9 tools. Use Ctrl+K (or Cmd+K on Mac) to open search from any page.');
+            searchBtn.setAttribute('data-tour-desc', 'Find anything on Praxis instantly. Search across all 175 techniques, 5,319 glossary terms, and 9 tools. Use Ctrl+K (or Cmd+K on Mac) to open search from any page.');
         }
     }
 
