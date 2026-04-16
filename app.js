@@ -304,31 +304,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let headerTicking = false;
     let headerWasScrolled = false;
 
-    /** Ethics ticker messages -- cycled on each scroll transition */
+    /** Ethics ticker messages, cycled on each scroll transition */
     const ethicsTickerMessages = [
         'Always verify AI-generated content with trusted sources before sharing or acting on it in any context.',
-        'AI systems reflect the biases present in their training data -- question outputs critically and check for fairness.',
-        'Transparent AI disclosure builds trust with users and communities -- 48 US states now require it in key areas.',
-        'Human oversight remains essential in every workflow -- AI assists decisions but should not make them alone.',
-        'Prompt engineering is powerful and far-reaching -- use it responsibly, ethically, and with clear intent.',
-        'AI-generated text can sound confident while being factually wrong -- always fact-check claims against reliable sources.',
+        'AI systems reflect the biases present in their training data, so question outputs critically and check for fairness.',
+        'Transparent AI disclosure builds trust with users and communities, and most US states now require it in key areas.',
+        'Human oversight remains essential in every workflow; AI assists decisions but should not make them alone.',
+        'Prompt engineering is powerful and far-reaching, so use it responsibly, ethically, and with clear intent.',
+        'AI-generated text can sound confident while being factually wrong, so always fact-check claims against reliable sources.',
         'Consider who is affected by AI outputs and potential harms before deploying them at scale in real-world settings.',
-        'Data privacy matters in every interaction -- never input sensitive personal information into public AI tools or chatbots.',
-        'AI literacy is a civic skill for the modern age -- understanding AI helps you navigate the world more effectively.',
+        'Data privacy matters in every interaction; never input sensitive personal information into public AI tools or chatbots.',
+        'AI literacy is a civic skill for the modern age, and understanding AI helps you navigate the world more effectively.',
         'Responsible AI use means knowing what AI cannot do reliably as well as understanding what it can do well.',
-        'Algorithmic fairness requires active and ongoing effort -- test for bias across all demographics and use cases.',
-        'AI models do not understand context the way humans do -- you must supply it explicitly and thoroughly.',
+        'Algorithmic fairness requires active and ongoing effort; test for bias across all demographics and use cases.',
+        'AI models do not understand context the way humans do, so you must supply it explicitly and thoroughly.',
         'When AI makes a mistake the human using it is still fully accountable for the resulting outcome and consequences.',
-        'Synthetic media and deepfakes erode trust in authentic content -- verify sources carefully before believing what you see.',
-        'Open-source AI promotes transparency and collaboration -- but openness alone does not guarantee safety or ethical use.',
-        'Environmental cost of training large AI models is real and growing -- use computational resources thoughtfully and efficiently.',
+        'Synthetic media and deepfakes erode trust in authentic content, so verify sources carefully before believing what you see.',
+        'Open-source AI promotes transparency and collaboration, but openness alone does not guarantee safety or ethical use.',
+        'Environmental cost of training large AI models is real and growing; use computational resources thoughtfully and efficiently.',
         'AI accessibility means designing inclusive tools that work equitably for people of all abilities and backgrounds.',
-        'Informed consent matters in every AI interaction -- always tell people when they are interacting with AI systems.',
+        'Informed consent matters in every AI interaction, so always tell people when they are interacting with AI systems.',
         'Critical thinking paired with media literacy is the best defense against AI-generated misinformation and manipulated content.',
-        'AI ethics is not optional or secondary -- it is a core professional responsibility for every practitioner and organization.',
-        'Guardrails and safety filters exist for important reasons -- circumventing them creates real and measurable harm to people.',
+        'AI ethics is not optional or secondary; it is a core professional responsibility for every practitioner and organization.',
+        'Guardrails and safety filters exist for important reasons; circumventing them creates real and measurable harm to people.',
         'Documentation and reproducibility are fundamental ethical obligations in all AI research and deployed applications.',
-        'The goal of AI should be augmenting human capability and creativity -- not replacing human judgment or autonomy.',
+        'The goal of AI should be augmenting human capability and creativity, not replacing human judgment or autonomy.',
         'Evaluate AI tools by their impact on the most vulnerable and underserved populations and communities first.'
     ];
     let ethicsTickerIndex = 0;
