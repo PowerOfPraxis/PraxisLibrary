@@ -45,8 +45,8 @@
     "verifyTip": "When AI attributes specific achievements to specific people, cross-reference with the official project documentation or Wikipedia."
   },
   {
-    "category": "wrongfact",
-    "categoryLabel": "Fact Verification",
+    "category": "citation",
+    "categoryLabel": "Citation Check",
     "aiResponse": "The Transformer architecture that powers modern LLMs was introduced in a landmark 2017 paper titled 'Attention Is All You Need' by researchers at Google.",
     "isHallucination": false,
     "type": "Verified Fact",
@@ -183,10 +183,10 @@
     "category": "wrongfact",
     "categoryLabel": "Fact Verification",
     "aiResponse": "BERT, introduced by Google in 2018, was the first language model to use a bidirectional training approach, allowing it to understand context from both left and right of a word simultaneously.",
-    "isHallucination": false,
-    "type": "Verified Fact",
-    "explanation": "This is correct. BERT (Bidirectional Encoder Representations from Transformers) was introduced by Devlin et al. at Google in 2018 with its signature bidirectional pretraining.",
-    "verifyTip": "BERT's paper is one of the most cited in NLP history and is easily verifiable."
+    "isHallucination": true,
+    "type": "Mixed Truth",
+    "explanation": "BERT was indeed introduced by Devlin et al. at Google in 2018, but it was NOT the first language model to use a bidirectional approach. ELMo (Peters et al., 2018) used bidirectional LSTMs before BERT. What BERT pioneered was masked language modeling for bidirectional pretraining of Transformers specifically. The claim 'first language model to use a bidirectional training approach' overstates BERT's novelty.",
+    "verifyTip": "When AI says something was 'the first' to do X, check for earlier work. Firsts are commonly overstated."
   },
   {
     "category": "wrongfact",
@@ -198,8 +198,8 @@
     "verifyTip": "This was a globally covered event with extensive documentation and video recordings."
   },
   {
-    "category": "wrongfact",
-    "categoryLabel": "Fact Verification",
+    "category": "citation",
+    "categoryLabel": "Citation Check",
     "aiResponse": "AlphaFold, developed by OpenAI, solved the protein folding problem and was recognized by the journal Science as 2021's Breakthrough of the Year.",
     "isHallucination": true,
     "type": "Confident Wrong Fact",
@@ -279,13 +279,13 @@
     "verifyTip": "Major AI product launches are well-documented through official blog posts and press coverage."
   },
   {
-    "category": "wrongfact",
-    "categoryLabel": "Fact Verification",
+    "category": "citation",
+    "categoryLabel": "Citation Check",
     "aiResponse": "Reinforcement Learning from Human Feedback (RLHF) was first introduced in the InstructGPT paper by Ouyang et al. at OpenAI in 2022, where it was used to align language model outputs with human preferences.",
-    "isHallucination": false,
-    "type": "Verified Fact",
-    "explanation": "This is essentially correct. The InstructGPT paper (Ouyang et al., 2022) from OpenAI demonstrated RLHF for aligning language models, though earlier work on RLHF existed in different contexts.",
-    "verifyTip": "Foundational AI techniques can be verified through the original research papers on arXiv."
+    "isHallucination": true,
+    "type": "Mixed Truth",
+    "explanation": "The InstructGPT paper (Ouyang et al., 2022) popularized RLHF for aligning large language models, but RLHF was not 'first introduced' there. The technique was introduced by Christiano et al. in 2017 ('Deep Reinforcement Learning from Human Preferences'). Claiming InstructGPT introduced RLHF is a common misconception that confuses popularization with invention.",
+    "verifyTip": "When AI claims a technique was 'first introduced' in a specific paper, verify the claim by searching for earlier work on the same concept."
   },
   {
     "category": "fabricated",
@@ -624,10 +624,10 @@
     "category": "fabricated",
     "categoryLabel": "Plausibility Check",
     "aiResponse": "NASA's Artemis III mission, planned for 2025, will land the first woman and first person of color on the lunar surface as part of the Artemis program.",
-    "isHallucination": false,
-    "type": "Verified Fact",
-    "explanation": "This is essentially correct. Artemis III aims to land the first woman and first person of color on the Moon, though the exact timeline has shifted. The stated goals are accurate.",
-    "verifyTip": "NASA publishes mission plans and timelines on their official website, though dates may shift."
+    "isHallucination": true,
+    "type": "Mixed Truth",
+    "explanation": "The mission goals are correct: Artemis III aims to land the first woman and first person of color on the Moon. However, the 2025 date is outdated. The mission has been delayed multiple times and is no longer planned for 2025. Presenting a stale date as current is a hallucination pattern where the AI states outdated information as fact.",
+    "verifyTip": "Always verify dates for future events, especially government space programs which frequently experience schedule changes. Check NASA.gov for current timelines."
   },
   {
     "category": "citation",
@@ -999,8 +999,8 @@
     "verifyTip": "Music history and Beethoven's biography are extensively documented in musicological literature."
   },
   {
-    "category": "wrongfact",
-    "categoryLabel": "Fact Verification",
+    "category": "citation",
+    "categoryLabel": "Citation Check",
     "aiResponse": "The novel '1984' by George Orwell was first published in 1949, depicting a totalitarian society under constant government surveillance.",
     "isHallucination": false,
     "type": "Verified Fact",
@@ -1049,7 +1049,7 @@
     "aiResponse": "The 2019 paper 'Language Models are Few-Shot Learners' by Brown et al. at OpenAI introduced GPT-3 and demonstrated the model's ability to perform tasks with minimal examples.",
     "isHallucination": true,
     "type": "Fabricated Citation",
-    "explanation": "The paper title is slightly wrong. The correct title is 'Language Models are Few-Shot Learners' and it was published in 2020, not 2019. The year is the key error here.",
+    "explanation": "The paper title 'Language Models are Few-Shot Learners' is actually correct, but the date is wrong. It was published in 2020, not 2019. The one-year error is the hallucination here.",
     "verifyTip": "Verify exact paper titles and dates through Google Scholar or arXiv. Even one-year differences matter for accuracy."
   },
   {
@@ -1107,8 +1107,8 @@
     "verifyTip": "Moore's original 1965 paper and subsequent Intel documentation provide the definitive source for this observation."
   },
   {
-    "category": "wrongfact",
-    "categoryLabel": "Fact Verification",
+    "category": "citation",
+    "categoryLabel": "Citation Check",
     "aiResponse": "The Turing Test, proposed by Alan Turing in his 1950 paper 'Computing Machinery and Intelligence,' evaluates a machine's ability to exhibit intelligent behavior indistinguishable from a human.",
     "isHallucination": false,
     "type": "Verified Fact",
@@ -1116,8 +1116,8 @@
     "verifyTip": "Turing's original paper is freely available and is one of the foundational documents of computer science."
   },
   {
-    "category": "wrongfact",
-    "categoryLabel": "Fact Verification",
+    "category": "citation",
+    "categoryLabel": "Citation Check",
     "aiResponse": "Bitcoin was introduced in a 2008 white paper titled 'Bitcoin: A Peer-to-Peer Electronic Cash System' by Satoshi Nakamoto, with the network launching in January 2009.",
     "isHallucination": false,
     "type": "Verified Fact",
@@ -1233,8 +1233,8 @@
     "verifyTip": "Neuroscience findings are published in peer-reviewed journals and can be verified through sources like the Society for Neuroscience."
   },
   {
-    "category": "wrongfact",
-    "categoryLabel": "Fact Verification",
+    "category": "citation",
+    "categoryLabel": "Citation Check",
     "aiResponse": "Wi-Fi technology was invented by a team of Australian researchers at CSIRO (Commonwealth Scientific and Industrial Research Organisation) in the 1990s.",
     "isHallucination": false,
     "type": "Verified Fact",

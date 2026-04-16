@@ -195,20 +195,6 @@
         </section>
         <!-- /HERO SECTION -->
 
-        <!-- === HISTORICAL CONTEXT === -->
-        <section class="section">
-            <div class="container">
-                <div class="highlight-box highlight-box--warning fade-in-up" data-tour-step="2" data-tour-title="Historical Context" data-tour-desc="When was this technique introduced and how has it evolved? This box covers its origin, the original research, and whether modern AI models use it automatically.">
-                    <div class="highlight-box__content">
-                        <span class="highlight-box__title">Technique Context: 2022</span>
-                        <p><strong>Introduced:</strong> Program of Thoughts was published in 2022 by Chen et al. to address a fundamental weakness of Chain-of-Thought reasoning: <strong>LLMs are unreliable calculators</strong>. The researchers demonstrated that when models reason in natural language, they frequently make arithmetic errors, lose track of intermediate values, and struggle with iterative computations. PoT&#8217;s insight was radical &#8212; instead of fixing the model&#8217;s math, stop asking it to do math entirely. Let the model do what it&#8217;s good at (understanding problems and writing code) and let a real interpreter do what it&#8217;s good at (executing computation).</p>
-                        <p><strong>Modern LLM Status:</strong> Code generation as reasoning is now a <strong>native capability</strong> of modern LLMs. Claude, ChatGPT, and Gemini all support code execution environments where they can write and run Python to solve problems. When you ask these models to &#8220;write a Python script to solve this,&#8221; you&#8217;re applying the PoT principle. Understanding this framework helps you recognize when to push the model toward code-based reasoning rather than trusting its narrative arithmetic &#8212; especially for multi-step calculations, iterative logic, and data processing tasks.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- /HISTORICAL CONTEXT -->
-
         <!-- === CONCEPT EXPLANATION === -->
         <section class="section section-alt">
             <div class="container">
@@ -216,16 +202,16 @@
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Idea</span>
                         <h2 class="split-section__title">Separate Reasoning from Computation</h2>
-                        <p class="split-section__text">Program of Thoughts recognizes a clean division of labor: LLMs are excellent at understanding problems and translating them into structured logic, but they are terrible at executing that logic reliably. Ask a model to multiply 17 by 24 in a chain of thought, and it might get it right &#8212; or it might not. Ask it to write <code>17 * 24</code> in Python and run it, and the answer is always 408.</p>
-                        <p class="split-section__text">The key insight is that <strong>code IS reasoning</strong>. A well-written program is not just a tool that produces an answer &#8212; it is a precise, unambiguous representation of the reasoning process. Every variable declaration, every loop iteration, every conditional branch encodes a reasoning decision. The program doesn&#8217;t just compute the answer; it documents exactly how the answer was derived.</p>
+                        <p class="split-section__text">Program of Thoughts recognizes a clean division of labor: LLMs are excellent at understanding problems and translating them into structured logic, but they are terrible at executing that logic reliably. Ask a model to multiply 17 by 24 in a chain of thought, and it might get it right, or it might not. Ask it to write <code>17 * 24</code> in Python and run it, and the answer is always 408.</p>
+                        <p class="split-section__text">The key insight is that <strong>code IS reasoning</strong>. A well-written program is not just a tool that produces an answer, it is a precise, unambiguous representation of the reasoning process. Every variable declaration, every loop iteration, every conditional branch encodes a reasoning decision. The program doesn&#8217;t just compute the answer; it documents exactly how the answer was derived.</p>
                         <p class="split-section__text">This separation means PoT excels at problems involving <strong>iteration</strong> (loops that would require dozens of CoT steps), <strong>precise arithmetic</strong> (where even small rounding errors compound), and <strong>complex data manipulation</strong> (sorting, filtering, aggregating). These are exactly the tasks where natural language reasoning breaks down most frequently.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
                                 <span class="highlight-box__title">Code vs Words</span>
-                                <p>Consider counting how many times bacteria double to exceed one million starting from one cell. In natural language, you would need to track each doubling step manually &#8212; 1, 2, 4, 8, 16... &#8212; for twenty steps, hoping you don&#8217;t lose count.</p>
-                                <p>In code: <code>count = 0; cells = 1; while cells &lt; 1_000_000: cells *= 2; count += 1</code> &#8212; the interpreter handles every iteration perfectly, and the code itself explains the logic.</p>
+                                <p>Consider counting how many times bacteria double to exceed one million starting from one cell. In natural language, you would need to track each doubling step manually (1, 2, 4, 8, 16...) for twenty steps, hoping you don&#8217;t lose count.</p>
+                                <p>In code: <code>count = 0; cells = 1; while cells &lt; 1_000_000: cells *= 2; count += 1</code>, the interpreter handles every iteration perfectly, and the code itself explains the logic.</p>
                                 <p>The program is both the reasoning and the computation. No arithmetic errors, no lost intermediate values, no ambiguity.</p>
                             </div>
                         </div>
@@ -248,7 +234,7 @@
                         </div>
                         <div class="element-timeline__content">
                             <h3 class="element-timeline__title">Understand the Problem</h3>
-                            <p class="element-timeline__text">The LLM reads the problem and identifies the key quantities, relationships, and operations needed. It determines what computation must be performed and what the output should represent. This is pure comprehension &#8212; no calculation happens yet.</p>
+                            <p class="element-timeline__text">The LLM reads the problem and identifies the key quantities, relationships, and operations needed. It determines what computation must be performed and what the output should represent. This is pure comprehension, no calculation happens yet.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
                                 <p>invest ,000 at 7% annual interest, compounded monthly, for 10 years.</p>
@@ -359,7 +345,7 @@
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Interpreter Output</span>
-                                <p>16777216. Exact answer: 16,777,216 cells. The interpreter computes 2^24 with perfect precision &#8212; no rounding, no approximation.</p>
+                                <p>16777216. Exact answer: 16,777,216 cells. The interpreter computes 2^24 with perfect precision, no rounding, no approximation.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -367,7 +353,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Exact answer computed by interpreter &#8212; no approximation, fully auditable code</span>
+                            <span>Exact answer computed by interpreter, no approximation, fully auditable code</span>
                         </div>
                     </div>
                 </div>
@@ -378,7 +364,7 @@
         <!-- === EXAMPLES IN ACTION === -->
         <section class="section">
             <div class="container">
-                <h2 class="section-title fade-in-up" data-tour-step="3" data-tour-title="Examples in Action" data-tour-desc="Real prompt and response examples showing this technique at work. Study the patterns here, then try them with your own prompts.">PoT in Action</h2>
+                <h2 class="section-title fade-in-up" data-tour-step="2" data-tour-title="Examples in Action" data-tour-desc="Real prompt and response examples showing this technique at work. Study the patterns here, then try them with your own prompts.">PoT in Action</h2>
                 <p class="section-subtitle fade-in-up">See how code-based reasoning solves real problems</p>
 
                 <div class="accordion fade-in-up" id="pot-accordion">
@@ -414,7 +400,7 @@
                                 </div>
                                 <div class="technique-demo__response">
                                     <span class="technique-demo__tag">PoT Solution</span>
-                                    <p><strong>Why PoT excels here:</strong> Statistics requires sorting, averaging, and square root operations across 15 values &#8212; each step is an error opportunity.<br><br><strong>Generated Code:</strong><br>scores = [78, 92, 85, 91, 67, 88, 73, 95, 82, 90, 76, 88, 84, 93, 71]<br>mean = sum(scores) / len(scores)<br>sorted_scores = sorted(scores)<br>median = sorted_scores[len(scores) // 2]<br>variance = sum((x - mean) ** 2 for x in scores) / len(scores)<br>std_dev = variance ** 0.5<br><br><strong>Result:</strong> Mean: 83.53, Median: 85, Std Dev: 8.39. Every computation is exact.</p>
+                                    <p><strong>Why PoT excels here:</strong> Statistics requires sorting, averaging, and square root operations across 15 values, each step is an error opportunity.<br><br><strong>Generated Code:</strong><br>scores = [78, 92, 85, 91, 67, 88, 73, 95, 82, 90, 76, 88, 84, 93, 71]<br>mean = sum(scores) / len(scores)<br>sorted_scores = sorted(scores)<br>median = sorted_scores[len(scores) // 2]<br>variance = sum((x - mean) ** 2 for x in scores) / len(scores)<br>std_dev = variance ** 0.5<br><br><strong>Result:</strong> Mean: 83.53, Median: 85, Std Dev: 8.39. Every computation is exact.</p>
                                 </div>
                             </div>
                         </div>
@@ -703,7 +689,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Evolution</span>
                         <span class="evolution-callout__title">Decomposed Prompting</span>
-                        <span class="evolution-callout__desc">Extends the code-first paradigm by breaking complex problems into modular sub-programs, each solved by specialized handlers &#8212; the natural next step from PoT.</span>
+                        <span class="evolution-callout__desc">Extends the code-first paradigm by breaking complex problems into modular sub-programs, each solved by specialized handlers, the natural next step from PoT.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -718,7 +704,7 @@
         <!-- === CTA SECTION === -->
         <section class="section section-alt">
             <div class="container">
-                <div class="cta-corporate cta-corporate--dark fade-in-up" data-tour-step="4" data-tour-title="Try It Yourself" data-tour-desc="Ready to practice? These links take you to interactive tools where you can build and test prompts using this technique.">
+                <div class="cta-corporate cta-corporate--dark fade-in-up" data-tour-step="3" data-tour-title="Try It Yourself" data-tour-desc="Ready to practice? These links take you to interactive tools where you can build and test prompts using this technique.">
                     <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
                     <div class="cta-corporate__content">
                         <h2 class="cta-corporate__title">Let Code Do the Math</h2>

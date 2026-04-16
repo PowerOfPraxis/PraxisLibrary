@@ -600,7 +600,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const pathname = window.location.pathname;
         const segments = pathname.replace(/^\//, '').split('/');
-        const depth = Math.max(0, segments.length - 1);
+        // For file:// URLs, strip segments before the project root.
+        // Detect root by finding the first known top-level site directory.
+        const knownRoots = ['learn', 'pages', 'tools', 'quiz', 'patterns', 'foundations', 'neurodivergence', 'ai-models', 'Audit', 'data', 'assets'];
+        let siteSegments = segments;
+        for (let i = 0; i < segments.length; i++) {
+            if (knownRoots.includes(segments[i])) {
+                siteSegments = segments.slice(i);
+                break;
+            }
+            // Also handle root-level files like index.html, 404.html
+            if (segments[i].endsWith('.html') && i === segments.length - 1) {
+                const preceding = i > 0 ? segments[i - 1] : '';
+                if (!knownRoots.includes(preceding)) {
+                    siteSegments = [segments[i]];
+                    break;
+                }
+            }
+        }
+        const depth = Math.max(0, siteSegments.length - 1);
         if (depth === 0) return targetPath;
         return '../'.repeat(depth) + targetPath;
     }
@@ -7302,7 +7320,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 recommendedPath = '../learn/index.html';
             } else if (achievedLevel === 6) {
                 message = 'Champion! Master level is within reach.';
-                recommendedPath = '../pages/chatgpt-guide.html';
+                recommendedPath = '../tools/matcher.html';
             } else if (achievedLevel === 7) {
                 message = 'Master level! So close to Legendary — try again!';
                 recommendedPath = '../patterns/index.html';
@@ -9674,7 +9692,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'AI Safety', desc: 'Understanding AI limitations, risks, and responsible use practices', url: 'pages/ai-safety.html', category: 'Security', keywords: ['safety', 'security', 'risks', 'limitations', 'responsible', 'ethics', 'privacy'] },
 
         // EDUCATION Category
-        { title: 'ChatGPT Guide', desc: 'Comprehensive guide to using ChatGPT effectively with prompting techniques', url: 'pages/chatgpt-guide.html', category: 'Education', keywords: ['chatgpt', 'openai', 'guide', 'tutorial', 'getting-started', 'llm', 'ai assistant'] },
         { title: 'FAQ', desc: 'Frequently asked questions about AI prompting and this resource', url: 'pages/faq.html', category: 'Education', keywords: ['faq', 'questions', 'answers', 'help', 'common'] },
         { title: 'Glossary', desc: 'Definitions of AI and prompting terminology', url: 'pages/glossary.html', category: 'Education', keywords: ['glossary', 'terms', 'definitions', 'vocabulary', 'dictionary'] },
 
