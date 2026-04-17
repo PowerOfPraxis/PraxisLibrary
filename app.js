@@ -9032,11 +9032,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!filterBar) return; // Only run on glossary page
 
         const filterBtns = filterBar.querySelectorAll('.glossary-filter-btn');
-        const sortBtns = filterBar.querySelectorAll('.glossary-sort-btn');
         const countDisplay = document.getElementById('glossary-visible-count');
 
         let currentFilter = 'all';
-        let currentSort = 'asc';
 
         /**
          * Check if a term matches the current filter
@@ -9084,21 +9082,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     section.classList.remove('hidden');
                 }
             });
-
-            // Apply sorting - sort by letter ID for deterministic results
-            const container = allSections[0]?.parentElement;
-            if (container) {
-                const sectionsArray = Array.from(allSections);
-                sectionsArray.sort((a, b) => {
-                    const letterA = a.id.replace('letter-', '').toLowerCase();
-                    const letterB = b.id.replace('letter-', '').toLowerCase();
-                    const cmp = letterA.localeCompare(letterB);
-                    return currentSort === 'desc' ? -cmp : cmp;
-                });
-                sectionsArray.forEach(section => {
-                    container.appendChild(section);
-                });
-            }
 
             // Update count
             if (countDisplay) {
@@ -9162,19 +9145,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Update current filter and apply
                 currentFilter = btn.dataset.filter;
-                applyFiltersAndSort();
-            });
-        });
-
-        // --- Sort Button Click Handlers ---
-        sortBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update active state
-                sortBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                // Update current sort and apply
-                currentSort = btn.dataset.sort;
                 applyFiltersAndSort();
             });
         });
