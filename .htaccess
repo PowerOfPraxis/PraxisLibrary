@@ -60,8 +60,14 @@
 # Add Cache-Control headers
 <IfModule mod_headers.c>
     # Static assets get 1 year cache
-    <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico|css|js)$">
+    <!-- Images: 1 year immutable (rarely change) -->
+    <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
         Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    <!-- CSS/JS: 1 year cache but revalidate on deploy -->
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "public, max-age=31536000, must-revalidate"
     </FilesMatch>
 
     # HTML gets shorter cache
