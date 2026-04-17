@@ -9031,8 +9031,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const filterBtns = filterBar.querySelectorAll('.glossary-filter-btn');
         const sortBtns = filterBar.querySelectorAll('.glossary-sort-btn');
         const countDisplay = document.getElementById('glossary-visible-count');
-        const glossarySections = document.querySelectorAll('.glossary-section');
-        const glossaryTerms = document.querySelectorAll('.glossary-term');
 
         // Category mappings - maps filter buttons to term-tag values
         // Aligned with actual tag values present in glossary shard JSON files
@@ -9075,10 +9073,18 @@ document.addEventListener('DOMContentLoaded', () => {
          * Apply current filter and sort to glossary
          */
         function applyFiltersAndSort() {
+            // Re-query DOM fresh each time for reliable results
+            const allSections = document.querySelectorAll('.glossary-section');
+            const allTerms = document.querySelectorAll('.glossary-term');
             let visibleCount = 0;
 
+            // Temporarily disable content-visibility for accurate DOM manipulation
+            allSections.forEach(section => {
+                section.style.contentVisibility = 'visible';
+            });
+
             // First, apply filter to all terms
-            glossaryTerms.forEach(term => {
+            allTerms.forEach(term => {
                 if (termMatchesFilter(term, currentFilter)) {
                     term.classList.remove('hidden');
                     visibleCount++;
@@ -9088,7 +9094,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Check each section - hide if all terms are hidden
-            glossarySections.forEach(section => {
+            allSections.forEach(section => {
                 const visibleTerms = section.querySelectorAll('.glossary-term:not(.hidden)');
                 if (visibleTerms.length === 0) {
                     section.classList.add('hidden');
@@ -9097,18 +9103,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Apply sorting - sort by letter ID for deterministic results regardless of current DOM order
-            const container = glossarySections[0]?.parentElement;
+            // Apply sorting - sort by letter ID for deterministic results
+            const container = allSections[0]?.parentElement;
             if (container) {
-                const sectionsArray = Array.from(glossarySections);
+                const sectionsArray = Array.from(allSections);
                 sectionsArray.sort((a, b) => {
                     const letterA = a.id.replace('letter-', '').toLowerCase();
                     const letterB = b.id.replace('letter-', '').toLowerCase();
-                    // '_other' sorts last in A-Z, first in Z-A
-                    const isOtherA = letterA.startsWith('_');
-                    const isOtherB = letterB.startsWith('_');
-                    if (isOtherA && !isOtherB) return currentSort === 'desc' ? -1 : 1;
-                    if (!isOtherA && isOtherB) return currentSort === 'desc' ? 1 : -1;
                     const cmp = letterA.localeCompare(letterB);
                     return currentSort === 'desc' ? -cmp : cmp;
                 });
@@ -9124,6 +9125,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Show "no results" message if needed
             handleNoResults(visibleCount === 0);
+
+            // Restore content-visibility after layout settles
+            requestAnimationFrame(() => {
+                allSections.forEach(section => {
+                    section.style.contentVisibility = '';
+                });
+            });
+
+            // Scroll to top of glossary so user sees the result
+            const searchContainer = document.querySelector('.glossary-search-container');
+            if (searchContainer) {
+                searchContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
         /**
@@ -9185,7 +9199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Initial count
         if (countDisplay) {
-            countDisplay.textContent = glossaryTerms.length;
+            countDisplay.textContent = document.querySelectorAll('.glossary-term').length;
         }
     }
 
