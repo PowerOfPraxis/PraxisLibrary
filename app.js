@@ -9836,7 +9836,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // SITE SEARCH INDEX (LAZY-LOADED)
     // Loaded from external JSON file for better performance
-    // Categories: Discover, Tools, Glossary, Patterns, FAQ, Resources
     // ==========================================
 
     /**
@@ -10127,7 +10126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Group by category
         const grouped = {};
-        const categoryOrder = ['Glossary', 'Techniques', 'Tools', 'Patterns', 'FAQ', 'Resources', 'Neurodivergence'];
+        const categoryOrder = ['Glossary', 'Techniques', 'Tools', 'Patterns', 'FAQ'];
 
         results.forEach(result => {
             if (!grouped[result.category]) {
@@ -10199,8 +10198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Tools: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
         Glossary: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
         Patterns: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>',
-        FAQ: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-        Resources: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>'
+        FAQ: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
     };
 
     /**
@@ -10420,7 +10418,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let html = '';
 
         groupedResults.forEach(group => {
-            const icon = CATEGORY_ICONS[group.category] || CATEGORY_ICONS.Resources;
+            const icon = CATEGORY_ICONS[group.category] || CATEGORY_ICONS.Glossary;
             totalResults += group.results.length;
 
             html += `<div class="search-result-category">`;
