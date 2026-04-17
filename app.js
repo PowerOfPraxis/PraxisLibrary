@@ -8736,6 +8736,9 @@ document.addEventListener('DOMContentLoaded', () => {
             var termEl = document.createElement('div');
             termEl.className = 'glossary-term';
             termEl.id = term.id || '';
+            if (term.domain) {
+                termEl.setAttribute('data-domain', term.domain);
+            }
 
             var h3 = document.createElement('h3');
             h3.textContent = term.term;
@@ -9032,41 +9035,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const sortBtns = filterBar.querySelectorAll('.glossary-sort-btn');
         const countDisplay = document.getElementById('glossary-visible-count');
 
-        // Category mappings - maps filter buttons to term-tag values
-        // Aligned with actual tag values present in glossary shard JSON files
-        const categoryMappings = {
-            'all': null, // Show all
-            'fundamentals': ['Fundamentals', 'Core Concept', 'Concept', 'Field', 'Foundational', 'Machine Learning'],
-            'models': ['Models', 'Model', 'Architecture', 'Neural Networks', 'Transformers', 'LLM', 'Model Type', 'Generative AI'],
-            'training': ['Training', 'Optimization', 'Process', 'Hyperparameter', 'Data', 'Learning Type', 'Training Corpus', 'Reinforcement Learning'],
-            'algorithms': ['Algorithms', 'Algorithm', 'Mathematics', 'Loss Function', 'Activation', 'Statistics'],
-            'datasets': ['Dataset', 'Benchmark', 'Evaluation', 'Metrics'],
-            'hardware': ['Hardware', 'Infrastructure', 'GPU', 'TPU', 'Compute', 'Chip', 'Performance'],
-            'prompting': ['Prompting', 'Technique', 'Reasoning', 'Pattern', 'Skill'],
-            'safety': ['Safety', 'Ethics', 'AI Ethics', 'Alignment', 'Security', 'Risk', 'Trust', 'Fairness', 'Transparency', 'Policy', 'Regulation', 'Governance'],
-            'products': ['Product', 'Company', 'LLM Provider', 'OpenAI', 'Anthropic', 'Google', 'Meta', 'Microsoft', 'Platform', 'Provider', 'Tool'],
-            'history': ['History', 'Historical', 'Milestones', 'Pioneers', 'Research'],
-            'technical': ['Technical', 'API', 'NLP', 'NLP Task', 'ML Task', 'Application', 'Integration', 'Vision', 'Computer Vision', 'Image Processing']
-        };
-
         let currentFilter = 'all';
         let currentSort = 'asc';
 
         /**
          * Check if a term matches the current filter
+         * Filters by domain attribute for guaranteed complete coverage
+         * Every term has exactly one domain -- zero orphans
          * @param {HTMLElement} term - The glossary term element
-         * @param {string} filter - The current filter category
+         * @param {string} filter - The current filter (domain value or 'all')
          * @returns {boolean} - Whether the term matches the filter
          */
         function termMatchesFilter(term, filter) {
             if (filter === 'all') return true;
-
-            const tagElements = term.querySelectorAll('.term-tag');
-            const termTags = Array.from(tagElements).map(tag => tag.textContent.trim());
-            const filterTags = categoryMappings[filter] || [];
-
-            // Check if any of the term's tags match the filter's tags
-            return termTags.some(tag => filterTags.includes(tag));
+            return term.getAttribute('data-domain') === filter;
         }
 
         /**
