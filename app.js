@@ -8978,6 +8978,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 4. Load ALL letter shards in parallel for full page functionality
             // At current scale (~2K terms, ~819KB total) this is fast
             // As glossary grows to 15K+, switch to on-demand loading per letter
+            var letters = glossaryManifest.letters || {};
             var letterKeys = Object.keys(letters).sort();
             // Load target letter first for fast initial render
             if (letterKeys.indexOf(targetLetter) !== -1) {
