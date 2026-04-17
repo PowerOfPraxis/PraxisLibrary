@@ -8736,9 +8736,6 @@ document.addEventListener('DOMContentLoaded', () => {
             var termEl = document.createElement('div');
             termEl.className = 'glossary-term';
             termEl.id = term.id || '';
-            if (term.domain) {
-                termEl.setAttribute('data-domain', term.domain);
-            }
 
             var h3 = document.createElement('h3');
             h3.textContent = term.term;
@@ -8941,8 +8938,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * Loads manifest, determines initial letter, loads shard, sets up UI
      */
     async function initGlossarySystem() {
-        var filterBar = document.querySelector('.glossary-filter-bar');
-        if (!filterBar) return; // Only run on glossary page
+        var glossaryContainer = document.querySelector('.glossary-section');
+        if (!glossaryContainer) return; // Only run on glossary page
 
         try {
             // 1. Load manifest
@@ -8953,8 +8950,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 2. Update page counts from manifest
             var totalTerms = glossaryManifest.totalTerms || 0;
-            var countEl = document.getElementById('glossary-visible-count');
-            if (countEl) countEl.textContent = totalTerms;
 
             var subtitle = document.querySelector('.page-subtitle');
             if (subtitle && totalTerms > 0) {
@@ -8993,8 +8988,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return loadGlossaryLetter(l);
             }));
 
-            // 5. Initialize filters and search (after all terms are in DOM)
-            initGlossaryFilters();
+            // 5. Initialize search (after all terms are in DOM)
             initGlossarySearch();
 
             // 6. Handle hash-based scrolling
@@ -9017,143 +9011,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start the glossary system
     initGlossarySystem();
-
-    // ==========================================
-    // GLOSSARY FILTER & SORT
-    // Category filtering and alphabetical sorting for glossary page
-    // ==========================================
-
-    /**
-     * Initialize glossary filter functionality
-     * Handles category filtering and A-Z/Z-A sorting
-     */
-    function initGlossaryFilters() {
-        const filterBar = document.querySelector('.glossary-filter-bar');
-        if (!filterBar) return; // Only run on glossary page
-
-        const filterBtns = filterBar.querySelectorAll('.glossary-filter-btn');
-        const countDisplay = document.getElementById('glossary-visible-count');
-
-        let currentFilter = 'all';
-
-        /**
-         * Check if a term matches the current filter
-         * Filters by domain attribute for guaranteed complete coverage
-         * Every term has exactly one domain -- zero orphans
-         * @param {HTMLElement} term - The glossary term element
-         * @param {string} filter - The current filter (domain value or 'all')
-         * @returns {boolean} - Whether the term matches the filter
-         */
-        function termMatchesFilter(term, filter) {
-            if (filter === 'all') return true;
-            return term.getAttribute('data-domain') === filter;
-        }
-
-        /**
-         * Apply current filter and sort to glossary
-         */
-        function applyFiltersAndSort() {
-            // Re-query DOM fresh each time for reliable results
-            const allSections = document.querySelectorAll('.glossary-section');
-            const allTerms = document.querySelectorAll('.glossary-term');
-            let visibleCount = 0;
-
-            // Temporarily disable content-visibility for accurate DOM manipulation
-            allSections.forEach(section => {
-                section.style.contentVisibility = 'visible';
-            });
-
-            // First, apply filter to all terms
-            allTerms.forEach(term => {
-                if (termMatchesFilter(term, currentFilter)) {
-                    term.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    term.classList.add('hidden');
-                }
-            });
-
-            // Check each section - hide if all terms are hidden
-            allSections.forEach(section => {
-                const visibleTerms = section.querySelectorAll('.glossary-term:not(.hidden)');
-                if (visibleTerms.length === 0) {
-                    section.classList.add('hidden');
-                } else {
-                    section.classList.remove('hidden');
-                }
-            });
-
-            // Update count
-            if (countDisplay) {
-                countDisplay.textContent = visibleCount;
-            }
-
-            // Show "no results" message if needed
-            handleNoResults(visibleCount === 0);
-
-            // Restore content-visibility after layout settles
-            requestAnimationFrame(() => {
-                allSections.forEach(section => {
-                    section.style.contentVisibility = '';
-                });
-            });
-
-            // Scroll to top of glossary so user sees the result
-            const searchContainer = document.querySelector('.glossary-search-container');
-            if (searchContainer) {
-                searchContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
-        /**
-         * Handle showing/hiding no results message
-         * @param {boolean} show - Whether to show the no results message
-         */
-        function handleNoResults(show) {
-            let noResultsEl = document.querySelector('.glossary-no-results');
-
-            if (show) {
-                if (!noResultsEl) {
-                    noResultsEl = document.createElement('div');
-                    noResultsEl.className = 'glossary-no-results';
-
-                    var heading = document.createElement('h3');
-                    heading.textContent = 'No terms found';
-                    noResultsEl.appendChild(heading);
-
-                    var message = document.createElement('p');
-                    message.textContent = 'No glossary terms match the selected filter. Try selecting a different category.';
-                    noResultsEl.appendChild(message);
-
-                    const firstSection = document.querySelector('.glossary-section');
-                    if (firstSection && firstSection.parentElement) {
-                        firstSection.parentElement.insertBefore(noResultsEl, firstSection);
-                    }
-                }
-                noResultsEl.classList.remove('hidden');
-            } else if (noResultsEl) {
-                noResultsEl.classList.add('hidden');
-            }
-        }
-
-        // --- Filter Button Click Handlers ---
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update active state
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                // Update current filter and apply
-                currentFilter = btn.dataset.filter;
-                applyFiltersAndSort();
-            });
-        });
-
-        // Initial count
-        if (countDisplay) {
-            countDisplay.textContent = document.querySelectorAll('.glossary-term').length;
-        }
-    }
 
     // ==========================================
     // GLOSSARY INLINE SEARCH
