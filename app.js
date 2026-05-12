@@ -8660,12 +8660,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Set the open/closed state of a single glossary letter section.
+     * Updates aria-expanded on the toggle button -- the matching CSS rule
+     * (.glossary-letter-toggle[aria-expanded="false"] + .glossary-terms)
+     * handles the show/hide.
+     *
+     * Single-accordion enforcement is added in a later step (this function
+     * is the chokepoint where that rule lives).
+     *
+     * @param {string} letter - lowercase letter, e.g. 'a', 'b', ...
+     * @param {boolean} isOpen - true to expand, false to collapse
+     */
+    function setGlossaryLetterState(letter, isOpen) {
+        var btn = document.querySelector('.glossary-letter-toggle[data-letter="' + letter + '"]');
+        if (!btn) return;
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+
+    /**
+     * Wire up click handlers for every glossary letter accordion toggle.
+     * Uses event delegation on the closest stable ancestor so it works
+     * regardless of when the markup is rendered.
+     */
+    function initGlossaryAccordion() {
+        var container = document.querySelector('.glossary-section');
+        if (!container) return; // not on glossary page
+        var scope = container.parentElement || document.body;
+
+        scope.addEventListener('click', function(e) {
+            var btn = e.target.closest('.glossary-letter-toggle');
+            if (!btn) return;
+            var letter = btn.getAttribute('data-letter');
+            if (!letter) return;
+            var isOpen = btn.getAttribute('aria-expanded') === 'true';
+            setGlossaryLetterState(letter, !isOpen);
+        });
+    }
+
+    /**
      * Initialize the glossary system
      * Loads manifest, determines initial letter, loads shard, sets up UI
      */
     async function initGlossarySystem() {
         var glossaryContainer = document.querySelector('.glossary-section');
         if (!glossaryContainer) return; // Only run on glossary page
+
+        // Wire accordion click handlers immediately -- no need to wait for shards.
+        initGlossaryAccordion();
 
         try {
             // 1. Load manifest
