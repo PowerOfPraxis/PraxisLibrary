@@ -8661,12 +8661,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Set the open/closed state of a single glossary letter section.
+     * Enforces single-accordion behavior: opening one letter automatically
+     * closes any other currently open letter. Closing a letter affects only
+     * that letter.
+     *
      * Updates aria-expanded on the toggle button -- the matching CSS rule
      * (.glossary-letter-toggle[aria-expanded="false"] + .glossary-terms)
      * handles the show/hide.
-     *
-     * Single-accordion enforcement is added in a later step (this function
-     * is the chokepoint where that rule lives).
      *
      * @param {string} letter - lowercase letter, e.g. 'a', 'b', ...
      * @param {boolean} isOpen - true to expand, false to collapse
@@ -8674,6 +8675,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function setGlossaryLetterState(letter, isOpen) {
         var btn = document.querySelector('.glossary-letter-toggle[data-letter="' + letter + '"]');
         if (!btn) return;
+
+        if (isOpen) {
+            // Single-accordion: close any other currently-open letter first.
+            var openButtons = document.querySelectorAll(
+                '.glossary-letter-toggle[aria-expanded="true"]'
+            );
+            for (var i = 0; i < openButtons.length; i++) {
+                if (openButtons[i] !== btn) {
+                    openButtons[i].setAttribute('aria-expanded', 'false');
+                }
+            }
+        }
+
         btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     }
 
