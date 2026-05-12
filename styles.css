@@ -11302,11 +11302,18 @@ body.menu-open {
 /* === GLOSSARY LETTER ACCORDION === */
 /* Heading-as-button toggle for each letter section (A-Z).
    Single-accordion behavior: only one letter expanded at a time.
-   Markup: <button class="glossary-letter-toggle" aria-expanded aria-controls>
-              <span class="glossary-letter">A</span>
-              <svg class="glossary-letter-chev">...</svg>
-           </button>
+   Markup (per WAI-ARIA APG accordion pattern, heading wraps the toggle):
+     <h2 class="glossary-letter-heading">
+       <button class="glossary-letter-toggle" aria-expanded aria-controls>
+         <span class="glossary-letter">A</span>
+         <svg class="glossary-letter-chev">...</svg>
+       </button>
+     </h2>
 */
+
+.glossary-letter-heading {
+    margin: 0;
+}
 
 .glossary-letter-toggle {
     display: flex;
