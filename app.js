@@ -8754,6 +8754,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 targetLetter = letterFromTermId(targetTermId);
             }
 
+            // Set initial accordion state to match the resolved target letter.
+            // Default behavior: target letter open, all others closed.
+            // setGlossaryLetterState's single-accordion enforcement ensures any
+            // markup-default open letter (currently A) is closed if the hash
+            // resolves to a different target.
+            setGlossaryLetterState(targetLetter, true);
+
             // 4. Load ALL letter shards in parallel for full page functionality
             // At current scale (~2K terms, ~819KB total) this is fast
             // As glossary grows to 15K+, switch to on-demand loading per letter
