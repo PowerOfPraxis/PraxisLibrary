@@ -11362,8 +11362,9 @@ body.menu-open {
 }
 
 /* Collapsed terms: hide the entire grid. Heading remains visible.
-   When the button is collapsed, the sibling .glossary-terms is hidden. */
-.glossary-letter-toggle[aria-expanded="false"] + .glossary-terms {
+   Uses :has() to traverse out of the h2 wrapper (.glossary-letter-heading)
+   that contains the toggle button, then matches the .glossary-terms sibling. */
+.glossary-letter-heading:has(.glossary-letter-toggle[aria-expanded="false"]) + .glossary-terms {
     display: none;
 }
 
