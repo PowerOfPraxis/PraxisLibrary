@@ -935,41 +935,54 @@ body.menu-open .header .search-trigger {
     justify-content: center;
 }
 
-/* Community CTA -- slim, full-width-bounded link under the two primary hero buttons.
-   Forces a new flex row via flex-basis: 100%. Tinted red surface, sits on top of
-   the hero gradient. External link to the Clief Notes Skool community
+/* Community CTA stack -- wraps the two primary hero buttons AND the slim
+   community link in a column that shrink-wraps to its widest child. The slim
+   button stretches to the exact width of the .hero-actions row above it,
+   so its left/right edges align with the two main buttons across all
+   viewports (and naturally narrows to single-button width on mobile when
+   .hero-actions wraps vertically). */
+.hero-cta-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Community CTA -- white text on a tinted red surface for readability on the
+   dark hero gradient. External link to the Clief Notes Skool community
    (registered in Audit/verified-items.json under external_links_verified[]). */
 .hero-cta-community {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-xs);
-    flex-basis: 100%;
-    max-width: 420px;
-    margin: var(--space-sm) auto 0 auto;
+    width: 100%;
     padding: var(--space-sm) var(--space-md);
     min-height: 44px;
     box-sizing: border-box;
-    background: rgba(220, 53, 69, 0.10);
-    color: var(--primary);
-    border: 1px solid rgba(220, 53, 69, 0.45);
+    background: rgba(220, 53, 69, 0.18);
+    color: #fff;
+    border: 1px solid rgba(220, 53, 69, 0.55);
     border-radius: var(--radius-md);
     font-size: 0.875rem;
     font-weight: 600;
     line-height: 1.3;
     text-align: center;
     text-decoration: none;
-    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .hero-cta-community:hover {
-    background: rgba(220, 53, 69, 0.18);
+    background: rgba(220, 53, 69, 0.32);
     border-color: var(--primary);
-    color: var(--primary-dark);
+    color: #fff;
 }
 
 .hero-cta-community:focus-visible {
-    outline: 2px solid var(--primary);
+    outline: 2px solid #fff;
     outline-offset: 2px;
 }
 
