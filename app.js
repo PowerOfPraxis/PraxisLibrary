@@ -8616,6 +8616,17 @@ document.addEventListener('DOMContentLoaded', () => {
             parentSection.classList.remove('hidden');
         }
 
+        // Accordion: ensure the parent letter section is expanded before scrolling.
+        // Single-accordion enforcement in setGlossaryLetterState will close
+        // whichever letter was previously open.
+        if (parentSection && parentSection.id) {
+            // parentSection.id is "letter-x" -- extract the letter.
+            var letterMatch = parentSection.id.match(/^letter-([a-z_]+)$/);
+            if (letterMatch) {
+                setGlossaryLetterState(letterMatch[1], true);
+            }
+        }
+
         // Disable content-visibility on ALL glossary sections for accurate measurement
         var allSections = document.querySelectorAll('.glossary-section');
         allSections.forEach(function(section) {
