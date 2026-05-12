@@ -11299,6 +11299,76 @@ body.menu-open {
     font-size: 0.875rem;
 }
 
+/* === GLOSSARY LETTER ACCORDION === */
+/* Heading-as-button toggle for each letter section (A-Z).
+   Single-accordion behavior: only one letter expanded at a time.
+   Markup: <button class="glossary-letter-toggle" aria-expanded aria-controls>
+              <span class="glossary-letter">A</span>
+              <svg class="glossary-letter-chev">...</svg>
+           </button>
+*/
+
+.glossary-letter-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 0 var(--space-sm) 0;
+    margin: 0 0 var(--space-lg) 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid var(--primary);
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.glossary-letter-toggle:hover {
+    background: rgba(220, 53, 69, 0.04);
+}
+
+.glossary-letter-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Reset margin on the inner <span class="glossary-letter"> so it inherits sizing
+   from the existing rule but doesn't add the original h2's margin-bottom (the
+   button now owns spacing). */
+.glossary-letter-toggle .glossary-letter {
+    margin: 0;
+}
+
+.glossary-letter-chev {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--primary);
+    transition: transform 0.2s ease;
+}
+
+.glossary-letter-toggle[aria-expanded="true"] .glossary-letter-chev {
+    transform: rotate(180deg);
+}
+
+/* Collapsed terms: hide the entire grid. Heading remains visible.
+   When the button is collapsed, the sibling .glossary-terms is hidden. */
+.glossary-letter-toggle[aria-expanded="false"] + .glossary-terms {
+    display: none;
+}
+
+/* Reduce motion: no chevron rotation transition. */
+@media (prefers-reduced-motion: reduce) {
+    .glossary-letter-chev {
+        transition: none;
+    }
+}
+
+/* === /GLOSSARY LETTER ACCORDION === */
+
 .glossary-terms {
     display: flex;
     flex-direction: column;
