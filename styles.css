@@ -89,6 +89,16 @@
     --safe-area-inset-left: env(safe-area-inset-left, 0px);
 }
 
+/* === HEADER HEIGHT === */
+/* Used by sticky sub-navigation (e.g. .foundations-nav) so it stays
+   flush with the main header. JS in app.js (updateHeaderHeight) measures
+   the rendered header.offsetHeight and overrides this value on every load,
+   ticker change, and viewport resize. The 70px value below is a pre-JS
+   fallback to avoid foundations-nav overlap before the script runs. */
+:root {
+    --header-height: 70px;
+}
+
 /* Ensure minimum touch target of 44x44px for iOS HIG compliance */
 @media (max-width: 768px) {
     button,
@@ -356,6 +366,31 @@ p {
 
 .ethics-ticker__msg--hidden span {
     opacity: 0;
+}
+
+/* Mobile: let the ticker grow to fit a balanced 3-line message. The
+   fixed 66px desktop height clips longer messages on narrow viewports.
+   AI ETHICS / AI label badges intentionally untouched. */
+@media (max-width: 480px) {
+    .ethics-ticker {
+        height: auto;
+        min-height: 66px;
+        padding: 6px 0;
+    }
+
+    .ethics-ticker__msg {
+        font-size: 0.7rem;
+        line-height: 1.35;
+        padding-right: 2px;
+    }
+
+    .ethics-ticker__msg span {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-wrap: balance;
+    }
 }
 
 [data-theme="dark"] .ethics-ticker {
@@ -933,6 +968,21 @@ body.menu-open .header .search-trigger {
     flex-wrap: wrap;
     gap: var(--space-sm);
     justify-content: center;
+}
+
+/* Mobile: stack all hero CTAs at uniform full width so they read as a
+   single balanced column with the slim community link below. */
+@media (max-width: 768px) {
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-sm);
+        width: 100%;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
 }
 
 /* Community CTA stack -- wraps the two primary hero buttons AND the slim
@@ -11994,6 +12044,27 @@ body.menu-open {
     outline-offset: 2px;
 }
 
+/* Mobile: stack each Quick Link's badge above its description so the
+   2-column grid no longer crams text next to the small label pill. */
+@media (max-width: 480px) {
+    .search-modal-help-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-sm) var(--space-md);
+        max-height: 280px;
+    }
+
+    .search-modal-help-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        font-size: 0.7rem;
+    }
+
+    .search-modal-help-badge {
+        padding: 3px 8px;
+    }
+}
+
 /* Search Results Container */
 .search-modal-results {
     flex: 1;
@@ -12564,14 +12635,14 @@ html[data-text-scale="3"] .hero-subtitle__line {
    -------------------------------------------- */
 @media (max-width: 480px) {
     .adl-toggle {
-        bottom: calc(80px + var(--safe-area-inset-bottom));
+        bottom: calc(60px + var(--safe-area-inset-bottom));
         right: calc(12px + var(--safe-area-inset-right));
         width: 48px;
         height: 48px;
     }
 
     .adl-panel {
-        bottom: calc(140px + var(--safe-area-inset-bottom));
+        bottom: calc(120px + var(--safe-area-inset-bottom));
         right: calc(12px + var(--safe-area-inset-right));
         left: calc(12px + var(--safe-area-inset-left));
         width: auto;
@@ -12608,6 +12679,15 @@ html[data-text-scale="3"] .hero-subtitle__line {
 
 .page-home .tour-toggle {
     display: none;
+}
+
+/* Mobile: lower the floating tour pill so it clears content cards in the
+   bottom-right of subpages (e.g. Audit Report stat cards). Respects iOS
+   safe area like .adl-toggle. */
+@media (max-width: 768px) {
+    .tour-toggle {
+        bottom: calc(30px + var(--safe-area-inset-bottom));
+    }
 }
 
 html:has(.page-home),
@@ -24683,9 +24763,9 @@ h3 + .nav-cards--compact {
     justify-content: center;
     gap: 8px;
     position: sticky;
-    top: calc(70px + var(--ticker-offset, 0px));
+    top: calc(var(--header-height) + var(--ticker-offset, 0px));
     z-index: 100;
-    background: transparent;
+    background: var(--bg-primary);
     padding: calc(var(--space-md) + 15px) var(--space-lg) var(--space-md);
     overflow-x: auto;
     border-bottom: 1px solid transparent;
@@ -24703,6 +24783,10 @@ h3 + .nav-cards--compact {
     backdrop-filter: blur(10px);
     border-bottom-color: var(--border-color);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .foundations-nav.scrolled {
+    background: rgba(13, 17, 23, 0.95);
 }
 
 .foundations-nav::-webkit-scrollbar {
@@ -24827,7 +24911,7 @@ h3 + .nav-cards--compact {
         flex-wrap: wrap;
         justify-content: center;
         gap: 4px;
-        top: calc(80px + var(--ticker-offset, 0px));
+        top: calc(var(--header-height) + var(--ticker-offset, 0px));
         padding: var(--space-xs) var(--space-xs);
         overflow-x: visible;
     }

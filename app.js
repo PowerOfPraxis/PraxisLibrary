@@ -393,6 +393,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Measure the rendered header height and expose it as --header-height
+     * on the root element. Consumed by sticky sub-navigation (e.g.
+     * .foundations-nav) via `top: calc(var(--header-height) + ...)`.
+     * Static CSS guesses are wrong because the mobile header height varies
+     * with safe-area-inset-top and button touch targets.
+     */
+    function updateHeaderHeight() {
+        if (!header) return;
+        var h = header.offsetHeight;
+        if (h > 0) {
+            document.documentElement.style.setProperty('--header-height', h + 'px');
+        }
+    }
+
     function updateHeader() {
         var isScrolled = window.scrollY > 50;
 
@@ -423,6 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         headerWasScrolled = isScrolled;
         headerTicking = false;
+        updateHeaderHeight();
     }
 
     if (header) {
@@ -433,6 +449,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, { passive: true });
         updateHeader();
+        updateHeaderHeight();
+        window.addEventListener('resize', updateHeaderHeight, { passive: true });
+        window.addEventListener('orientationchange', updateHeaderHeight, { passive: true });
     }
 
     // ==========================================
