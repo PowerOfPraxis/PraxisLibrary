@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tokens are the units LLMs read and write. Learn what they are, why models use them, how Byte-Pair Encoding works, and when tokens matter for cost, context, and multilingual prompts.">
+    <!-- SEO Meta -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Praxis Library">
+    <meta name="theme-color" content="#DC3545">
+    <link rel="canonical" href="https://praxislibrary.com/learn/tokens.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Tokens: The Atoms of Language Models - Praxis">
+    <meta property="og:description" content="Tokens are the units LLMs read and write. Learn what they are, why models use them, how Byte-Pair Encoding works, and when tokens matter for cost, context, and multilingual prompts.">
+    <meta property="og:url" content="https://praxislibrary.com/learn/tokens.html">
+    <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <meta property="og:site_name" content="Praxis Library">
+    <meta property="og:locale" content="en_US">
+    <!-- Social Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tokens: The Atoms of Language Models - Praxis">
+    <meta name="twitter:description" content="Tokens are the units LLMs read and write. Learn what they are, why models use them, how Byte-Pair Encoding works, and when tokens matter for cost, context, and multilingual prompts.">
+    <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "LearningResource",
+        "Article"
+      ],
+      "headline": "Tokens: The Atoms of Language Models",
+      "name": "Tokens",
+      "description": "Tokens are the units LLMs read and write. Learn what they are, why models use them, how Byte-Pair Encoding works, and when tokens matter for cost, context, and multilingual prompts.",
+      "url": "https://praxislibrary.com/learn/tokens.html",
+      "inLanguage": "en-US",
+      "learningResourceType": "Tutorial",
+      "educationalLevel": "Beginner to Advanced",
+      "educationalUse": "AI Prompt Engineering",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "EducationalOrganization",
+        "name": "Praxis Library",
+        "alternateName": "The Open Standard in AI Literacy",
+        "url": "https://praxislibrary.com",
+        "logo": "https://praxislibrary.com/favicon.svg",
+        "description": "A comprehensive, living library of 5,000+ AI terms, 175 techniques and frameworks, and interactive tools. The definitive open resource for AI literacy, prompt engineering, and human-AI communication.",
+        "sameAs": [
+          "https://www.tiktok.com/@thepraxislibrary",
+          "https://www.facebook.com/profile.php?id=61587612308104",
+          "https://github.com/PowerOfPraxis/PraxisLibrary"
+        ],
+        "knowsAbout": [
+          "Artificial Intelligence",
+          "AI Literacy",
+          "Prompt Engineering",
+          "AI Prompting Techniques",
+          "AI Glossary",
+          "Large Language Models",
+          "Chain-of-Thought Prompting",
+          "AI Education",
+          "Human-AI Communication",
+          "Neurodivergence and AI",
+          "AI Safety",
+          "AI Ethics"
+        ]
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Praxis Library",
+        "url": "https://praxislibrary.com"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Techniques & Frameworks"
+        },
+        {
+          "@type": "Thing",
+          "name": "AI Communication"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://praxislibrary.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Discover",
+          "item": "https://praxislibrary.com/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Tokens"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <!-- /SEO -->
+
+<title>Tokens: The Atoms of Language Models - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav" aria-label="Main navigation">
+                <a href="../foundations/index.html" class="nav-link">History</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../learn/index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                                        <div class="mega-menu mega-menu--categories">
+                        <div class="mega-menu-quick-links">
+                            <a href="index.html">Techniques &amp; Frameworks</a>
+                            <a href="./prompt-basics.html">Prompt Basics</a>
+                            <a href="./tokens.html">Tokens</a>
+                            <a href="./facts-fictions.html">Facts &amp; Fictions</a>
+                            <a href="../pages/glossary.html">Glossary</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../tools/index.html" class="nav-link" aria-expanded="false">Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../quiz/index.html">Readiness Quiz</a>
+                            <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../tools/guidance.html">Prompt Builder</a>
+                            <a href="../tools/matcher.html">Technique Finder</a>
+                            <a href="../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../tools/persona.html">Persona Architect</a>
+                            <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                            <a href="../patterns/index.html">Patterns Library</a>
+                            <a href="../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="../pages/audit-report.html" class="nav-link">Audit Report</a>
+
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Tokens</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Foundations</span>
+                </div>
+                <h1 class="page-title fade-in">Tokens: The Atoms of Language Models</h1>
+                <p class="page-subtitle fade-in">How AI reads, how it writes, and why a 200K-token context window in English is not the same as a 200K-token context window in Japanese.</p>
+                <p class="hero-note fade-in"><span class="hero-note__star">*</span><em>These are learning tools, not prompts. They teach you to write your own, think of them as training wheels that guide you while you learn, then fall away once you can ride on your own.</em></p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === WHAT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">A Token Is the Unit a Model Reads and Writes</h2>
+                        <p class="split-section__text">A token is not a word, and it is not a letter. It is a chunk of text somewhere in between, the smallest piece of language a model actually processes. The sentence &ldquo;The quick brown fox&rdquo; is four tokens. The single word &ldquo;antidisestablishmentarianism&rdquo; is six. Common words usually fit into one token. Rare words, technical jargon, and most non-English text get broken into multiple smaller pieces.</p>
+                        <p class="split-section__text">The model never sees your letters. It sees integer IDs that refer to tokens in its vocabulary, somewhere in the range of fifty thousand to a few hundred thousand entries depending on the model. Every word you type is converted to those IDs before the model runs, and the model&rsquo;s answer comes back as IDs that get converted back into text for you to read.</p>
+                        <p class="split-section__text">This matters because everything downstream of that conversion, attention, prediction, pricing, rate limits, context windows, operates on token IDs. When you understand tokens, you understand why prompts cost what they cost, why &ldquo;200K context&rdquo; means different things in different languages, and why models cannot count letters in &ldquo;strawberry.&rdquo;</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Tokens in One Line</span>
+                                <p>A token is a chunk of text the model treats as a single unit. Not a word, not a letter, somewhere in between, and assigned an integer ID.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHAT -->
+
+        <!-- === WHY === -->
+        <section class="section">
+            <div class="container">
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">Why Models Use Tokens</span>
+                        <h2 class="split-section__title">Vocabulary Economics and Compute Reality</h2>
+                        <p class="split-section__text">A model needs a vocabulary, a fixed list of every unit it can read or generate. Two extremes do not work. A pure-word vocabulary would need millions of entries and would still miss every typo, brand name, and word coined after training. A pure-character vocabulary would be tiny but would force the model to relearn spelling for every sequence, wasting most of its capacity on letter-shaping instead of meaning.</p>
+                        <p class="split-section__text">Subword tokenization is the engineering compromise. A vocabulary of fifty thousand to a few hundred thousand subword pieces covers essentially any input, common words stay whole as single tokens, rare words split into recognizable parts, and the model never encounters an unknown unit.</p>
+                        <p class="split-section__text">There is also a compute reason. Transformer attention cost scales with the square of the token count. Doubling your tokens quadruples the work. Tokenization is one of the reasons modern language models are economically possible at all, the shorter the token sequence, the cheaper, faster, and longer-coherent the generation.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--warning">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">The Cost of Squared Attention</span>
+                                <p>If a 1,000-token prompt costs <em>X</em> compute for attention, a 2,000-token prompt costs <em>4X</em>, and a 4,000-token prompt costs <em>16X</em>. This is why every token you save is real money saved at scale.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHY -->
+
+        <!-- === HOW === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">How Tokenization Works</span>
+                        <h2 class="split-section__title">Byte-Pair Encoding in Plain Steps</h2>
+                        <p class="split-section__text">Almost every modern language model uses a flavor of <strong>subword tokenization</strong>. The most common algorithm is Byte-Pair Encoding, originally a data-compression technique, repurposed for language. Here is how it builds its vocabulary, step by step.</p>
+                        <ol class="split-section__text">
+                            <li><strong>Start with characters.</strong> The initial vocabulary is every individual character in the training data, letters, digits, punctuation, whitespace.</li>
+                            <li><strong>Count adjacent pairs.</strong> Across the entire training corpus, count how often each pair of adjacent tokens appears.</li>
+                            <li><strong>Merge the most frequent pair.</strong> If <code>t</code> and <code>h</code> appear next to each other more often than any other pair, create a new token <code>th</code> and add it to the vocabulary.</li>
+                            <li><strong>Repeat.</strong> Recount pairs (the new <code>th</code> token now participates), merge the next most frequent pair, again and again, until the vocabulary reaches the target size.</li>
+                            <li><strong>Save the merge table.</strong> At inference time, your input text is processed left-to-right against this learned merge table to produce the same token sequence the model was trained on.</li>
+                        </ol>
+                        <p class="split-section__text">BPE is the lineage behind GPT-2, GPT-3, GPT-4, and most modern open-weight models. Two close cousins use the same idea with different rules. <strong>WordPiece</strong> (BERT, DistilBERT) merges by likelihood gain instead of raw frequency. <strong>SentencePiece</strong> (T5, LLaMA, modern Llama family) treats the input as a raw byte stream including whitespace, which makes it easier to handle languages without space-separated words.</p>
+                        <p class="split-section__text">You can paste any text into <a href="https://platform.openai.com/tokenizer" rel="noopener external" target="_blank">OpenAI&rsquo;s tokenizer</a> to watch this split happen on real input, character by character.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why &ldquo;Pre-Tokenization&rdquo;</span>
+                                <p>Most production tokenizers first split on whitespace and punctuation, then apply BPE merges inside each piece. This is why &ldquo;tokenizer&rdquo; might be one token but &ldquo;tokenizer.&rdquo; (with the period) becomes two.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-in-up">
+                    <h3 class="section-title">Tokenization Is Not Language-Neutral</h3>
+                    <p class="section-subtitle">The same idea costs different numbers of tokens depending on the script.</p>
+                    <div class="comparison-table-wrapper">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Text</th>
+                                    <th scope="col">Characters</th>
+                                    <th scope="col">Tokens</th>
+                                    <th scope="col">Density (chars per token)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>Hello, world.</code></td>
+                                    <td>13</td>
+                                    <td>4</td>
+                                    <td>3.25</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Hola, mundo.</code></td>
+                                    <td>12</td>
+                                    <td>4</td>
+                                    <td>3.00</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&#x3053;&#x3093;&#x306B;&#x3061;&#x306F;&#x3001;&#x4E16;&#x754C;&#x3002;</code></td>
+                                    <td>9</td>
+                                    <td>4</td>
+                                    <td>2.25</td>
+                                </tr>
+                                <tr>
+                                    <td><code>def hello(): print(&quot;hi&quot;)</code></td>
+                                    <td>24</td>
+                                    <td>7</td>
+                                    <td>3.43</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="section-subtitle"><em>Counts measured against OpenAI&rsquo;s current o200k_base encoding. Modern tokenizers have narrowed the historical cost gap between scripts. English still leads on density, Japanese still trails, but the gap for short phrases is closer to thirty percent than the three-to-four-times multiplier older encodings produced. For longer text, rare vocabulary, or technical content, the gap widens again. Tokenizer choice and content type both matter.</em></p>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW -->
+
+        <!-- === WHEN === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When Tokens Matter to You</h2>
+                <p class="section-subtitle fade-in-up">Four places tokens stop being theory and start affecting real work.</p>
+
+                <div class="card-grid fade-in-up">
+                    <div class="card">
+                        <h3>Cost</h3>
+                        <p>APIs price input tokens and output tokens separately, and output is typically two to five times more expensive than input. A long system prompt is billed on every single call. Conversation history is billed every turn, growing linearly until you trim it. Cost discipline is mostly token discipline.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Context Windows</h3>
+                        <p>A &ldquo;200K-token context&rdquo; is a token budget, not a character budget. In English that is roughly 150,000 words. Other scripts hold less raw text in the same budget, modern tokenizers have narrowed the gap from earlier generations, but the point still stands. Multilingual applications must size context for the worst-case language and content type.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Rate Limits</h3>
+                        <p>Production deployments hit tokens-per-minute ceilings long before they hit requests-per-minute. TPM is the real production governor. Bursts of long requests can throttle your application before a traffic spike does.</p>
+                    </div>
+                    <div class="card">
+                        <h3>The Strawberry Problem</h3>
+                        <p>Models often miscount letters in words because they do not see letters. They see the token <code>straw</code> and the token <code>berry</code>. The famous &ldquo;how many R&rsquo;s in strawberry&rdquo; failure is not a model being dumb, it is a model being asked to inspect a representation it does not have direct access to.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN -->
+
+        <!-- === COMMON MISTAKES === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Three Mistakes to Avoid</h2>
+                <p class="section-subtitle fade-in-up">Common assumptions that quietly cost you accuracy, money, or capacity.</p>
+
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Mistake 1: One Word Equals One Token</span>
+                        <p>The rule of thumb for English is around three-quarters of a word per token, not one. &ldquo;Hello&rdquo; is one token. &ldquo;Hello, world!&rdquo; is four. &ldquo;antidisestablishmentarianism&rdquo; is six. Punctuation, capitalization, and leading spaces all change the split. Trust the tokenizer, not your intuition.</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Mistake 2: Ignoring System-Prompt Cost</span>
+                        <p>Your system prompt is billed on every call. A 500-token system prompt across a million API calls is 500 million input tokens. If you are paying per token, you are paying for that system prompt every time. Treat it like a fixed monthly cost, not a free intro.</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box highlight-box--warning fade-in-up">
+                    <div class="highlight-box__content">
+                        <span class="highlight-box__title">Mistake 3: Using Character Count as a Token Budget</span>
+                        <p>Character counts (<code>len(string)</code>, <code>string.length</code>) are a rough estimate at best, and they fail completely for non-Latin scripts and code. The only number that matters for cost, context windows, and rate limits is the token count. If you need to budget accurately, call a tokenizer.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMMON MISTAKES -->
+
+        <!-- === RELATED READING === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Keep Going</h2>
+                <p class="section-subtitle fade-in-up">Build on what you just learned.</p>
+
+                <div class="discover-grid fade-in-up">
+                    <a href="prompt-basics.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Prompt Basics</h3>
+                        </div>
+                        <p class="discover-card__desc">If tokens are the atoms, prompts are the molecules. Learn the four elements every effective prompt combines.</p>
+                    </a>
+                    <a href="../pages/glossary.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">Glossary</h3>
+                        </div>
+                        <p class="discover-card__desc">Look up Token, Tokenization, Tokenizer, and 5,300+ other AI terms in plain language.</p>
+                    </a>
+                    <a href="../foundations/index.html" class="discover-card">
+                        <div class="discover-card__header">
+                            <h3 class="discover-card__title">AI History</h3>
+                        </div>
+                        <p class="discover-card__desc">How tokenization fits into the seventy-five-year arc from Turing&rsquo;s question to the agentic frontier.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- /RELATED READING -->
+
+    </main>
+
+        <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>From Prompting to Production. Built on Proven Techniques &amp; Frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Techniques</h4>
+                <a href="../learn/prompt-basics.html">Prompt Basics</a>
+                <a href="../learn/crisp.html">CRISP Framework</a>
+                <a href="../learn/crispe.html">CRISPE Framework</a>
+                <a href="../learn/costar.html">CO-STAR Framework</a>
+                <a href="../learn/react.html">ReAct Framework</a>
+                <a href="../learn/flipped-interaction.html">Flipped Interaction</a>
+                <a href="../learn/chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness Tools</h4>
+                <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../tools/matcher.html">Technique Finder</a>
+                <a href="../tools/checklist.html">Preflight Checklist</a>
+                <a href="../tools/guidance.html">Prompt Builder</a>
+                <a href="../tools/persona.html">Persona Architect</a>
+                <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../quiz/index.html">Readiness Quiz</a>
+                <a href="../patterns/index.html">Patterns Library</a>
+                <a href="../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../pages/audit-report.html">Audit Report</a>
+                <a href="../pages/about.html">About Praxis</a>
+                <a href="../pages/faq.html">FAQs</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everyone</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
+        </div>
+
+        <div class="footer-policies">
+            <a href="../pages/responsible-ai.html">Responsible AI</a>
+            <a href="../pages/use-policy.html">Use Policy</a>
+            <a href="../pages/site-policy.html">Site Policy</a>
+            <a href="../pages/security-policy.html">Security Policy</a>
+            <a href="../pages/data-retention-policy.html">Data Retention</a>
+        </div>
+    </div>
+</footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>
