@@ -222,13 +222,13 @@
                         <h2 class="split-section__title">Vocabulary Economics and Compute Reality</h2>
                         <p class="split-section__text">A model needs a vocabulary, a fixed list of every unit it can read or generate. Two extremes do not work. A pure-word vocabulary would need millions of entries and would still miss every typo, brand name, and word coined after training. A pure-character vocabulary would be tiny but would force the model to relearn spelling for every sequence, wasting most of its capacity on letter-shaping instead of meaning.</p>
                         <p class="split-section__text">Subword tokenization is the engineering compromise. A vocabulary of fifty thousand to a few hundred thousand subword pieces covers essentially any input, common words stay whole as single tokens, rare words split into recognizable parts, and the model never encounters an unknown unit.</p>
-                        <p class="split-section__text">There is also a compute reason. Transformer attention cost scales with the square of the token count. Doubling your tokens quadruples the work. Tokenization is one of the reasons modern language models are economically possible at all, the shorter the token sequence, the cheaper, faster, and longer-coherent the generation.</p>
+                        <p class="split-section__text">There is also a compute reason. Self-attention scales with the square of the token count, every token attends to every other token, so the attention matrix is n by n. For short prompts this is not the dominant cost, the feedforward block in each layer dominates total compute below roughly eight thousand tokens. Past that the quadratic regime takes over and really bites at thirty-two thousand and beyond. Tokenization is one of the engineering reasons modern long-context models are economically possible at all.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--warning">
                             <div class="highlight-box__content">
-                                <span class="highlight-box__title">The Cost of Squared Attention</span>
-                                <p>If a 1,000-token prompt costs <em>X</em> compute for attention, a 2,000-token prompt costs <em>4X</em>, and a 4,000-token prompt costs <em>16X</em>. This is why every token you save is real money saved at scale.</p>
+                                <span class="highlight-box__title">Where Squared Attention Actually Bites</span>
+                                <p>Self-attention is O(n&sup2;), so at long contexts the cost of doubling your prompt approaches <em>4&times;</em> rather than <em>2&times;</em>. The quadratic regime dominates once you cross roughly eight thousand tokens. If you are running your own inference at scale on long contexts, every token saved is real money. If you are paying an API per token, your savings are linear regardless of context length, because the provider absorbs the n&sup2; cost in their infrastructure economics.</p>
                             </div>
                         </div>
                     </div>
