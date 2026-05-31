@@ -268,44 +268,42 @@
                 <div class="fade-in-up">
                     <h3 class="section-title">Tokenization Is Not Language-Neutral</h3>
                     <p class="section-subtitle">The same idea costs different numbers of tokens depending on the script.</p>
-                    <div class="comparison-table-wrapper">
-                        <table class="comparison-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Text</th>
-                                    <th scope="col">Characters</th>
-                                    <th scope="col">Tokens</th>
-                                    <th scope="col">Density (chars per token)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code>Hello, world.</code></td>
-                                    <td>13</td>
-                                    <td>4</td>
-                                    <td>3.25</td>
-                                </tr>
-                                <tr>
-                                    <td><code>Hola, mundo.</code></td>
-                                    <td>12</td>
-                                    <td>4</td>
-                                    <td>3.00</td>
-                                </tr>
-                                <tr>
-                                    <td><code>&#x3053;&#x3093;&#x306B;&#x3061;&#x306F;&#x3001;&#x4E16;&#x754C;&#x3002;</code></td>
-                                    <td>9</td>
-                                    <td>4</td>
-                                    <td>2.25</td>
-                                </tr>
-                                <tr>
-                                    <td><code>def hello(): print(&quot;hi&quot;)</code></td>
-                                    <td>24</td>
-                                    <td>7</td>
-                                    <td>3.43</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="comparison-table comparison-table--fit comparison-table--compact">
+                        <thead>
+                            <tr>
+                                <th scope="col">Text</th>
+                                <th scope="col">Characters</th>
+                                <th scope="col">Tokens</th>
+                                <th scope="col">Density (chars/token)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>Hello, world.</code></td>
+                                <td>13</td>
+                                <td>4</td>
+                                <td>3.25</td>
+                            </tr>
+                            <tr>
+                                <td><code>Hola, mundo.</code></td>
+                                <td>12</td>
+                                <td>4</td>
+                                <td>3.00</td>
+                            </tr>
+                            <tr>
+                                <td><code>&#x3053;&#x3093;&#x306B;&#x3061;&#x306F;&#x3001;&#x4E16;&#x754C;&#x3002;</code></td>
+                                <td>9</td>
+                                <td>4</td>
+                                <td>2.25</td>
+                            </tr>
+                            <tr>
+                                <td><code>def hello(): print(&quot;hi&quot;)</code></td>
+                                <td>24</td>
+                                <td>7</td>
+                                <td>3.43</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <p class="section-subtitle"><em>Counts measured against OpenAI&rsquo;s current o200k_base encoding. Modern tokenizers have narrowed the historical cost gap between scripts. English still leads on density, Japanese still trails, but the gap for short phrases is closer to thirty percent than the three-to-four-times multiplier older encodings produced. For longer text, rare vocabulary, or technical content, the gap widens again. Tokenizer choice and content type both matter.</em></p>
                 </div>
             </div>
