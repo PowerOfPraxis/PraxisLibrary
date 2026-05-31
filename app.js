@@ -13775,4 +13775,133 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 })();
+
+// ==============================================
+// SUPPORT FAB (Buy Me a Coffee)
+// Bottom-left floating button that expands a card
+// inviting support for running Praxis Library.
+// Injected on every page (same approach as the
+// ethics ticker). Brand red only -- no external
+// Buy Me a Coffee yellow. Stays CSP A+: no external
+// resource is loaded, the icon is inline SVG, and
+// the link simply navigates outward on click.
+// ==============================================
+(function initSupportFab() {
+    'use strict';
+    var BMC_URL = 'https://buymeacoffee.com/builtbybas';
+
+    // Inline SVG markup (same-document, CSP-safe).
+    var cupIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 8h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V8z"/><path d="M16 9h2.5a2.5 2.5 0 0 1 0 5H16"/><line x1="7" y1="3" x2="7" y2="5"/><line x1="11" y1="3" x2="11" y2="5"/></svg>';
+    var closeIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
+
+    /**
+     * Build the FAB DOM and wire up open/close behavior.
+     * Idempotent: bails if a FAB already exists.
+     * @returns {void}
+     */
+    function build() {
+        if (!document.body || document.querySelector('.bmc-fab')) return;
+
+        var fab = document.createElement('div');
+        fab.className = 'bmc-fab';
+
+        // --- Card (built first so aria-controls can reference its id) ---
+        var card = document.createElement('div');
+        card.className = 'bmc-card';
+        card.id = 'bmc-card';
+        card.setAttribute('role', 'dialog');
+        card.setAttribute('aria-label', 'Support Praxis Library');
+
+        var head = document.createElement('div');
+        head.className = 'bmc-card__head';
+
+        var title = document.createElement('h2');
+        title.className = 'bmc-card__title';
+        title.textContent = 'Keeping the lights on';
+
+        var close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'bmc-close';
+        close.setAttribute('aria-label', 'Close support message');
+        close.innerHTML = closeIcon;
+
+        head.appendChild(title);
+        head.appendChild(close);
+
+        var body = document.createElement('p');
+        body.className = 'bmc-card__body';
+        body.textContent = 'Praxis Library is free and open for everyone, with no ads and no trackers. If it has helped you, a coffee helps keep the lights on. Thank you for being here.';
+
+        var cta = document.createElement('a');
+        cta.className = 'bmc-cta';
+        cta.href = BMC_URL;
+        cta.target = '_blank';
+        cta.rel = 'noopener noreferrer';
+        cta.innerHTML = cupIcon + '<span>Buy me a coffee</span>';
+
+        card.appendChild(head);
+        card.appendChild(body);
+        card.appendChild(cta);
+
+        // --- Toggle (collapsed coffee icon) ---
+        var toggle = document.createElement('button');
+        toggle.type = 'button';
+        toggle.className = 'bmc-toggle';
+        toggle.setAttribute('aria-label', 'Support Praxis Library, buy me a coffee');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-controls', 'bmc-card');
+        toggle.innerHTML = cupIcon;
+
+        fab.appendChild(card);
+        fab.appendChild(toggle);
+        document.body.appendChild(fab);
+
+        /** Open the card and move focus to its close button. */
+        function openCard() {
+            fab.classList.add('is-open');
+            toggle.setAttribute('aria-expanded', 'true');
+            close.focus();
+        }
+        /** Close the card. */
+        function closeCard() {
+            fab.classList.remove('is-open');
+            toggle.setAttribute('aria-expanded', 'false');
+        }
+
+        toggle.addEventListener('click', function () {
+            if (fab.classList.contains('is-open')) {
+                closeCard();
+                toggle.focus();
+            } else {
+                openCard();
+            }
+        });
+        close.addEventListener('click', function () {
+            closeCard();
+            toggle.focus();
+        });
+        // Outbound link: let it navigate, just collapse the card behind it.
+        cta.addEventListener('click', closeCard);
+
+        // Escape closes and returns focus to the toggle.
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && fab.classList.contains('is-open')) {
+                closeCard();
+                toggle.focus();
+            }
+        });
+        // Click outside the FAB closes it.
+        document.addEventListener('click', function (e) {
+            if (fab.classList.contains('is-open') && !fab.contains(e.target)) {
+                closeCard();
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', build);
+    } else {
+        build();
+    }
+})();
 // deploy-marker: 2026-05-11T23:55Z

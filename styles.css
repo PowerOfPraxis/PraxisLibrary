@@ -28762,4 +28762,175 @@ h3 + .nav-cards--compact {
 .tk--teal   { background: #194B64; }
 /* /TOKEN CHIPS */
 
+/* ==============================================
+   SUPPORT FAB (Buy Me a Coffee)
+   Bottom-left floating button + expandable card.
+   Injected by app.js on every page. Mirrors the
+   .adl-toggle floating-button language. Brand red
+   only -- no external Buy Me a Coffee yellow.
+   ============================================== */
+
+/* Wrapper - fixed bottom-left anchor for toggle + card
+   -------------------------------------------- */
+.bmc-fab {
+    position: fixed;
+    bottom: max(40px, env(safe-area-inset-bottom, 0px) + 24px);
+    left: max(20px, env(safe-area-inset-left, 0px) + 12px);
+    z-index: 9995;
+}
+
+/* Toggle - 52px red circle, white coffee icon */
+.bmc-toggle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.bmc-toggle:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    background: var(--primary-dark);
+}
+.bmc-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+.bmc-toggle svg {
+    width: 26px;
+    height: 26px;
+}
+
+/* Card - expands above the toggle when open
+   -------------------------------------------- */
+.bmc-card {
+    position: absolute;
+    bottom: 64px;
+    left: 0;
+    width: 300px;
+    max-width: calc(100vw - 40px);
+    background: #fff;
+    color: var(--text, #1f2937);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    padding: 1.1rem 1.15rem 1.2rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px) scale(0.98);
+    transform-origin: bottom left;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+.bmc-fab.is-open .bmc-card {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* Card header (title + close) */
+.bmc-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.bmc-card__title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+.bmc-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 0;
+    color: var(--text-muted, #6b7280);
+    border-radius: 6px;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+.bmc-close:hover {
+    color: var(--text, #1f2937);
+    background: var(--surface-2, #f3f4f6);
+}
+.bmc-close:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+.bmc-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Card body copy */
+.bmc-card__body {
+    margin: 0 0 0.9rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text, #374151);
+}
+
+/* Call-to-action button (outbound link) */
+.bmc-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.7rem 1rem;
+    background: linear-gradient(135deg, #DC3545, #FF6B6B);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(220, 53, 69, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.bmc-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(220, 53, 69, 0.4);
+}
+.bmc-cta:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
+}
+.bmc-cta svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .bmc-toggle,
+    .bmc-card,
+    .bmc-cta {
+        transition: none;
+    }
+    .bmc-toggle:hover {
+        transform: none;
+    }
+}
+
+/* Small screens - slightly tighter offset */
+@media (max-width: 600px) {
+    .bmc-fab {
+        bottom: max(24px, env(safe-area-inset-bottom, 0px) + 16px);
+    }
+    .bmc-card {
+        width: 280px;
+    }
+}
+/* /SUPPORT FAB */
+
 /* deploy-marker: 2026-05-11T23:55Z */
