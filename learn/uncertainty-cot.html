@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Uncertainty-Routed Chain-of-Thought: Dynamically route queries through CoT reasoning only when the model is uncertain, optimizing the cost-accuracy tradeoff in LLM deployments.">
+    <meta name="description" content="Uncertainty-Routed Chain-of-Thought: sample many reasoning chains, take a majority vote, and trust it only when the chains strongly agree, otherwise fall back to the model's direct answer. A robustness method that raises accuracy on hard problems.">
     <!-- SEO Meta -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Praxis Library">
@@ -13,7 +13,7 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="Uncertainty-Routed CoT - Praxis">
-    <meta property="og:description" content="Uncertainty-Routed Chain-of-Thought: Dynamically route queries through CoT reasoning only when the model is uncertain, optimizing the cost-accuracy tradeoff in LLM deployments.">
+    <meta property="og:description" content="Uncertainty-Routed Chain-of-Thought: sample many reasoning chains, take a majority vote, and trust it only when the chains strongly agree, otherwise fall back to the model's direct answer. A robustness method that raises accuracy on hard problems.">
     <meta property="og:url" content="https://praxislibrary.com/learn/uncertainty-cot.html">
     <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
     <meta property="og:site_name" content="Praxis Library">
@@ -21,7 +21,7 @@
     <!-- Social Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Uncertainty-Routed CoT - Praxis">
-    <meta name="twitter:description" content="Uncertainty-Routed Chain-of-Thought: Dynamically route queries through CoT reasoning only when the model is uncertain, optimizing the cost-accuracy tradeoff in LLM deployments.">
+    <meta name="twitter:description" content="Uncertainty-Routed Chain-of-Thought: sample many reasoning chains, take a majority vote, and trust it only when the chains strongly agree, otherwise fall back to the model's direct answer. A robustness method that raises accuracy on hard problems.">
     <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
     <script type="application/ld+json">
 {
@@ -34,7 +34,7 @@
       ],
       "headline": "Uncertainty-Routed CoT",
       "name": "Uncertainty-Routed CoT",
-      "description": "Uncertainty-Routed Chain-of-Thought: Dynamically route queries through CoT reasoning only when the model is uncertain, optimizing the cost-accuracy tradeoff in LLM deployments.",
+      "description": "Uncertainty-Routed Chain-of-Thought: sample many reasoning chains, take a majority vote, and trust it only when the chains strongly agree, otherwise fall back to the model's direct answer. A robustness method that raises accuracy on hard problems.",
       "url": "https://praxislibrary.com/learn/uncertainty-cot.html",
       "inLanguage": "en-US",
       "learningResourceType": "Tutorial",
@@ -179,7 +179,7 @@
                     <span class="hero-badge__text">Thought Generation Technique</span>
                 </div>
                 <h1 class="page-title fade-in" data-tour-step="1" data-tour-title="Technique Overview" data-tour-desc="This is the technique name and summary. The badge above shows which category it belongs to.">Uncertainty-Routed Chain-of-Thought</h1>
-                <p class="page-subtitle fade-in">Not every question deserves a full reasoning chain. Uncertainty-Routed CoT measures model confidence first and only activates step-by-step reasoning when the model is genuinely unsure, saving tokens, reducing latency, and reserving deep thinking for the problems that actually need it.</p>
+                <p class="page-subtitle fade-in">Reasoning chains do not always help. Uncertainty-Routed CoT samples many chains for the same question, takes the majority answer, and trusts it only when the chains strongly agree. When they disagree, it falls back to the model&rsquo;s direct answer, because step-by-step reasoning is least reliable exactly when the model is inconsistent. The payoff is higher accuracy on hard problems, not lower cost.</p>
                 <p class="hero-note fade-in"><span class="hero-note__star">*</span><em>These are learning tools, not prompts. They teach you to write your own, think of them as training wheels that guide you while you learn, then fall away once you can ride on your own.</em></p>
             </div>
         </section>
@@ -191,16 +191,16 @@
                 <div class="split-section split-section--center fade-in-up">
                     <div class="split-section__content">
                         <span class="split-section__badge">The Core Insight</span>
-                        <h2 class="split-section__title">Reason Only When It Matters</h2>
-                        <p class="split-section__text">Chain-of-thought prompting dramatically improves accuracy on hard problems, but it comes at a cost. Every reasoning chain consumes extra tokens, adds latency, and increases API expenses. The uncomfortable truth is that most queries in a production system are straightforward. Asking the model to &ldquo;think step by step&rdquo; about &ldquo;What is the capital of France?&rdquo; is like sending a routine headache to the emergency room.</p>
-                        <p class="split-section__text"><strong>Uncertainty-Routed CoT introduces a triage layer.</strong> Before committing to an expensive reasoning process, the system first generates a quick direct answer and gauges how confident the model is. If confidence is high, the direct answer ships immediately. If confidence is low, the model hesitates, token probabilities are spread across multiple answers, or self-consistency samples disagree, then and only then does the system activate the full chain-of-thought pipeline.</p>
-                        <p class="split-section__text">Think of it like a medical triage system in an emergency department: routine cases get standard treatment and move through quickly, while complex or ambiguous cases are escalated to specialists who take the time to reason through every detail.</p>
+                        <h2 class="split-section__title">Trust Reasoning Only When Chains Agree</h2>
+                        <p class="split-section__text">Chain-of-thought prompting improves accuracy on many hard problems, but not always. When a model is genuinely uncertain, a single reasoning chain can talk itself confidently into the wrong answer, sometimes landing below the answer the model would have given directly. Trusting one reasoning chain in that situation is the trap this technique is built to avoid.</p>
+                        <p class="split-section__text"><strong>Uncertainty-Routed CoT samples the reasoning many times.</strong> For a given question it runs chain-of-thought repeatedly (the original work used 8 and 32 samples), collects the final answer from each chain, and takes the majority vote. How much those chains agree becomes the model&rsquo;s confidence signal: strong agreement means the reasoning is stable, scattered answers mean it is not.</p>
+                        <p class="split-section__text">Think of it like polling a panel of experts who each work the problem on their own. When they converge on the same answer, you trust the panel. When their answers scatter in every direction, the panel is unreliable on this question, so you set it aside and go with the simple direct answer instead.</p>
                     </div>
                     <div class="split-section__visual">
                         <div class="highlight-box highlight-box--info">
                             <div class="highlight-box__content">
-                                <span class="highlight-box__title">Why Selective Reasoning Outperforms Universal CoT</span>
-                                <p>Universal CoT applies the same reasoning overhead to every query regardless of difficulty. This wastes resources on easy questions and can actually <strong>degrade</strong> performance on trivial tasks by introducing unnecessary reasoning steps where the model might overthink and second-guess a correct instinct. Uncertainty-Routed CoT matches reasoning effort to problem difficulty, minimal effort for easy problems, maximum effort for hard ones, achieving near-identical accuracy at a fraction of the computational cost.</p>
+                                <span class="highlight-box__title">Why More Reasoning Can Hurt</span>
+                                <p>A single chain-of-thought sample can <strong>degrade</strong> accuracy compared to the model&rsquo;s direct answer when the model is demonstrably inconsistent, because the reasoning rationalizes its way to a wrong conclusion. Sampling many chains and checking whether they agree catches exactly this case: when agreement is high the majority vote is highly reliable, and when it is low the direct answer is the safer bet. On the MMLU benchmark this lifted Gemini Ultra from 84.0% to 90.0%.</p>
                             </div>
                         </div>
                     </div>
@@ -213,7 +213,7 @@
         <section class="section">
             <div class="container">
                 <h2 class="section-title fade-in-up">The Uncertainty-Routing Process</h2>
-                <p class="section-subtitle fade-in-up">Four stages from incoming query to optimally-routed response</p>
+                <p class="section-subtitle fade-in-up">Four stages from incoming query to a consensus-checked answer</p>
 
                 <div class="element-timeline fade-in-up">
                     <div class="element-timeline__item">
@@ -221,11 +221,11 @@
                             <span class="element-timeline__number">1</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Generate a Direct Answer</h3>
-                            <p class="element-timeline__text">Present the question to the model without any chain-of-thought instructions and obtain a quick, concise response. This serves as the &ldquo;fast path&rdquo; answer, the response the model would give if asked to reply immediately without deliberation. This step is cheap and fast, consuming minimal tokens.</p>
+                            <h3 class="element-timeline__title">Sample Multiple Reasoning Chains</h3>
+                            <p class="element-timeline__text">Run chain-of-thought on the question several times, each at a temperature that allows variation, so the model produces several independent reasoning paths. The original work sampled 8 and 32 chains per question. Each chain generates its own step-by-step reasoning and its own final answer.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Query: &ldquo;What is the boiling point of water at sea level?&rdquo;, Direct answer: &ldquo;100 degrees Celsius (212 degrees Fahrenheit).&rdquo;</p>
+                                <p>Query: &ldquo;A bat and a ball cost $1.10 together. The bat costs $1.00 more than the ball. How much is the ball?&rdquo; The system runs chain-of-thought 32 times, producing 32 separate reasoning paths and 32 answers.</p>
                             </div>
                         </div>
                     </div>
@@ -235,11 +235,11 @@
                             <span class="element-timeline__number">2</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Measure Uncertainty</h3>
-                            <p class="element-timeline__text">Evaluate the model&rsquo;s confidence in the direct answer. Several measurement strategies exist: examining token-level probabilities to see if the top token dominates or if probability is spread across alternatives, asking the model to self-report a confidence score, running multiple samples and checking agreement (self-consistency), or computing the entropy of the output distribution. High agreement or high probability on a single answer signals confidence; disagreement or diffuse probability signals uncertainty.</p>
+                            <h3 class="element-timeline__title">Take the Majority Vote</h3>
+                            <p class="element-timeline__text">Collect the final answer from each of the sampled chains and count them. The answer that appears most often is the majority candidate. This is the self-consistency step: voting across many chains is far more reliable than reading any single chain, because one-off reasoning slips get outvoted by the rest.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>For &ldquo;What is the boiling point of water?&rdquo; the model assigns 98% probability to &ldquo;100 degrees Celsius&rdquo;, high confidence. For &ldquo;What was the primary cause of the 2008 financial crisis?&rdquo; the model spreads probability across multiple explanations, low confidence.</p>
+                                <p>Of the 32 chains, 27 conclude the ball costs $0.05 and 5 conclude $0.10. The majority candidate is $0.05, carrying 27 of the 32 votes.</p>
                             </div>
                         </div>
                     </div>
@@ -249,11 +249,11 @@
                             <span class="element-timeline__number">3</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Route Based on Threshold</h3>
-                            <p class="element-timeline__text">Compare the measured uncertainty against a configurable threshold. If confidence exceeds the threshold, the direct answer is returned immediately, no CoT needed. If confidence falls below the threshold, the query is routed to the full chain-of-thought pipeline. The threshold is a tunable parameter that lets operators balance cost savings against accuracy: a higher threshold routes more queries to CoT (safer but more expensive), while a lower threshold lets more direct answers through (cheaper but riskier).</p>
+                            <h3 class="element-timeline__title">Check the Consensus Against a Threshold</h3>
+                            <p class="element-timeline__text">Measure how strongly the chains agree, for example the share of votes the majority answer received, and compare it to a confidence threshold tuned ahead of time on a validation set. High agreement means the reasoning is stable and trustworthy. Low agreement means the chains contradict each other, a sign the model is guessing rather than reasoning reliably.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>Threshold set at 85% confidence. &ldquo;Boiling point of water&rdquo; scores 98%, direct answer returned. &ldquo;Primary cause of 2008 crisis&rdquo; scores 42%, routed to CoT reasoning.</p>
+                                <p>27 of 32 votes is about 84% agreement. With the threshold tuned to 60%, this clears the bar, so the reasoning is judged reliable for this question.</p>
                             </div>
                         </div>
                     </div>
@@ -263,11 +263,11 @@
                             <span class="element-timeline__number">4</span>
                         </div>
                         <div class="element-timeline__content">
-                            <h3 class="element-timeline__title">Apply CoT for Uncertain Cases</h3>
-                            <p class="element-timeline__text">For queries that failed the confidence check, regenerate the response using full chain-of-thought prompting. The model now reasons step by step, breaking the problem into intermediate stages and building toward a well-supported conclusion. The additional reasoning typically resolves the uncertainty and produces a more reliable answer, justifying the extra token cost for these genuinely difficult questions.</p>
+                            <h3 class="element-timeline__title">Return the Majority, or Fall Back to Greedy</h3>
+                            <p class="element-timeline__text">If consensus clears the threshold, return the majority answer from the reasoning chains. If it does not, discard the chains entirely and return the model&rsquo;s single greedy answer instead, the direct, no-reasoning response, because chain-of-thought is least reliable in exactly the cases where its samples disagree. This fallback is the safeguard that stops shaky reasoning from overriding a sound direct answer.</p>
                             <div class="element-timeline__example">
                                 <span class="element-timeline__example-label">Example</span>
-                                <p>&ldquo;What was the primary cause of the 2008 financial crisis?&rdquo; now gets full CoT: the model walks through deregulation policies, mortgage-backed securities, credit default swaps, and systemic risk factors before synthesizing a nuanced, multi-factor answer.</p>
+                                <p>Consensus cleared the threshold, so the system returns $0.05, the reasoning majority. Had the 32 chains split closer to 17 versus 15, the system would have thrown the reasoning out and returned the model&rsquo;s direct answer instead.</p>
                             </div>
                         </div>
                     </div>
@@ -280,7 +280,7 @@
         <section class="section section-alt">
             <div class="container">
                 <h2 class="section-title fade-in-up">See the Difference</h2>
-                <p class="section-subtitle fade-in-up">Why selective routing beats blanket reasoning</p>
+                <p class="section-subtitle fade-in-up">Why consensus-checked reasoning beats trusting a single chain</p>
 
                 <div class="comparison-panel fade-in-up">
                     <div class="comparison-panel__side comparison-panel__side--before">
@@ -291,16 +291,16 @@
                                     <path d="M12 8v4M12 16h.01"/>
                                 </svg>
                             </span>
-                            <h3 class="comparison-panel__title">Uniform CoT on All Queries</h3>
+                            <h3 class="comparison-panel__title">Trust a Single Reasoning Chain</h3>
                         </div>
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Approach</span>
-                                <p>Every question gets full chain-of-thought reasoning regardless of difficulty. &ldquo;What is 2 + 2?&rdquo; receives the same multi-step reasoning treatment as a complex word problem.</p>
+                                <p>Run chain-of-thought once and use whatever that single chain concludes, no matter how confident or shaky the model actually was on this question.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Result</span>
-                                <p>Tokens wasted on trivial questions. Latency increased across the board. API costs inflated by 3&ndash;5x for queries that gain no accuracy benefit from reasoning. Easy questions occasionally degraded by overthinking.</p>
+                                <p>On hard questions where the model is inconsistent, one chain can reason its way confidently to a wrong answer, sometimes scoring below the model&rsquo;s plain direct answer. Nothing tells you when the chain should not be trusted.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--weak">
@@ -308,7 +308,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12h8"/>
                             </svg>
-                            <span>Expensive, slow, no differentiation between easy and hard queries</span>
+                            <span>One unreliable chain can override a sound direct answer, with no check</span>
                         </div>
                     </div>
 
@@ -328,11 +328,11 @@
                         <div class="comparison-panel__content">
                             <div class="comparison-panel__prompt">
                                 <span class="comparison-panel__label">Approach</span>
-                                <p>Each query is first answered directly and scored for confidence. Easy, high-confidence queries return immediately. Only uncertain, genuinely difficult queries are escalated to full chain-of-thought reasoning.</p>
+                                <p>Sample many reasoning chains for the question, take the majority vote, and trust it only when the chains agree above a tuned threshold. When they disagree, fall back to the model&rsquo;s direct answer.</p>
                             </div>
                             <div class="comparison-panel__result">
                                 <span class="comparison-panel__label">Result</span>
-                                <p>Easy questions answered in milliseconds with minimal tokens. Hard questions receive full reasoning chains. Overall cost reduced by 40&ndash;60% while maintaining near-identical accuracy on the queries that benefit from CoT.</p>
+                                <p>Reasoning is trusted only when it is stable, and discarded when it is not. On MMLU this raised Gemini Ultra from 84.0% (direct) to 90.0%, and lifted GPT-4 from 84.2% to 87.3%.</p>
                             </div>
                         </div>
                         <div class="comparison-panel__verdict comparison-panel__verdict--strong">
@@ -340,7 +340,7 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 12l3 3 5-5"/>
                             </svg>
-                            <span>Cost-efficient, fast on easy queries, deep reasoning reserved for hard ones</span>
+                            <span>Higher accuracy on hard problems, with a built-in safeguard against unreliable reasoning</span>
                         </div>
                     </div>
                 </div>
@@ -368,36 +368,35 @@
         <section class="section">
             <div class="container">
                 <h2 class="section-title fade-in-up" data-tour-step="2" data-tour-title="Examples in Action" data-tour-desc="Real prompt and response examples showing this technique at work. Study the patterns here, then try them with your own prompts.">Uncertainty-Routed CoT in Action</h2>
-                <p class="section-subtitle fade-in-up">See how confidence-based routing optimizes reasoning effort</p>
+                <p class="section-subtitle fade-in-up">See how consensus across sampled chains decides whether to trust the reasoning</p>
 
                 <div class="accordion fade-in-up" id="uncertainty-cot-accordion">
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Math Problem Routing</span>
+                            <span class="accordion-title">Math Reasoning</span>
                             <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
                         </button>
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">High-Confidence Query (Direct Path)</span>
-                                    <p><strong>Query:</strong> &ldquo;What is 15 x 8?&rdquo;<br><br>
-                                    <strong>Direct answer:</strong> 120<br>
-                                    <strong>Confidence score:</strong> 99.2%<br>
-                                    <strong>Threshold:</strong> 85%<br>
-                                    <strong>Routing decision:</strong> Confidence exceeds threshold, return direct answer immediately.<br><br>
-                                    <strong>Final output:</strong> 120<br>
-                                    <strong>Tokens used:</strong> Minimal (no reasoning chain generated)</p>
+                                    <span class="technique-demo__tag">Chains Agree (Trust the Majority)</span>
+                                    <p><strong>Query:</strong> &ldquo;A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much is the ball?&rdquo;<br><br>
+                                    <strong>Chains sampled:</strong> 32<br>
+                                    <strong>Vote:</strong> 29 chains say $0.05, 3 say $0.10<br>
+                                    <strong>Consensus:</strong> ~91% (threshold 60%)<br>
+                                    <strong>Decision:</strong> Consensus clears the threshold, return the reasoning majority.<br><br>
+                                    <strong>Final output:</strong> $0.05<br>
+                                    <strong>Note:</strong> The model&rsquo;s quick direct answer was the intuitive $0.10; the consensus across chains corrected it.</p>
                                 </div>
                                 <div class="technique-demo__response">
-                                    <span class="technique-demo__tag">Low-Confidence Query (CoT Path)</span>
-                                    <p><strong>Query:</strong> &ldquo;A train leaves Station A at 60 mph while another leaves Station B, 200 miles away, at 40 mph heading toward Station A. When do they meet?&rdquo;<br><br>
-                                    <strong>Direct answer:</strong> &ldquo;About 2 hours?&rdquo;<br>
-                                    <strong>Confidence score:</strong> 54.3%<br>
-                                    <strong>Threshold:</strong> 85%<br>
-                                    <strong>Routing decision:</strong> Confidence below threshold, activate CoT.<br><br>
-                                    <strong>CoT reasoning:</strong> The trains approach each other at a combined speed of 60 + 40 = 100 mph. The distance between them is 200 miles. Time = distance / speed = 200 / 100 = 2 hours.<br><br>
-                                    <strong>Final output:</strong> The trains meet after exactly 2 hours.<br>
-                                    <strong>Tokens used:</strong> Full reasoning chain (justified by the uncertainty)</p>
+                                    <span class="technique-demo__tag">Chains Disagree (Fall Back to Greedy)</span>
+                                    <p><strong>Query:</strong> &ldquo;A snail climbs a 10-meter well, gaining 3 meters each day and slipping 2 meters each night. On which day does it reach the top?&rdquo;<br><br>
+                                    <strong>Chains sampled:</strong> 32<br>
+                                    <strong>Vote:</strong> 14 say day 8, 11 say day 10, 7 say day 9<br>
+                                    <strong>Consensus:</strong> ~44% (threshold 60%)<br>
+                                    <strong>Decision:</strong> Consensus below threshold, discard the chains.<br><br>
+                                    <strong>Final output:</strong> The model&rsquo;s single direct answer is returned instead.<br>
+                                    <strong>Note:</strong> A weak 44% plurality is the signal that the reasoning is not trustworthy here, so the system does not bet on it.</p>
                                 </div>
                             </div>
                         </div>
@@ -405,31 +404,29 @@
 
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Medical Question Triage</span>
+                            <span class="accordion-title">Clinical Reasoning</span>
                             <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
                         </button>
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">High-Confidence Query (Direct Path)</span>
-                                    <p><strong>Query:</strong> &ldquo;What is the normal human body temperature?&rdquo;<br><br>
-                                    <strong>Direct answer:</strong> 98.6 degrees Fahrenheit (37 degrees Celsius)<br>
-                                    <strong>Confidence score:</strong> 97.8%<br>
-                                    <strong>Threshold:</strong> 85%<br>
-                                    <strong>Routing decision:</strong> Confidence exceeds threshold, return direct answer immediately.<br><br>
-                                    <strong>Final output:</strong> Normal body temperature is approximately 98.6 degrees F (37 degrees C).<br>
-                                    <strong>Tokens used:</strong> Minimal</p>
+                                    <span class="technique-demo__tag">Chains Agree (Trust the Majority)</span>
+                                    <p><strong>Query:</strong> &ldquo;A patient reads 150/95 mmHg on three separate visits. Which hypertension stage is this?&rdquo;<br><br>
+                                    <strong>Chains sampled:</strong> 32<br>
+                                    <strong>Vote:</strong> 30 say Stage 2 hypertension, 2 say Stage 1<br>
+                                    <strong>Consensus:</strong> ~94% (threshold 60%)<br>
+                                    <strong>Decision:</strong> Consensus clears the threshold, return the reasoning majority.<br><br>
+                                    <strong>Final output:</strong> Stage 2 hypertension.</p>
                                 </div>
                                 <div class="technique-demo__response">
-                                    <span class="technique-demo__tag">Low-Confidence Query (CoT Path)</span>
-                                    <p><strong>Query:</strong> &ldquo;A patient presents with intermittent chest pain, elevated troponin levels, and a normal ECG. What is the most likely diagnosis?&rdquo;<br><br>
-                                    <strong>Direct answer:</strong> &ldquo;Possibly NSTEMI or unstable angina&rdquo;<br>
-                                    <strong>Confidence score:</strong> 38.1%<br>
-                                    <strong>Threshold:</strong> 85%<br>
-                                    <strong>Routing decision:</strong> Confidence below threshold, activate CoT.<br><br>
-                                    <strong>CoT reasoning:</strong> Step 1: Elevated troponin indicates myocardial injury. Step 2: Normal ECG rules out STEMI but not NSTEMI. Step 3: Intermittent chest pain aligns with acute coronary syndrome. Step 4: The combination of elevated troponin with normal ECG most specifically points to NSTEMI (Non-ST-Elevation Myocardial Infarction), as unstable angina typically presents without troponin elevation.<br><br>
-                                    <strong>Final output:</strong> The most likely diagnosis is NSTEMI, given the elevated troponin with normal ECG and intermittent chest pain. Unstable angina is a differential but less likely due to the troponin elevation.<br>
-                                    <strong>Tokens used:</strong> Full reasoning chain (appropriate for clinical complexity)</p>
+                                    <span class="technique-demo__tag">Chains Disagree (Fall Back to Greedy)</span>
+                                    <p><strong>Query:</strong> &ldquo;A patient presents with intermittent chest pain, elevated troponin, and a normal ECG. What is the single most likely diagnosis?&rdquo;<br><br>
+                                    <strong>Chains sampled:</strong> 32<br>
+                                    <strong>Vote:</strong> 13 say NSTEMI, 10 say unstable angina, 9 say other ACS variants<br>
+                                    <strong>Consensus:</strong> ~41% (threshold 60%)<br>
+                                    <strong>Decision:</strong> Consensus below threshold, discard the chains and surface the disagreement.<br><br>
+                                    <strong>Final output:</strong> The model&rsquo;s direct answer is returned and the case is flagged for clinician review.<br>
+                                    <strong>Note:</strong> A near-even split across diagnoses is exactly when sampled reasoning should not be trusted, so the case is escalated rather than auto-answered.</p>
                                 </div>
                             </div>
                         </div>
@@ -437,31 +434,29 @@
 
                     <div class="accordion-item">
                         <button class="accordion-header" aria-expanded="false">
-                            <span class="accordion-title">Code Debugging Routing</span>
+                            <span class="accordion-title">Code Reasoning</span>
                             <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
                         </button>
                         <div class="accordion-content">
                             <div class="technique-demo">
                                 <div class="technique-demo__prompt">
-                                    <span class="technique-demo__tag">High-Confidence Query (Direct Path)</span>
-                                    <p><strong>Query:</strong> &ldquo;What does the len() function do in Python?&rdquo;<br><br>
-                                    <strong>Direct answer:</strong> Returns the number of items in an object (length of a string, list, tuple, dictionary, etc.)<br>
-                                    <strong>Confidence score:</strong> 99.5%<br>
-                                    <strong>Threshold:</strong> 85%<br>
-                                    <strong>Routing decision:</strong> Confidence exceeds threshold, return direct answer immediately.<br><br>
-                                    <strong>Final output:</strong> The len() function returns the number of items in an object, such as characters in a string or elements in a list.<br>
-                                    <strong>Tokens used:</strong> Minimal</p>
+                                    <span class="technique-demo__tag">Chains Agree (Trust the Majority)</span>
+                                    <p><strong>Query:</strong> &ldquo;Does this loop have an out-of-bounds bug: for i in range(len(arr)): print(arr[i + 1])?&rdquo;<br><br>
+                                    <strong>Chains sampled:</strong> 32<br>
+                                    <strong>Vote:</strong> 31 say yes, 1 says no<br>
+                                    <strong>Consensus:</strong> ~97% (threshold 60%)<br>
+                                    <strong>Decision:</strong> Consensus clears the threshold, return the reasoning majority.<br><br>
+                                    <strong>Final output:</strong> Yes. On the final iteration, arr[i + 1] reads past the end of the array.</p>
                                 </div>
                                 <div class="technique-demo__response">
-                                    <span class="technique-demo__tag">Low-Confidence Query (CoT Path)</span>
-                                    <p><strong>Query:</strong> &ldquo;Why does this recursive function cause a stack overflow when the input list has duplicate values?&rdquo;<br><br>
-                                    <strong>Direct answer:</strong> &ldquo;Maybe a missing base case or infinite recursion?&rdquo;<br>
-                                    <strong>Confidence score:</strong> 31.7%<br>
-                                    <strong>Threshold:</strong> 85%<br>
-                                    <strong>Routing decision:</strong> Confidence below threshold, activate CoT.<br><br>
-                                    <strong>CoT reasoning:</strong> Step 1: A stack overflow in recursion means the function calls itself without reaching a base case. Step 2: The function works with unique values, so the base case handles those correctly. Step 3: With duplicates, the partitioning logic places equal elements on the same side every time. Step 4: This means the recursive call receives a list of the same size as the input, never reducing the problem. Step 5: The missing logic is a base case or partition rule that handles equal elements, without it, the recursion never terminates when duplicates are present.<br><br>
-                                    <strong>Final output:</strong> The stack overflow occurs because the partition logic does not handle duplicate values. When all remaining elements are equal, they stay on one side of the partition, so the recursive call never reduces the input size. Adding a three-way partition (less than, equal to, greater than) or a check for all-equal sublists resolves the infinite recursion.<br>
-                                    <strong>Tokens used:</strong> Full reasoning chain (debugging requires step-by-step trace analysis)</p>
+                                    <span class="technique-demo__tag">Chains Disagree (Fall Back to Greedy)</span>
+                                    <p><strong>Query:</strong> &ldquo;Why does this concurrent cache occasionally return stale values under heavy load?&rdquo;<br><br>
+                                    <strong>Chains sampled:</strong> 32<br>
+                                    <strong>Vote:</strong> answers scatter across a race condition, a missing memory barrier, a TTL misconfiguration, and eviction ordering, none above 35%<br>
+                                    <strong>Consensus:</strong> ~34% (threshold 60%)<br>
+                                    <strong>Decision:</strong> Consensus below threshold, discard the chains.<br><br>
+                                    <strong>Final output:</strong> The model&rsquo;s direct answer is returned with a low-confidence flag.<br>
+                                    <strong>Note:</strong> When a bug has many plausible causes and the chains scatter, low consensus correctly signals the model is guessing.</p>
                                 </div>
                             </div>
                         </div>
@@ -475,7 +470,7 @@
         <section class="section section-alt">
             <div class="container">
                 <h2 class="section-title fade-in-up">When to Use Uncertainty-Routed CoT</h2>
-                <p class="section-subtitle fade-in-up">Best for production systems balancing cost, latency, and accuracy</p>
+                <p class="section-subtitle fade-in-up">Best when accuracy on hard problems matters more than the cost of extra sampling</p>
 
                 <div class="split-section fade-in-up">
                     <div class="split-section__content">
@@ -487,8 +482,8 @@
                                     <polyline points="22 4 12 14.01 9 11.01"/>
                                 </svg>
                                 <div>
-                                    <strong>High-Volume Production Systems</strong>
-                                    <p>When processing thousands or millions of queries daily, even small per-query savings compound into significant cost reductions without sacrificing quality on hard questions.</p>
+                                    <strong>High-Stakes Accuracy</strong>
+                                    <p>When a wrong answer is costly, sampling many chains and trusting them only on strong consensus buys measurable accuracy gains on hard reasoning and knowledge tasks.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -497,8 +492,8 @@
                                     <polyline points="22 4 12 14.01 9 11.01"/>
                                 </svg>
                                 <div>
-                                    <strong>Mixed-Difficulty Workloads</strong>
-                                    <p>Pipelines that receive a blend of easy and hard questions benefit most from routing, the easy majority subsidizes the expensive minority through token savings.</p>
+                                    <strong>Benchmark and Evaluation Scoring</strong>
+                                    <p>Leaderboards and eval harnesses such as MMLU and GSM8K, where squeezing out every honest accuracy point justifies sampling dozens of chains per question.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -507,8 +502,8 @@
                                     <polyline points="22 4 12 14.01 9 11.01"/>
                                 </svg>
                                 <div>
-                                    <strong>Latency-Sensitive Applications</strong>
-                                    <p>When users expect fast responses for simple queries, such as chatbots or real-time assistants, routing avoids the latency penalty of unnecessary reasoning on straightforward requests.</p>
+                                    <strong>Hard Reasoning Workloads</strong>
+                                    <p>Math, logic, and multi-step analysis where a single chain often rationalizes its way to the wrong answer; consensus across many samples catches that instability.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--positive">
@@ -517,8 +512,8 @@
                                     <polyline points="22 4 12 14.01 9 11.01"/>
                                 </svg>
                                 <div>
-                                    <strong>Budget-Constrained Deployments</strong>
-                                    <p>Organizations that cannot afford to run CoT on every single request can use routing to allocate their reasoning budget where it produces the greatest accuracy improvement.</p>
+                                    <strong>Confidence-Aware Answer Selection</strong>
+                                    <p>Pipelines that need to know when an answer is shaky: low consensus across the sampled chains is a built-in uncertainty flag you can route to a human.</p>
                                 </div>
                             </div>
                         </div>
@@ -532,8 +527,8 @@
                                     <line x1="8" y1="12" x2="16" y2="12"/>
                                 </svg>
                                 <div>
-                                    <strong>Uniformly Difficult Queries</strong>
-                                    <p>If every question in your pipeline is genuinely hard, such as advanced mathematical proofs or complex legal analysis, routing adds overhead without saving cost, since nearly all queries will trigger CoT anyway.</p>
+                                    <strong>Strict Cost or Latency Budgets</strong>
+                                    <p>Sampling 8 to 32 chains per query multiplies token use and response time. If you cannot afford many samples per question, this technique does not fit.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -542,8 +537,8 @@
                                     <line x1="8" y1="12" x2="16" y2="12"/>
                                 </svg>
                                 <div>
-                                    <strong>Maximum Accuracy Requirements</strong>
-                                    <p>In safety-critical domains where even a small accuracy drop on &ldquo;easy&rdquo; questions is unacceptable, such as medical diagnosis or aviation systems, the risk of skipping CoT on a misclassified query may outweigh the cost savings.</p>
+                                    <strong>Single-Sample-Only Deployments</strong>
+                                    <p>If the model can only be called once per query, or temperature variation is not available, there are no multiple chains to vote across and nothing for the threshold to measure.</p>
                                 </div>
                             </div>
                             <div class="feature-list__item feature-list__item--neutral">
@@ -552,8 +547,8 @@
                                     <line x1="8" y1="12" x2="16" y2="12"/>
                                 </svg>
                                 <div>
-                                    <strong>No Confidence Measurement Infrastructure</strong>
-                                    <p>If your deployment lacks access to token probabilities, cannot run multiple samples, and has no way to gauge model confidence, the routing mechanism has no signal to operate on.</p>
+                                    <strong>Trivial or Lookup Workloads</strong>
+                                    <p>When questions are simple factual lookups the model already answers reliably, repeated sampling adds cost with little accuracy left to gain.</p>
                                 </div>
                             </div>
                         </div>
@@ -576,8 +571,8 @@
                                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                             </svg>
                         </div>
-                        <h3 class="use-case-showcase__title">Customer Support Chatbots</h3>
-                        <p class="use-case-showcase__desc">Most support queries are routine (password resets, order tracking) and can be answered directly. Complex escalation cases get full reasoning to diagnose multi-system issues accurately.</p>
+                        <h3 class="use-case-showcase__title">Benchmark Scoring</h3>
+                        <p class="use-case-showcase__desc">When measuring how good a model really is on tests like MMLU or grade-school math, sampling many reasoning chains and taking the majority is the standard way to report an honest, repeatable score.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -587,8 +582,8 @@
                                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                             </svg>
                         </div>
-                        <h3 class="use-case-showcase__title">Educational Q&amp;A Platforms</h3>
-                        <p class="use-case-showcase__desc">Factual recall questions are answered instantly, while conceptual or multi-step problems trigger detailed explanations that walk students through the reasoning process.</p>
+                        <h3 class="use-case-showcase__title">High-Stakes Decision Support</h3>
+                        <p class="use-case-showcase__desc">Legal, medical, and financial tools that commit to an answer only when many reasoning chains agree, and hand the low-agreement cases to a human expert.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -600,8 +595,8 @@
                                 <line x1="16" y1="17" x2="8" y2="17"/>
                             </svg>
                         </div>
-                        <h3 class="use-case-showcase__title">Automated Grading Systems</h3>
-                        <p class="use-case-showcase__desc">Clear-cut right-or-wrong answers are graded directly. Ambiguous, partial-credit, or essay-style responses are routed through CoT for nuanced evaluation and detailed feedback.</p>
+                        <h3 class="use-case-showcase__title">Math and Science Tutoring</h3>
+                        <p class="use-case-showcase__desc">Multi-step problems where voting across several reasoning attempts catches the mistakes a single attempt would make with false confidence.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -610,8 +605,8 @@
                                 <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
                             </svg>
                         </div>
-                        <h3 class="use-case-showcase__title">Medical Information Hotlines</h3>
-                        <p class="use-case-showcase__desc">Common health questions (dosage, side effects) are answered directly from knowledge. Symptom-combination queries that could indicate multiple conditions trigger thorough differential reasoning.</p>
+                        <h3 class="use-case-showcase__title">Research Data Analysis</h3>
+                        <p class="use-case-showcase__desc">Quantitative questions where a majority vote across sampled reasoning paths is far more trustworthy than a single derivation that could go wrong unnoticed.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -621,8 +616,8 @@
                                 <polyline points="8 6 2 12 8 18"/>
                             </svg>
                         </div>
-                        <h3 class="use-case-showcase__title">Code Review Automation</h3>
-                        <p class="use-case-showcase__desc">Obvious style violations and syntax issues are flagged directly. Subtle logic bugs, race conditions, or architectural concerns are analyzed through step-by-step reasoning chains.</p>
+                        <h3 class="use-case-showcase__title">Model and Prompt Comparison</h3>
+                        <p class="use-case-showcase__desc">Comparing models or prompts not only by accuracy but by how consistently they reason, using the agreement rate across chains as a stability score.</p>
                     </div>
 
                     <div class="use-case-showcase__item">
@@ -633,8 +628,8 @@
                                 <path d="M6 20v-6"/>
                             </svg>
                         </div>
-                        <h3 class="use-case-showcase__title">Financial Analysis Assistants</h3>
-                        <p class="use-case-showcase__desc">Straightforward metric lookups (current stock price, market cap) return instantly. Complex valuation questions, risk assessments, or multi-factor analyses receive full reasoning treatment.</p>
+                        <h3 class="use-case-showcase__title">Confidence Gating for Retrieval</h3>
+                        <p class="use-case-showcase__desc">Question-answering over retrieved documents that commits to an answer only when the sampled chains agree, and otherwise flags the uncertainty instead of guessing.</p>
                     </div>
                 </div>
             </div>
@@ -645,13 +640,13 @@
         <section class="section section-alt">
             <div class="container">
                 <h2 class="section-title fade-in-up">Where Uncertainty-Routed CoT Fits</h2>
-                <p class="section-subtitle fade-in-up">From universal reasoning to adaptive, confidence-driven intelligence</p>
+                <p class="section-subtitle fade-in-up">From a single reasoning chain to consensus-checked, confidence-aware reasoning</p>
 
                 <div class="evolution-timeline fade-in-up">
                     <div class="era-marker">
                         <span class="era-marker__year">Chain-of-Thought</span>
-                        <span class="era-marker__title">Always Reason</span>
-                        <span class="era-marker__desc">Step-by-step on every query</span>
+                        <span class="era-marker__title">Reason Once</span>
+                        <span class="era-marker__desc">A single step-by-step chain per query</span>
                     </div>
                     <div class="era-marker">
                         <span class="era-marker__year">Self-Consistency</span>
@@ -660,8 +655,8 @@
                     </div>
                     <div class="era-marker era-marker--active">
                         <span class="era-marker__year">Uncertainty-Routed CoT</span>
-                        <span class="era-marker__title">Route by Confidence</span>
-                        <span class="era-marker__desc">Reason only when uncertain</span>
+                        <span class="era-marker__title">Vote, Then Trust or Fall Back</span>
+                        <span class="era-marker__desc">Trust the majority on high consensus, else fall back to greedy</span>
                     </div>
                     <div class="era-marker">
                         <span class="era-marker__year">Meta-Reasoning</span>
@@ -671,8 +666,8 @@
                 </div>
 
                 <div class="callout tip fade-in-up">
-                    <div class="callout-title">Tuning the Confidence Threshold</div>
-                    <p>The routing threshold is the most important parameter in an Uncertainty-Routed CoT system. Start with a conservative threshold (90%+) and gradually lower it while monitoring accuracy on a held-out evaluation set. Track two metrics: the percentage of queries routed to CoT (your &ldquo;reasoning rate&rdquo;) and the accuracy on queries that bypass CoT. The optimal threshold is the lowest value where bypassed queries maintain acceptable accuracy, this maximizes cost savings while preserving quality.</p>
+                    <div class="callout-title">Tuning the Consensus Threshold</div>
+                    <p>The consensus threshold is the key parameter. It is tuned ahead of time on a held-out validation set: pick the value that maximizes accuracy on that set, the point above which trusting the majority vote helps and below which falling back to the greedy answer does better. The original work tuned a separate threshold for each model. Track two things as you tune: the share of questions whose chains clear the threshold, and the accuracy of the majority vote versus the greedy fallback on each side of it.</p>
                 </div>
             </div>
         </section>
@@ -696,7 +691,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Foundation</span>
                         <span class="evolution-callout__title">Chain-of-Thought</span>
-                        <span class="evolution-callout__desc">Uncertainty-Routed CoT makes Chain-of-Thought conditional rather than universal, applying detailed reasoning only when the model&rsquo;s confidence indicates it is needed.</span>
+                        <span class="evolution-callout__desc">Uncertainty-Routed CoT samples Chain-of-Thought many times instead of once, then trusts the result only when those chains agree.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -714,7 +709,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Complement</span>
                         <span class="evolution-callout__title">Self-Consistency</span>
-                        <span class="evolution-callout__desc">Self-Consistency sampling can serve as the uncertainty measurement mechanism, if multiple samples disagree, uncertainty is high and the query should be routed to CoT.</span>
+                        <span class="evolution-callout__desc">Self-Consistency is the majority-vote step at the core of this technique. Uncertainty-Routed CoT adds one thing on top: when that vote lacks consensus, it discards the chains and falls back to the greedy answer.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -735,7 +730,7 @@
                     <div class="evolution-callout__content">
                         <span class="evolution-callout__label">Parallel</span>
                         <span class="evolution-callout__title">Complexity-Based Prompting</span>
-                        <span class="evolution-callout__desc">Both techniques selectively apply more reasoning effort to harder problems, but use different signals, Complexity-Based measures reasoning chain length, while Uncertainty-Routed measures model confidence.</span>
+                        <span class="evolution-callout__desc">Complexity-Based Prompting votes among the longest reasoning chains, on the theory that harder problems need longer reasoning. Uncertainty-Routed CoT instead decides by how much the sampled chains agree.</span>
                     </div>
                     <span class="evolution-callout__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -754,7 +749,7 @@
                     <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
                     <div class="cta-corporate__content">
                         <h2 class="cta-corporate__title">Route Your Reasoning</h2>
-                        <p class="cta-corporate__text">Apply uncertainty-based routing to optimize your reasoning pipeline or explore our prompting tools.</p>
+                        <p class="cta-corporate__text">Apply uncertainty-based routing to make your reasoning more reliable, or explore our prompting tools.</p>
                         <div class="cta-corporate__actions">
                             <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
                             <a href="../foundations/index.html" class="btn btn-secondary">All Foundations</a>
