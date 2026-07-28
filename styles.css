@@ -28772,9 +28772,12 @@ h3 + .nav-cards--compact {
 
 /* Wrapper - fixed bottom-left anchor for toggle + card
    -------------------------------------------- */
+/* Vertical offset is PAIRED to .adl-toggle (bottom: 100px, 48px tall).
+   This toggle is 52px, so 100px - 2px lines the two circle centers up.
+   Keep both rules, and both breakpoints, in sync if either offset moves. */
 .bmc-fab {
     position: fixed;
-    bottom: max(40px, env(safe-area-inset-bottom, 0px) + 24px);
+    bottom: 98px;
     left: max(20px, env(safe-area-inset-left, 0px) + 12px);
     z-index: 9995;
 }
@@ -28922,13 +28925,18 @@ h3 + .nav-cards--compact {
     }
 }
 
-/* Small screens - slightly tighter offset */
+/* Small screens - narrow the card so it clears the viewport edges */
 @media (max-width: 600px) {
-    .bmc-fab {
-        bottom: max(24px, env(safe-area-inset-bottom, 0px) + 16px);
-    }
     .bmc-card {
         width: 280px;
+    }
+}
+
+/* Mobile - mirrors the .adl-toggle breakpoint and offset
+   (calc(60px + safe area), 48px tall) minus 2px, so the two stay level. */
+@media (max-width: 480px) {
+    .bmc-fab {
+        bottom: calc(58px + var(--safe-area-inset-bottom));
     }
 }
 /* /SUPPORT FAB */
