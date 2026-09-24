@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DEEVO: evolve prompts through structured LLM debates scored by Elo ratings, using debate-informed crossover and mutation to optimize even subjective tasks without ground-truth metrics.">
+    <!-- SEO Meta -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Praxis Library">
+    <meta name="theme-color" content="#DC3545">
+    <link rel="canonical" href="https://praxislibrary.com/learn/deevo.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="DEEVO - Praxis">
+    <meta property="og:description" content="DEEVO: evolve prompts through structured LLM debates scored by Elo ratings, using debate-informed crossover and mutation to optimize even subjective tasks without ground-truth metrics.">
+    <meta property="og:url" content="https://praxislibrary.com/learn/deevo.html">
+    <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <meta property="og:site_name" content="Praxis Library">
+    <meta property="og:locale" content="en_US">
+    <!-- Social Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DEEVO - Praxis">
+    <meta name="twitter:description" content="DEEVO: evolve prompts through structured LLM debates scored by Elo ratings, using debate-informed crossover and mutation to optimize even subjective tasks without ground-truth metrics.">
+    <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "LearningResource",
+        "Article"
+      ],
+      "headline": "DEEVO",
+      "name": "DEEVO",
+      "description": "DEEVO: evolve prompts through structured LLM debates scored by Elo ratings, using debate-informed crossover and mutation to optimize even subjective tasks without ground-truth metrics.",
+      "url": "https://praxislibrary.com/learn/deevo.html",
+      "inLanguage": "en-US",
+      "learningResourceType": "Tutorial",
+      "educationalLevel": "Beginner to Advanced",
+      "educationalUse": "AI Prompt Engineering",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "EducationalOrganization",
+        "name": "Praxis Library",
+        "alternateName": "An Open Standard in AI Literacy",
+        "url": "https://praxislibrary.com",
+        "logo": "https://praxislibrary.com/favicon.svg",
+        "description": "A comprehensive, living library of 5,000+ AI terms, 208 techniques and frameworks, and interactive tools. The definitive open resource for AI literacy, prompt engineering, and human-AI communication.",
+        "sameAs": [
+          "https://www.tiktok.com/@thepraxislibrary",
+          "https://www.facebook.com/profile.php?id=61587612308104",
+          "https://github.com/PowerOfPraxis/PraxisLibrary"
+        ],
+        "knowsAbout": [
+          "Artificial Intelligence",
+          "AI Literacy",
+          "Prompt Engineering",
+          "AI Prompting Techniques",
+          "AI Glossary",
+          "Large Language Models",
+          "Chain-of-Thought Prompting",
+          "AI Education",
+          "Human-AI Communication",
+          "Neurodivergence and AI",
+          "AI Safety",
+          "AI Ethics"
+        ]
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Praxis Library",
+        "url": "https://praxislibrary.com"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Techniques & Frameworks"
+        },
+        {
+          "@type": "Thing",
+          "name": "Prompt Optimization"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://praxislibrary.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Discover",
+          "item": "https://praxislibrary.com/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "DEEVO"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <!-- /SEO -->
+
+<title>DEEVO - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav" aria-label="Main navigation">
+                <a href="../foundations/index.html" class="nav-link">History</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../learn/index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                                        <div class="mega-menu mega-menu--categories">
+                        <div class="mega-menu-quick-links">
+                            <a href="index.html">Techniques &amp; Frameworks</a>
+                            <a href="./prompt-basics.html">Prompt Basics</a>
+                            <a href="./tokens.html">Tokens</a>
+                            <a href="./facts-fictions.html">Facts &amp; Fictions</a>
+                            <a href="../pages/glossary.html">Glossary</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../tools/index.html" class="nav-link" aria-expanded="false">Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../quiz/index.html">Readiness Quiz</a>
+                            <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../tools/guidance.html">Prompt Builder</a>
+                            <a href="../tools/matcher.html">Technique Finder</a>
+                            <a href="../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../tools/persona.html">Persona Architect</a>
+                            <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                            <a href="../patterns/index.html">Patterns Library</a>
+                            <a href="../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="../pages/audit-report.html" class="nav-link">Audit Report</a>
+
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">DEEVO</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Prompt Optimization</span>
+                </div>
+                <h1 class="page-title fade-in" data-tour-step="1" data-tour-title="Technique Overview" data-tour-desc="This is the technique name and summary. The badge above shows which category it belongs to.">DEEVO</h1>
+                <p class="page-subtitle fade-in">DEEVO, introduced in a paper titled Tournament of Prompts, evolves better prompts by having them compete. Candidate prompts face off in structured debates, an Elo rating tracks who tends to win, and the debate outcomes guide how new prompts are bred through crossover and mutation. Because it needs no ground-truth metric, only relative wins, DEEVO can optimize subjective tasks where there is no single correct answer to score against.</p>
+                <p class="hero-note fade-in"><span class="hero-note__star">*</span><em>These are learning tools, not prompts. They teach you to write your own, think of them as training wheels that guide you while you learn, then fall away once you can ride on your own.</em></p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Rank Prompts by Who Wins</h2>
+                        <p class="split-section__text">Optimizing prompts for subjective tasks is hard because there is no correct answer to measure against. What makes a persuasive essay, a tactful reply, or a compelling pitch is a matter of judgment, and a single numeric metric rarely captures it. Optimizers that need an absolute score stall here.</p>
+                        <p class="split-section__text"><strong>DEEVO sidesteps the need for an absolute score by using relative comparison.</strong> It borrows the idea behind chess rankings: you do not need to know a player's exact skill, only who beats whom. Candidate prompts are pitted against each other in structured debates, and an Elo rating rises or falls with each win or loss. Over many matchups, the Elo ratings become a reliable fitness signal without any ground-truth labels.</p>
+                        <p class="split-section__text">The debates do more than rank. Because each debate surfaces reasons why one prompt beat another, DEEVO uses that information to guide evolution, breeding new prompts through crossover and mutation that are informed by what actually won arguments. The loop repeats, and the population climbs toward prompts that consistently win on the qualities the task cares about.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Elo as a Label-Free Fitness Signal</span>
+                                <p>An Elo rating needs only the outcome of matchups, not an absolute quality score. That makes it a natural <strong>fitness proxy for subjective tasks</strong>: DEEVO can rank and evolve prompts purely from which one wins a structured debate, so it works where no ground-truth metric exists.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The DEEVO Process</h2>
+                <p class="section-subtitle fade-in-up">Debate, rate by Elo, breed from the winners, and repeat</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Stage Structured Debates</h3>
+                            <p class="element-timeline__text">Take pairs of candidate prompts and have their outputs compete in a structured debate, where the case for each is argued and judged. This produces a clear winner for each matchup without needing a numeric score.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Two prompts for writing a cold outreach message go head to head; the debate judges which message would land better.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Update Elo Ratings</h3>
+                            <p class="element-timeline__text">Each debate result adjusts the Elo ratings of the prompts involved, winners rise, losers fall. Across many matchups, the ratings converge into a stable ranking of the population's fitness.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>A prompt that keeps winning outreach debates climbs the rating, marking it as a strong parent for the next generation.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Breed New Prompts From Winners</h3>
+                            <p class="element-timeline__text">Use crossover and mutation to create new prompts from the top-rated ones, informed by what the debates revealed about why they won. The evolution is guided by argument outcomes, not random change alone.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>The concrete opening from one winner is combined with the clear call to action from another to form a new candidate.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Repeat the Tournament</h3>
+                            <p class="element-timeline__text">Run further rounds of debates, ratings, and breeding, so the population steadily improves. The best-rated prompt at the end is the optimized result, selected entirely through relative competition.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>After several rounds, the top prompt reliably beats the originals in debate, and it becomes the deployed prompt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Needing an absolute score versus ranking by matchups</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 3v18h18"/><path d="M18 9l-6 6-3-3-4 4"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Absolute-Score Optimizer</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Needs a Number</span>
+                                <p>The optimizer requires a metric that assigns each output a quality score. On subjective tasks, defining such a metric is difficult and often unreliable.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Limit</span>
+                                <p>Tasks whose quality is a matter of judgment resist a single score, so the optimizer has nothing dependable to climb.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Stalls when quality resists a single metric</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">DEEVO</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Ranks by Winning</span>
+                                <p>Prompts debate head to head, and an Elo rating captures who tends to win. Only relative outcomes are needed, never an absolute quality number.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Reach</span>
+                                <p>Works on subjective tasks with no ground truth, and the debates also inform how new prompts are bred.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Optimizes subjective tasks via relative wins</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+        <!-- === RAI TIP === -->
+        <section class="section-tip fade-in-up">
+            <div class="container">
+                <div class="section-tip__content">
+                    <div class="section-tip__icon">
+                        <span class="section-tip__stop-text" aria-hidden="true">STOP</span>
+                    </div>
+                    <div class="section-tip__text">
+                        <h3 class="section-tip__title">Practice Responsible AI</h3>
+                        <p>Always verify AI-generated content before use. AI systems can produce confident but incorrect responses. When using AI professionally, transparent disclosure is both best practice and increasingly a legal requirement.</p>
+                        <p><strong><a href="https://www.ncsl.org/technology-and-communication/artificial-intelligence-2025-legislation" target="_blank" rel="noopener noreferrer" data-added="2026-04-15">Most US states are actively legislating AI transparency and accountability</a></strong>. Critical thinking remains your strongest tool against misinformation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /RAI TIP -->
+
+<!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up" data-tour-step="2" data-tour-title="Examples in Action" data-tour-desc="Real prompt and response examples showing this technique at work. Study the patterns here, then try them with your own prompts.">DEEVO in Action</h2>
+                <p class="section-subtitle fade-in-up">See how tournaments select and breed better prompts</p>
+
+                <div class="accordion fade-in-up" id="deevo-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Persuasive Writing</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Task</span>
+                                    <p>"Write a fundraising appeal." Persuasiveness is subjective, so there is no single correct output to score.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">DEEVO Tournament</span>
+                                    <p><strong>Debate:</strong> prompts whose appeals lead with a concrete story consistently beat those that open with statistics.<br><br>
+                                    <strong>Elo:</strong> the story-first prompts rise in rating.<br><br>
+                                    <strong>Breed:</strong> new candidates inherit the story-first opening and are tested again, climbing further.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Tone and Diplomacy</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Task</span>
+                                    <p>"Respond to an upset customer." The best reply depends on tone and tact, which resist a numeric score.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">DEEVO Tournament</span>
+                                    <p><strong>Debate:</strong> replies that acknowledge the frustration before offering a fix win against replies that jump straight to the solution.<br><br>
+                                    <strong>Elo and breed:</strong> the acknowledge-first pattern rises and is bred into new prompts, producing consistently more diplomatic replies.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Debate-Informed Crossover</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Two Winners</span>
+                                    <p>One prompt wins on clarity, another wins on warmth, each strong in a different debate dimension.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Crossover</span>
+                                    <p><strong>Because the debates named why each won,</strong> DEEVO combines the clarity instruction from one with the warmth instruction from the other into a single new candidate.<br><br>
+                                    <strong>Result:</strong> a prompt that carries both winning traits, which random mutation alone would have been unlikely to find.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use DEEVO</h2>
+                <p class="section-subtitle fade-in-up">Best for subjective tasks with no single correct answer</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Subjective Quality Goals</strong>
+                                    <p>Persuasiveness, tone, and style resist a numeric metric but are easy to judge in a head-to-head debate, which is exactly what DEEVO uses.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>No Ground-Truth Labels</strong>
+                                    <p>When there is no reference answer, relative wins still yield a stable Elo ranking, so DEEVO can optimize where scored optimizers cannot.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Combining Winning Traits</strong>
+                                    <p>Debate-informed crossover can merge the strengths of different winners, which suits tasks where several qualities matter at once.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Creative and Marketing Copy</strong>
+                                    <p>Content whose success is judged by impact rather than correctness fits a tournament that rewards the more compelling output.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>A Clear Metric Exists</strong>
+                                    <p>When accuracy or another objective score is available, an optimizer that targets it directly is simpler and more precise.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Debates Are Unreliable</strong>
+                                    <p>If the judge cannot tell better from worse on the task, the Elo signal is noisy and the tournament can reward the wrong prompts.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Very Tight Budgets</strong>
+                                    <p>Running many debates across a population costs model calls, so a strict compute limit may favor a lighter optimizer.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where DEEVO delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Marketing Copy</h3>
+                        <p class="use-case-showcase__desc">Evolve prompts for ads, emails, and pitches by rewarding the versions that win head-to-head on persuasiveness, not on a metric.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Customer Communication</h3>
+                        <p class="use-case-showcase__desc">Tune prompts for support and outreach replies where tone and tact decide quality, using debates to surface the better response.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Creative Generation</h3>
+                        <p class="use-case-showcase__desc">Improve prompts for stories, taglines, and concepts, where impact matters more than a correct answer, through competitive ranking.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/><path d="M4 22h16"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Head-to-Head Evaluation</h3>
+                        <p class="use-case-showcase__desc">Rank a set of candidate prompts by relative strength when you can judge which output is better but not assign an absolute score.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Trait Combination</h3>
+                        <p class="use-case-showcase__desc">Merge the winning qualities of different prompts through debate-informed crossover, building candidates that are strong on several fronts.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Label-Free Optimization</h3>
+                        <p class="use-case-showcase__desc">Improve prompts for any task where relative preference is available but a ground-truth dataset is not.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where DEEVO Fits</h2>
+                <p class="section-subtitle fade-in-up">The tournament-based optimizer for subjective tasks</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Debate Prompting</span>
+                        <span class="era-marker__title">Argue to Decide</span>
+                        <span class="era-marker__desc">Debate improves answers</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Pairwise Evaluation</span>
+                        <span class="era-marker__title">Compare Two</span>
+                        <span class="era-marker__desc">Judge relative quality</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">DEEVO</span>
+                        <span class="era-marker__title">Tournament of Prompts</span>
+                        <span class="era-marker__desc">Elo ranking, breed winners</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">GEPA</span>
+                        <span class="era-marker__title">Reflective Evolution</span>
+                        <span class="era-marker__desc">Language diagnosis, Pareto</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Chain These</div>
+                    <p>DEEVO turns the ideas behind debate prompting and pairwise evaluation into a full optimizer, using Elo as the fitness signal. Reach for it when your task's quality is subjective and best judged by which output wins rather than by a score.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Techniques</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary comparison and optimization techniques</p>
+
+                <a href="debate-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Debate Prompting</span>
+                        <span class="evolution-callout__desc">Uses argument between viewpoints to reach better answers, the debate mechanism DEEVO repurposes to rank and evolve prompts.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="pairwise-evaluation.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/><path d="M4 22h16"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Pairwise Evaluation</span>
+                        <span class="evolution-callout__desc">Judges which of two outputs is better, the relative comparison DEEVO aggregates into Elo ratings across a tournament.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="gepa.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Sibling</span>
+                        <span class="evolution-callout__title">GEPA</span>
+                        <span class="evolution-callout__desc">Another evolutionary optimizer, driven by reflective diagnosis rather than head-to-head Elo tournaments.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up" data-tour-step="3" data-tour-title="Try It Yourself" data-tour-desc="Ready to practice? These links take you to interactive tools where you can build and test prompts using this technique.">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Let Prompts Compete</h2>
+                        <p class="cta-corporate__text">Explore how comparing outputs head to head can guide prompt design in the Prompt Builder, or see how DEEVO relates to the wider family of prompt optimizers.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+        <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>From Prompting to Production. Built on Proven Techniques &amp; Frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Techniques</h4>
+                <a href="../learn/prompt-basics.html">Prompt Basics</a>
+                <a href="../learn/tokens.html">Tokens</a>
+                <a href="../learn/crisp.html">CRISP Framework</a>
+                <a href="../learn/crispe.html">CRISPE Framework</a>
+                <a href="../learn/costar.html">CO-STAR Framework</a>
+                <a href="../learn/react.html">ReAct Framework</a>
+                <a href="../learn/flipped-interaction.html">Flipped Interaction</a>
+                <a href="../learn/chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness Tools</h4>
+                <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../tools/matcher.html">Technique Finder</a>
+                <a href="../tools/checklist.html">Preflight Checklist</a>
+                <a href="../tools/guidance.html">Prompt Builder</a>
+                <a href="../tools/persona.html">Persona Architect</a>
+                <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../quiz/index.html">Readiness Quiz</a>
+                <a href="../patterns/index.html">Patterns Library</a>
+                <a href="../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../pages/audit-report.html">Audit Report</a>
+                <a href="../pages/about.html">About Praxis</a>
+                <a href="../pages/faq.html">FAQs</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everyone</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
+        </div>
+
+        <div class="footer-policies">
+            <a href="../pages/responsible-ai.html">Responsible AI</a>
+            <a href="../pages/use-policy.html">Use Policy</a>
+            <a href="../pages/site-policy.html">Site Policy</a>
+            <a href="../pages/security-policy.html">Security Policy</a>
+            <a href="../pages/data-retention-policy.html">Data Retention</a>
+        </div>
+    </div>
+</footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>
+
+<!-- deploy-marker: 2026-06-29T00:00Z -->

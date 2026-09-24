@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Abstract Perspective Change (APC): help a vision-language model take another viewpoint by building a scene abstraction it can mentally simulate, using vision foundation models.">
+    <!-- SEO Meta -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Praxis Library">
+    <meta name="theme-color" content="#DC3545">
+    <link rel="canonical" href="https://praxislibrary.com/learn/modality/image/abstract-perspective-change.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Abstract Perspective Change - Praxis">
+    <meta property="og:description" content="Abstract Perspective Change (APC): help a vision-language model take another viewpoint by building a scene abstraction it can mentally simulate, using vision foundation models.">
+    <meta property="og:url" content="https://praxislibrary.com/learn/modality/image/abstract-perspective-change.html">
+    <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <meta property="og:site_name" content="Praxis Library">
+    <meta property="og:locale" content="en_US">
+    <!-- Social Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Abstract Perspective Change - Praxis">
+    <meta name="twitter:description" content="Abstract Perspective Change (APC): help a vision-language model take another viewpoint by building a scene abstraction it can mentally simulate, using vision foundation models.">
+    <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "LearningResource",
+        "Article"
+      ],
+      "headline": "Abstract Perspective Change",
+      "name": "Abstract Perspective Change",
+      "description": "Abstract Perspective Change (APC): help a vision-language model take another viewpoint by building a scene abstraction it can mentally simulate, using vision foundation models.",
+      "url": "https://praxislibrary.com/learn/modality/image/abstract-perspective-change.html",
+      "inLanguage": "en-US",
+      "learningResourceType": "Tutorial",
+      "educationalLevel": "Beginner to Advanced",
+      "educationalUse": "AI Prompt Engineering",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "EducationalOrganization",
+        "name": "Praxis Library",
+        "alternateName": "An Open Standard in AI Literacy",
+        "url": "https://praxislibrary.com",
+        "logo": "https://praxislibrary.com/favicon.svg",
+        "description": "A comprehensive, living library of 5,000+ AI terms, 208 techniques and frameworks, and interactive tools. The definitive open resource for AI literacy, prompt engineering, and human-AI communication.",
+        "sameAs": [
+          "https://www.tiktok.com/@thepraxislibrary",
+          "https://www.facebook.com/profile.php?id=61587612308104",
+          "https://github.com/PowerOfPraxis/PraxisLibrary"
+        ],
+        "knowsAbout": [
+          "Artificial Intelligence",
+          "AI Literacy",
+          "Prompt Engineering",
+          "AI Prompting Techniques",
+          "AI Glossary",
+          "Large Language Models",
+          "Chain-of-Thought Prompting",
+          "AI Education",
+          "Human-AI Communication",
+          "Neurodivergence and AI",
+          "AI Safety",
+          "AI Ethics"
+        ]
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Praxis Library",
+        "url": "https://praxislibrary.com"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Techniques & Frameworks"
+        },
+        {
+          "@type": "Thing",
+          "name": "AI Communication"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://praxislibrary.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Discover",
+          "item": "https://praxislibrary.com/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Modality",
+          "item": "https://praxislibrary.com/learn/modality/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Image",
+          "item": "https://praxislibrary.com/learn/modality/image/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Abstract Perspective Change"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <!-- /SEO -->
+
+<title>Abstract Perspective Change - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav" aria-label="Main navigation">
+                <a href="../../../foundations/index.html" class="nav-link">History</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                                        <div class="mega-menu mega-menu--categories">
+                        <div class="mega-menu-quick-links">
+                            <a href="../../index.html">Techniques &amp; Frameworks</a>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../tokens.html">Tokens</a>
+                            <a href="../../facts-fictions.html">Facts &amp; Fictions</a>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Technique Finder</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="../../../pages/audit-report.html" class="nav-link">Audit Report</a>
+
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Abstract Perspective Change</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Image Techniques</span>
+                </div>
+                <h1 class="page-title fade-in" data-tour-step="1" data-tour-title="Technique Overview" data-tour-desc="This is the technique name and summary. The badge above shows which category it belongs to.">Abstract Perspective Change</h1>
+                <p class="page-subtitle fade-in">Help a vision-language model answer &ldquo;from where they are standing, what would this look like?&rdquo; by building a compact scene abstraction it can mentally rotate, instead of reasoning only from the camera&rsquo;s fixed viewpoint.</p>
+                <p class="hero-note fade-in"><span class="hero-note__star">*</span><em>These are learning tools, not prompts. They teach you to write your own, think of them as training wheels that guide you while you learn, then fall away once you can ride on your own.</em></p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Seeing It From Where They Stand</h2>
+                        <p class="split-section__text">Ask a vision-language model &ldquo;is the mug to the person&rsquo;s left or right?&rdquo; and it often answers from the camera&rsquo;s point of view, not the person&rsquo;s. Perspective-taking, imagining a scene as it would appear from somewhere other than the lens, is something people do almost automatically and that models routinely get wrong. The image is fixed to one viewpoint, and the model tends to stay stuck there.</p>
+                        <p class="split-section__text"><strong>Abstract Perspective Change gives the model a way to move.</strong> Rather than reasoning directly on the pixels from a single vantage point, it first builds a scene abstraction: a compact, structured description of what is in the scene, where each object sits, and which way it faces. That abstraction is something the model can mentally transform, simulating how the arrangement would look from a different viewpoint before answering.</p>
+                        <p class="split-section__text">Crucially, APC does not retrain the vision-language model. It leans on existing vision foundation models to do the perceptual heavy lifting, detecting objects, segmenting them, and estimating their orientation, and uses their output to construct the abstraction. The perspective shift then happens on that intermediate representation, a form of mental imagery simulation, so the reasoning is grounded in real detections rather than a guess about geometry.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why an Abstraction Helps</span>
+                                <p>Rotating a viewpoint directly in pixel space is hard and error-prone; a photo does not come with a dial for &ldquo;walk around to the other side.&rdquo; A scene abstraction does. Once objects, positions, and orientations are written down as structure, changing viewpoint becomes a transformation on that structure, the kind of operation that is far more tractable than re-imagining raw pixels. The model gets to reason about a movable model of the scene instead of a frozen snapshot.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Perspective-Change Process</h2>
+                <p class="section-subtitle fade-in-up">Four stages from a fixed photo to another point of view</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Perceive the Scene</h3>
+                            <p class="element-timeline__text">Vision foundation models parse the image: detecting the objects present, segmenting them from the background, and estimating each object&rsquo;s orientation. This perceptual pass supplies the raw facts, what is here and which way it faces, that the abstraction will be built from.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>In a room photo: a person facing the window, a table in front of them, a mug on the table&rsquo;s near-left corner, a laptop on the right.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Build the Scene Abstraction</h3>
+                            <p class="element-timeline__text">The detections are assembled into a structured, viewpoint-aware representation: the objects, their relative positions, and the direction each one faces. This abstraction is the movable model of the scene, compact enough to transform yet faithful to the real layout the vision models observed.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Abstraction: person at origin facing +y; table ahead; mug at front-left; laptop at front-right, all recorded as positions and facing directions.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Simulate the Viewpoint Shift</h3>
+                            <p class="element-timeline__text">To answer from another vantage point, the abstraction is transformed to that viewpoint, the mental imagery step. Reasoning about &ldquo;the person&rsquo;s left&rdquo; means re-expressing the layout as it appears facing the way they face, rather than as the camera sees it.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Adopting the person&rsquo;s facing direction, the mug that was front-left to the camera is now on the person&rsquo;s right side, and the laptop on their left.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Reason and Answer</h3>
+                            <p class="element-timeline__text">With the scene now expressed from the target viewpoint, the model answers the spatial question directly. Because the perspective change happened on a grounded abstraction rather than by guessing, the relative directions come out consistent with how the scene really is arranged.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;From the person&rsquo;s point of view, the mug is on their right and the laptop is on their left.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">How a scene abstraction fixes camera-locked spatial answers</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Camera-Locked Reasoning</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>In this photo, a cyclist is riding toward the camera. Is the mailbox on the cyclist&rsquo;s left or right?</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>The mailbox is on the left side of the image, so it is on the cyclist&rsquo;s left.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Answered from the camera, not the cyclist, so left and right are flipped</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Abstract Perspective Change</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Abstraction and Shift</span>
+                                <p><strong>Scene abstraction:</strong> cyclist facing the camera; mailbox on the image-left. <strong>Viewpoint shift:</strong> the cyclist faces the opposite way to the camera, so their left and right are mirrored relative to the image.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Answer</span>
+                                <p>Because the cyclist faces the camera, the mailbox on the image-left is actually on the cyclist&rsquo;s right.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Simulated the cyclist&rsquo;s viewpoint before answering, got the side right</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up" data-tour-step="2" data-tour-title="Examples in Action" data-tour-desc="Real prompt and response examples showing this technique at work. Study the patterns here, then try them with your own prompts.">Abstract Perspective Change in Action</h2>
+                <p class="section-subtitle fade-in-up">See how simulating another viewpoint works across different domains</p>
+
+                <div class="accordion fade-in-up" id="apc-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Egocentric Spatial Questions</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Multimodal Input</span>
+                                    <p>&ldquo;In this kitchen photo, a chef stands at the counter facing the stove. From the chef&rsquo;s point of view, which side is the knife block on?&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">APC Response</span>
+                                    <p><strong>Perceive:</strong> chef detected facing the stove; knife block on the counter, image-right of the chef.<br><br>
+                                    <strong>Abstraction and shift:</strong> record the chef&rsquo;s facing direction and the knife block&rsquo;s position, then re-express the layout from the chef&rsquo;s viewpoint rather than the camera&rsquo;s.<br><br>
+                                    <strong>Answer:</strong> From the chef&rsquo;s point of view, the knife block is on their left, even though it appears on the right of the image.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Navigation and Directions</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Multimodal Input</span>
+                                    <p>&ldquo;A pedestrian is walking away from the camera down a street. To reach the cafe on their right, which way should they turn?&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">APC Response</span>
+                                    <p><strong>Perceive:</strong> pedestrian facing away from the camera; cafe on the image-right.<br><br>
+                                    <strong>Abstraction and shift:</strong> the pedestrian faces the same direction as the camera view, so their right aligns with the image-right in this case.<br><br>
+                                    <strong>Answer:</strong> The cafe is already on the pedestrian&rsquo;s right, so they should turn right to reach it.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Instruction for Robots and Agents</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Multimodal Input</span>
+                                    <p>&ldquo;A robot arm faces the workbench in this image. Tell it to pick up the part that is on its left.&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">APC Response</span>
+                                    <p><strong>Perceive:</strong> robot base and gripper orientation detected; two parts on the bench, one image-left, one image-right.<br><br>
+                                    <strong>Abstraction and shift:</strong> express the parts&rsquo; positions relative to the robot&rsquo;s facing direction, not the camera&rsquo;s.<br><br>
+                                    <strong>Answer:</strong> From the robot&rsquo;s own frame, the part on its left is the one that appears on the image-right, so that is the part to pick up.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Abstract Perspective Change</h2>
+                <p class="section-subtitle fade-in-up">Best for questions that depend on someone else&rsquo;s point of view</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Perspective-Taking Questions</strong>
+                                    <p>Anything phrased as &ldquo;from their point of view&rdquo; or &ldquo;on the person&rsquo;s left,&rdquo; where the answer differs from the camera&rsquo;s vantage point.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Spatial Relationship Reasoning</strong>
+                                    <p>Tasks about relative positions and directions among objects and people, where facing direction changes what &ldquo;left&rdquo; and &ldquo;right&rdquo; mean.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Embodied and Robotic Instructions</strong>
+                                    <p>Directing an agent or robot in its own frame of reference, where the instruction must be resolved relative to the agent, not the observer.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Existing VLMs Without Retraining</strong>
+                                    <p>Deployments that need better perspective reasoning but cannot fine-tune the model, since APC leans on separate vision foundation models to build the abstraction.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>The Camera View Is the Answer</strong>
+                                    <p>When the question is about the image as seen, with no other viewpoint involved, building and rotating an abstraction adds needless steps.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>No Reliable Perception Available</strong>
+                                    <p>If the scene is too cluttered or ambiguous for the vision models to detect objects and orientations, the abstraction will be shaky and the shift unreliable.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Non-Spatial Questions</strong>
+                                    <p>For questions about color, identity, or content that carry no viewpoint dependence, perspective simulation is irrelevant overhead.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Abstract Perspective Change delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Assistive and Accessibility Tools</h3>
+                        <p class="use-case-showcase__desc">Describe surroundings from a person&rsquo;s own frame of reference, so guidance like &ldquo;the door is on your left&rdquo; matches how they are actually oriented.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="10" rx="2"/>
+                                <circle cx="12" cy="5" r="2"/>
+                                <path d="M12 7v4M8 16h.01M16 16h.01"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Robotics and Manipulation</h3>
+                        <p class="use-case-showcase__desc">Resolve instructions in a robot&rsquo;s own coordinate frame, so &ldquo;grab the part on your left&rdquo; picks the correct object regardless of camera placement.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                                <line x1="8" y1="2" x2="8" y2="18"/>
+                                <line x1="16" y1="6" x2="16" y2="22"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Navigation Assistance</h3>
+                        <p class="use-case-showcase__desc">Give turn-by-turn directions relative to the traveler&rsquo;s heading rather than the map or camera, reducing left-right confusion in the field.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                                <line x1="12" y1="22.08" x2="12" y2="12"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">AR and Spatial Computing</h3>
+                        <p class="use-case-showcase__desc">Place and describe virtual content consistently with a user&rsquo;s viewpoint, keeping labels and cues aligned to where the person is looking.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Spatial Reasoning Education</h3>
+                        <p class="use-case-showcase__desc">Teach and check perspective-taking by showing how a scene changes from different viewpoints, with the abstraction making the transformation explicit.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="2" y1="12" x2="22" y2="12"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Scene Understanding Benchmarks</h3>
+                        <p class="use-case-showcase__desc">Strengthen performance on spatial and perspective evaluation sets where camera-locked reasoning systematically flips relative directions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Abstract Perspective Change Fits</h2>
+                <p class="section-subtitle fade-in-up">From pixel-locked answers to reasoning that can change viewpoint</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Image Prompting</span>
+                        <span class="era-marker__title">Reading the Image</span>
+                        <span class="era-marker__desc">Understanding what is in the picture as shown</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Visual CoT</span>
+                        <span class="era-marker__title">Region-Grounded Reasoning</span>
+                        <span class="era-marker__desc">Reasoning anchored to parts of the fixed view</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Abstract Perspective Change</span>
+                        <span class="era-marker__title">Simulating Other Viewpoints</span>
+                        <span class="era-marker__desc">Building a movable abstraction to shift point of view</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Embodied Reasoning</span>
+                        <span class="era-marker__title">Acting in a Frame</span>
+                        <span class="era-marker__desc">Agents reasoning and acting in their own reference frame</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Giving Models a Way to Move</div>
+                    <p>Vision-language models are anchored to the viewpoint of whoever took the picture, which is why they stumble on questions that require imagining the scene from elsewhere. Abstract Perspective Change addresses this not by retraining the model but by giving it a movable representation to reason over, a scene abstraction built from the outputs of vision foundation models. Because the viewpoint shift happens on that grounded abstraction rather than on raw pixels, the technique brings a capability people take for granted, mentally walking around a scene, within reach of systems that otherwise see the world from exactly one fixed spot.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Techniques</h2>
+                <p class="section-subtitle fade-in-up">Explore techniques connected to Abstract Perspective Change</p>
+
+                <a href="visual-cot.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Related</span>
+                        <span class="evolution-callout__title">Visual CoT</span>
+                        <span class="evolution-callout__desc">Reasons step by step over specific regions of the image as shown. Abstract Perspective Change adds the ability to re-express those spatial facts from a different viewpoint.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="multimodal-cot.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Multimodal Chain of Thought</span>
+                        <span class="evolution-callout__desc">Grounds reasoning in visual evidence through explicit steps. Perspective change extends this with a structured scene abstraction that the model can transform before reasoning.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="image-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Image Prompting Basics</span>
+                        <span class="evolution-callout__desc">The fundamentals of getting a model to understand an image. Perspective change builds on solid image understanding, then adds the step of shifting viewpoint.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up" data-tour-step="3" data-tour-title="Try It Yourself" data-tour-desc="Ready to practice? These links take you to interactive tools where you can build and test prompts using this technique.">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">See It From Their Side</h2>
+                        <p class="cta-corporate__text">Apply Abstract Perspective Change to your own spatial and perspective-taking tasks, or build structured multimodal prompts with our interactive tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>From Prompting to Production. Built on Proven Techniques &amp; Frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Techniques</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../tokens.html">Tokens</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">CO-STAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness Tools</h4>
+                <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../../../tools/matcher.html">Technique Finder</a>
+                <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                <a href="../../../tools/guidance.html">Prompt Builder</a>
+                <a href="../../../tools/persona.html">Persona Architect</a>
+                <a href="../../../tools/hallucination.html">Hallucination Spotter</a>                <a href="../../../quiz/index.html">Readiness Quiz</a>
+                <a href="../../../patterns/index.html">Patterns Library</a>
+                <a href="../../../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../../../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../../../pages/audit-report.html">Audit Report</a>
+                <a href="../../../pages/about.html">About Praxis</a>
+                <a href="../../../pages/faq.html">FAQs</a>
+            </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everyone</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
+            </div>
+
+            <div class="footer-policies">
+            <a href="../../../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../../../pages/use-policy.html">Use Policy</a>
+                <a href="../../../pages/site-policy.html">Site Policy</a>
+                <a href="../../../pages/security-policy.html">Security Policy</a>
+                <a href="../../../pages/data-retention-policy.html">Data Retention</a>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK-TO-TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK-TO-TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>
+
+<!-- deploy-marker: 2026-06-30T00:00Z -->

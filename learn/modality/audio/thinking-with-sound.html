@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Thinking with Sound (TwS): an audio chain-of-thought where the model actively manipulates the sound signal mid-reasoning, suppressing noise, separating sources, and aligning events.">
+    <!-- SEO Meta -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Praxis Library">
+    <meta name="theme-color" content="#DC3545">
+    <link rel="canonical" href="https://praxislibrary.com/learn/modality/audio/thinking-with-sound.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Thinking with Sound - Praxis">
+    <meta property="og:description" content="Thinking with Sound (TwS): an audio chain-of-thought where the model actively manipulates the sound signal mid-reasoning, suppressing noise, separating sources, and aligning events.">
+    <meta property="og:url" content="https://praxislibrary.com/learn/modality/audio/thinking-with-sound.html">
+    <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <meta property="og:site_name" content="Praxis Library">
+    <meta property="og:locale" content="en_US">
+    <!-- Social Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Thinking with Sound - Praxis">
+    <meta name="twitter:description" content="Thinking with Sound (TwS): an audio chain-of-thought where the model actively manipulates the sound signal mid-reasoning, suppressing noise, separating sources, and aligning events.">
+    <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "LearningResource",
+        "Article"
+      ],
+      "headline": "Thinking with Sound",
+      "name": "Thinking with Sound",
+      "description": "Thinking with Sound (TwS): an audio chain-of-thought where the model actively manipulates the sound signal mid-reasoning, suppressing noise, separating sources, and aligning events.",
+      "url": "https://praxislibrary.com/learn/modality/audio/thinking-with-sound.html",
+      "inLanguage": "en-US",
+      "learningResourceType": "Tutorial",
+      "educationalLevel": "Beginner to Advanced",
+      "educationalUse": "AI Prompt Engineering",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "EducationalOrganization",
+        "name": "Praxis Library",
+        "alternateName": "An Open Standard in AI Literacy",
+        "url": "https://praxislibrary.com",
+        "logo": "https://praxislibrary.com/favicon.svg",
+        "description": "A comprehensive, living library of 5,000+ AI terms, 208 techniques and frameworks, and interactive tools. The definitive open resource for AI literacy, prompt engineering, and human-AI communication.",
+        "sameAs": [
+          "https://www.tiktok.com/@thepraxislibrary",
+          "https://www.facebook.com/profile.php?id=61587612308104",
+          "https://github.com/PowerOfPraxis/PraxisLibrary"
+        ],
+        "knowsAbout": [
+          "Artificial Intelligence",
+          "AI Literacy",
+          "Prompt Engineering",
+          "AI Prompting Techniques",
+          "AI Glossary",
+          "Large Language Models",
+          "Chain-of-Thought Prompting",
+          "AI Education",
+          "Human-AI Communication",
+          "Neurodivergence and AI",
+          "AI Safety",
+          "AI Ethics"
+        ]
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Praxis Library",
+        "url": "https://praxislibrary.com"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Techniques & Frameworks"
+        },
+        {
+          "@type": "Thing",
+          "name": "AI Communication"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://praxislibrary.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Discover",
+          "item": "https://praxislibrary.com/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Modality",
+          "item": "https://praxislibrary.com/learn/modality/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Audio",
+          "item": "https://praxislibrary.com/learn/modality/audio/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Thinking with Sound"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <!-- /SEO -->
+
+<title>Thinking with Sound - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav" aria-label="Main navigation">
+                <a href="../../../foundations/index.html" class="nav-link">History</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                                        <div class="mega-menu mega-menu--categories">
+                        <div class="mega-menu-quick-links">
+                            <a href="../../index.html">Techniques &amp; Frameworks</a>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../tokens.html">Tokens</a>
+                            <a href="../../facts-fictions.html">Facts &amp; Fictions</a>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Technique Finder</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="../../../pages/audit-report.html" class="nav-link">Audit Report</a>
+
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Thinking with Sound</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Audio Techniques</span>
+                </div>
+                <h1 class="page-title fade-in" data-tour-step="1" data-tour-title="Technique Overview" data-tour-desc="This is the technique name and summary. The badge above shows which category it belongs to.">Thinking with Sound</h1>
+                <p class="page-subtitle fade-in">Instead of treating a recording as a fixed input to describe, let the model actively work with the signal while it reasons, cleaning up noise, separating overlapping sources, and aligning events, so it can hear better before it answers.</p>
+                <p class="hero-note fade-in"><span class="hero-note__star">*</span><em>These are learning tools, not prompts. They teach you to write your own, think of them as training wheels that guide you while you learn, then fall away once you can ride on your own.</em></p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Reasoning That Works the Signal</h2>
+                        <p class="split-section__text">Most audio reasoning treats the recording as a static input. The model listens once, forms an impression, and reasons about that impression in words. When the audio is clean, this works. When it is noisy, crowded with overlapping voices, or poorly aligned, the model is stuck reasoning over a signal it could not fully make out in the first place.</p>
+                        <p class="split-section__text"><strong>Thinking with Sound treats the audio as something to actively work with, not just listen to.</strong> During reasoning, the model can perform numerical analysis and digital manipulation on the signal itself, applying acoustic operations to hear more clearly before drawing a conclusion. Rather than accepting a muddy recording as-is, it can clean it up mid-thought and then reconsider.</p>
+                        <p class="split-section__text">The operations it reaches for are the familiar tools of audio engineering: noise suppression to reduce background interference, source separation to pull apart overlapping sounds or voices, and temporal alignment to line up events in time. Crucially, this is training-free. It equips an existing audio-language model with acoustic tools it can invoke while reasoning, which is what makes it especially robust when the audio has been degraded or perturbed.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Manipulating the Signal Helps</span>
+                                <p>You cannot reliably reason about a voice you cannot hear over the noise. By letting the model denoise, separate, or realign the audio in the middle of its reasoning, Thinking with Sound removes the obstacle before it becomes a wrong answer. This is why it holds up under real-world acoustic perturbations that cause static listening to fail: the model does not just cope with a bad signal, it improves the signal and then listens again.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">How Thinking with Sound Works</h2>
+                <p class="section-subtitle fade-in-up">Four stages that fold signal manipulation into reasoning</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Listen and Spot the Obstacle</h3>
+                            <p class="element-timeline__text">The model takes in the audio and the question, and begins reasoning. Early on, it identifies what is standing in the way of a confident answer: background noise, overlapping sources, or events that are hard to place in time.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;I am asked what the announcement says, but there is heavy crowd noise over the speech, I cannot make out the words yet.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Apply an Acoustic Tool</h3>
+                            <p class="element-timeline__text">Mid-reasoning, the model manipulates the signal with the operation that fits the obstacle: suppress the noise, separate the sources, or align events in time. This is the step that sets the method apart, it changes the audio it is working from rather than only describing it.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;Applying noise suppression to reduce the crowd noise, then isolating the announcer&rsquo;s voice with source separation.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Re-Listen to the Cleaner Signal</h3>
+                            <p class="element-timeline__text">With the processed audio in hand, the model listens again to the improved signal and continues its reasoning. Details that were buried, words, timing, a faint source, may now be audible enough to reason about reliably.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;On the cleaned, separated track, the announcement is now intelligible: it names a gate change.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Answer With Restored Confidence</h3>
+                            <p class="element-timeline__text">The model answers from what it could hear after improving the signal. Because it addressed the acoustic obstacle directly, the conclusion holds up even on degraded or perturbed audio that would defeat a model reasoning over the raw recording alone.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>&ldquo;The announcement states that the departure gate has changed, which was only recoverable after suppressing the crowd noise.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Reasoning over raw audio versus improving the signal first</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Static Audio Reasoning</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Prompt</span>
+                                <p>Over this noisy recording of two people, what is the second speaker&rsquo;s main concern?</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Response</span>
+                                <p>It is hard to tell over the noise; the second speaker seems to be talking about the weather.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Guessed over noise and overlap, likely wrong</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Thinking with Sound</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Reasoning</span>
+                                <p>&ldquo;The voices overlap and there is background noise. I will separate the two speakers and suppress the noise, then focus on the second speaker&rsquo;s isolated track. On that cleaner track, the second speaker repeatedly mentions a missed payment and a due date.&rdquo;</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Answer</span>
+                                <p>The second speaker&rsquo;s main concern is a missed payment and its upcoming due date, clear only after separating the voices and reducing the noise.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Improved the signal first, then answered with confidence</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up" data-tour-step="2" data-tour-title="Examples in Action" data-tour-desc="Real prompt and response examples showing this technique at work. Study the patterns here, then try them with your own prompts.">Thinking with Sound in Action</h2>
+                <p class="section-subtitle fade-in-up">One acoustic tool per obstacle, applied mid-reasoning</p>
+
+                <div class="accordion fade-in-up" id="tws-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Noise Suppression for Degraded Speech</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Audio Input</span>
+                                    <p>&ldquo;A voice memo recorded near a busy road. What instruction does the speaker give?&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">TwS Response</span>
+                                    <p><strong>Obstacle:</strong> steady traffic noise masks parts of the speech.<br><br>
+                                    <strong>Tool applied:</strong> noise suppression to attenuate the broadband road noise while preserving the voice band.<br><br>
+                                    <strong>Re-listen and answer:</strong> On the cleaned audio, the instruction is now clear, the speaker says to leave the package with the neighbor in apartment 4B.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Source Separation for Overlapping Voices</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Audio Input</span>
+                                    <p>&ldquo;Two people talk at once in this clip. What does the quieter speaker ask for?&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">TwS Response</span>
+                                    <p><strong>Obstacle:</strong> a louder voice dominates and masks the quieter one.<br><br>
+                                    <strong>Tool applied:</strong> source separation to split the mixture into two isolated voice tracks, then focus on the quieter track.<br><br>
+                                    <strong>Re-listen and answer:</strong> On the separated quiet track, that speaker asks for a glass of water, which was inaudible in the original mixture.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Temporal Alignment for Event Order</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Audio Input</span>
+                                    <p>&ldquo;In this recording, did the alarm sound before or after the door closed?&rdquo;</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">TwS Response</span>
+                                    <p><strong>Obstacle:</strong> the two events overlap and their order is ambiguous by ear.<br><br>
+                                    <strong>Tool applied:</strong> temporal alignment to place each event precisely on a shared timeline, separating their onsets.<br><br>
+                                    <strong>Re-listen and answer:</strong> The aligned timeline shows the alarm onset preceding the door-close by a clear margin, so the alarm sounded first.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Thinking with Sound</h2>
+                <p class="section-subtitle fade-in-up">Best when the signal itself is the obstacle</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Noisy or Degraded Audio</strong>
+                                    <p>Real-world recordings with background interference, where suppressing the noise before reasoning recovers content that static listening misses.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Overlapping Sources</strong>
+                                    <p>Clips with multiple simultaneous voices or sounds, where separating the mixture lets the model reason about one source at a time.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Event Timing and Order</strong>
+                                    <p>Questions that hinge on when things happen, where aligning events on a shared timeline resolves ambiguity that is hard to judge by ear.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Robustness to Perturbation</strong>
+                                    <p>Settings where audio may be perturbed or corrupted and you need reasoning that improves the signal rather than failing on it.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>The Audio Is Already Clean</strong>
+                                    <p>When the recording is clear and single-source, there is no signal obstacle to remove, and plain audio reasoning answers just as well with less work.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>No Acoustic Tools Available</strong>
+                                    <p>The benefit depends on the model being able to invoke operations like separation and denoising. Without them, this reduces to ordinary listening.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>The Question Is Not About the Signal</strong>
+                                    <p>For high-level questions that do not depend on hard-to-hear detail, manipulating the audio adds steps without changing the answer.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Thinking with Sound delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Speech in Noisy Environments</h3>
+                        <p class="use-case-showcase__desc">Understand voice memos, field recordings, and calls captured in traffic, wind, or crowds by suppressing noise before reasoning about the words.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Multi-Speaker Meetings</h3>
+                        <p class="use-case-showcase__desc">Follow individual contributions in overlapping conversation by separating speakers, so each person&rsquo;s point can be reasoned about on its own track.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Event Timeline Reconstruction</h3>
+                        <p class="use-case-showcase__desc">Determine the order and timing of sounds in a recording by aligning events, useful in incident review and forensic audio analysis.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Robust Audio Assistants</h3>
+                        <p class="use-case-showcase__desc">Build voice features that hold up in the messy acoustics of real life, where the ability to improve the signal is the difference between working and failing.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18V5l12-2v13"/>
+                                <circle cx="6" cy="18" r="3"/>
+                                <circle cx="18" cy="16" r="3"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Audio Forensics and Restoration</h3>
+                        <p class="use-case-showcase__desc">Recover intelligible content from degraded archival or evidentiary recordings by cleaning and separating the signal as part of the analysis.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Accessible Listening Support</h3>
+                        <p class="use-case-showcase__desc">Help people parse difficult audio by isolating and clarifying the part that matters, then explaining what was heard on the improved signal.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Thinking with Sound Fits</h2>
+                <p class="section-subtitle fade-in-up">From reasoning about audio to reasoning that reshapes it</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Audio Prompting</span>
+                        <span class="era-marker__title">Understanding Sound</span>
+                        <span class="era-marker__desc">Models take in and describe audio input</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Audio CoT</span>
+                        <span class="era-marker__title">Reasoning About Sound</span>
+                        <span class="era-marker__desc">Step-by-step reasoning over a fixed recording</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Thinking with Sound</span>
+                        <span class="era-marker__title">Reasoning That Acts on Sound</span>
+                        <span class="era-marker__desc">Denoising, separating, and aligning the signal mid-chain</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Audio Agents</span>
+                        <span class="era-marker__title">Tool-Using Listeners</span>
+                        <span class="era-marker__desc">Agents that orchestrate acoustic tools to solve audio tasks</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Giving the Model Hands, Not Just Ears</div>
+                    <p>Audio Chain-of-Thought let models reason about what they hear, but it still accepted the recording as given. Thinking with Sound takes the next step: it lets the model act on the signal, denoising, separating, and aligning it in the middle of reasoning, so a poor recording becomes a workable one before any conclusion is drawn. Because it adds acoustic tools to an existing model without retraining, it is especially valuable in the noisy, overlapping, imperfect audio of the real world, where the ability to improve the signal is exactly what static listening lacks.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Techniques</h2>
+                <p class="section-subtitle fade-in-up">Explore techniques connected to Thinking with Sound</p>
+
+                <a href="audio-cot.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Audio Chain-of-Thought</span>
+                        <span class="evolution-callout__desc">Reasons step by step about a fixed recording. Thinking with Sound extends it by letting the model manipulate the signal itself during that reasoning.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="audio-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Audio Prompting Basics</span>
+                        <span class="evolution-callout__desc">The fundamentals of prompting audio-language models. Thinking with Sound builds on solid audio understanding, then adds acoustic tools to it.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="../../chain-of-thought.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Chain-of-Thought</span>
+                        <span class="evolution-callout__desc">The original step-by-step reasoning method. Thinking with Sound is a tool-augmented chain of thought where the tools operate on audio.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up" data-tour-step="3" data-tour-title="Try It Yourself" data-tour-desc="Ready to practice? These links take you to interactive tools where you can build and test prompts using this technique.">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Improve the Signal, Then Answer</h2>
+                        <p class="cta-corporate__text">Apply Thinking with Sound to your own noisy or crowded audio tasks, or build structured audio prompts with our interactive tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>From Prompting to Production. Built on Proven Techniques &amp; Frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Techniques</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../tokens.html">Tokens</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">CO-STAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness Tools</h4>
+                <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../../../tools/matcher.html">Technique Finder</a>
+                <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                <a href="../../../tools/guidance.html">Prompt Builder</a>
+                <a href="../../../tools/persona.html">Persona Architect</a>
+                <a href="../../../tools/hallucination.html">Hallucination Spotter</a>                <a href="../../../quiz/index.html">Readiness Quiz</a>
+                <a href="../../../patterns/index.html">Patterns Library</a>
+                <a href="../../../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../../../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../../../pages/audit-report.html">Audit Report</a>
+                <a href="../../../pages/about.html">About Praxis</a>
+                <a href="../../../pages/faq.html">FAQs</a>
+            </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everyone</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
+            </div>
+
+            <div class="footer-policies">
+            <a href="../../../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../../../pages/use-policy.html">Use Policy</a>
+                <a href="../../../pages/site-policy.html">Site Policy</a>
+                <a href="../../../pages/security-policy.html">Security Policy</a>
+                <a href="../../../pages/data-retention-policy.html">Data Retention</a>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK-TO-TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK-TO-TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>
+
+<!-- deploy-marker: 2026-06-30T00:00Z -->

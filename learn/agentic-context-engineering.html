@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Agentic Context Engineering: treat an agent's context as an evolving playbook refined through generation, reflection, and curation, so the agent improves without updating model weights.">
+    <!-- SEO Meta -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Praxis Library">
+    <meta name="theme-color" content="#DC3545">
+    <link rel="canonical" href="https://praxislibrary.com/learn/agentic-context-engineering.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Agentic Context Engineering - Praxis">
+    <meta property="og:description" content="Agentic Context Engineering: treat an agent's context as an evolving playbook refined through generation, reflection, and curation, so the agent improves without updating model weights.">
+    <meta property="og:url" content="https://praxislibrary.com/learn/agentic-context-engineering.html">
+    <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <meta property="og:site_name" content="Praxis Library">
+    <meta property="og:locale" content="en_US">
+    <!-- Social Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Agentic Context Engineering - Praxis">
+    <meta name="twitter:description" content="Agentic Context Engineering: treat an agent's context as an evolving playbook refined through generation, reflection, and curation, so the agent improves without updating model weights.">
+    <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "LearningResource",
+        "Article"
+      ],
+      "headline": "Agentic Context Engineering",
+      "name": "Agentic Context Engineering",
+      "description": "Agentic Context Engineering: treat an agent's context as an evolving playbook refined through generation, reflection, and curation, so the agent improves without updating model weights.",
+      "url": "https://praxislibrary.com/learn/agentic-context-engineering.html",
+      "inLanguage": "en-US",
+      "learningResourceType": "Tutorial",
+      "educationalLevel": "Beginner to Advanced",
+      "educationalUse": "AI Prompt Engineering",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "EducationalOrganization",
+        "name": "Praxis Library",
+        "alternateName": "An Open Standard in AI Literacy",
+        "url": "https://praxislibrary.com",
+        "logo": "https://praxislibrary.com/favicon.svg",
+        "description": "A comprehensive, living library of 5,000+ AI terms, 208 techniques and frameworks, and interactive tools. The definitive open resource for AI literacy, prompt engineering, and human-AI communication.",
+        "sameAs": [
+          "https://www.tiktok.com/@thepraxislibrary",
+          "https://www.facebook.com/profile.php?id=61587612308104",
+          "https://github.com/PowerOfPraxis/PraxisLibrary"
+        ],
+        "knowsAbout": [
+          "Artificial Intelligence",
+          "AI Literacy",
+          "Prompt Engineering",
+          "AI Prompting Techniques",
+          "AI Glossary",
+          "Large Language Models",
+          "Chain-of-Thought Prompting",
+          "AI Education",
+          "Human-AI Communication",
+          "Neurodivergence and AI",
+          "AI Safety",
+          "AI Ethics"
+        ]
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Praxis Library",
+        "url": "https://praxislibrary.com"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Techniques & Frameworks"
+        },
+        {
+          "@type": "Thing",
+          "name": "Agentic Prompting"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://praxislibrary.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Discover",
+          "item": "https://praxislibrary.com/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Agentic Context Engineering"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <!-- /SEO -->
+
+<title>Agentic Context Engineering - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav" aria-label="Main navigation">
+                <a href="../foundations/index.html" class="nav-link">History</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../learn/index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                                        <div class="mega-menu mega-menu--categories">
+                        <div class="mega-menu-quick-links">
+                            <a href="index.html">Techniques &amp; Frameworks</a>
+                            <a href="./prompt-basics.html">Prompt Basics</a>
+                            <a href="./tokens.html">Tokens</a>
+                            <a href="./facts-fictions.html">Facts &amp; Fictions</a>
+                            <a href="../pages/glossary.html">Glossary</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../tools/index.html" class="nav-link" aria-expanded="false">Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../quiz/index.html">Readiness Quiz</a>
+                            <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../tools/guidance.html">Prompt Builder</a>
+                            <a href="../tools/matcher.html">Technique Finder</a>
+                            <a href="../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../tools/persona.html">Persona Architect</a>
+                            <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                            <a href="../patterns/index.html">Patterns Library</a>
+                            <a href="../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="../pages/audit-report.html" class="nav-link">Audit Report</a>
+
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Agentic Context Engineering</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Agentic &amp; Tool-Use</span>
+                </div>
+                <h1 class="page-title fade-in" data-tour-step="1" data-tour-title="Technique Overview" data-tour-desc="This is the technique name and summary. The badge above shows which category it belongs to.">Agentic Context Engineering</h1>
+                <p class="page-subtitle fade-in">An agent gets better with experience only if it remembers what worked. Agentic Context Engineering, or ACE, treats the agent's context as an evolving playbook: after each run, the agent reflects on what happened and curates the lessons back into its own instructions. The playbook grows and sharpens over time through structured, incremental updates, so the agent improves without ever retraining the model.</p>
+                <p class="hero-note fade-in"><span class="hero-note__star">*</span><em>These are learning tools, not prompts. They teach you to write your own, think of them as training wheels that guide you while you learn, then fall away once you can ride on your own.</em></p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">The Context Is the Memory</h2>
+                        <p class="split-section__text">There are two ways to make a model better at a task: change its weights, or change what you put in front of it. Retraining is expensive and slow, and for many agents it is not even an option. Agentic Context Engineering takes the other path, it improves the agent by improving its context, the standing instructions and accumulated know-how the model reads before it acts.</p>
+                        <p class="split-section__text"><strong>The key idea is to treat that context as an evolving playbook.</strong> After the agent runs, it reflects on the trajectory, what it tried, what worked, what failed, and curates those lessons into structured entries that get added back to the context. Over many runs the playbook accumulates strategies, refines the ones that keep proving useful, and organizes them so the agent can find the right guidance quickly.</p>
+                        <p class="split-section__text">A naive version of this idea tends to collapse: repeated rewriting either bloats the context or overwrites hard-won detail. ACE avoids that with structured, incremental updates that add and refine entries without discarding the accumulated knowledge. The whole loop, generation, reflection, and curation, runs without labeled supervision and without touching the model weights, so the agent self-improves purely by curating its own context.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why the Playbook Does Not Collapse</span>
+                                <p>Left unchecked, a context that rewrites itself each round drifts or loses detail. ACE keeps the playbook healthy with <strong>structured, incremental updates</strong>: new lessons are added as discrete entries and existing ones are refined in place, rather than the whole context being regenerated. Detailed knowledge is preserved instead of being paraphrased away.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The ACE Process</h2>
+                <p class="section-subtitle fade-in-up">Generate, reflect, and curate the context into an evolving playbook</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Generate: Run the Agent</h3>
+                            <p class="element-timeline__text">The agent tackles a task using its current context, the playbook as it stands, producing a full trajectory of actions and outcomes. This run is the experience the rest of the loop learns from.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>A coding agent attempts a bug fix, runs the tests, and records which approach passed and which failed.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Reflect: Extract the Lessons</h3>
+                            <p class="element-timeline__text">The agent reflects on the trajectory to identify what generalizes: the strategies that worked, the pitfalls to avoid, and the conditions under which each applies. Reflection turns a single run into reusable knowledge.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Lesson: "For this codebase, run the linter before the tests; several failures were style errors that the linter catches faster."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Curate: Update the Playbook</h3>
+                            <p class="element-timeline__text">The extracted lessons are curated into the context as structured entries, added where they are new and refined where they extend an existing entry. The update is incremental, so the playbook grows without losing its earlier detail.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>The linter lesson is filed under a "testing workflow" section of the playbook, next to related entries.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Reuse: Act on the Sharpened Context</h3>
+                            <p class="element-timeline__text">On the next task, the agent reads the updated playbook and applies its accumulated strategies from the start. Improvement compounds across runs, all through curation of the context rather than any change to the model.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>The next bug fix runs the linter first automatically, avoiding the style-error detours that slowed the earlier run.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">A static context versus a curated, evolving one</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Fixed Context</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Same Instructions Every Run</span>
+                                <p>The agent starts every task from the same hand-written context. Whatever it learns in one run is forgotten by the next, so it repeats the same detours.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Effect</span>
+                                <p>No compounding improvement without retraining, and retraining is costly or unavailable for many deployed agents.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Learns nothing across runs without retraining</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Agentic Context Engineering</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Evolving Playbook</span>
+                                <p>After each run the agent reflects and curates lessons into its context through structured, incremental updates that preserve prior detail.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Effect</span>
+                                <p>The agent improves across runs by accumulating and refining strategies, with no change to the model weights.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Self-improves by curating its own context</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+        <!-- === RAI TIP === -->
+        <section class="section-tip fade-in-up">
+            <div class="container">
+                <div class="section-tip__content">
+                    <div class="section-tip__icon">
+                        <span class="section-tip__stop-text" aria-hidden="true">STOP</span>
+                    </div>
+                    <div class="section-tip__text">
+                        <h3 class="section-tip__title">Practice Responsible AI</h3>
+                        <p>Always verify AI-generated content before use. AI systems can produce confident but incorrect responses. When using AI professionally, transparent disclosure is both best practice and increasingly a legal requirement.</p>
+                        <p><strong><a href="https://www.ncsl.org/technology-and-communication/artificial-intelligence-2025-legislation" target="_blank" rel="noopener noreferrer" data-added="2026-04-15">Most US states are actively legislating AI transparency and accountability</a></strong>. Critical thinking remains your strongest tool against misinformation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /RAI TIP -->
+
+<!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up" data-tour-step="2" data-tour-title="Examples in Action" data-tour-desc="Real prompt and response examples showing this technique at work. Study the patterns here, then try them with your own prompts.">Agentic Context Engineering in Action</h2>
+                <p class="section-subtitle fade-in-up">See how the playbook grows and sharpens over runs</p>
+
+                <div class="accordion fade-in-up" id="ace-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">A Coding Agent That Learns the Codebase</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Run 1</span>
+                                    <p>The agent fixes a bug but wastes several steps on a build quirk specific to the project.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Reflect and Curate</span>
+                                    <p><strong>Lesson extracted:</strong> "This project needs an environment variable set before the build; set it first."<br><br>
+                                    <strong>Playbook updated:</strong> the setup step is added under a build section.<br><br>
+                                    <strong>Run 2:</strong> the agent sets the variable up front and skips the detour entirely.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">A Research Agent Refining Its Method</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Over Several Runs</span>
+                                    <p>An agent that gathers and summarizes sources keeps citing low-quality pages.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Accumulated Strategy</span>
+                                    <p><strong>Reflection</strong> notices the pattern and curates a rule: prefer primary sources and check publication dates before quoting.<br><br>
+                                    <strong>Refinement:</strong> a later run extends the rule with an exception for official company posts.<br><br>
+                                    <strong>Result:</strong> source quality rises run over run, and the earlier detail is kept, not overwritten.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Preventing Context Collapse</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">The Risk</span>
+                                    <p>A naive approach rewrites the whole context each round, gradually blurring specific hard-won lessons into vague generalities.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">ACE's Safeguard</span>
+                                    <p><strong>Because updates are structured and incremental,</strong> each lesson stays a discrete entry that is added or refined in place, never paraphrased away.<br><br>
+                                    <strong>Result:</strong> the playbook keeps its precise, detailed guidance even after many rounds of curation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Agentic Context Engineering</h2>
+                <p class="section-subtitle fade-in-up">Best for agents that repeat similar tasks and can learn from experience</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Long-Running Agents</strong>
+                                    <p>Agents that handle many tasks over time benefit most, since the playbook compounds the lessons of every run into better future behavior.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Retraining Is Off the Table</strong>
+                                    <p>When you cannot fine-tune the model, improving the context is the available path, and ACE turns that into systematic self-improvement.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Domain-Specific Know-How</strong>
+                                    <p>Tasks with quirks worth remembering, a specific codebase, tool, or workflow, are ideal, because the playbook captures that local knowledge.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Auditable Improvement</strong>
+                                    <p>Because the learned knowledge lives in a readable playbook, you can inspect exactly what the agent has learned and correct it if needed.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>One-Off Tasks</strong>
+                                    <p>If the agent runs a task only once, there is no future run to benefit from the curated playbook, so the loop earns nothing.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Highly Variable Tasks</strong>
+                                    <p>If each task is unlike the last, lessons rarely transfer, so the accumulated playbook offers little to the next, unrelated run.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Very Tight Context Windows</strong>
+                                    <p>A growing playbook consumes context. Where the window is severely limited, the room to accumulate strategies is constrained.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Agentic Context Engineering delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Coding Agents</h3>
+                        <p class="use-case-showcase__desc">Let a software agent accumulate a project's build quirks, test workflows, and conventions in a playbook, so it stops repeating the same detours.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Research Assistants</h3>
+                        <p class="use-case-showcase__desc">Refine source-selection and synthesis strategies over time, curating rules about what makes a trustworthy reference for the domain.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Support Agents</h3>
+                        <p class="use-case-showcase__desc">Build a living playbook of resolutions and edge cases, so a support agent handles recurring issues faster with each pass.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Workflow Automation</h3>
+                        <p class="use-case-showcase__desc">Capture the tacit steps of a recurring operational task so an agent runs it more reliably each time without a human re-explaining.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Self-Improving Pipelines</h3>
+                        <p class="use-case-showcase__desc">Add a reflect-and-curate step to an existing agent so it gets better with use, without the cost and risk of retraining the model.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Transferable Playbooks</h3>
+                        <p class="use-case-showcase__desc">Treat the curated context as a portable asset that captures a team's operating knowledge and can be reviewed, versioned, and shared.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Agentic Context Engineering Fits</h2>
+                <p class="section-subtitle fade-in-up">Self-improvement through the context rather than the weights</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Self-Refine</span>
+                        <span class="era-marker__title">Improve One Answer</span>
+                        <span class="era-marker__desc">Critique then revise</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Reflexion</span>
+                        <span class="era-marker__title">Reflect Across Attempts</span>
+                        <span class="era-marker__desc">Verbal self-feedback</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Agentic Context Engineering</span>
+                        <span class="era-marker__title">Curate a Playbook</span>
+                        <span class="era-marker__desc">Persistent, structured context</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Context Engineering</span>
+                        <span class="era-marker__title">Manage the Whole Context</span>
+                        <span class="era-marker__desc">Curate the token budget</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Chain These</div>
+                    <p>Where Reflexion reflects to improve within a task, ACE curates those reflections into a persistent playbook that carries across tasks. Reach for it when you want an agent to get durably better with experience, not just within a single episode.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Techniques</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary self-improvement and context techniques</p>
+
+                <a href="reflexion.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Reflexion</span>
+                        <span class="evolution-callout__desc">Uses verbal self-reflection to improve across attempts; ACE persists those reflections into a durable, structured playbook.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="context-engineering.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Related Discipline</span>
+                        <span class="evolution-callout__title">Context Engineering</span>
+                        <span class="evolution-callout__desc">The broader practice of managing an agent's whole context; ACE is a specific self-improving loop within that discipline.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="self-refine.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Related Approach</span>
+                        <span class="evolution-callout__title">Self-Refine</span>
+                        <span class="evolution-callout__desc">Improves a single output through self-critique, the per-answer analog of the per-context curation ACE performs.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up" data-tour-step="3" data-tour-title="Try It Yourself" data-tour-desc="Ready to practice? These links take you to interactive tools where you can build and test prompts using this technique.">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Give Your Agent a Playbook</h2>
+                        <p class="cta-corporate__text">Explore how curating an agent's context turns experience into lasting improvement in the Prompt Builder, or see related agentic techniques.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+        <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>From Prompting to Production. Built on Proven Techniques &amp; Frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Techniques</h4>
+                <a href="../learn/prompt-basics.html">Prompt Basics</a>
+                <a href="../learn/tokens.html">Tokens</a>
+                <a href="../learn/crisp.html">CRISP Framework</a>
+                <a href="../learn/crispe.html">CRISPE Framework</a>
+                <a href="../learn/costar.html">CO-STAR Framework</a>
+                <a href="../learn/react.html">ReAct Framework</a>
+                <a href="../learn/flipped-interaction.html">Flipped Interaction</a>
+                <a href="../learn/chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness Tools</h4>
+                <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../tools/matcher.html">Technique Finder</a>
+                <a href="../tools/checklist.html">Preflight Checklist</a>
+                <a href="../tools/guidance.html">Prompt Builder</a>
+                <a href="../tools/persona.html">Persona Architect</a>
+                <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../quiz/index.html">Readiness Quiz</a>
+                <a href="../patterns/index.html">Patterns Library</a>
+                <a href="../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../pages/audit-report.html">Audit Report</a>
+                <a href="../pages/about.html">About Praxis</a>
+                <a href="../pages/faq.html">FAQs</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everyone</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
+        </div>
+
+        <div class="footer-policies">
+            <a href="../pages/responsible-ai.html">Responsible AI</a>
+            <a href="../pages/use-policy.html">Use Policy</a>
+            <a href="../pages/site-policy.html">Site Policy</a>
+            <a href="../pages/security-policy.html">Security Policy</a>
+            <a href="../pages/data-retention-policy.html">Data Retention</a>
+        </div>
+    </div>
+</footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>
+
+<!-- deploy-marker: 2026-06-29T00:00Z -->

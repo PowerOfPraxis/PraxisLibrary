@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Atom of Thoughts: decompose a question into a dependency graph, then contract solved parts into a self-contained atomic question, so reasoning stays focused and memory-less.">
+    <!-- SEO Meta -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Praxis Library">
+    <meta name="theme-color" content="#DC3545">
+    <link rel="canonical" href="https://praxislibrary.com/learn/atom-of-thoughts.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Atom of Thoughts - Praxis">
+    <meta property="og:description" content="Atom of Thoughts: decompose a question into a dependency graph, then contract solved parts into a self-contained atomic question, so reasoning stays focused and memory-less.">
+    <meta property="og:url" content="https://praxislibrary.com/learn/atom-of-thoughts.html">
+    <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <meta property="og:site_name" content="Praxis Library">
+    <meta property="og:locale" content="en_US">
+    <!-- Social Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Atom of Thoughts - Praxis">
+    <meta name="twitter:description" content="Atom of Thoughts: decompose a question into a dependency graph, then contract solved parts into a self-contained atomic question, so reasoning stays focused and memory-less.">
+    <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "LearningResource",
+        "Article"
+      ],
+      "headline": "Atom of Thoughts",
+      "name": "Atom of Thoughts",
+      "description": "Atom of Thoughts: decompose a question into a dependency graph, then contract solved parts into a self-contained atomic question, so reasoning stays focused and memory-less.",
+      "url": "https://praxislibrary.com/learn/atom-of-thoughts.html",
+      "inLanguage": "en-US",
+      "learningResourceType": "Tutorial",
+      "educationalLevel": "Beginner to Advanced",
+      "educationalUse": "AI Prompt Engineering",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "EducationalOrganization",
+        "name": "Praxis Library",
+        "alternateName": "An Open Standard in AI Literacy",
+        "url": "https://praxislibrary.com",
+        "logo": "https://praxislibrary.com/favicon.svg",
+        "description": "A comprehensive, living library of 5,000+ AI terms, 208 techniques and frameworks, and interactive tools. The definitive open resource for AI literacy, prompt engineering, and human-AI communication.",
+        "sameAs": [
+          "https://www.tiktok.com/@thepraxislibrary",
+          "https://www.facebook.com/profile.php?id=61587612308104",
+          "https://github.com/PowerOfPraxis/PraxisLibrary"
+        ],
+        "knowsAbout": [
+          "Artificial Intelligence",
+          "AI Literacy",
+          "Prompt Engineering",
+          "AI Prompting Techniques",
+          "AI Glossary",
+          "Large Language Models",
+          "Chain-of-Thought Prompting",
+          "AI Education",
+          "Human-AI Communication",
+          "Neurodivergence and AI",
+          "AI Safety",
+          "AI Ethics"
+        ]
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Praxis Library",
+        "url": "https://praxislibrary.com"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Techniques & Frameworks"
+        },
+        {
+          "@type": "Thing",
+          "name": "Reasoning & Decomposition"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://praxislibrary.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Discover",
+          "item": "https://praxislibrary.com/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Atom of Thoughts"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <!-- /SEO -->
+
+<title>Atom of Thoughts - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav" aria-label="Main navigation">
+                <a href="../foundations/index.html" class="nav-link">History</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../learn/index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                                        <div class="mega-menu mega-menu--categories">
+                        <div class="mega-menu-quick-links">
+                            <a href="index.html">Techniques &amp; Frameworks</a>
+                            <a href="./prompt-basics.html">Prompt Basics</a>
+                            <a href="./tokens.html">Tokens</a>
+                            <a href="./facts-fictions.html">Facts &amp; Fictions</a>
+                            <a href="../pages/glossary.html">Glossary</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../tools/index.html" class="nav-link" aria-expanded="false">Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../quiz/index.html">Readiness Quiz</a>
+                            <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../tools/guidance.html">Prompt Builder</a>
+                            <a href="../tools/matcher.html">Technique Finder</a>
+                            <a href="../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../tools/persona.html">Persona Architect</a>
+                            <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                            <a href="../patterns/index.html">Patterns Library</a>
+                            <a href="../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="../pages/audit-report.html" class="nav-link">Audit Report</a>
+
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Atom of Thoughts</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Reasoning &amp; Decomposition</span>
+                </div>
+                <h1 class="page-title fade-in" data-tour-step="1" data-tour-title="Technique Overview" data-tour-desc="This is the technique name and summary. The badge above shows which category it belongs to.">Atom of Thoughts</h1>
+                <p class="page-subtitle fade-in">Solve a hard question by repeatedly boiling it down to a simpler one that has the same answer. Atom of Thoughts maps a problem into a graph of dependent subquestions, resolves the parts that can be settled, and folds them back into a new self-contained question. Each new question carries no history, so the model always reasons over a clean, focused state instead of an ever-growing transcript.</p>
+                <p class="hero-note fade-in"><span class="hero-note__star">*</span><em>These are learning tools, not prompts. They teach you to write your own, think of them as training wheels that guide you while you learn, then fall away once you can ride on your own.</em></p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Shrink the Question, Keep the Answer</h2>
+                        <p class="split-section__text">Most decomposition methods keep adding to the record. They break a problem into sub-steps and pile each result onto a running transcript, so by the final step the model is reasoning over a long, cluttered history. That accumulated context is both expensive and distracting; the model has to re-read everything to find the few facts that still matter.</p>
+                        <p class="split-section__text"><strong>Atom of Thoughts takes the opposite approach: it contracts.</strong> It treats the problem as a dependency graph of subquestions, resolves the independent ones, and then rewrites the whole problem into a new, smaller question that already absorbs those resolved parts. Crucially, that new question is answer-equivalent to the original, solving it gives the same final answer, but it is self-contained and depends on no prior history.</p>
+                        <p class="split-section__text">Because each new question stands on its own, the process is memory-less in the Markov sense: the next reasoning state depends only on the current atomic question, not on the path that produced it. The model keeps working on progressively simpler, fully-specified problems until one is trivial to answer.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Why Memory-Less Helps</span>
+                                <p>A long reasoning transcript spreads the model's attention thin and lets early mistakes linger in context. By contracting each solved part into a fresh, self-contained question, Atom of Thoughts gives the model a <strong>clean state</strong> at every step. There is less to re-read, fewer places for an error to hide, and the compute is spent on the part of the problem that is still open rather than on re-processing what is already settled.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Atom of Thoughts Process</h2>
+                <p class="section-subtitle fade-in-up">A repeating loop of decompose, contract, and continue</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Decompose into a Dependency Graph</h3>
+                            <p class="element-timeline__text">Break the current question into subquestions and map how they depend on each other. Some subquestions can be answered on their own; others wait on those answers. This graph makes the structure of the problem explicit instead of leaving it tangled in one prompt.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>"A train leaves at 2pm going 60 mph; another leaves the same station at 3pm going 80 mph. When does the second catch the first?" Subquestions: head start distance, closing speed, time to close.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Resolve the Independent Parts</h3>
+                            <p class="element-timeline__text">Answer the subquestions that do not depend on anything still open. These become known facts. The dependency graph tells you exactly which parts are ready to be settled now, so no effort is wasted guessing at pieces that are not yet determined.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Head start distance: the first train travels one hour at 60 mph, so it is 60 miles ahead when the second departs.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Contract into a New Atomic Question</h3>
+                            <p class="element-timeline__text">Fold the resolved facts back into the problem and rewrite it as a new, self-contained question that no longer references the parts already solved. This contracted question has the same answer as the original but is simpler and carries no history.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>New atomic question: "How long to close a 60-mile gap when gaining 20 mph?" The head start and speeds are absorbed; nothing else is needed.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Repeat Until Trivial, Then Answer</h3>
+                            <p class="element-timeline__text">Treat the contracted question as the new starting point and run the loop again if it is still complex. Each pass produces a simpler self-contained question, until one is easy enough to answer directly. That answer is the answer to the original problem.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>60 miles divided by 20 mph is 3 hours, so the second train catches the first at 6pm. Done.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Accumulating context versus contracting to a clean state</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Accumulating Decomposition</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Growing Transcript</span>
+                                <p>Step 1 result, plus step 2 result, plus step 3 result, all kept in context. By the final step the model re-reads every earlier line to find the two numbers it still needs.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Effect</span>
+                                <p>Context grows with every step. Attention is spread across stale detail, and an early error stays in view, where it can mislead later steps.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Long context, divided attention, lingering errors</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Atom of Thoughts</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Contracted State</span>
+                                <p>Each solved part is folded into a fresh question. The model only ever sees one small, self-contained problem: "Close a 60-mile gap at 20 mph."</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Effect</span>
+                                <p>The state stays small and clean at every step. Compute focuses on what is still open, and the new question is answer-equivalent to the original.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Clean state, focused compute, same final answer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+        <!-- === RAI TIP === -->
+        <section class="section-tip fade-in-up">
+            <div class="container">
+                <div class="section-tip__content">
+                    <div class="section-tip__icon">
+                        <span class="section-tip__stop-text" aria-hidden="true">STOP</span>
+                    </div>
+                    <div class="section-tip__text">
+                        <h3 class="section-tip__title">Practice Responsible AI</h3>
+                        <p>Always verify AI-generated content before use. AI systems can produce confident but incorrect responses. When using AI professionally, transparent disclosure is both best practice and increasingly a legal requirement.</p>
+                        <p><strong><a href="https://www.ncsl.org/technology-and-communication/artificial-intelligence-2025-legislation" target="_blank" rel="noopener noreferrer" data-added="2026-04-15">Most US states are actively legislating AI transparency and accountability</a></strong>. Critical thinking remains your strongest tool against misinformation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /RAI TIP -->
+
+<!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up" data-tour-step="2" data-tour-title="Examples in Action" data-tour-desc="Real prompt and response examples showing this technique at work. Study the patterns here, then try them with your own prompts.">Atom of Thoughts in Action</h2>
+                <p class="section-subtitle fade-in-up">See how contracting to atomic questions handles multi-part problems</p>
+
+                <div class="accordion fade-in-up" id="aot-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Multi-Hop Question Answering</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Original Question</span>
+                                    <p>"In what year did the director of the film that won Best Picture at the 96th Academy Awards make their feature directorial debut?"</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Atom of Thoughts Reasoning</span>
+                                    <p><strong>Decompose:</strong> (a) which film won Best Picture at the 96th Awards, (b) who directed it, (c) the year of that director's debut feature.<br><br>
+                                    <strong>Resolve and contract:</strong> Once (a) and (b) are settled, the problem contracts to a single atomic question: "In what year did [that director] make their debut feature?" The earlier hops are absorbed and no longer cluttering the state.<br><br>
+                                    <strong>Answer the atom:</strong> The model now answers one clean lookup rather than juggling a three-part chain in a single growing prompt.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Mathematics: Layered Word Problem</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Original Question</span>
+                                    <p>"A shop buys 120 shirts at 8 dollars each, sells 70 percent at 20 dollars, and the rest at a 50 percent discount. What is the profit?"</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Atom of Thoughts Reasoning</span>
+                                    <p><strong>Decompose:</strong> cost, full-price revenue, discount revenue, then profit.<br><br>
+                                    <strong>Resolve and contract:</strong> Cost is 120 x 8 = 960. Full price sells 84 shirts at 20 = 1680. The problem contracts to: "Add discount revenue on 36 shirts at 10 dollars to 1680, then subtract 960."<br><br>
+                                    <strong>Answer the atom:</strong> 36 x 10 = 360, so revenue is 2040, and profit is 2040 - 960 = 1080. Each contraction left a smaller, fully-specified question.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Planning: Conditional Logic</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Original Question</span>
+                                    <p>"A project needs design, then two parallel build tracks, then a merge and a review. Design takes 3 days, the tracks take 5 and 7 days, merge 1 day, review 2 days. What is the shortest finish time?"</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Atom of Thoughts Reasoning</span>
+                                    <p><strong>Decompose:</strong> the parallel tracks depend on design; merge depends on both tracks; review depends on merge.<br><br>
+                                    <strong>Resolve and contract:</strong> Design is 3 days; the slower track governs the parallel phase at 7 days. The problem contracts to: "Add 3 + 7 + merge 1 + review 2."<br><br>
+                                    <strong>Answer the atom:</strong> 13 days. By resolving the parallel dependency first, the contracted question is a simple sum with no branching left.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Atom of Thoughts</h2>
+                <p class="section-subtitle fade-in-up">Best for multi-part problems with clear dependency structure</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Multi-Hop Question Answering</strong>
+                                    <p>Questions that chain several lookups benefit from contracting each resolved hop, so the model never carries the whole chain at once.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Layered Math and Logic</strong>
+                                    <p>Problems where some parts can be settled before others map naturally onto a dependency graph, and each contraction leaves a cleaner sum or deduction.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Long Reasoning at Scale</strong>
+                                    <p>When context length is the bottleneck, contracting solved parts keeps each step small, which controls both cost and the loss of focus that long traces cause.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Pairing with Other Methods</strong>
+                                    <p>The contracted atomic question can be handed to any solver, so Atom of Thoughts can wrap around existing reasoning techniques as a structuring layer.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Single-Step Questions</strong>
+                                    <p>If a problem has no internal structure to resolve, there is nothing to contract, and the decomposition overhead buys nothing.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Tightly Interdependent Parts</strong>
+                                    <p>When every subquestion depends on every other, there are no independent parts to settle first, so the contraction step has little to work with.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>You Need the Full Trace</strong>
+                                    <p>Because the method discards solved detail as it contracts, it is a poor fit when a complete, auditable record of every intermediate step must be preserved.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Atom of Thoughts delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Research Question Answering</h3>
+                        <p class="use-case-showcase__desc">Resolve multi-hop questions over knowledge bases by contracting each settled hop, keeping the working question small and the retrieval focused.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11H5a2 2 0 0 0-2 2v7h6zM9 11V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4M9 11h6m0 0h4a2 2 0 0 1 2 2v7h-6z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Quantitative Analysis</h3>
+                        <p class="use-case-showcase__desc">Work through layered financial or scientific calculations where settling independent terms first turns a daunting problem into a short final sum.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Project Planning</h3>
+                        <p class="use-case-showcase__desc">Compute critical paths and timelines by resolving parallel dependencies into a single contracted schedule question the model can answer directly.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Long-Context Pipelines</h3>
+                        <p class="use-case-showcase__desc">Keep token usage and latency under control on reasoning pipelines by contracting resolved sub-results instead of carrying an ever-growing transcript.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Wrapping Existing Solvers</h3>
+                        <p class="use-case-showcase__desc">Use the contraction loop as a front end that hands a clean atomic question to whatever reasoning method you already trust for the final answer.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Exam-Style Problem Sets</h3>
+                        <p class="use-case-showcase__desc">Tackle structured problems that build in stages, settling early parts and contracting so the hardest remaining step is faced in isolation.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Atom of Thoughts Fits</h2>
+                <p class="section-subtitle fade-in-up">A contraction-based turn in the decomposition family</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Least-to-Most</span>
+                        <span class="era-marker__title">Order the Subproblems</span>
+                        <span class="era-marker__desc">Solve simplest first</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Decomposition</span>
+                        <span class="era-marker__title">Split and Solve</span>
+                        <span class="era-marker__desc">Break into sub-tasks</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Atom of Thoughts</span>
+                        <span class="era-marker__title">Contract to Atoms</span>
+                        <span class="era-marker__desc">Memory-less rewrites</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Tree of Thought</span>
+                        <span class="era-marker__title">Search the Branches</span>
+                        <span class="era-marker__desc">Explore alternatives</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Chain These</div>
+                    <p>Use Atom of Thoughts to keep the problem state small and self-contained, then apply a solver like Chain-of-Thought or Least-to-Most to the final atomic question. The contraction handles structure and context; the solver handles the last clean step.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Techniques</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary decomposition techniques</p>
+
+                <a href="least-to-most.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Related Approach</span>
+                        <span class="evolution-callout__title">Least-to-Most</span>
+                        <span class="evolution-callout__desc">Orders subproblems from simplest to hardest and solves in sequence, where Atom of Thoughts contracts solved parts into a memory-less new question.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="decomposition.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Decomposition</span>
+                        <span class="evolution-callout__desc">The general practice of breaking a problem into sub-tasks. Atom of Thoughts adds a contraction step that keeps the state from growing.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="tree-of-thought.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/><path d="M12 7v4M12 11L6 17M12 11l6 6"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Contrast</span>
+                        <span class="evolution-callout__title">Tree of Thought</span>
+                        <span class="evolution-callout__desc">Explores branching alternatives with a search controller, where Atom of Thoughts narrows to one contracted question rather than widening the search.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up" data-tour-step="3" data-tour-title="Try It Yourself" data-tour-desc="Ready to practice? These links take you to interactive tools where you can build and test prompts using this technique.">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Reason Over Clean States</h2>
+                        <p class="cta-corporate__text">Try structuring a multi-part problem as atomic questions in the Prompt Builder, or explore how Atom of Thoughts relates to the wider decomposition family.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+        <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>From Prompting to Production. Built on Proven Techniques &amp; Frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Techniques</h4>
+                <a href="../learn/prompt-basics.html">Prompt Basics</a>
+                <a href="../learn/tokens.html">Tokens</a>
+                <a href="../learn/crisp.html">CRISP Framework</a>
+                <a href="../learn/crispe.html">CRISPE Framework</a>
+                <a href="../learn/costar.html">CO-STAR Framework</a>
+                <a href="../learn/react.html">ReAct Framework</a>
+                <a href="../learn/flipped-interaction.html">Flipped Interaction</a>
+                <a href="../learn/chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness Tools</h4>
+                <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../tools/matcher.html">Technique Finder</a>
+                <a href="../tools/checklist.html">Preflight Checklist</a>
+                <a href="../tools/guidance.html">Prompt Builder</a>
+                <a href="../tools/persona.html">Persona Architect</a>
+                <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../quiz/index.html">Readiness Quiz</a>
+                <a href="../patterns/index.html">Patterns Library</a>
+                <a href="../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../pages/audit-report.html">Audit Report</a>
+                <a href="../pages/about.html">About Praxis</a>
+                <a href="../pages/faq.html">FAQs</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everyone</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
+        </div>
+
+        <div class="footer-policies">
+            <a href="../pages/responsible-ai.html">Responsible AI</a>
+            <a href="../pages/use-policy.html">Use Policy</a>
+            <a href="../pages/site-policy.html">Site Policy</a>
+            <a href="../pages/security-policy.html">Security Policy</a>
+            <a href="../pages/data-retention-policy.html">Data Retention</a>
+        </div>
+    </div>
+</footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>
+
+<!-- deploy-marker: 2026-06-29T00:00Z -->

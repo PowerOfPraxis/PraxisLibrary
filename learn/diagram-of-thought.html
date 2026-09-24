@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Diagram of Thought: a single model builds a reasoning DAG by switching among proposer, critic, and summarizer roles, with a validator keeping the trace sound.">
+    <!-- SEO Meta -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Praxis Library">
+    <meta name="theme-color" content="#DC3545">
+    <link rel="canonical" href="https://praxislibrary.com/learn/diagram-of-thought.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Diagram of Thought - Praxis">
+    <meta property="og:description" content="Diagram of Thought: a single model builds a reasoning DAG by switching among proposer, critic, and summarizer roles, with a validator keeping the trace sound.">
+    <meta property="og:url" content="https://praxislibrary.com/learn/diagram-of-thought.html">
+    <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <meta property="og:site_name" content="Praxis Library">
+    <meta property="og:locale" content="en_US">
+    <!-- Social Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Diagram of Thought - Praxis">
+    <meta name="twitter:description" content="Diagram of Thought: a single model builds a reasoning DAG by switching among proposer, critic, and summarizer roles, with a validator keeping the trace sound.">
+    <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "LearningResource",
+        "Article"
+      ],
+      "headline": "Diagram of Thought",
+      "name": "Diagram of Thought",
+      "description": "Diagram of Thought: a single model builds a reasoning DAG by switching among proposer, critic, and summarizer roles, with a validator keeping the trace sound.",
+      "url": "https://praxislibrary.com/learn/diagram-of-thought.html",
+      "inLanguage": "en-US",
+      "learningResourceType": "Tutorial",
+      "educationalLevel": "Beginner to Advanced",
+      "educationalUse": "AI Prompt Engineering",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "EducationalOrganization",
+        "name": "Praxis Library",
+        "alternateName": "An Open Standard in AI Literacy",
+        "url": "https://praxislibrary.com",
+        "logo": "https://praxislibrary.com/favicon.svg",
+        "description": "A comprehensive, living library of 5,000+ AI terms, 208 techniques and frameworks, and interactive tools. The definitive open resource for AI literacy, prompt engineering, and human-AI communication.",
+        "sameAs": [
+          "https://www.tiktok.com/@thepraxislibrary",
+          "https://www.facebook.com/profile.php?id=61587612308104",
+          "https://github.com/PowerOfPraxis/PraxisLibrary"
+        ],
+        "knowsAbout": [
+          "Artificial Intelligence",
+          "AI Literacy",
+          "Prompt Engineering",
+          "AI Prompting Techniques",
+          "AI Glossary",
+          "Large Language Models",
+          "Chain-of-Thought Prompting",
+          "AI Education",
+          "Human-AI Communication",
+          "Neurodivergence and AI",
+          "AI Safety",
+          "AI Ethics"
+        ]
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Praxis Library",
+        "url": "https://praxislibrary.com"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Techniques & Frameworks"
+        },
+        {
+          "@type": "Thing",
+          "name": "Structured Reasoning"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://praxislibrary.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Discover",
+          "item": "https://praxislibrary.com/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Diagram of Thought"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <!-- /SEO -->
+
+<title>Diagram of Thought - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav" aria-label="Main navigation">
+                <a href="../foundations/index.html" class="nav-link">History</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../learn/index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                                        <div class="mega-menu mega-menu--categories">
+                        <div class="mega-menu-quick-links">
+                            <a href="index.html">Techniques &amp; Frameworks</a>
+                            <a href="./prompt-basics.html">Prompt Basics</a>
+                            <a href="./tokens.html">Tokens</a>
+                            <a href="./facts-fictions.html">Facts &amp; Fictions</a>
+                            <a href="../pages/glossary.html">Glossary</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../tools/index.html" class="nav-link" aria-expanded="false">Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../quiz/index.html">Readiness Quiz</a>
+                            <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../tools/guidance.html">Prompt Builder</a>
+                            <a href="../tools/matcher.html">Technique Finder</a>
+                            <a href="../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../tools/persona.html">Persona Architect</a>
+                            <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                            <a href="../patterns/index.html">Patterns Library</a>
+                            <a href="../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="../pages/audit-report.html" class="nav-link">Audit Report</a>
+
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Diagram of Thought</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Structured Reasoning</span>
+                </div>
+                <h1 class="page-title fade-in" data-tour-step="1" data-tour-title="Technique Overview" data-tour-desc="This is the technique name and summary. The badge above shows which category it belongs to.">Diagram of Thought</h1>
+                <p class="page-subtitle fade-in">Reasoning is rarely a straight line. Diagram of Thought lets a single model build its thinking as a growing diagram of propositions, critiques, and refinements, switching between proposing ideas, criticizing them, and summarizing what survives. A validator keeps the structure sound, so the model reasons like a careful thinker revising a draft, all within one model and one context.</p>
+                <p class="hero-note fade-in"><span class="hero-note__star">*</span><em>These are learning tools, not prompts. They teach you to write your own, think of them as training wheels that guide you while you learn, then fall away once you can ride on your own.</em></p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Reasoning as a Diagram, Not a Line</h2>
+                        <p class="split-section__text">Earlier structured-reasoning methods often rely on an external controller to manage a tree or graph of separate model calls, orchestrating search from the outside. Diagram of Thought takes a different stance: the structure lives inside one model. The model itself builds a directed graph of reasoning, where each node is a proposition, a critique, or a refinement, and the edges record how ideas depend on and respond to one another.</p>
+                        <p class="split-section__text"><strong>It does this by switching roles.</strong> Acting as a proposer, the model adds new reasoning steps. Acting as a critic, it evaluates those steps and flags the flawed ones. Acting as a summarizer, it gathers the surviving, validated propositions into a coherent answer. Role-specific signals tell the model which mode it is in, so a single autoregressive process carries the whole back-and-forth.</p>
+                        <p class="split-section__text">A deterministic validator checks the reasoning trace against a defined structure, so refinements build on sound foundations rather than accumulating unchecked. The authors ground the framework formally in category theory, giving the diagram a rigorous mathematical interpretation rather than treating it as a loose metaphor.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Three Roles, One Model</span>
+                                <p>The power of Diagram of Thought is that <strong>proposing, critiquing, and summarizing happen inside a single model</strong> rather than across separate orchestrated calls. The model criticizes its own propositions, discards the weak ones, and keeps refining, all while a validator ensures each step fits the reasoning structure. The result is self-correction built into the reasoning process itself.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Diagram of Thought Process</h2>
+                <p class="section-subtitle fade-in-up">Propose, critique, refine, and summarize within one evolving diagram</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Propose Reasoning Steps</h3>
+                            <p class="element-timeline__text">In the proposer role, the model adds candidate propositions to the diagram, partial steps toward an answer. These are not assumed correct; they are entries in a graph that will be examined before anything is trusted.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>For a geometry proof: propose "triangles ABD and CBD share side BD" as a starting proposition.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Critique What Was Proposed</h3>
+                            <p class="element-timeline__text">Switching to the critic role, the model evaluates the propositions, identifying ones that are unsupported, inconsistent, or wrong. Critiques become nodes too, recording why a step was rejected so the reasoning does not silently repeat the error.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Critique: "the claim that the triangles are congruent needs an angle or side condition that has not been established yet."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Refine and Validate</h3>
+                            <p class="element-timeline__text">The model proposes refinements that address the critiques, and a deterministic validator checks that each new step fits the reasoning structure. Only steps that pass become part of the trusted diagram, so the graph grows on sound foundations.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Refinement: "establish the shared angle, then apply the side-angle-side condition," which the validator accepts as well-formed.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Summarize the Surviving Reasoning</h3>
+                            <p class="element-timeline__text">In the summarizer role, the model gathers the validated propositions into a coherent final answer. Because the summary draws only on steps that survived critique and validation, it rests on reasoning the process has already checked.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>Summary: the established shared side and angle give congruence by side-angle-side, completing the proof.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">External orchestration versus structure inside one model</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/><path d="M12 7v4M12 11L6 17M12 11l6 6"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Externally Controlled Search</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Many Calls, Outside Controller</span>
+                                <p>A separate controller spawns and scores many model generations, expanding a tree or graph of options from the outside and stitching the results together.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Effect</span>
+                                <p>Powerful, but it needs orchestration machinery around the model and coordination across many calls, which adds engineering and cost.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Capable, but heavy external coordination</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7.7 7.3l3 9M16.3 7.3l-3 9M8 6h8"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Diagram of Thought</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Structure Inside One Model</span>
+                                <p>The model itself builds the reasoning diagram, switching among proposer, critic, and summarizer roles, with a validator checking each step as it goes.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Effect</span>
+                                <p>Self-critique and structured refinement happen within a single model and context, with a formal grounding rather than ad hoc orchestration.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Self-contained, validated, formally grounded</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+        <!-- === RAI TIP === -->
+        <section class="section-tip fade-in-up">
+            <div class="container">
+                <div class="section-tip__content">
+                    <div class="section-tip__icon">
+                        <span class="section-tip__stop-text" aria-hidden="true">STOP</span>
+                    </div>
+                    <div class="section-tip__text">
+                        <h3 class="section-tip__title">Practice Responsible AI</h3>
+                        <p>Always verify AI-generated content before use. AI systems can produce confident but incorrect responses. When using AI professionally, transparent disclosure is both best practice and increasingly a legal requirement.</p>
+                        <p><strong><a href="https://www.ncsl.org/technology-and-communication/artificial-intelligence-2025-legislation" target="_blank" rel="noopener noreferrer" data-added="2026-04-15">Most US states are actively legislating AI transparency and accountability</a></strong>. Critical thinking remains your strongest tool against misinformation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /RAI TIP -->
+
+<!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up" data-tour-step="2" data-tour-title="Examples in Action" data-tour-desc="Real prompt and response examples showing this technique at work. Study the patterns here, then try them with your own prompts.">Diagram of Thought in Action</h2>
+                <p class="section-subtitle fade-in-up">See how propose, critique, and summarize play out across problems</p>
+
+                <div class="accordion fade-in-up" id="dot-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Mathematics: Catching a Flawed Step</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Problem</span>
+                                    <p>"Prove that the sum of the first n odd numbers is n squared."</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Diagram of Thought Trace</span>
+                                    <p><strong>Propose:</strong> "Try induction. Base case n = 1: first odd number is 1, equals 1 squared."<br><br>
+                                    <strong>Critique:</strong> "The inductive step claims adding the next odd number gives (n+1) squared, but the next odd number was written as 2n, not 2n+1."<br><br>
+                                    <strong>Refine and validate:</strong> "The nth odd number is 2n - 1, so the next is 2n + 1. Then n squared plus (2n + 1) equals (n+1) squared. Validator accepts."<br><br>
+                                    <strong>Summarize:</strong> "By induction with the corrected odd-number formula, the sum is n squared."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Analysis: Revising an Argument</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Question</span>
+                                    <p>"Is a lower interest rate always good for an economy?"</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Diagram of Thought Trace</span>
+                                    <p><strong>Propose:</strong> "Lower rates encourage borrowing and spending, which boosts growth."<br><br>
+                                    <strong>Critique:</strong> "That ignores inflation risk and asset bubbles from cheap credit. The claim is too absolute."<br><br>
+                                    <strong>Refine and validate:</strong> "Add the trade-off: lower rates stimulate demand but can overheat prices and inflate asset values if held too long."<br><br>
+                                    <strong>Summarize:</strong> "Lower rates help in a slowdown but are not unconditionally good; the effect depends on inflation and timing."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Planning: Pruning a Bad Branch</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Task</span>
+                                    <p>"Plan the cheapest way to ship a fragile item across the country in two days."</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Diagram of Thought Trace</span>
+                                    <p><strong>Propose:</strong> "Ground shipping is cheapest."<br><br>
+                                    <strong>Critique:</strong> "Ground rarely meets a two-day deadline cross-country, so it fails the constraint."<br><br>
+                                    <strong>Refine and validate:</strong> "Among options that meet two days, compare expedited air with adequate fragile-item protection by cost."<br><br>
+                                    <strong>Summarize:</strong> "Pick the lowest-cost two-day air service that includes proper fragile handling, since ground was pruned for missing the deadline."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Diagram of Thought</h2>
+                <p class="section-subtitle fade-in-up">Best for problems that need self-critique and revision</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Multi-Step Proofs and Derivations</strong>
+                                    <p>Problems where an early flaw quietly invalidates the rest benefit from explicit critique and validation before each step is trusted.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Arguments with Trade-Offs</strong>
+                                    <p>Questions that need balanced reasoning are well served by a process that proposes a claim, criticizes it, and refines toward a nuanced answer.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Single-Model Self-Correction</strong>
+                                    <p>When you want structured, self-critiquing reasoning without building external search machinery, the whole process runs inside one model.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Auditable Reasoning Records</strong>
+                                    <p>Because critiques and refinements are recorded as nodes, the diagram leaves a trace showing what was rejected and why.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Simple, One-Step Questions</strong>
+                                    <p>If a question needs no revision, the propose-critique-summarize cycle is overhead with nothing to catch.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Strict Latency or Cost Limits</strong>
+                                    <p>The iterative critique and refinement spend extra tokens, so a tight budget may favor a leaner reasoning method.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Purely Creative Generation</strong>
+                                    <p>For open-ended creative work without a notion of correct or incorrect steps, the validation machinery has little to act on.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Diagram of Thought delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Theorem and Proof Help</h3>
+                        <p class="use-case-showcase__desc">Work through mathematical proofs where each step must be validated before the next, catching flawed lemmas through explicit critique.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Policy and Argument Analysis</h3>
+                        <p class="use-case-showcase__desc">Build balanced positions by proposing a claim, criticizing its weaknesses, and refining toward a defensible, well-qualified conclusion.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Design Reviews</h3>
+                        <p class="use-case-showcase__desc">Evaluate technical or system proposals by surfacing objections as critiques and pruning options that fail a constraint before committing.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7.7 7.3l3 9M16.3 7.3l-3 9M8 6h8"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Complex Diagnosis</h3>
+                        <p class="use-case-showcase__desc">Reason through layered diagnostic problems where competing hypotheses must be raised, challenged, and narrowed to a validated conclusion.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Self-Checking Answers</h3>
+                        <p class="use-case-showcase__desc">Produce answers that have already been critiqued internally, reducing the chance that an unexamined error reaches the final response.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Teaching Rigorous Reasoning</h3>
+                        <p class="use-case-showcase__desc">Show learners how a careful thinker proposes, doubts, and revises, making the critique-and-refine habit visible in the reasoning trace.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Diagram of Thought Fits</h2>
+                <p class="section-subtitle fade-in-up">From external search to structure inside the model</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Tree of Thought</span>
+                        <span class="era-marker__title">Search the Branches</span>
+                        <span class="era-marker__desc">Controller explores a tree</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Graph of Thought</span>
+                        <span class="era-marker__title">Network of Thoughts</span>
+                        <span class="era-marker__desc">Controller over a graph</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Diagram of Thought</span>
+                        <span class="era-marker__title">Diagram Inside the Model</span>
+                        <span class="era-marker__desc">Roles plus a validator</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Cumulative Reasoning</span>
+                        <span class="era-marker__title">Accumulate Verified Steps</span>
+                        <span class="era-marker__desc">Build on validated facts</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Chain These</div>
+                    <p>Where Tree of Thought and Graph of Thought rely on an external controller to manage structure, Diagram of Thought folds proposing, critiquing, and summarizing into one model. Reach for it when you want structured self-correction without standing up separate orchestration.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Techniques</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary structured-reasoning techniques</p>
+
+                <a href="graph-of-thought.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7.7 7.3l3 9M16.3 7.3l-3 9M8 6h8"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Contrast</span>
+                        <span class="evolution-callout__title">Graph of Thought</span>
+                        <span class="evolution-callout__desc">Reasons over a graph using an external controller, where Diagram of Thought builds and validates the graph inside a single model.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="tree-of-thought.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/><path d="M12 7v4M12 11L6 17M12 11l6 6"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Related Approach</span>
+                        <span class="evolution-callout__title">Tree of Thought</span>
+                        <span class="evolution-callout__desc">Explores branching reasoning paths with a search controller, a precursor to the in-model structure Diagram of Thought provides.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="cumulative-reasoning.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Related Approach</span>
+                        <span class="evolution-callout__title">Cumulative Reasoning</span>
+                        <span class="evolution-callout__desc">Accumulates verified intermediate steps toward a solution, sharing the spirit of validating reasoning before building on it.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up" data-tour-step="3" data-tour-title="Try It Yourself" data-tour-desc="Ready to practice? These links take you to interactive tools where you can build and test prompts using this technique.">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Reason, Critique, Refine</h2>
+                        <p class="cta-corporate__text">Try prompting a model to propose, criticize, and then summarize its own reasoning in the Prompt Builder, or explore related structured-reasoning techniques.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+        <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>From Prompting to Production. Built on Proven Techniques &amp; Frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Techniques</h4>
+                <a href="../learn/prompt-basics.html">Prompt Basics</a>
+                <a href="../learn/tokens.html">Tokens</a>
+                <a href="../learn/crisp.html">CRISP Framework</a>
+                <a href="../learn/crispe.html">CRISPE Framework</a>
+                <a href="../learn/costar.html">CO-STAR Framework</a>
+                <a href="../learn/react.html">ReAct Framework</a>
+                <a href="../learn/flipped-interaction.html">Flipped Interaction</a>
+                <a href="../learn/chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness Tools</h4>
+                <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../tools/matcher.html">Technique Finder</a>
+                <a href="../tools/checklist.html">Preflight Checklist</a>
+                <a href="../tools/guidance.html">Prompt Builder</a>
+                <a href="../tools/persona.html">Persona Architect</a>
+                <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../quiz/index.html">Readiness Quiz</a>
+                <a href="../patterns/index.html">Patterns Library</a>
+                <a href="../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../pages/audit-report.html">Audit Report</a>
+                <a href="../pages/about.html">About Praxis</a>
+                <a href="../pages/faq.html">FAQs</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everyone</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
+        </div>
+
+        <div class="footer-policies">
+            <a href="../pages/responsible-ai.html">Responsible AI</a>
+            <a href="../pages/use-policy.html">Use Policy</a>
+            <a href="../pages/site-policy.html">Site Policy</a>
+            <a href="../pages/security-policy.html">Security Policy</a>
+            <a href="../pages/data-retention-policy.html">Data Retention</a>
+        </div>
+    </div>
+</footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>
+
+<!-- deploy-marker: 2026-06-29T00:00Z -->

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Token-Budget-Aware Reasoning: estimate a sensible token budget for each problem and put it in the prompt, so the model reasons within bounds and wastes fewer tokens.">
+    <!-- SEO Meta -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Praxis Library">
+    <meta name="theme-color" content="#DC3545">
+    <link rel="canonical" href="https://praxislibrary.com/learn/token-budget-reasoning.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Token-Budget-Aware Reasoning - Praxis">
+    <meta property="og:description" content="Token-Budget-Aware Reasoning: estimate a sensible token budget for each problem and put it in the prompt, so the model reasons within bounds and wastes fewer tokens.">
+    <meta property="og:url" content="https://praxislibrary.com/learn/token-budget-reasoning.html">
+    <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <meta property="og:site_name" content="Praxis Library">
+    <meta property="og:locale" content="en_US">
+    <!-- Social Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Token-Budget-Aware Reasoning - Praxis">
+    <meta name="twitter:description" content="Token-Budget-Aware Reasoning: estimate a sensible token budget for each problem and put it in the prompt, so the model reasons within bounds and wastes fewer tokens.">
+    <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "LearningResource",
+        "Article"
+      ],
+      "headline": "Token-Budget-Aware Reasoning",
+      "name": "Token-Budget-Aware Reasoning",
+      "description": "Token-Budget-Aware Reasoning: estimate a sensible token budget for each problem and put it in the prompt, so the model reasons within bounds and wastes fewer tokens.",
+      "url": "https://praxislibrary.com/learn/token-budget-reasoning.html",
+      "inLanguage": "en-US",
+      "learningResourceType": "Tutorial",
+      "educationalLevel": "Beginner to Advanced",
+      "educationalUse": "AI Prompt Engineering",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "EducationalOrganization",
+        "name": "Praxis Library",
+        "alternateName": "An Open Standard in AI Literacy",
+        "url": "https://praxislibrary.com",
+        "logo": "https://praxislibrary.com/favicon.svg",
+        "description": "A comprehensive, living library of 5,000+ AI terms, 208 techniques and frameworks, and interactive tools. The definitive open resource for AI literacy, prompt engineering, and human-AI communication.",
+        "sameAs": [
+          "https://www.tiktok.com/@thepraxislibrary",
+          "https://www.facebook.com/profile.php?id=61587612308104",
+          "https://github.com/PowerOfPraxis/PraxisLibrary"
+        ],
+        "knowsAbout": [
+          "Artificial Intelligence",
+          "AI Literacy",
+          "Prompt Engineering",
+          "AI Prompting Techniques",
+          "AI Glossary",
+          "Large Language Models",
+          "Chain-of-Thought Prompting",
+          "AI Education",
+          "Human-AI Communication",
+          "Neurodivergence and AI",
+          "AI Safety",
+          "AI Ethics"
+        ]
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Praxis Library",
+        "url": "https://praxislibrary.com"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Techniques & Frameworks"
+        },
+        {
+          "@type": "Thing",
+          "name": "Efficient Reasoning"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://praxislibrary.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Discover",
+          "item": "https://praxislibrary.com/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Token-Budget-Aware Reasoning"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <!-- /SEO -->
+
+<title>Token-Budget-Aware Reasoning - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav" aria-label="Main navigation">
+                <a href="../foundations/index.html" class="nav-link">History</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../learn/index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                                        <div class="mega-menu mega-menu--categories">
+                        <div class="mega-menu-quick-links">
+                            <a href="index.html">Techniques &amp; Frameworks</a>
+                            <a href="./prompt-basics.html">Prompt Basics</a>
+                            <a href="./tokens.html">Tokens</a>
+                            <a href="./facts-fictions.html">Facts &amp; Fictions</a>
+                            <a href="../pages/glossary.html">Glossary</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../tools/index.html" class="nav-link" aria-expanded="false">Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../quiz/index.html">Readiness Quiz</a>
+                            <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../tools/guidance.html">Prompt Builder</a>
+                            <a href="../tools/matcher.html">Technique Finder</a>
+                            <a href="../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../tools/persona.html">Persona Architect</a>
+                            <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                            <a href="../patterns/index.html">Patterns Library</a>
+                            <a href="../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="../pages/audit-report.html" class="nav-link">Audit Report</a>
+
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">Token-Budget Reasoning</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Efficient Reasoning</span>
+                </div>
+                <h1 class="page-title fade-in" data-tour-step="1" data-tour-title="Technique Overview" data-tour-desc="This is the technique name and summary. The badge above shows which category it belongs to.">Token-Budget-Aware Reasoning</h1>
+                <p class="page-subtitle fade-in">Reasoning models often write far more than a problem requires. Token-Budget-Aware Reasoning fixes that at the source: estimate a sensible token budget for the question, then tell the model to reason within it. A simple problem gets a small budget, a hard one gets a larger budget, and the model trims its own verbosity to fit, cutting cost with little loss in accuracy.</p>
+                <p class="hero-note fade-in"><span class="hero-note__star">*</span><em>These are learning tools, not prompts. They teach you to write your own, think of them as training wheels that guide you while you learn, then fall away once you can ride on your own.</em></p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Tell the Model How Much Room It Has</h2>
+                        <p class="split-section__text">Left unconstrained, a reasoning model tends to over-elaborate. It will spend hundreds of tokens carefully working through a problem that a person would solve in two lines. That extra length is mostly waste: it does not improve the answer, but it does inflate cost and latency on every call.</p>
+                        <p class="split-section__text"><strong>The fix is to give the model a token budget and put it in the prompt.</strong> The method first estimates a reasonable budget for the specific question, harder questions warrant more room, easier ones less, and then instructs the model to keep its reasoning within that budget. The model adapts, compressing its working to fit the space it is given.</p>
+                        <p class="split-section__text">The estimation step matters. A budget set too low can starve a genuinely hard problem and hurt accuracy; set too high, it saves nothing. By matching the budget to the problem's difficulty rather than using one fixed cap, the method recovers most of the wasted tokens while keeping answers correct.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">Budget Is Not the Same as Brevity</span>
+                                <p>Compressing each reasoning step, as Chain of Draft does, is one lever. Setting a total budget is a different one: it caps the <strong>whole reasoning trace</strong> and lets the model decide how to spend that allowance. The two can even combine, a budget bounds the length while terse steps make each token count.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Token-Budget Process</h2>
+                <p class="section-subtitle fade-in-up">Estimate a budget, reason within it, then answer</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Estimate the Budget for This Problem</h3>
+                            <p class="element-timeline__text">Judge how much reasoning the question actually needs and set a token budget accordingly. This can be a quick estimate from the model itself or a rule of thumb based on the problem type. The point is to size the allowance to the difficulty, not to use a single fixed number for everything.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>"Estimate a token budget for: 'What is 15 percent of 60?'" The model judges this trivial and sets a small budget, perhaps a few dozen tokens.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Put the Budget in the Prompt</h3>
+                            <p class="element-timeline__text">Add the estimated budget to the instruction, telling the model to keep its reasoning within that many tokens. The budget becomes an explicit constraint the model can plan against, the same way a writer works to a word count.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>"Solve the problem and keep your reasoning within about 30 tokens, then give the final answer."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Reason Within the Allowance</h3>
+                            <p class="element-timeline__text">The model compresses its working to fit the budget, keeping the essential steps and dropping the padding. For a harder question with a larger budget, it has room for more steps; for an easy one with a small budget, it stays terse.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>"15 percent of 60 = 0.15 x 60 = 9." Well within budget, nothing wasted.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Return the Answer</h3>
+                            <p class="element-timeline__text">The model states the final answer after its budgeted reasoning. Across many calls, sizing each budget to its problem reclaims the tokens that unconstrained reasoning would have spent on needless elaboration, with accuracy largely preserved.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Example</span>
+                                <p>"Answer: 9."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === VISUAL: THE COMPARISON === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Unbounded reasoning versus a budget matched to difficulty</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">No Budget</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Unbounded Reasoning</span>
+                                <p>"Let's carefully consider what 15 percent means. Percent means per hundred, so 15 percent is 15 per 100, which as a decimal is 0.15. Now we multiply 0.15 by 60..." and on it goes for a one-line problem.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Effect</span>
+                                <p>Correct, but the trace is far longer than the problem needs. Every extra token is billed and slows the response, with no gain in accuracy.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Right answer, wasted length on easy problems</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Token-Budget-Aware</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Reasoning Within a Budget</span>
+                                <p>"Keep reasoning within about 30 tokens: 0.15 x 60 = 9. Answer: 9." The easy problem gets a small budget; a hard one would get a larger budget with room for more steps.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Effect</span>
+                                <p>The trace is sized to the difficulty. Across many calls this reclaims the tokens unbounded reasoning would have wasted, while accuracy stays close.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Length matched to difficulty, cost reclaimed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE COMPARISON -->
+        <!-- === RAI TIP === -->
+        <section class="section-tip fade-in-up">
+            <div class="container">
+                <div class="section-tip__content">
+                    <div class="section-tip__icon">
+                        <span class="section-tip__stop-text" aria-hidden="true">STOP</span>
+                    </div>
+                    <div class="section-tip__text">
+                        <h3 class="section-tip__title">Practice Responsible AI</h3>
+                        <p>Always verify AI-generated content before use. AI systems can produce confident but incorrect responses. When using AI professionally, transparent disclosure is both best practice and increasingly a legal requirement.</p>
+                        <p><strong><a href="https://www.ncsl.org/technology-and-communication/artificial-intelligence-2025-legislation" target="_blank" rel="noopener noreferrer" data-added="2026-04-15">Most US states are actively legislating AI transparency and accountability</a></strong>. Critical thinking remains your strongest tool against misinformation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /RAI TIP -->
+
+<!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up" data-tour-step="2" data-tour-title="Examples in Action" data-tour-desc="Real prompt and response examples showing this technique at work. Study the patterns here, then try them with your own prompts.">Token-Budget Reasoning in Action</h2>
+                <p class="section-subtitle fade-in-up">See how budgets scale with difficulty across problems</p>
+
+                <div class="accordion fade-in-up" id="tbr-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Easy Problem: Small Budget</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>"How many minutes are in 3.5 hours? Estimate a small token budget for this and reason within it, then answer."</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Budgeted Response</span>
+                                    <p>"Budget: ~20 tokens. 3.5 x 60 = 210.<br>Answer: 210 minutes."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Hard Problem: Larger Budget</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Prompt</span>
+                                    <p>"A tank fills at 4 L/min and drains at 1.5 L/min. Starting empty, when does it reach 40 litres? Estimate a budget that fits the difficulty and reason within it, then answer."</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Budgeted Response</span>
+                                    <p>"Budget: ~60 tokens. Net rate = 4 - 1.5 = 2.5 L/min.<br>Time = 40 / 2.5 = 16 min.<br>Answer: 16 minutes."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Batch Setting: Per-Item Budgets</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Setup</span>
+                                    <p>A pipeline scores thousands of support tickets for urgency. Each ticket first gets a quick budget estimate based on its length and complexity, then the reasoning runs within that budget.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Effect</span>
+                                    <p>"Short, clear tickets get tiny budgets and resolve in a handful of tokens. Rare, tangled tickets get a larger budget. The total token spend across the batch drops sharply versus letting every ticket reason without limit, while the urgency labels stay accurate."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When to Use Token-Budget Reasoning</h2>
+                <p class="section-subtitle fade-in-up">Best where reasoning models over-elaborate at scale</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Perfect For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Reasoning Models That Over-Think</strong>
+                                    <p>When a capable model spends far more tokens than a task needs, an explicit budget reins in the length without changing the model or the answer.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Workloads with Varied Difficulty</strong>
+                                    <p>A mix of easy and hard problems benefits most, because the budget shrinks for trivial cases and expands for the genuinely demanding ones.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Tight Cost or Latency Targets</strong>
+                                    <p>When a product has a firm cost ceiling or response-time goal, budgeting reasoning length gives a direct, tunable control over both.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Combining with Terse Styles</strong>
+                                    <p>Pair a total budget with a compact step style so the cap bounds the trace while each token inside it carries real reasoning.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Skip It When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>You Cannot Estimate Difficulty</strong>
+                                    <p>If there is no reliable way to size the budget, a cap set blindly risks starving hard problems and hurting accuracy.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Open-Ended Exploration</strong>
+                                    <p>For tasks where you want the model to think expansively, brainstorming, research, deep analysis, a budget cuts off the very exploration you want.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Already-Short Outputs</strong>
+                                    <p>If the model is not over-elaborating in the first place, adding a budget step is overhead with little to reclaim.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where Token-Budget-Aware Reasoning delivers the most value</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Cost-Capped Services</h3>
+                        <p class="use-case-showcase__desc">Hold reasoning endpoints to a predictable per-call cost by sizing each problem's budget, instead of letting unbounded traces inflate the bill.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Large Batch Jobs</h3>
+                        <p class="use-case-showcase__desc">Classify or score huge datasets with a per-item budget so easy rows resolve cheaply and only the hard rows draw a larger allowance.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Latency-Bound Interfaces</h3>
+                        <p class="use-case-showcase__desc">Keep interactive responses fast by capping reasoning length, so the model cannot wander into a long trace that makes a user wait.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Agent Step Control</h3>
+                        <p class="use-case-showcase__desc">Bound the reasoning each agent turn may spend, keeping a long multi-step run from ballooning in both context and cost.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11H5a2 2 0 0 0-2 2v7h6zM9 11V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4M9 11h6m0 0h4a2 2 0 0 1 2 2v7h-6z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Edge Deployments</h3>
+                        <p class="use-case-showcase__desc">Where compute is scarce, a budget keeps reasoning short enough to run within the device's limits while still reaching correct answers.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Tunable Quality and Cost</h3>
+                        <p class="use-case-showcase__desc">Expose the budget as a dial so a team can trade a little accuracy for large cost savings, or spend more where correctness is critical.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where Token-Budget Reasoning Fits</h2>
+                <p class="section-subtitle fade-in-up">The length-control lever in the efficient-reasoning family</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Chain-of-Thought</span>
+                        <span class="era-marker__title">Reason Out Loud</span>
+                        <span class="era-marker__desc">Unbounded explicit steps</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Chain of Draft</span>
+                        <span class="era-marker__title">Compress Each Step</span>
+                        <span class="era-marker__desc">Terse per-step drafts</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">Token-Budget Reasoning</span>
+                        <span class="era-marker__title">Cap the Whole Trace</span>
+                        <span class="era-marker__desc">Budget by difficulty</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Sketch-of-Thought</span>
+                        <span class="era-marker__title">Route the Style</span>
+                        <span class="era-marker__desc">Match shorthand to task</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">Chain These</div>
+                    <p>A token budget and a terse step style attack length from two directions. Use the budget to bound the total reasoning, and a method like Chain of Draft inside it so the model spends that allowance on substance rather than narration.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Techniques</h2>
+                <p class="section-subtitle fade-in-up">Explore complementary efficient-reasoning techniques</p>
+
+                <a href="chain-of-draft.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Sibling</span>
+                        <span class="evolution-callout__title">Chain of Draft</span>
+                        <span class="evolution-callout__desc">Compresses each reasoning step, a complementary lever to capping the total budget. The two combine naturally.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="sketch-of-thought.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.2 4.2l4.3 4.3M15.5 15.5l4.3 4.3M1 12h6M17 12h6"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Sibling</span>
+                        <span class="evolution-callout__title">Sketch-of-Thought</span>
+                        <span class="evolution-callout__desc">Cuts tokens by routing to a task-matched sketch, a different efficiency lever than bounding the total reasoning length.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="complexity-prompting.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Related Approach</span>
+                        <span class="evolution-callout__title">Complexity Prompting</span>
+                        <span class="evolution-callout__desc">Uses problem complexity to guide reasoning and voting, a complexity-aware idea that pairs with sizing a token budget to difficulty.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up" data-tour-step="3" data-tour-title="Try It Yourself" data-tour-desc="Ready to practice? These links take you to interactive tools where you can build and test prompts using this technique.">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Give Reasoning a Budget</h2>
+                        <p class="cta-corporate__text">Try adding a token budget to a reasoning prompt in the Prompt Builder, or explore how this lever pairs with the wider efficient-reasoning family.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                            <a href="../foundations/index.html" class="btn btn-secondary">All Foundations</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+        <footer class="footer">
+    <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                <p>From Prompting to Production. Built on Proven Techniques &amp; Frameworks.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Techniques</h4>
+                <a href="../learn/prompt-basics.html">Prompt Basics</a>
+                <a href="../learn/tokens.html">Tokens</a>
+                <a href="../learn/crisp.html">CRISP Framework</a>
+                <a href="../learn/crispe.html">CRISPE Framework</a>
+                <a href="../learn/costar.html">CO-STAR Framework</a>
+                <a href="../learn/react.html">ReAct Framework</a>
+                <a href="../learn/flipped-interaction.html">Flipped Interaction</a>
+                <a href="../learn/chain-of-thought.html">Chain-of-Thought</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>AI Readiness Tools</h4>
+                <a href="../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../tools/matcher.html">Technique Finder</a>
+                <a href="../tools/checklist.html">Preflight Checklist</a>
+                <a href="../tools/guidance.html">Prompt Builder</a>
+                <a href="../tools/persona.html">Persona Architect</a>
+                <a href="../tools/hallucination.html">Hallucination Spotter</a>
+                <a href="../quiz/index.html">Readiness Quiz</a>
+                <a href="../patterns/index.html">Patterns Library</a>
+                <a href="../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../pages/audit-report.html">Audit Report</a>
+                <a href="../pages/about.html">About Praxis</a>
+                <a href="../pages/faq.html">FAQs</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>AI for Everyone</p>
+            <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
+        </div>
+
+        <div class="footer-policies">
+            <a href="../pages/responsible-ai.html">Responsible AI</a>
+            <a href="../pages/use-policy.html">Use Policy</a>
+            <a href="../pages/site-policy.html">Site Policy</a>
+            <a href="../pages/security-policy.html">Security Policy</a>
+            <a href="../pages/data-retention-policy.html">Data Retention</a>
+        </div>
+    </div>
+</footer>
+
+    <!-- Back to Top Bar -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+
+    <!-- Accessibility Dashboard -->
+
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+
+    <script src="../app.js" defer></script>
+</body>
+</html>
+
+<!-- deploy-marker: 2026-06-29T00:00Z -->

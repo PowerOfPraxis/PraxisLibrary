@@ -1,7 +1,7 @@
 {
   "version": 1,
   "generated": "2026-02-16T18:32:25Z",
-  "techniqueCount": 175,
+  "techniqueCount": 208,
   "categories": {
     "structured": "Structured Frameworks",
     "reasoning": "Reasoning & CoT",
@@ -4433,6 +4433,766 @@
         "scene graph"
       ],
       "bestFor": "Techniques for prompting AI to analyze complete 3D scenes including spatial relationships, object placement, and environmental context."
+    },
+    {
+      "id": "chain-of-draft",
+      "name": "Chain of Draft",
+      "fullName": "Chain of Draft",
+      "url": "learn/chain-of-draft.html",
+      "category": "reasoning",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "intermediate",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "chain of draft",
+        "cod",
+        "efficient reasoning",
+        "concise reasoning",
+        "token reduction",
+        "terse reasoning"
+      ],
+      "bestFor": "Generate terse minimal reasoning drafts instead of verbose steps, cutting tokens to a fraction of Chain-of-Thought while keeping accuracy. Ideal for cost-sensitive and latency-sensitive reasoning at scale."
+    },
+    {
+      "id": "atom-of-thoughts",
+      "name": "Atom of Thoughts",
+      "fullName": "Atom of Thoughts",
+      "url": "learn/atom-of-thoughts.html",
+      "category": "decomposition",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "atom of thoughts",
+        "aot",
+        "decomposition",
+        "markov",
+        "dependency graph",
+        "test-time scaling"
+      ],
+      "bestFor": "Decompose a question into a dependency graph, then contract solved parts into a self-contained atomic question with no history, keeping each reasoning state small and focused."
+    },
+    {
+      "id": "sketch-of-thought",
+      "name": "Sketch-of-Thought",
+      "fullName": "Sketch-of-Thought",
+      "url": "learn/sketch-of-thought.html",
+      "category": "reasoning",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "intermediate",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "sketch of thought",
+        "sot",
+        "efficient reasoning",
+        "adaptive reasoning",
+        "cognitive sketches",
+        "token reduction"
+      ],
+      "bestFor": "Route each question to one of three terse reasoning sketches (conceptual chaining, chunked symbolism, expert lexicons), cutting tokens while matching the shorthand to the task."
+    },
+    {
+      "id": "token-budget-reasoning",
+      "name": "Token-Budget-Aware Reasoning",
+      "fullName": "Token-Budget-Aware Reasoning",
+      "url": "learn/token-budget-reasoning.html",
+      "category": "reasoning",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "intermediate",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "token budget",
+        "token-budget-aware reasoning",
+        "tale",
+        "efficient reasoning",
+        "reasoning length",
+        "cost control"
+      ],
+      "bestFor": "Estimate a sensible token budget for each problem and put it in the prompt, so the model bounds its reasoning length and wastes fewer tokens with little loss in accuracy."
+    },
+    {
+      "id": "diagram-of-thought",
+      "name": "Diagram of Thought",
+      "fullName": "Diagram of Thought",
+      "url": "learn/diagram-of-thought.html",
+      "category": "reasoning",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "diagram of thought",
+        "dot",
+        "structured reasoning",
+        "dag",
+        "self-critique",
+        "proposer critic summarizer"
+      ],
+      "bestFor": "A single model builds a reasoning DAG by switching among proposer, critic, and summarizer roles, with a validator keeping each step sound, enabling structured self-correction without external search."
+    },
+    {
+      "id": "logic-of-thought",
+      "name": "Logic-of-Thought",
+      "fullName": "Logic-of-Thought",
+      "url": "learn/logic-of-thought.html",
+      "category": "reasoning",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "intermediate",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "logic of thought",
+        "lot",
+        "logical reasoning",
+        "propositional logic",
+        "context augmentation",
+        "deduction"
+      ],
+      "bestFor": "Extract logical propositions from the prompt, expand them with formal rules to surface implied facts, and inject those facts back as context, reducing missed inferences. Layers on top of other prompting methods."
+    },
+    {
+      "id": "forest-of-thought",
+      "name": "Forest-of-Thought",
+      "fullName": "Forest-of-Thought",
+      "url": "learn/forest-of-thought.html",
+      "category": "ensemble",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "forest of thought",
+        "fot",
+        "ensemble reasoning",
+        "tree of thought",
+        "consensus",
+        "test-time compute",
+        "self-correction"
+      ],
+      "bestFor": "Run several independent reasoning trees in parallel, focus effort with sparse activation, self-correct during search, and decide by consensus, trading test-time compute for reliability on hard problems."
+    },
+    {
+      "id": "gepa",
+      "name": "GEPA",
+      "fullName": "GEPA",
+      "url": "learn/gepa.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "gepa",
+        "genetic-pareto",
+        "prompt optimization",
+        "reflective evolution",
+        "pareto",
+        "dspy optimizer"
+      ],
+      "bestFor": "Optimize prompts by reflecting on system runs in natural language and evolving them along a Pareto frontier, reaching strong results with far fewer rollouts than reinforcement learning."
+    },
+    {
+      "id": "self-supervised-prompt-optimization",
+      "name": "Self-Supervised Prompt Optimization",
+      "fullName": "Self-Supervised Prompt Optimization",
+      "url": "learn/self-supervised-prompt-optimization.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "writing"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "self-supervised prompt optimization",
+        "spo",
+        "label-free",
+        "pairwise comparison",
+        "prompt optimization",
+        "no ground truth"
+      ],
+      "bestFor": "Improve prompts using only pairwise comparisons of the model's own outputs, with no ground-truth labels or human feedback, so open-ended tasks can be optimized."
+    },
+    {
+      "id": "capo",
+      "name": "CAPO",
+      "fullName": "CAPO",
+      "url": "learn/capo.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "capo",
+        "cost-aware prompt optimization",
+        "evolutionary",
+        "racing",
+        "multi-objective",
+        "length penalty"
+      ],
+      "bestFor": "Optimize prompts with evolutionary search plus racing to cut evaluations and a length penalty, jointly tuning instructions and few-shot examples for accuracy at low cost."
+    },
+    {
+      "id": "pmpo",
+      "name": "PMPO",
+      "fullName": "PMPO",
+      "url": "learn/pmpo.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "pmpo",
+        "probabilistic metric prompt optimization",
+        "cross-entropy",
+        "loss",
+        "masking",
+        "small models"
+      ],
+      "bestFor": "Optimize prompts using token-level cross-entropy loss, locating weak segments by masking and selecting variants in a single forward pass, without output sampling or a judge. Works on small and large models."
+    },
+    {
+      "id": "deevo",
+      "name": "DEEVO",
+      "fullName": "DEEVO",
+      "url": "learn/deevo.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "writing"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "deevo",
+        "tournament of prompts",
+        "elo",
+        "debate",
+        "evolutionary",
+        "prompt optimization"
+      ],
+      "bestFor": "Evolve prompts through structured LLM debates scored by Elo ratings, using debate-informed crossover and mutation to optimize subjective tasks with no ground-truth metric."
+    },
+    {
+      "id": "prompt-duel-optimizer",
+      "name": "Prompt Duel Optimizer",
+      "fullName": "Prompt Duel Optimizer",
+      "url": "learn/prompt-duel-optimizer.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "prompt duel optimizer",
+        "pdo",
+        "dueling bandit",
+        "thompson sampling",
+        "label-free",
+        "pairwise"
+      ],
+      "bestFor": "Treat prompt selection as a dueling-bandit problem, using Double Thompson Sampling over LLM-judge pairwise feedback and top-performer mutation to find a strong prompt without labels."
+    },
+    {
+      "id": "autopdl",
+      "name": "AutoPDL",
+      "fullName": "AutoPDL",
+      "url": "learn/autopdl.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "autopdl",
+        "automl",
+        "successive halving",
+        "prompting patterns",
+        "agents",
+        "pdl"
+      ],
+      "bestFor": "Treat agent prompt design as an AutoML search over prompting patterns and demonstrations using successive halving, producing human-readable, editable PDL programs."
+    },
+    {
+      "id": "agentic-context-engineering",
+      "name": "Agentic Context Engineering",
+      "fullName": "Agentic Context Engineering",
+      "url": "learn/agentic-context-engineering.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "agentic context engineering",
+        "ace",
+        "evolving context",
+        "playbook",
+        "self-improving",
+        "reflection curation"
+      ],
+      "bestFor": "Treat an agent's context as an evolving playbook refined through generation, reflection, and curation, so the agent improves across runs without updating model weights."
+    },
+    {
+      "id": "plan-and-act",
+      "name": "Plan-and-Act",
+      "fullName": "Plan-and-Act",
+      "url": "learn/plan-and-act.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "plan-and-act",
+        "planner",
+        "executor",
+        "long-horizon",
+        "agent",
+        "web navigation"
+      ],
+      "bestFor": "Separate a Planner that writes high-level plans from an Executor that carries them out, keeping long-horizon agent tasks on course."
+    },
+    {
+      "id": "recap",
+      "name": "ReCAP",
+      "fullName": "ReCAP",
+      "url": "learn/recap.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "recap",
+        "recursive planning",
+        "context-aware",
+        "goal drift",
+        "parent plan reinsertion",
+        "long-horizon"
+      ],
+      "bestFor": "Decompose a task, execute step by step, and reinsert the parent plan on each recursive return so long-horizon agents stay anchored to their goal with bounded context."
+    },
+    {
+      "id": "context-engineering",
+      "name": "Context Engineering",
+      "fullName": "Context Engineering",
+      "url": "learn/context-engineering.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "intermediate",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "context engineering",
+        "agent context",
+        "curation",
+        "compaction",
+        "just-in-time retrieval",
+        "token budget"
+      ],
+      "bestFor": "Curate the smallest set of high-signal tokens across an agent's whole loop, spanning instructions, tools, memory, and history, since attention is a finite resource."
+    },
+    {
+      "id": "tool-design-for-agents",
+      "name": "Tool Design for Agents",
+      "fullName": "Tool Design for Agents",
+      "url": "learn/tool-design-for-agents.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "structured-output"
+      ],
+      "complexity": "intermediate",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "tool design",
+        "function calling",
+        "tool definitions",
+        "namespacing",
+        "token-efficient",
+        "agents"
+      ],
+      "bestFor": "Design function and tool definitions agents use well: choose the right tools, namespace them, return meaningful token-efficient results, and prompt-engineer the descriptions."
+    },
+    {
+      "id": "halo",
+      "name": "HALO",
+      "fullName": "HALO",
+      "url": "learn/halo.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "halo",
+        "hierarchical orchestration",
+        "multi-agent",
+        "role design",
+        "mcts",
+        "adaptive prompt refinement"
+      ],
+      "bestFor": "Organize agents into three tiers, planning, role design, and inference, using tree search over actions and adaptive prompt refinement to build a team fit for the task."
+    },
+    {
+      "id": "structured-tool-templates",
+      "name": "Guided-Structured Templates",
+      "fullName": "Guided-Structured Templates",
+      "url": "learn/structured-tool-templates.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "structured-output"
+      ],
+      "complexity": "intermediate",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "guided-structured templates",
+        "function calling",
+        "structured reasoning",
+        "tool calls",
+        "interpretability",
+        "template"
+      ],
+      "bestFor": "Replace free-form reasoning for tool calls with structured step-by-step templates that walk the model through intent, documentation, and arguments, improving function-calling accuracy and interpretability."
+    },
+    {
+      "id": "blackboard-prompting",
+      "name": "Blackboard Multi-Agent",
+      "fullName": "Blackboard Multi-Agent",
+      "url": "learn/blackboard-prompting.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "blackboard",
+        "multi-agent",
+        "shared workspace",
+        "agent selection",
+        "consensus",
+        "collaboration"
+      ],
+      "bestFor": "Have agents share a common workspace and select whoever can best contribute from the board's current state, repeating until the problem is solved, an adaptive collaboration order."
+    },
+    {
+      "id": "mas-squared",
+      "name": "MAS-squared",
+      "fullName": "MAS-squared",
+      "url": "learn/mas-squared.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "mas-squared",
+        "meta-agents",
+        "self-generative",
+        "self-configuring",
+        "self-rectifying",
+        "multi-agent"
+      ],
+      "bestFor": "Use a trained meta-team of generator, implementer, and rectifier agents to compose and self-correct a target multi-agent system per task, adapting the design in real time."
+    },
+    {
+      "id": "modality/image/interleaved-modal-cot",
+      "name": "Interleaved-Modal CoT",
+      "fullName": "Interleaved-Modal Chain-of-Thought",
+      "url": "learn/modality/image/interleaved-modal-cot.html",
+      "category": "image",
+      "useCases": [
+        "problem-solving"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": "image",
+      "keywords": [
+        "interleaved-modal cot",
+        "icot",
+        "attention-driven selection",
+        "visual rationale",
+        "image regions",
+        "vision-language",
+        "multimodal reasoning"
+      ],
+      "bestFor": "Weave the actual image regions into each reasoning step, selected from the model's own attention, so visual evidence and textual reasoning stay paired and auditable."
+    },
+    {
+      "id": "modality/image/mcout",
+      "name": "Multimodal Continuous Thought",
+      "fullName": "Multimodal Chain of Continuous Thought",
+      "url": "learn/modality/image/mcout.html",
+      "category": "image",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": "image",
+      "keywords": [
+        "mcout",
+        "multimodal chain of continuous thought",
+        "latent space reasoning",
+        "continuous thought",
+        "vision-language",
+        "cross-modal alignment"
+      ],
+      "bestFor": "Reason in a continuous latent space where vision and text meet directly, refining a hidden thought vector instead of writing every step out in words. A model-level research method, not a typed prompt."
+    },
+    {
+      "id": "modality/image/abstract-perspective-change",
+      "name": "Abstract Perspective Change",
+      "fullName": "Abstract Perspective Change",
+      "url": "learn/modality/image/abstract-perspective-change.html",
+      "category": "image",
+      "useCases": [
+        "problem-solving"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": "image",
+      "keywords": [
+        "abstract perspective change",
+        "apc",
+        "perspective taking",
+        "mental imagery simulation",
+        "scene abstraction",
+        "spatial reasoning",
+        "viewpoint"
+      ],
+      "bestFor": "Build a scene abstraction from vision foundation models so a VLM can mentally simulate another viewpoint, fixing camera-locked answers to spatial and perspective questions."
+    },
+    {
+      "id": "modality/image/prompt-enhancer",
+      "name": "PromptEnhancer",
+      "fullName": "PromptEnhancer",
+      "url": "learn/modality/image/prompt-enhancer.html",
+      "category": "image",
+      "useCases": [
+        "creative"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": "image",
+      "keywords": [
+        "promptenhancer",
+        "prompt rewriting",
+        "text-to-image",
+        "chain-of-thought rewriter",
+        "reinforcement learning",
+        "image-text alignment",
+        "alignevaluator"
+      ],
+      "bestFor": "Use a chain-of-thought rewriter, trained with reinforcement learning, to reshape prompts for a frozen text-to-image model, improving attribute binding, negation, and composition without retraining the image model."
+    },
+    {
+      "id": "modality/audio/audio-cot",
+      "name": "Audio Chain-of-Thought",
+      "fullName": "Audio Chain-of-Thought",
+      "url": "learn/modality/audio/audio-cot.html",
+      "category": "audio",
+      "useCases": [
+        "problem-solving"
+      ],
+      "complexity": "intermediate",
+      "type": "technique",
+      "modality": "audio",
+      "keywords": [
+        "audio-cot",
+        "audio chain-of-thought",
+        "large audio-language models",
+        "sound",
+        "music",
+        "speech",
+        "reasoning"
+      ],
+      "bestFor": "Apply step-by-step reasoning to audio-language models across sound, music, and speech. It helps on easy and medium tasks, but reasoning chains can mislead on the hardest ones, so verify."
+    },
+    {
+      "id": "modality/audio/thinking-with-sound",
+      "name": "Thinking with Sound",
+      "fullName": "Thinking with Sound",
+      "url": "learn/modality/audio/thinking-with-sound.html",
+      "category": "audio",
+      "useCases": [
+        "problem-solving"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": "audio",
+      "keywords": [
+        "thinking with sound",
+        "tws",
+        "audio chain-of-thought",
+        "noise suppression",
+        "source separation",
+        "temporal alignment",
+        "signal manipulation"
+      ],
+      "bestFor": "Let an audio-language model manipulate the sound signal mid-reasoning, denoising, separating sources, and aligning events, so it can hear better before answering. Robust to noisy, degraded, or overlapping audio."
+    },
+    {
+      "id": "self-discover",
+      "name": "Self-Discover",
+      "fullName": "Self-Discover",
+      "url": "learn/self-discover.html",
+      "category": "reasoning",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "self-discover",
+        "reasoning modules",
+        "reasoning structure",
+        "select adapt implement",
+        "task-adaptive reasoning",
+        "compose"
+      ],
+      "bestFor": "Let the model first select and compose atomic reasoning modules into an explicit reasoning structure tailored to the task, then solve each problem by following that structure."
+    },
+    {
+      "id": "textgrad",
+      "name": "TextGrad",
+      "fullName": "TextGrad",
+      "url": "learn/textgrad.html",
+      "category": "strategies",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": null,
+      "keywords": [
+        "textgrad",
+        "textual gradients",
+        "automatic differentiation via text",
+        "natural-language feedback",
+        "compound ai system",
+        "prompt optimization"
+      ],
+      "bestFor": "Backpropagate natural-language feedback, textual gradients, through a compound AI system so each prompt, solution, or component gets a concrete suggestion for how to improve."
+    },
+    {
+      "id": "modality/image/visual-sketchpad",
+      "name": "Visual Sketchpad",
+      "fullName": "Visual Sketchpad",
+      "url": "learn/modality/image/visual-sketchpad.html",
+      "category": "image",
+      "useCases": [
+        "problem-solving",
+        "math"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": "image",
+      "keywords": [
+        "visual sketchpad",
+        "sketching",
+        "auxiliary visual artifacts",
+        "vision tools",
+        "multimodal reasoning",
+        "visual chain of thought"
+      ],
+      "bestFor": "Give a multimodal model a sketchpad so it can draw auxiliary lines, boxes, and marks and call specialist vision tools as intermediate reasoning steps, the way people sketch to think."
+    },
+    {
+      "id": "modality/video/video-of-thought",
+      "name": "Video-of-Thought",
+      "fullName": "Video-of-Thought",
+      "url": "learn/modality/video/video-of-thought.html",
+      "category": "video",
+      "useCases": [
+        "problem-solving",
+        "research"
+      ],
+      "complexity": "advanced",
+      "type": "technique",
+      "modality": "video",
+      "keywords": [
+        "video-of-thought",
+        "vot",
+        "video reasoning",
+        "spatial-temporal scene graph",
+        "motionepic",
+        "video chain of thought"
+      ],
+      "bestFor": "Reason about video step by step, from low-level pixel perception up to high-level interpretation, grounding each step in a spatial-temporal scene graph so the model reasons about a clip instead of only captioning it."
     }
   ]
 }

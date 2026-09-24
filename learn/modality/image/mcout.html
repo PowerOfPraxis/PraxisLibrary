@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multimodal Chain of Continuous Thought (MCOUT): let a vision-language model reason in its continuous latent space, refining a hidden thought vector aligned with image and text.">
+    <!-- SEO Meta -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Praxis Library">
+    <meta name="theme-color" content="#DC3545">
+    <link rel="canonical" href="https://praxislibrary.com/learn/modality/image/mcout.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Multimodal Chain of Continuous Thought - Praxis">
+    <meta property="og:description" content="Multimodal Chain of Continuous Thought (MCOUT): let a vision-language model reason in its continuous latent space, refining a hidden thought vector aligned with image and text.">
+    <meta property="og:url" content="https://praxislibrary.com/learn/modality/image/mcout.html">
+    <meta property="og:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <meta property="og:site_name" content="Praxis Library">
+    <meta property="og:locale" content="en_US">
+    <!-- Social Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Multimodal Chain of Continuous Thought - Praxis">
+    <meta name="twitter:description" content="Multimodal Chain of Continuous Thought (MCOUT): let a vision-language model reason in its continuous latent space, refining a hidden thought vector aligned with image and text.">
+    <meta name="twitter:image" content="https://praxislibrary.com/assets/images/praxishome.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "LearningResource",
+        "Article"
+      ],
+      "headline": "Multimodal Chain of Continuous Thought",
+      "name": "Multimodal Chain of Continuous Thought",
+      "description": "Multimodal Chain of Continuous Thought (MCOUT): let a vision-language model reason in its continuous latent space, refining a hidden thought vector aligned with image and text.",
+      "url": "https://praxislibrary.com/learn/modality/image/mcout.html",
+      "inLanguage": "en-US",
+      "learningResourceType": "Tutorial",
+      "educationalLevel": "Beginner to Advanced",
+      "educationalUse": "AI Prompt Engineering",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "EducationalOrganization",
+        "name": "Praxis Library",
+        "alternateName": "An Open Standard in AI Literacy",
+        "url": "https://praxislibrary.com",
+        "logo": "https://praxislibrary.com/favicon.svg",
+        "description": "A comprehensive, living library of 5,000+ AI terms, 208 techniques and frameworks, and interactive tools. The definitive open resource for AI literacy, prompt engineering, and human-AI communication.",
+        "sameAs": [
+          "https://www.tiktok.com/@thepraxislibrary",
+          "https://www.facebook.com/profile.php?id=61587612308104",
+          "https://github.com/PowerOfPraxis/PraxisLibrary"
+        ],
+        "knowsAbout": [
+          "Artificial Intelligence",
+          "AI Literacy",
+          "Prompt Engineering",
+          "AI Prompting Techniques",
+          "AI Glossary",
+          "Large Language Models",
+          "Chain-of-Thought Prompting",
+          "AI Education",
+          "Human-AI Communication",
+          "Neurodivergence and AI",
+          "AI Safety",
+          "AI Ethics"
+        ]
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Praxis Library",
+        "url": "https://praxislibrary.com"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Techniques & Frameworks"
+        },
+        {
+          "@type": "Thing",
+          "name": "AI Communication"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://praxislibrary.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Discover",
+          "item": "https://praxislibrary.com/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Modality",
+          "item": "https://praxislibrary.com/learn/modality/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Image",
+          "item": "https://praxislibrary.com/learn/modality/image/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Multimodal Chain of Continuous Thought"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <!-- /SEO -->
+
+<title>Multimodal Chain of Continuous Thought - Praxis</title>
+    <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+    <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="header" id="header">
+        <div class="header-container">
+            <a href="../../../index.html" class="logo">&lt;/Praxis <span>Library</span>&gt;</a>
+            <nav class="nav" id="nav" aria-label="Main navigation">
+                <a href="../../../foundations/index.html" class="nav-link">History</a>
+                <div class="nav-item has-dropdown">
+                    <a href="../../index.html" class="nav-link active" aria-expanded="false">Learn</a>
+                                        <div class="mega-menu mega-menu--categories">
+                        <div class="mega-menu-quick-links">
+                            <a href="../../index.html">Techniques &amp; Frameworks</a>
+                            <a href="../../prompt-basics.html">Prompt Basics</a>
+                            <a href="../../tokens.html">Tokens</a>
+                            <a href="../../facts-fictions.html">Facts &amp; Fictions</a>
+                            <a href="../../../pages/glossary.html">Glossary</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <a href="../../../tools/index.html" class="nav-link" aria-expanded="false">Readiness</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-section">
+                            <h4>Tools</h4>
+                            <a href="../../../quiz/index.html">Readiness Quiz</a>
+                            <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                            <a href="../../../tools/guidance.html">Prompt Builder</a>
+                            <a href="../../../tools/matcher.html">Technique Finder</a>
+                            <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                            <a href="../../../tools/persona.html">Persona Architect</a>
+                            <a href="../../../tools/hallucination.html">Hallucination Spotter</a>
+                            <a href="../../../patterns/index.html">Patterns Library</a>
+                            <a href="../../../pages/ai-safety.html">AI Safety</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="../../../pages/audit-report.html" class="nav-link">Audit Report</a>
+
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- === HERO SECTION === -->
+        <section class="page-hero">
+            <canvas id="page-hero-neural-bg" class="page-hero-neural-bg"></canvas>
+            <div class="container">
+                <nav class="breadcrumb fade-in" aria-label="Breadcrumb">
+                    <a href="../../../index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="../../index.html">Learn</a>
+                    <span class="separator">/</span>
+                    <span class="current">MCOUT</span>
+                </nav>
+                <div class="hero-badge">
+                    <span class="hero-badge__text">Image Techniques</span>
+                </div>
+                <h1 class="page-title fade-in" data-tour-step="1" data-tour-title="Technique Overview" data-tour-desc="This is the technique name and summary. The badge above shows which category it belongs to.">Multimodal Chain of Continuous Thought</h1>
+                <p class="page-subtitle fade-in">A research direction where a vision-language model reasons inside its own continuous latent space rather than in written words, refining a hidden thought vector that stays aligned with both the image and the text.</p>
+                <p class="hero-note fade-in"><span class="hero-note__star">*</span><em>These are learning tools, not prompts. They teach you to write your own, think of them as training wheels that guide you while you learn, then fall away once you can ride on your own.</em></p>
+            </div>
+        </section>
+        <!-- /HERO SECTION -->
+
+        <!-- === THE CONCEPT === -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="split-section split-section--center fade-in-up">
+                    <div class="split-section__content">
+                        <span class="split-section__badge">The Core Insight</span>
+                        <h2 class="split-section__title">Reasoning Without Writing It Down</h2>
+                        <p class="split-section__text">Chain-of-Thought reasons in words. Every intermediate step is spelled out as text, which is readable but also limiting: the reasoning has to squeeze through the narrow channel of language, one token at a time, even when the underlying thought is a shape, a spatial relation, or a blend of what the model sees and knows.</p>
+                        <p class="split-section__text"><strong>Multimodal Chain of Continuous Thought, or MCOUT, is a research approach that moves the reasoning off the page and into the model&rsquo;s latent space.</strong> Instead of emitting words, the model carries a continuous hidden vector, a &ldquo;thought,&rdquo; that it refines step by step. At each step the vector is realigned with the visual and textual embeddings so the reasoning stays anchored to both what the model sees and what it was asked.</p>
+                        <p class="split-section__text">This is not a prompt you type. It is a change to how a vision-language model reasons internally, and it comes in two forms. MCOUT-Base reuses the language model&rsquo;s final hidden state as the continuous thought and refines it across iterations. MCOUT-Multi adds multimodal latent attention, strengthening the cross-modal alignment between visual and textual features so the thought vector draws on both streams at once.</p>
+                    </div>
+                    <div class="split-section__visual">
+                        <div class="highlight-box highlight-box--info">
+                            <div class="highlight-box__content">
+                                <span class="highlight-box__title">A Method, Not a Prompt</span>
+                                <p>MCOUT is a model-level reasoning method, not something you can type into a chat box today. It matters here because it shows where multimodal reasoning is heading: away from writing every step out in language, and toward reasoning in a shared latent space where vision and text meet directly. Understanding this direction helps you read new vision-language systems, and understand why some of them can reason about images in ways that never surface as visible text.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /THE CONCEPT -->
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Continuous Thought Loop</h2>
+                <p class="section-subtitle fade-in-up">Four stages of latent-space multimodal reasoning</p>
+
+                <div class="element-timeline fade-in-up">
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">1</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Encode Image and Text</h3>
+                            <p class="element-timeline__text">The model encodes the image and the question into embeddings, the numerical representations it uses internally. These visual and textual embeddings are the two anchors the reasoning will keep returning to, ensuring the thought vector never drifts away from the actual inputs.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Concept</span>
+                                <p>A diagram and the question about it both become vectors in the model&rsquo;s internal space, side by side, ready to be reasoned over.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">2</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Form a Continuous Thought</h3>
+                            <p class="element-timeline__text">Rather than generating a word, the model produces a continuous hidden vector that stands in for the current reasoning state. In MCOUT-Base this thought is seeded from the language model&rsquo;s final hidden state, the same internal signal it would otherwise use to pick the next token.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Concept</span>
+                                <p>The first &ldquo;thought&rdquo; is a vector, not a sentence, a compact internal representation of where the reasoning stands so far.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">3</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Refine and Re-Align</h3>
+                            <p class="element-timeline__text">The thought vector is iteratively refined, and at each iteration it is realigned with the visual and textual embeddings so it keeps drawing on both modalities. MCOUT-Multi strengthens this step with multimodal latent attention, tightening the cross-modal link so visual and textual evidence stay jointly represented in the evolving thought.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Concept</span>
+                                <p>Each pass nudges the thought closer to a coherent answer while keeping it tethered to the picture and the words, so it never loses either.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element-timeline__item">
+                        <div class="element-timeline__marker">
+                            <span class="element-timeline__number">4</span>
+                        </div>
+                        <div class="element-timeline__content">
+                            <h3 class="element-timeline__title">Decode the Answer</h3>
+                            <p class="element-timeline__text">Once the continuous thought has been refined enough, the model decodes it back into a natural-language answer. The visible response is short; the reasoning that produced it happened in latent space, where the model could combine visual and textual signals without the bottleneck of writing each step out in words.</p>
+                            <div class="element-timeline__example">
+                                <span class="element-timeline__example-label">Concept</span>
+                                <p>Only the conclusion surfaces as text. The multi-step reasoning that led there lived entirely in the model&rsquo;s internal representation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /HOW IT WORKS -->
+
+        <!-- === COMPARISON PANEL === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">See the Difference</h2>
+                <p class="section-subtitle fade-in-up">Reasoning in words versus reasoning in latent space</p>
+
+                <div class="comparison-panel fade-in-up">
+                    <div class="comparison-panel__side comparison-panel__side--before">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v4M12 16h.01"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">Text Chain-of-Thought</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Reasoning Channel</span>
+                                <p>Every step is written out as language tokens. The reasoning is readable, but it must pass through words even when the underlying thought is spatial or cross-modal, and the model commits to each written step before moving on.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Trade-off</span>
+                                <p>Transparent and easy to inspect, but constrained by language and prone to lengthy chains where every token is another chance to drift.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--weak">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12h8"/>
+                            </svg>
+                            <span>Readable, but reasoning is squeezed through the channel of words</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-panel__divider">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="comparison-panel__side comparison-panel__side--after">
+                        <div class="comparison-panel__header">
+                            <span class="comparison-panel__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </span>
+                            <h3 class="comparison-panel__title">MCOUT</h3>
+                        </div>
+                        <div class="comparison-panel__content">
+                            <div class="comparison-panel__prompt">
+                                <span class="comparison-panel__label">Reasoning Channel</span>
+                                <p>Steps are continuous hidden vectors, refined iteratively and realigned with the image and text embeddings at each pass. Vision and language meet directly in latent space rather than being forced into a written narrative.</p>
+                            </div>
+                            <div class="comparison-panel__result">
+                                <span class="comparison-panel__label">Trade-off</span>
+                                <p>Less directly readable, but reasoning is not bottlenecked by language and can hold visual and textual evidence together in a single evolving representation.</p>
+                            </div>
+                        </div>
+                        <div class="comparison-panel__verdict comparison-panel__verdict--strong">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 12l3 3 5-5"/>
+                            </svg>
+                            <span>Reasons where vision and text already live, in the latent space</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /COMPARISON PANEL -->
+
+        <!-- === EXAMPLES IN ACTION === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up" data-tour-step="2" data-tour-title="Examples in Action" data-tour-desc="Real prompt and response examples showing this technique at work. Study the patterns here, then try them with your own prompts.">MCOUT in Concept</h2>
+                <p class="section-subtitle fade-in-up">Because the reasoning is internal, these examples show where latent multimodal reasoning helps rather than a prompt you type</p>
+
+                <div class="accordion fade-in-up" id="mcout-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Multi-Discipline Visual Questions</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Scenario</span>
+                                    <p>A question pairs a college-level diagram with a prompt that needs both the figure and domain knowledge, the kind of task found in broad multimodal understanding benchmarks.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why Latent Reasoning Helps</span>
+                                    <p>The answer depends on holding the visual structure and the textual question together while reasoning. In latent space, MCOUT keeps a single thought vector aligned with both, refining it across iterations instead of narrating a long text chain that might lose the visual thread partway through. The conclusion is then decoded into a concise answer.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">Science Figures and Charts</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Scenario</span>
+                                    <p>A science-question figure requires reading a chart and connecting it to a concept, where the visual and the reasoning are tightly intertwined.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why Latent Reasoning Helps</span>
+                                    <p>MCOUT-Multi&rsquo;s multimodal latent attention keeps the chart&rsquo;s visual features fused with the textual concept throughout reasoning. Because the alignment is renewed at every refinement step, the evolving thought does not quietly drop the figure in favor of text priors, a common failure when reasoning is written out and the image is only described once.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            <span class="accordion-title">When the Thought Is Not Words</span>
+                            <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="technique-demo">
+                                <div class="technique-demo__prompt">
+                                    <span class="technique-demo__tag">Scenario</span>
+                                    <p>A task where the natural unit of reasoning is a spatial relationship or a visual pattern that is awkward to put into a sentence.</p>
+                                </div>
+                                <div class="technique-demo__response">
+                                    <span class="technique-demo__tag">Why Latent Reasoning Helps</span>
+                                    <p>Some reasoning is simply not linguistic. By keeping the thought as a continuous vector rather than forcing it into words at every step, MCOUT lets the model manipulate a representation that can encode shape and relation directly, then translate only the final result into language. The visible answer is short; the visual reasoning behind it never had to be verbalized.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /EXAMPLES IN ACTION -->
+
+        <!-- === WHEN TO USE === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">When Continuous-Thought Reasoning Fits</h2>
+                <p class="section-subtitle fade-in-up">A research method to know, and its limits to respect</p>
+
+                <div class="split-section fade-in-up">
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Worth Knowing For</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Understanding Where VLMs Are Heading</strong>
+                                    <p>Latent-space reasoning explains why newer vision-language systems can reason about images in ways that never appear as visible text, useful context for anyone evaluating them.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Reasoning That Resists Verbalizing</strong>
+                                    <p>Tasks whose natural reasoning unit is spatial or visual, where forcing every step into words loses information a continuous representation could keep.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Tight Cross-Modal Coupling</strong>
+                                    <p>Problems where the visual and textual evidence must stay fused throughout, which the realign-every-step design is built to preserve.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--positive">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <div>
+                                    <strong>Model and Research Builders</strong>
+                                    <p>Teams designing or fine-tuning vision-language models who can implement latent reasoning at the architecture level, not just the prompt level.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-section__content">
+                        <h3 class="split-section__subtitle">Not the Right Fit When</h3>
+                        <div class="feature-list">
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>You Need a Prompt to Type Today</strong>
+                                    <p>MCOUT is a model-level method, not a prompt. If you are working with a fixed API and only the text box, reach for a promptable technique like Multimodal CoT instead.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Transparency Is Non-Negotiable</strong>
+                                    <p>When you must inspect and audit every reasoning step in plain language, latent reasoning hides the intermediate work by design, a written chain is more accountable.</p>
+                                </div>
+                            </div>
+                            <div class="feature-list__item feature-list__item--neutral">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="8" y1="12" x2="16" y2="12"/>
+                                </svg>
+                                <div>
+                                    <strong>Simple Single-Step Questions</strong>
+                                    <p>If a question needs no multi-step reasoning at all, iterative latent refinement is machinery the task does not call for.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /WHEN TO USE -->
+
+        <!-- === USE CASES === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Use Cases</h2>
+                <p class="section-subtitle fade-in-up">Where continuous-thought multimodal reasoning is most relevant</p>
+
+                <div class="use-case-showcase fade-in-up">
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Multimodal Understanding Research</h3>
+                        <p class="use-case-showcase__desc">Explore how reasoning in a shared latent space affects accuracy on broad vision-language benchmarks compared to written reasoning chains.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Vision-Language Model Design</h3>
+                        <p class="use-case-showcase__desc">Inform architecture choices for models meant to reason across image and text, weighing latent thought against token-by-token generation.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="2" y1="12" x2="22" y2="12"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Spatial and Diagram Reasoning</h3>
+                        <p class="use-case-showcase__desc">Tackle problems where the reasoning is inherently spatial and awkward to verbalize, letting the thought stay in a form that encodes structure directly.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11H5a2 2 0 0 0-2 2v7h6zM15 3H9v17h6zM21 8h-6v12h6a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Efficiency-Focused Reasoning</h3>
+                        <p class="use-case-showcase__desc">Investigate reasoning that does not spend a growing number of output tokens on every step, keeping the visible response compact.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Evaluating New VLM Releases</h3>
+                        <p class="use-case-showcase__desc">Read and assess systems that reason internally, understanding what latent multimodal reasoning enables and what it hides from view.</p>
+                    </div>
+
+                    <div class="use-case-showcase__item">
+                        <div class="use-case-showcase__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                            </svg>
+                        </div>
+                        <h3 class="use-case-showcase__title">Cross-Modal Alignment Studies</h3>
+                        <p class="use-case-showcase__desc">Study how renewing visual-textual alignment at each reasoning step affects whether models keep using the image or fall back on text priors.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /USE CASES -->
+
+        <!-- === FRAMEWORK POSITIONING === -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Where MCOUT Fits</h2>
+                <p class="section-subtitle fade-in-up">From written reasoning to reasoning in latent space</p>
+
+                <div class="evolution-timeline fade-in-up">
+                    <div class="era-marker">
+                        <span class="era-marker__year">Chain-of-Thought</span>
+                        <span class="era-marker__title">Reasoning in Words</span>
+                        <span class="era-marker__desc">Every step written out as language tokens</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Multimodal CoT</span>
+                        <span class="era-marker__title">Written Reasoning About Images</span>
+                        <span class="era-marker__desc">Text rationales grounded in visual input</span>
+                    </div>
+                    <div class="era-marker era-marker--active">
+                        <span class="era-marker__year">MCOUT</span>
+                        <span class="era-marker__title">Continuous Latent Reasoning</span>
+                        <span class="era-marker__desc">A hidden thought vector refined and aligned across modalities</span>
+                    </div>
+                    <div class="era-marker">
+                        <span class="era-marker__year">Multimodal Agents</span>
+                        <span class="era-marker__title">Reasoning That Acts</span>
+                        <span class="era-marker__desc">Latent and explicit reasoning driving multimodal action</span>
+                    </div>
+                </div>
+
+                <div class="callout tip fade-in-up">
+                    <div class="callout-title">A Different Place to Think</div>
+                    <p>Most reasoning techniques change what the model writes. MCOUT changes where the model reasons, moving the intermediate steps out of language and into the continuous latent space where visual and textual representations already live together. This is a research direction rather than a prompt, and it comes with a real trade-off: latent reasoning is harder to inspect than a written chain. But it also points at something important, that the most natural home for multimodal reasoning may not be words at all, and that the next generation of vision-language systems may do much of their thinking where we cannot directly read it.</p>
+                </div>
+            </div>
+        </section>
+        <!-- /FRAMEWORK POSITIONING -->
+
+        <!-- === RELATED FRAMEWORKS === -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Related Techniques</h2>
+                <p class="section-subtitle fade-in-up">Explore techniques connected to MCOUT</p>
+
+                <a href="multimodal-cot.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Counterpart</span>
+                        <span class="evolution-callout__title">Multimodal Chain of Thought</span>
+                        <span class="evolution-callout__desc">The written-reasoning counterpart to MCOUT. It reasons about images in explicit text steps, where MCOUT moves the same kind of reasoning into continuous latent space.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="../../chain-of-thought.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Foundation</span>
+                        <span class="evolution-callout__title">Chain-of-Thought</span>
+                        <span class="evolution-callout__desc">The original written step-by-step reasoning method. MCOUT is a response to its central limit: that reasoning must pass through language, one token at a time.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+
+                <a href="visual-cot.html" class="evolution-callout fade-in-up">
+                    <span class="evolution-callout__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 2l4 4-4 4"/>
+                            <path d="M3 11v-1a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 22l-4-4 4-4"/>
+                            <path d="M21 13v1a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </span>
+                    <div class="evolution-callout__content">
+                        <span class="evolution-callout__label">Related</span>
+                        <span class="evolution-callout__title">Visual CoT</span>
+                        <span class="evolution-callout__desc">Grounds reasoning in specific image regions through explicit steps. It shares MCOUT&rsquo;s goal of tightly coupling vision and reasoning, pursued in visible text rather than latent space.</span>
+                    </div>
+                    <span class="evolution-callout__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </section>
+        <!-- /RELATED FRAMEWORKS -->
+
+        <!-- === CTA SECTION === -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-corporate cta-corporate--dark fade-in-up" data-tour-step="3" data-tour-title="Try It Yourself" data-tour-desc="Ready to practice? These links take you to interactive tools where you can build and test prompts using this technique.">
+                    <canvas id="cta-neural-bg" class="cta-corporate__canvas"></canvas>
+                    <div class="cta-corporate__content">
+                        <h2 class="cta-corporate__title">Reason Beyond Words</h2>
+                        <p class="cta-corporate__text">MCOUT is a model-level method, but the promptable techniques it builds on are ready to use. Explore structured multimodal reasoning with our interactive tools.</p>
+                        <div class="cta-corporate__actions">
+                            <a href="../../../tools/guidance.html" class="btn btn-primary">Prompt Builder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /CTA SECTION -->
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <canvas id="footer-neural-bg" class="footer-neural-bg"></canvas>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../../../index.html" class="footer-logo">&lt;/Praxis <span>Library</span>&gt;</a>
+                    <p>From Prompting to Production. Built on Proven Techniques &amp; Frameworks.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Techniques</h4>
+                    <a href="../../prompt-basics.html">Prompt Basics</a>
+                    <a href="../../tokens.html">Tokens</a>
+                    <a href="../../crisp.html">CRISP Framework</a>
+                    <a href="../../crispe.html">CRISPE Framework</a>
+                    <a href="../../costar.html">CO-STAR Framework</a>
+                    <a href="../../react.html">ReAct Framework</a>
+                    <a href="../../flipped-interaction.html">Flipped Interaction</a>
+                    <a href="../../chain-of-thought.html">Chain-of-Thought</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>AI Readiness Tools</h4>
+                <a href="../../../tools/analyzer.html">Prompt Analyzer</a>
+                <a href="../../../tools/matcher.html">Technique Finder</a>
+                <a href="../../../tools/checklist.html">Preflight Checklist</a>
+                <a href="../../../tools/guidance.html">Prompt Builder</a>
+                <a href="../../../tools/persona.html">Persona Architect</a>
+                <a href="../../../tools/hallucination.html">Hallucination Spotter</a>                <a href="../../../quiz/index.html">Readiness Quiz</a>
+                <a href="../../../patterns/index.html">Patterns Library</a>
+                <a href="../../../pages/ai-safety.html">AI Safety</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <a href="../../../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../../../pages/audit-report.html">Audit Report</a>
+                <a href="../../../pages/about.html">About Praxis</a>
+                <a href="../../../pages/faq.html">FAQs</a>
+            </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>AI for Everyone</p>
+                <p class="footer-quote">&ldquo;True innovation in AI isn&rsquo;t just about companies adopting AI as a new technology, it&rsquo;s about people learning about, adapting to, and adopting Artificial Intelligence into their daily lives to empower and unlock their own human potential.&rdquo; <span class="footer-quote-author">- Basiliso (Bas) Rosario</span></p>
+            </div>
+
+            <div class="footer-policies">
+            <a href="../../../pages/responsible-ai.html">Responsible AI</a>
+                <a href="../../../pages/use-policy.html">Use Policy</a>
+                <a href="../../../pages/site-policy.html">Site Policy</a>
+                <a href="../../../pages/security-policy.html">Security Policy</a>
+                <a href="../../../pages/data-retention-policy.html">Data Retention</a>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- === BACK-TO-TOP === -->
+    <button class="back-to-top-bar" aria-label="Back to top">
+        <span class="back-to-top-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </span>
+        <span class="back-to-top-text">Back to Top</span>
+    </button>
+    <!-- /BACK-TO-TOP -->
+
+    <!-- === ACCESSIBILITY DASHBOARD === -->
+
+    <div class="adl-dim-overlay" aria-hidden="true"></div>
+    <button class="adl-toggle" aria-label="Accessibility options" aria-expanded="false" aria-controls="adl-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 13v6M9 17l3 3 3-3"/>
+        </svg>
+    </button>
+    <div class="adl-panel" id="adl-panel" role="dialog" aria-label="Accessibility Settings">
+        <div class="adl-panel-header">
+            <span class="adl-panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M12 13v6M9 17l3 3 3-3"/>
+                </svg>
+                Accessibility
+            </span>
+            <button class="adl-close" aria-label="Close accessibility panel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Text Size</span>
+            <div class="adl-btn-group">
+                <button class="adl-btn is-active" data-scale="1" aria-label="Normal text size">1x</button>
+                <button class="adl-btn" data-scale="2" aria-label="Large text size">2x</button>
+                <button class="adl-btn" data-scale="3" aria-label="Extra large text size">3x</button>
+            </div>
+        </div>
+        <div class="adl-control">
+            <div class="adl-switch-wrapper">
+                <span class="adl-switch-label">High Contrast</span>
+                <label class="adl-switch">
+                    <input type="checkbox" id="adl-contrast-toggle" aria-label="Toggle high contrast mode">
+                    <span class="adl-switch-track"></span>
+                </label>
+            </div>
+        </div>
+        <div class="adl-control adl-readaloud">
+            <span class="adl-label">Read Aloud</span>
+            <div class="adl-readaloud-controls">
+                <button class="adl-play-btn" aria-label="Play or pause reading">
+                    <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                </button>
+                <div class="adl-speed-group">
+                    <button class="adl-speed-btn" data-speed="slow">Slow</button>
+                    <button class="adl-speed-btn is-active" data-speed="normal">Normal</button>
+                    <button class="adl-speed-btn" data-speed="fast">Fast</button>
+                </div>
+            </div>
+            <div class="adl-reading-indicator"></div>
+        </div>
+        <div class="adl-control">
+            <span class="adl-label">Screen Dimming</span>
+            <div class="adl-range-wrapper">
+                <input type="range" class="adl-range" id="adl-dim-slider" min="0" max="50" value="0" aria-label="Screen dimming level">
+                <span class="adl-range-value">0%</span>
+            </div>
+        </div>
+        <button class="adl-reset" aria-label="Reset accessibility settings to defaults">Reset to Defaults</button>
+    </div>
+    <!-- /ACCESSIBILITY DASHBOARD -->
+
+    <script src="../../../app.js" defer></script>
+</body>
+</html>
+
+<!-- deploy-marker: 2026-06-30T00:00Z -->
