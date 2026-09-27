@@ -8136,6 +8136,56 @@ document.addEventListener('DOMContentLoaded', () => {
             return ('speechSynthesis' in window) && voicesReady;
         }
 
+        /**
+         * Split text into chunks of at most maxChars, breaking at sentence
+         * boundaries (terminal punctuation followed by whitespace) when
+         * possible. Returns [{ text, start }] where start is the chunk's exact
+         * offset in the input, so resume math never has to guess at collapsed
+         * whitespace or hard splits. ES5 on purpose, like the rest of this block.
+         */
+        function chunkTextForSpeech(text, maxChars) {
+            maxChars = maxChars || 1500;
+            var sentences = [];
+            function pushSentence(raw, rawStart) {
+                var lead = raw.length - raw.replace(/^\s+/, '').length;
+                var trimmed = raw.trim();
+                if (trimmed) sentences.push({ text: trimmed, start: rawStart + lead });
+            }
+            var boundary = /([.!?]+)(\s+|$)/g;
+            var cursor = 0;
+            var m;
+            while ((m = boundary.exec(text)) !== null) {
+                pushSentence(text.slice(cursor, m.index + m[1].length), cursor);
+                cursor = boundary.lastIndex;
+                if (cursor >= text.length) break;
+            }
+            if (cursor < text.length) pushSentence(text.slice(cursor), cursor);
+
+            var chunks = [];
+            var current = null;
+            for (var i = 0; i < sentences.length; i++) {
+                var sentence = sentences[i];
+                // A single sentence longer than the limit is hard-split.
+                if (sentence.text.length > maxChars) {
+                    if (current) { chunks.push(current); current = null; }
+                    for (var j = 0; j < sentence.text.length; j += maxChars) {
+                        chunks.push({ text: sentence.text.substring(j, j + maxChars), start: sentence.start + j });
+                    }
+                    continue;
+                }
+                if (!current) {
+                    current = { text: sentence.text, start: sentence.start };
+                } else if (current.text.length + 1 + sentence.text.length <= maxChars) {
+                    current.text += ' ' + sentence.text;
+                } else {
+                    chunks.push(current);
+                    current = { text: sentence.text, start: sentence.start };
+                }
+            }
+            if (current) chunks.push(current);
+            return chunks;
+        }
+
         // --- Read Aloud Feature ---
         const readAloudState = {
             isPlaying: false,
@@ -8143,7 +8193,11 @@ document.addEventListener('DOMContentLoaded', () => {
             currentElement: null,
             fullText: '',
             charIndex: 0,
-            resuming: false
+            chunks: [],         // queue of remaining chunks, [{ text, start }]
+            chunkIdx: 0,        // index of the currently-speaking chunk
+            chunkBase: 0,       // absolute charIndex of the text the queue was built from
+            chunkStartChar: 0,  // absolute charIndex where the current chunk starts
+            readyTimer: null    // 3 s "voices never loaded" timer
         };
 
         const speedRates = {
@@ -8159,14 +8213,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const readingIndicator = adlPanel.querySelector('.adl-reading-indicator');
 
         function stopReading() {
-            // Skip cleanup if we're just resuming with new volume
-            if (readAloudState.resuming) return;
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
             }
             readAloudState.isPlaying = false;
             readAloudState.fullText = '';
             readAloudState.charIndex = 0;
+            readAloudState.chunks = [];
+            readAloudState.chunkIdx = 0;
+            readAloudState.chunkBase = 0;
+            readAloudState.chunkStartChar = 0;
+            readAloudState.utterance = null;
             document.body.classList.remove('adl-reading-mode');
             if (playBtn) playBtn.classList.remove('is-playing');
             if (readingIndicator) {
@@ -8236,45 +8293,93 @@ document.addEventListener('DOMContentLoaded', () => {
             speakText(fullText, startFrom);
         }
 
-        /** Speak text from a given string, used by both readPageContent and resumeAtVolume */
-        function speakText(text, startFrom) {
+        /**
+         * Speak text as a queue of chunked utterances. Used by readPageContent
+         * and resumeAtVolume.
+         * @param {string} text
+         * @param {Element|null} startFrom - element the read started from (indicator copy only)
+         * @param {number} [baseChar=0] - absolute charIndex of text[0] within readAloudState.fullText
+         */
+        function speakText(text, startFrom, baseChar) {
             if (!text.trim()) return;
+            if (!isReadAloudReady()) {
+                if (readingIndicator) readingIndicator.textContent = 'Read-aloud is initializing, try again in a moment';
+                console.warn('[ReadAloud] voices not yet loaded -- speak deferred');
+                // Engine present but voices never arrive: say so after 3 s.
+                if (readAloudState.readyTimer) clearTimeout(readAloudState.readyTimer);
+                readAloudState.readyTimer = setTimeout(function() {
+                    readAloudState.readyTimer = null;
+                    if (!isReadAloudReady() && readingIndicator) {
+                        readingIndicator.textContent = 'Read-aloud is unavailable right now. Try a different browser.';
+                    }
+                }, 3000);
+                return;
+            }
 
-            readAloudState.utterance = new SpeechSynthesisUtterance(text);
-            readAloudState.utterance.rate = speedRates[currentPrefs.readAloudSpeed] || 1.0;
-            readAloudState.utterance.volume = (currentPrefs.volume != null ? currentPrefs.volume : 100) / 100;
-            readAloudState.utterance.lang = 'en-US';
+            readAloudState.chunks = chunkTextForSpeech(text, 1500);
+            readAloudState.chunkIdx = 0;
+            readAloudState.chunkBase = baseChar || 0;
+            readAloudState.chunkStartChar = readAloudState.chunkBase;
+            console.info('[ReadAloud] queued', readAloudState.chunks.length, 'chunks');
 
-            // Track reading position via boundary events
-            readAloudState.utterance.onboundary = function(e) {
-                // charIndex is relative to current utterance text; offset to absolute position
-                readAloudState.charIndex = (readAloudState.fullText.length - text.length) + e.charIndex;
+            var indicatorPrefix = startFrom
+                ? 'Reading from: ' + text.substring(0, 40).trim() + '...'
+                : 'Reading page content...';
+
+            speakNextChunk(indicatorPrefix);
+        }
+
+        /** Speak the next queued chunk. Recurses via onend until the queue is empty. */
+        function speakNextChunk(indicatorPrefix) {
+            if (readAloudState.chunkIdx >= readAloudState.chunks.length) {
+                stopReading();
+                if (readingIndicator) readingIndicator.textContent = 'Finished reading';
+                return;
+            }
+            var chunk = readAloudState.chunks[readAloudState.chunkIdx];
+            readAloudState.chunkStartChar = readAloudState.chunkBase + chunk.start;
+            var u = new SpeechSynthesisUtterance(chunk.text);
+            u.rate = speedRates[currentPrefs.readAloudSpeed] || 1.0;
+            u.volume = (currentPrefs.volume != null ? currentPrefs.volume : 100) / 100;
+            u.lang = 'en-US';
+
+            // Engines deliver end/error for a cancelled utterance asynchronously.
+            // Only the utterance the queue currently owns may drive state.
+            function isCurrent() { return readAloudState.utterance === u; }
+
+            u.onboundary = function(e) {
+                if (!isCurrent()) return;
+                readAloudState.charIndex = readAloudState.chunkStartChar + e.charIndex;
             };
 
-            var indicatorPrefix = startFrom ? 'Reading from: ' + text.substring(0, 40).trim() + '...' : 'Reading page content...';
-
-            readAloudState.utterance.onstart = function() {
-                readAloudState.isPlaying = true;
-                readAloudState.resuming = false;
-                document.body.classList.add('adl-reading-mode');
-                if (playBtn) playBtn.classList.add('is-playing');
-                if (readingIndicator) {
-                    readingIndicator.textContent = indicatorPrefix;
-                    readingIndicator.classList.add('is-active');
+            u.onstart = function() {
+                if (!isCurrent()) return;
+                if (readAloudState.chunkIdx === 0) {
+                    readAloudState.isPlaying = true;
+                    document.body.classList.add('adl-reading-mode');
+                    if (playBtn) playBtn.classList.add('is-playing');
+                    if (readingIndicator) {
+                        readingIndicator.textContent = indicatorPrefix;
+                        readingIndicator.classList.add('is-active');
+                    }
                 }
             };
 
-            readAloudState.utterance.onend = function() {
-                stopReading();
-                if (readingIndicator) readingIndicator.textContent = 'Finished reading';
+            u.onend = function() {
+                if (!isCurrent()) return;
+                readAloudState.chunkIdx += 1;
+                speakNextChunk(indicatorPrefix);
             };
 
-            readAloudState.utterance.onerror = function() {
+            u.onerror = function(e) {
+                if (!isCurrent()) return;
+                console.warn('[ReadAloud] SpeechSynthesisUtterance error:', e.error, 'at charIndex', e.charIndex, 'in chunk', readAloudState.chunkIdx, 'of', readAloudState.chunks.length);
                 stopReading();
-                if (readingIndicator) readingIndicator.textContent = 'Error reading content';
+                if (readingIndicator) readingIndicator.textContent = 'Read-aloud error: ' + (e.error || 'unknown');
             };
 
-            window.speechSynthesis.speak(readAloudState.utterance);
+            readAloudState.utterance = u;
+            window.speechSynthesis.speak(u);
         }
 
         /** Resume reading from tracked position with current volume */
@@ -8282,11 +8387,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!readAloudState.fullText) return;
             var remaining = readAloudState.fullText.substring(readAloudState.charIndex);
             if (!remaining.trim()) return;
-            // Flag prevents stopReading cleanup when cancel triggers onerror async
-            readAloudState.resuming = true;
+            // cancel() makes the engine fire an async end/error for the current
+            // utterance; the stale-utterance guard in speakNextChunk drops it.
             window.speechSynthesis.cancel();
-            // Keep flag on through async onerror, clear it once new speech starts
-            speakText(remaining, null);
+            speakText(remaining, null, readAloudState.charIndex);
         }
 
         if (playBtn) {
