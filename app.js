@@ -8119,6 +8119,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // Voice cache: speechSynthesis.getVoices() returns [] until the
+        // voiceschanged event fires. Cache the result so consumers can
+        // check readiness without race conditions.
+        var voicesReady = false;
+        var cachedVoices = [];
+        if ('speechSynthesis' in window) {
+            cachedVoices = window.speechSynthesis.getVoices();
+            voicesReady = cachedVoices.length > 0;
+            window.speechSynthesis.addEventListener('voiceschanged', function() {
+                cachedVoices = window.speechSynthesis.getVoices();
+                voicesReady = cachedVoices.length > 0;
+            });
+        }
+        function isReadAloudReady() {
+            return ('speechSynthesis' in window) && voicesReady;
+        }
+
         // --- Read Aloud Feature ---
         const readAloudState = {
             isPlaying: false,
