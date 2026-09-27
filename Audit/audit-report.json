@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "date": "2026-09-24",
-    "time": "22:04:07",
-    "timestamp": "2026-09-24T22:04:07.356028",
-    "duration": 9.7,
+    "date": "2026-09-26",
+    "time": "20:55:43",
+    "timestamp": "2026-09-26T20:55:43.417713",
+    "duration": 18.2,
     "tool_version": "PraxisLibraryAudit.py v4.0 (BuiltByBas QF)",
     "url_checks_enabled": false
   },
@@ -38,10 +38,10 @@
     "categories_passed": 13,
     "categories_total": 13,
     "total_errors": 0,
-    "total_warnings": 0,
+    "total_warnings": 3,
     "total_info": 5,
     "unique_error_types": 0,
-    "unique_warning_types": 0,
+    "unique_warning_types": 2,
     "citations_verified": 88
   },
   "categories": [
@@ -179,7 +179,7 @@
       "files_scanned": 286,
       "checks_run": 714,
       "error_count": 0,
-      "warning_count": 0,
+      "warning_count": 2,
       "info_count": 1,
       "verified_count": 0,
       "description": "Documentation freshness — validates .claude/ docs exist, cross-references claimed counts against filesystem, and detects stale session references.",
@@ -212,7 +212,20 @@
         }
       ],
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        {
+          "file_path": ".claude/SITEMAP.md",
+          "line_number": 0,
+          "message": "Possibly stale: latest session reference is 144, current is 150 (gap of 6 sessions)",
+          "suggestion": "Review and update to reflect session 150 state"
+        },
+        {
+          "file_path": ".claude/reference/SiteFrameworks.md",
+          "line_number": 0,
+          "message": "Possibly stale: latest session reference is 144, current is 150 (gap of 6 sessions)",
+          "suggestion": "Review and update to reflect session 150 state"
+        }
+      ],
       "infos": [
         {
           "file_path": ".claude/sourcingstandards.md",
@@ -365,19 +378,26 @@
       "files_scanned": 0,
       "checks_run": 3,
       "error_count": 0,
-      "warning_count": 0,
+      "warning_count": 1,
       "info_count": 1,
       "verified_count": 0,
       "description": "",
       "why": "",
       "checks": [],
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        {
+          "file_path": ".git",
+          "line_number": 0,
+          "message": "Git working tree has 1 uncommitted change(s)",
+          "suggestion": "Commit or stash changes before deploy"
+        }
+      ],
       "infos": [
         {
           "file_path": ".git",
           "line_number": 0,
-          "message": "1 git tag(s) available for rollback",
+          "message": "2 git tag(s) available for rollback",
           "suggestion": ""
         }
       ],
