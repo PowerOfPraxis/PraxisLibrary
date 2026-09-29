@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "date": "2026-09-27",
-    "time": "00:45:23",
-    "timestamp": "2026-09-27T00:45:23.817020",
-    "duration": 14.0,
+    "date": "2026-09-28",
+    "time": "23:49:51",
+    "timestamp": "2026-09-28T23:49:51.014740",
+    "duration": 12.5,
     "tool_version": "PraxisLibraryAudit.py v4.0 (BuiltByBas QF)",
     "url_checks_enabled": false
   },
@@ -56,7 +56,7 @@
       "warning_count": 0,
       "info_count": 0,
       "verified_count": 0,
-      "description": "CSP A+ compliance — ensures zero inline code, no external resource dependencies, and no dangerous JavaScript patterns.",
+      "description": "CSP A+ compliance: ensures zero inline code, no external resource dependencies, and no dangerous JavaScript patterns.",
       "why": "Content Security Policy (CSP) A+ rating requires strict separation of markup, styles, and scripts. Inline code enables cross-site scripting (XSS) attacks. External CDN dependencies create supply-chain risk and single points of failure. Dangerous JS patterns like `eval()` and `document.write()` bypass CSP and enable code injection. This category enforces the OWASP-recommended defense-in-depth strategy.",
       "checks": [
         {
@@ -106,9 +106,40 @@
       "warning_count": 0,
       "info_count": 0,
       "verified_count": 0,
-      "description": "",
-      "why": "",
-      "checks": [],
+      "description": "Page weight and loading: checks stylesheet and script size, render-blocking tags, inline images, and image file sizes. These are static file checks. Load speed in a real browser is measured separately with Lighthouse.",
+      "why": "Every extra kilobyte costs visitors time and data, most of all on phones and slow connections. One stylesheet and one deferred script keep pages from stalling while they load. Oversized images are the most common cause of slow pages.",
+      "checks": [
+        {
+          "name": "Stylesheet size",
+          "severity": "WARNING",
+          "description": "Counts the lines in `styles.css`. Flags the file above 40,000 lines."
+        },
+        {
+          "name": "Script size",
+          "severity": "WARNING",
+          "description": "Counts the lines in `app.js`. Flags the file above 20,000 lines."
+        },
+        {
+          "name": "Single stylesheet per page",
+          "severity": "WARNING",
+          "description": "Scans every HTML page for a stylesheet link that points anywhere other than `styles.css`."
+        },
+        {
+          "name": "Deferred scripts",
+          "severity": "ERROR",
+          "description": "Scans every HTML page for `<script src>` tags missing the `defer` attribute. JSON-LD structured data is exempt."
+        },
+        {
+          "name": "Inline base64 images",
+          "severity": "WARNING",
+          "description": "Flags images embedded in HTML as base64 text of 10,000 or more encoded characters."
+        },
+        {
+          "name": "Image file size",
+          "severity": "ERROR/WARNING",
+          "description": "Measures each image directly inside `assets/`, `assets/images/`, and `assets/icons/`. Over 500 KB is a warning, over 1,024 KB is an error. Subfolders are not scanned."
+        }
+      ],
       "errors": [],
       "warnings": [],
       "infos": [],
@@ -125,38 +156,193 @@
       "warning_count": 0,
       "info_count": 1,
       "verified_count": 0,
-      "description": "Source verification — counts institutional citations (Tier 1-4 authority model), verifies sources with human oversight, and enforces the 2024+ freshness policy.",
-      "why": "An AI education site must cite authoritative, current sources. The project's 4-tier sourcing policy (v2.0) requires institutional sources: Tier 1 (gov/edu/intl orgs), Tier 2 (research bodies), Tier 3 (primary company data), Tier 4 (research-grade editorial). Citations older than 2024 are ERROR-level violations because AI research evolves rapidly and outdated data misleads users. Every statistic displayed in highlight boxes or stat cards must have visible source attribution. Citation tracking (`data-added` attributes) enables ongoing freshness auditing. This category enforces the full sourcing standards defined in `.claude/sourcingstandards.md`.",
+      "description": "Complete, working, sourced pages. Four areas: template compliance (every page has its required parts), link integrity (every link resolves), content readiness (no placeholder text or outdated dates), and source verification (citations are institutional, current, and human-verified).",
+      "why": "Every page must work as a standalone entry point, with its navigation, accessibility aids, and ethics notices in place. Broken links and placeholder text cost visitor trust. An AI education site must cite authoritative, current sources, so every citation is checked against the sourcing policy and verified by a person.",
       "checks": [
         {
-          "name": "Institutional citation verification",
-          "severity": "ERROR/VERIFIED",
-          "description": "Each institutional URL is individually checked — unverified get ERROR, human-verified get VERIFIED badge"
+          "name": "Template: HTML lang attribute",
+          "severity": "ERROR",
+          "description": "Every page must have `<html lang=\"en\">`"
         },
         {
-          "name": "Highlight box attribution",
+          "name": "Template: Meta charset",
+          "severity": "ERROR",
+          "description": "Every page must declare `<meta charset=\"UTF-8\">`"
+        },
+        {
+          "name": "Template: Viewport meta tag",
+          "severity": "ERROR",
+          "description": "Every page must have a responsive viewport meta tag"
+        },
+        {
+          "name": "Template: Meta description",
+          "severity": "WARNING",
+          "description": "Every page should have a `<meta name=\"description\">` tag"
+        },
+        {
+          "name": "Template: Favicon link",
+          "severity": "WARNING",
+          "description": "Every page should link to the site favicon"
+        },
+        {
+          "name": "Template: Stylesheet link",
+          "severity": "ERROR",
+          "description": "Every page must link to `styles.css`"
+        },
+        {
+          "name": "Template: App script with defer",
+          "severity": "ERROR",
+          "description": "Every page must include `app.js` with the `defer` attribute"
+        },
+        {
+          "name": "Template: Skip-to-content link",
+          "severity": "ERROR",
+          "description": "Accessibility requirement: skip-link for keyboard users"
+        },
+        {
+          "name": "Template: Header element",
+          "severity": "ERROR",
+          "description": "Every page must have a `<header>` with site navigation"
+        },
+        {
+          "name": "Template: Main content",
+          "severity": "ERROR",
+          "description": "Every page must have `<main id=\"main-content\">`"
+        },
+        {
+          "name": "Template: Footer element",
+          "severity": "ERROR",
+          "description": "Every page must have a `<footer>` section"
+        },
+        {
+          "name": "Template: Back-to-top button",
+          "severity": "WARNING",
+          "description": "Every page should have the back-to-top bar"
+        },
+        {
+          "name": "Template: ADL panel",
+          "severity": "WARNING",
+          "description": "Every page should include the Accessibility Dashboard panel"
+        },
+        {
+          "name": "Template: SEO meta block",
+          "severity": "ERROR",
+          "description": "Every page must have `<!-- SEO Meta -->` marker (from seo_inject.py)"
+        },
+        {
+          "name": "Template: Canonical URL",
+          "severity": "ERROR",
+          "description": "Every page must have a `<link rel=\"canonical\">` tag"
+        },
+        {
+          "name": "Template: Open Graph tags",
+          "severity": "ERROR",
+          "description": "Every page must have og:title, og:description, og:image, and og:url"
+        },
+        {
+          "name": "Template: JSON-LD structured data",
+          "severity": "ERROR",
+          "description": "Every page must have `application/ld+json` schema markup"
+        },
+        {
+          "name": "Template: Twitter/X card",
+          "severity": "WARNING",
+          "description": "Every page should have a twitter:card meta tag"
+        },
+        {
+          "name": "Template: Discover navigation menu",
+          "severity": "ERROR",
+          "description": "Every page must have the Discover category menu (mega-menu--categories)"
+        },
+        {
+          "name": "Template: Resources menu",
+          "severity": "ERROR",
+          "description": "Every page must have the Resources quick-links menu (mega-menu-quick-links)"
+        },
+        {
+          "name": "Template: Breadcrumb navigation",
+          "severity": "WARNING",
+          "description": "All interior pages (not root index.html) must have breadcrumb navigation for wayfinding"
+        },
+        {
+          "name": "Template: Ethics ticker (app.js)",
+          "severity": "ERROR",
+          "description": "app.js must contain the ethics-ticker IIFE that creates the ticker DOM"
+        },
+        {
+          "name": "Template: Ethics ticker (styles.css)",
+          "severity": "ERROR",
+          "description": "styles.css must contain .ethics-ticker style rules"
+        },
+        {
+          "name": "Template: Policy links in footer",
+          "severity": "ERROR",
+          "description": "Footer must link to all active policy pages"
+        },
+        {
+          "name": "Template: Tool links in footer",
+          "severity": "ERROR",
+          "description": "Footer must link to all active AI Readiness Tools"
+        },
+        {
+          "name": "Links: Internal link resolution",
+          "severity": "ERROR",
+          "description": "Resolves each `href`/`src` relative to the file's directory depth and checks if the target file exists. Directory links resolved to index.html."
+        },
+        {
+          "name": "Links: External URL reachability",
+          "severity": "ERROR",
+          "description": "HTTP HEAD/GET check for each unique external URL in `<a>` tags only (multi-line safe regex). Unverified links = ERROR. Skip with `--skip-urls`."
+        },
+        {
+          "name": "Links: Bot-blocked domain verification",
+          "severity": "ERROR",
+          "description": "Bot-blocked domains that cannot be HTTP-checked require screenshot evidence in assets/Citation images/ registered in Audit/verified-items.json. Verified links get INFO; unverified links get ERROR."
+        },
+        {
+          "name": "Links: Special URI skipping",
+          "severity": "INFO",
+          "description": "Skips `#`, `mailto:`, `tel:`, `javascript:`, and `data:` URIs, not checkable links."
+        },
+        {
+          "name": "Content: Placeholder content",
+          "severity": "WARNING",
+          "description": "Detects 'coming soon', 'TODO', 'TBD', 'FIXME', 'lorem ipsum', 'WIP', 'HACK', 'XXX', 'TEMP', and bare 'placeholder' in visible text. Skips multi-line HTML comments."
+        },
+        {
+          "name": "Content: Outdated dates",
+          "severity": "INFO",
+          "description": "Flags years 2000 to 2023 in content (context-aware: exempts historical keywords, academic citations, date-safe components, and educational examples, no directory-level exemptions). Skips multi-line HTML comments."
+        },
+        {
+          "name": "Sources: Institutional citation verification",
+          "severity": "ERROR/VERIFIED",
+          "description": "Each institutional URL is individually checked, unverified get ERROR, human-verified get VERIFIED badge"
+        },
+        {
+          "name": "Sources: Highlight box attribution",
           "severity": "WARNING",
           "description": "Content-page highlight boxes with specific stats (%, $, numeric billion/million) must have a `highlight-box__source` element. Skips learn/ (no-citations rule) and tools/ (example content). Skips historical-context (--warning) boxes."
         },
         {
-          "name": "Stat card attribution",
+          "name": "Sources: Stat card attribution",
           "severity": "WARNING",
           "description": "Research stat cards must have a `research-stat-card__source` element"
         },
         {
-          "name": "Citation freshness (STRICT)",
+          "name": "Sources: Citation freshness (STRICT)",
           "severity": "ERROR",
-          "description": "All external citations on ALL pages must be from 2024 or later. Multi-line safe (full-text regex). Detects dates in URL paths, stripped anchor text, and nearby highlight-box__source context. No directory skips — every page is scanned."
+          "description": "All external citations on ALL pages must be from 2024 or later. Multi-line safe (full-text regex). Detects dates in URL paths, stripped anchor text, and nearby highlight-box__source context. No directory skips, every page is scanned."
         },
         {
-          "name": "Citation timestamp tracking",
+          "name": "Sources: Citation timestamp tracking",
           "severity": "WARNING",
           "description": "External links on citation pages must have `data-added=\"YYYY-MM-DD\"` within the `<a>` tag itself (tag-scoped, not line-scoped)."
         },
         {
-          "name": "Citation URL reachability",
+          "name": "Sources: Citation URL reachability",
           "severity": "ERROR",
-          "description": "HTTP HEAD/GET check for each institutional URL. Bot-blocked domains require screenshot evidence in assets/Citation images/ — verified get INFO, unverified get ERROR. Skip HTTP checks with `--skip-urls`."
+          "description": "HTTP HEAD/GET check for each institutional URL. Bot-blocked domains require screenshot evidence in assets/Citation images/, verified get INFO, unverified get ERROR. Skip HTTP checks with `--skip-urls`."
         }
       ],
       "errors": [],
@@ -182,31 +368,81 @@
       "warning_count": 0,
       "info_count": 1,
       "verified_count": 0,
-      "description": "Documentation freshness — validates .claude/ docs exist, cross-references claimed counts against filesystem, and detects stale session references.",
-      "why": "Project documentation that contradicts the actual codebase causes confusion during development. Missing critical docs (HANDOFF.md, sourcing standards) break the project's session continuity model. Stale session references indicate documents that haven't been reviewed recently, increasing the risk of acting on outdated information. This category treats documentation as auditable infrastructure, not optional artifacts.",
+      "description": "What the site says matches what exists. Two areas: content consistency (counters, search index, glossary, and page structure agree across all pages) and documentation freshness (project documents exist and their claimed counts match the files).",
+      "why": "Stale counters and mismatched totals undermine trust in a site that teaches AI accuracy. Project documents that contradict the codebase lead to work based on outdated information. This category treats both the visible numbers and the documentation as things to be audited.",
       "checks": [
         {
-          "name": "Required docs exist",
+          "name": "Consistency: HTML file count",
+          "severity": "INFO",
+          "description": "Reports total HTML files discovered in the site"
+        },
+        {
+          "name": "Consistency: Glossary manifest integrity",
+          "severity": "ERROR",
+          "description": "Verifies `manifest.json` totalTerms matches the sum of all per-letter shard counts"
+        },
+        {
+          "name": "Consistency: Shard count verification",
+          "severity": "ERROR",
+          "description": "Checks each letter shard's actual term count against the manifest's declared count"
+        },
+        {
+          "name": "Consistency: Search index validation",
+          "severity": "ERROR/WARNING",
+          "description": "Validates `search-index.json` exists, is a non-empty JSON array, and every entry has title + url fields"
+        },
+        {
+          "name": "Consistency: Homepage counter values",
+          "severity": "WARNING",
+          "description": "Validates `data-counter` attributes on index.html against actual tool count, glossary terms, AND framework page count"
+        },
+        {
+          "name": "Consistency: Glossary page count sync",
+          "severity": "WARNING",
+          "description": "Verifies the glossary term count appears consistently across `pages/glossary.html` (3+ locations)"
+        },
+        {
+          "name": "Consistency: Comparison panel structure",
+          "severity": "WARNING",
+          "description": "Every comparison-panel must contain a comparison-panel__divider element"
+        },
+        {
+          "name": "Consistency: Deprecated component classes",
+          "severity": "WARNING",
+          "description": "Flags old feature-list--check/--cross format (skips HTML comments), should use feature-list__item--positive/--neutral cards"
+        },
+        {
+          "name": "Consistency: Framework template completeness",
+          "severity": "WARNING",
+          "description": "Learn pages must have required sections: hero, concept, how-it-works, comparison, examples, when-to-use, use-cases, related, CTA"
+        },
+        {
+          "name": "Consistency: Footer tool count consistency",
+          "severity": "WARNING",
+          "description": "Footer AI Readiness section tool count must match discovered active tools on every page (div-depth-aware section parsing)"
+        },
+        {
+          "name": "Docs: Required docs exist",
           "severity": "ERROR",
           "description": "Verifies critical project docs (HANDOFF.md, sourcingstandards.md, SiteFrameworks.md, PraxisFramework.md) exist in .claude/"
         },
         {
-          "name": "HANDOFF.md count accuracy",
+          "name": "Docs: HANDOFF.md count accuracy",
           "severity": "WARNING",
           "description": "Cross-references HTML file count, glossary terms, interactive tools, and technique counts (total/text/modality) against filesystem"
         },
         {
-          "name": "SiteFrameworks.md count accuracy",
+          "name": "Docs: SiteFrameworks.md count accuracy",
           "severity": "WARNING",
           "description": "Cross-references CSS/JS line counts and total HTML count against actual files"
         },
         {
-          "name": "MASTER-INVENTORY.md count accuracy",
+          "name": "Docs: MASTER-INVENTORY.md count accuracy",
           "severity": "INFO",
-          "description": "Archived in Phase 12 (Session 113) — check skipped"
+          "description": "Archived in Phase 12 (Session 113), check skipped"
         },
         {
-          "name": "Stale session references",
+          "name": "Docs: Stale session references",
           "severity": "WARNING",
           "description": "Flags docs whose latest session reference is more than 5 sessions behind the most recent"
         }
@@ -234,7 +470,7 @@
       "warning_count": 0,
       "info_count": 0,
       "verified_count": 0,
-      "description": "WCAG AA compliance — checks language declarations, image alt text, heading hierarchy, link clarity, form labels, and tab order.",
+      "description": "WCAG AA compliance: checks language declarations, image alt text, heading hierarchy, link clarity, form labels, and tab order.",
       "why": "Web Content Accessibility Guidelines (WCAG) 2.1 Level AA compliance is both a legal requirement (ADA, Section 508) and a core site value. Missing `lang` attributes prevent screen readers from selecting the correct speech synthesizer. Missing `alt` attributes make images invisible to blind users. Skipped heading levels break document outline navigation. Vague link text ('click here') is meaningless to screen reader users who navigate by link list. Unlabelled form inputs are unusable without sight. Positive tabindex values create unpredictable tab order. This category verifies foundational accessibility requirements.",
       "checks": [
         {
@@ -250,7 +486,7 @@
         {
           "name": "Heading hierarchy",
           "severity": "WARNING",
-          "description": "Headings must not skip levels (e.g., h1 → h3 without h2); nav/footer headings excluded from hierarchy checks"
+          "description": "Headings must not skip levels (e.g., h1 to h3 without h2); nav/footer headings excluded from hierarchy checks"
         },
         {
           "name": "h1 presence",
@@ -260,7 +496,7 @@
         {
           "name": "Vague link text",
           "severity": "WARNING",
-          "description": "Links must have descriptive text — flags 'click here', 'read more', 'learn more', bare 'here'/'link'"
+          "description": "Links must have descriptive text, flags 'click here', 'read more', 'learn more', bare 'here'/'link'"
         },
         {
           "name": "Form label association",
@@ -270,7 +506,7 @@
         {
           "name": "Positive tabindex",
           "severity": "WARNING",
-          "description": "Flags `tabindex` values > 0 — overrides natural DOM tab order and creates unpredictable navigation"
+          "description": "Flags `tabindex` values > 0, overrides natural DOM tab order and creates unpredictable navigation"
         }
       ],
       "errors": [],
@@ -289,7 +525,7 @@
       "warning_count": 0,
       "info_count": 0,
       "verified_count": 0,
-      "description": "Site architecture — detects orphan files, duplicate IDs, meta description quality, deactivated tool links, sitemap coverage, and title tag quality.",
+      "description": "Site architecture: detects orphan files, duplicate IDs, meta description quality, deactivated tool links, sitemap coverage, and title tag quality.",
       "why": "Orphan pages are invisible to users and waste hosting resources. Duplicate HTML IDs cause unpredictable behavior in JavaScript and assistive technology. Short meta descriptions reduce click-through rates in search results. Links to deactivated tools send users to dead pages. Missing sitemap entries prevent search engine indexing. Poor title tags hurt both SEO ranking and browser tab readability. This category validates the structural integrity of the site as a whole.",
       "checks": [
         {
@@ -349,9 +585,35 @@
       "warning_count": 0,
       "info_count": 0,
       "verified_count": 0,
-      "description": "",
-      "why": "",
-      "checks": [],
+      "description": "Second copies: confirms the project is under version control, has a remote copy configured, and carries its governance documents. It confirms a remote exists. It does not confirm the remote is up to date.",
+      "why": "A site that lives on one machine is one hardware failure away from gone. Version control with a remote copy means the full history survives the loss of any single computer. Governance documents let someone else pick up the work if the maintainer cannot.",
+      "checks": [
+        {
+          "name": "Git repository",
+          "severity": "ERROR",
+          "description": "Confirms the project folder is a git repository."
+        },
+        {
+          "name": "Project instructions file",
+          "severity": "ERROR",
+          "description": "Confirms `CLAUDE.md` exists."
+        },
+        {
+          "name": "Governance documents",
+          "severity": "ERROR",
+          "description": "Confirms three documents exist: the handoff (current state), the issue log, and the health status. One check per document."
+        },
+        {
+          "name": "Ignore file",
+          "severity": "ERROR/WARNING",
+          "description": "Confirms `.gitignore` exists (error if missing) and is not empty (warning if empty)."
+        },
+        {
+          "name": "Remote copy configured",
+          "severity": "ERROR",
+          "description": "Runs `git remote -v` and confirms at least one remote is set, so the code does not exist on one machine only."
+        }
+      ],
       "errors": [],
       "warnings": [],
       "infos": [],
@@ -368,9 +630,25 @@
       "warning_count": 0,
       "info_count": 1,
       "verified_count": 0,
-      "description": "",
-      "why": "",
-      "checks": [],
+      "description": "Rollback readiness: checks for uncommitted changes, known-good rollback tags, and leftover merge conflict markers. It confirms rollback points exist. It does not rehearse an actual restore.",
+      "why": "When a release goes wrong, the fastest fix is returning to a version known to work. That needs tagged rollback points and a clean working state. Conflict markers left in a page would be shown to visitors as broken text.",
+      "checks": [
+        {
+          "name": "Uncommitted changes",
+          "severity": "WARNING",
+          "description": "Runs `git status` and flags any uncommitted change present when the audit ran."
+        },
+        {
+          "name": "Rollback tags",
+          "severity": "WARNING",
+          "description": "Lists git tags. No tags is a warning. When tags exist, the count is reported as an info item."
+        },
+        {
+          "name": "Merge conflict markers",
+          "severity": "ERROR",
+          "description": "Scans every HTML page for leftover git conflict markers."
+        }
+      ],
       "errors": [],
       "warnings": [],
       "infos": [
@@ -394,7 +672,7 @@
       "warning_count": 0,
       "info_count": 2,
       "verified_count": 0,
-      "description": "Content quality — loads terms from `bias-terms.json` and scans visible text only (HTML tags stripped) for bias, profanity, and slurs.",
+      "description": "Content quality: loads terms from `bias-terms.json` and scans visible text only (HTML tags stripped) for bias, profanity, and slurs.",
       "why": "An AI education site must model the inclusive communication standards it teaches. We maintain this term list not because these words are inherently wrong, but because language shapes perception. As a site with a neurodivergent audience, Praxis has a responsibility to surface terms that major industry style guides (Google, Microsoft, Apple, APA) have identified as carrying exclusionary, gendered, or ableist connotations. Profanity and slurs have zero tolerance on an educational site. The audit flags bias terms for human review (INFO) and profanity/slurs as best-practice violations (WARNING).",
       "checks": [
         {
@@ -405,7 +683,7 @@
         {
           "name": "Gendered language",
           "severity": "INFO",
-          "description": "Flags gendered terms — suggests gender-neutral alternatives"
+          "description": "Flags gendered terms, suggests gender-neutral alternatives"
         },
         {
           "name": "Tech exclusionary terms",
@@ -415,7 +693,7 @@
         {
           "name": "Ableist language",
           "severity": "INFO",
-          "description": "Catches disability-metaphor terms — suggests neutral alternatives"
+          "description": "Catches disability-metaphor terms, suggests neutral alternatives"
         },
         {
           "name": "Profanity",
@@ -457,9 +735,30 @@
       "warning_count": 0,
       "info_count": 0,
       "verified_count": 0,
-      "description": "",
-      "why": "",
-      "checks": [],
+      "description": "One place for each thing: confirms all styles live in one stylesheet, all scripts in one script file, data files in the data folder, and pages in their section folders.",
+      "why": "When every style is in one file and every script in another, there is one place to look and one place to fix. Stray files drift out of sync with the rest of the site and are easy to forget during updates.",
+      "checks": [
+        {
+          "name": "Single stylesheet file",
+          "severity": "ERROR",
+          "description": "Walks the site folders for any `.css` file other than `styles.css`."
+        },
+        {
+          "name": "Single script file",
+          "severity": "ERROR",
+          "description": "Walks the site folders for any `.js` file other than `app.js`."
+        },
+        {
+          "name": "Data file location",
+          "severity": "WARNING",
+          "description": "Flags `.json` files in a subfolder other than `data/` or `Audit/`."
+        },
+        {
+          "name": "Root folder pages",
+          "severity": "WARNING",
+          "description": "Only `index.html` and `404.html` may sit in the site root. Any other HTML file there is flagged."
+        }
+      ],
       "errors": [],
       "warnings": [],
       "infos": [],
@@ -476,13 +775,13 @@
       "warning_count": 0,
       "info_count": 0,
       "verified_count": 0,
-      "description": "Data integrity — validates JSON files, chart values, anchor targets, glossary fields, search index entries, and count synchronization.",
+      "description": "Data integrity: validates JSON files, chart values, anchor targets, glossary fields, search index entries, and count synchronization.",
       "why": "Corrupted JSON crashes the glossary, search, and chart systems at runtime. Mismatched gauge chart values display contradictory numbers. Broken anchor targets (#id links pointing to nonexistent elements) frustrate users. Missing glossary fields cause JavaScript errors during rendering. Invalid search index entries send users to 404 pages. This category ensures all structured data is parseable, internally consistent, and correctly linked.",
       "checks": [
         {
           "name": "Bar chart data-width range",
           "severity": "WARNING",
-          "description": "Validates `data-width` values are 0–100 (valid percentage range)"
+          "description": "Validates `data-width` values are 0 to 100 (valid percentage range)"
         },
         {
           "name": "Gauge chart value matching",
@@ -513,6 +812,11 @@
           "name": "Search index entry validation",
           "severity": "ERROR",
           "description": "Each search-index.json entry must have title and url fields, and url must resolve to an existing file"
+        },
+        {
+          "name": "Readability cascade",
+          "severity": "ERROR",
+          "description": "If the Readability category fails, this category fails too."
         }
       ],
       "errors": [],
@@ -531,9 +835,30 @@
       "warning_count": 0,
       "info_count": 0,
       "verified_count": 0,
-      "description": "",
-      "why": "",
-      "checks": [],
+      "description": "Built to last: checks for retired HTML elements, fonts loaded from an outside service, and a fallback for visitors without JavaScript.",
+      "why": "Browsers drop support for retired HTML over time, so pages that use it eventually break. Fonts loaded from an outside service stop working if that service changes or goes away. A site that depends on nothing outside itself keeps working for years without upkeep.",
+      "checks": [
+        {
+          "name": "Retired HTML elements",
+          "severity": "ERROR",
+          "description": "Scans every line of every page for `marquee`, `blink`, `font`, `center`, `big`, `strike`, `tt`, `frame`, `frameset`, and `applet`. Skips HTML comments."
+        },
+        {
+          "name": "Self-hosted fonts",
+          "severity": "ERROR",
+          "description": "Flags any page that loads fonts from Google Fonts."
+        },
+        {
+          "name": "No-script fallback",
+          "severity": "INFO",
+          "description": "Reports when no page on the site has a `<noscript>` element."
+        },
+        {
+          "name": "Security cascade",
+          "severity": "ERROR",
+          "description": "If the Security category fails, this category fails too."
+        }
+      ],
       "errors": [],
       "warnings": [],
       "infos": [],
@@ -550,9 +875,30 @@
       "warning_count": 0,
       "info_count": 0,
       "verified_count": 0,
-      "description": "",
-      "why": "",
-      "checks": [],
+      "description": "Failing gracefully: checks that script errors are not silently swallowed, that a 404 page exists, and that every interactive tool page loads the site script. These are static checks. The tools are not run in a browser by this audit.",
+      "why": "An error that is caught and ignored hides a problem until a visitor hits it. A missing 404 page leaves people at a dead end with no way back. A tool page that does not load the script shows a form that does nothing.",
+      "checks": [
+        {
+          "name": "Empty catch blocks",
+          "severity": "WARNING",
+          "description": "Scans `app.js` for `catch` blocks with nothing inside them."
+        },
+        {
+          "name": "404 page",
+          "severity": "WARNING",
+          "description": "Confirms a `404.html` page exists."
+        },
+        {
+          "name": "Tool pages load the script",
+          "severity": "ERROR",
+          "description": "Every active interactive tool page must reference `app.js`."
+        },
+        {
+          "name": "Security cascade",
+          "severity": "ERROR",
+          "description": "If the Security category fails, this category fails too."
+        }
+      ],
       "errors": [],
       "warnings": [],
       "infos": [],
