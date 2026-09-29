@@ -28058,6 +28058,17 @@ h3 + .nav-cards--compact {
     line-height: 1.65;
 }
 
+/* Inline code inside report text (file names, tags, commands) */
+.audit-code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: #e5e7eb;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    overflow-wrap: anywhere;
+}
+
 /* Checks List (legacy — replaced by .audit-checks-scroll) ---- */
 
 .audit-check-row {
@@ -28839,12 +28850,15 @@ h3 + .nav-cards--compact {
     visibility: hidden;
     transform: translateY(8px) scale(0.98);
     transform-origin: bottom left;
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    /* Closing: visibility waits for the fade to finish. */
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
 }
 .bmc-fab.is-open .bmc-card {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
+    /* Opening: visibility flips at once, so the close button can take focus. */
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s;
 }
 
 /* Card header (title + close) */

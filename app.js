@@ -12169,6 +12169,20 @@ document.addEventListener('DOMContentLoaded', function() {
         return e;
     }
 
+    /**
+     * Create an element whose text renders `backtick` spans as <code>.
+     * Built from text nodes only, so report text is never parsed as HTML.
+     */
+    function elWithCode(tag, cls, text) {
+        var e = el(tag, cls);
+        String(text).split('`').forEach(function(part, i) {
+            if (!part) return;
+            // Odd segments sit between a pair of backticks.
+            e.appendChild(i % 2 ? el('code', 'audit-code', part) : document.createTextNode(part));
+        });
+        return e;
+    }
+
     /** Format large numbers with commas */
     function fmtNum(n) {
         if (n === null || n === undefined) return '--';
@@ -12903,7 +12917,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (cat.description) {
                 var descBlock = el('div', 'audit-detail-block');
                 descBlock.appendChild(el('div', 'audit-detail-block__label', 'What it checks'));
-                descBlock.appendChild(el('div', 'audit-detail-block__text', cat.description));
+                descBlock.appendChild(elWithCode('div', 'audit-detail-block__text', cat.description));
                 content.appendChild(descBlock);
             }
 
@@ -12911,7 +12925,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (cat.why) {
                 var whyBlock = el('div', 'audit-detail-block');
                 whyBlock.appendChild(el('div', 'audit-detail-block__label', 'Why it matters'));
-                whyBlock.appendChild(el('div', 'audit-detail-block__text', cat.why));
+                whyBlock.appendChild(elWithCode('div', 'audit-detail-block__text', cat.why));
                 content.appendChild(whyBlock);
             }
 
@@ -12926,7 +12940,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     row.appendChild(el('span', sevCls, check.severity));
                     var details = el('div', 'audit-check-row__details');
                     details.appendChild(el('div', 'audit-check-row__name', check.name));
-                    details.appendChild(el('div', 'audit-check-row__desc', check.description));
+                    details.appendChild(elWithCode('div', 'audit-check-row__desc', check.description));
                     row.appendChild(details);
                     checksScroll.appendChild(row);
                 });
@@ -13906,10 +13920,15 @@ document.addEventListener('DOMContentLoaded', function() {
 // Buy Me a Coffee yellow. Stays CSP A+: no external
 // resource is loaded, the icon is inline SVG, and
 // the link simply navigates outward on click.
+// Opens by itself once per browsing session, on the
+// home page only, then closes after a few seconds.
 // ==============================================
 (function initSupportFab() {
     'use strict';
     var BMC_URL = 'https://buymeacoffee.com/builtbybas';
+    var AUTO_SHOWN_KEY = 'praxis-bmc-auto-shown';
+    var AUTO_OPEN_DELAY_MS = 1500;
+    var AUTO_CLOSE_MS = 8000;
 
     // Inline SVG markup (same-document, CSP-safe).
     var cupIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 8h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V8z"/><path d="M16 9h2.5a2.5 2.5 0 0 1 0 5H16"/><line x1="7" y1="3" x2="7" y2="5"/><line x1="11" y1="3" x2="11" y2="5"/></svg>';
@@ -13977,14 +13996,32 @@ document.addEventListener('DOMContentLoaded', function() {
         fab.appendChild(toggle);
         document.body.appendChild(fab);
 
-        /** Open the card and move focus to its close button. */
-        function openCard() {
+        var autoCloseTimer = null;
+        // True only while an auto-opened card is still open.
+        var autoOpened = false;
+
+        /** Cancel a pending auto-close, if any. */
+        function clearAutoClose() {
+            if (autoCloseTimer !== null) {
+                clearTimeout(autoCloseTimer);
+                autoCloseTimer = null;
+            }
+        }
+        /**
+         * Open the card.
+         * @param {boolean} moveFocus - true for a visitor-initiated open, which
+         *     moves focus to the close button. The auto-open passes false so
+         *     it never takes focus away from what the visitor is doing.
+         */
+        function openCard(moveFocus) {
             fab.classList.add('is-open');
             toggle.setAttribute('aria-expanded', 'true');
-            close.focus();
+            if (moveFocus) close.focus();
         }
-        /** Close the card. */
+        /** Close the card and end any auto-open cycle. */
         function closeCard() {
+            clearAutoClose();
+            autoOpened = false;
             fab.classList.remove('is-open');
             toggle.setAttribute('aria-expanded', 'false');
         }
@@ -13994,7 +14031,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 closeCard();
                 toggle.focus();
             } else {
-                openCard();
+                openCard(true);
             }
         });
         close.addEventListener('click', function () {
@@ -14017,6 +14054,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 closeCard();
             }
         });
+
+        /** Start (or restart) the auto-close countdown. */
+        function startAutoClose() {
+            clearAutoClose();
+            autoCloseTimer = setTimeout(closeCard, AUTO_CLOSE_MS);
+        }
+        /** Restart the countdown after a pause, only for an auto-opened card. */
+        function resumeAutoClose() {
+            if (autoOpened) startAutoClose();
+        }
+        /**
+         * Open the card once per browsing session, on the home page only,
+         * then close it again after AUTO_CLOSE_MS. The countdown pauses
+         * while the pointer or keyboard focus is on the FAB, and any manual
+         * close ends it.
+         * @returns {void}
+         */
+        function scheduleAutoOpen() {
+            if (!document.body.classList.contains('page-home')) return;
+            try {
+                if (sessionStorage.getItem(AUTO_SHOWN_KEY)) return;
+                sessionStorage.setItem(AUTO_SHOWN_KEY, '1');
+            } catch (e) {
+                // Storage unavailable: skip, so the card cannot repeat on every page.
+                return;
+            }
+
+            setTimeout(function () {
+                if (fab.classList.contains('is-open')) return;
+                autoOpened = true;
+                openCard(false);
+                startAutoClose();
+            }, AUTO_OPEN_DELAY_MS);
+
+            fab.addEventListener('mouseenter', clearAutoClose);
+            fab.addEventListener('focusin', clearAutoClose);
+            fab.addEventListener('mouseleave', resumeAutoClose);
+            fab.addEventListener('focusout', resumeAutoClose);
+        }
+
+        scheduleAutoOpen();
     }
 
     if (document.readyState === 'loading') {
