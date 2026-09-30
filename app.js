@@ -5394,6 +5394,86 @@ document.addEventListener('DOMContentLoaded', () => {
         return registry;
     }
 
+    // === ANALYZER FRAMEWORK DETECTION ===
+    const LABEL_MIN_WORDS = 3;
+
+    /**
+     * Escapes text for safe use inside a RegExp.
+     * @param {string} text
+     * @returns {string}
+     */
+    function escapeRegExp(text) {
+        return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    /**
+     * Finds a framework's own labels used as labels: at the start of a line or
+     * sentence, followed by a colon or dash.
+     * @param {string} prompt
+     * @param {Object} framework - Registry entry
+     * @returns {Array<{index: number, label: string, position: number, hasContent: boolean}>}
+     */
+    function findLabelHits(prompt, framework) {
+        const found = [];
+        framework.elements.forEach((element, index) => {
+            const stem = escapeRegExp(element.label.replace(/s$/i, ''));
+            const pattern = new RegExp(
+                '(^|\\n|[.!?][ \\t]+)[ \\t]*(?:[*_#>-]+[ \\t]*)?' + stem + 's?' +
+                '(?:\\*\\*|__)?[ \\t]*(?::|-(?=\\s))', 'i');
+            const match = pattern.exec(prompt);
+            if (match) {
+                found.push({
+                    index,
+                    label: element.label,
+                    position: match.index + match[1].length,
+                    end: match.index + match[0].length
+                });
+            }
+        });
+        found.sort((a, b) => a.position - b.position);
+        return found.map((hit, i) => {
+            const next = found[i + 1];
+            const content = prompt.slice(hit.end, next ? next.position : prompt.length);
+            const words = content.trim().split(/\s+/).filter(Boolean).length;
+            return { index: hit.index, label: hit.label, position: hit.position, hasContent: words >= LABEL_MIN_WORDS };
+        });
+    }
+
+    /**
+     * Decides which letters of a framework the prompt covers.
+     * A labeled letter with content counts as found. Otherwise the letter is
+     * found when one of its mapped keys is detected. When two letters map to
+     * the same key, each needs its own contributing sentence.
+     * @param {Object} framework - Registry entry
+     * @param {Object} elementSummary - From aggregateElementScores
+     * @param {Object} traitSummary - From detectTraits
+     * @param {Array} labelHits - From findLabelHits, or [] to judge content only
+     * @returns {{letters: Array, found: number, total: number, ratio: number}}
+     */
+    function evaluateLetters(framework, elementSummary, traitSummary, labelHits) {
+        const labeled = new Set(labelHits.filter(h => h.hasContent).map(h => h.index));
+        const used = Object.create(null);
+        const letters = framework.elements.map((element, index) => {
+            const base = { letter: element.letter, label: element.label, maps: element.maps };
+            if (labeled.has(index)) {
+                return Object.assign(base, { found: true, via: 'label', key: null });
+            }
+            for (const key of element.maps) {
+                const data = elementSummary[key] || traitSummary[key];
+                if (!data || !data.detected) continue;
+                const capacity = Math.max(1, data.contributingSentences.length);
+                const taken = used[key] || 0;
+                if (taken < capacity) {
+                    used[key] = taken + 1;
+                    return Object.assign(base, { found: true, via: 'content', key });
+                }
+            }
+            return Object.assign(base, { found: false, via: null, key: null });
+        });
+        const found = letters.filter(l => l.found).length;
+        return { letters, found, total: letters.length, ratio: letters.length > 0 ? found / letters.length : 0 };
+    }
+
     // PromptAnalyzer Class
     // ---- DEBUG MODE ----
     // Enable debug logging in browser console: window.ANALYZER_DEBUG = true
