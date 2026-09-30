@@ -4875,7 +4875,17 @@ document.addEventListener('DOMContentLoaded', () => {
         parameters: { id: 'parameters', name: 'Parameters/Constraints', letter: 'P', description: 'Rules, boundaries, and constraints', positionWeight: { early: 0.8, middle: 1.0, late: 1.3 } },
         audience: { id: 'audience', name: 'Audience', letter: 'A', description: 'Target reader or user description', positionWeight: { early: 1.1, middle: 1.0, late: 1.0 } },
         tone: { id: 'tone', name: 'Tone/Style', letter: 'T', description: 'Emotional quality and writing style', positionWeight: { early: 0.9, middle: 1.1, late: 1.1 } },
-        examples: { id: 'examples', name: 'Examples', letter: 'E', description: 'Sample content or output demonstrations', positionWeight: { early: 0.7, middle: 1.0, late: 1.3 } }
+        examples: { id: 'examples', name: 'Examples', letter: 'E', description: 'Sample content or output demonstrations', positionWeight: { early: 0.7, middle: 1.0, late: 1.3 } },
+        goal: { id: 'goal', name: 'Goal', letter: 'G', description: 'The outcome the prompt is working toward', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        steps: { id: 'steps', name: 'Steps', letter: 'S', description: 'An ordered sequence for the AI to follow', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        inputData: { id: 'inputData', name: 'Input Data', letter: 'D', description: 'Material the AI should work from', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        successCriteria: { id: 'successCriteria', name: 'Success Criteria', letter: 'M', description: 'How a good result will be measured', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        problem: { id: 'problem', name: 'Problem', letter: 'P', description: 'The difficulty that needs solving', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        desiredState: { id: 'desiredState', name: 'Desired State', letter: 'F', description: 'What things look like once solved', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        style: { id: 'style', name: 'Style', letter: 'Y', description: 'The kind of writing to follow', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        validation: { id: 'validation', name: 'Validation', letter: 'V', description: 'A request to check the output', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        timeframe: { id: 'timeframe', name: 'Timeframe', letter: 'W', description: 'A deadline or time window', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        variation: { id: 'variation', name: 'Variation', letter: 'X', description: 'A request for several options', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } }
     };
 
     // Technique detection patterns for advanced prompting methods
@@ -5127,8 +5137,213 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: 'here_is_pattern', pattern: /\b(here is|here's|below is|following is|see example|example below)\b/i, weight: 0.8, exclusive: true }
             ],
             structuralBonus: { positionLate: 0.2, hasQuotes: 0.2 }
+        },
+        goal: {
+            signals: [
+                { name: 'goal_label', pattern: /\b(goal|end goal|objective|purpose|aim)\s*:/i, weight: 1.0, exclusive: true },
+                { name: 'goal_phrase', pattern: /\b(the goal is|our goal is|my goal is|the objective is|our objective is|my objective is|the purpose is|the aim is)\b/i, weight: 0.9, exclusive: true },
+                { name: 'outcome_wanted', pattern: /\b(I|we) want to (achieve|reach|end up with)\b/i, weight: 0.8, exclusive: true }
+            ],
+            structuralBonus: { declarative: 0.1 }
+        },
+        steps: {
+            signals: [
+                { name: 'steps_label', pattern: /\bsteps?\s*:/i, weight: 1.0, exclusive: true },
+                { name: 'step_number', pattern: /\bstep\s*\d+\b/i, weight: 0.9, exclusive: true },
+                { name: 'follow_steps', pattern: /\b(follow these steps|step[- ]by[- ]step|in this order|in the following order)\b/i, weight: 0.9, exclusive: true },
+                { name: 'sequence_chain', pattern: /\bfirst\b[^.!?]*\bthen\b/i, weight: 0.7, exclusive: true }
+            ],
+            structuralBonus: { imperative: 0.1 }
+        },
+        inputData: {
+            signals: [
+                { name: 'input_label', pattern: /\b(input data|source text|source material|data)\s*:/i, weight: 1.0, exclusive: true },
+                { name: 'following_data', pattern: /\b(below is|below are|the following)\s+(the\s+)?(data|text|document|transcript|table|numbers|figures|notes)\b/i, weight: 0.9, exclusive: true },
+                { name: 'use_this_data', pattern: /\b(use|using|based on|from)\s+(this|these|the following|the attached|the provided)\s+(data|text|document|transcript|table|numbers|figures|notes)\b/i, weight: 0.8, exclusive: true }
+            ],
+            structuralBonus: { positionLate: 0.1 }
+        },
+        successCriteria: {
+            signals: [
+                { name: 'success_label', pattern: /\b(success criteria|expectations?|key results?|expected result)\s*:/i, weight: 1.0, exclusive: true },
+                { name: 'success_phrase', pattern: /\b(success looks like|success means|measure success|measured by|we will know it worked)\b/i, weight: 0.9, exclusive: true },
+                { name: 'kpi_words', pattern: /\b(KPIs?|metrics?|benchmark|measurable)\b/i, weight: 0.7, exclusive: true }
+            ],
+            structuralBonus: { declarative: 0.1 }
+        },
+        problem: {
+            signals: [
+                { name: 'problem_label', pattern: /\b(problem|issue|pain point)\s*:/i, weight: 1.0, exclusive: true },
+                { name: 'problem_phrase', pattern: /\bthe (main |core |real )?(problem|issue) is\b/i, weight: 0.9, exclusive: true },
+                { name: 'obstacle_words', pattern: /\b(bottleneck|obstacle|pain point|roadblock|setback)\b/i, weight: 0.7, exclusive: true }
+            ],
+            structuralBonus: { declarative: 0.1, positionEarly: 0.1 }
+        },
+        desiredState: {
+            signals: [
+                { name: 'desired_label', pattern: /\b(aspiration|desired outcome|desired state|vision)\s*:/i, weight: 1.0, exclusive: true },
+                { name: 'ideal_phrase', pattern: /\b(ideally|in an ideal world|the ideal outcome)\b/i, weight: 0.8, exclusive: true },
+                { name: 'aspiration_phrase', pattern: /\b(our aspiration|my aspiration|we envision|I envision)\b/i, weight: 0.9, exclusive: true },
+                { name: 'future_state', pattern: /\b(desired (outcome|state|future|result)|where (we|I) want to be)\b/i, weight: 0.9, exclusive: true }
+            ],
+            structuralBonus: { declarative: 0.1 }
+        },
+        style: {
+            signals: [
+                { name: 'style_label', pattern: /\b(style|writing style)\s*:/i, weight: 1.0, exclusive: true },
+                { name: 'style_of', pattern: /\b(in the style of|writing style|style similar to|styled like)\b/i, weight: 0.9, exclusive: true },
+                { name: 'style_kind', pattern: /\b(narrative|journalistic|storytelling|minimalist|editorial)\s+(style|approach|voice)\b/i, weight: 0.8, exclusive: true }
+            ],
+            structuralBonus: { positionLate: 0.1 }
+        },
+        validation: {
+            signals: [
+                { name: 'validation_label', pattern: /\b(sense check|validation|verification|quality check)\s*:/i, weight: 1.0, exclusive: true },
+                { name: 'check_work', pattern: /\b(double[- ]check|sense check|fact[- ]check|cross[- ]check)\b/i, weight: 0.9, exclusive: true },
+                { name: 'verify_phrase', pattern: /\b(verify|validate|confirm)\s+(that|the|each|every|your|all)\b/i, weight: 0.8, exclusive: true },
+                { name: 'flag_uncertain', pattern: /\b(flag|mark|point out|tell me)\b[^.!?]*\b(unsure|uncertain|not sure|cannot confirm|should check|need to verify)\b/i, weight: 0.9, exclusive: true }
+            ],
+            structuralBonus: { imperative: 0.1, positionLate: 0.1 }
+        },
+        timeframe: {
+            signals: [
+                { name: 'time_label', pattern: /\b(deadline|timeline|timeframe|time-bound|due date)\s*:/i, weight: 1.0, exclusive: true },
+                { name: 'deadline_word', pattern: /\b(deadline|due date|due by)\b/i, weight: 0.8, exclusive: true },
+                { name: 'within_period', pattern: /\b(within|in the next|over the next)\s+(\d+|one|two|three|four|five|six)\s+(minutes?|hours?|days?|weeks?|months?|quarters?)\b/i, weight: 0.9, exclusive: true },
+                { name: 'by_date', pattern: /\bby\s+(monday|tuesday|wednesday|thursday|friday|saturday|sunday|tomorrow|next week|the end of (the|this|next) (day|week|month|quarter|year))\b/i, weight: 0.9, exclusive: true }
+            ],
+            structuralBonus: { positionLate: 0.1 }
+        },
+        variation: {
+            signals: [
+                { name: 'variation_label', pattern: /\b(experiment|kismet|variations?|alternatives?)\s*:/i, weight: 1.0, exclusive: true },
+                { name: 'multiple_versions', pattern: /\b(\d+|two|three|four|five|several|multiple|a few)\s+(different\s+)?(versions|variations|options|alternatives|approaches|drafts)\b/i, weight: 0.9, exclusive: true },
+                { name: 'unexpected', pattern: /\b(surprise me|something unexpected|unexpected (idea|angle|twist)|wild card)\b/i, weight: 0.8, exclusive: true }
+            ],
+            structuralBonus: { positionLate: 0.1 }
         }
     };
+
+    // === ANALYZER TRAITS ===
+    // Whole-prompt traits used by the three process frameworks
+    // (Constrained Output, Context Structure, SCOPE). Matched against the
+    // full prompt, not per sentence, because they describe structure.
+    const TRAIT_INDICATORS = {
+        lengthLimit: {
+            name: 'Length Limit',
+            signals: [
+                { name: 'limit_count', pattern: /\b(no more than|at most|maximum of|under|fewer than|exactly)\s+\d+\s*(words?|sentences?|items?|bullets?|characters?|lines?|paragraphs?)\b/i, weight: 0.9 },
+                { name: 'count_or_less', pattern: /\b\d+\s*(words?|sentences?|characters?)\s+(or (less|fewer)|max(imum)?)\b/i, weight: 0.9 }
+            ]
+        },
+        noExtras: {
+            name: 'No Extras',
+            signals: [
+                { name: 'no_preamble', pattern: /\b(no|without|do not (add|include)|don't (add|include))\s+(any\s+)?(preamble|explanation|commentary|introduction|extra text|additional text)\b/i, weight: 0.9 },
+                { name: 'only_return', pattern: /\b(return|output|respond with|provide)\s+only\b/i, weight: 0.9 },
+                { name: 'nothing_else', pattern: /\bnothing else\b/i, weight: 0.8 }
+            ]
+        },
+        ordering: {
+            name: 'Logical Ordering',
+            signals: [
+                { name: 'numbered_list', pattern: /^\s*1[.)]\s+\S[\s\S]*^\s*2[.)]\s+\S/m, weight: 0.9 },
+                { name: 'order_phrase', pattern: /\b(in order of (priority|importance)|in chronological order|most important first)\b/i, weight: 0.8 }
+            ]
+        },
+        delimiters: {
+            name: 'Delimiters',
+            signals: [
+                { name: 'markdown_header', pattern: /^#{1,4}\s+\S/m, weight: 0.9 },
+                { name: 'xml_tags', pattern: /<([a-z][\w-]*)>[\s\S]*<\/\1>/i, weight: 0.9 },
+                { name: 'fence', pattern: /^(```|"""|---)\s*$/m, weight: 0.8 }
+            ]
+        },
+        prioritization: {
+            name: 'Prioritization',
+            signals: [
+                { name: 'priority_phrase', pattern: /\b(most important|highest priority|prioriti[sz]e)\b/i, weight: 0.8 },
+                { name: 'trim_phrase', pattern: /\b(leave out|ignore|skip)\s+(anything|everything|details|information)\b/i, weight: 0.8 },
+                { name: 'relevant_only', pattern: /\bonly the (relevant|essential|key)\b/i, weight: 0.8 }
+            ]
+        },
+        baseline: {
+            name: 'Baseline',
+            signals: [
+                { name: 'baseline_word', pattern: /\b(baseline|seed prompt|starting prompt)\b/i, weight: 0.9 },
+                { name: 'current_prompt', pattern: /\b(my|the|our)\s+(current|original|initial)\s+prompt\b/i, weight: 0.8 }
+            ]
+        },
+        selfCritique: {
+            name: 'Self-Critique',
+            signals: [
+                { name: 'critique_own', pattern: /\b(critique|evaluate|assess|score|rate)\s+(your|the)\s+(own\s+)?(output|response|answer|draft)\b/i, weight: 0.9 },
+                { name: 'self_word', pattern: /\bself-(evaluat|critiqu|assess)/i, weight: 0.9 }
+            ]
+        },
+        revision: {
+            name: 'Revision',
+            signals: [
+                { name: 'revise_target', pattern: /\b(revise|refine|improve|rewrite|optimi[sz]e)\s+(the|your)\s+(prompt|output|response|draft|answer)\b/i, weight: 0.9 }
+            ]
+        },
+        retest: {
+            name: 'Retest',
+            signals: [
+                { name: 'test_revised', pattern: /\b(test|try|run|probe)\s+(the\s+)?(revised|new|improved|updated)\s+(prompt|version)\b/i, weight: 0.9 },
+                { name: 'compare_results', pattern: /\b(re-?test|compare (the )?(results|outputs))\b/i, weight: 0.8 }
+            ]
+        },
+        stopRule: {
+            name: 'Stop Rule',
+            signals: [
+                { name: 'repeat_until', pattern: /\b(repeat|iterate|continue)\s+(until|up to)\b/i, weight: 0.9 },
+                { name: 'max_iterations', pattern: /\bmaximum of \d+ (iterations|rounds|passes)\b/i, weight: 0.9 },
+                { name: 'stop_when', pattern: /\b(stop|converge)\s+(when|after|once)\b/i, weight: 0.8 }
+            ]
+        }
+    };
+
+    /**
+     * Detects whole-prompt traits.
+     * @param {string} prompt - The full prompt text
+     * @returns {Object} Map of trait key to a summary shaped like an element summary
+     */
+    function detectTraits(prompt) {
+        const summary = {};
+        for (const [key, trait] of Object.entries(TRAIT_INDICATORS)) {
+            const excerpts = [];
+            let best = 0;
+            for (const signal of trait.signals) {
+                const match = prompt.match(signal.pattern);
+                if (match) {
+                    excerpts.push({ text: match[0].trim().slice(0, 80), signalName: signal.name });
+                    best = Math.max(best, signal.weight);
+                }
+            }
+            const detected = excerpts.length > 0;
+            let confidence = 'none';
+            if (detected) confidence = best >= 0.9 ? 'high' : best >= 0.7 ? 'medium' : 'low';
+            summary[key] = {
+                detected,
+                confidence,
+                score: Math.round(best * 100),
+                excerpts: excerpts.slice(0, 3),
+                contributingSentences: []
+            };
+        }
+        return summary;
+    }
+
+    /**
+     * Tells whether a key belongs to the analyzer vocabulary.
+     * @param {string} key - Element or trait key
+     * @returns {boolean}
+     */
+    function isKnownVocabularyKey(key) {
+        return Object.prototype.hasOwnProperty.call(CONTENT_INDICATORS, key) ||
+            Object.prototype.hasOwnProperty.call(TRAIT_INDICATORS, key);
+    }
 
     // PromptAnalyzer Class
     // ---- DEBUG MODE ----
@@ -5501,7 +5716,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 parameters: { tip: 'Add constraints: "Avoid...", "Must include...", "Maximum of..."', example: 'Must include 3 blog posts per week. Avoid overly technical jargon.' },
                 audience: { tip: 'Specify who this is for: "For beginners who...", "Targeting executives..."', example: 'Target audience: CTOs and engineering leads with limited marketing knowledge.' },
                 tone: { tip: 'Define the voice: "Use a professional but friendly tone..."', example: 'Tone should be authoritative yet approachable, like Harvard Business Review.' },
-                examples: { tip: 'Provide a sample: "Example output: [your example]" or show input/output pairs', example: 'Example: "Weekly Sync: 3 key wins, 2 challenges, 1 ask for next week"' }
+                examples: { tip: 'Provide a sample: "Example output: [your example]" or show input/output pairs', example: 'Example: "Weekly Sync: 3 key wins, 2 challenges, 1 ask for next week"' },
+                goal: { tip: 'State the outcome: "The goal is to..."', example: 'The goal is to help new volunteers feel ready for their first shift.' },
+                steps: { tip: 'Give an order to follow: "Step 1..., Step 2..."', example: 'Step 1: greet the reader. Step 2: explain the schedule. Step 3: list what to bring.' },
+                inputData: { tip: 'Point to the material to work from: "Use this data: ..."', example: 'Use this data: shift times are Tuesday 9am and Saturday 10am.' },
+                successCriteria: { tip: 'Say how you will judge the result: "Success looks like..."', example: 'Success looks like 30 of 40 volunteers confirming a shift.' },
+                problem: { tip: 'Name the difficulty: "The problem is..."', example: 'The problem is that half of new volunteers stop coming after two weeks.' },
+                desiredState: { tip: 'Describe the result you hope for: "Ideally..."', example: 'Ideally, new volunteers stay involved for a full season.' },
+                style: { tip: 'Name a kind of writing: "In the style of..."', example: 'Write in the style of a friendly neighborhood newsletter.' },
+                validation: { tip: 'Ask the AI to check its work and show you what to verify', example: 'Double-check the dates and flag anything you are unsure of so I can verify it.' },
+                timeframe: { tip: 'Give a deadline or time window: "Within 3 days..."', example: 'The plan should cover the next 4 weeks.' },
+                variation: { tip: 'Ask for options: "Give me 3 versions..."', example: 'Give me 3 different versions to choose from.' },
+                lengthLimit: { tip: 'Set a firm size: "No more than 150 words"', example: 'Use no more than 150 words.' },
+                noExtras: { tip: 'Rule out additions: "Return only the..."', example: 'Return only the email, with no preamble.' },
+                ordering: { tip: 'Put your information in a numbered order', example: '1. Schedule details 2. What to bring 3. Contact person' },
+                delimiters: { tip: 'Separate sections with headers or tags', example: '### Source notes, then the notes on the lines below' },
+                prioritization: { tip: 'Say what matters most and what to leave out', example: 'Put the most important facts first and leave out anything not relevant.' },
+                baseline: { tip: 'Show the prompt you are starting from', example: 'Here is my current prompt as the baseline: write a welcome email.' },
+                selfCritique: { tip: 'Ask the AI to judge its own output, then review that judgment yourself', example: 'Evaluate your own output against the goal and list its weaknesses.' },
+                revision: { tip: 'Ask for an improved version', example: 'Revise the prompt to fix those weaknesses.' },
+                retest: { tip: 'Ask for the new version to be tried and compared', example: 'Test the revised prompt and compare the results.' },
+                stopRule: { tip: 'Say when to stop', example: 'Repeat until the output meets the goal, with a maximum of 3 iterations.' }
             };
             return suggestions[elementKey] || { tip: 'Add more detail', example: '' };
         }
