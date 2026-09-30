@@ -6578,6 +6578,116 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
+    // === FACTS OR FICTION ===
+    // Tool page: AI Facts or Fiction (tools/facts-fiction.html)
+    // Spec: .claude/plans/2026-09-30-facts-fiction-design.md
+    // Pure engine first, then storage edges, then display; wiring below.
+    // ==========================================
+
+    /** localStorage key: best score per level, seen ids per level, last level. */
+    const FF_STORAGE_KEY = 'praxis-ff-progress';
+    /** Cache-busting version for the level files. */
+    const FF_DATA_VERSION = '1';
+    /** Statements per game and per truth pool. */
+    const FF_GAME_SIZE = 20;
+    const FF_POOL_SIZE = 10;
+
+    /**
+     * Level table, index 1 to 20. `available` flips to true when a level file
+     * has been reviewed and committed; the picker shows others as Coming soon.
+     * The audit tool parses this table, so keep one level per line.
+     */
+    const FF_LEVELS = [null,
+        { name: 'AI in Everyday Life', band: 'literacy', available: false },
+        { name: 'What AI Actually Is', band: 'literacy', available: false },
+        { name: 'How Models Learn', band: 'literacy', available: false },
+        { name: 'Talking to a Chatbot', band: 'literacy', available: false },
+        { name: 'When AI Gets It Wrong', band: 'literacy', available: false },
+        { name: 'AI and Your Data', band: 'literacy', available: false },
+        { name: 'AI at Work', band: 'literacy', available: false },
+        { name: 'AI and Creativity', band: 'literacy', available: false },
+        { name: 'Bias and Fairness', band: 'literacy', available: false },
+        { name: 'Verifying AI Output', band: 'literacy', available: false },
+        { name: 'Tokens and Context', band: 'practitioner', available: false },
+        { name: 'Sampling and Determinism', band: 'practitioner', available: false },
+        { name: 'Prompt Structure', band: 'practitioner', available: false },
+        { name: 'Reasoning Techniques', band: 'practitioner', available: false },
+        { name: 'Retrieval and Grounding', band: 'practitioner', available: false },
+        { name: 'Agents and Tools', band: 'practitioner', available: false },
+        { name: 'Evaluation', band: 'practitioner', available: false },
+        { name: 'Safety and Alignment', band: 'practitioner', available: false },
+        { name: 'Governance and Transparency', band: 'practitioner', available: false },
+        { name: 'Frontier Uncertainty', band: 'practitioner', available: false }
+    ];
+
+    /** Results copy per band and tier (0: 0 to 9, 1: 10 to 13, 2: 14 to 17, 3: 18 to 20). */
+    const FF_VERDICTS = {
+        literacy: [
+            'A good start. Every statement you missed has its reason above, and each one links to a page that explains it.',
+            'You have the basics and a few myths still to unlearn. The review list shows which ones.',
+            'Solid AI literacy. The misses are the subtle ones; the explanations fill them in.',
+            'Strong result. You separate what AI does from what people say it does. Try the next level.'
+        ],
+        practitioner: [
+            'This level is dense. The review list is the study guide; each miss links to the technique page.',
+            'Working knowledge with gaps. The misses point at the mechanics worth a second look.',
+            'Practitioner-level understanding. The remaining misses are edge cases.',
+            'Expert result. You know how the machinery behaves, not just how to use it. Try the next level.'
+        ]
+    };
+
+    /** Loaded level files by level number, for this visit. */
+    const FF_CACHE = {};
+
+    /** Whitespace-separated word count. */
+    function ffWordCount(text) {
+        return String(text).trim().split(/\s+/).filter(Boolean).length;
+    }
+
+    /**
+     * Schema check for a level file (spec section 5), minus disk lookups,
+     * which the audit tool does. Never throws.
+     * @param {*} data - parsed JSON
+     * @param {number} expectedLevel - 1 to 20, from the filename
+     * @returns {boolean}
+     */
+    function isValidLevelFile(data, expectedLevel) {
+        if (!data || typeof data !== 'object' || Array.isArray(data)) return false;
+        const meta = FF_LEVELS[expectedLevel];
+        if (!meta || data.level !== expectedLevel || data.band !== meta.band || data.name !== meta.name) return false;
+        const list = data.statements;
+        if (!Array.isArray(list) || list.length !== 40) return false;
+        const idPattern = new RegExp('^L' + String(expectedLevel).padStart(2, '0') + '-\\d{3}$');
+        const nonAscii = /[^\x00-\x7F]/;
+        const ids = {}, texts = {};
+        let facts = 0;
+        for (let i = 0; i < list.length; i++) {
+            const s = list[i];
+            if (!s || typeof s !== 'object' || Array.isArray(s)) return false;
+            if (typeof s.id !== 'string' || !idPattern.test(s.id) || ids[s.id]) return false;
+            ids[s.id] = true;
+            if (typeof s.text !== 'string') return false;
+            const text = s.text.trim();
+            const words = ffWordCount(text);
+            if (words < 8 || words > 40 || text.slice(-1) !== '.' || text.indexOf('?') >= 0) return false;
+            if (texts[text] || nonAscii.test(text)) return false;
+            texts[text] = true;
+            if (typeof s.isFact !== 'boolean') return false;
+            if (s.isFact) facts++;
+            if (typeof s.explanation !== 'string') return false;
+            const ew = ffWordCount(s.explanation);
+            if (ew < 15 || ew > 60 || nonAscii.test(s.explanation) || /http/i.test(s.explanation)) return false;
+            if (s.learn !== undefined) {
+                if (typeof s.learn !== 'string' || s.learn.indexOf('../') !== 0 || /http/i.test(s.learn)) return false;
+            }
+        }
+        return facts === FF_GAME_SIZE;
+    }
+
+    // === FACTS OR FICTION WIRING ===
+    // (filled in Task 6)
+
+    // ==========================================
     // TOOL PAGE: PROMPT BUILDER (Guidance)
     // ==========================================
 
