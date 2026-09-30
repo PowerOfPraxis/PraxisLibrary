@@ -6684,6 +6684,45 @@ document.addEventListener('DOMContentLoaded', () => {
         return facts === FF_GAME_SIZE;
     }
 
+    /**
+     * Fisher-Yates over a copy.
+     * @param {Array} list
+     * @param {function(): number} rng - returns [0, 1)
+     * @returns {Array} new array
+     */
+    function shuffle(list, rng) {
+        const out = list.slice();
+        for (let i = out.length - 1; i > 0; i--) {
+            const j = Math.floor(rng() * (i + 1));
+            const t = out[i];
+            out[i] = out[j];
+            out[j] = t;
+        }
+        return out;
+    }
+
+    /**
+     * Balanced draw: 10 facts and 10 fictions, unseen first within each pool,
+     * then the 20 shuffled together (spec R10).
+     * @param {Array} statements - the level's 40
+     * @param {Set<string>} seenIds
+     * @param {function(): number} rng
+     * @returns {Array} 20 statements, or [] when a pool has fewer than 10
+     */
+    function drawStatements(statements, seenIds, rng) {
+        const pick = wantFact => {
+            const pool = statements.filter(s => s.isFact === wantFact);
+            if (pool.length < FF_POOL_SIZE) return null;
+            const unseen = shuffle(pool.filter(s => !seenIds.has(s.id)), rng);
+            const seen = shuffle(pool.filter(s => seenIds.has(s.id)), rng);
+            return unseen.concat(seen).slice(0, FF_POOL_SIZE);
+        };
+        const facts = pick(true);
+        const fictions = pick(false);
+        if (!facts || !fictions) return [];
+        return shuffle(facts.concat(fictions), rng);
+    }
+
     // === FACTS OR FICTION WIRING ===
     // (filled in Task 6)
 
