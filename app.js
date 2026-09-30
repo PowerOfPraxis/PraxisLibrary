@@ -7065,7 +7065,100 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // === FACTS OR FICTION WIRING ===
-    // (filled in Task 6)
+    const ffGame = document.getElementById('ff-game');
+    const ffStatus = document.getElementById('ff-status');
+
+    if (ffGame && ffStatus) {
+        const ffDisplay = new FactsDisplay(ffGame, ffStatus);
+        /** One state object; every transition replaces game or store with the engine's result. */
+        const FF_STATE = { screen: 'picker', game: null, store: readStore() };
+
+        const ffShowPicker = () => {
+            FF_STATE.screen = 'picker';
+            FF_STATE.game = null;
+            ffDisplay.renderPicker(FF_STATE.store);
+        };
+
+        const ffStartLevel = level => {
+            FF_STATE.screen = 'loading';
+            loadLevel(level)
+                .then(data => {
+                    const seen = new Set(FF_STATE.store.seen[String(level)] || []);
+                    const drawn = drawStatements(data.statements, seen, Math.random);
+                    if (!drawn.length) throw new Error('Level ' + level + ' has too few statements');
+                    FF_STATE.game = createGame(data, drawn);
+                    FF_STATE.screen = 'play';
+                    ffDisplay.renderStatement(FF_STATE.game);
+                })
+                .catch(err => {
+                    console.error('[Facts or Fiction] level failed to load:', err);
+                    FF_STATE.screen = 'error';
+                    ffDisplay.renderLoadError(level);
+                });
+        };
+
+        const ffAnswer = saidFact => {
+            const game = FF_STATE.game;
+            if (!game || FF_STATE.screen !== 'play') return;
+            const next = answerStatement(game, saidFact);
+            if (next === game) return;
+            FF_STATE.game = next;
+            ffDisplay.renderResult(next, next.answers[next.answers.length - 1], next.statements[next.index]);
+        };
+
+        const ffFinish = () => {
+            const game = FF_STATE.game;
+            const score = scoreGame(game);
+            FF_STATE.store = mergeSeen(mergeBest(FF_STATE.store, game.level, score.correct), game.level, game.statements.map(s => s.id));
+            writeStore(FF_STATE.store);
+            FF_STATE.screen = 'results';
+            const nextMeta = FF_LEVELS[game.level + 1];
+            ffDisplay.renderResults(game, score, bandVerdict(game.band, score.tier), !!(nextMeta && nextMeta.available));
+        };
+
+        const ffNext = () => {
+            const game = FF_STATE.game;
+            if (!game || FF_STATE.screen !== 'play') return;
+            const next = advance(game);
+            if (next === game) return;
+            FF_STATE.game = next;
+            if (next.finished) ffFinish();
+            else ffDisplay.renderStatement(next);
+        };
+
+        ffGame.addEventListener('click', e => {
+            const target = e.target.closest('[data-action]');
+            if (!target || target.disabled) return;
+            const action = target.getAttribute('data-action');
+            const level = Number(target.getAttribute('data-level'));
+            if (action === 'pick' || action === 'retry') ffStartLevel(level);
+            else if (action === 'fact') ffAnswer(true);
+            else if (action === 'fiction') ffAnswer(false);
+            else if (action === 'next') ffNext();
+            else if (action === 'replay' && FF_STATE.game) ffStartLevel(FF_STATE.game.level);
+            else if (action === 'next-level' && FF_STATE.game) ffStartLevel(FF_STATE.game.level + 1);
+            else if (action === 'picker') ffShowPicker();
+            else if (action === 'reset') {
+                if (window.confirm('Clear your best scores and seen statements for this game?')) {
+                    clearStore();
+                    FF_STATE.store = readStore();
+                    ffShowPicker();
+                }
+            }
+        });
+
+        // F and J answer the current statement; suspended in text fields and off the Play screen.
+        document.addEventListener('keydown', e => {
+            if (FF_STATE.screen !== 'play' || e.altKey || e.ctrlKey || e.metaKey) return;
+            const t = e.target;
+            const tag = t && t.tagName ? t.tagName.toLowerCase() : '';
+            if (tag === 'input' || tag === 'textarea' || tag === 'select' || (t && t.isContentEditable)) return;
+            if (e.key === 'f' || e.key === 'F') { e.preventDefault(); ffAnswer(true); }
+            else if (e.key === 'j' || e.key === 'J') { e.preventDefault(); ffAnswer(false); }
+        });
+
+        ffShowPicker();
+    }
 
     // ==========================================
     // TOOL PAGE: PROMPT BUILDER (Guidance)
