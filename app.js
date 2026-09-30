@@ -5578,14 +5578,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Tier 3: content (80 percent or more, minimum 3 found).
-        // Ties: more letters found, fewer detected elements left unexplained,
-        // higher coverage ratio, fewer letters met only by a secondary meaning.
+        // Rank: higher coverage ratio, more letters found, fewer detected
+        // elements left unexplained, fewer letters met only by a secondary
+        // meaning. (Bas's ruling 2026-09-29: a complete small framework
+        // outranks a larger one that is only partly covered.)
         const covered = pickUniqueTop(
             candidates.filter(c => c.content.found >= 3 && c.content.found * 5 >= c.content.total * 4),
             [
+                (a, b) => b.content.ratio - a.content.ratio,
                 (a, b) => b.content.found - a.content.found,
                 (a, b) => a.unexplained - b.unexplained,
-                (a, b) => b.content.ratio - a.content.ratio,
                 (a, b) => a.secondary - b.secondary
             ]);
         if (covered) {
