@@ -5474,6 +5474,126 @@ document.addEventListener('DOMContentLoaded', () => {
         return { letters, found, total: letters.length, ratio: letters.length > 0 ? found / letters.length : 0 };
     }
 
+    const FRAMEWORK_CUE_WORDS = ['framework', 'method', 'format', 'structure', 'template', 'using', 'follow', 'following'];
+    const FRAMEWORK_CUE_PATTERN = new RegExp('\\b(' + FRAMEWORK_CUE_WORDS.join('|') + ')\\b', 'i');
+
+    /**
+     * Tells whether the prompt names a framework. One-word aliases must be in
+     * uppercase; aliases with a space match in any case. A sentence of two
+     * or more words written fully in capitals never counts.
+     * @param {string} prompt
+     * @param {Object} framework - Registry entry
+     * @param {number} labelHitCount - How many of its labels the prompt uses
+     * @returns {{alias: string, via: string}|null}
+     */
+    function findFrameworkName(prompt, framework, labelHitCount) {
+        const sentences = prompt.match(/[^.!?\n]+[.!?]?/g) || [prompt];
+        for (const alias of framework.aliases) {
+            const pattern = new RegExp('\\b' + escapeRegExp(alias) + '\\b', alias.indexOf(' ') >= 0 ? 'i' : '');
+            let seen = false;
+            for (const sentence of sentences) {
+                if (!pattern.test(sentence)) continue;
+                const wordCount = sentence.trim().split(/\s+/).length;
+                if (wordCount > 1 && !/[a-z]/.test(sentence)) continue;
+                seen = true;
+                if (FRAMEWORK_CUE_PATTERN.test(sentence)) return { alias, via: 'cue' };
+            }
+            if (seen && labelHitCount >= 2) return { alias, via: 'labels' };
+        }
+        return null;
+    }
+
+    /**
+     * Picks the single best candidate, or null when the top two tie.
+     * @param {Array} candidates
+     * @param {Function[]} comparators - Each returns negative when a ranks first
+     * @returns {Object|null}
+     */
+    function pickUniqueTop(candidates, comparators) {
+        if (candidates.length === 0) return null;
+        const compare = (a, b) => {
+            for (const fn of comparators) {
+                const diff = fn(a, b);
+                if (diff !== 0) return diff;
+            }
+            return 0;
+        };
+        const sorted = candidates.slice().sort(compare);
+        if (sorted.length > 1 && compare(sorted[0], sorted[1]) === 0) return null;
+        return sorted[0];
+    }
+
+    /**
+     * Detects which framework a prompt follows, through three tiers of evidence.
+     * @param {string} prompt
+     * @param {Object} elementSummary
+     * @param {Object} traitSummary
+     * @param {{list: Object[], byId: Object}} registry
+     * @returns {{status: string, frameworkId: string|null, evidence: Object, closest: string[]}}
+     */
+    function detectFramework(prompt, elementSummary, traitSummary, registry) {
+        const detectedKeys = Object.keys(elementSummary).filter(k => elementSummary[k].detected)
+            .concat(Object.keys(traitSummary).filter(k => traitSummary[k].detected));
+
+        const candidates = registry.list.map((framework, order) => {
+            const labelHits = findLabelHits(prompt, framework);
+            const content = evaluateLetters(framework, elementSummary, traitSummary, []);
+            const mapped = new Set();
+            framework.elements.forEach(el => el.maps.forEach(k => mapped.add(k)));
+            return {
+                framework,
+                order,
+                labelHits,
+                content,
+                named: findFrameworkName(prompt, framework, labelHits.length),
+                unexplained: detectedKeys.filter(k => !mapped.has(k)).length,
+                // Letters met only through a secondary meaning of the element
+                secondary: content.letters.filter(l => l.found && l.key && l.key !== l.maps[0]).length
+            };
+        });
+
+        // Tier 1: named
+        const named = pickUniqueTop(candidates.filter(c => c.named),
+            [(a, b) => b.labelHits.length - a.labelHits.length]);
+        if (named) {
+            return { status: 'named', frameworkId: named.framework.id, evidence: { name: named.named.alias }, closest: [] };
+        }
+
+        // Tier 2: labels (two thirds or more, minimum 2)
+        const labeled = pickUniqueTop(
+            candidates.filter(c => c.labelHits.length >= 2 && c.labelHits.length * 3 >= c.framework.elements.length * 2),
+            [
+                (a, b) => (b.labelHits.length / b.framework.elements.length) - (a.labelHits.length / a.framework.elements.length),
+                (a, b) => b.labelHits.length - a.labelHits.length
+            ]);
+        if (labeled) {
+            const labels = labeled.labelHits.slice().sort((a, b) => a.index - b.index).map(h => h.label);
+            return { status: 'labels', frameworkId: labeled.framework.id, evidence: { labels }, closest: [] };
+        }
+
+        // Tier 3: content (80 percent or more, minimum 3 found).
+        // Ties: more letters found, fewer detected elements left unexplained,
+        // higher coverage ratio, fewer letters met only by a secondary meaning.
+        const covered = pickUniqueTop(
+            candidates.filter(c => c.content.found >= 3 && c.content.found * 5 >= c.content.total * 4),
+            [
+                (a, b) => b.content.found - a.content.found,
+                (a, b) => a.unexplained - b.unexplained,
+                (a, b) => b.content.ratio - a.content.ratio,
+                (a, b) => a.secondary - b.secondary
+            ]);
+        if (covered) {
+            const elements = covered.content.letters.filter(l => l.found).map(l => l.label);
+            return { status: 'content', frameworkId: covered.framework.id, evidence: { elements }, closest: [] };
+        }
+
+        // Weak match: the 3 closest, repeatable through registry order
+        const closest = candidates.slice().sort((a, b) =>
+            (b.content.ratio - a.content.ratio) || (b.content.found - a.content.found) || (a.order - b.order))
+            .slice(0, 3).map(c => c.framework.id);
+        return { status: 'none', frameworkId: null, evidence: {}, closest };
+    }
+
     // PromptAnalyzer Class
     // ---- DEBUG MODE ----
     // Enable debug logging in browser console: window.ANALYZER_DEBUG = true
