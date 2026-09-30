@@ -6783,6 +6783,94 @@ document.addEventListener('DOMContentLoaded', () => {
         return list[Math.min(Math.max(tier, 0), list.length - 1)];
     }
 
+    /** The empty progress record. */
+    function emptyStore() {
+        return { best: {}, seen: {}, lastLevel: null };
+    }
+
+    /** Keep the higher best score for a level and remember it as the last played. */
+    function mergeBest(store, level, correct) {
+        const best = Object.assign({}, store.best);
+        const key = String(level);
+        if (!Object.prototype.hasOwnProperty.call(best, key) || correct > best[key]) best[key] = correct;
+        return Object.assign({}, store, { best: best, lastLevel: level });
+    }
+
+    /**
+     * Append the ids just played. When a level's list would reach all 40,
+     * reset it to the 20 just played so the next draw favors the other half.
+     */
+    function mergeSeen(store, level, ids) {
+        const seen = Object.assign({}, store.seen);
+        const key = String(level);
+        const prior = Array.isArray(seen[key]) ? seen[key] : [];
+        const merged = prior.concat(ids.filter(id => prior.indexOf(id) < 0));
+        seen[key] = merged.length >= 40 ? ids.slice() : merged;
+        return Object.assign({}, store, { seen: seen });
+    }
+
+    /** Read progress; anything unreadable or malformed reads as empty. Never throws. */
+    function readStore() {
+        try {
+            const parsed = JSON.parse(localStorage.getItem(FF_STORAGE_KEY));
+            if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return emptyStore();
+            const best = {}, seen = {};
+            const rawBest = parsed.best && typeof parsed.best === 'object' ? parsed.best : {};
+            Object.keys(rawBest).forEach(k => {
+                if (typeof rawBest[k] === 'number' && rawBest[k] >= 0) best[k] = rawBest[k];
+            });
+            const rawSeen = parsed.seen && typeof parsed.seen === 'object' ? parsed.seen : {};
+            Object.keys(rawSeen).forEach(k => {
+                if (Array.isArray(rawSeen[k])) seen[k] = rawSeen[k].filter(id => typeof id === 'string');
+            });
+            return { best: best, seen: seen, lastLevel: typeof parsed.lastLevel === 'number' ? parsed.lastLevel : null };
+        } catch (err) {
+            return emptyStore();
+        }
+    }
+
+    /** Persist progress; a blocked or full storage is not an error for the player. */
+    function writeStore(store) {
+        try {
+            localStorage.setItem(FF_STORAGE_KEY, JSON.stringify(store));
+        } catch (err) {
+            // storage blocked: play continues without memory
+        }
+    }
+
+    /** Remove all progress. */
+    function clearStore() {
+        try {
+            localStorage.removeItem(FF_STORAGE_KEY);
+        } catch (err) {
+            // storage blocked: nothing to clear
+        }
+    }
+
+    /** Versioned relative URL of a level file. */
+    function ffLevelPath(level) {
+        return resolveInternalUrl('data/facts-fiction/level-' + String(level).padStart(2, '0') + '.json') + '?v=' + FF_DATA_VERSION;
+    }
+
+    /**
+     * Fetch and validate a level file; cached per visit on success only.
+     * @param {number} level
+     * @returns {Promise<Object>}
+     */
+    function loadLevel(level) {
+        if (FF_CACHE[level]) return Promise.resolve(FF_CACHE[level]);
+        return fetch(ffLevelPath(level))
+            .then(resp => {
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                return resp.json();
+            })
+            .then(data => {
+                if (!isValidLevelFile(data, level)) throw new Error('Level ' + level + ' failed validation');
+                FF_CACHE[level] = data;
+                return data;
+            });
+    }
+
     // === FACTS OR FICTION WIRING ===
     // (filled in Task 6)
 
