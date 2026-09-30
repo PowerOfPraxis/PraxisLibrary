@@ -5345,6 +5345,55 @@ document.addEventListener('DOMContentLoaded', () => {
             Object.prototype.hasOwnProperty.call(TRAIT_INDICATORS, key);
     }
 
+    // === ANALYZER FRAMEWORK REGISTRY ===
+    const ANALYZER_REGISTRY_PATH = 'data/analyzer-frameworks.json';
+    const ANALYZER_REGISTRY_VERSION = '1';
+
+    /**
+     * Validates one registry entry. Only same-site learn page paths are accepted.
+     * @param {Object} entry - Raw entry from analyzer-frameworks.json
+     * @returns {boolean}
+     */
+    function isValidFrameworkEntry(entry) {
+        if (!entry || typeof entry !== 'object') return false;
+        if (typeof entry.id !== 'string' || !/^[a-z0-9-]+$/.test(entry.id)) return false;
+        if (typeof entry.name !== 'string' || !entry.name) return false;
+        if (entry.group !== 'structured' && entry.group !== 'community') return false;
+        if (entry.kind !== 'checklist' && entry.kind !== 'process') return false;
+        if (typeof entry.url !== 'string' || !/^learn\/[a-z0-9-]+\.html$/.test(entry.url)) return false;
+        if (!Array.isArray(entry.aliases) || entry.aliases.length === 0) return false;
+        if (!entry.aliases.every(a => typeof a === 'string' && a.length > 0)) return false;
+        if (!Array.isArray(entry.elements) || entry.elements.length === 0) return false;
+        return entry.elements.every(el =>
+            el && typeof el.letter === 'string' && el.letter &&
+            typeof el.label === 'string' && el.label &&
+            Array.isArray(el.maps) && el.maps.length > 0 &&
+            el.maps.every(key => typeof key === 'string' && isKnownVocabularyKey(key)));
+    }
+
+    /**
+     * Builds the in-memory registry. Malformed or duplicate entries are skipped.
+     * @param {Object} raw - Parsed analyzer-frameworks.json
+     * @returns {{list: Object[], byId: Object}}
+     */
+    function buildRegistry(raw) {
+        const registry = { list: [], byId: Object.create(null) };
+        const entries = raw && Array.isArray(raw.frameworks) ? raw.frameworks : [];
+        for (const entry of entries) {
+            if (!isValidFrameworkEntry(entry)) {
+                console.warn('[Analyzer] skipped malformed framework entry:', entry && entry.id);
+                continue;
+            }
+            if (registry.byId[entry.id]) {
+                console.warn('[Analyzer] skipped duplicate framework entry:', entry.id);
+                continue;
+            }
+            registry.list.push(entry);
+            registry.byId[entry.id] = entry;
+        }
+        return registry;
+    }
+
     // PromptAnalyzer Class
     // ---- DEBUG MODE ----
     // Enable debug logging in browser console: window.ANALYZER_DEBUG = true
