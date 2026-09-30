@@ -5602,6 +5602,91 @@ document.addEventListener('DOMContentLoaded', () => {
         return { status: 'none', frameworkId: null, evidence: {}, closest };
     }
 
+    /**
+     * Joins items as plain English: "A", "A and B", "A, B, and C".
+     * @param {string[]} items
+     * @returns {string}
+     */
+    function joinList(items) {
+        if (items.length === 0) return '';
+        if (items.length === 1) return items[0];
+        if (items.length === 2) return items[0] + ' and ' + items[1];
+        return items.slice(0, -1).join(', ') + ', and ' + items[items.length - 1];
+    }
+
+    /**
+     * Builds the one-sentence reason shown with a detection.
+     * @param {{status: string, evidence: Object}} detection
+     * @param {Object|null} framework - Registry entry
+     * @returns {string} Empty for a manual choice or a weak match
+     */
+    function buildReasonText(detection, framework) {
+        if (!framework) return '';
+        if (detection.status === 'named') {
+            return 'Why: your prompt names the ' + framework.name + ' framework.';
+        }
+        if (detection.status === 'labels') {
+            return 'Why: your prompt uses the labels ' + joinList(detection.evidence.labels) + '.';
+        }
+        if (detection.status === 'content') {
+            return 'Why: your prompt covers ' + joinList(detection.evidence.elements) +
+                ', which matches ' + framework.name + ' most closely.';
+        }
+        return '';
+    }
+
+    let analyzerRegistryPromise = null;
+
+    /**
+     * Loads the framework registry once and caches it. A failed load clears
+     * the cache so a retry can succeed.
+     * @returns {Promise<{list: Object[], byId: Object}>}
+     */
+    function loadAnalyzerRegistry() {
+        if (!analyzerRegistryPromise) {
+            analyzerRegistryPromise = fetch(resolveInternalUrl(ANALYZER_REGISTRY_PATH) + '?v=' + ANALYZER_REGISTRY_VERSION)
+                .then(response => {
+                    if (!response.ok) throw new Error('HTTP ' + response.status);
+                    return response.json();
+                })
+                .then(raw => {
+                    const registry = buildRegistry(raw);
+                    if (registry.list.length === 0) throw new Error('registry is empty');
+                    return registry;
+                })
+                .catch(err => {
+                    analyzerRegistryPromise = null;
+                    throw err;
+                });
+        }
+        return analyzerRegistryPromise;
+    }
+
+    /**
+     * Fills the framework selector from the registry, grouped. Safe to call
+     * more than once.
+     * @param {HTMLSelectElement} selectEl
+     * @param {{list: Object[]}} registry
+     */
+    function populateFrameworkSelector(selectEl, registry) {
+        if (!selectEl || selectEl.querySelector('optgroup')) return;
+        const groups = [
+            { key: 'structured', label: 'Structured' },
+            { key: 'community', label: 'Community' }
+        ];
+        groups.forEach(group => {
+            const optgroup = document.createElement('optgroup');
+            optgroup.label = group.label;
+            registry.list.filter(f => f.group === group.key).forEach(framework => {
+                const option = document.createElement('option');
+                option.value = framework.id;
+                option.textContent = framework.name;
+                optgroup.appendChild(option);
+            });
+            selectEl.appendChild(optgroup);
+        });
+    }
+
     // PromptAnalyzer Class
     // ---- DEBUG MODE ----
     // Enable debug logging in browser console: window.ANALYZER_DEBUG = true
@@ -6055,37 +6140,120 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Analyzer Display Class
     class AnalyzerDisplay {
-        constructor(containerElement) {
+        /**
+         * @param {HTMLElement} containerElement - Holds the analysis body
+         * @param {HTMLElement} statusElement - Polite live region for the result heading
+         */
+        constructor(containerElement, statusElement) {
             this.container = containerElement;
+            this.status = statusElement;
             this.analyzer = new PromptAnalyzer();
         }
 
-        displayAnalysis(prompt, selectedFramework = 'CRISP') {
-            const results = this.analyzer.analyze(prompt, selectedFramework);
-            this.render(results, selectedFramework);
+        displayAnalysis(prompt, selection, registry) {
+            const results = this.analyzer.analyze(prompt, selection, registry);
+            this.render(results, registry);
             return results;
         }
 
-        render(results, selectedFramework) {
-            const { overallScore, baseScore, bonusScore, structuralBonuses, elementSummary, frameworkFit, feedback, techniques } = results;
+        render(results, registry) {
+            this.status.innerHTML = this.renderStatus(results);
 
-            this.container.innerHTML = `
-                ${this.renderOverallScore(overallScore, baseScore, bonusScore)}
-                ${this.renderStructuralBonuses(structuralBonuses)}
-                ${this.renderElementDetection(elementSummary, selectedFramework)}
-                ${this.renderTechniquesDetected(techniques)}
-                ${this.renderFrameworkCoverage(frameworkFit, selectedFramework)}
-                ${this.renderExcerptHighlights(elementSummary)}
-                ${this.renderStrengths(feedback.strengths)}
-                ${this.renderImprovements(feedback.improvements, feedback.quickWins, selectedFramework, elementSummary)}
-                ${this.renderCTA()}
-            `;
+            if (!results.framework) {
+                this.container.innerHTML = `
+                    ${this.renderClosest(results.detection.closest, registry)}
+                    ${this.renderTechniquesDetected(results.techniques)}
+                    ${this.renderExcerptHighlights(results.elementSummary)}
+                    ${this.renderStrengths(results.feedback.strengths)}
+                `;
+            } else {
+                this.container.innerHTML = `
+                    ${this.renderDetectionActions(results.framework)}
+                    ${this.renderOverallScore(results.overallScore, results.baseScore, results.bonusScore)}
+                    ${this.renderStructuralBonuses(results.structuralBonuses)}
+                    ${this.renderElementDetection(results.letterResult, results.framework)}
+                    ${this.renderTechniquesDetected(results.techniques)}
+                    ${this.renderFrameworkCoverage(results.letterResult, results.framework)}
+                    ${this.renderExcerptHighlights(results.elementSummary)}
+                    ${this.renderStrengths(results.feedback.strengths)}
+                    ${this.renderImprovements(results.feedback.improvements, results.feedback.quickWins, results.framework)}
+                `;
+            }
 
             // Set widths via JavaScript to comply with CSP (no inline styles)
             this.container.querySelectorAll('.sub-score-fill[data-width]').forEach(el => {
                 el.style.width = el.dataset.width + '%';
             });
 
+            this.container.classList.add('visible');
+        }
+
+        renderStatus(results) {
+            const { detection, framework, letterResult, elementSummary, traitSummary } = results;
+
+            if (!framework) {
+                const names = Object.keys(elementSummary).filter(k => elementSummary[k].detected)
+                    .map(k => ELEMENT_TYPES[k]?.name || k)
+                    .concat(Object.keys(traitSummary).filter(k => traitSummary[k].detected)
+                        .map(k => TRAIT_INDICATORS[k].name));
+                const foundLine = names.length > 0
+                    ? 'Your prompt includes: ' + escapeHtml(names.join(', ')) + '.'
+                    : 'We found no prompt elements yet. Try adding what you want done and some background.';
+                return `
+                    <div class="analyzer-detection">
+                        <h2 class="analyzer-detection-heading">No framework clearly detected</h2>
+                        <p class="analyzer-detection-reason">${foundLine}</p>
+                    </div>
+                `;
+            }
+
+            const heading = detection.status === 'manual'
+                ? 'Analyzing against: ' + framework.name
+                : 'Detected: ' + framework.name;
+            const reason = buildReasonText(detection, framework);
+            return `
+                <div class="analyzer-detection">
+                    <h2 class="analyzer-detection-heading">${escapeHtml(heading)}</h2>
+                    <p class="analyzer-detection-count">${letterResult.found} of ${letterResult.total} found</p>
+                    ${reason ? `<p class="analyzer-detection-reason">${escapeHtml(reason)}</p>` : ''}
+                </div>
+            `;
+        }
+
+        renderDetectionActions(framework) {
+            return `
+                <div class="analyzer-detection-actions">
+                    <a href="${escapeHtml(resolveInternalUrl(framework.url))}" class="btn btn-outline btn-sm">Learn the ${escapeHtml(framework.name)} framework</a>
+                </div>
+            `;
+        }
+
+        renderClosest(closestIds, registry) {
+            const buttons = closestIds.map(id => registry.byId[id]).filter(Boolean).map(framework => `
+                <button type="button" class="btn btn-outline btn-sm analyzer-closest-btn" data-framework-id="${escapeHtml(framework.id)}">${escapeHtml(framework.name)}</button>
+            `).join('');
+            if (!buttons) return '';
+            return `
+                <div class="analyzer-closest">
+                    <p class="analyzer-closest-label" id="analyzer-closest-label">Closest frameworks:</p>
+                    <div class="analyzer-closest-list" role="group" aria-labelledby="analyzer-closest-label">
+                        ${buttons}
+                    </div>
+                </div>
+            `;
+        }
+
+        renderLoadError() {
+            this.status.innerHTML = `
+                <div class="analyzer-detection analyzer-load-error">
+                    <p class="analyzer-detection-reason">Framework data could not load. Check your connection and try again.</p>
+                </div>
+            `;
+            this.container.innerHTML = `
+                <div class="analyzer-detection-actions">
+                    <button type="button" class="btn btn-primary btn-sm analyzer-retry-btn">Retry</button>
+                </div>
+            `;
             this.container.classList.add('visible');
         }
 
@@ -6136,43 +6304,38 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
 
-        renderElementDetection(elementSummary, selectedFramework) {
-            const frameworkElements = {
-                CRISP: ['context', 'role', 'instruction', 'specifics', 'parameters'],
-                COSTAR: ['context', 'instruction', 'tone', 'audience', 'specifics'],
-                CRISPE: ['context', 'role', 'instruction', 'specifics', 'parameters', 'examples']
-            };
+        renderElementDetection(letterResult, framework) {
+            const elementsHTML = letterResult.letters.map(item => {
+                const statusClass = item.found ? 'detected' : 'missing';
+                const description = ELEMENT_TYPES[item.maps[0]]?.description || TRAIT_INDICATORS[item.maps[0]]?.name || '';
+                const title = item.found
+                    ? (item.via === 'label' ? 'Found by its label' : 'Found in your wording')
+                    : description;
 
-            const relevantElements = frameworkElements[selectedFramework];
-
-            const elementsHTML = relevantElements.map(elementKey => {
-                const data = elementSummary[elementKey];
-                const type = ELEMENT_TYPES[elementKey];
-                const statusClass = data?.detected ? 'detected' : 'missing';
-                const confidenceClass = data?.confidence || 'none';
-
-                const icon = data?.detected
-                    ? '<svg class="element-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>'
-                    : '<svg class="element-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>';
+                const icon = item.found
+                    ? '<svg class="element-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>'
+                    : '<svg class="element-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>';
 
                 return `
-                    <div class="element-pill ${statusClass} confidence-${confidenceClass}" title="${data?.detected ? 'Detected with ' + confidenceClass + ' confidence' : type?.description || ''}">
-                        <span class="element-letter">${type?.letter || ''}</span>
-                        <span class="element-name">${type?.name || elementKey}</span>
+                    <div class="element-pill ${statusClass}" title="${escapeHtml(title)}">
+                        <span class="element-letter">${escapeHtml(item.letter)}</span>
+                        <span class="element-name">${escapeHtml(item.label)}</span>
+                        <span class="element-status-text">${item.found ? 'found' : 'not found'}</span>
                         ${icon}
                     </div>
                 `;
             }).join('');
 
-            const detectedCount = relevantElements.filter(e => elementSummary[e]?.detected).length;
+            const note = framework.note ? `<p class="framework-note">${escapeHtml(framework.note)}</p>` : '';
 
             return `
                 <div class="framework-elements" id="framework-elements">
-                    <h4>Detected Elements (${selectedFramework})</h4>
+                    <h4>Detected Elements (${escapeHtml(framework.name)})</h4>
                     <div class="elements-display" id="elements-display">
                         ${elementsHTML}
                     </div>
-                    <p class="framework-coverage">${detectedCount}/${relevantElements.length} elements detected</p>
+                    <p class="framework-coverage">${letterResult.found}/${letterResult.total} elements detected</p>
+                    ${note}
                 </div>
             `;
         }
@@ -6289,35 +6452,12 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
 
-        renderImprovements(improvements, quickWins, selectedFramework = 'CRISP', elementSummary = {}) {
+        renderImprovements(improvements, quickWins, framework) {
             if (improvements.length === 0 && quickWins.length === 0) {
-                // Generate framework-aware success message
-                let successTip = '';
-                const hasExamples = elementSummary.examples?.detected;
-                const hasTone = elementSummary.tone?.detected;
-
-                if (selectedFramework === 'CRISP') {
-                    // CRISP doesn't require examples, but they're a nice bonus
-                    if (!hasExamples && !hasTone) {
-                        successTip = 'For even better results, consider adding tone guidance or examples.';
-                    } else if (!hasExamples) {
-                        successTip = 'Adding an example of desired output can help get more consistent results.';
-                    } else {
-                        successTip = 'You\'ve gone above and beyond with examples - great job!';
-                    }
-                } else if (selectedFramework === 'CRISPE') {
-                    // CRISPE includes examples as a core element
-                    successTip = hasExamples
-                        ? 'Your examples help ensure consistent, high-quality outputs.'
-                        : 'Consider strengthening your examples section for even better results.';
-                } else if (selectedFramework === 'COSTAR') {
-                    successTip = 'Your prompt has excellent structure for content creation.';
-                }
-
                 return `
                     <div class="feedback-section feedback-perfect">
                         <h4>Excellent Work!</h4>
-                        <p>Your prompt covers all the key ${selectedFramework} elements. ${successTip}</p>
+                        <p>Your prompt covers every ${escapeHtml(framework.name)} element. Review the AI's answer against your own knowledge before you rely on it.</p>
                     </div>
                 `;
             }
@@ -6327,10 +6467,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h5>Quick Wins</h5>
                     ${quickWins.slice(0, 2).map(q => `
                         <div class="quick-win-card">
-                            <span class="element-badge">${q.letter}</span>
+                            <span class="element-badge">${escapeHtml(q.letter)}</span>
                             <div>
-                                <p class="quick-win-message">${q.message}</p>
-                                <p class="quick-win-tip">${q.tip}</p>
+                                <p class="quick-win-message">${escapeHtml(q.message)}</p>
+                                <p class="quick-win-tip">${escapeHtml(q.tip)}</p>
                             </div>
                         </div>
                     `).join('')}
@@ -6340,12 +6480,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const improvementsHTML = improvements.slice(0, 4).map(i => `
                 <div class="feedback-card ${i.priority === 'high' ? 'priority-high' : ''}">
                     <div class="feedback-card-header">
-                        <span class="element-badge">${i.letter}</span>
-                        <span class="feedback-category">${i.name}</span>
+                        <span class="element-badge">${escapeHtml(i.letter)}</span>
+                        <span class="feedback-category">${escapeHtml(i.name)}</span>
                         ${i.priority === 'high' ? '<span class="priority-badge">Important</span>' : ''}
                     </div>
-                    <p class="feedback-tip">${i.tip}</p>
-                    <p class="feedback-example"><strong>Example:</strong> ${i.example}</p>
+                    <p class="feedback-tip">${escapeHtml(i.tip)}</p>
+                    <p class="feedback-example"><strong>Example:</strong> ${escapeHtml(i.example)}</p>
                 </div>
             `).join('');
 
@@ -6360,30 +6500,16 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
 
-        renderFrameworkCoverage(frameworkFit, selectedFramework) {
-            const selected = frameworkFit[selectedFramework];
-
+        renderFrameworkCoverage(letterResult, framework) {
+            const percent = Math.round(letterResult.ratio * 100);
             return `
                 <div class="sub-scores">
                     <div class="sub-score">
                         <div class="sub-score-bar">
-                            <div class="sub-score-fill ${getScoreClass(selected.coverageRatio * 100)}" data-width="${selected.coverageRatio * 100}"></div>
+                            <div class="sub-score-fill ${getScoreClass(percent)}" data-width="${percent}"></div>
                         </div>
-                        <span class="sub-score-label">${selectedFramework} Coverage</span>
-                        <span class="sub-score-value">${selected.coverage}</span>
-                    </div>
-                </div>
-            `;
-        }
-
-        renderCTA() {
-            return `
-                <div class="feedback-cta">
-                    <p>Want to learn more about these frameworks?</p>
-                    <div class="feedback-cta-links">
-                        <a href="../learn/crisp.html" class="btn btn-outline btn-sm">CRISP Method</a>
-                        <a href="../learn/costar.html" class="btn btn-outline btn-sm">COSTAR Method</a>
-                        <a href="../learn/crispe.html" class="btn btn-outline btn-sm">CRISPE Method</a>
+                        <span class="sub-score-label">${escapeHtml(framework.name)} Coverage</span>
+                        <span class="sub-score-value">${letterResult.found}/${letterResult.total}</span>
                     </div>
                 </div>
             `;
@@ -6394,33 +6520,58 @@ document.addEventListener('DOMContentLoaded', () => {
     const analyzerForm = document.getElementById('analyzer-form');
     const analyzerPromptInput = document.getElementById('prompt-input');
     const analysisDisplay = document.getElementById('analysis-display');
+    const analyzerStatus = document.getElementById('analyzer-status');
     const frameworkSelector = document.getElementById('framework-selector');
 
-    if (analyzerForm && analyzerPromptInput && analysisDisplay) {
-        const display = new AnalyzerDisplay(analysisDisplay);
+    if (analyzerForm && analyzerPromptInput && analysisDisplay && analyzerStatus) {
+        const display = new AnalyzerDisplay(analysisDisplay, analyzerStatus);
+
+        /** Runs the analysis, loading the registry first when needed. */
+        const runAnalysis = () => {
+            const prompt = analyzerPromptInput.value.trim();
+            if (prompt.length < 10) {
+                showToast('Please enter a longer prompt to analyze', 'error');
+                return Promise.resolve();
+            }
+            return loadAnalyzerRegistry()
+                .then(registry => {
+                    populateFrameworkSelector(frameworkSelector, registry);
+                    display.displayAnalysis(prompt, frameworkSelector ? frameworkSelector.value : '', registry);
+                })
+                .catch(err => {
+                    console.error('[Analyzer] framework data failed to load:', err);
+                    display.renderLoadError();
+                });
+        };
+
+        // Fill the selector early. A failure here stays quiet; the visitor
+        // sees the message with a Retry button when they press Analyze.
+        loadAnalyzerRegistry()
+            .then(registry => populateFrameworkSelector(frameworkSelector, registry))
+            .catch(() => {});
 
         analyzerForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const prompt = analyzerPromptInput.value.trim();
-            const selectedFramework = frameworkSelector?.value || 'CRISP';
-
-            if (prompt.length < 10) {
-                showToast('Please enter a longer prompt to analyze', 'error');
-                return;
-            }
-
-            display.displayAnalysis(prompt, selectedFramework);
+            runAnalysis();
         });
 
         if (frameworkSelector) {
             frameworkSelector.addEventListener('change', () => {
-                const prompt = analyzerPromptInput.value.trim();
-                const selectedFramework = frameworkSelector.value;
-                if (prompt.length >= 10) {
-                    display.displayAnalysis(prompt, selectedFramework);
-                }
+                if (analyzerPromptInput.value.trim().length >= 10) runAnalysis();
             });
         }
+
+        analysisDisplay.addEventListener('click', (e) => {
+            const closest = e.target.closest('.analyzer-closest-btn');
+            if (closest && frameworkSelector) {
+                frameworkSelector.value = closest.dataset.frameworkId;
+                runAnalysis().then(() => analyzerStatus.focus());
+                return;
+            }
+            if (e.target.closest('.analyzer-retry-btn')) {
+                runAnalysis().then(() => analyzerStatus.focus());
+            }
+        });
     }
 
     // ==========================================

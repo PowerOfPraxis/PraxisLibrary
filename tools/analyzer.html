@@ -182,22 +182,24 @@
                         ></textarea>
 
                         <div class="analyzer-options">
-                            <div class="framework-select" data-tour-step="2" data-tour-title="Choose a Framework" data-tour-desc="Select which prompting framework to score against. CRISP is a great starting point, but you can also test against COSTAR or CRISPE.">
+                            <div class="framework-select" data-tour-step="2" data-tour-title="Autodetect or Choose" data-tour-desc="Leave this on Autodetect and the analyzer works out which framework your prompt follows. You can also choose one of 26 frameworks yourself.">
                                 <label for="framework-selector" class="input-label-sm">Analyze against:</label>
                                 <select id="framework-selector" class="select-input">
-                                    <option value="CRISP" selected>CRISP Framework</option>
-                                    <option value="COSTAR">COSTAR Technique</option>
-                                    <option value="CRISPE">CRISPE Framework</option>
+                                    <option value="" selected>Autodetect (or choose a framework)</option>
                                 </select>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-full" data-tour-step="3" data-tour-title="Run the Analysis" data-tour-desc="Click here to get your score and a detailed breakdown of which framework elements were detected, what confidence level each earned, and what's missing.">Analyze Prompt</button>
+                        <button type="submit" class="btn btn-primary btn-full" data-tour-step="3" data-tour-title="Run the Analysis" data-tour-desc="Click here to see which framework your prompt follows, why, your score, and which elements are found or missing.">Analyze Prompt</button>
                     </form>
 
+                    <!-- === ANALYZER RESULTS === -->
+                    <div id="analyzer-status" class="analyzer-status" role="status" aria-live="polite" tabindex="-1"></div>
                     <div id="analysis-display" class="analysis-display">
                         <!-- Analysis results will be populated by JavaScript -->
                     </div>
+                    <p class="analyzer-disclosure">This tool uses pattern matching that runs in your browser. No AI model is involved and your prompt is not sent anywhere. Treat the result as a guide and check it against your own judgment.</p>
+                    <!-- /ANALYZER RESULTS -->
                 </div>
             </div>
         </section>
@@ -206,7 +208,7 @@
         <section class="section section-alt">
             <div class="container">
                 <h2 class="section-title fade-in-up">How Analysis Works</h2>
-                <p class="section-subtitle fade-in-up">Intelligent content detection, not just keyword matching</p>
+                <p class="section-subtitle fade-in-up">Pattern-based content detection that shows its reasoning</p>
 
                 <div class="analysis-info-grid stagger-children">
                     <div class="analysis-info-card">
@@ -247,6 +249,26 @@
                         </div>
                         <h3>Confidence Levels</h3>
                         <p>Not just "found/not found" but high, medium, or low confidence. We show exactly what triggered each detection.</p>
+                    </div>
+
+                    <div class="analysis-info-card">
+                        <div class="info-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                        <h3>Framework Autodetect</h3>
+                        <p>The analyzer checks 26 frameworks in three steps: does your prompt name one, does it use one's labels, or does its content cover one. When nothing fits clearly, it says so and suggests the three closest.</p>
+                    </div>
+
+                    <div class="analysis-info-card">
+                        <div class="info-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M3 6l9-3 9 3M3 6v6c0 5 4 8 9 9 5-1 9-4 9-9V6"/>
+                            </svg>
+                        </div>
+                        <h3>What the Score Measures</h3>
+                        <p>Most of the score is how many of the framework's elements you covered. Part of it rewards a clear task, background, and a role or audience, so frameworks without a role element can score a few points lower. Framework definitions follow each framework's page in this library.</p>
                     </div>
                 </div>
             </div>
