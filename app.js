@@ -5452,11 +5452,17 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function evaluateLetters(framework, elementSummary, traitSummary, labelHits) {
         const labeled = new Set(labelHits.filter(h => h.hasContent).map(h => h.index));
+        // A label left empty is a deliberate blank: the label word alone
+        // must not satisfy the letter through a content signal.
+        const emptyLabeled = new Set(labelHits.filter(h => !h.hasContent).map(h => h.index));
         const used = Object.create(null);
         const letters = framework.elements.map((element, index) => {
             const base = { letter: element.letter, label: element.label, maps: element.maps };
             if (labeled.has(index)) {
                 return Object.assign(base, { found: true, via: 'label', key: null });
+            }
+            if (emptyLabeled.has(index)) {
+                return Object.assign(base, { found: false, via: null, key: null });
             }
             for (const key of element.maps) {
                 const data = elementSummary[key] || traitSummary[key];
@@ -5605,29 +5611,58 @@ document.addEventListener('DOMContentLoaded', () => {
             this.elementTypes = ELEMENT_TYPES;
         }
 
-        analyze(prompt, selectedFramework = 'CRISP') {
+        /**
+         * Analyzes a prompt against a detected or chosen framework.
+         * @param {string} prompt
+         * @param {string} selection - '' for autodetect, or a registry framework id
+         * @param {{list: Object[], byId: Object}} registry
+         * @returns {Object} Analysis results; score fields are null on a weak match
+         */
+        analyze(prompt, selection, registry) {
             const segments = this.segmentPrompt(prompt);
             const analyzedSentences = segments.map((segment, index) =>
                 this.analyzeSentence(segment, index, segments.length)
             );
             const elementSummary = this.aggregateElementScores(analyzedSentences);
-            const frameworkFit = this.calculateFrameworkFit(elementSummary);
-            const scoreResult = this.calculateOverallScore(elementSummary, frameworkFit, selectedFramework, prompt);
-            const feedback = this.generateFeedback(elementSummary, frameworkFit, selectedFramework);
+            const traitSummary = detectTraits(prompt);
             const techniques = this.detectTechniques(prompt);
 
-            return {
-                prompt,
-                sentences: analyzedSentences,
-                elementSummary,
-                frameworkFit,
+            const chosen = selection ? registry.byId[selection] : null;
+            let detection;
+            let framework;
+            if (chosen) {
+                framework = chosen;
+                detection = { status: 'manual', frameworkId: chosen.id, evidence: {}, closest: [] };
+            } else {
+                detection = detectFramework(prompt, elementSummary, traitSummary, registry);
+                framework = detection.frameworkId ? registry.byId[detection.frameworkId] : null;
+            }
+
+            const base = { prompt, sentences: analyzedSentences, elementSummary, traitSummary, techniques, detection };
+
+            if (!framework) {
+                return Object.assign(base, {
+                    framework: null,
+                    letterResult: null,
+                    overallScore: null,
+                    baseScore: null,
+                    bonusScore: 0,
+                    structuralBonuses: [],
+                    feedback: this.generateFeedback(elementSummary, traitSummary, null)
+                });
+            }
+
+            const letterResult = evaluateLetters(framework, elementSummary, traitSummary, findLabelHits(prompt, framework));
+            const scoreResult = this.calculateOverallScore(elementSummary, letterResult, prompt);
+            return Object.assign(base, {
+                framework,
+                letterResult,
                 overallScore: scoreResult.score,
                 baseScore: scoreResult.baseScore,
                 bonusScore: scoreResult.bonusScore,
                 structuralBonuses: scoreResult.structuralBonuses,
-                feedback,
-                techniques
-            };
+                feedback: this.generateFeedback(elementSummary, traitSummary, letterResult)
+            });
         }
 
         segmentPrompt(prompt) {
@@ -5809,42 +5844,16 @@ document.addEventListener('DOMContentLoaded', () => {
             return summary;
         }
 
-        calculateFrameworkFit(elementSummary) {
-            const frameworksUnique = {
-                CRISP: ['context', 'role', 'instruction', 'specifics', 'parameters'],
-                COSTAR: ['context', 'instruction', 'tone', 'audience', 'specifics'],
-                CRISPE: ['context', 'role', 'instruction', 'specifics', 'parameters', 'examples']
-            };
-
-            const fit = {};
-            for (const [frameworkName, elements] of Object.entries(frameworksUnique)) {
-                let totalScore = 0;
-                let detected = 0;
-                const missing = [];
-
-                for (const element of elements) {
-                    const elementData = elementSummary[element];
-                    if (elementData?.detected) {
-                        totalScore += elementData.score;
-                        detected++;
-                    } else {
-                        missing.push(element);
-                    }
-                }
-
-                fit[frameworkName] = {
-                    score: elements.length > 0 ? Math.round(totalScore / elements.length) : 0,
-                    missingElements: missing,
-                    coverage: `${detected}/${elements.length}`,
-                    coverageRatio: detected / elements.length
-                };
-            }
-
-            return fit;
-        }
-
-        calculateOverallScore(elementSummary, frameworkFit, selectedFramework, prompt = '') {
-            const frameworkScore = (frameworkFit[selectedFramework]?.coverageRatio || 0) * 100;
+        /**
+         * Scores the prompt. The formula is unchanged; the framework coverage
+         * term now reads the letters of the detected or chosen framework.
+         * @param {Object} elementSummary
+         * @param {{found: number, total: number, ratio: number}} letterResult
+         * @param {string} prompt
+         * @returns {{score: number, baseScore: number, bonusScore: number, structuralBonuses: Array}}
+         */
+        calculateOverallScore(elementSummary, letterResult, prompt = '') {
+            const frameworkScore = letterResult.ratio * 100;
             const detectedElements = Object.values(elementSummary).filter(e => e.detected);
             const avgElementScore = detectedElements.length > 0 ? detectedElements.reduce((sum, e) => sum + e.score, 0) / detectedElements.length : 0;
 
@@ -5856,17 +5865,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Confidence bonus - reward high-confidence detections
             const highConfidenceCount = detectedElements.filter(e => e.confidence === 'high').length;
-            const confidenceBonus = highConfidenceCount * 4; // Up to 32 points for 8 high-confidence
+            const confidenceBonus = highConfidenceCount * 4;
 
             // Extra elements bonus - reward detecting elements beyond framework requirements
-            const frameworkElements = {
-                CRISP: ['context', 'role', 'instruction', 'specifics', 'parameters'],
-                COSTAR: ['context', 'instruction', 'tone', 'audience', 'specifics'],
-                CRISPE: ['context', 'role', 'instruction', 'specifics', 'parameters', 'examples']
-            };
-            const requiredCount = frameworkElements[selectedFramework]?.length || 5;
-            const extraElementsCount = Math.max(0, detectedElements.length - requiredCount);
-            const extraElementsBonus = extraElementsCount * 5; // Bonus for tone, examples, etc beyond framework
+            const extraElementsCount = Math.max(0, detectedElements.length - letterResult.total);
+            const extraElementsBonus = extraElementsCount * 5;
 
             // Richness bonus - reward comprehensive prompts
             const richnessBonus = detectedElements.length >= 6 ? 8 : detectedElements.length >= 5 ? 5 : 0;
@@ -5890,18 +5893,19 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
 
-        generateFeedback(elementSummary, frameworkFit, selectedFramework) {
+        /**
+         * Builds feedback. Strengths list every detected element. Improvements
+         * and quick wins come from the framework's letters, named with the
+         * framework's own labels. With no framework, only strengths are returned.
+         * @param {Object} elementSummary
+         * @param {Object} traitSummary
+         * @param {{letters: Array}|null} letterResult
+         * @returns {{strengths: Array, improvements: Array, quickWins: Array, missingCritical: Array}}
+         */
+        generateFeedback(elementSummary, traitSummary, letterResult) {
             const feedback = { strengths: [], improvements: [], quickWins: [], missingCritical: [] };
-            const frameworkElements = {
-                CRISP: ['context', 'role', 'instruction', 'specifics', 'parameters'],
-                COSTAR: ['context', 'instruction', 'tone', 'audience', 'specifics'],
-                CRISPE: ['context', 'role', 'instruction', 'specifics', 'parameters', 'examples']
-            };
-
-            const relevantElements = frameworkElements[selectedFramework] || frameworkElements.CRISP;
             const criticalElements = ['instruction', 'context'];
 
-            // Identify strengths
             for (const [elementKey, data] of Object.entries(elementSummary)) {
                 if (data.detected) {
                     const elementType = this.elementTypes[elementKey];
@@ -5918,37 +5922,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Identify improvements
-            for (const elementKey of relevantElements) {
-                const data = elementSummary[elementKey];
-                if (!data?.detected) {
-                    const elementType = this.elementTypes[elementKey];
-                    const isCritical = criticalElements.includes(elementKey);
-                    const suggestion = this.getSuggestions(elementKey);
+            if (!letterResult) return feedback;
 
+            for (const item of letterResult.letters) {
+                const primaryKey = item.maps[0];
+                const suggestion = this.getSuggestions(item.key || primaryKey);
+                if (!item.found) {
+                    const isCritical = item.maps.some(key => criticalElements.includes(key));
                     const improvement = {
-                        element: elementKey,
-                        name: elementType?.name || elementKey,
-                        letter: elementType?.letter || '',
+                        element: primaryKey,
+                        name: item.label,
+                        letter: item.letter,
                         priority: isCritical ? 'high' : 'medium',
-                        message: `Add ${elementType?.name || elementKey}`,
+                        message: `Add ${item.label}`,
                         tip: suggestion.tip,
                         example: suggestion.example
                     };
-
                     if (isCritical) feedback.missingCritical.push(improvement);
                     feedback.improvements.push(improvement);
-                } else if (data.confidence === 'low' && relevantElements.includes(elementKey)) {
-                    const elementType = this.elementTypes[elementKey];
-                    const suggestion = this.getSuggestions(elementKey);
-                    feedback.quickWins.push({
-                        element: elementKey,
-                        name: elementType?.name || elementKey,
-                        letter: elementType?.letter || '',
-                        message: `Strengthen your ${elementType?.name || elementKey}`,
-                        tip: suggestion.tip,
-                        currentExcerpt: data.excerpts[0]?.text || null
-                    });
+                } else if (item.via === 'content') {
+                    const data = elementSummary[item.key] || traitSummary[item.key];
+                    if (data && data.confidence === 'low') {
+                        feedback.quickWins.push({
+                            element: item.key,
+                            name: item.label,
+                            letter: item.letter,
+                            message: `Strengthen your ${item.label}`,
+                            tip: suggestion.tip,
+                            currentExcerpt: data.excerpts[0]?.text || null
+                        });
+                    }
                 }
             }
 
