@@ -6723,6 +6723,66 @@ document.addEventListener('DOMContentLoaded', () => {
         return shuffle(facts.concat(fictions), rng);
     }
 
+    /**
+     * Fresh game state for a level and a drawn set.
+     * @param {Object} levelFile - validated level file
+     * @param {Array} drawn - 20 statements from drawStatements
+     */
+    function createGame(levelFile, drawn) {
+        return {
+            level: levelFile.level,
+            band: levelFile.band,
+            name: levelFile.name,
+            statements: drawn,
+            index: 0,
+            answers: [],
+            finished: false
+        };
+    }
+
+    /** The recorded answer for the current statement, or null. */
+    function currentAnswer(game) {
+        const current = game.statements[game.index];
+        if (!current) return null;
+        for (let i = 0; i < game.answers.length; i++) {
+            if (game.answers[i].id === current.id) return game.answers[i];
+        }
+        return null;
+    }
+
+    /**
+     * Record an answer for the current statement. A second answer to the
+     * same statement, or any answer after finish, returns the game unchanged.
+     * @param {Object} game
+     * @param {boolean} saidFact - true when the player pressed Fact
+     */
+    function answerStatement(game, saidFact) {
+        const current = game.statements[game.index];
+        if (!current || game.finished || currentAnswer(game)) return game;
+        const entry = { id: current.id, saidFact: saidFact, correct: saidFact === current.isFact };
+        return Object.assign({}, game, { answers: game.answers.concat([entry]) });
+    }
+
+    /** Move to the next statement; requires the current one to be answered. */
+    function advance(game) {
+        if (game.finished || !currentAnswer(game)) return game;
+        const index = game.index + 1;
+        return Object.assign({}, game, { index: index, finished: index >= game.statements.length });
+    }
+
+    /** Correct count, total, and verdict tier (0: 0 to 9, 1: 10 to 13, 2: 14 to 17, 3: 18 to 20). */
+    function scoreGame(game) {
+        const correct = game.answers.filter(a => a.correct).length;
+        const tier = correct >= 18 ? 3 : correct >= 14 ? 2 : correct >= 10 ? 1 : 0;
+        return { correct: correct, total: game.statements.length, tier: tier };
+    }
+
+    /** Verdict copy for a band and tier; unknown band reads as literacy, tier is clamped. */
+    function bandVerdict(band, tier) {
+        const list = FF_VERDICTS[band] || FF_VERDICTS.literacy;
+        return list[Math.min(Math.max(tier, 0), list.length - 1)];
+    }
+
     // === FACTS OR FICTION WIRING ===
     // (filled in Task 6)
 
