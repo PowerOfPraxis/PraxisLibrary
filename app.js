@@ -5134,7 +5134,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: 'quoted_sample', pattern: /[""][^""]{10,}[""]/i, weight: 0.8, exclusive: true },
                 { name: 'io_pair', pattern: /\b(input|output)\s*:/i, weight: 1.0, exclusive: true },
                 { name: 'template_indicator', pattern: /\{[^}]+\}|\[[^\]]+\]|<[^>]+>/i, weight: 0.6, exclusive: false },
-                { name: 'here_is_pattern', pattern: /\b(here is|here's|below is|following is|see example|example below)\b/i, weight: 0.8, exclusive: true }
+                // Narrowed (S153): "here is the transcript" is input data, not an example
+                { name: 'here_is_pattern', pattern: /\b(here is|here's|below is|following is)\s+(an?\s+|the\s+|my\s+)?(example|sample)\b|\b(see example|example below)\b/i, weight: 0.8, exclusive: true }
             ],
             structuralBonus: { positionLate: 0.2, hasQuotes: 0.2 }
         },
@@ -5255,7 +5256,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Delimiters',
             signals: [
                 { name: 'markdown_header', pattern: /^#{1,4}\s+\S/m, weight: 0.9 },
-                { name: 'xml_tags', pattern: /<([a-z][\w-]*)>[\s\S]*<\/\1>/i, weight: 0.9 },
+                { name: 'xml_tags', pattern: /<([a-z][\w-]*)(?:\s[^<>]*)?>[\s\S]*?<\/\1\s*>/i, weight: 0.9 },
                 { name: 'fence', pattern: /^(```|"""|---)\s*$/m, weight: 0.8 }
             ]
         },
@@ -5417,8 +5418,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const found = [];
         framework.elements.forEach((element, index) => {
             const stem = escapeRegExp(element.label.replace(/s$/i, ''));
+            // The sentence-end alternative uses a lookahead so the whitespace
+            // run is consumed once (two adjacent greedy runs backtrack in O(n^2)).
             const pattern = new RegExp(
-                '(^|\\n|[.!?][ \\t]+)[ \\t]*(?:[*_#>-]+[ \\t]*)?' + stem + 's?' +
+                '(^|\\n|[.!?](?=[ \\t]))[ \\t]*(?:[*_#>-]+[ \\t]*)?' + stem + 's?' +
                 '(?:\\*\\*|__)?[ \\t]*(?::|-(?=\\s))', 'i');
             const match = pattern.exec(prompt);
             if (match) {
