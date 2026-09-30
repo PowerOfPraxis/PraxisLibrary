@@ -6598,7 +6598,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * The audit tool parses this table, so keep one level per line.
      */
     const FF_LEVELS = [null,
-        { name: 'AI in Everyday Life', band: 'literacy', available: false },
+        { name: 'AI in Everyday Life', band: 'literacy', available: true },
         { name: 'What AI Actually Is', band: 'literacy', available: false },
         { name: 'How Models Learn', band: 'literacy', available: false },
         { name: 'Talking to a Chatbot', band: 'literacy', available: false },
