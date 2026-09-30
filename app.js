@@ -6871,6 +6871,199 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    /** Element helper: tag, class, text content. Text nodes only, never HTML. */
+    function ffEl(tag, cls, text) {
+        const e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (text !== undefined) e.textContent = text;
+        return e;
+    }
+
+    /**
+     * Renders the three screens into one container. Builds DOM from
+     * createElement and text nodes; data never touches innerHTML.
+     */
+    class FactsDisplay {
+        /**
+         * @param {HTMLElement} container - #ff-game
+         * @param {HTMLElement} status - #ff-status, polite live region
+         */
+        constructor(container, status) {
+            this.container = container;
+            this.status = status;
+            this.card = null;
+            this.answers = null;
+        }
+
+        /** Set the live region text. */
+        announce(text) {
+            this.status.textContent = text;
+        }
+
+        /** Replace the container's content with one node. */
+        show(node) {
+            this.container.replaceChildren(node);
+        }
+
+        button(action, label, cls) {
+            const b = ffEl('button', cls || 'btn ff-btn', label);
+            b.type = 'button';
+            b.setAttribute('data-action', action);
+            return b;
+        }
+
+        /** Level picker: two bands, best and last played, disclosures, Start fresh. */
+        renderPicker(store) {
+            const root = ffEl('div', 'ff-picker');
+            const bands = [
+                ['literacy', 'AI Literacy, levels 1 to 10', 1, 10],
+                ['practitioner', 'Practitioner, levels 11 to 20', 11, 20]
+            ];
+            bands.forEach(b => {
+                const group = ffEl('section', 'ff-band');
+                const title = ffEl('h3', 'ff-band__title', b[1]);
+                title.id = 'ff-band-' + b[0];
+                group.setAttribute('aria-labelledby', title.id);
+                group.appendChild(title);
+                const grid = ffEl('div', 'ff-band__grid');
+                for (let n = b[2]; n <= b[3]; n++) {
+                    const meta = FF_LEVELS[n];
+                    const btn = ffEl('button', 'ff-level');
+                    btn.type = 'button';
+                    btn.setAttribute('data-action', 'pick');
+                    btn.setAttribute('data-level', String(n));
+                    btn.appendChild(ffEl('span', 'ff-level__num', 'Level ' + n));
+                    btn.appendChild(ffEl('span', 'ff-level__name', meta.name));
+                    if (!meta.available) {
+                        btn.disabled = true;
+                        btn.appendChild(ffEl('span', 'ff-level__meta', 'Coming soon'));
+                    } else {
+                        const best = store.best[String(n)];
+                        if (typeof best === 'number') btn.appendChild(ffEl('span', 'ff-level__meta', 'Best ' + best + ' of ' + FF_GAME_SIZE));
+                        if (store.lastLevel === n) btn.appendChild(ffEl('span', 'ff-level__tag', 'Last played'));
+                    }
+                    grid.appendChild(btn);
+                }
+                group.appendChild(grid);
+                root.appendChild(group);
+            });
+
+            const how = ffEl('div', 'ff-how');
+            how.appendChild(ffEl('h3', 'ff-how__title', 'How it works'));
+            how.appendChild(ffEl('p', '', 'Pick a level. You get 20 statements about AI, ten true and ten not, in a fresh order every game. Call each one Fact or Fiction, read why, and see your score at the end.'));
+            how.appendChild(ffEl('p', 'ff-disclosure', 'Statements were drafted with AI assistance and reviewed by a human before publishing. Verify anything you act on.'));
+            how.appendChild(ffEl('p', 'ff-disclosure', 'Your best score per level, the statements you have seen, and the last level you played are kept only in this browser under the key praxis-ff-progress. Nothing is sent anywhere.'));
+            how.appendChild(this.button('reset', 'Start fresh', 'btn btn-secondary ff-btn'));
+            root.appendChild(how);
+            this.show(root);
+        }
+
+        answerButton(action, label) {
+            const b = ffEl('button', 'ff-answer ff-answer--' + action);
+            b.type = 'button';
+            b.setAttribute('data-action', action);
+            const icon = ffEl('span', 'ff-answer__icon');
+            icon.setAttribute('aria-hidden', 'true');
+            b.appendChild(icon);
+            b.appendChild(ffEl('span', 'ff-answer__label', label));
+            return b;
+        }
+
+        /** Play screen for the current statement; focuses the card. */
+        renderStatement(game) {
+            const s = game.statements[game.index];
+            const root = ffEl('div', 'ff-play');
+            const meta = ffEl('p', 'ff-play__meta');
+            meta.appendChild(ffEl('span', 'ff-play__level', 'Level ' + game.level + ': ' + game.name));
+            meta.appendChild(ffEl('span', 'ff-play__progress', 'Statement ' + (game.index + 1) + ' of ' + game.statements.length));
+            const card = ffEl('div', 'ff-card');
+            card.setAttribute('tabindex', '-1');
+            card.appendChild(ffEl('p', 'ff-card__text', s.text));
+            const answers = ffEl('div', 'ff-answers');
+            answers.appendChild(this.answerButton('fact', 'Fact'));
+            answers.appendChild(this.answerButton('fiction', 'Fiction'));
+            root.appendChild(meta);
+            root.appendChild(card);
+            root.appendChild(answers);
+            root.appendChild(ffEl('p', 'ff-hint', 'Keyboard: F for Fact, J for Fiction'));
+            this.card = card;
+            this.answers = answers;
+            this.show(root);
+            card.focus();
+        }
+
+        /** Result block inside the card after an answer; focuses its heading. */
+        renderResult(game, entry, statement) {
+            Array.prototype.forEach.call(this.answers.children, b => { b.disabled = true; });
+            const block = ffEl('div', 'ff-result ' + (entry.correct ? 'ff-result--correct' : 'ff-result--miss'));
+            const title = ffEl('h3', 'ff-result__title', entry.correct ? 'Correct' : 'Not quite');
+            title.setAttribute('tabindex', '-1');
+            block.appendChild(title);
+            block.appendChild(ffEl('p', 'ff-result__truth', 'This one is ' + (statement.isFact ? 'Fact' : 'Fiction') + '.'));
+            block.appendChild(ffEl('p', 'ff-result__why', statement.explanation));
+            if (statement.learn) {
+                const p = ffEl('p', 'ff-result__learn');
+                const a = ffEl('a', 'ff-learn-link', 'Learn more on the related page');
+                a.href = statement.learn;
+                p.appendChild(a);
+                block.appendChild(p);
+            }
+            const last = game.index + 1 >= game.statements.length;
+            block.appendChild(this.button('next', last ? 'See results' : 'Next statement', 'btn ff-btn ff-next'));
+            this.card.appendChild(block);
+            this.announce((entry.correct ? 'Correct. ' : 'Not quite. ') + 'Statement ' + (game.index + 1) + ' of ' + game.statements.length + '.');
+            title.focus();
+        }
+
+        /** Results screen; focuses the score heading. */
+        renderResults(game, score, verdict, nextAvailable) {
+            const root = ffEl('div', 'ff-results');
+            const title = ffEl('h2', 'ff-results__score', score.correct + ' of ' + score.total);
+            title.setAttribute('tabindex', '-1');
+            root.appendChild(title);
+            root.appendChild(ffEl('p', 'ff-results__verdict', verdict));
+            const list = ffEl('ol', 'ff-review');
+            game.statements.forEach(s => {
+                let a = null;
+                for (let i = 0; i < game.answers.length; i++) if (game.answers[i].id === s.id) a = game.answers[i];
+                const right = !!(a && a.correct);
+                const li = ffEl('li', 'ff-review__item ' + (right ? 'ff-review__item--correct' : 'ff-review__item--miss'));
+                li.appendChild(ffEl('p', 'ff-review__text', s.text));
+                li.appendChild(ffEl('p', 'ff-review__call', (right ? 'Right. ' : 'Not quite. ') + 'You said ' + (a && a.saidFact ? 'Fact' : 'Fiction') + '. It is ' + (s.isFact ? 'Fact' : 'Fiction') + '.'));
+                li.appendChild(ffEl('p', 'ff-review__why', s.explanation));
+                if (s.learn) {
+                    const p = ffEl('p', 'ff-review__learn');
+                    const link = ffEl('a', 'ff-learn-link', 'Learn more on the related page');
+                    link.href = s.learn;
+                    p.appendChild(link);
+                    li.appendChild(p);
+                }
+                list.appendChild(li);
+            });
+            root.appendChild(list);
+            const actions = ffEl('div', 'ff-actions');
+            actions.appendChild(this.button('replay', 'Play this level again'));
+            if (nextAvailable) actions.appendChild(this.button('next-level', 'Next level'));
+            actions.appendChild(this.button('picker', 'Pick a level', 'btn btn-secondary ff-btn'));
+            root.appendChild(actions);
+            this.show(root);
+            this.announce('Finished. ' + score.correct + ' of ' + score.total + ' correct.');
+            title.focus();
+        }
+
+        /** Load failure card with Retry; the picker stays reachable through Pick a level. */
+        renderLoadError(level) {
+            const root = ffEl('div', 'ff-error');
+            root.appendChild(ffEl('p', 'ff-error__text', 'This level did not load.'));
+            const retry = this.button('retry', 'Retry');
+            retry.setAttribute('data-level', String(level));
+            root.appendChild(retry);
+            root.appendChild(this.button('picker', 'Pick a level', 'btn btn-secondary ff-btn'));
+            this.show(root);
+            this.announce('This level did not load.');
+        }
+    }
+
     // === FACTS OR FICTION WIRING ===
     // (filled in Task 6)
 
