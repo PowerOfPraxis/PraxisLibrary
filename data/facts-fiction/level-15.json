@@ -1,0 +1,287 @@
+{
+  "level": 15,
+  "band": "practitioner",
+  "name": "Retrieval and Grounding",
+  "statements": [
+    {
+      "id": "L15-001",
+      "text": "Retrieval-augmented generation searches a knowledge base before the model answers and injects the retrieved passages into the prompt, so the answer is built from provided evidence rather than training memory alone.",
+      "isFact": true,
+      "explanation": "The RAG page calls it giving the model a library card. A model's knowledge is frozen at training time and it cannot tell what it knows from what it is confabulating. Retrieved passages give it concrete evidence to reason over, turning the model into a synthesizer of supplied information.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L15-002",
+      "text": "A model with enough parameters no longer needs retrieval, because a large enough network holds every fact an application will ask about.",
+      "isFact": false,
+      "explanation": "Scaling does not solve the knowledge problem. A trillion-parameter model still knows nothing about documents written after its cutoff, proprietary data it never saw, or figures that change daily. The page calls RAG the architecturally correct answer wherever factual accuracy matters, not a workaround for small models.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L15-003",
+      "text": "The RAG pipeline has four stages: receive the query, retrieve the most similar document chunks, augment the prompt with them, and generate a response that cites them.",
+      "isFact": true,
+      "explanation": "The query is embedded and compared against a pre-indexed knowledge base, the top chunks are formatted into the context beside the question, and the prompt tells the model to answer from those documents with citations. Advanced systems reformulate the query or split it into sub-queries before retrieving.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L15-004",
+      "text": "In a RAG system the retrieved documents are handed straight to the user in place of an answer, so no generation step is needed.",
+      "isFact": false,
+      "explanation": "Retrieval is the first half. The model still reads the passages and the question together and synthesizes a response, which is where the value lies: a structured answer that draws on three policies at once and cites the section each claim came from. Raw search results would leave that work to the reader.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L15-005",
+      "text": "The page compares a model without retrieval to a student in a closed-book exam, who writes a confident wrong answer when memory fails, and a model with retrieval to the open-book student who cites the material.",
+      "isFact": true,
+      "explanation": "The closed-book student has only memorization. Asked about a company's parental leave, the model without RAG states twelve weeks because that figure is common, when the real policy says sixteen and includes adoption leave it has never seen. The open-book version cites the handbook section for each number.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L15-006",
+      "text": "Because RAG grounds the answer in documents, its output is correct by construction and the citations need no checking.",
+      "isFact": false,
+      "explanation": "Grounding raises the odds, it does not guarantee the result. The retriever can miss the right chunk, the model can misread a passage, and the documents themselves can be out of date. The site's standing rule applies: verify AI output before use, and the citations exist precisely so a human can do that quickly.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L15-007",
+      "text": "A well-built RAG prompt tells the model to say what is missing when the retrieved documents do not fully answer the question, instead of filling the gap from memory.",
+      "isFact": true,
+      "explanation": "The augmentation step in the page's example instructs the model to answer from the provided documents, cite specific sections, and state what is missing when they fall short. That instruction is what stops a retrieval system from quietly reverting to the hallucination it was built to prevent.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L15-008",
+      "text": "Retrieval is the right choice for every prompt, including fiction writing, brainstorming and simple sentiment classification.",
+      "isFact": false,
+      "explanation": "The page lists where to skip it: general knowledge well inside the training data, creative generation that retrieved documents would only constrain, and simple classification where parametric knowledge is enough. Retrieval adds latency and complexity, so it earns its place where accuracy and sources matter.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L15-009",
+      "text": "Hybrid search combines semantic vector similarity with keyword matching, and a re-ranking model can then reorder the candidates to improve precision.",
+      "isFact": true,
+      "explanation": "Dense embeddings find passages that mean the same thing in different words; sparse keyword scoring such as BM25 finds exact terms, product codes and names that embeddings blur. Running both and re-ranking the union is how modern pipelines get the recall of one and the precision of the other.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L15-010",
+      "text": "A model's knowledge cutoff is the date after which it has no training data, and anything later is unknown to it unless supplied through the context or retrieval.",
+      "isFact": true,
+      "explanation": "The glossary defines the cutoff exactly that way. The practical consequence is that the model can describe an old policy fluently and be wrong about the current one, because the revision happened after its data ended. Retrieval is the mechanism for putting the newer material in front of it.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L15-011",
+      "text": "A knowledge cutoff only affects questions about recent news; internal company documents are available to the model regardless of when they were written.",
+      "isFact": false,
+      "explanation": "The cutoff is one of two gaps. The other is everything the model was never trained on at all, which includes private documents of any age. A handbook from a decade ago is as invisible to the model as last week's memo until a retrieval step places it in the context window.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L15-012",
+      "text": "HyDE asks the model to write a hypothetical answer first, embeds that text, and uses the resulting vector to find real documents.",
+      "isFact": true,
+      "explanation": "Queries are short and question-shaped; documents are long and statement-shaped, so their embeddings can sit far apart even when the document is exactly what is needed. A generated paragraph in document style lands near the real documents in embedding space, because like attracts like there.",
+      "learn": "../learn/hyde.html"
+    },
+    {
+      "id": "L15-013",
+      "text": "HyDE only works when the hypothetical document is factually accurate, since errors in it would retrieve the wrong sources.",
+      "isFact": false,
+      "explanation": "The page is explicit that accuracy is secondary to stylistic alignment. The hypothetical text is a search probe: it needs the vocabulary, length and shape of the right document so the embedding lands in the right neighborhood. The retrieved documents are real and verified; the probe is discarded.",
+      "learn": "../learn/hyde.html"
+    },
+    {
+      "id": "L15-014",
+      "text": "In HyDE the generated hypothetical document is what the user receives as the final answer.",
+      "isFact": false,
+      "explanation": "The hypothetical document is generated for embedding and never shown to the user. Its only job is to retrieve real documents, which are then presented and used to generate a grounded answer. Serving the probe itself would be serving an unverified guess dressed as documentation.",
+      "learn": "../learn/hyde.html"
+    },
+    {
+      "id": "L15-015",
+      "text": "The query-document gap is the mismatch between how people phrase questions and how documents phrase answers, and it is the reason embedding a raw query can miss the best document.",
+      "isFact": true,
+      "explanation": "The page's example query about making a model faster retrieves an introductory overview, an architecture named Faster R-CNN and an athletics article, all matching surface words. The hypothetical document about quantization and pruning retrieves the optimization guides the user wanted.",
+      "learn": "../learn/hyde.html"
+    },
+    {
+      "id": "L15-016",
+      "text": "Chunking splits long documents into pieces for indexing; smaller chunks make retrieval more precise, larger chunks keep more surrounding context, and overlap stops facts at a boundary from being lost.",
+      "isFact": true,
+      "explanation": "Three glossary entries cover it: chunking is required wherever input length exceeds model limits or affects retrieval quality; chunk size trades precision against coherence; chunk overlap shares tokens between neighbors so a sentence split across two chunks still survives in one of them.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L15-017",
+      "text": "Chunk size has no effect on retrieval quality, as long as the whole document ends up in the index.",
+      "isFact": false,
+      "explanation": "Retrieval returns chunks, not documents, so the chunk is the unit that must match the query and carry enough context to be useful. Too small and the matching passage lacks its surroundings; too large and the relevant sentence is diluted by unrelated text in the same vector. The glossary names this tradeoff directly.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L15-018",
+      "text": "Re-ranking is a second retrieval stage: a fast retriever fetches a broad set of candidates, then a more expensive model rescores them for relevance before the best reach the language model.",
+      "isFact": true,
+      "explanation": "The glossary describes the cross-encoder reading query and document together, which is slower than comparing two precomputed vectors but far more discriminating. Running it only on the shortlist keeps the cost bounded while raising the precision of what the model finally sees.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L15-019",
+      "text": "Top-k in retrieval means the same thing as top-k sampling: the k most probable next tokens the model may choose from.",
+      "isFact": false,
+      "explanation": "They share a letter and nothing else. Top-k retrieval returns the k vectors most similar to the query, and k controls the breadth of results against latency. Top-k sampling restricts token selection during generation. One shapes what the model reads; the other shapes what it writes.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L15-020",
+      "text": "An embedding is a dense vector in which texts with similar meaning land close together, which is what makes semantic search possible.",
+      "isFact": true,
+      "explanation": "The glossary defines it as a representation in a continuous space where similar items have similar vectors. Search then becomes geometry: embed the query, measure distance to every indexed chunk, return the nearest. Meaning, not shared keywords, decides what counts as close.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L15-021",
+      "text": "Semantic search returns a document only when it shares exact keywords with the query.",
+      "isFact": false,
+      "explanation": "That describes keyword search. Semantic search works on meaning through embeddings, so a query about a refund can find a passage about returning merchandise for a credit. Exact term matching is the job of sparse methods such as BM25, which is why hybrid search runs both.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L15-022",
+      "text": "A vector database stores the original documents as plain text and searches them with keyword matching.",
+      "isFact": false,
+      "explanation": "A vector database is built to store and search high-dimensional embeddings, the numeric representations of the chunks. The glossary names it as essential to RAG and semantic search. Text may be stored alongside for display, but the search itself runs over vectors and distances.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L15-023",
+      "text": "Models attend most to the beginning and end of a long context, so a critical fact buried in the middle of a long prompt can be overlooked.",
+      "isFact": true,
+      "explanation": "The Context Structure page names this the lost in the middle problem: a U-shaped attention curve with recall dropping for material in the center. Placing key facts first, using explicit section headers and summarizing critical points are the counters it recommends.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L15-024",
+      "text": "Where information sits in the context makes no difference, because the model weighs every token in the window equally.",
+      "isFact": false,
+      "explanation": "Position matters enough to have a named failure. The same facts placed at the start or end are recalled better than the same facts placed mid-prompt. That is why the page tells you to put instructions and key constraints first and, in very long prompts, to repeat them at the end.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L15-025",
+      "text": "Wrapping each source in its own delimiter, such as XML tags or labeled headers, stops the model from attributing one document's claims to another.",
+      "isFact": true,
+      "explanation": "The page's acquisition example tags company financials, market research and deal parameters separately so growth figures are never mistaken for the target's revenue. Delimiters give the model a boundary it can parse reliably and a name it can cite.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L15-026",
+      "text": "When supplying reference facts and a question, put the question first and the facts after it, so the model knows what to look for while reading.",
+      "isFact": false,
+      "explanation": "The page's ordering is instructions and constraints first, then the primary material, then the specific questions. Facts the model must reference go before the question, so the evidence is in hand when the model begins reasoning. Asking first and informing afterward invites an answer committed before the evidence arrived.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L15-027",
+      "text": "For a very long context, repeating the critical constraints at both the start and the end of the prompt helps counter attention decay.",
+      "isFact": true,
+      "explanation": "The trim-and-prioritize step recommends it alongside removing redundant material and summarizing long passages. The duplication costs a few tokens and places the constraint at the two positions the model attends to most, which is a direct answer to the lost in the middle curve.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L15-028",
+      "text": "Context engineering treats the context window as finite attention and curates the smallest high-signal set of instructions, tools, history and retrieved data the agent needs at each turn.",
+      "isFact": true,
+      "explanation": "The page frames it as the agent-era successor to prompt engineering. Once an agent runs for many turns and calls tools, its context is an evolving pile rather than one prompt. The practices are curating what goes in, compacting history, retrieving just in time and isolating sub-tasks.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L15-029",
+      "text": "Loading every tool and document into the context up front is the safe choice, because the model can simply ignore whatever it does not need.",
+      "isFact": false,
+      "explanation": "The page's comparison shows the cost: attention spread thin, relevant details buried, higher spend and eventual overflow. An agent with forty tools kept picking the wrong one until the set was cut to the handful the workflow needed. Every token competes for attention.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L15-030",
+      "text": "Retrieving just in time, fetching a reference at the moment the agent is about to use it, keeps the window holding what is relevant now rather than everything that might ever be relevant.",
+      "isFact": true,
+      "explanation": "The page's example is an agent that looks up an API reference when it is about to call that API instead of pasting the whole documentation in advance. Paired with note-taking the agent can reload later, the window stays lean across a long run.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L15-031",
+      "text": "Compacting a long conversation into a summary throws away what the agent learned, so the full message history must be kept in the window.",
+      "isFact": false,
+      "explanation": "Compaction keeps what was learned and drops the raw wording. Twenty turns of debugging become a short record of what was tried and what remains, and the open issue stays in full. Keeping every message is what eventually pushes the earliest, important context out of the window.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L15-032",
+      "text": "Generated Knowledge Prompting asks the model to write down relevant facts first, then feeds those facts back as context for the actual question.",
+      "isFact": true,
+      "explanation": "The page separates recall from reasoning. Asked directly, the model retrieves and reasons at once and grabs whatever surfaces first. Generating knowledge in a first pass forces a broader retrieval from its own parameters, and having the facts visible during the answer prevents gaps.",
+      "learn": "../learn/generated-knowledge.html"
+    },
+    {
+      "id": "L15-033",
+      "text": "Knowledge the model generates for itself is reliable by definition, since the model is the source and can be trusted about what it knows.",
+      "isFact": false,
+      "explanation": "The page's verification step says the generated knowledge may itself contain errors and that important claims should be checked against trusted sources. Self-priming improves recall and consistency; it does not add new information or certify the facts the model surfaces.",
+      "learn": "../learn/generated-knowledge.html"
+    },
+    {
+      "id": "L15-034",
+      "text": "Generated Knowledge draws its facts from the model's own parameters, whereas RAG draws them from external documents, so only retrieval can supply information the model was never trained on.",
+      "isFact": true,
+      "explanation": "Both put facts into the context before the answer, but they differ in origin. Generated knowledge surfaces latent training knowledge; retrieval brings in material from outside the weights. For a private policy or a document written after the cutoff, only the second can help.",
+      "learn": "../learn/generated-knowledge.html"
+    },
+    {
+      "id": "L15-035",
+      "text": "Chain of Knowledge writes reasoning as subject-relation-object triples with a short explanation hint on each, so every fact can be checked independently.",
+      "isFact": true,
+      "explanation": "A narrative sentence hides several claims at once. The page's example splits a company going public and its profits doubling into separate triples, each fact-checkable on its own, with missing connections exposed rather than buried. The chain reads like a spreadsheet instead of an essay.",
+      "learn": "../learn/chain-of-knowledge.html"
+    },
+    {
+      "id": "L15-036",
+      "text": "Chain of Knowledge triples are pulled from an external knowledge base, so each one is verified before it appears.",
+      "isFact": false,
+      "explanation": "The model generates the triples and their hints from the problem statement and its own knowledge. The structure makes verification easier, it does not perform it. The page's supply chain example ends by telling the reader to verify the data against current industry reports.",
+      "learn": "../learn/chain-of-knowledge.html"
+    },
+    {
+      "id": "L15-037",
+      "text": "Agentic Context Engineering improves an agent by curating lessons from each run back into its context as structured, incremental entries, without changing the model's weights.",
+      "isFact": true,
+      "explanation": "The loop is generate, reflect, curate, reuse. A coding agent that wasted steps on a build quirk files the fix under a build section of its playbook and skips the detour next time. Incremental updates keep earlier detail intact, which is what prevents the playbook from collapsing.",
+      "learn": "../learn/agentic-context-engineering.html"
+    },
+    {
+      "id": "L15-038",
+      "text": "Agentic Context Engineering works by fine-tuning the model after every run so the lessons are stored in its weights.",
+      "isFact": false,
+      "explanation": "The page positions it as the alternative to retraining, for agents where fine-tuning is costly or unavailable. The lessons live in a readable playbook in the context, which can be inspected, corrected, versioned and shared. The weights are never touched.",
+      "learn": "../learn/agentic-context-engineering.html"
+    },
+    {
+      "id": "L15-039",
+      "text": "Citations in a retrieval system are decorative, since a user has no practical way to check them against the source.",
+      "isFact": false,
+      "explanation": "Citations are the verification mechanism. The page's examples cite section numbers in a handbook, an admin guide and a compliance memo so the reader can open the source and confirm the claim. Auditable AI systems are listed as a core use case for exactly this evidence trail.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L15-040",
+      "text": "Once a system uses retrieval, hallucination becomes impossible, because every sentence in the answer comes from a document.",
+      "isFact": false,
+      "explanation": "The model can still misread a passage, blend two sources, or extend beyond what they say. That is why the glossary lists faithfulness, whether the answer is supported by the retrieved context, as a RAG evaluation metric, and why the prompt instructs the model to state what the documents lack.",
+      "learn": "../learn/rag.html"
+    }
+  ]
+}

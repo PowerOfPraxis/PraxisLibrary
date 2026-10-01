@@ -6612,7 +6612,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Sampling and Determinism', band: 'practitioner', available: true },
         { name: 'Prompt Structure', band: 'practitioner', available: true },
         { name: 'Reasoning Techniques', band: 'practitioner', available: true },
-        { name: 'Retrieval and Grounding', band: 'practitioner', available: false },
+        { name: 'Retrieval and Grounding', band: 'practitioner', available: true },
         { name: 'Agents and Tools', band: 'practitioner', available: false },
         { name: 'Evaluation', band: 'practitioner', available: false },
         { name: 'Safety and Alignment', band: 'practitioner', available: false },
