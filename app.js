@@ -7092,13 +7092,8 @@ document.addEventListener('DOMContentLoaded', () => {
             block.appendChild(title);
             block.appendChild(ffEl('p', 'ff-result__truth', 'This one is ' + (statement.isFact ? 'Fact' : 'Fiction') + '.'));
             block.appendChild(ffEl('p', 'ff-result__why', statement.explanation));
-            if (statement.learn) {
-                const p = ffEl('p', 'ff-result__learn');
-                const a = ffEl('a', 'ff-learn-link', ffLearnLabel(statement.learn));
-                a.href = statement.learn;
-                p.appendChild(a);
-                block.appendChild(p);
-            }
+            // Learn links live on the results review only (PL-036 c, Bas's call): a mid-game
+            // click would navigate away and lose the game.
             const last = game.index + 1 >= game.statements.length;
             block.appendChild(this.button('next', last ? 'See results' : 'Next statement', 'btn btn-primary ff-btn ff-next'));
             this.card.appendChild(block);
