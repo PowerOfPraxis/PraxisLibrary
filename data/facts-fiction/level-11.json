@@ -1,0 +1,284 @@
+{
+  "level": 11,
+  "band": "practitioner",
+  "name": "Tokens and Context",
+  "statements": [
+    {
+      "id": "L11-001",
+      "text": "A token is not always a whole word; common words may be one token and rare words several.",
+      "isFact": true,
+      "explanation": "Tokenizers split text into subword pieces learned from frequency. A frequent word often maps to one token while an unusual word or a long compound splits into several. You can see this by pasting text into a tokenizer viewer.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L11-002",
+      "text": "Everything a model has read during training stays available to it inside the context window.",
+      "isFact": false,
+      "explanation": "The context window holds only the current conversation and whatever was placed in it. Training data shaped the weights, but the model cannot look it up. If a document matters, it has to be in the prompt or retrieved into it.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L11-003",
+      "text": "Text that falls outside the context window is simply not seen by the model on that request.",
+      "isFact": true,
+      "explanation": "The window is a hard limit per request. Older turns or long documents beyond it are dropped or truncated before the model runs, which is why long chats can forget early details unless a summary is carried forward.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L11-004",
+      "text": "Sending the same long prompt twice costs the same whether or not the provider caches it.",
+      "isFact": false,
+      "explanation": "Many providers price a cached prefix lower than fresh input, so repeating a stable system prompt can cost less on later calls. Read the provider's billing page for the exact rule before assuming either way.",
+      "learn": "../learn/token-budget-reasoning.html"
+    },
+    {
+      "id": "L11-005",
+      "text": "Whitespace, punctuation, and code symbols consume tokens just as words do.",
+      "isFact": true,
+      "explanation": "Every character sequence in the input maps to tokens, including indentation, brackets, and repeated blank lines. Verbose formatting in a pasted document costs budget without adding meaning. Trimming it is a cheap saving.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L11-006",
+      "text": "One token always equals exactly four characters in every language.",
+      "isFact": false,
+      "explanation": "Four characters per token is a rough English average, not a rule. Languages with different scripts, code, and rare terms often cost more tokens per character. Measure with the provider's tokenizer rather than estimating from character counts.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L11-007",
+      "text": "The output a model writes counts toward the context window alongside the input.",
+      "isFact": true,
+      "explanation": "Generated tokens occupy the same window as the prompt, so a long answer leaves less room for the rest of the conversation. Budgeting the window means planning for output length, not only for what you send.",
+      "learn": "../learn/token-budget-reasoning.html"
+    },
+    {
+      "id": "L11-008",
+      "text": "A larger context window means the model reads every part of a long document with equal care.",
+      "isFact": false,
+      "explanation": "Models often attend more reliably to the start and end of a long context than to the middle. Putting the key instruction near the end, and asking for specific sections, improves recall more than simply fitting more text in.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L11-009",
+      "text": "Placing the most important instruction near the end of a long prompt often improves compliance.",
+      "isFact": true,
+      "explanation": "Recency helps: instructions close to where generation begins are more likely to shape the answer. Restating the task after a long pasted document is a common and effective pattern. Test it on your own prompts to see the difference.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L11-010",
+      "text": "A model can tell you exactly how many tokens your prompt used without any external tool.",
+      "isFact": false,
+      "explanation": "The model has no reliable view of its own token count; an answer to that question is a guess. Providers expose token usage in the API response and in tokenizer tools, which are the sources to trust.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L11-011",
+      "text": "Different model families use different tokenizers, so the same text can cost a different number of tokens.",
+      "isFact": true,
+      "explanation": "Each family trains its own vocabulary. The same paragraph may tokenize into noticeably different counts across providers, which matters when you compare prices or move a prompt between models."
+    },
+    {
+      "id": "L11-012",
+      "text": "Once a conversation exceeds the context window, the model silently keeps the oldest messages and drops the newest.",
+      "isFact": false,
+      "explanation": "Products that trim history nearly always keep the most recent turns and drop or summarize the oldest, because recent turns carry the live task. The exact policy is the application's, not the model's, so check its documentation.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L11-013",
+      "text": "A system prompt occupies context window space on every request that includes it.",
+      "isFact": true,
+      "explanation": "The system prompt is sent with each request, so its length is a recurring cost in both tokens and window space. Long instruction blocks are worth auditing for lines the model never needs.",
+      "learn": "../learn/token-budget-reasoning.html"
+    },
+    {
+      "id": "L11-014",
+      "text": "Tokens are assigned to words by looking each word up in a fixed English dictionary.",
+      "isFact": false,
+      "explanation": "Tokenizers learn subword pieces statistically from a large corpus rather than using a dictionary. That is why they can encode misspellings, names, and new words by splitting them into known fragments.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L11-015",
+      "text": "Numbers and dates can split into several tokens in ways that make arithmetic harder for a model.",
+      "isFact": true,
+      "explanation": "A long number may tokenize as odd chunks of digits, which is one reason models make careless arithmetic errors. Asking for step-by-step working or a tool call is more reliable than trusting a bare answer."
+    },
+    {
+      "id": "L11-016",
+      "text": "Compressing a document into a summary before sending it always preserves the details the task needs.",
+      "isFact": false,
+      "explanation": "Summaries drop detail by design, and the dropped detail may be exactly what the task needs. Summarize with the task in mind, keep the source available for retrieval, and spot-check the summary against the original.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L11-017",
+      "text": "Retrieval lets an application bring only the relevant passages into the context instead of the whole corpus.",
+      "isFact": true,
+      "explanation": "Retrieval-augmented setups search a store for passages that match the query and place those in the prompt. It fits far more knowledge behind a request than any window could hold at once.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L11-018",
+      "text": "A model with a very large context window has no need for retrieval or summarization.",
+      "isFact": false,
+      "explanation": "Large windows still cost tokens per request, slow responses, and dilute attention. Retrieval and summarization keep prompts focused and affordable. Window size changes the trade-off; it does not remove it.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L11-019",
+      "text": "Structured delimiters around pasted content help a model tell instructions apart from data.",
+      "isFact": true,
+      "explanation": "Clear markers such as tags or fenced blocks reduce the chance that text inside a document is read as a command. That boundary is both a quality and a safety practice when the document comes from someone else.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L11-020",
+      "text": "Repeating an instruction ten times in a prompt makes the model ten times more likely to follow it.",
+      "isFact": false,
+      "explanation": "Repetition has diminishing returns and wastes tokens. Placement, clarity, and an example usually do more than volume. If an instruction is ignored, restate it once near the end and simplify the wording.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L11-021",
+      "text": "Few-shot examples placed in the prompt count toward the token budget of every request that includes them.",
+      "isFact": true,
+      "explanation": "Examples are ordinary input tokens. Three long examples can cost more than the task itself, so keep them short, representative, and only as many as the task needs.",
+      "learn": "../learn/few-shot-learning.html"
+    },
+    {
+      "id": "L11-022",
+      "text": "The model reads the context window from left to right and forgets each token once it has passed it.",
+      "isFact": false,
+      "explanation": "Attention lets the model relate any position in the window to any other while generating, which is why it can answer about the start of a document. What it cannot do is reach anything outside the window.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L11-023",
+      "text": "Pasting a large document that mostly repeats itself wastes tokens without adding information.",
+      "isFact": true,
+      "explanation": "Duplicate boilerplate, headers, and repeated sections cost tokens on every request and can push relevant text out of reach. Deduplicate and trim before sending, or retrieve only the sections that matter.",
+      "learn": "../learn/token-budget-reasoning.html"
+    },
+    {
+      "id": "L11-024",
+      "text": "Input tokens and output tokens are always billed at the same rate.",
+      "isFact": false,
+      "explanation": "Most providers price output tokens differently from input tokens, often higher. Budgeting a workload means estimating both sides separately. The provider's pricing page is the source, and it changes, so re-check it.",
+      "learn": "../learn/token-budget-reasoning.html"
+    },
+    {
+      "id": "L11-025",
+      "text": "Asking for a shorter answer format is one of the simplest ways to reduce output token cost.",
+      "isFact": true,
+      "explanation": "Output length follows the request. A bullet list, a word limit, or a fixed schema constrains generation and cuts cost and latency together. Say what you want the answer to look like.",
+      "learn": "../learn/constrained-output.html"
+    },
+    {
+      "id": "L11-026",
+      "text": "Context that a model saw earlier in the same conversation is stored in its weights for the next conversation.",
+      "isFact": false,
+      "explanation": "Weights change only during training. A new conversation starts from the same model with an empty window unless the product injects a memory feature. Anything you want carried across sessions has to be re-supplied.",
+      "learn": "../learn/in-context-learning.html"
+    },
+    {
+      "id": "L11-027",
+      "text": "In-context learning means the model adapts to examples in the prompt without any change to its weights.",
+      "isFact": true,
+      "explanation": "The examples shape the prediction for that request only. Remove them and the behavior returns to baseline. That is the mechanism behind few-shot prompting and the reason it needs no retraining.",
+      "learn": "../learn/in-context-learning.html"
+    },
+    {
+      "id": "L11-028",
+      "text": "A prompt that fits the window will produce the same quality of answer no matter how it is organized.",
+      "isFact": false,
+      "explanation": "Order, grouping, and labeling change what the model attends to. The same facts arranged as labeled sections with the task stated last usually outperform an unstructured dump. Structure is part of the input.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L11-029",
+      "text": "Long tool outputs fed back into an agent loop can crowd out the original task instructions.",
+      "isFact": true,
+      "explanation": "Each tool result lands in the same window as the instructions. After several large results, the task can sit far from the point of generation. Trimming or summarizing tool output keeps the loop on task.",
+      "learn": "../learn/agentic-context-engineering.html"
+    },
+    {
+      "id": "L11-030",
+      "text": "Because tokens are what the model sees, a human-readable prompt and a compact one always cost the same.",
+      "isFact": false,
+      "explanation": "Readability and token count are independent. Removing filler, repeated framing, and decorative formatting often cuts tokens while leaving the prompt just as clear to a person. Measure both before and after an edit.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L11-031",
+      "text": "A model may ignore an instruction buried in the middle of a very long context.",
+      "isFact": true,
+      "explanation": "Middle positions in long contexts are where recall tends to be weakest. If a rule matters, place it at the start or end, label it, and consider restating it after the document.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L11-032",
+      "text": "Increasing the maximum output setting makes the model write better answers.",
+      "isFact": false,
+      "explanation": "The maximum output is a ceiling, not a quality lever. It stops generation from being cut off; it does not improve what is generated. Quality comes from the prompt, the examples, and the task framing."
+    },
+    {
+      "id": "L11-033",
+      "text": "Token usage reported by an API is the reliable way to measure what a request cost.",
+      "isFact": true,
+      "explanation": "The usage fields in a response report the counted input and output tokens for that call. Logging them per request is how teams track spend and spot prompts that have grown without anyone noticing.",
+      "learn": "../learn/token-budget-reasoning.html"
+    },
+    {
+      "id": "L11-034",
+      "text": "Names, product codes, and URLs tokenize cheaply because they are short.",
+      "isFact": false,
+      "explanation": "Rare strings split into many small fragments, so a short identifier can cost more tokens than a common sentence of the same length. Long lists of codes or links are a hidden token cost worth measuring.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L11-035",
+      "text": "Keeping a running summary of a long conversation is a common way to stay within the context window.",
+      "isFact": true,
+      "explanation": "Applications periodically condense older turns into a short summary and keep only recent turns verbatim. It trades some detail for continuity. Reviewing what the summary keeps is part of designing it well.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L11-036",
+      "text": "Once a document is in the context window, the model has verified the facts it contains.",
+      "isFact": false,
+      "explanation": "Context is input, not truth. The model reasons over whatever it is given, accurate or not, and can repeat an error from a pasted source with full confidence. Verify sources before you supply them.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L11-037",
+      "text": "Code is often more expensive in tokens than prose of the same character count.",
+      "isFact": true,
+      "explanation": "Symbols, indentation, and identifiers split into many tokens. Large code pastes can consume a surprising share of the window. Send the relevant function, not the whole file, when the task allows.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L11-038",
+      "text": "A context window is measured in words, so a word count tells you whether a document fits.",
+      "isFact": false,
+      "explanation": "Windows are measured in tokens, and the token count of a document depends on its language, formatting, and vocabulary. A word count is only a rough guide; a tokenizer gives the number that matters.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L11-039",
+      "text": "Labeling sections of a prompt, such as Task, Context, and Format, helps a model find each part.",
+      "isFact": true,
+      "explanation": "Labels act as anchors the model can attend to, which is why structured frameworks perform well. The site's Prompt Analyzer detects such labels, and the difference shows most on long prompts.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L11-040",
+      "text": "Adding more context always improves the answer, so the safest habit is to include everything you have.",
+      "isFact": false,
+      "explanation": "Irrelevant context competes with the relevant part, raises cost, and can push key material toward the middle of the window. Curate what you include and lead with what the task needs.",
+      "learn": "../learn/context-engineering.html"
+    }
+  ]
+}
