@@ -1,0 +1,287 @@
+{
+  "level": 18,
+  "band": "practitioner",
+  "name": "Safety and Alignment",
+  "statements": [
+    {
+      "id": "L18-001",
+      "text": "Constitutional AI gives a model a written set of principles and has it critique and revise its own outputs against them, so alignment scales without a human reviewing every response.",
+      "isFact": true,
+      "explanation": "The page compares it to handing students a detailed rubric instead of having a teacher grade every essay. The model reads its draft, names the principles it violates, rewrites to resolve them, and repeats if needed. Humans write the constitution once and spot-check rather than label everything.",
+      "learn": "../learn/constitutional-ai.html"
+    },
+    {
+      "id": "L18-002",
+      "text": "In Constitutional AI the first draft is shown to the user and the critique is appended afterward as a disclaimer.",
+      "isFact": false,
+      "explanation": "The initial response is never shown. It is raw starting material that may contain harmful or manipulative content, and it exists only to be critiqued and revised. The user receives the revised output, which the page says is usually reached in one or two passes.",
+      "learn": "../learn/constitutional-ai.html"
+    },
+    {
+      "id": "L18-003",
+      "text": "Constitutional AI turns the subjective question of whether a response is good into the checkable question of whether it violates a specific written principle.",
+      "isFact": true,
+      "explanation": "That reframing is the page's core insight. Human reviewers disagree, bring their own biases and cannot stay consistent across millions of judgments. Asking whether a response breaks principle three or principle seven is objective enough for the model to apply the same way every time.",
+      "learn": "../learn/constitutional-ai.html"
+    },
+    {
+      "id": "L18-004",
+      "text": "A constitutional revision works by deleting the problematic sentences and leaving the rest of the draft untouched.",
+      "isFact": false,
+      "explanation": "The page calls the revision a thoughtful rewrite, not a deletion. Its persuasion example replaces manipulative tactics with evidence, genuine questions and common ground, meeting the user's underlying need inside the principles. Keeping the response helpful while making it safe is the whole point.",
+      "learn": "../learn/constitutional-ai.html"
+    },
+    {
+      "id": "L18-005",
+      "text": "When a new category of harmful output is discovered, Constitutional AI handles it by adding a principle rather than relabeling thousands of training examples.",
+      "isFact": true,
+      "explanation": "The page calls this compositional: each principle builds on the existing constitution without invalidating earlier work. Feedback-based alignment would need humans to re-rate examples; here the one-time investment is writing the rule, and it applies to every future output.",
+      "learn": "../learn/constitutional-ai.html"
+    },
+    {
+      "id": "L18-006",
+      "text": "Constitutional AI removes humans from alignment entirely, including the writing of the principles.",
+      "isFact": false,
+      "explanation": "Humans still write the constitution, which is the whole source of the model's standards, and the page keeps a human spot-checking role. What the method removes is the need for a human to evaluate every individual response. The judgment is encoded once, then applied by the model at scale.",
+      "learn": "../learn/constitutional-ai.html"
+    },
+    {
+      "id": "L18-007",
+      "text": "Reinforcement learning from human feedback trains a reward model on human preference comparisons, and that reward model then shapes the language model's behavior.",
+      "isFact": true,
+      "explanation": "The glossary describes the pipeline: raters compare outputs, the preferences train a reward model, and policy optimization uses it to steer the model toward helpful and safe responses. The human signal is relative preference between candidates, not a hand-written ideal answer.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-008",
+      "text": "In reinforcement learning from human feedback, humans write the ideal answer to every prompt and the model memorizes those answers.",
+      "isFact": false,
+      "explanation": "Writing ideal answers at scale is impossible, which is why the method uses comparisons instead. Raters judge which of two outputs is better; a reward model learns that preference and generalizes it. The language model is then optimized against the reward model, never against a memorized answer key.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-009",
+      "text": "Reward hacking is when a model learns to exploit weaknesses in its reward model to score highly without actually producing better outputs.",
+      "isFact": true,
+      "explanation": "The glossary names it a failure mode of preference-based training. The reward model is an imperfect proxy for human judgment, and the policy being optimized will find whatever the proxy over-rewards, such as length, confident tone or flattery, whether or not the answer improved.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-010",
+      "text": "A model that scores highly on its own reward model has, by definition, become more helpful.",
+      "isFact": false,
+      "explanation": "The reward model is a proxy, and a high score can mean the proxy was gamed. Reward hacking and specification gaming describe exactly this gap between what is measured and what is wanted. Independent human evaluation exists to catch the cases where the proxy and the goal have come apart.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-011",
+      "text": "Specification gaming means a model refuses tasks whose instructions are incomplete or ambiguous.",
+      "isFact": false,
+      "explanation": "Specification gaming is satisfying the literal objective without achieving the intended outcome, the glossary's close cousin of reward hacking. The model does what was written, not what was meant. Refusing an ambiguous task would be the opposite behavior.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-012",
+      "text": "Sycophancy is a form of misalignment in which a model tells users what they want to hear instead of what is accurate.",
+      "isFact": true,
+      "explanation": "The glossary defines it as excessive agreement that undermines helpfulness. It is a natural product of preference training: raters tend to prefer responses that agree with them, so the reward model learns to favor agreement and the policy learns to supply it.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-013",
+      "text": "Sycophancy is a sign of good alignment, because an aligned model should defer to the user's views.",
+      "isFact": false,
+      "explanation": "Alignment means matching human values and intentions, and users intend to get accurate information. A model that abandons a correct answer the moment the user pushes back is serving approval, not the user. The glossary files sycophancy under misalignment for that reason.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-014",
+      "text": "The alignment tax is the extra performance, compute or development cost of making a system safe, and a high tax creates pressure to skip safety work.",
+      "isFact": true,
+      "explanation": "The glossary defines both the cost and the incentive it creates. If safety measures slowed a model badly, teams would face a trade-off between capability and safety. Methods that keep the tax low, such as scalable self-critique, matter because they remove the excuse.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-015",
+      "text": "Alignment is a solved problem, since current models can already refuse obviously harmful requests.",
+      "isFact": false,
+      "explanation": "The glossary calls alignment one of the most critical open questions in AI safety research. Refusing obvious harm is a narrow behavior; alignment covers whether a system pursues human intentions across every situation, including ones its developers did not anticipate.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-016",
+      "text": "A jailbreak is a crafted prompt designed to get a model to bypass its safety restrictions.",
+      "isFact": true,
+      "explanation": "The glossary describes it as an ongoing challenge for developers. Jailbreaks exploit the gap between what the training intended and what the model will actually do under role-play framing, encoded requests or step-by-step pressure, which is why red teaming tries them before attackers do.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-017",
+      "text": "Prompt injection is a vulnerability in which malicious instructions hidden inside content the model processes cause it to behave unexpectedly.",
+      "isFact": true,
+      "explanation": "The glossary flags it as a significant concern for applications that read external data. The attack does not come from the user typing at the model; it rides in on a web page, an email or a document the model was asked to summarize or act on.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-018",
+      "text": "Prompt injection and jailbreaking are the same attack, and both require the attacker to type their instructions directly to the model.",
+      "isFact": false,
+      "explanation": "A jailbreak comes from the user at the keyboard. An injection hides in content the model reads on the user's behalf, so the victim may be a user who typed nothing malicious at all. The glossary treats them separately because the defenses differ: one hardens the model, the other guards its inputs.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-019",
+      "text": "An agent that reads web pages, emails or documents can be hijacked by instructions embedded in that content.",
+      "isFact": true,
+      "explanation": "That is prompt injection applied to agents. Once a model is empowered to browse, read files and call tools, any text it ingests becomes a potential instruction channel. The security page's point that a model cannot distinguish trusted from untrusted text is why input boundaries and least privilege matter.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-020",
+      "text": "A system prompt is hidden from the model's outputs by design, so it can never be revealed to a user.",
+      "isFact": false,
+      "explanation": "The glossary's entry on adversarial prompting lists revealing system prompts among the goals of crafted inputs. The system prompt is ordinary text in the context window, and a model can be coaxed into repeating it. Anything secret should live outside the prompt entirely.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-021",
+      "text": "A system prompt only shapes the model's first reply; later turns in the conversation ignore it.",
+      "isFact": false,
+      "explanation": "The glossary says a system prompt shapes all subsequent responses and defines the model's behavior for the session. It stays in the context for every turn. Its influence can weaken as the conversation grows long, which is a reason to restate key constraints, but it is never dropped after one reply.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-022",
+      "text": "Guardrails are safety mechanisms that constrain model behavior, including content filters, output validators and behavioral restrictions.",
+      "isFact": true,
+      "explanation": "The glossary lists all three. Filters screen inputs and outputs for policy violations, validators check that an output meets structural or factual requirements before release, and behavioral restrictions limit what the system is permitted to do. Together they form the safety layer around the model.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-023",
+      "text": "A guardrail is a single filter placed on the user's input, and once it is in place the output needs no further checking.",
+      "isFact": false,
+      "explanation": "Guardrails operate on both sides of the model and in several forms. Content filtering covers inputs and outputs, and output validators exist precisely because a clean input can still yield a harmful or malformed response. Defense in depth, the security page's principle, applies to model safety as much as to web security.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-024",
+      "text": "A well-calibrated refusal protects against harm, while an overly cautious one reduces the model's usefulness.",
+      "isFact": true,
+      "explanation": "The glossary's refusal entry names both failure directions. Refusing a harmful request is the intended behavior; refusing a benign one because it resembles a harmful pattern is a cost to the user. Calibrating that boundary is part of alignment, not separate from it.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-025",
+      "text": "The safest model is the one that refuses the largest share of requests.",
+      "isFact": false,
+      "explanation": "Over-refusal is a failure, not a safety win. A model that declines benign medical, legal or security questions pushes users toward less careful sources and erodes trust. The glossary's standard is calibration: refuse what is harmful, help with what is not.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-026",
+      "text": "Red teaming is the systematic practice of trying to make a model produce harmful or unsafe outputs so the weaknesses can be fixed before release.",
+      "isFact": true,
+      "explanation": "The glossary describes it as standard practice, with major developers running extensive red team evaluations before model releases. Red teamers attempt jailbreaks, injections and misuse scenarios deliberately, so the failures are found by people who will report them rather than exploit them.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-027",
+      "text": "Red teaming means training the model on examples of harmful content so that it learns to recognize them.",
+      "isFact": false,
+      "explanation": "Red teaming is adversarial testing, not training. A team probes a deployed or candidate model for vulnerabilities and unsafe outputs; what they find feeds back into fixes. Training on harmful examples would be a data decision with its own risks, and it is a different activity.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-028",
+      "text": "Deceptive alignment is a hypothesized failure mode in which a model behaves as if aligned while being evaluated and pursues a different objective once it believes it is not.",
+      "isFact": true,
+      "explanation": "The glossary frames it as a hypothesis about a learned optimizer that games the evaluation to get deployed. It is studied because it would defeat the usual safety check: a model that passes every test by design would look identical to a safe one until the tests stopped.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-029",
+      "text": "Deceptive alignment has been confirmed as a common behavior of the chat models in everyday use.",
+      "isFact": false,
+      "explanation": "The glossary labels it hypothesized. It is a concern researchers study and design evaluations around, not an observed property of the assistants people use daily. Stating it as established fact overclaims in the same way that stating alignment is solved overclaims the other direction.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-030",
+      "text": "Interpretability is the degree to which humans can understand how a model reaches its decisions, and mechanistic interpretability tries to reverse-engineer the circuits inside the network.",
+      "isFact": true,
+      "explanation": "The glossary defines both. Higher interpretability enables debugging and trust; the mechanistic branch studies features, superposition and circuit-level computation in transformers. For safety the goal is to check what a model is doing rather than infer it from outputs alone.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-031",
+      "text": "A model card is a marketing document that lists only a model's strengths and intended selling points.",
+      "isFact": false,
+      "explanation": "A model card documents intended use, limitations, performance metrics and ethical considerations, as the glossary describes. The limitations section is the point: it tells deployers where the model should not be used. A document that omitted weaknesses would fail the standard.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-032",
+      "text": "Data poisoning attacks a model at inference time by hiding malicious instructions in the prompt.",
+      "isFact": false,
+      "explanation": "Data poisoning corrupts the training data, introducing targeted biases, backdoors or degraded performance before the model is ever deployed. Attacks through the prompt at inference time are prompt injection and adversarial prompting. The two happen at different stages and need different defenses.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L18-033",
+      "text": "In medical, legal, financial and safety-critical domains, AI should inform human decision-making rather than replace it.",
+      "isFact": true,
+      "explanation": "The AI Safety page states this as its critical principle, because errors in these areas can be severe and irreversible. AI is not a doctor, cannot give legal advice and should not make investment decisions. Qualified professionals remain the decision-makers and carry the accountability.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L18-034",
+      "text": "Relying on AI for most tasks is harmless, because a model accurate enough to trust makes human skill in those tasks unnecessary.",
+      "isFact": false,
+      "explanation": "The AI Safety page lists over-reliance as a behavioral risk: accepting outputs without evaluation erodes human skills and judgment over time and creates dependency. Its daily practice is to do some tasks without AI regularly, so the ability to catch the model's errors survives.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L18-035",
+      "text": "The NIST AI Risk Management Framework organizes AI risk work around four functions: govern, map, measure and manage.",
+      "isFact": true,
+      "explanation": "The AI Safety page's regulatory section names the four functions and describes the framework as widely adopted across industries as a practical guide for responsible development and deployment. It gives organizations a shared vocabulary for identifying and tracking AI risks.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L18-036",
+      "text": "The NIST AI Risk Management Framework is a mandatory federal law that every US company deploying AI must comply with.",
+      "isFact": false,
+      "explanation": "The page describes it as the voluntary US framework. Its adoption is widespread because it is useful, not because it is enforced. Binding obligations in the US come from sector regulators and the growing body of state AI legislation, which the page notes separately.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L18-037",
+      "text": "The EU AI Act classifies AI systems by risk level, with obligations ranging from transparency requirements to outright bans on certain uses.",
+      "isFact": true,
+      "explanation": "The AI Safety page calls it the first comprehensive AI regulation and describes its tiered structure: prohibited practices, high-risk requirements and transparency duties for general-purpose models. The glossary's entry matches, from transparency obligations to bans.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L18-038",
+      "text": "Praxis Library publishes no AI-assisted content without human review, and discloses AI involvement in every commit.",
+      "isFact": true,
+      "explanation": "The Responsible AI policy lists human oversight and transparency as its first two principles, with commit attribution as the evidence. The AI systems inventory records that development output undergoes mandatory human review and is factually verified before publication.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L18-039",
+      "text": "Praxis Library uses analytics AI and a recommendation engine to tailor the pages each visitor sees.",
+      "isFact": false,
+      "explanation": "The policy's inventory is explicit: no analytics AI, recommendation engines, moderation systems, advertising algorithms, testing platforms or profiling tools. The three documented systems, the development assistant, the deterministic audit script and the client-side tools, are the complete list.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L18-040",
+      "text": "Praxis Library's interactive tools run entirely in the browser, so a prompt typed into them never leaves the user's device.",
+      "isFact": true,
+      "explanation": "The Security page's content security policy allows network requests only to the site's own domain, and the Responsible AI inventory records the tools as fully client-side with no data stored or transmitted. The page invites readers to confirm it in their browser's network tab.",
+      "learn": "../pages/security.html"
+    }
+  ]
+}
