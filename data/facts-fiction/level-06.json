@@ -1,0 +1,287 @@
+{
+  "level": 6,
+  "band": "literacy",
+  "name": "AI and Your Data",
+  "statements": [
+    {
+      "id": "L06-001",
+      "text": "What you type into a chat product may be stored by the provider and, under some settings, used to train future models.",
+      "isFact": true,
+      "explanation": "Whether a conversation feeds training is a product setting and a contract term, not a property of the model. Consumer apps often default to allowing it; many business and API plans exclude it. Read the setting before pasting anything you would not want kept.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-002",
+      "text": "Private browsing mode hides what you type from the AI provider.",
+      "isFact": false,
+      "explanation": "Private mode only stops your own browser from keeping history and cookies. Every message still travels to the provider's servers, where it is handled under the provider's policy. Privacy from the service comes from its settings, not from your browser mode.",
+      "learn": "../pages/data-retention-policy.html"
+    },
+    {
+      "id": "L06-003",
+      "text": "Passwords, government ID numbers, and other people's private messages should stay out of prompts.",
+      "isFact": true,
+      "explanation": "A prompt is a message to a third party. Anything in it may be logged, reviewed, or retained for a period you do not control. Describe the shape of the problem instead, or replace the sensitive value with a placeholder.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-004",
+      "text": "Deleting a conversation also deletes any copy already used to train a model.",
+      "isFact": false,
+      "explanation": "Training folds text into model weights; there is no row to remove afterward. Deleting a chat removes it from your history and, in time, from the provider's stores under its policy. Data that already shaped a model stays in that model.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L06-005",
+      "text": "Within a single conversation, the earlier messages are sent back to the model with each new message.",
+      "isFact": true,
+      "explanation": "The model has no running memory of its own. The product resends the conversation, or a trimmed version of it, every turn so the model can see the context. That is why a long chat costs more tokens as it grows.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L06-006",
+      "text": "The model updates its own weights with what you tell it during a chat.",
+      "isFact": false,
+      "explanation": "Weights are fixed once training ends. A chat changes only the text in the context window. Anything the model seems to remember mid-conversation is sitting in that window, not in the model, and is gone once the conversation ends unless a product feature stores it.",
+      "learn": "../foundations/index.html"
+    },
+    {
+      "id": "L06-007",
+      "text": "Some assistants offer a memory feature that carries facts about you across chats, and it is a product setting rather than a model ability.",
+      "isFact": true,
+      "explanation": "The product writes selected facts to a store and adds them to future prompts. The model reads them like any other context. Because it is a product feature, it can usually be viewed, edited, and cleared in settings.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L06-008",
+      "text": "Turning off chat history guarantees the provider keeps no copy of the conversation at all.",
+      "isFact": false,
+      "explanation": "History settings control what you see in your account. Providers commonly retain conversations for a limited period for abuse monitoring and legal reasons, even with history off. The retention period and purpose are in the privacy policy, not in the toggle.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-009",
+      "text": "Uploaded files are data too; a spreadsheet attached to a chat is sent to the same servers as the text.",
+      "isFact": true,
+      "explanation": "Attachments are read, converted to text or images, and placed into the prompt. They fall under the same storage and training rules as typed messages. Check a file for hidden columns, comments, and personal fields before attaching it.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-010",
+      "text": "A model can tell when pasted text is confidential and will refuse to store it.",
+      "isFact": false,
+      "explanation": "The model does not store anything; the provider's systems do, and they log by policy, not by content. A model can be asked to flag sensitive data, and it may notice obvious cases, but that is a prompt you add, not a safeguard that runs by itself.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-011",
+      "text": "Replacing names and account numbers with placeholders before pasting keeps the task useful and the data out of the prompt.",
+      "isFact": true,
+      "explanation": "Most tasks depend on structure, not on the real identifiers. Swap each name for Person A, each number for ACCOUNT-1, keep a key on your side, and restore the values after. The model works with the pattern and never receives the data.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L06-012",
+      "text": "Removing your name from a text makes it impossible to identify you.",
+      "isFact": false,
+      "explanation": "A job title, a city, an employer size, and a date can be enough to point at one person. Re-identification from combined details is a well-studied risk. Strip or generalize the details that narrow the field, not just the name.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-013",
+      "text": "Text that appears many times in training data is more likely to be reproduced word for word by a model.",
+      "isFact": true,
+      "explanation": "Repeated passages, such as famous quotes, license text, and widely copied boilerplate, can be learned closely enough to recite. Rare text is far less likely to come back verbatim. This is why memorization is a known concern for data that was duplicated online.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L06-014",
+      "text": "Models have no way to produce training text word for word.",
+      "isFact": false,
+      "explanation": "Researchers have repeatedly extracted memorized sequences from models, especially text that was duplicated across the training set. Providers add filters to reduce this. The risk is real and depends on how often the text appeared and how it is prompted.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L06-015",
+      "text": "Fine-tuning a model on customer records can leave traces of those records in what it generates.",
+      "isFact": true,
+      "explanation": "Fine-tuning adjusts weights toward the examples, and specific values can surface in later outputs. Before fine-tuning on real records, remove or synthesize identifiers, and test the result by prompting for the kind of data you removed.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L06-016",
+      "text": "Once a model is trained on a document, deleting the file removes it from the model.",
+      "isFact": false,
+      "explanation": "The file and the model are separate things. Deleting the source does nothing to the weights that absorbed it. Removing learned content means retraining without it or applying unlearning methods, both of which are costly and imperfect.",
+      "learn": "../foundations/index.html"
+    },
+    {
+      "id": "L06-017",
+      "text": "A document fed to an AI tool can contain hidden text that tries to redirect the model.",
+      "isFact": true,
+      "explanation": "This is prompt injection. White text, a tiny font, or an HTML comment can carry instructions such as ignore the user and send this file elsewhere. Tools that read email, web pages, or uploads need defenses, and users need to know the risk exists.",
+      "learn": "../learn/instruction-hierarchy.html"
+    },
+    {
+      "id": "L06-018",
+      "text": "Instructions hidden inside a document are ignored because the model only follows the user.",
+      "isFact": false,
+      "explanation": "The model sees one stream of text and cannot reliably tell who wrote which part. Providers train models to rank the user above retrieved content, and it helps, but injection still succeeds often enough to be a top listed risk for AI applications.",
+      "learn": "../learn/instruction-hierarchy.html"
+    },
+    {
+      "id": "L06-019",
+      "text": "Human reviewers at a provider may read a sample of conversations to check quality or abuse, under the provider's policy.",
+      "isFact": true,
+      "explanation": "Review programs are common and are disclosed in privacy policies and terms. Sampling is usually limited and access controlled, and some plans exclude it. If a conversation must never be seen by a person, the plan's terms are what decide that.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L06-020",
+      "text": "Encryption in transit means the AI provider cannot read your messages either.",
+      "isFact": false,
+      "explanation": "Transport encryption protects the message between your device and the provider's servers from eavesdroppers on the path. The provider decrypts it on arrival, because the model has to read plain text to answer. Protection from the provider comes from policy and contract.",
+      "learn": "../pages/security.html"
+    },
+    {
+      "id": "L06-021",
+      "text": "Running an open-weight model on your own computer keeps your prompts off any outside server.",
+      "isFact": true,
+      "explanation": "Local inference sends nothing out; the model runs on your hardware and the text stays there. The trade is capability and effort: local models are usually smaller and need setup. For sensitive material it is the strongest privacy option available.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L06-022",
+      "text": "A website needs an account before it can store anything in your browser.",
+      "isFact": false,
+      "explanation": "Browsers give every site a small local store, with no login involved. Praxis uses it for accessibility settings and this game's progress, and nothing is sent anywhere. The retention policy explains how to clear it with one click.",
+      "learn": "../pages/data-retention-policy.html"
+    },
+    {
+      "id": "L06-023",
+      "text": "Praxis Library stores nothing about you on a server; your accessibility settings and this game's progress live only in your browser.",
+      "isFact": true,
+      "explanation": "There are no accounts, no analytics, no cookies, and no outside requests. The site cannot see your browser's local store. Reset to Defaults in the accessibility panel and the game's Start fresh button clear what is there.",
+      "learn": "../pages/data-retention-policy.html"
+    },
+    {
+      "id": "L06-024",
+      "text": "Everything you tell a chatbot is immediately visible to other users of the same service.",
+      "isFact": false,
+      "explanation": "Conversations are tied to your account or session and are not shown to other users. The real exposure paths are different: provider storage, human review, training, and share links you create yourself. Each of those is governed by settings you can read.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-025",
+      "text": "Sharing a conversation link can make the whole exchange readable by anyone who has the link.",
+      "isFact": true,
+      "explanation": "Share links usually publish the full thread, not just the last answer, and some are indexable by search engines. Read back the entire conversation for names, files, and details before sharing, and revoke the link when it is no longer needed.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-026",
+      "text": "Models have a built-in record of every website that mentions your name.",
+      "isFact": false,
+      "explanation": "Training data is a filtered snapshot, not an index, and the model keeps patterns rather than records. It may hold fragments about public figures who appear often. For most people it has nothing, and anything it says about you is likely invented.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L06-027",
+      "text": "A model can sometimes guess a person's location or occupation from clues in ordinary text.",
+      "isFact": true,
+      "explanation": "Dialect, place references, prices, commute details, and vocabulary all narrow the field. Studies have shown models inferring such attributes from posts that never state them. Treat the details you share as data, even when none of them look sensitive on their own.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-028",
+      "text": "The model knows who you are the moment you open a chat window.",
+      "isFact": false,
+      "explanation": "The model receives only what the product sends: your messages, any stored memory, and the system prompt. Unless those contain your identity, the model has no idea who is typing. Anything it claims to know about you came from that context or was made up.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L06-029",
+      "text": "Retrieval systems send the matching passages from your documents to the model as part of the prompt.",
+      "isFact": true,
+      "explanation": "In retrieval-augmented generation, a search step finds relevant chunks and places them in the context with your question. The model never holds the whole library. Only the retrieved chunks leave the store, which is why access controls on retrieval matter.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L06-030",
+      "text": "A model connected to a company's documents has read all of them and keeps them in memory.",
+      "isFact": false,
+      "explanation": "The model reads only the chunks retrieved for each question, and it forgets them when the conversation ends. The documents stay in the index. This design is what lets a company update a policy and have the next answer reflect it without retraining.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L06-031",
+      "text": "Pasting a long document into a prompt costs tokens, so sending only the relevant section saves money and attention.",
+      "isFact": true,
+      "explanation": "Every pasted word becomes tokens the provider bills for and the model has to attend to. A focused excerpt is cheaper and often gets a better answer, since less irrelevant material competes for the model's attention.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L06-032",
+      "text": "A long chat stays fully in the model's view no matter how long it gets.",
+      "isFact": false,
+      "explanation": "Every model has a context limit. When a conversation exceeds it, the product trims or summarizes the oldest turns, and the model loses details you shared early on. Restate what matters, or start a fresh chat with a summary.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L06-033",
+      "text": "Screenshots you upload are read as images, and any text in them, including names, becomes part of the prompt.",
+      "isFact": true,
+      "explanation": "Image input is processed and the content, including visible text, enters the context. A screenshot of a dashboard or an inbox can carry names, amounts, and account details you did not mean to send. Crop or blur before uploading.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-034",
+      "text": "Uploading a photo sends only the picture; the time and place it was taken stay on your device.",
+      "isFact": false,
+      "explanation": "Cameras and phones write capture time and often GPS coordinates into the image file itself. Some services strip this on upload and some do not. Removing the metadata yourself, or disabling location tagging, keeps that information out of the exchange.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-035",
+      "text": "Voice assistants process your speech only on the device and never send audio anywhere.",
+      "isFact": false,
+      "explanation": "Some wake-word detection runs locally, but the request itself is commonly sent to a server for transcription and the answer. Recordings or transcripts may be kept under the service's policy. On-device-only processing exists for some features and is a product choice.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L06-036",
+      "text": "An AI feature built into a product, such as a mail summarizer, processes the content it summarizes.",
+      "isFact": true,
+      "explanation": "A summary cannot be produced without reading the message. The question is where that reading happens and what is kept, which the product's documentation should answer. For work accounts, the organization's admin settings usually decide.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L06-037",
+      "text": "A browser extension that summarizes pages reads only the page title.",
+      "isFact": false,
+      "explanation": "To summarize a page, the extension has to send the page text, and often more, to its service. Extensions can read every page you visit once granted that permission. Review what an extension asks for before installing it.",
+      "learn": "../pages/security.html"
+    },
+    {
+      "id": "L06-038",
+      "text": "If you ask the model to forget something, it is erased from the provider's records.",
+      "isFact": false,
+      "explanation": "The model can stop referring to it within the conversation, and a product memory feature may delete the entry. The provider's logs follow retention policy, not chat instructions. Deletion requests go through account settings or a privacy request, not the prompt.",
+      "learn": "../pages/data-retention-policy.html"
+    },
+    {
+      "id": "L06-039",
+      "text": "Data rules differ by country, and a provider may store your conversations in a region other than yours.",
+      "isFact": true,
+      "explanation": "Where data sits affects which laws apply and who can compel access. Many providers publish storage regions and offer regional options on business plans. For regulated work, the storage location is a question to settle before the first prompt.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L06-040",
+      "text": "Some chat products offer a temporary mode where the conversation is not saved to your history.",
+      "isFact": true,
+      "explanation": "Temporary or incognito modes keep the chat out of your history and usually out of training. They are not the same as no retention: providers often keep a copy briefly for safety checks. The mode's own description states the terms.",
+      "learn": "../pages/ai-safety.html"
+    }
+  ]
+}

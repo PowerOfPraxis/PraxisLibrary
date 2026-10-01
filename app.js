@@ -6603,7 +6603,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'How Models Learn', band: 'literacy', available: true },
         { name: 'Talking to a Chatbot', band: 'literacy', available: true },
         { name: 'When AI Gets It Wrong', band: 'literacy', available: true },
-        { name: 'AI and Your Data', band: 'literacy', available: false },
+        { name: 'AI and Your Data', band: 'literacy', available: true },
         { name: 'AI at Work', band: 'literacy', available: false },
         { name: 'AI and Creativity', band: 'literacy', available: false },
         { name: 'Bias and Fairness', band: 'literacy', available: false },
