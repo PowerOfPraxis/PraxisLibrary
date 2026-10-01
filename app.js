@@ -6616,7 +6616,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Agents and Tools', band: 'practitioner', available: true },
         { name: 'Evaluation', band: 'practitioner', available: true },
         { name: 'Safety and Alignment', band: 'practitioner', available: true },
-        { name: 'Governance and Transparency', band: 'practitioner', available: false },
+        { name: 'Governance and Transparency', band: 'practitioner', available: true },
         { name: 'Frontier Uncertainty', band: 'practitioner', available: false }
     ];
 
