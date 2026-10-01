@@ -1,0 +1,287 @@
+{
+  "level": 12,
+  "band": "practitioner",
+  "name": "Sampling and Determinism",
+  "statements": [
+    {
+      "id": "L12-001",
+      "text": "At every step a model assigns a probability to each token in its vocabulary, and decoding is the rule for choosing one of them.",
+      "isFact": true,
+      "explanation": "The raw scores are logits; softmax turns them into probabilities that sum to one. Greedy picks the top token, sampling draws from the distribution, and top-k, top-p and temperature shape the draw. The model's knowledge is in the distribution; the settings decide how it is read.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-002",
+      "text": "The model computes the single correct next word, and randomness is only added afterwards as a creativity feature.",
+      "isFact": false,
+      "explanation": "There is no single correct next word inside the model, only a distribution over every token it knows. Sampling settings decide how that distribution is read. Even greedy decoding is a choice about selection, and the top token can still be wrong.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-003",
+      "text": "Greedy decoding takes the highest-probability token at every step, which makes the output repeatable in principle but often repetitive and low in variety.",
+      "isFact": true,
+      "explanation": "The glossary describes greedy decoding as deterministic and lacking diversity. It is the right tool for lookups and tests where you want the same answer twice. It is the wrong tool for anything that benefits from exploring alternatives, which is why ensemble methods sample instead.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-004",
+      "text": "Greedy decoding produces the most accurate answer because the most likely token is the correct one at each step.",
+      "isFact": false,
+      "explanation": "Most likely means most common in similar contexts, not most true. Self-Consistency shows sampled reasoning paths with a majority vote beating a single greedy path on arithmetic and logic. Locally likely tokens can also lead into a globally worse sequence, which is why beam search exists.",
+      "learn": "../learn/self-consistency.html"
+    },
+    {
+      "id": "L12-005",
+      "text": "Temperature rescales the probabilities before a token is drawn: values below 1 sharpen the distribution toward the top tokens and values above 1 flatten it.",
+      "isFact": true,
+      "explanation": "The glossary entry for softmax temperature describes exactly this: low values make the distribution more peaked, high values make it more uniform. The ordering of tokens does not change; the gap between them does. That gap is what decides how often a draw leaves the top choices.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-006",
+      "text": "Raising the temperature increases what the model knows, giving it access to more facts and ideas.",
+      "isFact": false,
+      "explanation": "Temperature changes only how the existing distribution is sampled. The knowledge encoded in the weights is identical at every setting. A flatter distribution surfaces less common continuations, which can read as creativity or as nonsense; it does not add information.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-007",
+      "text": "At temperature zero the draw collapses onto the top token, so the setting behaves like greedy decoding and the same input yields the same output in principle.",
+      "isFact": true,
+      "explanation": "The glossary pairs temperature zero with deterministic responses and notes that models are otherwise stochastic. In principle is the operative phrase: the sampling randomness is gone, so repeat runs follow the same path. Use it when you need repeatable tests, not when you want the best answer.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-008",
+      "text": "Setting temperature to zero makes a model's answers correct, because it removes the randomness that causes mistakes.",
+      "isFact": false,
+      "explanation": "Zero temperature removes variation, not error. If the top token leads to a fabricated citation, every run returns that citation. Hallucination comes from the model's distribution, not from the sampling noise. Determinism makes a wrong answer repeatable, which is useful for testing and nothing more.",
+      "learn": "../tools/hallucination.html"
+    },
+    {
+      "id": "L12-009",
+      "text": "Very high temperature flattens the distribution so far that unlikely tokens are drawn often, and the text can lose coherence.",
+      "isFact": true,
+      "explanation": "The glossary notes that very high values may produce incoherence. As the distribution approaches uniform, grammar and topic stop constraining the draw, and the output drifts into tokens that fit nothing. Moderate values give variety that is still on task.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-010",
+      "text": "The highest temperature setting is the best choice for brainstorming, since more randomness always means more useful ideas.",
+      "isFact": false,
+      "explanation": "Past a point the draws land on tokens that fit neither the grammar nor the topic, and the output turns to noise. Moderate temperature, in the range the self-consistency page uses for sampling, gives variety that still answers the question. Diversity of prompts adds more useful range than extreme temperature.",
+      "learn": "../learn/self-consistency.html"
+    },
+    {
+      "id": "L12-011",
+      "text": "Top-k sampling restricts each draw to the k most probable tokens, cutting off the long tail of unlikely continuations.",
+      "isFact": true,
+      "explanation": "The glossary describes top-k as a method that prevents highly improbable tokens while keeping diversity, with k setting the trade-off. A small k behaves close to greedy; a large k lets the tail back in. It applies at every step, to one token at a time.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-012",
+      "text": "Top-p, or nucleus sampling, keeps the smallest set of tokens whose probabilities add up to p, so the number of candidates changes from step to step.",
+      "isFact": true,
+      "explanation": "When the model is confident, a few tokens reach the threshold and the pool is tiny. When it is unsure, many tokens are needed and the pool grows. The glossary notes that this adapts to the model's confidence at each step, which fixed top-k cannot do.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-013",
+      "text": "Top-p and temperature are two names for the same control.",
+      "isFact": false,
+      "explanation": "Temperature reshapes the whole distribution; top-p truncates it to a cumulative probability mass before the draw. They can be combined, and they fail differently: high temperature with a tight top-p stays near the top tokens, while a wide top-p at low temperature rarely leaves them. The glossary lists them as separate methods.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-014",
+      "text": "Top-k sampling means the model generates k complete answers and shows you the best one.",
+      "isFact": false,
+      "explanation": "Top-k acts on one token at a time: it limits the candidates for the next draw to the k most probable, then picks one. Generating several whole answers and choosing among them is a different family: best-of-N sampling, beam search, or self-consistency voting.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-015",
+      "text": "Models are typically run with sampling switched on, which is why the same prompt can return a differently worded answer on each run.",
+      "isFact": true,
+      "explanation": "The glossary describes language models as stochastic by default, producing varied output unless temperature is set to zero. Each run draws a fresh path through the same distribution. The variation is a property of the decoding, not of the model changing between calls.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-016",
+      "text": "Two runs of the same prompt returning different answers is a sign the model has been updated between the calls.",
+      "isFact": false,
+      "explanation": "The weights are fixed between releases; the difference comes from sampling. Each run draws tokens from the same distribution and lands on a different path. The Facts and Fictions page reports a study that ran one model a hundred times per question and found substantial variability from sampling alone.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L12-017",
+      "text": "Self-Consistency depends on sampling at a temperature above zero; with greedy decoding every path would be the same and there would be nothing to vote on.",
+      "isFact": true,
+      "explanation": "The technique replaces greedy decoding with temperature sampling so each completion follows a different reasoning trajectory. The vote is only informative when the paths can differ. The page suggests starting with five samples at a moderate temperature and adding more when the vote is close.",
+      "learn": "../learn/self-consistency.html"
+    },
+    {
+      "id": "L12-018",
+      "text": "Active Prompting selects the questions where sampled answers agree most, because consistent questions are where human annotation helps.",
+      "isFact": false,
+      "explanation": "It selects the opposite: the questions with the highest disagreement across samples, since that is where the model is weakest and a written chain-of-thought demonstration gains the most. Consistent questions are what COSP harvests as demonstrations; uncertain ones are what Active Prompting sends to annotators.",
+      "learn": "../learn/active-prompting.html"
+    },
+    {
+      "id": "L12-019",
+      "text": "COSP keeps the questions where sampled answers agree most and reuses those answers as few-shot demonstrations, with no human labels.",
+      "isFact": true,
+      "explanation": "Each question is sampled several times at a temperature above zero. High agreement across samples is treated as a confidence signal, and those question-answer pairs become the examples prepended to harder questions. The same consistency idea that picks a best answer here picks teaching material.",
+      "learn": "../learn/cosp.html"
+    },
+    {
+      "id": "L12-020",
+      "text": "If answers vary across runs, the model is equally likely to be right or wrong on every question.",
+      "isFact": false,
+      "explanation": "Variation is uneven. For a well-known fact the distribution is sharp and every sample agrees, which is what COSP exploits; for a hard question it is flat and samples scatter. The spread per question is the information, and sampling several times is how you measure it.",
+      "learn": "../learn/cosp.html"
+    },
+    {
+      "id": "L12-021",
+      "text": "Sampling several reasoning paths from different prompts breaks correlated errors that repeated samples of one prompt tend to share.",
+      "isFact": true,
+      "explanation": "DiVeRSe uses genuinely different prompts, not just temperature variations of one, because samples from a single prompt often repeat the same flawed step. Different framings push the model toward different strategies, so the pool covers the solution space instead of one corner of it.",
+      "learn": "../learn/diverse-prompting.html"
+    },
+    {
+      "id": "L12-022",
+      "text": "Majority voting across samples is immune to systematic errors, because the wrong answers always scatter.",
+      "isFact": false,
+      "explanation": "Samples from one prompt can share the same flawed step and outvote the correct minority. DiVeRSe answers this with genuinely different prompts and step-level verification scores. Voting handles random slips well; correlated mistakes need diversity of approach, not more samples.",
+      "learn": "../learn/diverse-prompting.html"
+    },
+    {
+      "id": "L12-023",
+      "text": "For free-form outputs where no two samples match word for word, Universal Self-Consistency asks the model to pick the response most consistent with the others.",
+      "isFact": true,
+      "explanation": "Exact-match voting fails when every sample is a paragraph. USC presents all candidates back to the model and asks which one best represents the consensus, catching agreement in meaning rather than wording. Outliers with errors or minority claims fall away in the selection.",
+      "learn": "../learn/universal-self-consistency.html"
+    },
+    {
+      "id": "L12-024",
+      "text": "Because benchmarks often score one sample per question, a single run can overstate how reliable a model is in practice.",
+      "isFact": true,
+      "explanation": "The Facts and Fictions page cites a study that tested a model a hundred times per question and found substantial hidden variability, concluding that traditional benchmarks likely overestimate reliability. A pass on one draw says little about the next. Repeated sampling is how reliability is measured.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L12-025",
+      "text": "A published benchmark score is the accuracy you will get from that model on each individual question.",
+      "isFact": false,
+      "explanation": "Scores are averages over a run, and sampling means a question that passed once can fail on the next run. Scores also depend on prompt phrasing, which the same page reports can swing individual questions by tens of points. Treat a score as a distribution summary, not a per-question guarantee.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L12-026",
+      "text": "Without format constraints, the same prompt can produce a bulleted list on one run and paragraphs on the next, which breaks any pipeline that parses the output.",
+      "isFact": true,
+      "explanation": "The Constrained Output page calls this structural variance invisible in casual use and pipeline-breaking at scale. Naming the format, the fields and the length in the prompt makes the shape part of the instruction. Validation after the call catches the runs that still deviate.",
+      "learn": "../learn/constrained-output.html"
+    },
+    {
+      "id": "L12-027",
+      "text": "Specifying a JSON format in the prompt guarantees valid JSON on every call.",
+      "isFact": false,
+      "explanation": "Models occasionally deviate even under clear instructions, adding a preamble or dropping a field. The Constrained Output page pairs prompt-level constraints with a validation step and a retry that names the violation. API-level schema enforcement is what pushes violations toward zero.",
+      "learn": "../learn/constrained-output.html"
+    },
+    {
+      "id": "L12-028",
+      "text": "Grammar-constrained decoding restricts each token choice to continuations valid under a formal grammar, so the output always matches the required structure.",
+      "isFact": true,
+      "explanation": "Instead of hoping the sampled tokens form valid JSON, the decoder masks every token that would break the grammar before the draw. The glossary describes it as guaranteeing conformance to the format. It controls structure, not truth: a valid document can still hold wrong values.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-029",
+      "text": "Adding 'be consistent' to a prompt switches the model into deterministic mode.",
+      "isFact": false,
+      "explanation": "Instructions shape the distribution; they do not change the decoding rule. Repeatable output comes from the sampling settings, temperature and top-p, which are API parameters rather than words in the prompt. An instruction can narrow the format and still leave every run free to differ.",
+      "learn": "../learn/constrained-output.html"
+    },
+    {
+      "id": "L12-030",
+      "text": "Best-of-N sampling generates several candidate completions and returns the one a reward model scores highest, trading extra compute for quality.",
+      "isFact": true,
+      "explanation": "The glossary describes it as an inference strategy that improves output without modifying the model. It is a cousin of self-consistency: both sample several times, but best-of-N scores candidates with a separate model instead of counting votes. The cost scales with N.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-031",
+      "text": "Beam search keeps several candidate sequences alive at each step instead of committing to one token at a time.",
+      "isFact": true,
+      "explanation": "The glossary describes beam search as maintaining multiple candidate sequences and keeping the most promising ones. It guards against greedy decoding's trap, where a locally likely token leads into a worse overall sequence. Variants add diversity or length penalties to the beams.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-032",
+      "text": "Beam search is the same as asking the model the question several times and voting.",
+      "isFact": false,
+      "explanation": "Beam search is a single decoding pass that carries several partial sequences forward and prunes the weak ones. Self-consistency runs complete independent samples and votes on final answers. One searches within a generation; the other compares across generations.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-033",
+      "text": "Logit bias lets you forbid a topic, so adding a negative bias to a word guarantees the model never discusses the idea.",
+      "isFact": false,
+      "explanation": "Logit bias lowers the score of specific tokens before sampling. It can block a particular word form, but the model can express the same idea with other tokens, synonyms, or a different spelling. The glossary calls it a nudge to encourage or suppress words, which is narrower than filtering meaning.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-034",
+      "text": "Speculative decoding has a small model draft tokens that the large model verifies in parallel, producing the same quality of output faster.",
+      "isFact": true,
+      "explanation": "The glossary describes it as a latency technique that maintains output quality. The small model proposes several tokens; the large model checks them in one pass and keeps the ones it would have produced itself. The gain is speed, and the final text is still the large model's.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-035",
+      "text": "Speculative decoding trades accuracy for speed by letting the smaller model write the answer.",
+      "isFact": false,
+      "explanation": "The large model checks every drafted token and rejects the ones it would not have produced, so the final text is what the large model would have written. The gain is latency. The glossary entry notes that output quality is maintained.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-036",
+      "text": "A token's probability is the model's estimate of how likely the claim is to be true.",
+      "isFact": false,
+      "explanation": "It is the estimate of how likely that text is to follow, given the patterns in training. Common falsehoods get high probability; rare truths get low probability. The Facts and Fictions page puts it as plausible language rather than verified facts. Confidence in truth is measured by verification, not by reading the distribution.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L12-037",
+      "text": "Sampling settings affect factual questions as well as creative ones; a high temperature can draw a wrong date from the tail of the distribution.",
+      "isFact": true,
+      "explanation": "A factual question has a distribution like any other, and a flatter draw lands on the less likely tokens more often. For lookups you want the sharp end: low temperature or greedy. Variety is the goal only when you intend to compare or vote across samples.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L12-038",
+      "text": "Uncertainty-Routed CoT trusts the sampled reasoning more when the chains disagree, since disagreement means the model explored more options.",
+      "isFact": false,
+      "explanation": "It is the reverse: it trusts the majority only when agreement clears a tuned threshold and falls back to the direct answer when the chains scatter. Disagreement is treated as a warning that the reasoning is unstable, not as a sign of thoroughness.",
+      "learn": "../learn/uncertainty-cot.html"
+    },
+    {
+      "id": "L12-039",
+      "text": "A model generates its answer one token at a time, and each drawn token becomes part of the context that shapes the next draw.",
+      "isFact": true,
+      "explanation": "The model never plans the whole reply in advance. Every token is drawn from a distribution conditioned on the prompt plus everything generated so far, which is why an early unlikely draw can steer the rest of the answer. Sampling noise compounds along the sequence.",
+      "learn": "../learn/constrained-output.html"
+    },
+    {
+      "id": "L12-040",
+      "text": "The model reads the prompt, decides the full answer internally, and then types it out, so sampling only affects the wording.",
+      "isFact": false,
+      "explanation": "Generation is sequential: each token is chosen before the next is computed, and the choice feeds back into the context. A different draw early on can change the content, the reasoning path and the conclusion, not just the phrasing. That is the mechanism self-consistency relies on.",
+      "learn": "../learn/self-consistency.html"
+    }
+  ]
+}
