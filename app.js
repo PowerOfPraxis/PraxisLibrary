@@ -6658,7 +6658,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const meta = FF_LEVELS[expectedLevel];
         if (!meta || data.level !== expectedLevel || data.band !== meta.band || data.name !== meta.name) return false;
         const list = data.statements;
-        if (!Array.isArray(list) || list.length !== 40) return false;
+        if (!Array.isArray(list) || list.length !== FF_GAME_SIZE * 2) return false;
         const idPattern = new RegExp('^L' + String(expectedLevel).padStart(2, '0') + '-\\d{3}$');
         const nonAscii = /[^\x00-\x7F]/;
         const ids = {}, texts = {};
@@ -6807,7 +6807,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const key = String(level);
         const prior = Array.isArray(seen[key]) ? seen[key] : [];
         const merged = prior.concat(ids.filter(id => prior.indexOf(id) < 0));
-        seen[key] = merged.length >= 40 ? ids.slice() : merged;
+        seen[key] = merged.length >= FF_GAME_SIZE * 2 ? ids.slice() : merged;
         return Object.assign({}, store, { seen: seen });
     }
 
@@ -6819,7 +6819,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const best = {}, seen = {};
             const rawBest = parsed.best && typeof parsed.best === 'object' ? parsed.best : {};
             Object.keys(rawBest).forEach(k => {
-                if (typeof rawBest[k] === 'number' && rawBest[k] >= 0) best[k] = rawBest[k];
+                const v = rawBest[k];
+                if (Number.isInteger(v) && v >= 0 && v <= FF_GAME_SIZE) best[k] = v;
             });
             const rawSeen = parsed.seen && typeof parsed.seen === 'object' ? parsed.seen : {};
             Object.keys(rawSeen).forEach(k => {
@@ -6879,6 +6880,94 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cls) e.className = cls;
         if (text !== undefined) e.textContent = text;
         return e;
+    }
+
+    /** Link titles per target page (from the page titles, shortened); unknown targets fall back to the slug. */
+    const FF_LEARN_TITLES = {
+        'foundations/index': 'AI History',
+        'learn/active-prompting': 'Active Prompting',
+        'learn/agentflow': 'AgentFlow',
+        'learn/agentic-context-engineering': 'Agentic Context Engineering',
+        'learn/agentic-prompting': 'Agentic Prompting',
+        'learn/chain-of-draft': 'Chain of Draft',
+        'learn/chain-of-knowledge': 'Chain of Knowledge',
+        'learn/chain-of-thought': 'Chain-of-Thought',
+        'learn/chain-of-verification': 'Chain-of-Verification',
+        'learn/complexity-prompting': 'Complexity-Based Prompting',
+        'learn/constitutional-ai': 'Constitutional AI',
+        'learn/constrained-output': 'Constrained Output',
+        'learn/context-engineering': 'Context Engineering',
+        'learn/context-structure': 'Context Structure',
+        'learn/cosp': 'COSP',
+        'learn/costar': 'CO-STAR',
+        'learn/crisp': 'CRISP',
+        'learn/critic': 'CRITIC',
+        'learn/debate-prompting': 'Debate Prompting',
+        'learn/decomposition': 'Decomposition',
+        'learn/diverse-prompting': 'DiVeRSe Prompting',
+        'learn/emotion-prompting': 'Emotion Prompting',
+        'learn/facts-fictions': 'AI Facts and Fictions',
+        'learn/faithful-cot': 'Faithful CoT',
+        'learn/few-shot-learning': 'Few-Shot Learning',
+        'learn/generated-knowledge': 'Generated Knowledge Prompting',
+        'learn/hyde': 'HyDE',
+        'learn/in-context-learning': 'In-Context Learning',
+        'learn/instruction-hierarchy': 'Instruction Hierarchy',
+        'learn/lats': 'LATS',
+        'learn/least-to-most': 'Least-to-Most Prompting',
+        'learn/pairwise-evaluation': 'Pairwise Evaluation',
+        'learn/plan-and-act': 'Plan-and-Act',
+        'learn/plan-and-solve': 'Plan-and-Solve Prompting',
+        'learn/program-of-thought': 'Program of Thoughts',
+        'learn/prompt-basics': 'Prompt Basics',
+        'learn/rag': 'RAG',
+        'learn/react': 'ReAct',
+        'learn/reflexion': 'Reflexion',
+        'learn/reversing-cot': 'Reversing Chain-of-Thought',
+        'learn/role-prompting': 'Role Prompting',
+        'learn/self-ask': 'Self-Ask Prompting',
+        'learn/self-calibration': 'Self-Calibration',
+        'learn/self-consistency': 'Self-Consistency',
+        'learn/self-refine': 'Self-Refine',
+        'learn/self-verification': 'Self-Verification',
+        'learn/step-back': 'Step-Back Prompting',
+        'learn/structured-tool-templates': 'Guided-Structured Templates',
+        'learn/style-prompting': 'Style Prompting',
+        'learn/system-prompting': 'System Prompting',
+        'learn/token-budget-reasoning': 'Token-Budget-Aware Reasoning',
+        'learn/tokens': 'Tokens',
+        'learn/tool-design-for-agents': 'Tool Design for Agents',
+        'learn/tree-of-thought': 'Tree of Thought',
+        'learn/uncertainty-cot': 'Uncertainty-Routed CoT',
+        'learn/universal-self-consistency': 'Universal Self-Consistency',
+        'learn/verify-and-edit': 'Verify-and-Edit Prompting',
+        'learn/zero-shot': 'Zero-Shot Prompting',
+        'learn/zero-shot-cot': 'Zero-Shot CoT',
+        'pages/ai-safety': 'AI Safety and Ethics',
+        'pages/audit-report': 'Site Audit Report',
+        'pages/data-retention-policy': 'Data Retention Policy',
+        'pages/glossary': 'AI Glossary',
+        'pages/responsible-ai': 'Responsible AI Policy',
+        'pages/security': 'Security Analysis',
+        'pages/site-policy': 'Site Policy',
+        'pages/universal-design': 'Universal Design',
+        'pages/use-policy': 'Acceptable Use Policy',
+        'tools/checklist': 'Preflight Checklist',
+        'tools/guidance': 'Prompt Builder',
+        'tools/hallucination': 'Hallucination Spotter'
+    };
+
+    /**
+     * Distinct link text per target page, so twenty review links do not all read the same.
+     * @param {string} url - relative learn URL from a statement, e.g. ../learn/rag.html
+     * @returns {string}
+     */
+    function ffLearnLabel(url) {
+        const key = String(url).replace(/^(\.\.\/)+/, '').replace(/\.html(#.*)?$/, '');
+        const small = { of: 1, and: 1, to: 1, for: 1, the: 1, in: 1 };
+        const title = FF_LEARN_TITLES[key] || key.split('/').pop().split('-')
+            .map((w, i) => (i > 0 && small[w] ? w : w.charAt(0).toUpperCase() + w.slice(1))).join(' ');
+        return 'Learn more: ' + title;
     }
 
     /**
@@ -7005,7 +7094,7 @@ document.addEventListener('DOMContentLoaded', () => {
             block.appendChild(ffEl('p', 'ff-result__why', statement.explanation));
             if (statement.learn) {
                 const p = ffEl('p', 'ff-result__learn');
-                const a = ffEl('a', 'ff-learn-link', 'Learn more on the related page');
+                const a = ffEl('a', 'ff-learn-link', ffLearnLabel(statement.learn));
                 a.href = statement.learn;
                 p.appendChild(a);
                 block.appendChild(p);
@@ -7035,7 +7124,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 li.appendChild(ffEl('p', 'ff-review__why', s.explanation));
                 if (s.learn) {
                     const p = ffEl('p', 'ff-review__learn');
-                    const link = ffEl('a', 'ff-learn-link', 'Learn more on the related page');
+                    const link = ffEl('a', 'ff-learn-link', ffLearnLabel(s.learn));
                     link.href = s.learn;
                     p.appendChild(link);
                     li.appendChild(p);
@@ -7051,6 +7140,17 @@ document.addEventListener('DOMContentLoaded', () => {
             this.show(root);
             this.announce('Finished. ' + score.correct + ' of ' + score.total + ' correct.');
             title.focus();
+        }
+
+        /** Loading screen between pick and the first statement; announces the level. */
+        renderLoading(level) {
+            const meta = FF_LEVELS[level];
+            const text = 'Loading level ' + level + (meta ? ', ' + meta.name : '') + '...';
+            const root = ffEl('div', 'ff-loading');
+            root.setAttribute('aria-busy', 'true');
+            root.appendChild(ffEl('p', 'ff-loading__text', text));
+            this.show(root);
+            this.announce(text);
         }
 
         /** Load failure card with Retry; the picker stays reachable through Pick a level. */
@@ -7082,7 +7182,9 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const ffStartLevel = level => {
+            if (FF_STATE.screen === 'loading') return;
             FF_STATE.screen = 'loading';
+            ffDisplay.renderLoading(level);
             loadLevel(level)
                 .then(data => {
                     const seen = new Set(FF_STATE.store.seen[String(level)] || []);
@@ -7111,7 +7213,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const ffFinish = () => {
             const game = FF_STATE.game;
             const score = scoreGame(game);
-            FF_STATE.store = mergeSeen(mergeBest(FF_STATE.store, game.level, score.correct), game.level, game.statements.map(s => s.id));
+            // Re-read first: another tab may have written progress since this game started.
+            FF_STATE.store = mergeSeen(mergeBest(readStore(), game.level, score.correct), game.level, game.statements.map(s => s.id));
             writeStore(FF_STATE.store);
             FF_STATE.screen = 'results';
             const nextMeta = FF_LEVELS[game.level + 1];
