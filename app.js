@@ -7182,9 +7182,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /** Display metadata for each builder framework */
     const BUILDER_FRAMEWORK_META = {
-        CRISP: { name: 'CRISP', desc: 'Context, Role, Instructions, Specifics, Parameters', link: 'learn/crisp.html' },
+        CRISP: { name: 'CRISP', desc: 'Context, Role, Instructions, Scope, Parameters', link: 'learn/crisp.html' },
         COSTAR: { name: 'COSTAR', desc: 'Context, Objective, Style, Tone, Audience, Response', link: 'learn/costar.html' },
-        CRISPE: { name: 'CRISPE', desc: 'CRISP + Examples for consistent output', link: 'learn/crispe.html' },
+        CRISPE: { name: 'CRISPE', desc: 'Capacity and Role, Insight, Statement, Personality, Experiment', link: 'learn/crispe.html' },
         CHAIN_OF_THOUGHT: { name: 'Chain-of-Thought', desc: 'Step-by-step reasoning for complex problems', link: 'learn/chain-of-thought.html' },
         ZERO_SHOT_COT: { name: 'Zero-Shot CoT', desc: 'Reasoning without providing examples', link: 'learn/zero-shot-cot.html' },
         STEP_BACK: { name: 'Step-Back', desc: 'Abstract first then solve specifically', link: 'learn/step-back.html' },
@@ -7211,8 +7211,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { key: 'context', letter: 'C', label: 'Set the scene - what\'s the background?', placeholder: 'e.g., I\'m planning a family vacation to Italy with two teenagers...' },
             { key: 'role', letter: 'R', label: 'What role should the AI adopt?', placeholder: 'e.g., Act as an experienced travel agent specializing in family trips...', fullWidth: true },
             { key: 'instructions', letter: 'I', label: 'What do you want done? (the task)', placeholder: 'e.g., Create a 7-day itinerary covering Rome and Florence...' },
-            { key: 'specifics', letter: 'S', label: 'Format, length, tone? (specifics)', placeholder: 'e.g., Day-by-day format, friendly tone, include estimated costs...' },
-            { key: 'parameters', letter: 'P', label: 'Constraints and what to avoid?', placeholder: 'e.g., Maximum 500 words. Avoid technical jargon...' }
+            { key: 'scope', letter: 'S', label: 'What is in bounds and what is out?', placeholder: 'e.g., Rome and Florence only, skip the coast. Teen-friendly activities, no museums over two hours...' },
+            { key: 'parameters', letter: 'P', label: 'Format, length, tone? (how to deliver it)', placeholder: 'e.g., Day-by-day format under 500 words, friendly tone, include estimated costs...' }
         ],
         COSTAR: [
             { key: 'context', letter: 'C', label: 'What background info does the AI need?', placeholder: 'e.g., I\'m hosting a neighborhood potluck for 20 people...' },
@@ -7223,12 +7223,11 @@ document.addEventListener('DOMContentLoaded', () => {
             { key: 'response', letter: 'R', label: 'What output format?', placeholder: 'e.g., Short invitation (100-150 words) for a printed flyer...' }
         ],
         CRISPE: [
-            { key: 'context', letter: 'C', label: 'Set the scene - what\'s the background?', placeholder: 'e.g., I\'m a busy parent with two kids who wants to eat healthier...' },
-            { key: 'role', letter: 'R', label: 'What role should the AI adopt?', placeholder: 'e.g., Act as a family nutritionist who helps picky eaters...', fullWidth: true },
-            { key: 'instruction', letter: 'I', label: 'What do you want done? (the task)', placeholder: 'e.g., Create a 5-day weeknight dinner plan with kid-friendly recipes...' },
-            { key: 'specifics', letter: 'S', label: 'Format, length, tone? (specifics)', placeholder: 'e.g., Friendly tone, include prep time, common grocery ingredients...' },
-            { key: 'parameters', letter: 'P', label: 'Constraints and what to avoid?', placeholder: 'e.g., Under 45 minutes per meal. No seafood (allergies)...' },
-            { key: 'example', letter: 'E', label: 'Example of desired output?', placeholder: 'e.g., Format like: Monday: Veggie Tacos - Prep: 15 min - Hidden veggies: peppers' }
+            { key: 'capacity', letter: 'CR', label: 'Capacity and role - who should the AI be, with what expertise?', placeholder: 'e.g., A family nutritionist with ten years of experience helping picky eaters, speaking to a busy parent...', fullWidth: true },
+            { key: 'insight', letter: 'I', label: 'Insight - what background does the AI need?', placeholder: 'e.g., Two kids aged 6 and 9, one refuses vegetables, weeknights are rushed, no seafood (allergies)...' },
+            { key: 'statement', letter: 'S', label: 'Statement - what exactly do you want produced?', placeholder: 'e.g., Create a 5-day weeknight dinner plan with kid-friendly recipes and a grocery list...' },
+            { key: 'personality', letter: 'P', label: 'Personality - what tone and style should the answer have?', placeholder: 'e.g., Friendly and practical, short paragraphs, prep time at the top of each recipe...' },
+            { key: 'experiment', letter: 'E', label: 'Experiment - how many variations or angles do you want?', placeholder: 'e.g., Give me three versions: budget, fastest prep, and most vegetables hidden...' }
         ],
         REACT: [
             { key: 'problem', letter: 'P', label: 'What problem needs to be solved?', placeholder: 'e.g., I need to debug why my website login is failing for some users...', fullWidth: true },
@@ -7404,7 +7403,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (answers.context?.trim()) parts.push(`Context: ${answers.context.trim()}`);
                 if (answers.role?.trim()) parts.push(`Role: ${answers.role.trim()}`);
                 if (answers.instructions?.trim()) parts.push(`Instructions: ${answers.instructions.trim()}`);
-                if (answers.specifics?.trim()) parts.push(`Specifics: ${answers.specifics.trim()}`);
+                if (answers.scope?.trim()) parts.push(`Scope: ${answers.scope.trim()}`);
                 if (answers.parameters?.trim()) parts.push(`Parameters: ${answers.parameters.trim()}`);
             } else if (methodology === 'COSTAR') {
                 if (answers.context?.trim()) parts.push(`Context: ${answers.context.trim()}`);
@@ -7414,12 +7413,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (answers.audience?.trim()) parts.push(`Audience: ${answers.audience.trim()}`);
                 if (answers.response?.trim()) parts.push(`Response: ${answers.response.trim()}`);
             } else if (methodology === 'CRISPE') {
-                if (answers.context?.trim()) parts.push(`Context: ${answers.context.trim()}`);
-                if (answers.role?.trim()) parts.push(`Role: ${answers.role.trim()}`);
-                if (answers.instruction?.trim()) parts.push(`Instruction: ${answers.instruction.trim()}`);
-                if (answers.specifics?.trim()) parts.push(`Specifics: ${answers.specifics.trim()}`);
-                if (answers.parameters?.trim()) parts.push(`Parameters: ${answers.parameters.trim()}`);
-                if (answers.example?.trim()) parts.push(`Example: ${answers.example.trim()}`);
+                if (answers.capacity?.trim()) parts.push(`Capacity and Role: ${answers.capacity.trim()}`);
+                if (answers.insight?.trim()) parts.push(`Insight: ${answers.insight.trim()}`);
+                if (answers.statement?.trim()) parts.push(`Statement: ${answers.statement.trim()}`);
+                if (answers.personality?.trim()) parts.push(`Personality: ${answers.personality.trim()}`);
+                if (answers.experiment?.trim()) parts.push(`Experiment: ${answers.experiment.trim()}`);
             } else if (methodology === 'REACT') {
                 if (answers.problem?.trim()) parts.push(`Problem: ${answers.problem.trim()}`);
                 if (answers.context?.trim()) parts.push(`Context: ${answers.context.trim()}`);
@@ -7516,7 +7514,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (answers.role?.trim()) parts.push(`Act as ${answers.role.trim()}.`);
                 if (answers.context?.trim()) parts.push(answers.context.trim());
                 if (answers.instructions?.trim()) parts.push(answers.instructions.trim());
-                if (answers.specifics?.trim()) parts.push(answers.specifics.trim());
+                if (answers.scope?.trim()) parts.push(`Keep it within this scope: ${answers.scope.trim()}`);
                 if (answers.parameters?.trim()) parts.push(answers.parameters.trim());
             } else if (methodology === 'COSTAR') {
                 if (answers.context?.trim()) parts.push(answers.context.trim());
@@ -7528,12 +7526,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if (answers.response?.trim()) parts.push(`Format as ${answers.response.trim()}.`);
             } else if (methodology === 'CRISPE') {
-                if (answers.role?.trim()) parts.push(`Act as ${answers.role.trim()}.`);
-                if (answers.context?.trim()) parts.push(answers.context.trim());
-                if (answers.instruction?.trim()) parts.push(answers.instruction.trim());
-                if (answers.specifics?.trim()) parts.push(answers.specifics.trim());
-                if (answers.parameters?.trim()) parts.push(answers.parameters.trim());
-                if (answers.example?.trim()) parts.push(`Here's an example: ${answers.example.trim()}`);
+                if (answers.capacity?.trim()) parts.push(`Act as ${answers.capacity.trim()}.`);
+                if (answers.insight?.trim()) parts.push(answers.insight.trim());
+                if (answers.statement?.trim()) parts.push(answers.statement.trim());
+                if (answers.personality?.trim()) parts.push(answers.personality.trim());
+                if (answers.experiment?.trim()) parts.push(`Give me ${answers.experiment.trim()}.`);
             } else if (methodology === 'REACT') {
                 if (answers.problem?.trim()) parts.push(answers.problem.trim());
                 if (answers.context?.trim()) parts.push(`Here's the context: ${answers.context.trim()}`);
