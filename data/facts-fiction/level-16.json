@@ -1,0 +1,287 @@
+{
+  "level": 16,
+  "band": "practitioner",
+  "name": "Agents and Tools",
+  "statements": [
+    {
+      "id": "L16-001",
+      "text": "ReAct interleaves a Thought, an Action and an Observation in a loop that repeats until the model has gathered enough evidence to answer.",
+      "isFact": true,
+      "explanation": "The page describes it as the scientific method compressed into a prompt: hypothesize, experiment, observe, refine. The Thought states what is known and missing, the Action calls a tool, the Observation returns real data, and that data feeds the next Thought. This loop became the blueprint for modern agents.",
+      "learn": "../learn/react.html"
+    },
+    {
+      "id": "L16-002",
+      "text": "In ReAct the Observation is the model's own prediction of what the tool would have returned, written before the tool runs.",
+      "isFact": false,
+      "explanation": "The Observation is external evidence, real data returned from the environment rather than the model's generation. That is what grounds the next reasoning step in fact. A predicted result would be the hallucination the loop exists to prevent, dressed up as a tool call.",
+      "learn": "../learn/react.html"
+    },
+    {
+      "id": "L16-003",
+      "text": "Reasoning without acting tends to produce plausible hallucinations, and acting without reasoning produces blind tool calls, which is why ReAct forces each to constrain the other.",
+      "isFact": true,
+      "explanation": "Before ReAct a model could think through a problem or take actions, but not both in one loop. The page's point is the mutual constraint: every action must be justified by a thought and every thought grounded by an observation, which cuts hallucination while keeping the model goal-directed.",
+      "learn": "../learn/react.html"
+    },
+    {
+      "id": "L16-004",
+      "text": "ReAct is the best choice even when no tools are available, because the loop still structures the model's thinking.",
+      "isFact": false,
+      "explanation": "The page lists no external tools as a reason to skip it. Without something to call, the Action step becomes simulated reasoning rather than real interaction, and plain chain-of-thought is usually more efficient. The value of ReAct is contact with the environment, not the labels on the steps.",
+      "learn": "../learn/react.html"
+    },
+    {
+      "id": "L16-005",
+      "text": "ReAct hides the model's reasoning inside the tool calls, so an agent's decisions cannot be audited after the fact.",
+      "isFact": false,
+      "explanation": "Transparency is one of the pattern's main strengths. Every Thought is written out before its Action, and every Observation is recorded, so the full trail can be reviewed, debugged or explained. The page names auditable agent behavior as a core use case.",
+      "learn": "../learn/react.html"
+    },
+    {
+      "id": "L16-006",
+      "text": "Writing a short email or summarizing one document is a good fit for the full Thought-Action-Observation loop.",
+      "isFact": false,
+      "explanation": "Simple direct tasks are the page's first reason to skip ReAct. A single-step job with no lookup to perform gains nothing from the loop and pays its overhead. ReAct earns its cost on multi-step problems where each observation shapes the next action.",
+      "learn": "../learn/react.html"
+    },
+    {
+      "id": "L16-007",
+      "text": "Each ReAct iteration adds the round-trip time of a tool call, so latency-sensitive applications may prefer a simpler approach.",
+      "isFact": true,
+      "explanation": "The page lists latency as a reason to skip the pattern when sub-second responses matter more than verification depth. Every loop costs a model call plus a tool call, and a thorough investigation may run several. The trade is speed for grounded accuracy, and sometimes speed wins.",
+      "learn": "../learn/react.html"
+    },
+    {
+      "id": "L16-008",
+      "text": "Agentic prompting gives the model a goal, a set of tools and permission to iterate, so it plans, acts, observes and reflects until the goal is met.",
+      "isFact": true,
+      "explanation": "The page contrasts asking for directions with asking to be driven there. Standard prompting is one turn of text in and text out. An agent can search, run code, read files and call APIs, loop back when something fails, and keep going without a human nudging each step.",
+      "learn": "../learn/agentic-prompting.html"
+    },
+    {
+      "id": "L16-009",
+      "text": "An agent executes its initial plan step by step and never revises it, since changing course would make its behavior unpredictable.",
+      "isFact": false,
+      "explanation": "Reflection after each action is what the page says separates agentic behavior from sequential execution. Its example agent notices that a competitor's pricing data is outdated, judges that insufficient, and searches again on the official site. Reformulating, backtracking and adapting are the point.",
+      "learn": "../learn/agentic-prompting.html"
+    },
+    {
+      "id": "L16-010",
+      "text": "Each tool an agent can use is defined with a name, a description and an input and output schema, and the goal should be specific enough to tell when it is complete.",
+      "isFact": true,
+      "explanation": "The first stage of the page's process is defining the goal and the tools. Its example lists web search, read a URL, write a file and analyze data, each a named function with a signature. A goal too vague to evaluate leaves the agent unable to know when to stop.",
+      "learn": "../learn/agentic-prompting.html"
+    },
+    {
+      "id": "L16-011",
+      "text": "An agent's final report is drawn from the model's training memory, with tool results used only to double-check it afterward.",
+      "isFact": false,
+      "explanation": "The deliverable is synthesized from the evidence gathered through tool use, with every data point traceable to a source accessed during the run. That is the reason to run an agent at all: the answer rests on current, retrieved data rather than parametric recall.",
+      "learn": "../learn/agentic-prompting.html"
+    },
+    {
+      "id": "L16-012",
+      "text": "When regulation requires that a human pre-approve every AI action, full agent autonomy is still the right design.",
+      "isFact": false,
+      "explanation": "Tightly controlled environments are on the page's skip list. Where security or regulatory rules demand approval before each action, an autonomous loop is inappropriate by definition. The fit for agents is tasks where adaptive, unattended execution is both allowed and valuable.",
+      "learn": "../learn/agentic-prompting.html"
+    },
+    {
+      "id": "L16-013",
+      "text": "Agentic prompting is justified for low-risk questions that a single prompt already answers well.",
+      "isFact": false,
+      "explanation": "The page lists simple question-answer tasks and low-risk informational queries as cases to skip. Agent infrastructure costs tool calls, loops and latency. When a wrong answer is cheap and one prompt suffices, that overhead buys nothing.",
+      "learn": "../learn/agentic-prompting.html"
+    },
+    {
+      "id": "L16-014",
+      "text": "A tool's definition is part of the prompt the model reads, so a vague description or a raw data dump makes the agent more likely to misuse it.",
+      "isFact": true,
+      "explanation": "The Tool Design page's core insight is that the model reasons over the tool definitions. A confusing name, a thin description or a response full of unused fields leads to the wrong tool, the wrong arguments or output the agent cannot parse. Agent quality often comes down to tool quality.",
+      "learn": "../learn/tool-design-for-agents.html"
+    },
+    {
+      "id": "L16-015",
+      "text": "The best practice is to expose every endpoint of an API as its own tool, so the agent has the widest possible set of options.",
+      "isFact": false,
+      "explanation": "The page's first principle is to build the tools the agent needs, not to wrap every endpoint. Ten raw calendar calls become one schedule-meeting tool that covers the flow the agent performs. Many similar tools with terse names are exactly the setup that makes agents pick wrong.",
+      "learn": "../learn/tool-design-for-agents.html"
+    },
+    {
+      "id": "L16-016",
+      "text": "Prefixing related tools with a shared namespace, such as a docs prefix on search and read, helps the agent choose correctly among similar tools.",
+      "isFact": true,
+      "explanation": "Naming and namespacing is the second lever. Groupings that make a tool's domain and role obvious reduce confusion when several tools are available. The agent that keeps picking the wrong one of forty tools is usually facing names that fail to say what each is for.",
+      "learn": "../learn/tool-design-for-agents.html"
+    },
+    {
+      "id": "L16-017",
+      "text": "A well-designed tool returns the relevant fields and a clear status rather than the whole raw payload, so the result is useful and lean on tokens.",
+      "isFact": true,
+      "explanation": "The page's example search tool returns a few titles with snippets and IDs instead of the full JSON with dozens of unused fields. Meaningful, token-efficient context lets the agent act on the result without wading through noise, and keeps the context window from filling with waste.",
+      "learn": "../learn/tool-design-for-agents.html"
+    },
+    {
+      "id": "L16-018",
+      "text": "Tool descriptions are written once and left alone, because changing them after deployment confuses the agent.",
+      "isFact": false,
+      "explanation": "The fourth principle is to prompt-engineer and evaluate the descriptions, iterating the way you would on any prompt. The page's example tightens a delete tool's description after the agent called it too eagerly. Descriptions are a surface to refine, not a fixed contract.",
+      "learn": "../learn/tool-design-for-agents.html"
+    },
+    {
+      "id": "L16-019",
+      "text": "Practitioner guidance says to evaluate an agent on realistic tasks, watch where it fumbles a tool, and refine the definition, even using the model itself to rewrite descriptions.",
+      "isFact": true,
+      "explanation": "The page frames tool improvement as the same loop as prompt improvement: run real tasks, find the misuse, fix the definition. Because the guidance comes from teams shipping agents, it reflects what moves reliability in production rather than what sounds tidy on paper.",
+      "learn": "../learn/tool-design-for-agents.html"
+    },
+    {
+      "id": "L16-020",
+      "text": "Guided-Structured Templates replace free-form reasoning before a tool call with a fixed scaffold: state the intent, consult the tool's documentation, fill each argument, then emit the call.",
+      "isFact": true,
+      "explanation": "The template walks the model through the checks that tool calls usually get wrong. Making the intent explicit prevents solving the wrong problem; reading the documentation grounds the call in the real contract; filling arguments one by one catches anything missing or malformed before the call is made.",
+      "learn": "../learn/structured-tool-templates.html"
+    },
+    {
+      "id": "L16-021",
+      "text": "Free-form chain-of-thought is the most reliable way to produce a correct function call, since more open-ended reasoning always helps.",
+      "isFact": false,
+      "explanation": "The page's point is that open-endedness is a liability for tool calls. Left to reason freely, a model may misread intent, skip a required argument or confuse two similar tools. Reasoning that helps on a math problem does not automatically yield a well-formed call; structure does.",
+      "learn": "../learn/structured-tool-templates.html"
+    },
+    {
+      "id": "L16-022",
+      "text": "The documentation-check step in a guided template grounds the call in the tool's actual contract, which is where missing or badly formatted arguments get caught.",
+      "isFact": true,
+      "explanation": "The page's weather example shows it: the tool needs a city and a date in a specific format, and the template has the model confirm that before mapping the trip context onto the arguments. Complex signatures and strict formats are listed as the cases where this step pays most.",
+      "learn": "../learn/structured-tool-templates.html"
+    },
+    {
+      "id": "L16-023",
+      "text": "Even with a single trivial tool and one obvious argument, the full guided template is the recommended path.",
+      "isFact": false,
+      "explanation": "One trivial tool is on the page's skip list: the template is more ceremony than the call needs. It also notes that the step-by-step scaffold adds tokens before the call, so a very tight latency budget may favor something leaner. The scaffold is for calls that can go wrong.",
+      "learn": "../learn/structured-tool-templates.html"
+    },
+    {
+      "id": "L16-024",
+      "text": "Reflexion stores a verbal reflection on a failed attempt in memory and injects it into the next attempt's context, so performance improves without changing the model's weights.",
+      "isFact": true,
+      "explanation": "The page calls it in-context learning from failure. A coding attempt that fails on empty strings produces a reflection to handle edge cases first; the retry reads that lesson and passes. The loop can repeat until the task succeeds, with the model itself untouched.",
+      "learn": "../learn/reflexion.html"
+    },
+    {
+      "id": "L16-025",
+      "text": "Reflexion improves results by retrying the same approach until it happens to succeed.",
+      "isFact": false,
+      "explanation": "That is the blind retry the page contrasts it with. Blind retries share the same blind spots and repeat the same class of mistake. Reflexion names the failure mode explicitly, stores it, and the next attempt addresses it from the start, which is learning rather than guessing.",
+      "learn": "../learn/reflexion.html"
+    },
+    {
+      "id": "L16-026",
+      "text": "Reflexion depends on an Evaluator that gives a clear success or failure signal, such as a test suite or a checkable answer.",
+      "isFact": true,
+      "explanation": "The Evaluator is one of the three components, alongside the Actor and the Self-Reflection step, and its pass or fail verdict is what triggers reflection. Code generation is the ideal case because tests provide an unambiguous signal, and question answering works when answers can be checked.",
+      "learn": "../learn/reflexion.html"
+    },
+    {
+      "id": "L16-027",
+      "text": "Reflexion is well suited to subjective tasks that have no objective measure of success.",
+      "isFact": false,
+      "explanation": "No clear evaluation signal is the page's second reason to skip it. Without a way to decide whether the attempt failed, there is nothing to reflect on. Single-shot tasks are also excluded, because the loop needs a second attempt to apply what it learned.",
+      "learn": "../learn/reflexion.html"
+    },
+    {
+      "id": "L16-028",
+      "text": "Reflexion has two components, an Actor and an Evaluator, and the written reflection comes from a human reviewer between attempts.",
+      "isFact": false,
+      "explanation": "There are three components, and the third is Self-Reflection: after a failure the agent itself generates the verbal analysis of what went wrong and what to do differently, then stores it. The loop runs without a human writing lessons, which is what makes it an automated learning cycle.",
+      "learn": "../learn/reflexion.html"
+    },
+    {
+      "id": "L16-029",
+      "text": "Self-Refine works because language models are often better at spotting problems in finished text than at avoiding those problems while generating it.",
+      "isFact": true,
+      "explanation": "The page calls this the generation-evaluation gap. Text is produced token by token but evaluated as a whole, so structural issues and tone mismatches invisible during writing become visible on review. The same model serves as writer and editor, and the critic role is the stronger one.",
+      "learn": "../learn/self-refine.html"
+    },
+    {
+      "id": "L16-030",
+      "text": "Self-Refine can catch any factual error, because the critic role has full knowledge of the subject.",
+      "isFact": false,
+      "explanation": "The page's limitations are explicit: Self-Refine cannot catch errors it does not recognize as errors. Tasks needing ground-truth checks need a different approach, such as tools or retrieval. The critic improves clarity, structure and tone; it does not add knowledge the model lacks.",
+      "learn": "../learn/self-refine.html"
+    },
+    {
+      "id": "L16-031",
+      "text": "Two or three Self-Refine cycles typically give the best cost-to-quality ratio, with later passes yielding marginal gains.",
+      "isFact": true,
+      "explanation": "The first revision captures most of the available improvement, since each cycle removes the most obvious issues first. Beyond two or three rounds the returns shrink while latency and token cost keep rising, which is why the page tells you to stop at diminishing returns.",
+      "learn": "../learn/self-refine.html"
+    },
+    {
+      "id": "L16-032",
+      "text": "Plan-and-Act gives strategy and execution to separate roles: a Planner writes a high-level plan for the whole task and an Executor turns one step at a time into concrete actions.",
+      "isFact": true,
+      "explanation": "A single-loop agent must hold the goal, pick the next action and track the history all at once, and over dozens of steps it drifts. Keeping the plan fixed and visible while the Executor works gives the agent an anchor, which the page says is what single-loop agents lack on long tasks.",
+      "learn": "../learn/plan-and-act.html"
+    },
+    {
+      "id": "L16-033",
+      "text": "In Plan-and-Act the Planner specifies the exact clicks, fields and commands for every step of the task.",
+      "isFact": false,
+      "explanation": "Low-level detail belongs to the Executor. The Planner's step is search the route; the Executor turns it into typing the origin, typing the destination, choosing the date and clicking search. Keeping the plan abstract is what lets it stay stable while the details vary.",
+      "learn": "../learn/plan-and-act.html"
+    },
+    {
+      "id": "L16-034",
+      "text": "When the environment throws a surprise, a Plan-and-Act agent can revise the high-level plan, such as adding a step to relax a filter when no results match.",
+      "isFact": true,
+      "explanation": "Advance and adapt is the third stage of the page's process. The plan stays the anchor, so progress is tracked against strategy rather than lost in a stream of actions, but it is not frozen. Recoverable surprises are listed among the cases the split handles well.",
+      "learn": "../learn/plan-and-act.html"
+    },
+    {
+      "id": "L16-035",
+      "text": "Plan-and-Act is a strong fit for tasks that are all reasoning and involve no actions in an environment.",
+      "isFact": false,
+      "explanation": "Pure reasoning with no actions is on the page's skip list, where a reasoning method is the better tool. The split earns its keep in interactive settings such as web navigation and app automation, where actions are concrete and numerous and drift is the real risk.",
+      "learn": "../learn/plan-and-act.html"
+    },
+    {
+      "id": "L16-036",
+      "text": "LATS runs a Monte Carlo tree search over an agent's choices: select a promising node, expand several candidate actions, evaluate them with environment feedback, and propagate the scores back up the tree.",
+      "isFact": true,
+      "explanation": "The page likens it to a chess engine exploring many game states before moving. Selection uses the same upper confidence bound scoring as AlphaGo to balance exploring new branches against exploiting good ones, and the agent can backtrack from a failed branch instead of compounding the error.",
+      "learn": "../learn/lats.html"
+    },
+    {
+      "id": "L16-037",
+      "text": "LATS scores each branch by asking the model to rate its own candidate actions.",
+      "isFact": false,
+      "explanation": "The page calls environment feedback the key innovation precisely because self-evaluation is unreliable. Test results, error messages and partial outputs assign the values: a memoization attempt passing eight of ten tests scores accordingly, and real execution, not a model's guess, drives the search.",
+      "learn": "../learn/lats.html"
+    },
+    {
+      "id": "L16-038",
+      "text": "LATS trades compute for accuracy, making several model calls per iteration multiplied by tree depth, so it is a poor fit for real-time chat.",
+      "isFact": true,
+      "explanation": "Latency-sensitive applications are on the page's skip list for exactly that reason. The pattern is reserved for high-stakes problems where being right matters more than being fast, such as code generation against a test suite or navigation where wrong actions have real consequences.",
+      "learn": "../learn/lats.html"
+    },
+    {
+      "id": "L16-039",
+      "text": "LATS works without any environment feedback, because the tree structure alone is enough to find the best path.",
+      "isFact": false,
+      "explanation": "Without feedback the search cannot tell a good branch from a bad one, and the page lists that as a reason to skip it. The tree is a way of organizing exploration; the environment's signals are what make the exploration informative. Remove them and it is branching for its own sake.",
+      "learn": "../learn/lats.html"
+    },
+    {
+      "id": "L16-040",
+      "text": "AgentFlow coordinates four modules, a planner, an executor, a verifier and a generator, through shared memory, and Flow-GRPO trains the planner by broadcasting the end-of-task reward to every turn.",
+      "isFact": true,
+      "explanation": "The page's problem statement is that a planner trained offline cannot learn which mid-task step went wrong. Flow-GRPO turns one trajectory reward into turn-level signals using group-normalized advantages across attempts at the same task, so the planner learns in the flow of execution.",
+      "learn": "../learn/agentflow.html"
+    }
+  ]
+}

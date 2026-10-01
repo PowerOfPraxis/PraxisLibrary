@@ -6613,7 +6613,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Prompt Structure', band: 'practitioner', available: true },
         { name: 'Reasoning Techniques', band: 'practitioner', available: true },
         { name: 'Retrieval and Grounding', band: 'practitioner', available: true },
-        { name: 'Agents and Tools', band: 'practitioner', available: false },
+        { name: 'Agents and Tools', band: 'practitioner', available: true },
         { name: 'Evaluation', band: 'practitioner', available: false },
         { name: 'Safety and Alignment', band: 'practitioner', available: false },
         { name: 'Governance and Transparency', band: 'practitioner', available: false },
