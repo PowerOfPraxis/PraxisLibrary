@@ -1,0 +1,287 @@
+{
+  "level": 14,
+  "band": "practitioner",
+  "name": "Reasoning Techniques",
+  "statements": [
+    {
+      "id": "L14-001",
+      "text": "Chain-of-thought works because each generated reasoning token becomes context for the next, so a correct early step makes a correct later step more likely.",
+      "isFact": true,
+      "explanation": "The Chain-of-Thought page describes the intermediate tokens as scratch paper: without them the model must compress all reasoning into a single forward pass, which is where multi-step problems overwhelm it. The chain is a scaffold the model builds and then stands on.",
+      "learn": "../learn/chain-of-thought.html"
+    },
+    {
+      "id": "L14-002",
+      "text": "Chain-of-thought only makes answers easier to read; the model's answer is the same whether or not the steps are generated.",
+      "isFact": false,
+      "explanation": "The steps change the computation, not just the presentation. Each written step conditions what comes next, which is why the same question answered in one leap and answered through visible steps can land on different numbers. Readability is a side benefit; the accuracy gain is the point.",
+      "learn": "../learn/chain-of-thought.html"
+    },
+    {
+      "id": "L14-003",
+      "text": "Chain-of-thought was first demonstrated with few-shot examples that included the reasoning steps, and the zero-shot trigger phrase came afterward.",
+      "isFact": true,
+      "explanation": "The original technique put worked examples in the prompt: question, step-by-step reasoning, answer. Later work found a single phrase could unlock the same behavior with no examples. Few-shot chain-of-thought still gives more control over the reasoning format when you need it.",
+      "learn": "../learn/chain-of-thought.html"
+    },
+    {
+      "id": "L14-004",
+      "text": "Chain-of-thought prompting required retraining the model before it would reason step by step.",
+      "isFact": false,
+      "explanation": "The technique's significance was that prompting alone unlocked reasoning. Before it, the assumption was that models needed fine-tuning or architectural changes to reason well. Demonstrating reasoning in the prompt turned out to be enough, which is what launched the family of techniques that followed.",
+      "learn": "../learn/chain-of-thought.html"
+    },
+    {
+      "id": "L14-005",
+      "text": "Self-Ask inserts an explicit decision gate, asking whether follow-up questions are needed, before the model decomposes a question into sub-questions it answers in order.",
+      "isFact": true,
+      "explanation": "The gate forces the model to assess complexity instead of guessing. When the answer is yes, each sub-question is written out, answered, and the intermediate answer feeds the next one. A wrong intermediate answer is visible, so the chain can be audited at the exact link that broke.",
+      "learn": "../learn/self-ask.html"
+    },
+    {
+      "id": "L14-006",
+      "text": "Self-Ask cannot be used without a search engine attached to answer each sub-question.",
+      "isFact": false,
+      "explanation": "It was designed so each sub-question could be routed to a lookup, which makes it a precursor to retrieval-augmented generation, but the decomposition works on the model's own knowledge as well. The page's examples run without tools. Search adds grounding; the structure stands on its own.",
+      "learn": "../learn/self-ask.html"
+    },
+    {
+      "id": "L14-007",
+      "text": "Multi-hop questions, where the answer depends on first finding another fact, are where decomposition techniques pay off; a single-lookup question gains nothing from them.",
+      "isFact": true,
+      "explanation": "Asking whether a company that made one product also made another hides two or three facts that must be found and connected. Decomposition exposes each one. The page lists single-hop questions, speed-critical uses and creative tasks as places where the extra structure is only overhead.",
+      "learn": "../learn/self-ask.html"
+    },
+    {
+      "id": "L14-008",
+      "text": "Tree of Thought treats reasoning as search: it generates several candidate next steps, rates each as sure, maybe or impossible, prunes the dead ends and backtracks when a branch fails.",
+      "isFact": true,
+      "explanation": "A single chain commits to one path and inherits any early mistake. The tree explores alternatives at each node, concentrates effort on promising regions and abandons the rest. The page's Game of 24 example finds a solution the linear chain gave up on after two random attempts.",
+      "learn": "../learn/tree-of-thought.html"
+    },
+    {
+      "id": "L14-009",
+      "text": "Tree of Thought generates several complete answers and takes a majority vote among them.",
+      "isFact": false,
+      "explanation": "That is Self-Consistency. Tree of Thought branches at each intermediate step, evaluates partial solutions and backtracks, so the search happens inside one solution attempt rather than across finished ones. The page notes the two can be combined: tree search to find candidates, voting across the final answers.",
+      "learn": "../learn/tree-of-thought.html"
+    },
+    {
+      "id": "L14-010",
+      "text": "In Tree of Thought every branch is explored to the end, so the model never abandons a candidate step.",
+      "isFact": false,
+      "explanation": "Pruning is the technique's economy. Branches rated impossible are dropped before any effort is spent on them, and a promising branch that fails deeper down is backed out of. Exploring everything to the end would be exhaustive search, which the evaluation step exists to avoid.",
+      "learn": "../learn/tree-of-thought.html"
+    },
+    {
+      "id": "L14-011",
+      "text": "Tree of Thought is expensive, because it generates and evaluates several branches at every step, so it is reserved for problems where exploration beats a single path.",
+      "isFact": true,
+      "explanation": "Puzzles with dead ends, strategy choices with consequences to play out and constrained creative plans suit it. Factual lookups, simple summaries and open-ended generation with no correct answer do not, and the token cost of branching makes it the wrong tool when budget or latency matters.",
+      "learn": "../learn/tree-of-thought.html"
+    },
+    {
+      "id": "L14-012",
+      "text": "Plan-and-Solve separates devising a strategy from carrying it out, so a flawed approach is caught before calculations compound the error.",
+      "isFact": true,
+      "explanation": "The think-step-by-step trigger starts solving immediately, picking an approach on the fly. Plan-and-Solve first asks the model to understand the givens and unknowns and lay out the steps, then execute them. The PS+ variant adds extracting the variables and a verification pass at the end.",
+      "learn": "../learn/plan-and-solve.html"
+    },
+    {
+      "id": "L14-013",
+      "text": "Plan-and-Solve is the step-by-step trigger under a different name and produces identical results.",
+      "isFact": false,
+      "explanation": "Sequential is not the same as strategic. A chain can calculate correctly at every step while following a wrong overall approach. The explicit planning phase reduces missing-step errors and variable-tracking mistakes that the plain trigger leaves in, which is why the page positions it as the improvement on zero-shot chain-of-thought.",
+      "learn": "../learn/plan-and-solve.html"
+    },
+    {
+      "id": "L14-014",
+      "text": "Least-to-Most decomposes a problem into sub-problems ordered from simplest to hardest, and appends each answer to the context before the next sub-problem is attempted.",
+      "isFact": true,
+      "explanation": "Each sub-problem is then solvable with the original information plus everything already established. The model never faces a step it lacks the prerequisites for. The page's apple example runs Carl to Ben to Amy, each answer feeding the next, instead of one leap through all three relationships.",
+      "learn": "../learn/least-to-most.html"
+    },
+    {
+      "id": "L14-015",
+      "text": "Least-to-Most starts with the hardest sub-problem so the difficult part is out of the way early.",
+      "isFact": false,
+      "explanation": "The order is the mechanism: easiest first, because the easy answers are the inputs the hard sub-problem needs. Starting with the hardest would mean solving it without its prerequisites, which is the single-pass failure the technique was built to avoid. The staircase is climbed from the bottom.",
+      "learn": "../learn/least-to-most.html"
+    },
+    {
+      "id": "L14-016",
+      "text": "Least-to-Most lets a model solve problems longer or harder than any of its few-shot examples, because the decomposition pattern generalizes where a single chain does not.",
+      "isFact": true,
+      "explanation": "The page lists compositional and length generalization among its strengths: once the model has learned how to split a problem of this kind, it can split a longer one and solve the pieces. Chain-of-thought alone tends to break when the target problem outgrows the demonstrations.",
+      "learn": "../learn/least-to-most.html"
+    },
+    {
+      "id": "L14-017",
+      "text": "Least-to-Most helps on any problem that can be split into parts, including parts that do not depend on each other.",
+      "isFact": false,
+      "explanation": "Its value is passing each answer forward into the next sub-problem. When the parts are independent there is nothing to pass, and the sequential structure adds overhead without benefit. The page lists parallel sub-problems, single-step questions and creative tasks as cases to skip.",
+      "learn": "../learn/least-to-most.html"
+    },
+    {
+      "id": "L14-018",
+      "text": "Step-Back prompting asks a broader question about the governing principles first, then applies that answer to the specific question.",
+      "isFact": true,
+      "explanation": "An expert recalls the ideal gas law before plugging in numbers. Step-Back makes the model do the same: identify the relevant concepts, theories or legal frameworks, write them out, then map them onto the particular case. The page reports its largest gains in physics, chemistry and legal reasoning.",
+      "learn": "../learn/step-back.html"
+    },
+    {
+      "id": "L14-019",
+      "text": "Step-Back works by having the model re-read the specific question more slowly before answering it.",
+      "isFact": false,
+      "explanation": "The step is upward in abstraction, not a second pass over the details. The model is asked a different, more general question, such as which laws govern employee termination for speech, and answers that first. Surface details can mislead pattern matching; the principles give the answer a frame.",
+      "learn": "../learn/step-back.html"
+    },
+    {
+      "id": "L14-020",
+      "text": "Step-Back pairs with chain-of-thought: abstract to the principles first, then reason through the specific case step by step.",
+      "isFact": true,
+      "explanation": "The page recommends chaining them. Step-Back supplies the right framework, chain-of-thought supplies a transparent path through it. Used alone, step-by-step reasoning can march confidently inside the wrong framework; used alone, principles can stay abstract. Together you get both the frame and the trail.",
+      "learn": "../learn/step-back.html"
+    },
+    {
+      "id": "L14-021",
+      "text": "Program of Thoughts has the model write a program as its reasoning and hands the program to an interpreter to run, so arithmetic and loops are computed exactly.",
+      "isFact": true,
+      "explanation": "The division of labor is the point: the model is good at translating a problem into logic and unreliable at executing it. Compound interest over a hundred and eighty months or two to the twenty-fourth power come back exact from the interpreter, and the code documents how the answer was derived.",
+      "learn": "../learn/program-of-thought.html"
+    },
+    {
+      "id": "L14-022",
+      "text": "In Program of Thoughts the model runs the code in its head, so no interpreter is needed.",
+      "isFact": false,
+      "explanation": "Mental execution is exactly the failure the technique removes. The page contrasts a narrative chain that approximates a large power with a program that returns the exact value. The model writes the code; real hardware runs it. Without the execution step you are back to narrative arithmetic.",
+      "learn": "../learn/program-of-thought.html"
+    },
+    {
+      "id": "L14-023",
+      "text": "Code-based reasoning is the right choice for summaries, opinions and emotional analysis, since code is always more precise than prose.",
+      "isFact": false,
+      "explanation": "Those tasks have nothing to compute. Program of Thoughts lists subjective reasoning, non-computational tasks and simple lookups as places to skip it. Precision helps where there is a correct number or a logical consequence to derive. Where the task is judgment or narrative, a program adds ceremony and no accuracy.",
+      "learn": "../learn/program-of-thought.html"
+    },
+    {
+      "id": "L14-024",
+      "text": "A model can arrive at an answer by pattern matching and then write a plausible chain of steps to justify it, so a well-structured chain is not proof the steps produced the answer.",
+      "isFact": true,
+      "explanation": "Faithful Chain-of-Thought calls this post-hoc rationalization: it looks like math, but it is storytelling. The faithfulness test is to ask whether changing one intermediate step would change the conclusion. If the answer would stay the same, the steps were decoration.",
+      "learn": "../learn/faithful-cot.html"
+    },
+    {
+      "id": "L14-025",
+      "text": "If a reasoning chain is numbered, logical and confident, its conclusion was derived from its steps.",
+      "isFact": false,
+      "explanation": "Structure is not derivation. The page's discount example shows a tidy five-step chain adding two sequential discounts as if they were one, reaching a wrong answer with every step looking reasonable. Only an independent computation, here a few lines of code, reveals the chain did not determine the result.",
+      "learn": "../learn/faithful-cot.html"
+    },
+    {
+      "id": "L14-026",
+      "text": "Faithful Chain-of-Thought runs two tracks, a natural-language explanation and executable code, and treats disagreement between them as the signal that the reasoning was unfaithful.",
+      "isFact": true,
+      "explanation": "The language track explains the approach; the code track computes it. When both land on the same number the reasoning is confirmed. When they differ, the code is the source of truth and the narrative is revised to match, which is how base-rate errors and additive-discount mistakes get caught.",
+      "learn": "../learn/faithful-cot.html"
+    },
+    {
+      "id": "L14-027",
+      "text": "When the narrative reasoning and the executed code disagree, the narrative should win because it reflects understanding.",
+      "isFact": false,
+      "explanation": "The page is explicit that the code is the source of truth. The narrative is where intuitive errors live, such as treating a ninety-nine percent accurate test as a ninety-nine percent chance of disease. The computation exposes them. A disagreement means the explanation needs fixing, not the arithmetic.",
+      "learn": "../learn/faithful-cot.html"
+    },
+    {
+      "id": "L14-028",
+      "text": "Reversing chain-of-thought checks an answer by applying inverse operations back toward the starting conditions, which exposes compensating errors that forward reading misses.",
+      "isFact": true,
+      "explanation": "Two mistakes that cancel can produce a correct-looking forward chain. Reversal forces each transition to be justified from the other direction, and a mismatch with the original conditions localizes the error. The page's algebra example surfaces a sign slip that the forward solution hid.",
+      "learn": "../learn/reversing-cot.html"
+    },
+    {
+      "id": "L14-029",
+      "text": "A forward reasoning chain that reaches the correct answer must have had correct steps.",
+      "isFact": false,
+      "explanation": "Compensating errors and unjustified leaps can both deliver the right number by accident. That is why backward verification exists: substituting the answer into the original conditions tests the chain, not just the result. A right answer from a wrong chain will fail on the next problem of the same kind.",
+      "learn": "../learn/reversing-cot.html"
+    },
+    {
+      "id": "L14-030",
+      "text": "Backward verification can confirm any kind of reasoning, including opinions and creative choices.",
+      "isFact": false,
+      "explanation": "It needs operations with clear inverses: multiplication undone by division, constraints checked against a proposed solution, code run against expected outputs. Subjective judgments, lossy transformations and problems with many valid answers cannot be reversed to a unique starting point, so the page excludes them.",
+      "learn": "../learn/reversing-cot.html"
+    },
+    {
+      "id": "L14-031",
+      "text": "Complexity-based prompting weights sampled reasoning chains by their number of steps, so a thorough chain outvotes a hasty one.",
+      "isFact": true,
+      "explanation": "Plain majority voting counts a two-step shortcut the same as a six-step derivation. Weighting by step count, through a threshold, a top-k cut or proportional weights, lets careful chains carry more influence. The page's tax example shows the short chain botching the percentage that the long chain computed.",
+      "learn": "../learn/complexity-prompting.html"
+    },
+    {
+      "id": "L14-032",
+      "text": "Padding a reasoning chain with extra sentences raises its weight under complexity-based prompting.",
+      "isFact": false,
+      "explanation": "The heuristic counts reasoning depth, not verbosity: intermediate results, logical transitions and sub-conclusions. Connective prose adds no steps. The page also warns that on simple questions the method can over-favor unnecessarily long chains, which is a reason to apply it where thoroughness and accuracy actually correlate.",
+      "learn": "../learn/complexity-prompting.html"
+    },
+    {
+      "id": "L14-033",
+      "text": "Chain of Draft keeps every reasoning step but compresses each to a few load-bearing words, reaching comparable accuracy with a small fraction of the tokens.",
+      "isFact": true,
+      "explanation": "The accuracy of stepwise reasoning comes from committing to intermediate results before answering, not from narrating them. A draft such as twenty minus twelve equals eight commits to the same value as a full sentence. The page cites the original study reaching similar accuracy at a small percentage of the tokens.",
+      "learn": "../learn/chain-of-draft.html"
+    },
+    {
+      "id": "L14-034",
+      "text": "Chain of Draft loses accuracy because a model needs full sentences to reason properly.",
+      "isFact": false,
+      "explanation": "Fluency is not reasoning. The connective tissue between steps is what gets cut; the intermediate values stay. The page notes the exception: very small models lean on the extra scaffolding of verbose reasoning, so the terse style can cost them accuracy, while capable models hold their results.",
+      "learn": "../learn/chain-of-draft.html"
+    },
+    {
+      "id": "L14-035",
+      "text": "Chain of Draft is the right choice when the reasoning itself is the deliverable, such as a legal memo or a teaching explanation.",
+      "isFact": false,
+      "explanation": "Those are the cases the page tells you to skip it. When the narration is the value, compressing it removes the product. Chain of Draft is for high-volume, latency-sensitive or agentic work where the answer matters and the trace is cost. Full chain-of-thought keeps the audit trail.",
+      "learn": "../learn/chain-of-draft.html"
+    },
+    {
+      "id": "L14-036",
+      "text": "Shorter reasoning traces cut both the cost and the latency of a response, because output tokens drive both.",
+      "isFact": true,
+      "explanation": "A trace one twelfth the length is roughly one twelfth the output cost and streams to the user far sooner. Inside an agent that reasons on every turn, shorter intermediate thoughts also keep the context window lean. Efficiency techniques trade narration for speed while keeping the steps.",
+      "learn": "../learn/chain-of-draft.html"
+    },
+    {
+      "id": "L14-037",
+      "text": "Decomposed prompting extends the decomposition idea by routing each sub-task to a specialized handler, such as a separate prompt or a program, rather than one model solving every part.",
+      "isFact": true,
+      "explanation": "Self-Ask and Least-to-Most split the problem but keep one solver. Decomposed prompting assigns different sub-problems to different solvers suited to them. The site's decomposition pages present it as the modular evolution of the question-splitting techniques.",
+      "learn": "../learn/decomposition.html"
+    },
+    {
+      "id": "L14-038",
+      "text": "Every reasoning technique on this site improves every task by the same amount, so the choice between them does not matter.",
+      "isFact": false,
+      "explanation": "Each one has a fit: trees for problems with dead ends, decomposition for chained dependencies, step-back for principle-heavy domains, code for exact computation, drafts for cost. Each page also lists where it hurts. Choosing by the shape of the problem is the practitioner skill; applying all of them is waste.",
+      "learn": "../learn/decomposition.html"
+    },
+    {
+      "id": "L14-039",
+      "text": "Combining Step-Back with chain-of-thought is redundant, because both just make the model reason more.",
+      "isFact": false,
+      "explanation": "They do different jobs. Step-Back chooses the framework by answering a more general question first; chain-of-thought walks the specific case through that framework. The page recommends chaining them precisely because reasoning more inside the wrong framework does not help, and a framework without a walk-through stays abstract.",
+      "learn": "../learn/step-back.html"
+    },
+    {
+      "id": "L14-040",
+      "text": "Making a model show its reasoning does not guarantee the shown reasoning is what produced the answer, which is why faithfulness techniques exist alongside chain-of-thought.",
+      "isFact": true,
+      "explanation": "Visible steps help humans audit and often improve accuracy, but a chain can be a story told after the fact. Faithful Chain-of-Thought, reversal and program execution each give an independent check on whether the steps determine the result. Transparency and faithfulness are related goals, not the same one.",
+      "learn": "../learn/faithful-cot.html"
+    }
+  ]
+}
