@@ -3850,15 +3850,15 @@ document.addEventListener('DOMContentLoaded', () => {
         tone: { id: 'tone', name: 'Tone/Style', letter: 'T', description: 'Emotional quality and writing style', positionWeight: { early: 0.9, middle: 1.1, late: 1.1 } },
         examples: { id: 'examples', name: 'Examples', letter: 'E', description: 'Sample content or output demonstrations', positionWeight: { early: 0.7, middle: 1.0, late: 1.3 } },
         goal: { id: 'goal', name: 'Goal', letter: 'G', description: 'The outcome the prompt is working toward', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
-        steps: { id: 'steps', name: 'Steps', letter: 'S', description: 'An ordered sequence for the AI to follow', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        steps: { id: 'steps', name: 'Steps', letter: 'St', description: 'An ordered sequence for the AI to follow', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
         inputData: { id: 'inputData', name: 'Input Data', letter: 'D', description: 'Material the AI should work from', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
-        successCriteria: { id: 'successCriteria', name: 'Success Criteria', letter: 'M', description: 'How a good result will be measured', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
-        problem: { id: 'problem', name: 'Problem', letter: 'P', description: 'The difficulty that needs solving', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
-        desiredState: { id: 'desiredState', name: 'Desired State', letter: 'F', description: 'What things look like once solved', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
-        style: { id: 'style', name: 'Style', letter: 'Y', description: 'The kind of writing to follow', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        successCriteria: { id: 'successCriteria', name: 'Success Criteria', letter: 'Sc', description: 'How a good result will be measured', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        problem: { id: 'problem', name: 'Problem', letter: 'Pr', description: 'The difficulty that needs solving', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        desiredState: { id: 'desiredState', name: 'Desired State', letter: 'Ds', description: 'What things look like once solved', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        style: { id: 'style', name: 'Style', letter: 'Sy', description: 'The kind of writing to follow', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
         validation: { id: 'validation', name: 'Validation', letter: 'V', description: 'A request to check the output', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
-        timeframe: { id: 'timeframe', name: 'Timeframe', letter: 'W', description: 'A deadline or time window', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
-        variation: { id: 'variation', name: 'Variation', letter: 'X', description: 'A request for several options', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } }
+        timeframe: { id: 'timeframe', name: 'Timeframe', letter: 'Tf', description: 'A deadline or time window', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } },
+        variation: { id: 'variation', name: 'Variation', letter: 'Va', description: 'A request for several options', positionWeight: { early: 1.0, middle: 1.0, late: 1.0 } }
     };
 
     // Technique detection patterns for advanced prompting methods
@@ -4342,7 +4342,9 @@ document.addEventListener('DOMContentLoaded', () => {
             el && typeof el.letter === 'string' && el.letter &&
             typeof el.label === 'string' && el.label &&
             Array.isArray(el.maps) && el.maps.length > 0 &&
-            el.maps.every(key => typeof key === 'string' && isKnownVocabularyKey(key)));
+            el.maps.every(key => typeof key === 'string' && isKnownVocabularyKey(key)) &&
+            (el.aliases === undefined || (Array.isArray(el.aliases) && el.aliases.length > 0 &&
+                el.aliases.every(a => typeof a === 'string' && a.length > 0))));
     }
 
     /**
@@ -4382,7 +4384,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Finds a framework's own labels used as labels: at the start of a line or
-     * sentence, followed by a colon or dash.
+     * sentence, followed by a colon or dash. An element's aliases (registry,
+     * optional) count as the label; a short parenthetical after the label is
+     * allowed ("Critique (Cycle 1):"); up to three marker runs may precede it
+     * ("- **Role**:"). The first hit per element wins.
      * @param {string} prompt
      * @param {Object} framework - Registry entry
      * @returns {Array<{index: number, label: string, position: number, hasContent: boolean}>}
@@ -4390,12 +4395,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function findLabelHits(prompt, framework) {
         const found = [];
         framework.elements.forEach((element, index) => {
-            const stem = escapeRegExp(element.label.replace(/s$/i, ''));
+            const names = [element.label].concat(element.aliases || []);
+            const stems = names.map(n => escapeRegExp(n.replace(/s$/i, '')) + 's?').join('|');
             // The sentence-end alternative uses a lookahead so the whitespace
-            // run is consumed once (two adjacent greedy runs backtrack in O(n^2)).
+            // run is consumed once (two adjacent greedy runs backtrack in O(n^2));
+            // each repeated marker run must end in whitespace, so a long run has
+            // one way to match and the group cannot split it.
             const pattern = new RegExp(
-                '(^|\\n|[.!?](?=[ \\t]))[ \\t]*(?:[*_#>-]+[ \\t]*)?' + stem + 's?' +
-                '(?:\\*\\*|__)?[ \\t]*(?::|-(?=\\s))', 'i');
+                '(^|\\n|[.!?](?=[ \\t]))[ \\t]*(?:[*_#>-]+[ \\t]+){0,3}[*_#>-]*(?:' + stems + ')' +
+                '(?:\\*\\*|__)?(?:[ \\t]*\\([^()\\n]{1,24}\\))?[ \\t]*(?::|-(?=\\s))', 'i');
             const match = pattern.exec(prompt);
             if (match) {
                 found.push({
