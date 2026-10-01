@@ -466,10 +466,10 @@
     },
     {
       "id": "L3-067",
-      "q": "In a CRISP prompt, what is the relationship between 'Instructions' and 'Specifics'?",
-      "options": ["They are interchangeable terms for the same concept", "Instructions define WHAT to do; Specifics narrow down the HOW and scope", "Specifics replace Instructions for complex tasks", "Instructions must always come after Specifics"],
+      "q": "In a CRISP prompt, what is the relationship between 'Instructions' and 'Scope'?",
+      "options": ["They are interchangeable terms for the same concept", "Instructions define WHAT to do; Scope draws the boundaries around it", "Scope replaces Instructions for complex tasks", "Instructions must always come after Scope"],
       "answer": 1,
-      "explanation": "Instructions define the overall task (write a report), while Specifics narrow the scope (about Q3 sales, focusing on the Northeast region, comparing to last year)."
+      "explanation": "Instructions define the task (write a report), while Scope draws the boundaries (Q3 sales only, the Northeast region, compared to last year, nothing on forecasts)."
     },
     {
       "id": "L3-068",
@@ -494,10 +494,10 @@
     },
     {
       "id": "L3-071",
-      "q": "A CRISPE prompt for translating content should include Examples that show:",
-      "options": ["The history of the source and target languages", "A sample passage with its translated version demonstrating the desired style", "Every grammar rule of the target language", "The translation algorithm the AI should use"],
+      "q": "A CRISPE prompt for translating marketing copy should use 'Experiment' to ask for:",
+      "options": ["The history of the source and target languages", "Two or three translations that differ in formality or cultural adaptation, to choose from", "Every grammar rule of the target language", "The translation algorithm the AI should use"],
       "answer": 1,
-      "explanation": "A translation Example should show a sample source text paired with its translation in the desired style, demonstrating tone, formality, and cultural adaptation."
+      "explanation": "Translation has no single right answer. Experiment asks for variations along a stated axis, such as formal versus conversational or literal versus adapted, so you can pick the fit."
     },
     {
       "id": "L3-072",
@@ -529,10 +529,10 @@
     },
     {
       "id": "L3-076",
-      "q": "Which prompting framework works best for creating standardized report templates?",
-      "options": ["CRISP, because it has the fewest elements", "CRISPE, because the Example shows the exact template format", "COSTAR, because reports always need audience targeting", "None, frameworks do not help with templates"],
-      "answer": 1,
-      "explanation": "CRISPE is ideal for templates because the Example element lets you demonstrate the exact report structure, formatting, and section layout you need."
+      "q": "Which prompting framework works best for a standardized report template with a fixed structure?",
+      "options": ["CRISP, with the structure spelled out in Parameters", "CRISPE, because it always produces several versions", "COSTAR, because reports always need audience targeting", "None, frameworks do not help with templates"],
+      "answer": 0,
+      "explanation": "A fixed template wants one optimized output, which is CRISP's strength. Parameters carries the exact format, sections, and length. CRISPE's Experiment dimension would give you variations you do not need here."
     },
     {
       "id": "L3-077",
@@ -571,17 +571,17 @@
     },
     {
       "id": "L3-082",
-      "q": "The 'Specifics' in CRISP for a competitor analysis prompt should include:",
+      "q": "The 'Scope' in CRISP for a competitor analysis prompt should include:",
       "options": ["The AI model's competitive advantages", "Named competitors, comparison criteria, data sources, and time period", "A request to be very specific", "Generic business analysis terminology"],
       "answer": 1,
-      "explanation": "Competitor analysis Specifics should name the competitors, define comparison criteria, specify data to consider, and set the relevant time period."
+      "explanation": "Competitor analysis Scope names which competitors are in bounds, the comparison criteria, the data to consider, the time period, and anything to leave out."
     },
     {
       "id": "L3-083",
-      "q": "When a prompt uses CRISPE with poor-quality Examples, the output will likely:",
-      "options": ["Ignore the Examples and produce good output anyway", "Mirror the poor quality of the Examples in its output", "Improve upon the Examples automatically", "Generate an error explaining the Examples are insufficient"],
-      "answer": 1,
-      "explanation": "AI tends to mirror the pattern quality of provided Examples, poor Examples lead to poor output. Always use high-quality, representative Examples."
+      "q": "When a CRISPE prompt gives a thin 'Insight' section, the output will likely:",
+      "options": ["Fill the gaps from the AI's general training, drifting from your situation", "Improve automatically because the AI asks for more background", "Be shorter and more precise", "Generate an error explaining the Insight is insufficient"],
+      "answer": 0,
+      "explanation": "Insight bridges the AI's general training and your specific situation. The less you supply, the more the AI guesses, and guessing is where irrelevance and hallucination creep in."
     },
     {
       "id": "L3-084",
@@ -593,9 +593,9 @@
     {
       "id": "L3-085",
       "q": "CRISP's five elements can be thought of as answering which five questions?",
-      "options": ["Who, what, when, where, why", "Why (Context), Who (Role), What (Instructions), Which (Specifics), How (Parameters)", "How much, how often, how long, how fast, how many", "Input, process, output, feedback, loop"],
+      "options": ["Who, what, when, where, why", "Why (Context), Who (Role), What (Instructions), Where the edges are (Scope), How to deliver (Parameters)", "How much, how often, how long, how fast, how many", "Input, process, output, feedback, loop"],
       "answer": 1,
-      "explanation": "CRISP maps to: Why is this needed? (Context), Who should the AI be? (Role), What to produce? (Instructions), Which details? (Specifics), How to constrain? (Parameters)."
+      "explanation": "CRISP maps to: Why is this needed? (Context), Who should the AI be? (Role), What to produce? (Instructions), What is in and out of bounds? (Scope), How should it be delivered? (Parameters)."
     },
     {
       "id": "L3-086",
@@ -616,7 +616,7 @@
       "q": "The CRISPE framework is overkill for:",
       "options": ["Generating standardized reports with specific formatting", "Quick factual questions like 'What year was Python released?'", "Creating content that must match an existing brand style", "Writing templates that will be reused by a team"],
       "answer": 1,
-      "explanation": "Quick factual questions need no framework, asking 'What year was Python released?' does not benefit from Context, Role, Examples, or Parameters."
+      "explanation": "Quick factual questions need no framework. Asking 'What year was Python released?' does not benefit from Capacity and Role, Insight, Personality, or a set of variations to compare."
     },
     {
       "id": "L3-089",
@@ -648,10 +648,10 @@
     },
     {
       "id": "L3-093",
-      "q": "A CRISPE prompt for generating meeting agendas should set 'Parameters' to:",
-      "options": ["'Make it professional and useful'", "'Bullet format, 30-minute meeting, include time allocations, end with action items'", "'As detailed as possible'", "'Standard meeting agenda format'"],
+      "q": "A CRISPE prompt for generating meeting agendas should set 'Personality' to:",
+      "options": ["'Make it professional and useful'", "'Crisp and businesslike, bullet points, no filler, time allocations stated plainly'", "'As detailed as possible'", "'Standard meeting agenda format'"],
       "answer": 1,
-      "explanation": "Specific Parameters like format (bullets), constraints (30 minutes), requirements (time allocations), and structure (end with action items) produce usable agendas."
+      "explanation": "Personality defines the tone and delivery style. A concrete style instruction produces a usable agenda; 'professional and useful' gives the AI nothing to aim at."
     },
     {
       "id": "L3-094",
