@@ -1,0 +1,283 @@
+{
+  "level": 5,
+  "band": "literacy",
+  "name": "When AI Gets It Wrong",
+  "statements": [
+    {
+      "id": "L05-001",
+      "text": "A hallucination is confident output from a model that is false or has no support.",
+      "isFact": true,
+      "explanation": "The term covers invented citations, wrong dates, made-up quotes, and plausible details that never existed. The defining feature is the confident tone; nothing in the text signals that it was made up.",
+      "learn": "../tools/hallucination.html"
+    },
+    {
+      "id": "L05-002",
+      "text": "A fluent, well-written answer is a reliable sign that the answer is correct.",
+      "isFact": false,
+      "explanation": "Fluency comes from predicting likely words, which is the same process that produces errors. Smooth prose and accurate prose look identical on the surface. Judge content by checking it, not by how it reads.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L05-003",
+      "text": "Models can invent a book, a study, or a quotation that sounds real but does not exist.",
+      "isFact": true,
+      "explanation": "A plausible title, author, and year are easy to generate because the model has seen thousands of real ones. Search for the item before citing it; if you cannot find it in a library catalog or a scholar index, treat it as invented.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L05-004",
+      "text": "If a model gives the same answer twice, that answer must be true.",
+      "isFact": false,
+      "explanation": "Consistency shows the model finds that answer likely, not that it is right. A common misconception in the training data will be repeated consistently. Agreement across runs is a weak hint; a source you can check is evidence.",
+      "learn": "../learn/self-consistency.html"
+    },
+    {
+      "id": "L05-005",
+      "text": "Asking a model to check its own answer can catch some errors but not all of them.",
+      "isFact": true,
+      "explanation": "A second pass often finds arithmetic slips, contradictions, and missing steps. It cannot supply knowledge the model lacks, and it may confirm its own mistake with equal confidence. Use it as one check among several.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L05-006",
+      "text": "Models only make mistakes on hard questions; simple facts are always right.",
+      "isFact": false,
+      "explanation": "Simple-looking questions about names, dates, counts, and arithmetic are common failure points, partly because of how numbers and rare names split into tokens. Difficulty for a person and difficulty for a model are different things.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L05-007",
+      "text": "A question built on a false premise can lead a model to invent details that support the premise.",
+      "isFact": true,
+      "explanation": "Ask when a fictional event happened and the model may supply a date and a story. The premise sets the pattern it completes. Phrase questions neutrally, or ask first whether the thing exists.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L05-008",
+      "text": "Models always say I do not know when they lack the information to answer.",
+      "isFact": false,
+      "explanation": "Declining is a learned behavior that products encourage, and it works some of the time. Often the model fills the gap with likely text instead. Asking it to say when it is unsure helps, and still needs checking.",
+      "learn": "../learn/uncertainty-cot.html"
+    },
+    {
+      "id": "L05-009",
+      "text": "Mistakes in a model's answer are often found by comparing specific claims against a source you trust.",
+      "isFact": true,
+      "explanation": "Pick the claims that matter, the numbers, names, dates, and quotes, and look each one up. Most hallucinations fall apart at the first search. The habit takes a minute and catches the errors that cost the most.",
+      "learn": "../learn/verify-and-edit.html"
+    },
+    {
+      "id": "L05-010",
+      "text": "A model with web search cannot hallucinate because it reads real pages.",
+      "isFact": false,
+      "explanation": "Search reduces errors by grounding the answer, but the model can still misread a page, blend two sources, or cite one that says something else. Open the cited page and compare it with the claim.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L05-011",
+      "text": "Models can misread a document you pasted and summarize it inaccurately.",
+      "isFact": true,
+      "explanation": "Even with the source in front of it, the model can drop a condition, flip a negative, or merge two points. Summaries of material that matters deserve a spot check against the original paragraphs.",
+      "learn": "../learn/verify-and-edit.html"
+    },
+    {
+      "id": "L05-012",
+      "text": "When a model cites a source, you can trust the source without opening it.",
+      "isFact": false,
+      "explanation": "Citations can be invented, misattributed, or real but irrelevant. The citation is a lead, not a verification. Open it, find the passage, and confirm it says what the model claims.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L05-013",
+      "text": "Asking a model to show its reasoning gives you steps you can check for errors.",
+      "isFact": true,
+      "explanation": "Visible steps turn one opaque answer into a sequence you can audit. A wrong step is easier to spot than a wrong conclusion. The steps are still generated text, so check them rather than assume them.",
+      "learn": "../learn/chain-of-thought.html"
+    },
+    {
+      "id": "L05-014",
+      "text": "Model errors are random, so there is no pattern to where they happen.",
+      "isFact": false,
+      "explanation": "Errors cluster around rare topics, recent events, exact numbers, obscure names, and questions phrased with a false premise. Knowing the pattern tells you where to look hardest.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L05-015",
+      "text": "A model can mix up two similar people, products, or events and present the blend as fact.",
+      "isFact": true,
+      "explanation": "Similar names and overlapping contexts produce blended predictions: the right person with the wrong achievement, or one product's feature attached to another. Check attributions as carefully as the facts themselves."
+    },
+    {
+      "id": "L05-016",
+      "text": "Newer models never hallucinate, so checking is no longer necessary.",
+      "isFact": false,
+      "explanation": "Error rates have fallen with better training and grounding, and they remain above zero. The cost of an unchecked error has not fallen at all. Verification stays part of responsible use whatever the version.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L05-017",
+      "text": "Arithmetic is a known weak spot for language models, and a calculator or code is more reliable for it.",
+      "isFact": true,
+      "explanation": "Models predict digits as tokens, which makes multi-step arithmetic error-prone. Products that route math to a calculator or a code tool get it right far more often. Ask for the calculation to be shown or done by a tool.",
+      "learn": "../learn/tool-design-for-agents.html"
+    },
+    {
+      "id": "L05-018",
+      "text": "If you catch one mistake in an answer, the rest of the answer is still guaranteed to be correct.",
+      "isFact": false,
+      "explanation": "One visible error says the answer was not checked, not that the other claims survived. Treat a found error as a prompt to look more closely at the rest, especially claims of the same kind.",
+      "learn": "../learn/verify-and-edit.html"
+    },
+    {
+      "id": "L05-019",
+      "text": "Telling a model it is wrong can make it change a correct answer to an incorrect one.",
+      "isFact": true,
+      "explanation": "Models often yield to pushback regardless of who is right. If you challenge an answer, ask for the evidence rather than just pressing, and check which version holds up against a source.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L05-020",
+      "text": "Model mistakes are harmless because everyone knows to double-check AI.",
+      "isFact": false,
+      "explanation": "Fabricated citations have reached court filings and published work, and wrong medical or legal details reach people who act on them. The harm depends on what the output is used for. Checking is a practice, not a given.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L05-021",
+      "text": "Asking the same question in two different ways and comparing the answers can reveal an unreliable one.",
+      "isFact": true,
+      "explanation": "If rephrasing flips the answer, the model is guessing. Stable answers across phrasings are a better sign, though still not proof. Rephrasing is a cheap first test before a deeper check.",
+      "learn": "../learn/self-consistency.html"
+    },
+    {
+      "id": "L05-022",
+      "text": "A model marks every uncertain claim clearly, so anything stated plainly is reliable.",
+      "isFact": false,
+      "explanation": "Plain statements and uncertain ones come out in the same voice. Hedging appears sometimes, often in the wrong places. The absence of a hedge tells you nothing about accuracy.",
+      "learn": "../learn/self-calibration.html"
+    },
+    {
+      "id": "L05-023",
+      "text": "Models can produce code that looks correct, runs, and still does the wrong thing.",
+      "isFact": true,
+      "explanation": "Generated code often compiles and passes a glance while missing an edge case or misreading the requirement. Tests and a careful read are the checks that work for code, exactly as they are for human-written code.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L05-024",
+      "text": "Hallucinations only happen with text; image and audio models always reproduce reality.",
+      "isFact": false,
+      "explanation": "Image generators add extra fingers and impossible text; speech recognition inserts words that were never said; captioning describes objects that are not there. Every generative model can produce plausible content that is not real."
+    },
+    {
+      "id": "L05-025",
+      "text": "Keeping a human reviewer in the loop is the standard safeguard for AI output that matters.",
+      "isFact": true,
+      "explanation": "Automation handles the volume; a person checks what carries consequences. The reviewer needs enough context and time to actually check, not just approve. That design choice is where most of the safety lives.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L05-026",
+      "text": "You can make a model incapable of error by telling it to be accurate.",
+      "isFact": false,
+      "explanation": "An instruction to be accurate shifts tone and may reduce some guessing; it cannot add knowledge the model lacks or remove the chance of a confident error. Accuracy is produced by checking, not by asking.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L05-027",
+      "text": "A model may give a correct conclusion with an incorrect explanation, or the reverse.",
+      "isFact": true,
+      "explanation": "Conclusion and reasoning are generated together but can fail independently. A right answer with a wrong justification is a warning that the next similar question may fail. Check both when the stakes are real.",
+      "learn": "../learn/chain-of-thought.html"
+    },
+    {
+      "id": "L05-028",
+      "text": "Models are biased toward saying no, so most of their errors are refusals.",
+      "isFact": false,
+      "explanation": "Refusals of harmless requests do happen, and they are a visible annoyance. The more consequential errors are confident answers that are wrong, because those pass unnoticed. Watch for both, but weigh the second more heavily."
+    },
+    {
+      "id": "L05-029",
+      "text": "Providing the relevant facts in the prompt reduces how often a model invents them.",
+      "isFact": true,
+      "explanation": "When the material is in the conversation, the model predicts from it rather than from general patterns. It is the single most effective way to reduce fabrication on a specific topic, which is why retrieval tools exist.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L05-030",
+      "text": "Because models were trained on so much data, their mistakes are always about obscure topics.",
+      "isFact": false,
+      "explanation": "Models also err on familiar topics when a question is phrased unusually, when two well-known things are similar, or when a popular misconception dominates the training data. Familiarity lowers the odds; it does not remove them.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L05-031",
+      "text": "A model that is asked to argue against its own answer can surface weaknesses the first answer hid.",
+      "isFact": true,
+      "explanation": "Requesting the strongest counter-case forces a different pattern than agreement, which often exposes a shaky step or a missing fact. You then weigh both sides with a source, rather than taking either on faith.",
+      "learn": "../learn/debate-prompting.html"
+    },
+    {
+      "id": "L05-032",
+      "text": "Once a model has been corrected on a fact, it will never state the wrong version again.",
+      "isFact": false,
+      "explanation": "The correction holds for the current conversation while it stays in the context. A new chat starts from the same model, and even the same chat can drift back under a different phrasing. Corrections are session-level.",
+      "learn": "../learn/in-context-learning.html"
+    },
+    {
+      "id": "L05-033",
+      "text": "Checking the claims that would be costly if wrong is a practical way to prioritize verification.",
+      "isFact": true,
+      "explanation": "Nobody checks everything. Decide what a wrong number, name, or quote would cost, and verify those first. Low-stakes text can stand on a lighter read. The judgment about stakes is yours.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L05-034",
+      "text": "Hallucinations are a software bug that a patch will remove completely.",
+      "isFact": false,
+      "explanation": "Fabrication comes from the same prediction process that produces useful text, so it is reduced by training, grounding, and tooling rather than eliminated by a fix. Progress is real and incremental.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L05-035",
+      "text": "A confident wrong answer is harder to notice than an obviously garbled one.",
+      "isFact": true,
+      "explanation": "Garbled text triggers suspicion; clean text invites trust. The dangerous errors are the polished ones. Reading with the question what supports this is the habit that catches them.",
+      "learn": "../tools/hallucination.html"
+    },
+    {
+      "id": "L05-036",
+      "text": "If a model answers quickly, it must have been sure of the answer.",
+      "isFact": false,
+      "explanation": "Response time reflects length and system load, not confidence. A fabricated answer arrives as fast as a correct one. Speed carries no information about accuracy."
+    },
+    {
+      "id": "L05-037",
+      "text": "Asking for the specific passage that supports a claim is a stronger check than asking for a source name.",
+      "isFact": true,
+      "explanation": "A name can be invented; a quoted passage can be searched for word by word. If the passage cannot be found in the named source, the claim has no support. Make the model show the text, then verify the text.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L05-038",
+      "text": "Models always know the current date and can reason correctly about how long ago something happened.",
+      "isFact": false,
+      "explanation": "Unless the product supplies the date, the model guesses it from training patterns, and date arithmetic is a common error source. State the date in your request when timing matters, and check any elapsed-time claim.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L05-039",
+      "text": "A disclaimer that output may be inaccurate does not make the output more accurate.",
+      "isFact": true,
+      "explanation": "The warning shifts responsibility to the reader; it changes nothing in the text. Treat it as a reminder to check, not as a reason to trust the parts that sound right.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L05-040",
+      "text": "Spotting AI mistakes requires technical training that ordinary readers do not have.",
+      "isFact": false,
+      "explanation": "The core skills are reading closely, noticing specific claims, and looking them up. Anyone who can check a reference can check a model. Practice tools, like this site's Hallucination Spotter, build the habit quickly.",
+      "learn": "../tools/hallucination.html"
+    }
+  ]
+}

@@ -6602,7 +6602,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'What AI Actually Is', band: 'literacy', available: true },
         { name: 'How Models Learn', band: 'literacy', available: true },
         { name: 'Talking to a Chatbot', band: 'literacy', available: true },
-        { name: 'When AI Gets It Wrong', band: 'literacy', available: false },
+        { name: 'When AI Gets It Wrong', band: 'literacy', available: true },
         { name: 'AI and Your Data', band: 'literacy', available: false },
         { name: 'AI at Work', band: 'literacy', available: false },
         { name: 'AI and Creativity', band: 'literacy', available: false },
