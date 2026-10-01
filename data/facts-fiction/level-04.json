@@ -1,0 +1,282 @@
+{
+  "level": 4,
+  "band": "literacy",
+  "name": "Talking to a Chatbot",
+  "statements": [
+    {
+      "id": "L04-001",
+      "text": "The wording of your request is the main control you have over what a chatbot produces.",
+      "isFact": true,
+      "explanation": "The model predicts a reply from the text in front of it. Change the words, the order, or the detail, and the prediction changes. Two versions of the same question can produce very different answers; try both and compare.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L04-002",
+      "text": "A chatbot reads your mind well enough that a vague request gets the same result as a specific one.",
+      "isFact": false,
+      "explanation": "The model only has your words and the conversation so far. A vague request leaves it to guess the audience, length, and purpose, and it guesses generically. Say who it is for, what you need, and what good looks like.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L04-003",
+      "text": "Telling a chatbot who the answer is for usually improves the answer.",
+      "isFact": true,
+      "explanation": "Audience shapes vocabulary, examples, and length. A request that names the reader, such as a first-year student or a busy manager, gives the model a target instead of a generic default.",
+      "learn": "../learn/role-prompting.html"
+    },
+    {
+      "id": "L04-004",
+      "text": "Being polite to a chatbot is pointless because it has no feelings to respect.",
+      "isFact": false,
+      "explanation": "Politeness does not comfort the software, but it tends to produce clearer, fuller requests and keeps your own habits intact. Write the way you would to a capable colleague: clear, specific, and civil."
+    },
+    {
+      "id": "L04-005",
+      "text": "Earlier messages in the same conversation influence how a chatbot answers later ones.",
+      "isFact": true,
+      "explanation": "The whole conversation, up to a limit, is sent with each new message. Corrections, preferences, and details you gave earlier shape later replies. Start a fresh chat when you want a clean slate.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L04-006",
+      "text": "A chatbot remembers everything you have ever told it, across every conversation, forever.",
+      "isFact": false,
+      "explanation": "By default each conversation is separate, and long conversations drop their earliest parts once a limit is reached. Some products add an explicit memory feature and show you what it stored. Check the settings rather than assuming.",
+      "learn": "../pages/data-retention-policy.html"
+    },
+    {
+      "id": "L04-007",
+      "text": "Asking a chatbot to show its reasoning step by step often makes mistakes easier to spot.",
+      "isFact": true,
+      "explanation": "Visible steps give you something to check, and the structure often improves the answer itself on problems with several parts. It costs a longer reply, which is a fair trade when the answer matters.",
+      "learn": "../learn/chain-of-thought.html"
+    },
+    {
+      "id": "L04-008",
+      "text": "If a chatbot gives a wrong answer, repeating the exact same question will fix it.",
+      "isFact": false,
+      "explanation": "Repeating the same words tends to produce a similar answer. Progress comes from changing something: point out what was wrong, add the missing detail, or ask for the steps. A specific correction is the fastest fix.",
+      "learn": "../learn/self-refine.html"
+    },
+    {
+      "id": "L04-009",
+      "text": "Giving a chatbot an example of the output you want is often more effective than describing it.",
+      "isFact": true,
+      "explanation": "An example fixes format, length, and tone in one move. Describing the same things takes more words and leaves room for interpretation. One or two good examples in the request usually beat a paragraph of instructions.",
+      "learn": "../learn/few-shot-learning.html"
+    },
+    {
+      "id": "L04-010",
+      "text": "Chatbots always tell you when they are unsure about an answer.",
+      "isFact": false,
+      "explanation": "Models have no built-in sense of their own accuracy, and fluent text hides uncertainty. You can ask for a confidence note or for sources, and that helps, but silence about doubt is never a sign that the answer is right.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L04-011",
+      "text": "Breaking a large request into smaller steps usually gets better results than one giant question.",
+      "isFact": true,
+      "explanation": "Smaller steps keep each answer focused and let you correct course between them. A long request with many parts invites the model to skip or blur some of them. Build the result in stages, checking each.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L04-012",
+      "text": "A chatbot that answers in your language has read everything written in that language.",
+      "isFact": false,
+      "explanation": "Fluency in a language comes from enough training text, not from all of it. Coverage of smaller languages and local topics can be thin, which shows up as errors in names, idioms, and specifics. Test before relying on it."
+    },
+    {
+      "id": "L04-013",
+      "text": "You can ask a chatbot to answer in a specific format, such as a table or a numbered list.",
+      "isFact": true,
+      "explanation": "Format requests are among the most reliable instructions a model follows. Naming the shape you want saves a round of editing and makes the answer easier to scan and compare.",
+      "learn": "../learn/constrained-output.html"
+    },
+    {
+      "id": "L04-014",
+      "text": "Chatbots can access your other apps and files whenever they want, without you connecting them.",
+      "isFact": false,
+      "explanation": "A chatbot sees only what you paste, upload, or connect through a permission you grant. Those connections are explicit and can be revoked. Read the permission prompt before approving one.",
+      "learn": "../pages/security.html"
+    },
+    {
+      "id": "L04-015",
+      "text": "Pasting the relevant document into the chat gives the chatbot material it would not otherwise have.",
+      "isFact": true,
+      "explanation": "The model knows nothing about your specific file unless it is in the conversation. Pasting the text, or the relevant section, grounds the answer in your material instead of in general patterns.",
+      "learn": "../learn/context-engineering.html"
+    },
+    {
+      "id": "L04-016",
+      "text": "A longer prompt is always a better prompt.",
+      "isFact": false,
+      "explanation": "Length helps only when it adds information the model needs. Padding, repetition, and unrelated detail dilute the request and can push the important part out of focus. Say what matters, then stop.",
+      "learn": "../learn/token-budget-reasoning.html"
+    },
+    {
+      "id": "L04-017",
+      "text": "Telling a chatbot what to avoid, such as jargon or a certain length, is a legitimate part of a request.",
+      "isFact": true,
+      "explanation": "Constraints narrow the space of acceptable answers. Stating what you do not want, alongside what you do, often removes a round of revision. Keep the list short and concrete.",
+      "learn": "../learn/constrained-output.html"
+    },
+    {
+      "id": "L04-018",
+      "text": "Chatbots refuse to answer only when a question is illegal.",
+      "isFact": false,
+      "explanation": "Products set their own rules about what to decline, including safety, policy, and liability concerns, and models sometimes refuse harmless requests by mistake. A refusal is a product decision, not a legal verdict. Rephrase or add context and try again."
+    },
+    {
+      "id": "L04-019",
+      "text": "Asking a chatbot to take on a role, such as an editor or a tutor, changes the style and focus of its replies.",
+      "isFact": true,
+      "explanation": "A role sets expectations about tone, depth, and priorities, which the model uses to shape the reply. It does not grant expertise the model lacks, so pair a role with a request to show reasoning or sources.",
+      "learn": "../learn/role-prompting.html"
+    },
+    {
+      "id": "L04-020",
+      "text": "If you tell a chatbot it is an expert, its answers become as reliable as a real expert's.",
+      "isFact": false,
+      "explanation": "A role changes presentation, not knowledge. The model will sound more authoritative while drawing on the same patterns. Confidence is not accuracy; verify expert-sounding claims the same way you would any other.",
+      "learn": "../learn/role-prompting.html"
+    },
+    {
+      "id": "L04-021",
+      "text": "Starting a new conversation clears the context the chatbot was using.",
+      "isFact": true,
+      "explanation": "A fresh chat begins with an empty conversation, apart from any product-level memory feature. It is the simplest way to escape a thread that went off course or to test a request without earlier influence."
+    },
+    {
+      "id": "L04-022",
+      "text": "A chatbot can run your code, browse the web, and read your email by default, in every product.",
+      "isFact": false,
+      "explanation": "Those are separate tools some products attach, and each shows up as a feature or a permission. A plain chat model only generates text. Check what tools a product has before assuming an answer came from live data.",
+      "learn": "../learn/tool-design-for-agents.html"
+    },
+    {
+      "id": "L04-023",
+      "text": "You can ask a chatbot to critique or improve its own previous answer.",
+      "isFact": true,
+      "explanation": "A follow-up request to find weaknesses, check a claim, or tighten the wording often produces a better second draft. The model treats its earlier text as material to work on. Keep your own judgment in the loop.",
+      "learn": "../learn/self-refine.html"
+    },
+    {
+      "id": "L04-024",
+      "text": "Chatbot answers are private and never seen by anyone at the company that runs the service.",
+      "isFact": false,
+      "explanation": "Policies differ by product and plan. Some retain conversations, some review samples for safety, some use them for training unless you opt out. Read the privacy settings and avoid pasting what you would not share.",
+      "learn": "../pages/data-retention-policy.html"
+    },
+    {
+      "id": "L04-025",
+      "text": "Asking for sources gives you something to check, even though the sources themselves must be verified.",
+      "isFact": true,
+      "explanation": "A named source is a lead. Open it and compare it with the claim; models sometimes cite real pages that say something different, or invent plausible ones. The check is the opening, not the listing.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L04-026",
+      "text": "A chatbot's first answer is always its best answer.",
+      "isFact": false,
+      "explanation": "First drafts carry the generic defaults the model fell back on. A round of feedback, a sharper request, or a few examples usually improves the result. Treat the first answer as a draft to react to.",
+      "learn": "../learn/self-refine.html"
+    },
+    {
+      "id": "L04-027",
+      "text": "Chatbots can produce a confident answer to a question that has no correct answer.",
+      "isFact": true,
+      "explanation": "Generation does not pause for unanswerable questions. Ask about a fictional event in a confident tone and you may get confident detail. Framing a question with a false premise is a known way to get invented facts.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L04-028",
+      "text": "Typing in all capital letters makes a chatbot take your request more seriously.",
+      "isFact": false,
+      "explanation": "Capitals change the tokens, not the model's priorities. Emphasis is better expressed by placing the key instruction clearly, near the end, in plain words. Shouting adds nothing a clear sentence does not.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L04-029",
+      "text": "Asking a chatbot to ask you clarifying questions before answering can lead to a better result.",
+      "isFact": true,
+      "explanation": "Inviting questions surfaces the details the model would otherwise guess. It turns one vague exchange into a short interview that ends with a request both of you understand.",
+      "learn": "../learn/step-back.html"
+    },
+    {
+      "id": "L04-030",
+      "text": "A chatbot's answer is always current because it is generated the moment you ask.",
+      "isFact": false,
+      "explanation": "Generated now does not mean informed now. Without a search tool or pasted material, the model draws on training data with a cutoff. Ask whether the product has live access before trusting time-sensitive answers.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L04-031",
+      "text": "Describing the purpose of a task helps a chatbot make better choices about what to include.",
+      "isFact": true,
+      "explanation": "Purpose tells the model what matters. A summary for a decision needs different content than a summary for a newsletter. One sentence of context changes which details survive.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L04-032",
+      "text": "If a chatbot agrees with you, that confirms you were right.",
+      "isFact": false,
+      "explanation": "Models tend to go along with the framing they are given, especially under pushback. Agreement is a weak signal. Ask for the strongest case against your view, or for the evidence, to get something you can weigh.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L04-033",
+      "text": "Rephrasing a question in simpler, more concrete terms often improves the answer.",
+      "isFact": true,
+      "explanation": "Concrete words give the model clearer patterns to match. Abstract or ambiguous phrasing leaves room for the wrong interpretation. If an answer misses, the question is the first place to look.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L04-034",
+      "text": "Chatbots understand sarcasm and jokes exactly as you intend them.",
+      "isFact": false,
+      "explanation": "Models often read tone correctly and sometimes miss it, taking a joke as an instruction or an instruction as a joke. For anything that matters, say it plainly and keep the humor separate from the request."
+    },
+    {
+      "id": "L04-035",
+      "text": "A chatbot can help you plan a task even when you do not want it to do the task for you.",
+      "isFact": true,
+      "explanation": "Outlining, listing questions, and suggesting an order of steps are all ways to use the model as a thinking partner while you keep the work. Say that the plan, not the finished product, is what you want.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L04-036",
+      "text": "You should paste passwords and account numbers into a chatbot so it can help you more precisely.",
+      "isFact": false,
+      "explanation": "Secrets never belong in a chat. Conversations may be stored, reviewed, or used for training depending on the service, and you cannot unsend them. Describe the situation without the secret, or use a tool designed for it.",
+      "learn": "../pages/security.html"
+    },
+    {
+      "id": "L04-037",
+      "text": "Telling a chatbot the length you want, such as three sentences or one page, is an instruction it usually follows.",
+      "isFact": true,
+      "explanation": "Length is one of the easiest constraints for a model to honor, and it saves a round of trimming. Counts are approximate; a word limit lands close, not exact.",
+      "learn": "../learn/constrained-output.html"
+    },
+    {
+      "id": "L04-038",
+      "text": "A chatbot can perform any task you describe, as long as you describe it well enough.",
+      "isFact": false,
+      "explanation": "Clear requests help, but a model has limits in knowledge, reasoning, and access. Some tasks need a tool, a person, or data the model does not have. Good prompting improves results within those limits; it does not remove them.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L04-039",
+      "text": "Reading a chatbot's answer critically is part of using it well.",
+      "isFact": true,
+      "explanation": "The answer is a draft from a system that can be wrong without knowing it. Checking the claims that matter, and noticing what was skipped, is where your judgment adds the value. The tool amplifies; it does not replace.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L04-040",
+      "text": "Once a chatbot gives an answer, it cannot change its mind if you provide new information.",
+      "isFact": false,
+      "explanation": "New information in the conversation becomes part of what the model predicts from. Supplying a missing fact or correcting an assumption routinely changes the next reply. That is the normal way to iterate.",
+      "learn": "../learn/in-context-learning.html"
+    }
+  ]
+}
