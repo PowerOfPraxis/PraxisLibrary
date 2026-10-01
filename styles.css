@@ -4347,6 +4347,22 @@ textarea:focus-visible {
     }
 }
 
+/* Mobile padding pass (PL-034): four nested paddings stack at 320px, drop the three game layers to 16px.
+   The tool card rule is scoped to the game so the other tool pages keep their desktop padding. */
+@media (max-width: 480px) {
+    .tool-container:has(.ff-game) {
+        padding: var(--space-md);
+    }
+
+    .ff-card {
+        padding: var(--space-md);
+    }
+
+    .ff-result {
+        padding: var(--space-md);
+    }
+}
+
 /* Results ---- */
 .ff-results__score {
     scroll-margin-top: calc(100px + var(--ticker-offset, 0px));
