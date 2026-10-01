@@ -6914,9 +6914,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return b;
         }
 
-        /** Level picker: two bands, best and last played, disclosures, Start fresh. */
+        /** Level picker: How it works with Start fresh on top, then two bands with best and last played. */
         renderPicker(store) {
             const root = ffEl('div', 'ff-picker');
+            const how = ffEl('div', 'ff-how');
+            how.appendChild(ffEl('h3', 'ff-how__title', 'How it works'));
+            how.appendChild(ffEl('p', '', 'Pick a level. You get 20 statements about AI, ten true and ten not, in a fresh order every game. Call each one Fact or Fiction, read why, and see your score at the end.'));
+            how.appendChild(this.button('reset', 'Start fresh', 'btn btn-secondary ff-btn'));
+            root.appendChild(how);
             const bands = [
                 ['literacy', 'AI Literacy, levels 1 to 10', 1, 10],
                 ['practitioner', 'Practitioner, levels 11 to 20', 11, 20]
@@ -6950,11 +6955,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 root.appendChild(group);
             });
 
-            const how = ffEl('div', 'ff-how');
-            how.appendChild(ffEl('h3', 'ff-how__title', 'How it works'));
-            how.appendChild(ffEl('p', '', 'Pick a level. You get 20 statements about AI, ten true and ten not, in a fresh order every game. Call each one Fact or Fiction, read why, and see your score at the end.'));
-            how.appendChild(this.button('reset', 'Start fresh', 'btn btn-secondary ff-btn'));
-            root.appendChild(how);
             this.show(root);
             this.announce('');
         }
