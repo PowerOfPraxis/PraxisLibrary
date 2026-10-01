@@ -6953,8 +6953,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const how = ffEl('div', 'ff-how');
             how.appendChild(ffEl('h3', 'ff-how__title', 'How it works'));
             how.appendChild(ffEl('p', '', 'Pick a level. You get 20 statements about AI, ten true and ten not, in a fresh order every game. Call each one Fact or Fiction, read why, and see your score at the end.'));
-            how.appendChild(ffEl('p', 'ff-disclosure', 'Statements were drafted with AI assistance and reviewed by a human before publishing. Verify anything you act on.'));
-            how.appendChild(ffEl('p', 'ff-disclosure', 'Your best score per level, the statements you have seen, and the last level you played are kept only in this browser under the key praxis-ff-progress. Nothing is sent anywhere.'));
             how.appendChild(this.button('reset', 'Start fresh', 'btn btn-secondary ff-btn'));
             root.appendChild(how);
             this.show(root);
