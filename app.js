@@ -6614,7 +6614,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Reasoning Techniques', band: 'practitioner', available: true },
         { name: 'Retrieval and Grounding', band: 'practitioner', available: true },
         { name: 'Agents and Tools', band: 'practitioner', available: true },
-        { name: 'Evaluation', band: 'practitioner', available: false },
+        { name: 'Evaluation', band: 'practitioner', available: true },
         { name: 'Safety and Alignment', band: 'practitioner', available: false },
         { name: 'Governance and Transparency', band: 'practitioner', available: false },
         { name: 'Frontier Uncertainty', band: 'practitioner', available: false }

@@ -1,0 +1,287 @@
+{
+  "level": 17,
+  "band": "practitioner",
+  "name": "Evaluation",
+  "statements": [
+    {
+      "id": "L17-001",
+      "text": "Judging which of two outputs is better is easier and more consistent than assigning each an absolute score, and aggregating many such comparisons yields a reliable ranking.",
+      "isFact": true,
+      "explanation": "The Pairwise Evaluation page opens with the problem: is this essay a seven or an eight. Scores drift with reading order and depend on calibrated standards nobody maintains. A head-to-head verdict needs none of that, and Elo ratings or Bradley-Terry models turn many small verdicts into a global ordering.",
+      "learn": "../learn/pairwise-evaluation.html"
+    },
+    {
+      "id": "L17-002",
+      "text": "Pairwise evaluation produces a calibrated numeric score for each candidate, so it can replace a rubric wherever point values are required.",
+      "isFact": false,
+      "explanation": "It produces orderings, not point values. The page lists applications that demand specific numeric scores as a reason to skip it. Ratings such as Elo express relative standing within the compared set; they say nothing about where a lone output sits against an external standard.",
+      "learn": "../learn/pairwise-evaluation.html"
+    },
+    {
+      "id": "L17-003",
+      "text": "Comparing every pair of candidates costs a number of comparisons that grows with the square of the candidate count, so large pools need sampling or tournament brackets.",
+      "isFact": true,
+      "explanation": "Five candidates need ten comparisons, twenty need one hundred ninety, and a hundred need nearly five thousand. The page recommends Swiss-system rounds or random subsets once the pool is large, trading a little ranking precision for a cost that stays manageable.",
+      "learn": "../learn/pairwise-evaluation.html"
+    },
+    {
+      "id": "L17-004",
+      "text": "When there is only one output to evaluate, pairwise comparison is still the recommended method.",
+      "isFact": false,
+      "explanation": "Pairwise needs at least two candidates by definition. With a single output the page says to use absolute scoring or a rubric instead. The technique's strength is relative judgment, and relative judgment needs something to compare against.",
+      "learn": "../learn/pairwise-evaluation.html"
+    },
+    {
+      "id": "L17-005",
+      "text": "Recording the reason behind each pairwise verdict lets the evaluation be audited later and exposes inconsistent judgments.",
+      "isFact": true,
+      "explanation": "The page's comparison step asks the evaluator, human or model, to say which candidate wins and why. A verdict such as Draft A has clearer topic sentences while Draft B buries key points can be checked by a second reader, and contradictory reasons across pairs show where the judging drifted.",
+      "learn": "../learn/pairwise-evaluation.html"
+    },
+    {
+      "id": "L17-006",
+      "text": "Pairwise comparison is the natural fit for simple pass or fail decisions such as correct versus incorrect or safe versus unsafe.",
+      "isFact": false,
+      "explanation": "Binary validation is on the page's skip list. A pass or fail judgment needs no ranking, so comparing candidates against each other adds complexity without information. Pairwise earns its cost when quality is a matter of degree and absolute scoring is unreliable.",
+      "learn": "../learn/pairwise-evaluation.html"
+    },
+    {
+      "id": "L17-007",
+      "text": "Chain-of-Verification generates specific verification questions about its own draft and answers them in a fresh context, isolated from the original response.",
+      "isFact": true,
+      "explanation": "The page compares it to a newspaper fact-checker who never sees the journalist's notes. Asking the model whether it is sure only makes it re-read and confirm its own output. Answering targeted questions from scratch is what breaks that loop and catches the errors.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L17-008",
+      "text": "Asking a model whether it is sure about its answer is as effective as a verification chain, because the model will notice its own mistakes on a second look.",
+      "isFact": false,
+      "explanation": "The page's example is the Great Wall myth: asked to self-check in the same context, the model agrees that the wall is famously visible from space. The same knowledge that produced the error confirms it. An independent question in a fresh context returns the correction.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L17-009",
+      "text": "In Chain-of-Verification's factored mode each verification question is answered in its own separate context, which is the slowest option and the one recommended for high-stakes content.",
+      "isFact": true,
+      "explanation": "The page lays out three modes. Joint answers every question in one pass, fast but with answers influencing each other. Two-step answers them together in a fresh context. Factored isolates each question completely, and the page reserves it for medical, legal and financial outputs where reliability is worth the compute.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L17-010",
+      "text": "Joint mode in Chain-of-Verification gives the strongest independence between verification answers, because the questions are all visible at once.",
+      "isFact": false,
+      "explanation": "Joint mode is the weakest on independence, since answers produced together can influence one another. The page rates it fast but low on independence and suggests it for casual use. Factored mode, one question per context, is where independence is maximized.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L17-011",
+      "text": "In Chain-of-Verification, claims that fail their verification are removed or corrected, and the final response contains only what survived.",
+      "isFact": true,
+      "explanation": "The page's actor example lists five names, verifies each, and drops the one whose heritage turned out to be Cuban rather than Mexican. The final step compares the independent answers to the baseline and rewrites it, so the output is the verified subset rather than the first draft.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L17-012",
+      "text": "Chain-of-Verification is well suited to opinions, creative writing and brainstorming.",
+      "isFact": false,
+      "explanation": "Subjective and creative content is the first entry on the page's skip list, because there are no facts to verify. The technique fits lists of names, dates and places, multi-claim summaries and categorical questions, where each item can be checked on its own.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L17-013",
+      "text": "CRITIC has the model verify its own claims with external tools such as a search engine, a code interpreter or a database, then revise based on the evidence.",
+      "isFact": true,
+      "explanation": "The page's point is that a model cannot fact-check itself from the same training data that produced the error. Its example attributes Python to the creator of Java; a search returns the right name and company and the claim is corrected. External truth catches what reflection cannot.",
+      "learn": "../learn/critic.html"
+    },
+    {
+      "id": "L17-014",
+      "text": "Self-reflection alone catches the same errors as tool-based verification, so external tools add cost without adding accuracy.",
+      "isFact": false,
+      "explanation": "Self-reflection can only catch errors the model already knows about. The page's self-check example reconsiders a wrong fact and confidently keeps it. CRITIC exists for the errors the model does not know it is making: outdated facts, wrong attributions and arithmetic slips.",
+      "learn": "../learn/critic.html"
+    },
+    {
+      "id": "L17-015",
+      "text": "CRITIC preserves the correct parts of an answer and rewrites only the portions the evidence contradicted.",
+      "isFact": true,
+      "explanation": "The page contrasts this with simple retry approaches. After the critique grades each discrepancy, the revision targets the specific wrong claims and leaves verified content intact. For a complex output the revision can trigger another verification cycle.",
+      "learn": "../learn/critic.html"
+    },
+    {
+      "id": "L17-016",
+      "text": "CRITIC uses a single general-purpose tool, a search engine, to verify every type of claim.",
+      "isFact": false,
+      "explanation": "The page's toolkit has three parts: a search engine for facts, dates and named entities, a code interpreter for calculations and logic, and a knowledge base for entity relationships and categories. Choosing the right tool for each claim is a step in the process.",
+      "learn": "../learn/critic.html"
+    },
+    {
+      "id": "L17-017",
+      "text": "When a system has no access to search, code execution or external databases, CRITIC cannot do its job.",
+      "isFact": true,
+      "explanation": "No tool access is on the page's skip list. Without an external source the verification step collapses into the model checking itself, which is the limitation CRITIC was designed to overcome. The technique's value is grounding, and grounding needs something outside the model.",
+      "learn": "../learn/critic.html"
+    },
+    {
+      "id": "L17-018",
+      "text": "Self-Calibration asks the model to answer, then rate its confidence, explain what supports or undermines that rating, and flag claims that need external verification.",
+      "isFact": true,
+      "explanation": "The page's core pattern is those four steps. Asking how sure the model is activates a different mode than asking for the answer, forcing it to assess evidence quality and knowledge boundaries. The user learns exactly where to double-check instead of trusting every sentence equally.",
+      "learn": "../learn/self-calibration.html"
+    },
+    {
+      "id": "L17-019",
+      "text": "A model's fluent, confident tone is a reliable signal that its answer is accurate.",
+      "isFact": false,
+      "explanation": "The page's key insight is that models deliver a fabricated event with the same polish as a boiling point. The most dangerous answer is the wrong one delivered with certainty. Tone carries no information about correctness, which is why calibration has to be asked for explicitly.",
+      "learn": "../learn/self-calibration.html"
+    },
+    {
+      "id": "L17-020",
+      "text": "Confidence ratings let an organization route outputs: high-confidence answers flow through while low-confidence ones are escalated for human review.",
+      "isFact": true,
+      "explanation": "The page's customer support use case does exactly that, and its medical and legal examples flag where professional consultation is essential. Users naturally spend verification effort where the signal says it is needed, which matches how human experts hedge.",
+      "learn": "../learn/self-calibration.html"
+    },
+    {
+      "id": "L17-021",
+      "text": "Self-Calibration adds useful information to fiction writing and brainstorming by rating how confident the model is in each idea.",
+      "isFact": false,
+      "explanation": "Creative tasks are the first item on the page's skip list, because confidence ratings do not meaningfully apply where there is no fact to be right or wrong about. Calibration pays off on statistics, dates, specific claims and domains where the training data may be stale.",
+      "learn": "../learn/self-calibration.html"
+    },
+    {
+      "id": "L17-022",
+      "text": "A well-calibrated model is one whose stated confidence matches how often it is actually right, so answers given at eighty percent confidence are correct about eighty percent of the time.",
+      "isFact": true,
+      "explanation": "The glossary defines calibration as predicted probabilities matching true frequencies, and calibration error as the gap between stated confidence and empirical accuracy. A model can be accurate yet badly calibrated if it is equally sure of its hits and its misses.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L17-023",
+      "text": "Self-Verification substitutes the answer back into the original problem to see whether it holds, because checking a candidate is easier than finding it.",
+      "isFact": true,
+      "explanation": "The page calls it the mathematical proof-checker for AI reasoning. Generation searches a large solution space; verification asks a binary question. Finding a needle in a haystack is hard, but checking whether a handed needle came from that haystack is easy.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L17-024",
+      "text": "Self-Verification reliably catches errors that come from the same gap in the model's knowledge that produced them.",
+      "isFact": false,
+      "explanation": "Same-knowledge blind spots are on the page's skip list. If verifying a step requires the fact the model got wrong, the check uses the same wrong fact. Backward substitution shines on math, constraints and testable code, where the check is mechanical rather than knowledge-dependent.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L17-025",
+      "text": "Self-Verification uses three strategies: substituting the answer back, checking every explicit and implicit constraint, and testing plausibility when formal checks are impossible.",
+      "isFact": true,
+      "explanation": "The page's SQL example shows constraint checking at work: the query handles the order count and the date window but silently drops the never-returned-an-item requirement. Validation checking catches wildly wrong answers that pass syntax, such as an implausible population figure.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L17-026",
+      "text": "Open-ended questions with no definite correctness criteria are the best fit for Self-Verification.",
+      "isFact": false,
+      "explanation": "They are on the skip list, alongside subjective tasks. Verification needs something concrete to check against: an equation to balance, a constraint to satisfy, a test to pass. Without a criterion there is nothing to substitute the answer into.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L17-027",
+      "text": "Verify-and-Edit checks each step of a chain-of-thought against external knowledge, flags the steps that fail, edits them, and re-derives any later steps that depended on them.",
+      "isFact": true,
+      "explanation": "The page's clinical example verifies three diagnostic steps, flags the third for an unsupported geographic assumption, and edits it to cover both iodine-sufficient regions and the global picture. The final answer comes from the repaired chain rather than the first draft.",
+      "learn": "../learn/verify-and-edit.html"
+    },
+    {
+      "id": "L17-028",
+      "text": "When one step of a reasoning chain fails verification, Verify-and-Edit discards the whole chain and regenerates it from scratch.",
+      "isFact": false,
+      "explanation": "The page describes surgical repair: the flagged step is revised, downstream steps affected by it are re-derived, and the valid reasoning is kept. Regenerating from scratch would throw away the verified steps and reintroduce the chance of new errors.",
+      "learn": "../learn/verify-and-edit.html"
+    },
+    {
+      "id": "L17-029",
+      "text": "Without an external source to check against, Verify-and-Edit's verification pass becomes the model checking itself, which limits what it can catch.",
+      "isFact": true,
+      "explanation": "No verification source is on the page's skip list. The technique fits RAG systems and domains with databases or guidelines precisely because retrieved passages give the check something to stand on. Internal consistency alone cannot expose a confidently wrong fact.",
+      "learn": "../learn/verify-and-edit.html"
+    },
+    {
+      "id": "L17-030",
+      "text": "A benchmark is a standardized test or dataset for comparing models, and its score is inflated when the test data leaks into training.",
+      "isFact": true,
+      "explanation": "The glossary defines both terms. Data contamination is the unintentional inclusion of evaluation data in the training set, which gives a misleading picture of generalization. A model that has seen the answers is being tested on memory, not capability.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L17-031",
+      "text": "A high score on a popular benchmark guarantees the model will perform equally well on real-world tasks.",
+      "isFact": false,
+      "explanation": "The glossary's entry on benchmark gaming describes optimizing for a score without matching real improvement, through contamination or overfitting. Goodhart's law applies: once a proxy becomes the target, it stops being a good measure. Benchmarks inform; they do not certify.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L17-032",
+      "text": "An LLM-as-judge setup prompts one model to score another model's outputs against explicit criteria, giving scalable evaluation that approximates human judgment.",
+      "isFact": true,
+      "explanation": "The glossary defines the paradigm with rating criteria and rubrics as part of the setup. It is how teams evaluate thousands of outputs that no human panel could read, and the pairwise page's tournament designs are commonly run with a model as the judge.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L17-033",
+      "text": "LLM-as-judge can replace human evaluation entirely, since a model judge has no biases of its own.",
+      "isFact": false,
+      "explanation": "The glossary calls human evaluation the gold standard and the ground truth for validating automated metrics. A model judge is a scalable approximation whose agreement with humans must itself be measured. Replacing the reference with the approximation leaves nothing to check it against.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L17-034",
+      "text": "Win rate is the percentage of a model's answers judged correct against a ground-truth answer key.",
+      "isFact": false,
+      "explanation": "The glossary defines win rate as the share of pairwise comparisons in which one model's output is preferred over another's, by human or automated judges. It is relative, not absolute: a model can have a high win rate against a weak opponent while still being wrong often. Accuracy against a key is a different metric.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L17-035",
+      "text": "A test set can be reused during training without harm, as long as the model is never asked to memorize it directly.",
+      "isFact": false,
+      "explanation": "The glossary says test data is held back from training and should be used once to avoid leakage. Any exposure during training, direct or indirect, means the final score partly measures recall of the test items. That is data contamination by another route.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L17-036",
+      "text": "Perplexity measures how factually accurate a model's answers are.",
+      "isFact": false,
+      "explanation": "Perplexity measures how surprised the model is by held-out text: the exponentiated average negative log-likelihood per token. Lower means better prediction of the next word. A model can be fluent and low-perplexity while stating falsehoods, so accuracy needs a different metric.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L17-037",
+      "text": "Pass at k measures the probability that at least one of k generated code samples passes every test case.",
+      "isFact": true,
+      "explanation": "The glossary defines it as the standard code-generation metric, computed with an unbiased estimator over the samples drawn. HumanEval, a benchmark of programming problems with test cases, is typically reported this way, which is why a single pass at one figure understates what sampling can reach.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L17-038",
+      "text": "Faithfulness, as an evaluation dimension, measures how polished and readable the generated text is.",
+      "isFact": false,
+      "explanation": "Faithfulness measures whether the output contains only information supported by the provided source context. Unfaithful content signals hallucination or fabrication. It is a grounding metric, central to RAG evaluation, and says nothing about style.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L17-039",
+      "text": "Inter-annotator agreement measures how consistently independent human raters judge the same data, which reveals how subjective the task is.",
+      "isFact": true,
+      "explanation": "The glossary defines it as a statistical measure of annotation reliability. Low agreement means the labels are noisy or the task itself is ambiguous, and any automated judge trained or validated on those labels inherits that ceiling.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L17-040",
+      "text": "Once a metric is chosen as the optimization target, it stays an accurate measure of the real goal no matter how hard it is optimized.",
+      "isFact": false,
+      "explanation": "The glossary's entry on Goodhart's law in AI says the opposite: when a proxy becomes the target, it ceases to be a good measure. Models over-optimize the proxy and diverge from the intended goal, which is why evaluation needs several metrics and periodic human checks.",
+      "learn": "../pages/glossary.html"
+    }
+  ]
+}
