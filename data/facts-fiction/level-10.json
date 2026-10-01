@@ -1,0 +1,287 @@
+{
+  "level": 10,
+  "band": "literacy",
+  "name": "Verifying AI Output",
+  "statements": [
+    {
+      "id": "L10-001",
+      "text": "A model checking its own answer in the same conversation tends to agree with itself, so verification questions work better in a fresh context.",
+      "isFact": true,
+      "explanation": "The Chain-of-Verification page shows a same-context self-check confirming its own Great Wall myth. Asked the specific question in a fresh context, the model reasoned from scratch and caught the error. Independence from the original answer is what makes the check work.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L10-002",
+      "text": "Asking a chatbot 'are you sure' is a dependable way to find out whether its answer was correct.",
+      "isFact": false,
+      "explanation": "The model re-reads its output with the same knowledge that produced the error and usually confirms it, or flips a correct answer because it senses doubt. Independent checks, a fresh-context question or an outside source, are what reveal the truth.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L10-003",
+      "text": "The search test is simple: if a quick search cannot find an AI-provided fact, quote, or citation, treat it as fabricated until proven otherwise.",
+      "isFact": true,
+      "explanation": "Real information is usually findable. The Hallucination Spotter recommends this test because fabricated citations and quotations are common and look convincing. The burden of proof sits with the claim, not with you.",
+      "learn": "../tools/hallucination.html"
+    },
+    {
+      "id": "L10-004",
+      "text": "If a citation includes an author, a journal, and a year, it is detailed enough to be trusted without looking it up.",
+      "isFact": false,
+      "explanation": "Fabricated citations usually carry all three. The journal may exist while the paper does not, which is how lawyers ended up fined for filing fake case law. Search for the exact title in a library database or on the journal's own site before using it.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L10-005",
+      "text": "Precise numbers and percentages in an AI answer deserve extra scrutiny, because models invent specific statistics easily.",
+      "isFact": true,
+      "explanation": "A figure such as 47 percent improvement reads as evidence, yet the model produces it the same way it produces any other text. The more specific the statistic, the more it needs a source you can open. Treat an unsourced number as a placeholder.",
+      "learn": "../tools/hallucination.html"
+    },
+    {
+      "id": "L10-006",
+      "text": "A suspiciously precise statistic is a sign that the model found real data, since it would not invent such a specific figure.",
+      "isFact": false,
+      "explanation": "Models generate the shape of real data without the data. The Hallucination Spotter lists overly specific details as a red flag, not a reassurance. Real figures come with a source, a date, and a method you can check; an invented one comes with nothing.",
+      "learn": "../tools/hallucination.html"
+    },
+    {
+      "id": "L10-007",
+      "text": "Cross-checking an important claim against more than one reliable source is stronger than confirming it against a single source.",
+      "isFact": true,
+      "explanation": "One source can be wrong, outdated, or the very page the model paraphrased. The VERIFY technique's research step calls for independent corroboration. When two reliable sources agree and the model disagrees, you have found an error worth fixing.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L10-008",
+      "text": "Finding one web page that agrees with the model settles the question, since the claim has been confirmed.",
+      "isFact": false,
+      "explanation": "A single page may repeat the same error, quote the same bad source, or be AI-generated itself. Verification means independent agreement from sources you would trust without the model. For anything consequential, look for at least two that do not depend on each other.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L10-009",
+      "text": "Checking the logic of an answer for gaps, unsupported leaps, and circular arguments is part of verification, separate from checking the facts.",
+      "isFact": true,
+      "explanation": "An answer can cite true facts and still reach a conclusion that does not follow. The VERIFY technique's examine-logic step asks whether each step is supported by the one before it. Reasoning errors hide inside fluent prose, so read for the argument, not just the claims.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L10-010",
+      "text": "If every individual fact in an answer checks out, the conclusion the model draws from them must be right.",
+      "isFact": false,
+      "explanation": "True premises can still be joined by a faulty step: a missing constraint, a wrong formula, an unjustified leap. The Verify-and-Edit page shows a revenue projection built on verified figures that still fails because a quarter of data was missing. Check the chain as well as the links.",
+      "learn": "../learn/verify-and-edit.html"
+    },
+    {
+      "id": "L10-011",
+      "text": "Plugging an answer back into the original problem is a reliable way to catch errors in math, logic, and scheduling tasks.",
+      "isFact": true,
+      "explanation": "Checking is easier than solving. If a model says x equals 5, you can test whether the original equation holds. Backward verification works wherever the problem has definite conditions, and it catches arithmetic slips and missed constraints that a forward read misses.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L10-012",
+      "text": "Verification only works for factual questions, so there is no way to check a model's answer to a math or logic problem.",
+      "isFact": false,
+      "explanation": "Problems with definite conditions are the easiest to verify: substitute the answer back, test every constraint, run a sanity check on the size of the result. The Self-Verification page calls this the proof-checker approach, and it needs no outside source at all.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L10-013",
+      "text": "Listing every requirement from a request and checking the answer against each one catches solutions that satisfy some conditions and miss others.",
+      "isFact": true,
+      "explanation": "The forgot-the-edge-case error is common: a query that filters by date and count but ignores the never-returned-an-item condition. Constraint checking turns the request into a checklist and tests the output line by line. It is the fastest way to find a partial solution.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L10-014",
+      "text": "Generated code that runs without errors has been verified.",
+      "isFact": false,
+      "explanation": "Running is not the same as being right. Code can execute cleanly and still do the wrong thing, ignore an edge case, or match the wrong inputs. Verification means testing against examples that should pass and examples that should fail, and reading the logic against the requirement.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L10-015",
+      "text": "Testing generated code against inputs that should match and inputs that should fail is the practical way to verify it.",
+      "isFact": true,
+      "explanation": "The Self-Verification page's regex example shows why: a pattern can look right and still over-match or under-match. A handful of concrete cases, including the ones meant to fail, reveals the gap immediately. Run the test, do not just read the code.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L10-016",
+      "text": "Asking a model to rate its own confidence and name what would change its answer makes uncertain claims easier to spot, though the rating itself is not proof.",
+      "isFact": true,
+      "explanation": "Self-Calibration asks for an answer, a confidence level, the evidence behind it, and the claims that need outside checking. The signal helps you direct verification effort. It remains the model's self-report, so low confidence means check, and high confidence means check the important ones anyway.",
+      "learn": "../learn/self-calibration.html"
+    },
+    {
+      "id": "L10-017",
+      "text": "When a model says it is highly confident, the answer has been verified and no further checking is needed.",
+      "isFact": false,
+      "explanation": "A confidence rating is generated text like everything else. It helps prioritize, and the Self-Calibration page recommends it for that reason, but a model can be confidently wrong. For claims that matter, high confidence changes the order of your checks, not whether you make them.",
+      "learn": "../learn/self-calibration.html"
+    },
+    {
+      "id": "L10-018",
+      "text": "Running the same question several times and seeing the answers scatter is a sign the model is unsure, even when each single answer sounds certain.",
+      "isFact": true,
+      "explanation": "Self-Consistency samples many reasoning paths and votes. A near-unanimous vote suggests stable knowledge; a fragmented vote means the model is guessing. Disagreement across runs is information a single polished answer cannot give you, and a cue to verify from outside.",
+      "learn": "../learn/self-consistency.html"
+    },
+    {
+      "id": "L10-019",
+      "text": "Step-by-step reasoning is always more reliable than a model's direct answer, so a reasoned answer needs less checking.",
+      "isFact": false,
+      "explanation": "The Uncertainty-Routed CoT page shows the opposite on hard questions: a single reasoning chain can rationalize its way to a wrong conclusion and score below the direct answer. Reasoning is trusted only when many chains agree. A chain of steps is something to check, not a certificate.",
+      "learn": "../learn/uncertainty-cot.html"
+    },
+    {
+      "id": "L10-020",
+      "text": "A model with document retrieval can cite the passage it used, which lets you open the source and confirm the claim yourself.",
+      "isFact": true,
+      "explanation": "Retrieval-augmented generation injects real documents into the prompt and asks the model to cite sections. The citation is a pointer, not a guarantee: the model can still misread or over-extend the passage. Its value is that you can follow it and compare.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L10-021",
+      "text": "If a model's answer came from retrieved documents, it cannot be wrong, so the citations do not need to be opened.",
+      "isFact": false,
+      "explanation": "Retrieval grounds the model; it does not remove misreading, selective quoting, or a mismatch between the passage and the question. The RAG page pairs retrieval with Chain-of-Verification for that reason. Open the cited section and check that it says what the answer claims.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L10-022",
+      "text": "A summary written by a model is a faithful condensation of the document, so you can rely on it without opening the original.",
+      "isFact": false,
+      "explanation": "A summary can invert a finding, drop a condition, or add a claim the document never made. Spot-check the sentences that matter most against the source, especially numbers, names, and anything that reads like a conclusion. The document is the ground truth, not the summary.",
+      "learn": "../learn/verify-and-edit.html"
+    },
+    {
+      "id": "L10-023",
+      "text": "Verification takes so long that it cancels any time the model saved, so it is not worth doing.",
+      "isFact": false,
+      "explanation": "Verification scales with stakes. A quick search test takes seconds; a careful source check is reserved for claims that would be costly if wrong. The Chain-of-Verification page says to skip the full loop for well-known facts and casual use, and to spend the effort where errors matter.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L10-024",
+      "text": "The amount of verification an answer needs depends on what happens if it is wrong, not on how confident the answer sounds.",
+      "isFact": true,
+      "explanation": "A draft headline and a drug dosage need different checks. The AI safety page lists medical, legal, financial, and safety-critical uses as domains where AI informs and a qualified human decides. Match the depth of your check to the cost of the mistake.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L10-025",
+      "text": "For medical, legal, or financial questions, a careful search is enough verification and a professional is unnecessary.",
+      "isFact": false,
+      "explanation": "Searching catches fabricated facts; it does not supply judgment about your situation, jurisdiction, or history. Both the VERIFY technique and the high-stakes domains section say to flag these claims for qualified professionals before acting. The model and the search are inputs, not the decision.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L10-026",
+      "text": "A domain expert can often spot an AI error in seconds that a non-expert would miss entirely, which is why specialist review matters for specialist topics.",
+      "isFact": true,
+      "explanation": "Experts recognize wrong terminology, impossible values, and outdated practice on sight. The Hallucination Spotter's yield-to-experts step exists because plausible output is hardest to judge in fields you do not know. Where you lack the expertise, borrow it before publishing.",
+      "learn": "../tools/hallucination.html"
+    },
+    {
+      "id": "L10-027",
+      "text": "Verification is only about facts; whether information is current is a separate concern that does not affect accuracy.",
+      "isFact": false,
+      "explanation": "A claim that was true in the past and is presented as current is an error. The VERIFY technique's inspect-for-recency step exists because prices, laws, office holders, and software versions change while the model's knowledge does not. Confirm time-sensitive claims against a dated source.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L10-028",
+      "text": "A model's answer about a recent event is as reliable as its answer about a well-documented historical one.",
+      "isFact": false,
+      "explanation": "Claims near or after the training cutoff are among the lowest-confidence areas a model has, and it may fill the gap with plausible invention. The Hallucination Spotter lists recent events as a red flag. Verify these against a current, dated source every time.",
+      "learn": "../tools/hallucination.html"
+    },
+    {
+      "id": "L10-029",
+      "text": "Information that fits your argument perfectly deserves a harder look, because models tend to produce what sounds right rather than what is right.",
+      "isFact": true,
+      "explanation": "The Hallucination Spotter flags claims that seem too perfect. A model shaped by your question will supply the supporting statistic, the agreeing expert, the convenient date. When the evidence lands exactly where you hoped, that is the moment to find it independently.",
+      "learn": "../tools/hallucination.html"
+    },
+    {
+      "id": "L10-030",
+      "text": "Asking the model to list its sources after it has answered proves the answer was based on those sources.",
+      "isFact": false,
+      "explanation": "A model asked for sources after answering generates a plausible list; it does not retrieve the material it used, because it did not use material in that sense. The list is a set of leads to check. Only opening each one and finding the claim there counts as confirmation.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L10-031",
+      "text": "Breaking an answer into individual claims and checking each one separately is how structured verification methods work.",
+      "isFact": true,
+      "explanation": "Narrative prose hides several claims in one sentence. Chain of Knowledge rewrites reasoning as subject-relation-object triples so every fact is a checkable unit. You can do the same by hand: list the claims, verify each against a source, and note which ones failed.",
+      "learn": "../learn/chain-of-knowledge.html"
+    },
+    {
+      "id": "L10-032",
+      "text": "Verification means re-reading the answer carefully; if nothing looks wrong, it has been verified.",
+      "isFact": false,
+      "explanation": "Re-reading catches typos and contradictions, not fabrications, because invented facts are written to look right. Verification compares claims against something outside the answer: a source, a test, a calculation, an expert. If you only consulted the answer, you reviewed it, you did not verify it.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L10-033",
+      "text": "Praxis Library treats every external link on the site as unverified until a person has opened it and recorded screenshot proof.",
+      "isFact": true,
+      "explanation": "The site's trust loop registers each citation with a proof file before it counts as verified, and the audit tool checks the registry. It is the same discipline the site teaches: a reference is a claim about a source, and claims are checked by looking.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L10-034",
+      "text": "Hallucinations are rare enough that spot-checking one claim in ten is a sound verification policy.",
+      "isFact": false,
+      "explanation": "Error rates vary by task and topic, and the costly error can be anywhere. Checking a sample tells you the answer's rough quality; it does not clear the claims you skipped. Check every claim that matters, and sample the rest only if you must.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L10-035",
+      "text": "Automation bias, the habit of accepting output from a system that is usually right, grows stronger the more reliable the system becomes.",
+      "isFact": true,
+      "explanation": "The Facts and Fictions page reports a review of 74 studies finding that users of reliable automation made more commission errors and were slower to notice anomalies. A good track record lowers your guard. Build verification into the routine so it does not depend on suspicion.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L10-036",
+      "text": "A model can verify a claim by searching its own memory of the training data and reporting what it finds.",
+      "isFact": false,
+      "explanation": "A model cannot inspect its training data or its weights; it generates a plausible answer about what it knows the same way it generates anything else. Verification needs something outside the model: a document, a test, a calculation, a person. The Self-Verification page calls this the same-knowledge blind spot.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L10-037",
+      "text": "Tools such as a calculator, a code interpreter, or a search engine give a model an external check that its own memory cannot provide.",
+      "isFact": true,
+      "explanation": "The CRITIC approach verifies claims with external tools, where Chain-of-Verification relies on the model's own knowledge in a fresh context. For arithmetic, run the numbers. For a fact, search. For code, execute it. The tool supplies ground truth the model only approximates.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L10-038",
+      "text": "Verification is finished once the model has fixed the errors you pointed out.",
+      "isFact": false,
+      "explanation": "A corrected answer is a new answer, and models can introduce new errors while fixing old ones or change a correct claim to a wrong one. The Verify-and-Edit page re-derives downstream steps after each correction for this reason. Check the revised version the same way you checked the first.",
+      "learn": "../learn/verify-and-edit.html"
+    },
+    {
+      "id": "L10-039",
+      "text": "Disclosing that AI helped produce a piece of work tells readers to apply their own verification, and is increasingly a legal requirement for professional use.",
+      "isFact": true,
+      "explanation": "The AI safety page lists disclosure among daily practices and notes that most US states legislate AI transparency. Disclosure does not make content accurate; it tells the reader how the content was made so they can weigh it. Verification and disclosure are separate duties.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L10-040",
+      "text": "The Hallucination Spotter on this site is a practice tool: you read an AI response, decide whether it contains fabricated information, then see the answer.",
+      "isFact": true,
+      "explanation": "Verification is a skill that improves with repetition. The tool presents responses with and without fabrications, scores your calls, and lists the common patterns: fake citations, invented statistics, mixed-up facts, confident uncertainty, outdated claims. Practicing on known cases builds the instinct for unknown ones.",
+      "learn": "../tools/hallucination.html"
+    }
+  ]
+}
