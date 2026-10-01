@@ -474,11 +474,14 @@ document.addEventListener('DOMContentLoaded', () => {
         'Context',
         'Role',
         'Instructions',
-        'Specifics',
+        'Scope',
         'Parameters',
         // CRISPE Method
-        'Example',
-        'Few-shot Learning',
+        'Capacity',
+        'Insight',
+        'Statement',
+        'Personality',
+        'Experiment',
         // COSTAR Method
         'Objective',
         'Style',
@@ -554,7 +557,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // CRISP/CRISPE terms
         'Context': 'term-context',
         'Parameters': 'term-parameters',
-        'Few-shot Learning': 'term-few-shot',
         // Prompting concepts
         'Prompt': 'term-prompt',
         'Chain of Thought': 'term-chain-of-thought',
@@ -10557,8 +10559,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Comprehensive content catalog with categories
     const CONTENT_CATALOG = [
         // METHODS Category
-        { title: 'CRISP Method', desc: 'Context, Role, Instructions, Specifics, Parameters - the essential framework for clear prompts', url: 'learn/crisp.html', category: 'Methods', keywords: ['crisp', 'framework', 'context', 'role', 'instructions', 'specifics', 'parameters', 'beginner', 'foundation'] },
-        { title: 'CRISPE Method', desc: 'CRISP plus Example for few-shot learning and more consistent AI interactions', url: 'learn/crispe.html', category: 'Methods', keywords: ['crispe', 'example', 'few-shot', 'learning', 'consistency', 'creative'] },
+        { title: 'CRISP Method', desc: 'Context, Role, Instructions, Scope, Parameters - the essential framework for clear prompts', url: 'learn/crisp.html', category: 'Methods', keywords: ['crisp', 'framework', 'context', 'role', 'instructions', 'scope', 'parameters', 'beginner', 'foundation'] },
+        { title: 'CRISPE Method', desc: 'Capacity and Role, Insight, Statement, Personality, Experiment - brief the AI like a consultant, then ask for variants', url: 'learn/crispe.html', category: 'Methods', keywords: ['crispe', 'capacity', 'role', 'insight', 'statement', 'personality', 'experiment', 'variants', 'creative'] },
         { title: 'COSTAR Method', desc: 'Context, Objective, Style, Tone, Audience, Response - perfect for professional content', url: 'learn/costar.html', category: 'Methods', keywords: ['costar', 'professional', 'content', 'audience', 'tone', 'style', 'marketing', 'communication'] },
         { title: 'ReAct Method', desc: 'Reasoning + Acting for complex problem-solving with transparent, verifiable thinking', url: 'learn/react.html', category: 'Methods', keywords: ['react', 'reasoning', 'acting', 'complex', 'problem-solving', 'verification', 'advanced', 'chain-of-thought'] },
         { title: 'Flipped Interaction', desc: 'Let AI ask questions first to better understand your needs', url: 'learn/flipped-interaction.html', category: 'Methods', keywords: ['flipped', 'interaction', 'questions', 'clarification', 'uncertainty', 'exploration'] },
