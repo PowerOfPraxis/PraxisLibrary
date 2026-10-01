@@ -1,0 +1,287 @@
+{
+  "level": 9,
+  "band": "literacy",
+  "name": "Bias and Fairness",
+  "statements": [
+    {
+      "id": "L09-001",
+      "text": "Bias in a model comes mostly from the data it learned from, plus choices made during training and in how it is deployed.",
+      "isFact": true,
+      "explanation": "Text written by people carries their assumptions, and the model learns those along with the facts. Decisions about what data to include, what behavior to reward, and where to use the system add more. Each layer is a place to look when output is skewed.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-002",
+      "text": "The only source of bias in an AI system is its training data; the people who build and deploy it add none.",
+      "isFact": false,
+      "explanation": "Builders choose the data, the objectives, the filters, and the tests. Deployers choose where the system is used and who checks it. Each choice can introduce or reduce skew. Treating bias as purely a data problem leaves most of the levers untouched.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L09-003",
+      "text": "Bias in model output is often subtle: which name gets which job in an example, or whose situation is treated as the default.",
+      "isFact": true,
+      "explanation": "Obvious slurs are rare and easy to filter. The common form is a pattern of defaults: the engineer is a man, the family has two parents, the customer lives in a city. Spotting it means reading for who is assumed, not just what is said.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-004",
+      "text": "Bias is a bug that can be fully removed from a model with one fix.",
+      "isFact": false,
+      "explanation": "Bias is a property of the data and the context, not a single defect. Mitigations reduce specific harms, and new ones surface as the system meets new users and tasks. Managing bias is ongoing work: test, adjust, and test again.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L09-005",
+      "text": "Training data over-represents some languages, places, and groups, so a model's answers are usually better for those.",
+      "isFact": true,
+      "explanation": "The web skews toward certain languages, countries, and demographics. A model is most fluent and accurate where it saw the most examples. For everyone else, the answers can be thinner, more generic, or shaped by an outsider's view.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-006",
+      "text": "A model trained on more data is automatically less biased.",
+      "isFact": false,
+      "explanation": "More data from the same skewed sources reinforces the same skew. What reduces bias is representative data, careful objectives, and testing across groups. Scale helps with fluency and knowledge; it does not, on its own, fix who is missing.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L09-007",
+      "text": "Speech recognition systems have shown higher error rates for some accents and dialects than for others.",
+      "isFact": true,
+      "explanation": "Studies found that systems transcribed some speakers, including many Black speakers and non-native speakers, less accurately. The gap tracks what the training audio contained. Vendors have improved, and the pattern still means checking accuracy for your own users.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-008",
+      "text": "Face recognition systems in landmark studies made far more errors on darker-skinned women than on lighter-skinned men.",
+      "isFact": true,
+      "explanation": "Testing commercial systems by skin tone and gender revealed large gaps that tracked who was underrepresented in the training sets. The finding drove changes in products and in law. It remains the clearest example of why systems are tested group by group.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-009",
+      "text": "Bias affects only text models; image and speech systems are neutral because they process pixels and sound.",
+      "isFact": false,
+      "explanation": "Image generators have returned skewed demographics for prompts such as a doctor or a cleaner, and recognition systems have shown accuracy gaps by skin tone and accent. Pixels and sound still come from a world with patterns, and the model learns the patterns.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-010",
+      "text": "Asking an image model for a CEO or a nurse can return a skewed set of people unless the prompt specifies otherwise.",
+      "isFact": true,
+      "explanation": "The model reproduces how those roles were pictured in its training images. Asking for several images, or naming the people you want shown, counters the default. Reviewing generated images for who is shown is part of using them responsibly.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-011",
+      "text": "A model's errors fall evenly across every group of people.",
+      "isFact": false,
+      "explanation": "Accuracy is usually higher where the data was richer and lower where it was sparse. Overall accuracy hides this. A system that is right most of the time can still be wrong for one group far more often, which is why results are broken out by group.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-012",
+      "text": "A model that is accurate on average can still be noticeably worse for a specific group.",
+      "isFact": true,
+      "explanation": "An overall score blends groups of different sizes. If the largest group does well, the average looks fine while a smaller group gets poor results. Breaking results out by group, as the face recognition studies did, is how such gaps are found.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-013",
+      "text": "If a model is right most of the time overall, it is right for every group it serves.",
+      "isFact": false,
+      "explanation": "An overall figure says nothing about the spread. Gaps between groups hide inside it. Fairness testing measures error rates per group, which is the only way to see whether the system works for everyone or just for the majority of its test set.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L09-014",
+      "text": "Removing names and gender words from an input does not guarantee a fair decision, because other details can stand in for them.",
+      "isFact": true,
+      "explanation": "Postcode, school, hobbies, gaps in employment, and phrasing all correlate with protected characteristics. A model can pick up the pattern through these proxies. Fairness testing looks at outcomes across groups, not just at which fields were removed.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-015",
+      "text": "Removing names and gender from the input guarantees the model's decision is fair.",
+      "isFact": false,
+      "explanation": "The model can infer the same information from proxies and reproduce the skew without ever seeing the removed fields. Blind inputs are a reasonable first step, not a guarantee. Outcome testing across groups is what shows whether the step worked.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-016",
+      "text": "Fairness has several definitions, such as equal error rates or equal selection rates, and they can conflict with each other.",
+      "isFact": true,
+      "explanation": "A system cannot always satisfy every fairness measure at once; improving one can worsen another. That is a mathematical result, not a failure of effort. Teams choose which definition fits the use case and state it so the choice can be questioned.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L09-017",
+      "text": "Fairness has one agreed definition that any AI system can be checked against.",
+      "isFact": false,
+      "explanation": "Equal accuracy, equal selection rates, and equal treatment of similar cases are different measures that cannot all hold at once in most real situations. Saying a system is fair means little until the measure is named. Ask which definition was used.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L09-018",
+      "text": "Testing a prompt with swapped names, genders, or locations is a practical way to spot bias in the output.",
+      "isFact": true,
+      "explanation": "If the advice, tone, or recommended salary changes when only the name changes, the model is treating the groups differently. The test takes minutes and needs no special tools. The AI safety page lists it among the basic mitigations.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-019",
+      "text": "Writing a prompt with neutral language reduces the bias you introduce yourself.",
+      "isFact": true,
+      "explanation": "A prompt that assumes the answer, names a stereotype, or frames one side as obvious pulls the model that way. Neutral phrasing, such as asking for the trade-offs rather than why an option is best, leaves room for a balanced answer.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-020",
+      "text": "How a prompt is worded makes no difference to how biased the output is.",
+      "isFact": false,
+      "explanation": "Models follow the framing they are given. A loaded question gets a loaded answer. Neutral phrasing, explicit requests for multiple perspectives, and naming the groups you want considered all shift the output measurably.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L09-021",
+      "text": "Asking a model for several perspectives on a question surfaces viewpoints its default answer leaves out.",
+      "isFact": true,
+      "explanation": "The first answer reflects the most common framing in the training data. Asking how different stakeholders would see it, or what a critic would say, pulls in the less common views. You still judge which are sound.",
+      "learn": "../learn/debate-prompting.html"
+    },
+    {
+      "id": "L09-022",
+      "text": "Having a model argue both sides of a question exposes weak points that a single answer would hide.",
+      "isFact": true,
+      "explanation": "Debate prompting sets up positions that challenge each other's evidence before a conclusion is drawn. It is a way to counter the model's tendency to agree with the framing it is given. The judge, in the end, is still you.",
+      "learn": "../learn/debate-prompting.html"
+    },
+    {
+      "id": "L09-023",
+      "text": "If a model agrees with you, your reasoning has been independently confirmed.",
+      "isFact": false,
+      "explanation": "Models are tuned to be agreeable and often affirm the user's assumptions, a behavior researchers call sycophancy. Agreement is the default, not a verdict. Ask the model to argue against you, or pose the question without revealing your view.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L09-024",
+      "text": "If a model's answer sounds balanced and measured, it is unbiased.",
+      "isFact": false,
+      "explanation": "Tone and bias are separate. A calm, even-handed voice can still present one group's situation as the norm or omit a perspective entirely. Judge the content: who is included, who is assumed, and what is missing, not how reasonable it sounds.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-025",
+      "text": "Asking a model whether it is biased gives a reliable answer.",
+      "isFact": false,
+      "explanation": "The model cannot inspect its own training or weights; it will produce a plausible statement about bias in the same way it produces anything else. Bias is measured from the outside, by testing outputs across groups, not by asking the system.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L09-026",
+      "text": "Safety filters can over-flag some dialects and topics, so bias can show up in what a model refuses as well as in what it says.",
+      "isFact": true,
+      "explanation": "Classifiers trained to catch toxic text have flagged ordinary speech in some dialects at higher rates. A model that declines more often for some users, or treats their topics as sensitive, is applying an uneven standard. Refusal patterns deserve the same testing as answers.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-027",
+      "text": "A model that refuses offensive requests is therefore free of bias.",
+      "isFact": false,
+      "explanation": "Refusal handles the obvious cases. The subtle patterns of defaults, assumptions, and uneven quality pass straight through a content filter. A system can be polite and still unfair. Filters and fairness are different problems with different tests.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L09-028",
+      "text": "Safety filters judge harmful content equally accurately for every dialect of English.",
+      "isFact": false,
+      "explanation": "Studies of toxicity classifiers found higher false alarm rates on some dialects, because the training labels carried the annotators' assumptions. Filters inherit bias just as models do. Teams test them across dialects and adjust the thresholds and the training data.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-029",
+      "text": "A model's default example person, with a name, a job, and a family, is a random choice.",
+      "isFact": false,
+      "explanation": "Defaults follow frequency in the training data, which is why the same kinds of names and roles keep appearing. The choice is systematic, not random. Asking for varied examples, or naming the characteristics you want, overrides the default.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-030",
+      "text": "Models can be trained to critique their own output against a written set of principles, which reduces some harms without removing bias.",
+      "isFact": true,
+      "explanation": "Constitutional AI gives a model principles and has it revise its answers against them. It helps with harmful and hateful content at scale. The principles are still written by people, and the training data still carries its patterns, so testing remains necessary.",
+      "learn": "../learn/constitutional-ai.html"
+    },
+    {
+      "id": "L09-031",
+      "text": "Models are trained to hold no opinions, so their default answers carry no viewpoint.",
+      "isFact": false,
+      "explanation": "A default answer reflects the most common positions in the data and the choices made during tuning. That is a viewpoint, even when it is unstated. Treating the default as neutral is how a skew goes unnoticed. Ask what the alternatives are.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L09-032",
+      "text": "Models reflect the time and place of their data, so views that were common in that data become the model's defaults.",
+      "isFact": true,
+      "explanation": "A model trained mostly on text from certain countries and years answers from that vantage point: its holidays, its laws, its idioms, its assumptions about family and work. For users elsewhere, naming your context in the prompt pulls the answer toward it.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-033",
+      "text": "Translating a question into English before asking it always removes language bias from the answer.",
+      "isFact": false,
+      "explanation": "It can improve fluency because the model saw more English. It also imports English-language assumptions and can lose meaning in translation. The answer may be better written and still be about the wrong country, culture, or legal system.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-034",
+      "text": "Praxis scans its own pages for exclusionary and gendered language using an editable term database.",
+      "isFact": true,
+      "explanation": "The audit checks every page against categories such as exclusionary framing, gendered language, and ableist terms, with the term list aligned to published style guides. It is a mitigation for bias in AI-assisted content, documented on the responsible AI page.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L09-035",
+      "text": "Using they when a person's gender is unknown, and partner in examples, is a practical inclusive default for AI-assisted writing.",
+      "isFact": true,
+      "explanation": "Inclusive defaults avoid assuming a reader's gender or family structure, and they are easy to put in a prompt or a style guide. Praxis applies this across its content. It costs nothing and removes a common source of quiet exclusion.",
+      "learn": "../pages/universal-design.html"
+    },
+    {
+      "id": "L09-036",
+      "text": "Bias only matters in high-stakes uses such as hiring and lending, not in everyday chat.",
+      "isFact": false,
+      "explanation": "Everyday answers shape what people learn, which examples they see, and whose situation is treated as normal. Those small skews repeat millions of times. High-stakes uses need formal audits; everyday uses need the habits of noticing and asking for more.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L09-037",
+      "text": "Bias audits are done once at launch and never need repeating.",
+      "isFact": false,
+      "explanation": "Models are updated, user populations change, and new uses appear. A system that tested clean at launch can drift. Ongoing monitoring, periodic re-testing, and a channel for users to report problems are standard practice for responsible deployment.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L09-038",
+      "text": "Reviewers from varied backgrounds catch bias that the people who built a system did not notice.",
+      "isFact": true,
+      "explanation": "Builders test for the problems they can imagine. People with different experiences spot different defaults and omissions. Diverse review, whether a formal panel or a wide pilot, finds issues that homogeneous teams miss, before users find them.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L09-039",
+      "text": "Regulators have warned that claims about unbiased or accurate AI must be backed by evidence.",
+      "isFact": true,
+      "explanation": "The Federal Trade Commission has acted against unsupported AI claims and advised that saying a product is fair or unbiased requires substantiation. For buyers, the practical move is to ask for the testing behind any such claim.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L09-040",
+      "text": "A company can call its AI tool unbiased without testing it, as long as the vendor said so.",
+      "isFact": false,
+      "explanation": "Unsupported fairness claims have drawn regulatory action. A vendor's statement is marketing until the testing is shown. The organization that deploys the tool is responsible for the claim it repeats, so it should ask for the evidence or run its own tests.",
+      "learn": "../learn/facts-fictions.html"
+    }
+  ]
+}

@@ -6606,7 +6606,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'AI and Your Data', band: 'literacy', available: true },
         { name: 'AI at Work', band: 'literacy', available: true },
         { name: 'AI and Creativity', band: 'literacy', available: true },
-        { name: 'Bias and Fairness', band: 'literacy', available: false },
+        { name: 'Bias and Fairness', band: 'literacy', available: true },
         { name: 'Verifying AI Output', band: 'literacy', available: false },
         { name: 'Tokens and Context', band: 'practitioner', available: true },
         { name: 'Sampling and Determinism', band: 'practitioner', available: false },
