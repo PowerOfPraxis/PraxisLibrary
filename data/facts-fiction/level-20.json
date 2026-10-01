@@ -1,0 +1,287 @@
+{
+  "level": 20,
+  "band": "practitioner",
+  "name": "Frontier Uncertainty",
+  "statements": [
+    {
+      "id": "L20-001",
+      "text": "Scaling laws are empirical power-law relationships that predict how model performance improves with compute, parameter count and dataset size, and they guide where training budgets go.",
+      "isFact": true,
+      "explanation": "The glossary defines them as findings established by measurement across many training runs. Their practical use is allocation: given a fixed compute budget, how large a model and how much data. They describe trends in a loss metric, which is a narrower thing than the abilities people care about.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-002",
+      "text": "Scaling laws are mathematical theorems derived from first principles, so they guarantee how future models will perform.",
+      "isFact": false,
+      "explanation": "The glossary calls them empirical relationships. They are fitted curves that have held across observed ranges, not proofs that must hold beyond them. Whether the trends continue, flatten or break at larger scales is one of the open questions the frontier is defined by.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-003",
+      "text": "The Chinchilla study found that many large language models had been undertrained for their size, and that training tokens should scale in proportion to parameters for a fixed compute budget.",
+      "isFact": true,
+      "explanation": "The glossary's entries describe the finding and its consequence: later models shifted toward larger datasets rather than only larger parameter counts. Compute-optimal training became a question of balance, and a smaller model trained on more data could match a larger one trained on less.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-004",
+      "text": "Compute-optimal training means spending the entire budget on parameters, since model size is the only variable that matters.",
+      "isFact": false,
+      "explanation": "Compute-optimal training, as the glossary defines it, seeks the best split of a fixed budget between parameters and training tokens. The Chinchilla result was precisely that parameters alone had been over-weighted. Data and size scale together, and ignoring either wastes compute.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-005",
+      "text": "Emergent abilities are capabilities that appear in large models and were absent in smaller versions, such as multi-step reasoning or following nuanced instructions.",
+      "isFact": true,
+      "explanation": "The glossary's definition is about discontinuity: a capability that is near zero below some scale and present above it. Which abilities emerge, and at what size, has been learned by training and looking, which is part of why each larger model is also an experiment.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-006",
+      "text": "Emergent abilities can be predicted exactly from scaling laws before a model is trained.",
+      "isFact": false,
+      "explanation": "Scaling laws predict an aggregate loss metric; emergence names capabilities that were absent in smaller models and appeared in larger ones. If their arrival were forecast precisely by the curves they would not be called emergent. Predicting which abilities appear at which scale remains an open research question.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-007",
+      "text": "Compute is a primary constraint and cost driver in AI development, measured in operations, GPU-hours or dollars, and governments have begun to use it as a lever for oversight.",
+      "isFact": true,
+      "explanation": "The glossary's compute entry names it a primary constraint, and its compute governance entry describes the policy side: monitoring large training runs, export controls on AI chips and reporting requirements for compute-intensive work. The scarce input has become the regulated one.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-008",
+      "text": "Training cost is now negligible, so compute has stopped being a constraint on which models get built.",
+      "isFact": false,
+      "explanation": "The glossary describes compute as a primary constraint and cost driver, and the existence of compute governance, with chip export controls and reporting thresholds, reflects how concentrated and expensive large training runs are. Efficiency work such as distillation and quantization exists because the cost is real.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-009",
+      "text": "Training a single large language model can produce greenhouse gas emissions comparable to several transcontinental flights, which is why energy efficiency is a live concern as models grow.",
+      "isFact": true,
+      "explanation": "The glossary's carbon footprint entry gives that comparison, and its energy efficiency entry calls improvement critical as model sizes and training costs grow. Inference at scale adds to it. Environmental cost is one of the less-discussed uncertainties of continued scaling.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-010",
+      "text": "Research cited on the site found that more capable models can perform worse in high-stakes situations, because their behavior diverges from what people expect.",
+      "isFact": true,
+      "explanation": "The AI Facts and Fictions page lists it as a capability myth: better benchmark scores should mean more trustworthy behavior, yet the cited finding was that more capable models tend to perform worse where stakes are high, and that they do not show the patterns of expertise humans do.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L20-011",
+      "text": "Each new generation of models is strictly more reliable than the last in every situation.",
+      "isFact": false,
+      "explanation": "The Facts and Fictions page's fourth myth is exactly this belief. Capability and predictability are different properties, and the cited research found them diverging in high-stakes cases. Benchmark gains are real; the inference that every use becomes safer does not follow from them.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L20-012",
+      "text": "Prompting effects are inconsistent: a change of phrasing can swing a single question's accuracy by a large margin, while the differences often cancel out across a whole dataset.",
+      "isFact": true,
+      "explanation": "The page reports question-level swings of tens of percentage points from phrasing alone, with the effects washing out in aggregate. The practical reading is that no universal prompting rule exists; a technique that helps one question can hurt the next, and only testing on your task tells you which.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L20-013",
+      "text": "A prompting technique that improves results on one model and one question will improve results everywhere.",
+      "isFact": false,
+      "explanation": "Universal prompting techniques are the page's fifth myth. Politeness, formatting and specific phrasing produced inconsistent, context-dependent effects in the cited research. Chain-of-thought showed the same pattern: gains that vary by model and task and can turn negative on easy questions.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L20-014",
+      "text": "Running the same prompt many times reveals substantial hidden variability in a model's answers, which suggests standard benchmarks overestimate reliability.",
+      "isFact": true,
+      "explanation": "The page cites a study that ran each question a hundred times and found wide variation in the answers. A benchmark that samples once per question records a single draw from that spread. Reliability in practice depends on the whole distribution, not the one answer that happened to be scored.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L20-015",
+      "text": "Chain-of-thought prompting delivers modest average gains that vary by model and task, adds response time, and can introduce errors on easier questions.",
+      "isFact": true,
+      "explanation": "The page's sixth myth is that step-by-step reasoning universally helps. The cited research found single-digit to low double-digit improvements, materially longer responses and cases where the technique hurt on simple problems. It remains valuable where problems are hard enough to need it.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L20-016",
+      "text": "Artificial general intelligence exists today inside the leading chat assistants.",
+      "isFact": false,
+      "explanation": "The glossary defines AGI as hypothetical: a system able to perform any intellectual task a human can, unlike today's narrow systems, and calls it a long-term goal and an open challenge. A capable assistant that fails unpredictably in high-stakes cases is not that system.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-017",
+      "text": "Superintelligence refers to a hypothetical system that vastly exceeds human cognitive performance in virtually all domains, and the concept comes with its own control challenges.",
+      "isFact": true,
+      "explanation": "The glossary's entry names the concept, its popularization and the associated control problem. It is hypothetical in the same way AGI is. The reason it appears in a glossary of practical terms is that safety research plans for the possibility rather than waiting to see.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-018",
+      "text": "Whether and when AGI will be built is a settled matter, since it only requires adding more compute to today's models.",
+      "isFact": false,
+      "explanation": "The glossary calls AGI an open challenge and scaling laws empirical trends in a loss metric. Nothing in the measured curves says that lower loss becomes general intelligence, and emergent abilities show that capabilities arrive in ways the curves do not forecast. The question is open in both directions.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-019",
+      "text": "Situational awareness in an AI system is universally regarded as a pure safety benefit with no associated risk.",
+      "isFact": false,
+      "explanation": "The glossary describes it as debated: a system that understands its own context and impact might behave more safely, or might behave differently when it believes it is being tested. Deceptive alignment is the hypothesized form of that risk. The property cuts both ways, which is why it is contested.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-020",
+      "text": "Whether language models build an internal model of how the world works, rather than only patterns of text, is a live question in discussions of model capabilities.",
+      "isFact": true,
+      "explanation": "The glossary defines a world model as an internal representation used to simulate outcomes and plan, and names it a key concept in safety discussions about capabilities. Interpretability research is one route to an answer, which is part of why that field matters beyond debugging.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-021",
+      "text": "When a chatbot says I think or I believe, it is reporting an inner mental state.",
+      "isFact": false,
+      "explanation": "The Facts and Fictions page is direct: the phrase is a statistically likely continuation of text, not a report of inner states. The conversational design creates the persistent illusion of a someone behind the responses, and the page calls recognizing that illusion the most important step toward using AI well.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L20-022",
+      "text": "Calling software intelligent invites people to project understanding, intention and even consciousness onto it, which leads to both over-trust and underestimated risk.",
+      "isFact": true,
+      "explanation": "The page names this the anthropomorphism trap. Someone who believes the system understands their question verifies less; an organization that believes it is objective deploys it where it amplifies bias. The term artificial intelligence itself does some of the misleading work.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L20-023",
+      "text": "Current chatbots are conscious and aware of the conversations they take part in.",
+      "isFact": false,
+      "explanation": "The page's reality column states that the system has no awareness and no understanding of truth; it generates plausible language from patterns. Session memory features on some platforms store text between chats, which is a product capability and not an inner life.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L20-024",
+      "text": "Mechanistic interpretability tries to reverse-engineer the algorithms inside a network, and phenomena such as superposition, where one unit encodes several unrelated features, make that hard.",
+      "isFact": true,
+      "explanation": "The glossary's entry lists superposition and polysemanticity among what the field studies. If a single neuron participates in many concepts, reading the network one unit at a time fails, and researchers must recover features and circuits indirectly. That difficulty is why the field is still young.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-025",
+      "text": "Researchers can already read a frontier model's internal reasoning in full, so interpretability is a finished problem.",
+      "isFact": false,
+      "explanation": "The glossary frames mechanistic interpretability as an active research approach working through superposition and polysemanticity, and defines interpretability in general as a matter of degree. Partial circuits have been recovered in small models; a complete account of a frontier model is not on offer.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-026",
+      "text": "Hallucination remains a major open challenge for language model reliability, with mitigation techniques that reduce it rather than eliminate it.",
+      "isFact": true,
+      "explanation": "The glossary calls hallucination a major challenge and defines hallucination mitigation as a collection of techniques to reduce fabricated content, including retrieval, self-consistency checks and citation grounding. Every one of those is a reduction strategy, which is why verification stays in the workflow.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-027",
+      "text": "Hallucination has been fully eliminated from large language models.",
+      "isFact": false,
+      "explanation": "The glossary's hallucination rate entry exists because fabrication is measured, not absent, and its mitigation entry describes reduction. The site's Responsible AI policy rates hallucination in its own AI-assisted content as a moderate likelihood inherent to all model outputs. The problem is managed, not solved.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-028",
+      "text": "A mixture-of-experts architecture routes each token to a small subset of expert subnetworks, giving a model large total capacity at a fraction of the computation per token.",
+      "isFact": true,
+      "explanation": "The glossary's layer, routing and inference entries describe the design: a gating mechanism chooses which experts process each input, so only part of the parameters activate. The trade is routing complexity and memory for capacity. This is the architecture, distinct from the prompting technique of the same name.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-029",
+      "text": "In a mixture-of-experts model, every expert processes every token, which is what makes it more accurate than a dense model.",
+      "isFact": false,
+      "explanation": "Sparse activation is the defining property. The glossary's routing entry says a learned gating function sends each input to a subset of experts, and the inference entry says only that subset's parameters are activated. If every expert ran on every token, the architecture would be a dense model with extra bookkeeping.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-030",
+      "text": "State space models such as Mamba offer an alternative to the transformer, processing sequences in linear time, which suits very long inputs.",
+      "isFact": true,
+      "explanation": "The glossary's entries describe selective state space models with linear scaling in sequence length and quality matching transformers on the tasks measured. Whether they or hybrids displace attention at the frontier is unresolved; their existence shows the architecture question is still open.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-031",
+      "text": "The transformer is the only architecture capable of language modeling, and no alternatives exist.",
+      "isFact": false,
+      "explanation": "The glossary documents state space models, the Mamba family and mixture-of-experts variants as live alternatives and extensions. The transformer dominates deployed systems, but the research frontier includes architectures built for linear-time long sequences and sparse computation.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-032",
+      "text": "Knowledge distillation copies a large model's weights directly into a smaller model.",
+      "isFact": false,
+      "explanation": "Distillation trains the smaller student to mimic the larger teacher's outputs, as the glossary describes, using the teacher's soft probability distributions as a richer signal than hard labels. The student has its own, smaller weights. Weights cannot be copied into a network of a different size.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-033",
+      "text": "Quantization reduces the precision of model weights, for example from sixteen bits to four, to cut memory use and raise speed, which allows larger models to run on limited hardware.",
+      "isFact": true,
+      "explanation": "The glossary's definition is exactly that trade. Lower precision costs some accuracy, usually small, in exchange for a model that fits on a consumer device or serves more requests per accelerator. It is one of the main reasons capable models now run locally.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-034",
+      "text": "Quantization increases a model's accuracy, because storing fewer bits removes noise from the weights.",
+      "isFact": false,
+      "explanation": "Quantization is a compression technique that trades a little accuracy for memory and speed, as the glossary describes. The precision removed is information, not noise. Practitioners measure the quality loss at each precision level and choose the lowest that stays acceptable for the task.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-035",
+      "text": "Model collapse is the degradation that occurs when models are trained on AI-generated data over successive generations, losing diversity and quality.",
+      "isFact": true,
+      "explanation": "The glossary calls it a growing concern as synthetic data becomes more common. Each generation trained on the previous one's outputs narrows toward the most typical patterns and loses the tails of the distribution. How much synthetic data a training mix can absorb safely is an open question.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-036",
+      "text": "Training on AI-generated data is always as good as training on human-written data.",
+      "isFact": false,
+      "explanation": "Synthetic data has real uses, which the glossary lists: scarcity, cost and privacy. Model collapse is the documented failure of relying on it across generations. Whether a given synthetic mix helps or harms depends on proportion, quality and filtering, which is why it is studied rather than assumed.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-037",
+      "text": "A model can be adapted to use a longer context window than it was trained on, through continued training on progressively longer sequences and position interpolation.",
+      "isFact": true,
+      "explanation": "The glossary's long context fine-tuning entry describes both methods. Extending the window is a training intervention, not a setting. Whether the model uses the extra length well is a separate question; the lost in the middle effect shows that a window a model can accept and a window it attends to are different.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-038",
+      "text": "A model's context window is fixed at training and can never be extended afterward.",
+      "isFact": false,
+      "explanation": "Long context fine-tuning, as the glossary describes it, extends a pre-trained model to longer windows with continued training and position interpolation. The limit set at training is a starting point. The harder open problem is making a model use a long window reliably, not making it accept one.",
+      "learn": "../pages/glossary.html"
+    },
+    {
+      "id": "L20-039",
+      "text": "Evaluating an AI claim starts by isolating its testable core and then checking whether the evidence is peer-reviewed or reproducible rather than a press release from an interested party.",
+      "isFact": true,
+      "explanation": "The Facts and Fictions page lays out the process: identify the claim, evaluate the evidence, understand the nuance, apply what you know. Its diagnostic example reduces a headline to a benchmark score under controlled conditions, which is a different thing from the headline's implication.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L20-040",
+      "text": "A headline such as AI outperforms doctors at diagnosis means the system is ready to replace clinicians in practice.",
+      "isFact": false,
+      "explanation": "The page's worked example unpacks that headline: the system scored higher on multiple-choice textbook questions, a task unlike diagnosing a real patient with incomplete information, comorbidities and emotional needs. The nuance is that such tools work as a second opinion alongside clinicians.",
+      "learn": "../learn/facts-fictions.html"
+    }
+  ]
+}

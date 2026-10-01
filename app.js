@@ -6617,7 +6617,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Evaluation', band: 'practitioner', available: true },
         { name: 'Safety and Alignment', band: 'practitioner', available: true },
         { name: 'Governance and Transparency', band: 'practitioner', available: true },
-        { name: 'Frontier Uncertainty', band: 'practitioner', available: false }
+        { name: 'Frontier Uncertainty', band: 'practitioner', available: true }
     ];
 
     /** Results copy per band and tier (0: 0 to 9, 1: 10 to 13, 2: 14 to 17, 3: 18 to 20). */
