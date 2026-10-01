@@ -6956,6 +6956,7 @@ document.addEventListener('DOMContentLoaded', () => {
             how.appendChild(this.button('reset', 'Start fresh', 'btn btn-secondary ff-btn'));
             root.appendChild(how);
             this.show(root);
+            this.announce('');
         }
 
         answerButton(action, label) {
@@ -6989,6 +6990,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.card = card;
             this.answers = answers;
             this.show(root);
+            this.announce('Statement ' + (game.index + 1) + ' of ' + game.statements.length + '.');
             card.focus();
         }
 
@@ -7131,6 +7133,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!target || target.disabled) return;
             const action = target.getAttribute('data-action');
             const level = Number(target.getAttribute('data-level'));
+            // The second click of a double-click on Next lands on the freshly rendered
+            // answer row; a true double-click (detail > 1) never counts as an answer.
+            if ((action === 'fact' || action === 'fiction') && e.detail > 1) return;
             if (action === 'pick' || action === 'retry') ffStartLevel(level);
             else if (action === 'fact') ffAnswer(true);
             else if (action === 'fiction') ffAnswer(false);
