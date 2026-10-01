@@ -6605,7 +6605,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'When AI Gets It Wrong', band: 'literacy', available: true },
         { name: 'AI and Your Data', band: 'literacy', available: true },
         { name: 'AI at Work', band: 'literacy', available: true },
-        { name: 'AI and Creativity', band: 'literacy', available: false },
+        { name: 'AI and Creativity', band: 'literacy', available: true },
         { name: 'Bias and Fairness', band: 'literacy', available: false },
         { name: 'Verifying AI Output', band: 'literacy', available: false },
         { name: 'Tokens and Context', band: 'practitioner', available: true },
