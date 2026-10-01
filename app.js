@@ -6906,7 +6906,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         button(action, label, cls) {
-            const b = ffEl('button', cls || 'btn ff-btn', label);
+            const b = ffEl('button', cls || 'btn btn-primary ff-btn', label);
             b.type = 'button';
             b.setAttribute('data-action', action);
             return b;
@@ -6985,7 +6985,7 @@ document.addEventListener('DOMContentLoaded', () => {
             root.appendChild(meta);
             root.appendChild(card);
             root.appendChild(answers);
-            root.appendChild(ffEl('p', 'ff-hint', 'Keyboard: F for Fact, J for Fiction'));
+            root.appendChild(ffEl('p', 'ff-hint', 'Keyboard: F for Fact, J for Fiction, Enter for Next'));
             this.card = card;
             this.answers = answers;
             this.show(root);
@@ -7009,7 +7009,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 block.appendChild(p);
             }
             const last = game.index + 1 >= game.statements.length;
-            block.appendChild(this.button('next', last ? 'See results' : 'Next statement', 'btn ff-btn ff-next'));
+            block.appendChild(this.button('next', last ? 'See results' : 'Next statement', 'btn btn-primary ff-btn ff-next'));
             this.card.appendChild(block);
             this.announce((entry.correct ? 'Correct. ' : 'Not quite. ') + 'Statement ' + (game.index + 1) + ' of ' + game.statements.length + '.');
             title.focus();
@@ -7155,6 +7155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (tag === 'input' || tag === 'textarea' || tag === 'select' || (t && t.isContentEditable)) return;
             if (e.key === 'f' || e.key === 'F') { e.preventDefault(); ffAnswer(true); }
             else if (e.key === 'j' || e.key === 'J') { e.preventDefault(); ffAnswer(false); }
+            else if (e.key === 'Enter' && tag !== 'button' && tag !== 'a' && FF_STATE.game && currentAnswer(FF_STATE.game)) { e.preventDefault(); ffNext(); }
         });
 
         ffShowPicker();
