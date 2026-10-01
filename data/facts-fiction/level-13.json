@@ -1,0 +1,287 @@
+{
+  "level": 13,
+  "band": "practitioner",
+  "name": "Prompt Structure",
+  "statements": [
+    {
+      "id": "L13-001",
+      "text": "Four elements make up most effective prompts: an instruction, relevant context, the input data or constraints, and an output format.",
+      "isFact": true,
+      "explanation": "The Prompt Basics page calls the prompt a blueprint. The instruction says what to do, context sets the situation, input data supplies the material, and the format defines the shape. Knowing the four lets you choose which to include and see which one is missing when a prompt falls flat.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L13-002",
+      "text": "A prompt must contain all four elements every time, or the model will refuse to answer well.",
+      "isFact": false,
+      "explanation": "A plain factual question needs none of them, and a mid-conversation follow-up can be brief because the context is already present. The four elements are a checklist for diagnosing weak prompts, not a form to fill in. Use the ones the task needs.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L13-003",
+      "text": "A prompt sentence earns its place by clarifying the task, adding context, constraining the output, or giving an example; anything else is noise.",
+      "isFact": true,
+      "explanation": "Prompt Basics frames this as information density. A concise prompt with well-chosen constraints routinely beats a wall of text, because sentences that do none of those four jobs dilute the model's focus. Edit a prompt the way you would edit a brief.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L13-004",
+      "text": "Specifying the output format limits the model and lowers the quality of the answer.",
+      "isFact": false,
+      "explanation": "Format constraints focus generation instead of letting the model wander through everything it could produce. Prompt Basics lists length, structure, tone and format as quality levers, not restrictions. The unformatted answer is the one that needs the most revision.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L13-005",
+      "text": "Frameworks such as CRISP are checklists: their value is catching the element you left out, not a magic ordering the model requires.",
+      "isFact": true,
+      "explanation": "The CRISP page compares it to a briefing for a contractor and cites checklists reducing errors even among experts. Most weak prompts fail by omission. The acronym makes the omission visible; the model does not care whether the sections appear in order or carry labels.",
+      "learn": "../learn/crisp.html"
+    },
+    {
+      "id": "L13-006",
+      "text": "A model only responds to a structured prompt if the sections are labeled with the framework's exact names.",
+      "isFact": false,
+      "explanation": "The labels help the writer, and they help the model find each part, but the content is what matters. A prompt that supplies context, role, task, scope and output rules in plain prose works. The framework is a way to remember the parts, not a syntax the model parses.",
+      "learn": "../learn/crisp.html"
+    },
+    {
+      "id": "L13-007",
+      "text": "Scope tells the model what to leave out as well as what to cover, which keeps a response from drifting into adjacent topics.",
+      "isFact": true,
+      "explanation": "CRISP's scope element names topic limits, audience and explicit exclusions. Without it the model goes too broad, too narrow or off topic. A line such as address current customers only, no pricing changes, does more to focus an answer than a longer instruction would.",
+      "learn": "../learn/crisp.html"
+    },
+    {
+      "id": "L13-008",
+      "text": "In CO-STAR, style and tone are the same dimension described twice.",
+      "isFact": false,
+      "explanation": "Style is the voice and approach, such as an executive brief or a casual blog post. Tone is the emotional register, such as excited or serious. The CO-STAR page notes you can have a formal style with an enthusiastic tone. Specifying both prevents the model from guessing either.",
+      "learn": "../learn/costar.html"
+    },
+    {
+      "id": "L13-009",
+      "text": "Describing the audience, their knowledge level and what they care about, is what turns a generic draft into a targeted one.",
+      "isFact": true,
+      "explanation": "CO-STAR makes audience an explicit dimension because the same facts need different treatment for executives, engineers or customers. The model has no instinct for who will read the output. Rerunning a prompt with only the audience changed produces tailored variants of the same message.",
+      "learn": "../learn/costar.html"
+    },
+    {
+      "id": "L13-010",
+      "text": "Two to five well-chosen examples usually outperform ten or more poorly chosen ones.",
+      "isFact": true,
+      "explanation": "The Few-Shot Learning page puts quality over quantity: diversity across cases, consistency of format and examples that resemble the real inputs. Each extra example costs tokens on every call, and weak examples teach the wrong pattern as reliably as good ones teach the right one.",
+      "learn": "../learn/few-shot-learning.html"
+    },
+    {
+      "id": "L13-011",
+      "text": "Adding more few-shot examples always improves accuracy, so the best prompts carry as many as fit.",
+      "isFact": false,
+      "explanation": "Beyond a handful the gains flatten while the token cost keeps growing, and poorly chosen examples can pull the output toward their quirks. The page recommends two to five representative pairs. When more coverage is needed, example selection picks the relevant few per query.",
+      "learn": "../learn/few-shot-learning.html"
+    },
+    {
+      "id": "L13-012",
+      "text": "A good few-shot set includes an ambiguous or edge case, not only the clear ones, so the model learns how you handle the hard inputs.",
+      "isFact": true,
+      "explanation": "For sentiment, the page suggests one clearly positive, one clearly negative and one mixed review. The mixed example is the one that carries your judgment. A set of easy cases teaches the easy pattern and leaves the model to improvise on everything else.",
+      "learn": "../learn/few-shot-learning.html"
+    },
+    {
+      "id": "L13-013",
+      "text": "Few-shot examples should all be clean, obvious cases so the model is not confused by exceptions.",
+      "isFact": false,
+      "explanation": "Obvious cases teach nothing the model did not already know. The examples that matter are the ones that show your boundary decisions, such as a mixed review or a borderline category. Leaving them out means the model guesses on exactly the inputs you cared about.",
+      "learn": "../learn/few-shot-learning.html"
+    },
+    {
+      "id": "L13-014",
+      "text": "Few-shot examples work through repetition of one consistent format, so mixing layouts between examples weakens the pattern.",
+      "isFact": true,
+      "explanation": "The model reverse-engineers the task from the repeated input-output structure. If one example labels Review and the next labels Text, or one ends with a word and another with a sentence, the pattern is muddied. Same labels, same order, same ending every time.",
+      "learn": "../learn/few-shot-learning.html"
+    },
+    {
+      "id": "L13-015",
+      "text": "The model infers what you meant from mixed example formats, so consistency between examples does not matter.",
+      "isFact": false,
+      "explanation": "Consistency is the signal. The page shows a zero-shot label request returning a paragraph while the few-shot version returns a single word, because the examples ended in a single word. Inconsistent examples give the model several patterns to choose from, and it will choose one you did not intend.",
+      "learn": "../learn/few-shot-learning.html"
+    },
+    {
+      "id": "L13-016",
+      "text": "Appending a short reasoning trigger such as let us think step by step improves accuracy on many reasoning tasks with no examples at all.",
+      "isFact": true,
+      "explanation": "Zero-Shot CoT showed that a single task-agnostic phrase shifts the model from answering immediately to producing intermediate steps first. It captures a large share of the gain from worked examples at almost no cost. The steps also make the answer auditable.",
+      "learn": "../learn/zero-shot-cot.html"
+    },
+    {
+      "id": "L13-017",
+      "text": "The step-by-step trigger only works when the prompt also includes worked examples of reasoning.",
+      "isFact": false,
+      "explanation": "The whole point of the zero-shot variant is that it needs none. Few-shot chain-of-thought gives more control over the reasoning format, but the bare trigger works across arithmetic, logic and commonsense questions on its own. Add examples when you need a specific reasoning layout.",
+      "learn": "../learn/zero-shot-cot.html"
+    },
+    {
+      "id": "L13-018",
+      "text": "Adding a reasoning trigger to every prompt is harmless, so it belongs in all of them.",
+      "isFact": false,
+      "explanation": "It adds tokens and latency, and on a one-hop lookup there is nothing to reason through. The Zero-Shot CoT page lists simple facts, latency-sensitive uses and creative tasks as places to skip it. Use the trigger where intermediate steps prevent errors.",
+      "learn": "../learn/zero-shot-cot.html"
+    },
+    {
+      "id": "L13-019",
+      "text": "A system prompt sits in a privileged position: processed first, given higher priority, and kept across the whole conversation.",
+      "isFact": true,
+      "explanation": "The System Prompting page describes it as the invisible architect that separates configuration from conversation. Behavioral rules placed there hold whether the chat is three messages or three hundred. Rules placed in a user message compete for attention and fade as they scroll out of context.",
+      "learn": "../learn/system-prompting.html"
+    },
+    {
+      "id": "L13-020",
+      "text": "Rules written in the first user message persist as strongly as a system prompt across a long conversation.",
+      "isFact": false,
+      "explanation": "Instructions inside user messages degrade as the conversation grows and earlier turns leave the active context. That drift is the problem system prompts solve. For one-off questions the difference is small; for a long session the system prompt is the only layer that holds.",
+      "learn": "../learn/system-prompting.html"
+    },
+    {
+      "id": "L13-021",
+      "text": "Behavioral constraints work best when they are specific and testable, such as always state the tax year, rather than aspirational, such as be accurate.",
+      "isFact": true,
+      "explanation": "A testable rule can be checked in the output and corrected when it slips. Be accurate gives the model nothing to act on and the reviewer nothing to verify. The System Prompting example shows numbered rules, each one a condition a reader could confirm in the response.",
+      "learn": "../learn/system-prompting.html"
+    },
+    {
+      "id": "L13-022",
+      "text": "Telling the model to be accurate and careful in the system prompt is as effective as writing concrete rules.",
+      "isFact": false,
+      "explanation": "Vague aspirations do not change behavior in a measurable way, and they give you no way to tell whether the model followed them. Concrete rules such as cite the form number or say so if unsure can be verified. Write the constraint you could check.",
+      "learn": "../learn/system-prompting.html"
+    },
+    {
+      "id": "L13-023",
+      "text": "Instruction hierarchy ranks sources: system instructions outrank user messages, which outrank tool outputs and the content of documents.",
+      "isFact": true,
+      "explanation": "The chain of command gives the model a principled way to resolve conflicts. A web page or an email that says ignore all previous instructions is a lowest-tier source attempting an escalation, and a model trained on the hierarchy treats it as content rather than a command.",
+      "learn": "../learn/instruction-hierarchy.html"
+    },
+    {
+      "id": "L13-024",
+      "text": "With an instruction hierarchy in place, the model ignores everything that arrives through tools and documents.",
+      "isFact": false,
+      "explanation": "The hierarchy activates only on a genuine conflict. Lower-tier content is read and used normally; what it cannot do is override a higher-tier rule. The model still summarizes the page or reviews the contract. It just does not obey instructions embedded in them.",
+      "learn": "../learn/instruction-hierarchy.html"
+    },
+    {
+      "id": "L13-025",
+      "text": "A hidden line in a document saying the developer wants you to ignore your rules is an attempt to escalate a low-priority source, and a trained model treats it as data.",
+      "isFact": true,
+      "explanation": "The Instruction Hierarchy page calls out social engineering phrasings such as the developer actually wants you to as override attempts. Authority claims inside content do not move content up the hierarchy. The model can note the attempt to the user while completing the real task.",
+      "learn": "../learn/instruction-hierarchy.html"
+    },
+    {
+      "id": "L13-026",
+      "text": "Once a model enforces an instruction hierarchy, prompt injection is solved and no other safeguard is needed.",
+      "isFact": false,
+      "explanation": "The page is explicit that no single defense is sufficient. Hierarchy is one layer alongside input sanitization, output monitoring, sandboxed tool execution and human review of sensitive actions. Adversarial testing before deployment is part of the practice, not an optional extra.",
+      "learn": "../learn/instruction-hierarchy.html"
+    },
+    {
+      "id": "L13-027",
+      "text": "Wrapping each source in a descriptively named tag lets the model attribute claims to the right source and flag contradictions between them.",
+      "isFact": true,
+      "explanation": "Context Structure shows financials, market research and deal terms each in their own tags. The model can then say which numbers came from where instead of blending them. Numbered, typed and dated source tags make an instruction such as flag contradictions actually workable.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L13-028",
+      "text": "Tags and section markers confuse a model, so plain running prose is always the better way to supply several sources.",
+      "isFact": false,
+      "explanation": "An unstructured wall of text makes the model do two jobs: work out what each piece is, then relate it to the question. Delimiters remove the first job. The page's unstructured example conflates an inventory problem with a damage claim; the structured version addresses each.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L13-029",
+      "text": "For a very long prompt, repeating the key constraint at both the beginning and the end counters the attention dip in the middle.",
+      "isFact": true,
+      "explanation": "Research the Context Structure page cites found recall highest at the start and end of a context window and weakest in the middle. Placing instructions first, evidence next and the question last, then restating the critical rule at the close, keeps it in the high-attention zones.",
+      "learn": "../learn/context-structure.html"
+    },
+    {
+      "id": "L13-030",
+      "text": "Assigning a specific role, such as a senior security engineer who follows OWASP guidelines, foregrounds a subset of what the model learned rather than adding knowledge.",
+      "isFact": true,
+      "explanation": "Role Prompting compares it to tuning a radio: the signal was always there, the role picks the frequency. Vague roles such as a smart person activate nothing in particular. Precision in the role is what changes the vocabulary, priorities and depth of the answer.",
+      "learn": "../learn/role-prompting.html"
+    },
+    {
+      "id": "L13-031",
+      "text": "Giving the model the role of a licensed professional gives it that professional's credentials and judgment.",
+      "isFact": false,
+      "explanation": "A role changes which patterns the model foregrounds; it confers no license, training or accountability. The page lists tasks requiring real credentials under skip it when. Role-prompted medical, legal or financial output still goes to a qualified person before anyone acts on it.",
+      "learn": "../learn/role-prompting.html"
+    },
+    {
+      "id": "L13-032",
+      "text": "Running the same question through several roles, such as a customer, a critic and a finance lead, surfaces blind spots a single answer hides.",
+      "isFact": true,
+      "explanation": "Multi-perspective analysis is one of the role technique's listed strengths. Each role foregrounds different priorities and vocabulary, so the answers disagree in useful ways. You still judge the result; the roles only widen what gets considered.",
+      "learn": "../learn/role-prompting.html"
+    },
+    {
+      "id": "L13-033",
+      "text": "Framing a request as high stakes tends to produce a more thorough answer because the model learned that pattern from careful human writing.",
+      "isFact": true,
+      "explanation": "Emotion Prompting works through correlation in the training data: people write more carefully when consequences are named, and the model reproduces that register. The page lists stakes, confidence and urgency as the three channels. The model feels nothing; the framing selects a pattern.",
+      "learn": "../learn/emotion-prompting.html"
+    },
+    {
+      "id": "L13-034",
+      "text": "Emotional framing works because the model feels the pressure and tries harder.",
+      "isFact": false,
+      "explanation": "The model has no feelings to engage. What changes is the distribution of text it draws from: high-stakes phrasing resembles contexts where humans produced thorough, caveated work. The effect is real and it is mechanical. Describing it as effort misreads what the technique does.",
+      "learn": "../learn/emotion-prompting.html"
+    },
+    {
+      "id": "L13-035",
+      "text": "Adding emotional stakes improves simple factual lookups as much as it improves complex drafting tasks.",
+      "isFact": false,
+      "explanation": "The answer to what year a language was released does not change with the stakes. The page lists simple queries, cases where brevity matters, and already detailed prompts as places to skip it. The framing pays off where thoroughness and care are the missing ingredients.",
+      "learn": "../learn/emotion-prompting.html"
+    },
+    {
+      "id": "L13-036",
+      "text": "For tool calls, a fixed template that walks the model through intent, the tool's documentation and each argument makes fewer errors than free-form reasoning.",
+      "isFact": true,
+      "explanation": "Open-ended chain-of-thought can wander into the wrong tool or skip a required argument. The guided template checks the things tool calls usually get wrong, step by step, and leaves a trace a reviewer can follow. Structure is what turns capable reasoning into reliable calls.",
+      "learn": "../learn/structured-tool-templates.html"
+    },
+    {
+      "id": "L13-037",
+      "text": "Free-form reasoning is always better than a template, so scaffolding a tool call only slows the model down.",
+      "isFact": false,
+      "explanation": "For function calling the open-endedness is the liability: the model may misread intent, miss an argument or confuse similar tools. The scaffold narrows the space of mistakes and makes the choice auditable. The page reserves the leaner approach for a single trivial tool or a tight latency budget.",
+      "learn": "../learn/structured-tool-templates.html"
+    },
+    {
+      "id": "L13-038",
+      "text": "A phrasing change that lifts accuracy on one question can lower it on another, so prompt tweaks are tested on your own tasks rather than assumed.",
+      "isFact": true,
+      "explanation": "The Facts and Fictions page reports research finding swings of tens of points on individual questions from phrasing alone, with the effects often cancelling out across a dataset. A technique's average gain says little about your query. Measure on a sample of your real inputs.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L13-039",
+      "text": "If a prompting trick raised a model's score on a published benchmark, it will raise the quality of your prompts by the same amount.",
+      "isFact": false,
+      "explanation": "Benchmark gains are averages over many questions, and the same research shows the per-question effect can be positive, zero or negative. Models and tasks differ. The transferable lesson is the method, test and compare, not the specific phrase that won on someone else's dataset.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L13-040",
+      "text": "Mid-conversation follow-ups must restate the full context, role and format every time or the model starts from nothing.",
+      "isFact": false,
+      "explanation": "Within a conversation the model already holds the earlier turns, so follow-ups can be brief. Prompt Basics lists conversational follow-ups as a place to skip the full structure. Restating everything costs tokens and buries the new instruction; restate only what changed.",
+      "learn": "../learn/prompt-basics.html"
+    }
+  ]
+}

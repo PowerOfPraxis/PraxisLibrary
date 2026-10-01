@@ -6610,7 +6610,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Verifying AI Output', band: 'literacy', available: true },
         { name: 'Tokens and Context', band: 'practitioner', available: true },
         { name: 'Sampling and Determinism', band: 'practitioner', available: true },
-        { name: 'Prompt Structure', band: 'practitioner', available: false },
+        { name: 'Prompt Structure', band: 'practitioner', available: true },
         { name: 'Reasoning Techniques', band: 'practitioner', available: false },
         { name: 'Retrieval and Grounding', band: 'practitioner', available: false },
         { name: 'Agents and Tools', band: 'practitioner', available: false },
