@@ -1,0 +1,276 @@
+{
+  "level": 3,
+  "band": "literacy",
+  "name": "How Models Learn",
+  "statements": [
+    {
+      "id": "L03-001",
+      "text": "A model learns by adjusting its internal numbers to reduce the gap between its guesses and the examples it is shown.",
+      "isFact": true,
+      "explanation": "Training shows the model an input, compares its output with the expected answer, and nudges the weights to shrink the error. Repeated across enormous numbers of examples, those nudges add up to skill.",
+      "learn": "../learn/in-context-learning.html"
+    },
+    {
+      "id": "L03-002",
+      "text": "Chatting with a model teaches it, so the more people use it the smarter that same model becomes.",
+      "isFact": false,
+      "explanation": "The weights of a deployed model are fixed. Conversations may be collected to train a later version under the provider's policy, but the model answering you today does not learn from the exchange. You can check this by asking it about a fact you gave it in a separate, earlier session.",
+      "learn": "../pages/data-retention-policy.html"
+    },
+    {
+      "id": "L03-003",
+      "text": "Language models learn from text that people wrote, so they pick up both the knowledge and the habits in that text.",
+      "isFact": true,
+      "explanation": "Patterns of grammar, fact, opinion, bias, and style all arrive together. That is why a model can be fluent and well-informed and still echo stereotypes or outdated claims from its sources.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L03-004",
+      "text": "Developers type in all the facts a model knows, one at a time, like filling an encyclopedia.",
+      "isFact": false,
+      "explanation": "Nobody writes the facts in by hand. The model absorbs regularities from a huge body of text during training. That is also why its knowledge has gaps and errors: it reflects what was common in the data, not a curated list.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L03-005",
+      "text": "A model's knowledge has a cutoff: events after its training data was gathered are unknown to it unless supplied in the prompt.",
+      "isFact": true,
+      "explanation": "Training data is collected up to a point in time. Ask about something later and the model may guess or decline. Products add search or retrieval to bridge the gap, and a pasted article works too.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L03-006",
+      "text": "A model understands a topic once it has read about it, in the same sense that a student does.",
+      "isFact": false,
+      "explanation": "The model stores statistical relationships among words, not a student's grounded grasp. It can explain a topic convincingly and still fail a slight variation. Treat its explanations as a starting point to verify.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L03-007",
+      "text": "Showing a model a few examples inside the prompt can change how it answers, without any retraining.",
+      "isFact": true,
+      "explanation": "This is called in-context learning or few-shot prompting. The examples shape the prediction for that request only. Remove them and the behavior returns to baseline, which makes it a safe, instant way to steer output.",
+      "learn": "../learn/few-shot-learning.html"
+    },
+    {
+      "id": "L03-008",
+      "text": "A correction you give in a chat permanently fixes that mistake for everyone who uses the model.",
+      "isFact": false,
+      "explanation": "Your correction lives in your conversation and shapes the rest of that session. It does not reach other users or change the model. A fix for everyone requires the provider to retrain or adjust the product.",
+      "learn": "../learn/in-context-learning.html"
+    },
+    {
+      "id": "L03-009",
+      "text": "After basic training, many models are tuned further with human feedback about which answers are better.",
+      "isFact": true,
+      "explanation": "People compare candidate answers and their preferences train the model toward helpful, safe, and polite replies. This stage is a large part of why chat assistants feel cooperative rather than like raw text predictors.",
+      "learn": "../learn/self-refine.html"
+    },
+    {
+      "id": "L03-010",
+      "text": "Models are trained by having them read the internet live, so they always know what is on it right now.",
+      "isFact": false,
+      "explanation": "Training uses a fixed snapshot of data gathered in advance. Live web access, where it exists, is a separate search tool the product calls at answer time. Without that tool, the model knows only its snapshot.",
+      "learn": "../learn/rag.html"
+    },
+    {
+      "id": "L03-011",
+      "text": "Training a large model takes far more computing power than using it afterward.",
+      "isFact": true,
+      "explanation": "Training runs over vast data for days or weeks on many machines. Serving a trained model to answer one request is comparatively light. That split is why a few organizations train large models and many more use them."
+    },
+    {
+      "id": "L03-012",
+      "text": "A model can only answer questions that appeared word for word in its training data.",
+      "isFact": false,
+      "explanation": "Models generalize: they combine patterns to handle sentences nobody wrote before. That is the whole point of learning rather than memorizing, and it is also why they can produce confident answers to questions no source ever addressed."
+    },
+    {
+      "id": "L03-013",
+      "text": "If the training data contains a mistake that appears often, the model is likely to repeat it.",
+      "isFact": true,
+      "explanation": "Frequency shapes what the model predicts. A popular misconception shows up as a strong pattern, and the model will state it fluently. Prevalence is not truth, which is why checking matters most on widely believed claims.",
+      "learn": "../learn/facts-fictions.html"
+    },
+    {
+      "id": "L03-014",
+      "text": "Because a model learned from millions of documents, it has verified each fact it states.",
+      "isFact": false,
+      "explanation": "Training measures how well the model predicts text, not whether the text was true. No verification step reads the sources for accuracy. Checking is a job that happens outside the model, by people and tools.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L03-015",
+      "text": "Models can be trained for one task, such as detecting spam, using examples labeled by people.",
+      "isFact": true,
+      "explanation": "Supervised learning pairs each example with the right answer. The model learns to reproduce those labels on new inputs. Much of practical AI works this way, far from the chat assistants that get the attention."
+    },
+    {
+      "id": "L03-016",
+      "text": "A model remembers every conversation it has had and can recall your past chats whenever you return.",
+      "isFact": false,
+      "explanation": "The model itself has no memory between sessions. Products may store notes or past chats and feed them back in, and they say so in their settings. Check what the product keeps rather than assuming the model remembers.",
+      "learn": "../pages/data-retention-policy.html"
+    },
+    {
+      "id": "L03-017",
+      "text": "Training on examples with mistakes in the labels makes a model learn those mistakes.",
+      "isFact": true,
+      "explanation": "The model treats the labels as ground truth. Mislabeled examples pull it toward wrong answers, which is why data quality work, including cleaning labels, is a large part of building a model."
+    },
+    {
+      "id": "L03-018",
+      "text": "A model trained mostly on text in one language will be equally capable in every other language.",
+      "isFact": false,
+      "explanation": "Ability tracks the data. Languages with little training text get weaker grammar, thinner knowledge, and more errors. Test a model in the language you need before relying on it there."
+    },
+    {
+      "id": "L03-019",
+      "text": "Developers evaluate a trained model on examples it never saw during training to estimate how well it generalizes.",
+      "isFact": true,
+      "explanation": "A held-out test set shows whether the model learned patterns or just memorized. Scores on data it trained on would be flattering and meaningless. The same idea applies to you: test on your own fresh examples.",
+      "learn": "../learn/self-verification.html"
+    },
+    {
+      "id": "L03-020",
+      "text": "A model that scores well in testing will never make a mistake once it is released.",
+      "isFact": false,
+      "explanation": "A good test score is an estimate over typical inputs. Real use brings unusual cases, shifting topics, and adversarial attempts. Error rates fall; they do not reach zero. Plan for review of outputs that matter."
+    },
+    {
+      "id": "L03-021",
+      "text": "Fine-tuning takes an existing model and continues training it on a smaller, focused set of examples.",
+      "isFact": true,
+      "explanation": "Starting from a general model and nudging it toward a domain, a format, or a tone is much cheaper than training from scratch. Organizations use it to make a model follow their own conventions."
+    },
+    {
+      "id": "L03-022",
+      "text": "Deleting bad examples from the training data after the model is built removes what it learned from them.",
+      "isFact": false,
+      "explanation": "The learned weights already absorbed those examples. Removing data after training changes nothing in the existing model. Undoing specific learning is an active research problem; in practice it means retraining or fine-tuning.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L03-023",
+      "text": "Models learn associations between words from how often they appear together in text.",
+      "isFact": true,
+      "explanation": "Words that occur in similar contexts end up with similar internal representations. That is how a model relates doctor to nurse to hospital without any definition being written in, and it is also where learned stereotypes come from.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L03-024",
+      "text": "Giving a model more rules to follow in its instructions is the same as training it.",
+      "isFact": false,
+      "explanation": "Instructions in a prompt or system prompt guide the fixed model for that request; they do not change the weights. They can be ignored or misread under pressure, which training-level changes resist better.",
+      "learn": "../learn/instruction-hierarchy.html"
+    },
+    {
+      "id": "L03-025",
+      "text": "A model's behavior can be shaped after training with rules and filters placed around it by the product.",
+      "isFact": true,
+      "explanation": "Products wrap the model with system prompts, safety filters, and tool limits. Much of what you experience as the model's personality is this wrapper. Two products on one model can behave very differently.",
+      "learn": "../learn/role-prompting.html"
+    },
+    {
+      "id": "L03-026",
+      "text": "Training a model is a one-time event that never needs to be repeated.",
+      "isFact": false,
+      "explanation": "Knowledge goes stale, usage reveals weaknesses, and better data appears. Providers retrain or release new versions regularly. A model is a snapshot, which is why version names and dates matter when you compare results."
+    },
+    {
+      "id": "L03-027",
+      "text": "Some models are trained on data generated by other models rather than only on human-written text.",
+      "isFact": true,
+      "explanation": "Synthetic data can fill gaps and add examples of rare cases. It also risks amplifying the source model's errors and quirks, which is why teams mix it with real data and measure the result carefully."
+    },
+    {
+      "id": "L03-028",
+      "text": "A model can tell you exactly which document taught it a given fact.",
+      "isFact": false,
+      "explanation": "Facts are spread across many weights with no record of their source. When a model names a source, it is predicting a plausible one, which may be real, misattributed, or invented. Check citations yourself.",
+      "learn": "../learn/chain-of-verification.html"
+    },
+    {
+      "id": "L03-029",
+      "text": "A reasoning example in the prompt, showing steps, can lead a model to show its own steps on a new problem.",
+      "isFact": true,
+      "explanation": "Models imitate the shape of what they are shown. One worked example with visible reasoning often produces step-by-step answers that are easier to check, which is the basis of several prompting techniques.",
+      "learn": "../learn/chain-of-thought.html"
+    },
+    {
+      "id": "L03-030",
+      "text": "Because models learn from data, they cannot be influenced by the people who build them.",
+      "isFact": false,
+      "explanation": "People choose the data, the training objective, the feedback, and the rules. Each choice shapes behavior. Learning from data moves the influence; it does not remove it.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L03-031",
+      "text": "Overfitting is when a model memorizes its training examples and performs poorly on new ones.",
+      "isFact": true,
+      "explanation": "A model can fit the quirks of its examples so tightly that it fails to generalize. Developers watch for it with held-out data and limit it with more varied data and training choices. Memorizing is not learning."
+    },
+    {
+      "id": "L03-032",
+      "text": "A model trained on medical text is qualified to give you medical advice.",
+      "isFact": false,
+      "explanation": "Reading about medicine is not clinical training, accountability, or knowledge of your situation. Models can summarize and explain; decisions about health belong with qualified people. Use AI to prepare questions, not to replace the answer.",
+      "learn": "../pages/ai-safety.html"
+    },
+    {
+      "id": "L03-033",
+      "text": "Models can learn from images, audio, and code as well as from written text.",
+      "isFact": true,
+      "explanation": "Any data that can be turned into numbers can train a model. Image models learn from pictures and captions, speech models from recordings, code models from repositories. Some models learn from several kinds at once."
+    },
+    {
+      "id": "L03-034",
+      "text": "If two people ask a model the same question, it must give identical answers because it learned one truth.",
+      "isFact": false,
+      "explanation": "Answers vary with wording, with context already in the conversation, and with the randomness in how the next word is picked. Variation is a feature of generation, not evidence that one answer is right.",
+      "learn": "../learn/self-consistency.html"
+    },
+    {
+      "id": "L03-035",
+      "text": "Zero-shot prompting means asking a model to do a task with no examples in the prompt.",
+      "isFact": true,
+      "explanation": "The model relies entirely on what it learned in training to interpret the request. It often works for common tasks and often fails for unusual formats, which is when a few examples earn their place.",
+      "learn": "../learn/zero-shot.html"
+    },
+    {
+      "id": "L03-036",
+      "text": "A model learns the meaning of a word by looking it up in a dictionary during training.",
+      "isFact": false,
+      "explanation": "There is no dictionary stage. Meaning emerges from patterns of use across millions of sentences. That is why a model can handle slang and new coinages it saw in text, and why it can misuse a rare word it saw little.",
+      "learn": "../learn/tokens.html"
+    },
+    {
+      "id": "L03-037",
+      "text": "What a model was trained on is often not fully disclosed, which makes some of its behavior hard to predict.",
+      "isFact": true,
+      "explanation": "Providers describe training data in general terms; the full set is rarely published. Users cannot inspect it, so surprises in knowledge, bias, or tone are discovered through use. Transparency about data is an active policy topic.",
+      "learn": "../pages/responsible-ai.html"
+    },
+    {
+      "id": "L03-038",
+      "text": "A model learns faster from a prompt written in capital letters.",
+      "isFact": false,
+      "explanation": "Prompts do not teach the model anything; they steer one answer. Capital letters change the tokens and may shift emphasis slightly, but there is no learning and no speed to gain. Clear wording does more than shouting.",
+      "learn": "../learn/prompt-basics.html"
+    },
+    {
+      "id": "L03-039",
+      "text": "You can improve a model's output on your task by giving it examples of the result you want.",
+      "isFact": true,
+      "explanation": "Examples set the format, length, and tone more reliably than description. Two or three good examples in the prompt often beat a paragraph of instructions, and you can test the difference in a single session.",
+      "learn": "../learn/few-shot-learning.html"
+    },
+    {
+      "id": "L03-040",
+      "text": "Once a model has learned something, it cannot be prompted into stating the opposite.",
+      "isFact": false,
+      "explanation": "Models follow the context they are given. Leading questions, false premises, or persistent pushback can produce agreement with claims the model would otherwise reject. A confident answer under pressure is not evidence.",
+      "learn": "../learn/self-verification.html"
+    }
+  ]
+}

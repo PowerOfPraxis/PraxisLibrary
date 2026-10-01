@@ -6600,7 +6600,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const FF_LEVELS = [null,
         { name: 'AI in Everyday Life', band: 'literacy', available: true },
         { name: 'What AI Actually Is', band: 'literacy', available: true },
-        { name: 'How Models Learn', band: 'literacy', available: false },
+        { name: 'How Models Learn', band: 'literacy', available: true },
         { name: 'Talking to a Chatbot', band: 'literacy', available: false },
         { name: 'When AI Gets It Wrong', band: 'literacy', available: false },
         { name: 'AI and Your Data', band: 'literacy', available: false },
